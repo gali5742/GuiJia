@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "policy": "manual-review-required",
+  "production": {
+    "vue": "3.5.40",
+    "lunar-javascript": "1.7.7"
+  },
+  "notes": "Production Pages uses same-origin verified vendor snapshots. Upstream releases are monitored, but promotion is manual."
+}

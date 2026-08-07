@@ -1,0 +1,36 @@
+name: Test and vendor verification
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Core regression tests
+        run: node tests/run-tests.js
+
+      - name: Verify dependency policy
+        run: node scripts/verify-source-config.mjs
+
+      - name: Build same-origin vendor site
+        run: node scripts/build-pages-site.mjs
+
+      - name: Verify vendor bytes and lunar smoke test
+        run: node scripts/verify-vendor.mjs .site
+
+      - name: Verify static Pages artifact
+        run: node scripts/verify-static-site.mjs .site deployed

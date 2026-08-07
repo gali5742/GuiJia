@@ -1,0 +1,18 @@
+{
+  "name": "guijia-dependency-monitor",
+  "private": true,
+  "version": "13.29.0",
+  "description": "Pre-deployment manifest and dependency monitor. Production Pages uses verified same-origin vendor snapshots.",
+  "scripts": {
+    "test": "node tests/run-tests.js && node scripts/verify-source-config.mjs",
+    "vendor:build": "node scripts/build-pages-site.mjs",
+    "vendor:verify": "node scripts/verify-vendor.mjs .site",
+    "deps:check": "node scripts/check-dependency-updates.mjs",
+    "static:verify": "node scripts/verify-static-site.mjs . source",
+    "predeploy": "node tests/run-tests.js && node scripts/verify-source-config.mjs && node scripts/verify-static-site.mjs . source"
+  },
+  "devDependencies": {
+    "vue": "3.5.40",
+    "lunar-javascript": "1.7.7"
+  }
+}

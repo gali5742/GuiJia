@@ -1,0 +1,52 @@
+name: Vendor Snapshot PR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Fetch exact pinned vendor snapshots
+        run: node scripts/fetch-vendor.mjs --target .
+
+      - name: Verify vendor snapshots
+        run: |
+          node scripts/verify-vendor.mjs .
+          node tests/run-tests.js
+          node scripts/verify-source-config.mjs
+
+      - name: Create review branch and PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="chore/vendor-snapshot-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add index.html vendor vendor-lock.json
+          if git diff --cached --quiet; then
+            echo "Vendor snapshot is already current; no PR needed."
+            exit 0
+          fi
+          git commit -m "chore: materialize pinned vendor snapshots"
+          git push origin "$branch"
+          gh pr create \
+            --base "${GITHUB_REF_NAME}" \
+            --head "$branch" \
+            --title "chore: materialize pinned vendor snapshots" \
+            --body "Generates the exact versions pinned in vendor-config.json, verifies npm package integrity, then stores local runtime snapshots. Review CI before merging."

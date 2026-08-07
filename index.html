@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龟甲｜排盘与结构分析</title>
+    <meta name="theme-color" content="#f2f0eb">
+    <meta name="description" content="龟甲：静态八字与六爻排盘、结构分析及古籍检索工具。">
+    <!-- Runtime snapshots: Vue 3.5.40 · static Tailwind-compatible utility subset · lunar-javascript 1.7.7 · modular JS v13.29 -->
+    <script src="https://unpkg.com/vue@3.5.40/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/lunar-javascript@1.7.7/lunar.js"></script>
+    <link rel="stylesheet" href="assets/tailwind-utilities.css">
+    <link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="bg-slate-100 p-1 sm:p-2 lg:p-3 font-sans text-gray-800">
+
+<div id="app" v-cloak class="app-shell bg-white p-4 md:p-6 xl:p-7 rounded-xl shadow-lg" :class="{'input-mode': currentPage === 'input', 'liuyao-mode': activeModule === 'liuyao'}">
+    <header v-if="currentPage !== 'input'" class="module-page-header result-page-header">
+        <div class="module-page-header-main">
+            <img class="result-site-brand-wordmark" src="assets/guijia-wordmark.png" alt="龟甲">
+            <h1 class="text-2xl font-bold text-gray-800">{{ activeModule === 'bazi' ? '八字排盘与结构分析' : '六爻排盘' }}</h1>
+            <p class="text-xs text-gray-500 mt-2">
+                {{ activeModule === 'bazi'
+                    ? '展示四柱、月令、十二长生、旬空、纳音、核心神煞、大运流年流月及匹配古籍文段；辅助标签不直接等同吉凶。'
+                    : '按京氏八宫与纳甲体系展示装卦，并补充日月状态、动变、用神链、世应、合冲与飞伏；仅呈现结构依据，不自动代断。' }}
+            </p>
+        </div>
+    </header>
+
+    <div v-if="errorMsg && currentPage === 'input'" class="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-lg mb-4">
+        {{ errorMsg }}
+    </div>
+
+    <div v-if="currentPage === 'input'" class="input-page animate-fade-in">
+        <div class="input-workspace">
+            <aside class="module-sidebar" aria-label="排盘板块">
+                <div class="module-sidebar-inner">
+                    <div class="site-brand" aria-label="龟甲">
+                        <img class="site-brand-wordmark" src="assets/guijia-wordmark.png" alt="龟甲">
+                    </div>
+                    <nav class="module-nav" aria-label="术数模块">
+                        <button type="button" class="module-tab" :class="{'active': activeModule === 'bazi'}" @click="switchModule('bazi')">
+                            <span class="module-tab-icon">八</span>
+                            <span><span class="module-tab-name">八字</span><span class="module-tab-desc">出生信息与岁运结构</span></span>
+                        </button>
+                        <button type="button" class="module-tab" :class="{'active': activeModule === 'liuyao'}" @click="switchModule('liuyao')">
+                            <span class="module-tab-icon">卦</span>
+                            <span><span class="module-tab-name">六爻</span><span class="module-tab-desc">起卦、装卦与变卦</span></span>
+                        </button>
+                    </nav>
+                </div>
+            </aside>
+            <div class="input-main-shell">
+                <header class="module-page-header">
+                    <h1 class="text-2xl font-bold text-gray-800">{{ activeModule === 'bazi' ? '八字排盘与结构分析' : '六爻排盘' }}</h1>
+                    <p class="text-xs text-gray-500 mt-2">
+                        {{ activeModule === 'bazi'
+                            ? '展示四柱、月令、十二长生、旬空、纳音、核心神煞、大运流年流月及匹配古籍文段；辅助标签不直接等同吉凶。'
+                            : '按京氏八宫与纳甲体系展示装卦，并补充日月状态、动变、用神链、世应、合冲与飞伏；仅呈现结构依据，不自动代断。' }}
+                    </p>
+                </header>
+                <div class="page-stepper" aria-label="排盘步骤">
+                    <div class="page-step active">1　{{ activeModule === 'bazi' ? '输入信息' : '起卦信息' }}</div>
+                    <div class="page-step">2　{{ activeModule === 'bazi' ? '排盘结果' : '装卦结果' }}</div>
+                </div>
+                <main class="module-content">
+                <section v-if="activeModule === 'bazi'" class="animate-fade-in">
+                    <section class="input-card bazi-main-card">
+                        <section class="bazi-form-section">
+                            <div class="bazi-section-heading">
+                                <h2 class="panel-title">出生信息</h2>
+                            </div>
+                            <div class="bazi-birth-grid">
+                                <div class="field-item">
+                                    <span class="field-label">性别</span>
+                                    <div class="gender-choice-row">
+                                        <label class="cursor-pointer"><input type="radio" v-model="form.gender" value="1" class="mr-1.5">男</label>
+                                        <label class="cursor-pointer"><input type="radio" v-model="form.gender" value="0" class="mr-1.5">女</label>
+                                        <span class="text-[11px] text-gray-400">仅用于起运顺逆计算</span>
+                                    </div>
+                                </div>
+                                <label class="field-item">
+                                    <span class="field-label">出生地（选填，仅作记录）</span>
+                                    <input v-model.trim="form.birthPlace" type="text" class="field-input" placeholder="例如：四川成都、日本东京">
+                                </label>
+                                <label class="field-item">
+                                    <span class="field-label">出生时钟时间</span>
+                                    <input type="datetime-local" v-model="form.datetime" class="field-input">
+                                    <span class="text-[11px] leading-relaxed text-gray-400">先按出生证明、户籍或家人记录的当地民用时间输入，再选择是否修正。</span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <section class="bazi-form-section">
+                            <div class="bazi-section-heading">
+                                <h2 class="panel-title">时间修正</h2>
+                                <p class="bazi-section-note">真太阳时并非排盘的统一必选规则。默认不修正；启用后，先处理人工填写的夏令时，再按出生地经度与时区标准经线修正，真太阳时模式另加均时差。</p>
+                            </div>
+                            <div class="mode-grid bazi-time-modes">
+                                <label class="mode-option" :class="{'active': form.solarTimeMode === 'none'}">
+                                    <input type="radio" v-model="form.solarTimeMode" value="none">
+                                    <span class="mode-title">民用时间</span>
+                                    <span class="mode-desc">不作经度或均时差修正。</span>
+                                </label>
+                                <label class="mode-option" :class="{'active': form.solarTimeMode === 'mean'}">
+                                    <input type="radio" v-model="form.solarTimeMode" value="mean">
+                                    <span class="mode-title">地方平太阳时</span>
+                                    <span class="mode-desc">只修正出生地经度与时区标准经线之差。</span>
+                                </label>
+                                <label class="mode-option" :class="{'active': form.solarTimeMode === 'apparent'}">
+                                    <input type="radio" v-model="form.solarTimeMode" value="apparent">
+                                    <span class="mode-title">真太阳时</span>
+                                    <span class="mode-desc">地方平太阳时基础上再加入当日均时差。</span>
+                                </label>
+                            </div>
+
+                            <div v-if="form.solarTimeMode !== 'none'" class="field-grid mb-4">
+                                <label class="field-item full">
+                                    <span class="field-label">出生地经度（东经为正，西经为负）</span>
+                                    <input v-model.number="form.longitude" type="number" min="-180" max="180" step="0.0001" class="field-input" placeholder="例如：成都约 104.07，东京约 139.69">
+                                </label>
+                                <label class="field-item">
+                                    <span class="field-label">当地标准时区 UTC</span>
+                                    <input v-model.number="form.utcOffset" type="number" min="-14" max="14" step="0.25" class="field-input" placeholder="中国 +8，日本 +9">
+                                </label>
+                                <label class="field-item">
+                                    <span class="field-label">历史夏令时（分钟）</span>
+                                    <input v-model.number="form.dstMinutes" type="number" min="0" max="180" step="1" class="field-input" placeholder="无则填 0">
+                                </label>
+                                <div class="field-item full text-[11px] leading-relaxed text-gray-500 bg-amber-50 border border-amber-200 rounded-lg p-3">
+                                    夏令时不自动推断。若出生记录采用了夏令时，例如时钟拨快一小时，请填 <strong>60</strong>；排盘时会先减去这部分。历史时区、行政区变更和记录误差仍需人工核对。
+                                </div>
+                            </div>
+
+                            <div v-if="form.solarTimeMode !== 'none'" class="correction-preview">
+                                <div class="flex items-center justify-between gap-3">
+                                    <strong class="text-sm text-blue-900">修正预览</strong>
+                                    <span v-if="solarCorrectionPreview.valid" class="text-[11px] text-blue-700">总修正 {{ solarCorrectionPreview.totalText }}</span>
+                                </div>
+                                <p v-if="!solarCorrectionPreview.valid" class="text-xs text-red-600 mt-2">{{ solarCorrectionPreview.message }}</p>
+                                <div v-else class="preview-grid">
+                                    <div class="preview-row"><span>输入民用时间</span><strong>{{ solarCorrectionPreview.civilText }}</strong></div>
+                                    <div class="preview-row"><span>排盘采用时间</span><strong>{{ solarCorrectionPreview.adjustedText }}</strong></div>
+                                    <div class="preview-row"><span>标准经线</span><strong>{{ solarCorrectionPreview.standardMeridianText }}</strong></div>
+                                    <div class="preview-row"><span>经度修正</span><strong>{{ solarCorrectionPreview.longitudeText }}</strong></div>
+                                    <div v-if="form.solarTimeMode === 'apparent'" class="preview-row"><span>均时差</span><strong>{{ solarCorrectionPreview.equationText }}</strong></div>
+                                    <div class="preview-row"><span>夏令时回退</span><strong>{{ solarCorrectionPreview.dstText }}</strong></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="bazi-form-section bazi-advanced-section">
+                            <div class="bazi-advanced-title">高级排盘口径</div>
+                            <div class="rule-settings-grid mt-3">
+                                <div class="rule-setting">
+                                    <label>晚子时换日</label>
+                                    <select v-model="form.daySect">
+                                        <option value="2">午夜换日：23:00—24:00仍按当天</option>
+                                        <option value="1">子初换日：23:00起按次日</option>
+                                    </select>
+                                </div>
+                                <div class="rule-setting">
+                                    <label>起运时间换算</label>
+                                    <select v-model="form.yunSect">
+                                        <option value="1">时辰折算法</option>
+                                        <option value="2">分钟细分折算法</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="bazi-advanced-note input-info-note">年柱按立春、月柱按节令切换。若启用时间修正，晚子时和节令边界均以修正后的时间为准；临近换日或节气时，应特别核对出生记录与所采用流派。</p>
+                        </section>
+                    </section>
+
+                    <button @click="calculateBazi" class="w-full mt-5 bg-blue-600 text-white font-bold py-3.5 rounded-lg hover:bg-blue-700 transition shadow-sm active:scale-[0.99]">
+                        开始八字排盘
+                    </button>
+                </section>
+
+                <section v-else class="animate-fade-in">
+                    <div class="liuyao-input-grid">
+                        <section class="input-card liuyao-info-card">
+                            <h2 class="panel-title mb-4">占问信息</h2>
+                            <div class="liuyao-info-body">
+                            <div class="field-grid">
+                                <label class="field-item full">
+                                    <span class="field-label">所占之事（选填）</span>
+                                    <textarea v-model.trim="liuyaoForm.question" class="field-input min-h-[104px] resize-y" placeholder="一卦尽量只问一件具体的事。"></textarea>
+                                </label>
+                                <label class="field-item full">
+                                    <span class="field-label">起卦时间</span>
+                                    <input type="datetime-local" v-model="liuyaoForm.datetime" class="field-input">
+                                    <span class="text-[11px] leading-relaxed text-gray-400">用于排出月建、日辰、旬空和六神，按起卦地当地民用时间计算。</span>
+                                </label>
+                            </div>
+                            <div class="liuyao-info-note input-info-note">
+                                录入顺序从初爻到上爻。6为老阴、7为少阳、8为少阴、9为老阳；老阴、老阳为动爻。
+                            </div>
+                            </div>
+                        </section>
+
+                        <section class="input-card liuyao-lines-card">
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                <div>
+                                    <h2 class="panel-title">六爻结果录入</h2>
+                                    <p class="text-[11px] text-gray-400 mt-1">可录入现实掷币结果，也可用页面模拟三枚钱币。</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button type="button" class="back-button" @click="simulateAllLines">模拟六次掷币</button>
+                                    <button type="button" class="clear-lines-button" :disabled="!hasEnteredLiuYaoLines" @click="clearLiuYaoLines">清空</button>
+                                </div>
+                            </div>
+                            <div class="yao-entry-order-note">界面按卦象自上而下排列；实际掷币仍从最下方初爻（第 1 次）开始录入。</div>
+                            <div class="yao-entry-grid">
+                                <label v-for="index in [5, 4, 3, 2, 1, 0]" :key="yaoPositionLabels[index]" class="yao-entry">
+                                    <span class="yao-entry-label"><span>{{ yaoPositionLabels[index] }}</span><span class="yao-value-hint">第 {{ index + 1 }} 次</span></span>
+                                    <div class="yao-entry-control">
+                                        <span class="yao-preview"
+                                              :class="{
+                                                  'yang': liuyaoForm.lines[index] === 7 || liuyaoForm.lines[index] === 9,
+                                                  'yin': liuyaoForm.lines[index] === 6 || liuyaoForm.lines[index] === 8,
+                                                  'moving': liuyaoForm.lines[index] === 6 || liuyaoForm.lines[index] === 9
+                                              }"
+                                              aria-hidden="true">
+                                            <span class="yao-preview-segment"></span>
+                                            <span class="yao-preview-segment"></span>
+                                            <span class="yao-preview-moving">{{ liuyaoForm.lines[index] === 6 ? '×' : (liuyaoForm.lines[index] === 9 ? '○' : '') }}</span>
+                                        </span>
+                                        <select v-model.number="liuyaoForm.lines[index]" class="field-select">
+                                            <option :value="null">请选择</option>
+                                            <option :value="6">6 · 老阴（动）</option>
+                                            <option :value="7">7 · 少阳（静）</option>
+                                            <option :value="8">8 · 少阴（静）</option>
+                                            <option :value="9">9 · 老阳（动）</option>
+                                        </select>
+                                    </div>
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="input-static-panel liuyao-method-panel">
+                        <div class="input-static-heading">六爻排盘口径</div>
+                        <div class="input-static-content text-xs text-gray-600 leading-relaxed space-y-2">
+                            <p>采用京氏八宫、纳甲、世应、六亲与按日干起六神的常用装卦体系；本卦宫五行作为六亲参照。</p>
+                            <p>结果页会按占问文字给出用神建议，但仍由使用者确认；月破、暗动、进退神、飞伏等只作为结构标签，不直接转化为吉凶断语。</p>
+                        </div>
+                    </section>
+
+                    <button @click="calculateLiuYao" class="w-full mt-5 bg-indigo-600 text-white font-bold py-3.5 rounded-lg hover:bg-indigo-700 transition shadow-sm active:scale-[0.99]">
+                        开始六爻排盘
+                    </button>
+                </section>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div v-if="currentPage === 'result' && activeModule === 'bazi' && result" class="animate-fade-in">
+        <div class="result-toolbar">
+            <button type="button" class="back-button" @click="goToInput">← 返回修改信息</button>
+            <div class="text-right">
+                <div class="text-sm font-bold text-gray-700">{{ baziResultView === 'overview' ? '八字原局总览' : '流年流月分析' }}</div>
+                <div class="text-[11px] text-gray-400">{{ baziResultView === 'overview' ? '先看原局主体与结构证据' : '集中查看大运、流年与十二流月' }}</div>
+            </div>
+        </div>
+        <nav class="result-subnav" aria-label="八字结果页面">
+            <button type="button" class="result-subnav-button" :class="{'active': baziResultView === 'overview'}" @click="setBaziResultView('overview')">原局总览</button>
+            <button type="button" class="result-subnav-button" :class="{'active': baziResultView === 'timing'}" @click="setBaziResultView('timing')">流年流月</button>
+            <span class="result-subnav-hint">两页共用同一命盘数据，切换不会重新排盘。</span>
+        </nav>
+        <div class="analysis-layout single-result-view" :class="{'overview-wrapper': baziResultView === 'overview'}">
+            <aside v-if="baziResultView === 'overview'" class="original-panel space-y-4 result-subpage overview-single-axis bazi-overview-page">
+                <section class="panel-card ui-layer-core p-4 md:p-5">
+                    <div class="flex items-center justify-between gap-3 mb-4">
+                        <h2 class="panel-title">原局四柱</h2>
+                        <span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-1 rounded-full">
+                            日主 {{ result.dayGan }} · {{ result.dayGanWuXing }}
+                        </span>
+                    </div>
+
+                    <div class="ui-note ui-note-meta text-sm mb-4 leading-relaxed">
+                        <p><span class="font-semibold">输入民用时间：</span>{{ result.civilStr }}</p>
+                        <p v-if="result.correctionApplied"><span class="font-semibold">排盘采用时间：</span>{{ result.solarStr }}</p>
+                        <p v-if="result.birthPlace"><span class="font-semibold">出生地记录：</span>{{ result.birthPlace }}</p>
+                        <p><span class="font-semibold">农历：</span>{{ result.lunarStr }}</p>
+                        <p v-if="result.correctionApplied" class="text-[11px] text-blue-700 mt-2"><span class="font-semibold">时间修正：</span>{{ result.timeCorrectionInfo }}</p>
+                        <p class="text-[11px] text-gray-500 mt-1"><span class="font-semibold">口径：</span>{{ result.ruleSummary }}</p>
+                    </div>
+
+                    <div class="bazi-grid">
+                        <div v-for="(pillar, index) in result.pillars" :key="index"
+                             class="bazi-item shadow-sm"
+                             :class="{'ring-2 ring-blue-400': index === 2}">
+                            <div class="small-char mb-1">{{ pillar.title }}</div>
+                            <div class="text-xs font-medium text-gray-600 bg-gray-200 px-2 py-0.5 rounded-full mb-2">
+                                {{ pillar.shishenGan }}
+                            </div>
+                            <div class="big-char">
+                                <div :class="getColorClass(pillar.ganWuXing)">{{ pillar.gan }}</div>
+                                <div :class="getColorClass(pillar.zhiWuXing)">{{ pillar.zhi }}</div>
+                            </div>
+
+                            <div class="meta-grid">
+                                <div class="meta-item">
+                                    <span class="meta-label">十二长生</span>
+                                    <span class="meta-value">{{ pillar.diShi }}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">纳音</span>
+                                    <span class="meta-value">{{ pillar.naYin }}</span>
+                                </div>
+                                <div class="meta-item col-span-2">
+                                    <span class="meta-label">旬与旬空</span>
+                                    <span class="meta-value">{{ pillar.xun }} · 空 {{ pillar.xunKong }}</span>
+                                </div>
+                            </div>
+
+                            <div class="canggan-block">
+                                <div class="canggan-head">
+                                    <span>藏干</span><span>层级</span><span>十神</span>
+                                </div>
+                                <div v-for="(cang, cIndex) in getPaddedCangGan(pillar.cangGan)" :key="cIndex"
+                                     class="canggan-row hover:bg-gray-100 rounded"
+                                     :class="{ 'is-empty': cang.empty }">
+                                    <span :class="cang.empty ? '' : getColorClass(cang.wuxing)">{{ cang.gan }}</span>
+                                    <span class="text-gray-400">{{ cang.level }}</span>
+                                    <span>{{ cang.shishen }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <details class="fold-card palace-reference-panel mt-4">
+                        <summary>
+                            <span class="palace-reference-summary">
+                                <span class="palace-reference-title">四柱宫位参考</span>
+                                <span class="palace-reference-hint">年 · 月 · 日 · 时</span>
+                            </span>
+                        </summary>
+                        <div class="fold-content">
+                            <p class="palace-reference-note">
+                                宫位用于提供观察位置，不单独构成结论；不同传承对六亲与人生阶段的分配存在差异。
+                            </p>
+                            <div class="palace-reference-grid">
+                                <div v-for="(pillar, index) in result.pillars" :key="'palace-' + index" class="palace-reference-item">
+                                    <div class="palace-reference-head">
+                                        <span class="palace-reference-pillar">{{ pillar.title }}</span>
+                                        <span class="palace-reference-short">{{ pillar.palace.short }}</span>
+                                    </div>
+                                    <p>{{ pillar.palace.detail }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
+                <div class="overview-dual-grid bazi-structure-grid">
+<section class="panel-card ui-layer-evidence p-4 md:p-5">
+                    <div class="flex items-center justify-between gap-3 mb-3">
+                        <h2 class="panel-title">月令与结构证据</h2>
+                        <span class="text-xs text-gray-500">{{ result.monthSeason.monthZhi }}月 · {{ result.monthSeason.season }}</span>
+                    </div>
+                    <p class="text-[11px] text-gray-500 leading-relaxed mb-3">
+                        旺相休囚死只描述五行在季节中的相对状态；辰、戌、丑、未按“四季土旺”表列，不据此单独判断身强身弱。
+                    </p>
+                    <div class="status-grid">
+                        <div v-for="item in result.monthSeason.states" :key="item.wuxing"
+                             class="status-cell" :class="{'is-day-master': item.isDayMaster}">
+                            <div class="font-bold text-sm" :class="getColorClass(item.wuxing)">{{ item.wuxing }}</div>
+                            <span class="status-badge" :class="getStatusClass(item.status)">{{ item.status }}</span>
+                        </div>
+                    </div>
+
+                    <div class="evidence-list border-t border-gray-200 mt-4 pt-3">
+                        <div v-for="item in result.dayMasterEvidence" :key="item.key" class="evidence-row">
+                            <span class="evidence-key">{{ item.key }}</span>
+                            <span class="evidence-value">{{ item.value }}</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-3 leading-relaxed">
+                        仅陈列得令、根气、透藏和方局等证据，不生成五行百分比，也不直接判定格局、用神或喜忌。
+                    </p>
+                </section>
+<section class="panel-card ui-layer-evidence section-soft-warm p-4 md:p-5 text-sm">
+                    <h2 class="panel-title mb-2">原局干支关系</h2>
+                    <div class="key-structure-block">
+                        <div class="key-structure-head">
+                            <span class="key-structure-title">关键结构</span>
+                            <span class="key-structure-note">按组合规模与关联位置排序，不代表吉凶轻重</span>
+                        </div>
+                        <div v-if="baziKeyRelations.length" class="key-structure-items">
+                            <span v-for="(rel, idx) in baziKeyRelations" :key="`key-bazi-${idx}`"
+                                  class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                        </div>
+                        <div v-else class="key-structure-empty">未检测到直接的合、会、冲、刑、害、破关系。</div>
+                    </div>
+                    <details v-if="result.internalRelations.length > baziKeyRelations.length" class="fold-card compact-fold relation-detail-fold">
+                        <summary>查看全部干支关系（{{ result.internalRelations.length }} 条）</summary>
+                        <div class="fold-content">
+                            <span v-for="(rel, idx) in result.internalRelations" :key="`all-bazi-${idx}`"
+                                  class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                        </div>
+                    </details>
+                    <p class="mt-3 pt-3 border-t border-amber-200 text-[11px] leading-relaxed text-amber-800/80">
+                        合会不必然为吉，冲刑害破也不必然为凶；还需结合月令、透藏、气势、位置与具体问题判断。
+                    </p>
+                </section>
+                </div>
+
+                <details id="matched-literature" class="fold-card ui-layer-reference">
+                    <summary>
+                        <span>与本局相关的古籍文段</span>
+                        <span class="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                            {{ result.matchedLiterature.length }} 条
+                        </span>
+                    </summary>
+                    <div class="fold-content">
+                        <p class="text-[11px] text-gray-500 leading-relaxed">
+                            古籍内容按日干、月令、日时组合与实际结构分层匹配，并区分“精确匹配、结构匹配、方法参考”。标记为“条目定位”的结果只负责定位原书相应条目，不以未核对文字冒充原文；不同版本的文字、标点与篇目名称可能存在差异。
+                        </p>
+                        <div class="literature-level-summary">
+                            <span class="match-level-badge exact">精确匹配 {{ literatureLevelCounts.exact }}</span>
+                            <span class="match-level-badge structure">结构匹配 {{ literatureLevelCounts.structure }}</span>
+                            <span class="match-level-badge method">方法参考 {{ literatureLevelCounts.method }}</span>
+                        </div>
+                        <div class="literature-filter">
+                            <button type="button" :class="{'active': literatureFilter === '全部'}" @click="literatureFilter = '全部'">全部</button>
+                            <button v-for="book in matchedLiteratureBooks" :key="book" type="button"
+                                    :class="{'active': literatureFilter === book}" @click="literatureFilter = book">{{ book }}</button>
+                        </div>
+                        <div v-if="filteredLiteratureMatches.length" class="literature-match-list">
+                            <article v-for="item in filteredLiteratureMatches" :key="item.id"
+                                     class="literature-match-card" :class="'level-' + item.levelKey">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="literature-book">《{{ item.book }}》</span>
+                                    <span class="literature-chapter">{{ item.chapter }}</span>
+                                    <span class="match-level-badge" :class="item.levelKey">{{ item.level }}</span>
+                                    <span class="verified-badge">{{ item.excerptType === 'locator' ? '条目定位' : '已核对来源' }}</span>
+                                </div>
+                                <div class="text-[10px] font-semibold tracking-wider text-amber-700 mt-3">{{ item.excerptType === 'locator' ? '对应条目' : '原文摘录' }}</div>
+                                <div class="literature-quote">{{ item.excerptType === 'locator' ? item.quote : '“' + item.quote + '”' }}</div>
+                                <div class="text-[10px] font-semibold tracking-wider text-slate-500 mb-1">现代提示与边界</div>
+                                <dl class="literature-meta">
+                                    <dt>匹配依据</dt><dd>{{ item.match }}</dd>
+                                    <dt>现代提示</dt><dd>{{ item.hint }}</dd>
+                                    <dt>适用边界</dt><dd>{{ item.boundary }}</dd>
+                                </dl>
+                                <a class="literature-source" :href="item.sourceUrl" target="_blank" rel="noopener noreferrer">查看核对来源 ↗</a>
+                            </article>
+                        </div>
+                        <div v-else class="text-xs text-gray-400 italic py-3">
+                            当前筛选书目暂无与本局直接匹配的已核对文段或条目定位。
+                        </div>
+                    </div>
+                </details>
+
+                <details class="fold-card ui-layer-aux">
+                    <summary>核心神煞（辅助索引）</summary>
+                    <div class="fold-content">
+                        <p class="text-[11px] text-gray-500 leading-relaxed mb-3">
+                            采用常见日干、年支及日支查法，并把查法与命中位置一并展示。神煞不参与主体旺衰计算，也不单独作为吉凶结论。
+                        </p>
+                        <div class="star-grid">
+                            <div v-for="star in result.shenSha" :key="star.name"
+                                 class="star-item" :class="{'star-present': star.present}">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="font-bold text-sm text-gray-700">{{ star.name }}</span>
+                                    <span class="star-status" :class="star.present ? 'present' : 'absent'">
+                                        {{ star.present ? '命中' : '未见' }}
+                                    </span>
+                                </div>
+                                <p class="text-[11px] text-gray-600 mt-2 leading-relaxed"><span class="font-semibold">查法：</span>{{ star.basis }}</p>
+                                <p class="text-[11px] mt-1" :class="star.present ? 'text-amber-800' : 'text-gray-400'">
+                                    <span class="font-semibold">位置：</span>{{ star.hitsText }}
+                                </p>
+                                <p class="text-[10px] text-gray-400 mt-2 leading-relaxed">{{ star.note }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="fold-card ui-layer-aux">
+                    <summary>胎元、命宫、身宫</summary>
+                    <div class="fold-content">
+                        <p class="text-[11px] text-gray-500 leading-relaxed mb-3">
+                            此组三垣在不同体系中的权重差异较大，故折叠显示，不纳入本页主要结构判断。
+                        </p>
+                        <div class="aux-grid">
+                            <div v-for="item in result.auxiliary" :key="item.name" class="aux-item">
+                                <div class="text-xs text-gray-500">{{ item.name }}</div>
+                                <div class="text-xl font-bold tracking-widest mt-1">{{ item.ganZhi }}</div>
+                                <div class="text-[11px] text-gray-500 mt-1">{{ item.shiShen }} · {{ item.naYin }}</div>
+                                <div class="text-[10px] text-gray-400 mt-2 leading-relaxed">{{ item.note }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <section v-if="activeDaYun && activeLiuNian" class="result-link-card">
+                    <div>
+                        <div class="result-link-card-title">当前岁运 · {{ activeDaYun.gan }}{{ activeDaYun.zhi }}运 / {{ activeLiuNian.year }} {{ activeLiuNian.gan }}{{ activeLiuNian.zhi }}年</div>
+                        <div class="result-link-card-meta">流年、流月及原局—大运—流年的层层关系已移到独立页面，原局总览不再被时间信息挤压。</div>
+                    </div>
+                    <button type="button" class="result-link-button" @click="setBaziResultView('timing')">查看流年流月 →</button>
+                </section>
+            </aside>
+
+            <main v-if="baziResultView === 'timing'" class="min-w-0 space-y-4 result-subpage">
+                <div class="result-page-intro">
+                    <div>
+                        <div class="result-page-intro-title">流年流月</div>
+                        <div class="result-page-intro-text">选择大运与流年后，可继续查看十二流月。</div>
+                    </div>
+                    <button type="button" class="result-link-button" @click="setBaziResultView('overview')">← 返回原局总览</button>
+                </div>
+                <section class="panel-card ui-layer-core p-4 md:p-5">
+                    <div class="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-4 mb-4">
+                        <div>
+                            <h2 class="panel-title">大运与流年</h2>
+                            <p class="text-[11px] text-gray-500 mt-2">
+                                初次排盘自动定位当前年份；此后可点击任一大运、流年，或输入年份查询过去与未来的记录。
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 text-sm xl:justify-end">
+                            <label for="query-year" class="font-medium text-gray-600">公历年份</label>
+                            <input id="query-year" type="number" v-model.number="queryYear"
+                                   @keyup.enter="jumpToYear"
+                                   class="w-24 border border-gray-300 rounded px-2 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+                                   :min="availableYearRange.min" :max="availableYearRange.max">
+                            <button type="button" @click="jumpToYear"
+                                    class="bg-gray-800 text-white px-3 py-1.5 rounded hover:bg-gray-700 transition">
+                                跳转
+                            </button>
+                            <button type="button" @click="jumpToCurrentYear"
+                                    class="border border-blue-400 text-blue-700 bg-blue-50 px-3 py-1.5 rounded hover:bg-blue-100 transition">
+                                回到当前
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ui-note ui-note-info text-sm mb-4">
+                        <p class="font-bold">{{ result.qiYunInfo }}</p>
+                    </div>
+
+                    <p v-if="yearQueryMsg" class="text-xs mb-3 px-3 py-2 rounded"
+                       :class="yearQueryError ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-slate-50 text-slate-600 border border-slate-200'">
+                        {{ yearQueryMsg }}
+                    </p>
+
+                    <div class="dayun-container">
+                        <div v-for="(dy, index) in result.daYunList" :key="index"
+                             class="dayun-col"
+                             :class="{ 'active': activeDaYunIndex === index }"
+                             @click="selectDaYun(index, dy)">
+                            <div class="dayun-info">{{ dy.startYear }}—{{ dy.endYear }}</div>
+                            <div class="dayun-info">{{ dy.startAge }}—{{ dy.endAge }}岁</div>
+                            <div class="shishen-tag">{{ dy.shiShen }}</div>
+                            <div class="dayun-ganzhi">
+                                <span :class="getColorClass(dy.ganWuXing)">{{ dy.gan }}</span><br>
+                                <span :class="getColorClass(dy.zhiWuXing)">{{ dy.zhi }}</span>
+                            </div>
+                            <div class="text-[0.62rem] text-gray-400">{{ dy.diShi }}</div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section v-if="activeDaYun" class="panel-card ui-layer-evidence transit-overview-card transit-overview-dayun p-4 md:p-5 text-sm">
+                    <div class="transit-summary-head">
+                        <div>
+                            <div class="transit-kicker">当前大运</div>
+                            <p class="font-bold text-blue-800 text-base">
+                                {{ activeDaYun.gan }}{{ activeDaYun.zhi }} · {{ activeDaYun.shiShen }}运
+                                <span class="text-xs font-normal text-blue-600 ml-2">{{ activeDaYun.startYear }}—{{ activeDaYun.endYear }}</span>
+                            </p>
+                        </div>
+                        <div class="info-chips transit-summary-chips">
+                            <span class="info-chip">长生 {{ activeDaYun.diShi }}</span>
+                            <span class="info-chip">{{ activeDaYun.xun }} · 空 {{ activeDaYun.xunKong }}</span>
+                        </div>
+                    </div>
+                    <div class="transit-scan-grid">
+                        <div class="transit-scan-item">
+                            <div class="transit-scan-label">十神主题</div>
+                            <div class="transit-scan-value">{{ activeDaYun.shiShen }}</div>
+                        </div>
+                        <div class="transit-scan-item">
+                            <div class="transit-scan-label">整柱感应</div>
+                            <div class="transit-scan-value small">{{ activeDaYun.pillarSignals.length ? activeDaYun.pillarSignals[0].text : '未检测到整柱特殊感应' }}</div>
+                        </div>
+                        <div class="transit-scan-item">
+                            <div class="transit-scan-label">结构关系</div>
+                            <div class="transit-scan-value small">天干 {{ activeDaYun.stemRelations.length }} 条 · 地支 {{ activeDaYun.relations.length }} 条</div>
+                        </div>
+                    </div>
+                    <details class="fold-card transit-detail-fold mt-3">
+                        <summary>查看大运结构证据</summary>
+                        <div class="fold-content">
+                            <p class="text-gray-700 leading-relaxed mb-2">
+                                <span class="font-semibold">十神主题：</span>{{ getShiShenExplanation(activeDaYun.shiShen) }}
+                            </p>
+                            <p class="text-[11px] text-gray-500 mb-3">此处只说明大运天干相对日主的十神主题，不单独构成运势结论。</p>
+                            <div v-if="activeDaYun.pillarSignals.length > 0" class="detail-block">
+                                <span class="detail-label">整柱感应</span>
+                                <span v-for="(rel, idx) in activeDaYun.pillarSignals" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                            </div>
+                            <div v-if="activeDaYun.stemRelations.length > 0" class="detail-block">
+                                <span class="detail-label">天干关系</span>
+                                <span v-for="(srel, sidx) in activeDaYun.stemRelations" :key="sidx" class="relation-tag" :class="getRelationTagClass(srel.type)">{{ srel.text }}</span>
+                            </div>
+                            <div class="detail-block">
+                                <span class="detail-label">地支关系（大运【{{ activeDaYun.zhi }}】与原局）</span>
+                                <template v-if="activeDaYun.relations.length">
+                                    <span v-for="(rel, idx) in activeDaYun.relations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                </template>
+                                <span v-else class="text-gray-500 text-xs italic">未检测到直接关系。</span>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
+                <section v-if="activeLiuNianList.length > 0" class="panel-card ui-layer-core p-4 md:p-5">
+                    <h3 class="font-bold text-gray-700 text-sm mb-3">流年选择</h3>
+                    <div class="liunian-grid mb-4">
+                        <div v-for="(ln, index) in activeLiuNianList" :key="index"
+                             class="liunian-item"
+                             :class="{ 'active': activeLiuNianIndex === index }"
+                             @click="selectLiuNian(index)">
+                            <div class="text-[0.7rem] text-gray-500">{{ ln.year }}</div>
+                            <div class="shishen-tag mt-1">{{ ln.shiShen }}</div>
+                            <div class="font-bold mt-1 text-base tracking-widest">
+                                <span :class="getColorClass(ln.ganWuXing)">{{ ln.gan }}</span><span :class="getColorClass(ln.zhiWuXing)">{{ ln.zhi }}</span>
+                            </div>
+                            <div class="text-[0.6rem] text-gray-400 mt-1">{{ ln.diShi }}</div>
+                        </div>
+                    </div>
+
+                    <div v-if="activeLiuNian" class="transit-focus-card text-sm animate-fade-in">
+                        <p class="font-bold text-orange-800 mb-1 text-base">
+                            【{{ activeLiuNian.year }}年 · {{ activeLiuNian.age }}岁】{{ activeLiuNian.gan }}{{ activeLiuNian.zhi }} · {{ activeLiuNian.shiShen }}
+                        </p>
+                        <div class="info-chips">
+                            <span class="info-chip">十二长生：{{ activeLiuNian.diShi }}</span>
+                            <span class="info-chip">纳音：{{ activeLiuNian.naYin }}</span>
+                            <span class="info-chip">{{ activeLiuNian.xun }} · 空 {{ activeLiuNian.xunKong }}</span>
+                        </div>
+                        
+                        <div class="transit-scan-grid transit-year-scan">
+                            <div class="transit-scan-item">
+                                <div class="transit-scan-label">岁运关系</div>
+                                <div class="transit-scan-value small">{{ activeLiuNian.yunRelations.length ? activeLiuNian.yunRelations[0].text : '未检测到岁运特殊关系' }}</div>
+                            </div>
+                            <div class="transit-scan-item">
+                                <div class="transit-scan-label">三层结构</div>
+                                <div class="transit-scan-value small">{{ activeLiuNian.layeredRelations.length ? activeLiuNian.layeredRelations[0].text : '未形成明显的三层组合' }}</div>
+                            </div>
+                            <div class="transit-scan-item">
+                                <div class="transit-scan-label">原局引动</div>
+                                <div class="transit-scan-value small">{{ activeLiuNian.relations.length ? activeLiuNian.relations[0].text : '未检测到直接地支关系' }}</div>
+                            </div>
+                        </div>
+                        <details class="fold-card transit-detail-fold mt-3">
+                            <summary>查看流年详细结构与十二流月</summary>
+                            <div class="fold-content">
+<p class="text-gray-700 leading-relaxed mb-2">
+                            <span class="font-semibold">十神主题：</span>{{ getShiShenExplanation(activeLiuNian.shiShen) }}
+                        </p>
+                        <p class="text-[11px] text-gray-500 mb-3">
+                            流年需与原局、大运共同观察；此处不根据单一十神直接断吉凶。
+                        </p>
+
+                        <div v-if="activeLiuNian.yunRelations.length > 0" class="mb-3">
+                            <span class="font-semibold text-gray-700 mb-1 block">岁运关系：</span>
+                            <span v-for="(rel, idx) in activeLiuNian.yunRelations" :key="idx"
+                                  class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                        </div>
+                        <div v-if="activeLiuNian.layeredRelations.length > 0" class="mb-3">
+                            <span class="font-semibold text-gray-700 mb-1 block">原局—大运—流年三层结构：</span>
+                            <span v-for="(rel, idx) in activeLiuNian.layeredRelations" :key="idx"
+                                  class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                        </div>
+                        <div v-if="activeLiuNian.pillarSignals.length > 0" class="mb-3">
+                            <span class="font-semibold text-gray-700 mb-1 block">整柱感应：</span>
+                            <span v-for="(rel, idx) in activeLiuNian.pillarSignals" :key="idx"
+                                  class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                        </div>
+                        <div v-if="activeLiuNian.stemRelations.length > 0" class="mb-3">
+                            <span class="font-semibold text-gray-700 mb-1 block">天干关系：</span>
+                            <span v-for="(srel, sidx) in activeLiuNian.stemRelations" :key="sidx"
+                                  class="relation-tag" :class="getRelationTagClass(srel.type)">{{ srel.text }}</span>
+                        </div>
+                        <div class="border-t border-orange-200 pt-3">
+                            <span class="font-semibold text-gray-700 mb-1 block">地支关系（流年【{{ activeLiuNian.zhi }}】与原局）：</span>
+                            <div v-if="activeLiuNian.relations.length > 0">
+                                <span v-for="(rel, idx) in activeLiuNian.relations" :key="idx"
+                                      class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                            </div>
+                            <div v-else class="text-gray-500 text-xs italic">未检测到直接关系。</div>
+                        </div>
+
+
+                        <details class="fold-card mt-4 bg-white/70">
+                            <summary>
+                                <span>十二流月（按节令交接）</span>
+                                <span class="text-[10px] text-gray-400">{{ activeLiuNian.year }} 立春起</span>
+                            </summary>
+                            <div class="fold-content">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                    <p class="text-[11px] text-gray-500 leading-relaxed">
+                                        流月使用立春、惊蛰等十二个“节”划分，并非农历初一换月。节气时刻读取失败时，仅显示月序和干支。
+                                    </p>
+                                    <button type="button" @click="jumpToCurrentLiuYue"
+                                            class="border border-blue-300 text-blue-700 bg-blue-50 px-2.5 py-1 rounded text-xs hover:bg-blue-100">
+                                        回到当前流月
+                                    </button>
+                                </div>
+                                <p v-if="liuYueMsg" class="ui-note ui-note-meta text-[11px] mb-3">{{ liuYueMsg }}</p>
+                                <div v-if="activeLiuYueList.length" class="liu-yue-grid">
+                                    <button v-for="(ly, index) in activeLiuYueList" :key="ly.index" type="button"
+                                            class="liu-yue-item" :class="{'active': activeLiuYueIndex === index, 'current': ly.isCurrent}"
+                                            @click="selectLiuYue(index)">
+                                        <div class="text-[0.65rem] text-gray-500">{{ ly.monthName }}月</div>
+                                        <div class="shishen-tag mt-1">{{ ly.shiShen }}</div>
+                                        <div class="font-bold text-base tracking-widest mt-1">
+                                            <span :class="getColorClass(ly.ganWuXing)">{{ ly.gan }}</span><span :class="getColorClass(ly.zhiWuXing)">{{ ly.zhi }}</span>
+                                        </div>
+                                        <div class="text-[0.61rem] text-gray-400 mt-1">{{ ly.diShi }}</div>
+                                        <div class="liu-yue-range">{{ ly.shortRange }}</div>
+                                    </button>
+                                </div>
+                                <div v-else class="text-xs text-gray-400 italic py-4">{{ liuYueError || '未能读取该流年的流月数据。' }}</div>
+
+                                <div v-if="activeLiuYue" class="liu-yue-detail animate-fade-in">
+                                    <div class="flex flex-wrap items-start justify-between gap-2">
+                                        <div>
+                                            <p class="font-bold text-orange-800">
+                                                {{ activeLiuYue.monthName }}月 · {{ activeLiuYue.gan }}{{ activeLiuYue.zhi }} · {{ activeLiuYue.shiShen }}
+                                            </p>
+                                            <p class="text-[11px] text-gray-500 mt-1">{{ activeLiuYue.rangeText }}</p>
+                                        </div>
+                                        <span v-if="activeLiuYue.isCurrent" class="text-[10px] text-blue-700 bg-blue-50 border border-blue-200 rounded-full px-2 py-1">当前流月</span>
+                                    </div>
+                                    <div class="info-chips">
+                                        <span class="info-chip">十二长生：{{ activeLiuYue.diShi }}</span>
+                                        <span class="info-chip">纳音：{{ activeLiuYue.naYin }}</span>
+                                        <span class="info-chip">{{ activeLiuYue.xun }} · 空 {{ activeLiuYue.xunKong }}</span>
+                                    </div>
+
+                                    <div v-if="activeLiuYue.layeredRelations.length" class="mb-3">
+                                        <span class="font-semibold text-gray-700 mb-1 block">原局—大运—流年—流月四层结构：</span>
+                                        <span v-for="(rel, idx) in activeLiuYue.layeredRelations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                    </div>
+                                    <div v-if="activeLiuYue.yunRelations.length" class="mb-3">
+                                        <span class="font-semibold text-gray-700 mb-1 block">与大运：</span>
+                                        <span v-for="(rel, idx) in activeLiuYue.yunRelations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                    </div>
+                                    <div v-if="activeLiuYue.yearRelations.length" class="mb-3">
+                                        <span class="font-semibold text-gray-700 mb-1 block">与流年：</span>
+                                        <span v-for="(rel, idx) in activeLiuYue.yearRelations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                    </div>
+                                    <div v-if="activeLiuYue.pillarSignals.length" class="mb-3">
+                                        <span class="font-semibold text-gray-700 mb-1 block">与原局整柱感应：</span>
+                                        <span v-for="(rel, idx) in activeLiuYue.pillarSignals" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                    </div>
+                                    <div v-if="activeLiuYue.stemRelations.length" class="mb-3">
+                                        <span class="font-semibold text-gray-700 mb-1 block">与原局天干：</span>
+                                        <span v-for="(rel, idx) in activeLiuYue.stemRelations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-semibold text-gray-700 mb-1 block">与原局地支：</span>
+                                        <template v-if="activeLiuYue.relations.length">
+                                            <span v-for="(rel, idx) in activeLiuYue.relations" :key="idx" class="relation-tag" :class="getRelationTagClass(rel.type)">{{ rel.text }}</span>
+                                        </template>
+                                        <span v-else class="text-xs text-gray-400 italic">未检测到直接关系。</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 leading-relaxed mt-3 pt-3 border-t border-orange-100">
+                                        流月只表示较短时间层级的结构触发。即使形成合、会、冲、刑、害、破，也不能脱离原局和岁运单独定性。
+                                    </p>
+                                </div>
+                            </div>
+                        </details>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <section v-if="baziResultView === 'overview'" class="panel-card ui-layer-reference mt-5 overflow-hidden result-subpage">
+            <div class="p-4 md:p-5 pb-3">
+                <h2 class="panel-title">典籍参考与使用边界</h2>
+                <p class="text-[11px] text-gray-500 mt-2 leading-relaxed">
+                    说明各书在分析中的参考方向，不把不同体系强行合并为单一断命规则。
+                </p>
+            </div>
+            <div class="reference-tabs">
+                <button v-for="(item, index) in literatureNotes" :key="item.title" type="button"
+                        class="reference-tab" :class="{'active': literatureTab === index}"
+                        @click="openLiterature(item.title, index)">{{ item.title }}</button>
+            </div>
+            <div class="reference-body">
+                <div class="text-sm font-bold text-gray-700">{{ activeLiterature.focus }}</div>
+                <p class="text-xs text-gray-600 leading-relaxed mt-2">{{ activeLiterature.text }}</p>
+                <p class="text-[11px] text-gray-400 leading-relaxed mt-2">{{ activeLiterature.boundary }}</p>
+                <button type="button" class="mt-3 text-xs text-blue-700 underline underline-offset-2" @click="openLiterature(activeLiterature.title, literatureTab)">查看当前命局匹配文段</button>
+            </div>
+        </section>
+    </div>
+
+    <div v-if="currentPage === 'result' && activeModule === 'liuyao' && liuyaoResult" class="animate-fade-in">
+        <div class="result-toolbar">
+            <button type="button" class="back-button" @click="goToInput">← 返回修改起卦信息</button>
+            <div class="text-right">
+                <div class="text-sm font-bold text-gray-700">{{ liuyaoResultView === 'overview' ? '六爻占算总览' : '六爻详细分析' }}</div>
+                <div class="text-[11px] text-gray-400">{{ liuyaoResultView === 'overview' ? '先看卦象、世应、动爻、用神与关键结构' : '查看逐爻日月、动变、飞伏、应期与文献证据' }}</div>
+            </div>
+        </div>
+        <nav class="result-subnav" aria-label="六爻结果页面">
+            <button type="button" class="result-subnav-button" :class="{'active': liuyaoResultView === 'overview'}" @click="setLiuyaoResultView('overview')">占算总览</button>
+            <button type="button" class="result-subnav-button" :class="{'active': liuyaoResultView === 'detail'}" @click="setLiuyaoResultView('detail')">详细分析</button>
+            <span class="result-subnav-hint">卦象始终属于总览；纳甲细项、飞伏和文献放在详细分析。</span>
+        </nav>
+
+        <div v-if="liuyaoResultView === 'overview'" class="liuyao-result-layout result-subpage overview-single-axis liuyao-overview-page">
+            <aside class="space-y-4">
+                <section class="panel-card ui-layer-aux p-4 md:p-5">
+                    <h2 class="panel-title mb-4">起卦信息</h2>
+                    <div class="space-y-2 text-sm text-gray-700 leading-relaxed">
+                        <p><span class="font-semibold">所占之事：</span>{{ liuyaoResult.question || '未填写' }}</p>
+                        <p><span class="font-semibold">起卦时间：</span>{{ liuyaoResult.solarText }}</p>
+                        <p><span class="font-semibold">农历：</span>{{ liuyaoResult.lunarText }}</p>
+                        <p><span class="font-semibold">月建日辰：</span>{{ liuyaoResult.monthGanZhi }}月 · {{ liuyaoResult.dayGanZhi }}日</p>
+                        <p><span class="font-semibold">旬空：</span>{{ liuyaoResult.xunKong }}</p>
+                    </div>
+                </section>
+
+                <section class="panel-card ui-layer-core p-4 md:p-5">
+                    <h2 class="panel-title mb-4">卦象总览</h2>
+                    <div class="hexagram-summary-grid">
+                        <div class="hexagram-summary-card hexagram-visual-card">
+                            <div class="flex items-center gap-3">
+                                <span class="hexagram-symbol">{{ liuyaoResult.original.symbol }}</span>
+                                <div><div class="hexagram-name">本卦 · {{ liuyaoResult.original.name }}</div><div class="hexagram-sub">第 {{ liuyaoResult.original.number }} 卦 · {{ liuyaoResult.original.upper.name }}上{{ liuyaoResult.original.lower.name }}下</div></div>
+                            </div>
+                            <div class="hexagram-line-stack" aria-label="本卦六爻卦象">
+                                <div v-for="line in liuyaoResult.displayLines" :key="'ori-'+line.position" class="hexagram-line-row" :class="{'moving': line.moving}">
+                                    <span class="hexagram-line-label">{{ line.label }}</span>
+                                    <span class="mini-yao-glyph" :class="line.originalYang ? 'yang' : 'yin'"></span>
+                                    <span class="hexagram-line-meta">
+                                        <span v-if="line.isShi" class="mini-shi-ying shi">世</span>
+                                        <span v-else-if="line.isYing" class="mini-shi-ying ying">应</span>
+                                        <span v-if="line.moving" class="mini-moving-mark">{{ line.moveMark }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hexagram-summary-card hexagram-visual-card">
+                            <div class="flex items-center gap-3">
+                                <span class="hexagram-symbol">{{ liuyaoResult.changed.symbol }}</span>
+                                <div><div class="hexagram-name">变卦 · {{ liuyaoResult.changed.name }}</div><div class="hexagram-sub">第 {{ liuyaoResult.changed.number }} 卦 · {{ liuyaoResult.changed.upper.name }}上{{ liuyaoResult.changed.lower.name }}下</div></div>
+                            </div>
+                            <div class="hexagram-line-stack changed-stack" aria-label="变卦六爻卦象">
+                                <div v-for="line in liuyaoResult.displayLines" :key="'chg-'+line.position" class="hexagram-line-row" :class="{'changed-line': line.moving}">
+                                    <span class="hexagram-line-label">{{ line.label }}</span>
+                                    <span class="mini-yao-glyph changed" :class="line.changedYang ? 'yang' : 'yin'"></span>
+                                    <span class="hexagram-line-meta">
+                                        <span v-if="line.moving" class="mini-change-note">变</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="liuyao-mini-grid mt-3">
+                        <div class="liuyao-mini-item"><div class="liuyao-mini-label">八宫归属</div><div class="liuyao-mini-value">{{ liuyaoResult.palace.palace }}宫 · {{ liuyaoResult.palace.stage }}</div></div>
+                        <div class="liuyao-mini-item"><div class="liuyao-mini-label">动爻</div><div class="liuyao-mini-value">{{ liuyaoResult.movingText }}</div></div>
+                        <div class="liuyao-mini-item"><div class="liuyao-mini-label">互卦</div><div class="liuyao-mini-value">{{ liuyaoResult.nuclear.symbol }} {{ liuyaoResult.nuclear.name }}</div></div>
+                        <div class="liuyao-mini-item"><div class="liuyao-mini-label">错卦／综卦</div><div class="liuyao-mini-value">{{ liuyaoResult.opposite.name }} ／ {{ liuyaoResult.reversed.name }}</div></div>
+                    </div>
+                </section>
+
+                <section class="panel-card ui-layer-core p-4 md:p-5 min-w-0">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div>
+                            <h2 class="panel-title">六爻速览</h2>
+                            <p class="text-[11px] text-gray-500 mt-2">先看六亲、世应、动静与最关键状态；需要完整纳甲与日月细项时再展开详细装卦。</p>
+                        </div>
+                        <span class="text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-3 py-1">{{ liuyaoResult.palace.palace }}宫属{{ liuyaoResult.palace.element }}</span>
+                    </div>
+                    <div class="liuyao-quick-grid">
+                        <div v-for="line in liuyaoResult.displayLines" :key="line.position" class="liuyao-quick-line"
+                             :class="{'moving': line.moving, 'selected-use': selectedUseGodTarget && selectedUseGodTarget.position === line.position}">
+                            <div class="quick-line-main">
+                                <span class="quick-line-label">{{ line.label }}</span>
+                                <span class="quick-line-relation">{{ line.relation }}{{ line.branch }}{{ line.element }}</span>
+                                <span v-if="line.isShi" class="shi-ying-badge shi-badge">世</span>
+                                <span v-else-if="line.isYing" class="shi-ying-badge ying-badge">应</span>
+                            </div>
+                            <div v-if="line.moving" class="quick-line-change">{{ line.moveMark }} → {{ line.changedRelation }}{{ line.changedBranch }}{{ line.changedElement }}</div>
+                            <div class="line-status-wrap justify-start quick-line-tags">
+                                <span v-for="tag in line.statusTags.slice(0, 2)" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span>
+                                <span v-if="line.moving && line.moveTags.length" class="status-chip" :class="line.moveTags[0].type">{{ line.moveTags[0].text }}</span>
+                                <span v-if="!line.statusTags.length && !line.moving" class="status-chip neutral">静</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel-card ui-layer-evidence p-4 md:p-5 liuyao-structure-summary">
+                    <div class="liuyao-structure-summary-head">
+                        <h2 class="panel-title">全卦结构</h2>
+                        <p class="liuyao-structure-summary-note">优先显示六冲六合、世应特殊状态、三合与反伏吟</p>
+                    </div>
+                    <div class="key-structure-items liuyao-structure-summary-items">
+                        <span v-for="(item, idx) in liuyaoKeyStructures" :key="`key-ly-${idx}`"
+                              class="status-chip" :class="item.type">{{ item.text }}</span>
+                    </div>
+                </section>
+
+                <section class="panel-card ui-layer-evidence p-4 md:p-5 liuyao-use-god-panel">
+                    <h2 class="panel-title">用神选择</h2>
+                    <div class="mt-3 advice-box text-[11px] leading-relaxed">
+                        <div class="font-bold">取用参考：{{ liuyaoResult.useGodSuggestion.target }}</div>
+                        <p class="mt-1">{{ liuyaoResult.useGodSuggestion.reason }}</p>
+                        <p v-if="liuyaoResult.useGodSuggestion.missingNote" class="mt-1 advice-subnote">{{ liuyaoResult.useGodSuggestion.missingNote }}</p>
+                        <button type="button" class="mt-2 text-xs font-bold underline underline-offset-2" @click="applySuggestedUseGod">采用建议</button>
+                    </div>
+                    <label class="block mt-3">
+                        <span class="field-label">确认主用神／观察对象</span>
+                        <select v-model="selectedUseGodKey" class="use-god-select">
+                            <option v-for="choice in liuyaoResult.useGodChoices" :key="choice.key" :value="choice.key">{{ choice.label }}</option>
+                        </select>
+                    </label>
+                    <div v-if="useGodAnalysis" class="use-god-focus-card">
+                        <div class="use-god-focus-head">
+                            <div>
+                                <div class="use-god-eyebrow">当前分析焦点</div>
+                                <div class="use-god-name">{{ useGodAnalysis.target.relation }}{{ useGodAnalysis.target.branch }}{{ useGodAnalysis.target.element }}</div>
+                                <div class="use-god-source">{{ useGodAnalysis.target.sourceText }}</div>
+                            </div>
+                            <div class="use-god-position">
+                                <span v-if="useGodAnalysis.target.type === 'hidden'">伏神</span>
+                                <span v-else>{{ useGodAnalysis.target.position === 1 ? '初爻' : useGodAnalysis.target.position === 6 ? '上爻' : ['','初爻','二爻','三爻','四爻','五爻','上爻'][useGodAnalysis.target.position] }}</span>
+                                <span v-if="useGodAnalysis.target.isShi"> · 世</span><span v-if="useGodAnalysis.target.isYing"> · 应</span>
+                            </div>
+                        </div>
+                        <div class="line-status-wrap justify-start mt-3">
+                            <span v-for="tag in useGodAnalysis.target.statusTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span>
+                            <span v-if="useGodAnalysis.target.moving" class="status-chip transform">发动</span>
+                            <span v-for="tag in useGodAnalysis.target.moveTags.slice(0, 2)" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span>
+                        </div>
+                        <div class="use-god-metrics">
+                            <div class="use-god-metric"><span>元神</span><strong>{{ useGodAnalysis.sourceElement }}</strong><small>{{ useGodAnalysis.sourceLines }}</small></div>
+                            <div class="use-god-metric"><span>忌神</span><strong>{{ useGodAnalysis.tabooElement }}</strong><small>{{ useGodAnalysis.tabooLines }}</small></div>
+                            <div class="use-god-metric"><span>仇神</span><strong>{{ useGodAnalysis.enemyElement }}</strong><small>{{ useGodAnalysis.enemyLines }}</small></div>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-gray-400 leading-relaxed mt-3">取用参考按占问关键词提示常用入口；同一问题可因主体、对象和问题焦点不同而另取用神，最终以实际占问重点确认。</p>
+                </section>
+
+                <section class="panel-card ui-layer-evidence p-4 md:p-5">
+                    <h2 class="panel-title">应期候选</h2>
+                    <p class="text-[11px] text-gray-500 leading-relaxed mt-2">根据当前确认的用神、空破、动静、合冲、墓绝及三合缺支，列出可能需要观察的“触发条件”。日期只是最近一次对应日支示例，不代表唯一应期。</p>
+                    <div v-if="timingCandidates.length" class="timing-list">
+                        <div v-for="item in timingCandidates.slice(0, 2)" :key="item.id" class="timing-item">
+                            <div class="timing-title">{{ item.title }}</div>
+                            <div class="timing-trigger">{{ item.reason }}</div>
+                            <span v-for="date in item.dates" :key="date" class="timing-date">{{ date }}</span>
+                        </div>
+                    </div>
+                    <p v-else class="text-xs text-gray-400 italic mt-3">当前未形成明显的特殊应期条件；仍可从用神值日、值月及所占事情的现实时间窗口继续观察。</p>
+                </section>
+
+                <section class="panel-card ui-layer-aux ui-boundary-note p-4 md:p-5 text-[11px] leading-relaxed text-gray-500">
+                    <strong class="text-gray-700">使用边界</strong>
+                    <p class="mt-2">旺相休囚死、月破、暗动、进退神、用神与飞伏均是结构证据。合未必吉，冲未必凶；用神是否有力仍需比较日月、动变、空破、生克与具体占问。</p>
+                    <p class="mt-2">{{ liuyaoResult.seasonalRuleNote }}</p>
+                </section>
+
+                <section class="result-link-card">
+                    <div>
+                        <div class="result-link-card-title">继续查看逐爻与文献证据</div>
+                        <div class="result-link-card-meta">完整纳甲表、动变关系、元忌仇神链、飞神伏神、全量应期、《周易》经文与古籍文段集中在详细分析页。</div>
+                    </div>
+                    <button type="button" class="result-link-button" @click="setLiuyaoResultView('detail')">进入详细分析 →</button>
+                </section>
+            </aside>
+
+            <main class="space-y-4 min-w-0 legacy-overview-secondary">
+                                
+
+                <section class="result-link-card">
+                    <div>
+                        <div class="result-link-card-title">详细装卦、飞伏与文献</div>
+                        <div class="result-link-card-meta">六爻速览只保留扫盘所需信息；完整逐爻状态、全量应期与传统文献统一放到详细分析页。</div>
+                    </div>
+                    <button type="button" class="result-link-button" @click="setLiuyaoResultView('detail')">进入详细分析 →</button>
+                </section>
+
+
+
+
+            </main>
+        </div>
+
+        <div v-if="liuyaoResultView === 'detail'" class="liuyao-detail-page detail-section-stack result-subpage">
+            <div class="result-page-intro">
+                <div>
+                    <div class="result-page-intro-title">详细分析</div>
+                    <div class="result-page-intro-text">按装卦、用神、全卦关系、应期与文献的顺序逐项查看。</div>
+                </div>
+                <button type="button" class="result-link-button" @click="setLiuyaoResultView('overview')">← 返回占算总览</button>
+            </div>
+
+            <section class="panel-card ui-layer-aux">
+                <div class="detail-section-title">本次占问</div>
+                <div class="detail-evidence-grid">
+                    <div class="detail-evidence-cell"><span>所占之事</span><strong>{{ liuyaoResult.question || '未填写' }}</strong></div>
+                    <div class="detail-evidence-cell"><span>月建 · 日辰</span><strong>{{ liuyaoResult.monthGanZhi }}月 · {{ liuyaoResult.dayGanZhi }}日</strong></div>
+                    <div class="detail-evidence-cell"><span>旬空</span><strong>{{ liuyaoResult.xunKong }}</strong></div>
+                </div>
+            </section>
+
+            <section class="panel-card ui-layer-core min-w-0">
+                <div class="detail-section-title">详细装卦与逐爻状态</div>
+                <div class="desktop-yao-detail liuyao-detail-table-wrap">
+                    <table class="liuyao-table enriched">
+                        <thead><tr><th>爻位</th><th>六神</th><th>本卦六亲·纳甲</th><th>本卦</th><th>世应</th><th>日月与空破</th><th>动</th><th>变卦</th><th>变卦六亲·纳甲</th><th>动变关系</th></tr></thead>
+                        <tbody><tr v-for="line in liuyaoResult.displayLines" :key="line.position" :class="{'moving': line.moving, 'selected-use': selectedUseGodTarget && selectedUseGodTarget.position === line.position}"><td class="font-bold text-gray-500">{{ line.label }}</td><td>{{ line.spirit }}</td><td><strong>{{ line.relation }}</strong><br><span class="text-gray-400">{{ line.naJia }}</span></td><td><div class="yao-glyph" :class="line.originalYang ? 'yang' : 'yin'"></div></td><td><span v-if="line.isShi" class="shi-ying-badge shi-badge">世</span><span v-else-if="line.isYing" class="shi-ying-badge ying-badge">应</span><span v-else class="text-gray-300">—</span></td><td><div class="line-status-wrap"><span v-for="tag in line.statusTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span></div></td><td><span v-if="line.moving" class="moving-mark">{{ line.moveMark }}</span><span v-else class="text-gray-300">—</span></td><td><div class="yao-glyph changed" :class="line.changedYang ? 'yang' : 'yin'"></div></td><td><strong>{{ line.changedRelation }}</strong><br><span class="text-gray-400">{{ line.changedNaJia }}</span></td><td><div v-if="line.moving" class="line-status-wrap"><span v-for="tag in line.moveTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span></div><span v-else class="text-gray-300">—</span></td></tr></tbody>
+                    </table>
+                </div>
+                <div class="mobile-yao-detail-list mt-3"><article v-for="line in liuyaoResult.displayLines" :key="line.position" class="mobile-yao-card" :class="{'moving': line.moving, 'selected-use': selectedUseGodTarget && selectedUseGodTarget.position === line.position}"><div class="mobile-yao-head"><strong>{{ line.label }} · {{ line.relation }}{{ line.naJia }}</strong><span>{{ line.spirit }}</span></div><div class="mobile-yao-meta"><span v-if="line.isShi" class="shi-ying-badge shi-badge">世</span><span v-if="line.isYing" class="shi-ying-badge ying-badge">应</span><span>{{ line.originalYang ? '阳爻' : '阴爻' }}</span><span v-if="line.moving">{{ line.moveMark }} 动</span></div><div class="line-status-wrap justify-start"><span v-for="tag in line.statusTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span></div><div v-if="line.moving" class="mobile-yao-change"><span>变：</span><strong>{{ line.changedRelation }}{{ line.changedNaJia }}</strong><div class="line-status-wrap justify-start mt-2"><span v-for="tag in line.moveTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span></div></div></article></div>
+            </section>
+
+            <section class="panel-card ui-layer-evidence">
+                <div class="detail-section-title">用神与元忌仇神</div>
+                <div class="detail-section-note">显示当前确认的分析焦点及完整关系链；切换用神请回到总览页。</div>
+                <template v-if="useGodAnalysis">
+                    <div class="detail-evidence-grid">
+                        <div class="detail-evidence-cell"><span>当前用神</span><strong>{{ useGodAnalysis.target.relation }}{{ useGodAnalysis.target.branch }}{{ useGodAnalysis.target.element }}</strong></div>
+                        <div class="detail-evidence-cell"><span>出现位置</span><strong>{{ useGodAnalysis.target.sourceText }}</strong></div>
+                        <div class="detail-evidence-cell"><span>同类出现</span><strong>{{ useGodAnalysis.sameRelationText }}</strong></div>
+                    </div>
+                    <div class="line-status-wrap justify-start mt-3">
+                        <span v-for="tag in useGodAnalysis.target.statusTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span>
+                        <span v-if="useGodAnalysis.target.moving" class="status-chip transform">发动</span>
+                        <span v-for="tag in useGodAnalysis.target.moveTags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span>
+                    </div>
+                    <div class="deity-chain-grid mt-3">
+                        <div class="deity-chain-card"><div class="deity-chain-title">元神 · 生用神</div><div class="deity-chain-element">{{ useGodAnalysis.sourceElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.sourceLines }}</div></div>
+                        <div class="deity-chain-card"><div class="deity-chain-title">忌神 · 克用神</div><div class="deity-chain-element">{{ useGodAnalysis.tabooElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.tabooLines }}</div></div>
+                        <div class="deity-chain-card"><div class="deity-chain-title">仇神 · 生忌克元</div><div class="deity-chain-element">{{ useGodAnalysis.enemyElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.enemyLines }}</div></div>
+                    </div>
+                </template>
+                <p v-else class="text-sm text-gray-500 mt-3">请先在占算总览中确认用神。</p>
+            </section>
+
+            <section class="panel-card ui-layer-evidence">
+                <div class="detail-section-title">全卦完整关系</div>
+                <div class="detail-section-note">展开六冲六合、世应、动变三合及反吟伏吟的完整结构，不以单个标签直接定吉凶。</div>
+                <div class="structure-section">
+                    <div class="structure-title">六合／六冲</div>
+                    <div class="line-status-wrap justify-start"><span class="status-chip transform">{{ liuyaoResult.fullStructure.transition }}</span><span class="status-chip neutral">本卦：{{ liuyaoResult.fullStructure.originalNature }}</span><span class="status-chip neutral">变卦：{{ liuyaoResult.fullStructure.changedNature }}</span></div>
+                </div>
+                <div class="structure-section"><div class="structure-title">世应</div><p class="structure-text">{{ liuyaoResult.fullStructure.shiYing.text }}</p><div class="line-status-wrap justify-start mt-2"><span v-for="tag in liuyaoResult.fullStructure.shiYing.tags" :key="tag.text" class="status-chip" :class="tag.type">{{ tag.text }}</span></div></div>
+                <div class="structure-section"><div class="structure-title">动变三合</div><div v-if="liuyaoResult.fullStructure.sanHe.complete.length || liuyaoResult.fullStructure.sanHe.pending.length" class="line-status-wrap justify-start"><span v-for="item in liuyaoResult.fullStructure.sanHe.complete" :key="item" class="status-chip transform">{{ item }}</span><span v-for="item in liuyaoResult.fullStructure.sanHe.pending" :key="item" class="status-chip neutral">{{ item }}</span></div><p v-else class="structure-text">动爻及其变爻未形成三合组合。</p></div>
+                <div class="structure-section"><div class="structure-title">反吟／伏吟</div><div v-if="liuyaoResult.fullStructure.fanFu.length" class="line-status-wrap justify-start"><span v-for="item in liuyaoResult.fullStructure.fanFu" :key="item" class="status-chip trigger">{{ item }}</span></div><p v-else class="structure-text">未检测到内外卦整体反吟或伏吟。</p></div>
+            </section>
+
+
+            <section class="panel-card ui-layer-evidence">
+                <div class="detail-section-title">应期候选</div>
+                <div class="detail-section-note">完整列出当前已识别的填实、冲空、冲墓、合冲、进退与补局等候选触发条件；日期不是唯一应验结论。</div>
+                <div v-if="timingCandidates.length" class="timing-list"><div v-for="item in timingCandidates" :key="item.id" class="timing-item"><div class="timing-title">{{ item.title }}</div><div class="timing-trigger">{{ item.reason }}</div><span v-for="date in item.dates" :key="date" class="timing-date">{{ date }}</span></div></div>
+                <p v-else class="text-sm text-gray-500 mt-3">当前未形成明显的特殊应期条件。</p>
+            </section>
+
+            <details class="panel-card disclosure-card fold-card ui-layer-aux"><summary>飞神与伏神（京氏八宫展示）</summary><div class="p-4 md:p-5 pt-2"><p class="text-[11px] text-gray-500 leading-relaxed">以本卦所属宫的八纯卦六爻作为伏神底图。紫色卡片表示该六亲未在本卦明爻出现，因而可作为伏神候选；是否实际取伏，仍需先确认用神未明现、未变现及日月条件。</p><div class="flying-hidden-grid"><div v-for="item in liuyaoResult.flyingHidden" :key="item.position" class="flying-hidden-item" :class="{'candidate': item.candidate}"><div class="flying-hidden-position">{{ item.label }}{{ item.candidate ? ' · 伏神候选' : '' }}</div><div class="flying-hidden-line"><strong>飞：</strong>{{ item.flyText }}</div><div class="flying-hidden-line"><strong>伏：</strong>{{ item.hiddenText }}</div><div class="flying-hidden-line text-gray-400">{{ item.relationText }}</div></div></div></div></details>
+
+            <details class="panel-card disclosure-card fold-card ui-layer-reference"><summary>《周易》卦辞与动爻爻辞（义理参考）</summary><div class="p-4 md:p-5 pt-2"><p class="text-[11px] text-gray-500 leading-relaxed">本区与京氏纳甲结构并列展示，不参与日月旺衰、用神和生克计算。经文数据优先读取站内副本，缺失时使用浏览器缓存或联网来源；版本、用字与标点可能与其他古本略有差别。</p><div v-if="ichingTextState.loading" class="load-note mt-3">正在读取《周易》经文数据……</div><div v-else-if="ichingTextState.error" class="load-note mt-3">{{ ichingTextState.error }}<br><a :href="zhouyiSourceUrl(liuyaoResult.original.name)" target="_blank" rel="noopener" class="text-blue-700 underline">直接查看本卦原文</a></div><div v-else-if="currentIChingText" class="zhouyi-panel"><div class="zhouyi-section"><div class="zhouyi-heading">本卦 · {{ liuyaoResult.original.symbol }} {{ liuyaoResult.original.name }}</div><div class="zhouyi-scripture">{{ currentIChingText.original.scripture }}</div><div v-if="currentIChingText.movingLines.length" class="zhouyi-line-list"><div v-for="line in currentIChingText.movingLines" :key="line.id" class="zhouyi-line-item"><span class="zhouyi-line-name">{{ line.name }}</span>{{ line.scripture }}</div></div><p v-else class="text-[11px] text-gray-400 mt-3">静卦无动爻，本区只列本卦卦辞。</p><div v-if="currentIChingText.specialLine" class="zhouyi-line-item mt-2"><span class="zhouyi-line-name">{{ currentIChingText.specialLine.name }}</span>{{ currentIChingText.specialLine.scripture }}<div class="text-[10px] text-gray-400 mt-1">六爻全动时附列“用九／用六”。</div></div><a :href="currentIChingText.original.url" target="_blank" rel="noopener" class="classic-source">维基文库核对本卦</a></div><div v-if="liuyaoResult.original.name !== liuyaoResult.changed.name" class="zhouyi-section"><div class="zhouyi-heading">变卦 · {{ liuyaoResult.changed.symbol }} {{ liuyaoResult.changed.name }}</div><div class="zhouyi-scripture">{{ currentIChingText.changed.scripture }}</div><a :href="currentIChingText.changed.url" target="_blank" rel="noopener" class="classic-source">维基文库核对变卦</a></div></div></div></details>
+
+            <details class="panel-card disclosure-card fold-card ui-layer-reference"><summary>与本卦结构相关的古籍文段</summary><div class="p-4 md:p-5 pt-2"><p class="text-[11px] text-gray-500 leading-relaxed">先由当前卦象生成结构标签，再从独立文献库中匹配相关条目。已逐字核对的内容显示“原文摘录”；尚未录入正文的书目只显示“原典定位”，不会用现代概括句冒充古籍原文。</p><div class="classic-grid"><article v-for="item in liuyaoLiterature" :key="item.id" class="classic-card"><div class="classic-card-title"><span>《{{ item.book }}》·{{ item.chapter }}<span class="classic-source-kind" :class="item.verified ? 'verified' : 'locator'">{{ item.sourceKind }}</span></span><span class="classic-level">{{ item.level }}</span></div><div v-if="item.quote" class="classic-quote">“{{ item.quote }}”</div><div v-else class="classic-locator-note">本条仅作原典定位，尚未录入逐字核对的正文摘录。</div><div class="classic-meta"><strong>匹配依据：</strong>{{ item.match }}</div><div class="classic-meta"><strong>现代提示：</strong>{{ item.hint }}</div><div class="classic-meta"><strong>适用边界：</strong>{{ item.boundary }}</div><a :href="item.sourceUrl" target="_blank" rel="noopener" class="classic-source">{{ item.verified ? '核对原文' : '查看原典入口' }}</a></article></div></div></details>
+
+            <details class="panel-card disclosure-card fold-card ui-layer-reference"><summary>六爻结构口径与文献来源</summary><div class="p-4 md:p-5 pt-2"><div class="source-note-list"><div class="source-note-item"><strong>月建、月破、日冲与暗动：</strong>依据《增删卜易》月建、日辰、暗动等章节；相关标签不直接等同于结论。 <a href="https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/16" target="_blank" rel="noopener">核对原文</a></div><div class="source-note-item"><strong>用神、元神、忌神、仇神：</strong>元神生用神，忌神克用神，仇神克元神而生忌神。 <a href="https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/9" target="_blank" rel="noopener">核对原文</a></div><div class="source-note-item"><strong>飞伏：</strong>以京氏八宫纯卦作为伏神底图；默认只标候选。 <a href="https://ctext.org/wiki.pl?if=gb&remap=gb&res=712763" target="_blank" rel="noopener">《京氏易传》</a></div></div></div></details>
+        </div>
+    </div>
+</div>
+
+<script src="./js/common.js"></script>
+<script src="./js/iching-loader.js"></script>
+<script src="./js/bazi-core.js"></script>
+<script src="./js/bazi-literature.js"></script>
+<script src="./js/liuyao-core.js"></script>
+<script src="./js/liuyao-literature.js"></script>
+<script src="./js/app.js"></script>
+
+
+</body>
+</html>

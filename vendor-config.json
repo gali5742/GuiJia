@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "mode": "pinned-vendor-snapshot",
+  "packages": {
+    "vue": {
+      "packageName": "vue",
+      "version": "3.5.40",
+      "tarballUrl": "https://registry.npmjs.org/vue/-/vue-3.5.40.tgz",
+      "tarballIntegrity": "sha512-+8PJ4SJXdn/cHGImF4CKdxlWHIN5Dkt7DoufRREM6h6uVCx2m7QxgcEQmmzyOK8A9mcafg7sFbJFYsdFVubTig==",
+      "archiveFile": "package/dist/vue.global.prod.js",
+      "outputFile": "vendor/vue.global.prod.js",
+      "licenseFile": "package/LICENSE",
+      "licenseOutputFile": "vendor/licenses/VUE_LICENSE.txt",
+      "sourceScript": "https://unpkg.com/vue@3.5.40/dist/vue.global.prod.js",
+      "localScript": "vendor/vue.global.prod.js",
+      "minimumBytes": 150000
+    },
+    "lunar-javascript": {
+      "packageName": "lunar-javascript",
+      "version": "1.7.7",
+      "tarballUrl": "https://registry.npmjs.org/lunar-javascript/-/lunar-javascript-1.7.7.tgz",
+      "tarballIntegrity": "sha512-u/KYiwPIBo/0bT+WWfU7qO1d+aqeB90Tuy4ErXenr2Gam0QcWeezUvtiOIyXR7HbVnW2I1DKfU0NBvzMZhbVQw==",
+      "archiveFile": "package/lunar.js",
+      "outputFile": "vendor/lunar.js",
+      "licenseFile": "package/LICENSE",
+      "licenseOutputFile": "vendor/licenses/LUNAR_JAVASCRIPT_LICENSE.txt",
+      "sourceScript": "https://unpkg.com/lunar-javascript@1.7.7/lunar.js",
+      "localScript": "vendor/lunar.js",
+      "minimumBytes": 400000
+    }
+  }
+}
