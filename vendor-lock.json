@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "source": "verified npm package tarballs",
+  "packages": {
+    "vue": {
+      "packageName": "vue",
+      "version": "3.5.40",
+      "tarballIntegrity": "sha512-+8PJ4SJXdn/cHGImF4CKdxlWHIN5Dkt7DoufRREM6h6uVCx2m7QxgcEQmmzyOK8A9mcafg7sFbJFYsdFVubTig==",
+      "file": "vendor/vue.global.prod.js",
+      "bytes": 165599,
+      "sha256": "9e0039a3f6ed0e85308e24d737447f1af6af83d229d69e1267a32b29bc2a1337",
+      "license": "vendor/licenses/VUE_LICENSE.txt"
+    },
+    "lunar-javascript": {
+      "packageName": "lunar-javascript",
+      "version": "1.7.7",
+      "tarballIntegrity": "sha512-u/KYiwPIBo/0bT+WWfU7qO1d+aqeB90Tuy4ErXenr2Gam0QcWeezUvtiOIyXR7HbVnW2I1DKfU0NBvzMZhbVQw==",
+      "file": "vendor/lunar.js",
+      "bytes": 435942,
+      "sha256": "9750324bfe1aa63c146f8c72b1143df924466c11c8a5277d7d9225c541a18aaa",
+      "license": "vendor/licenses/LUNAR_JAVASCRIPT_LICENSE.txt"
+    }
+  }
+}
