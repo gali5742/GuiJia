@@ -3661,6 +3661,12 @@ test('v13.42.14 依赖工作流关闭普通 Dependabot 版本 PR 并修复监测
         assert(source.includes('actions/setup-node@v5'), `${file} 未升级 setup-node@v5`);
         assert(!source.includes('actions/checkout@v4') && !source.includes('actions/setup-node@v4'), `${file} 仍保留 Node 20 runtime 的 v4 action`);
     });
+    const pages = fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'pages.yml'), 'utf8');
+    assert(pages.includes('actions/configure-pages@v6'), 'Pages 仍使用 Node 20 的 configure-pages 旧版');
+    assert(pages.includes('actions/upload-pages-artifact@v5'), 'Pages 仍使用旧版 upload-pages-artifact');
+    assert(pages.includes('actions/deploy-pages@v5'), 'Pages 仍使用 Node 20 的 deploy-pages 旧版');
+    assert(pages.includes('include-hidden-files: true'), 'Pages artifact 未保留 .nojekyll 等隐藏文件');
+    assert(!pages.includes('actions/configure-pages@v5') && !pages.includes('actions/upload-pages-artifact@v3') && !pages.includes('actions/deploy-pages@v4'), 'Pages 仍残留会触发 Node 20 弃用警告的 action 版本');
 });
 
 
