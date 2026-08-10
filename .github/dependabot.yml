@@ -7,9 +7,6 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Asia/Tokyo"
-    open-pull-requests-limit: 2
-    labels:
-      - "dependencies"
-      - "review-required"
+    open-pull-requests-limit: 0
     commit-message:
       prefix: "deps"

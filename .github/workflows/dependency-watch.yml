@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
 
@@ -34,12 +34,11 @@ jobs:
           REPORT: ${{ steps.deps.outputs.report_path }}
         run: |
           title="Dependency update available · 龟甲"
-          number="$(gh issue list --state open --search \"${title} in:title\" --json number --jq '.[0].number // empty')"
+          number="$(gh issue list --state open --search "${title} in:title" --json number --jq '.[0].number // empty')"
           if [ -n "$number" ]; then
             gh issue edit "$number" --body-file "$REPORT"
           else
-            gh issue create --title "$title" --body-file "$REPORT" --label dependencies || \
-              gh issue create --title "$title" --body-file "$REPORT"
+            gh issue create --title "$title" --body-file "$REPORT"
           fi
 
       - name: No production mutation

@@ -1,4 +1,4 @@
-# 龟甲 v13.42.13
+# 龟甲 v13.42.14
 
 静态八字 / 六爻排盘、结构分析与古籍检索工具。
 
@@ -68,7 +68,7 @@ GitHub Pages 部署产物中的 Vue 与 lunar 必须是同源文件：
 - `vendor/vue.global.prod.js`
 - `vendor/lunar.js`
 
-上游版本变化由 Dependabot 与 `Dependency watch` 监测，但不会自动升级生产 vendor。
+上游常规版本变化由 `Dependency watch` 监测；Dependabot 普通版本更新 PR 已关闭，生产 vendor 仍只在人工审核后升级。
 
 ## 《周易》经文
 
@@ -101,6 +101,16 @@ GitHub Pages 部署产物中的 Vue 与 lunar 必须是同源文件：
 
 
 
+
+## v13.42.14 · 窄屏六爻录入与依赖工作流收尾
+
+- 手机 / 窄屏下“六爻结果录入”固定为单列，继续按上爻、五爻、四爻、三爻、二爻、初爻自上而下排列，不再因响应式分栏破坏卦象阅读顺序。
+- Dependabot 普通版本更新 PR 数量设为 0，依赖升级继续走“Dependency watch 报告 + 人工 Vendor Snapshot”流程，避免只改 `package.json` 导致 vendor 校验必然失败。
+- 修正 `Dependency watch` 中 `gh issue list --search` 的 shell 引号，并移除对不存在自定义 label 的依赖。
+- GitHub Actions 的 `checkout` / `setup-node` 升至 v5，使用 Node 24 runtime，消除旧 v4 action 的 Node 20 弃用告警。
+- 不修改八字、六爻排盘、取用、结构解读、应期与古籍匹配逻辑。
+
+详细发布核对见 `docs/DEPLOYMENT_CHECKLIST.md` 与 `docs/RELEASE_v13.42.14.md`.
 
 ## v13.42.13 · 首页免责声明与上线收尾
 

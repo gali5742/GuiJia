@@ -1601,9 +1601,9 @@ test('bazi-timing 拆分后由独立模块承担岁运数据组装，app 只保�
     assert(!appSource.includes('const buildLiuYueRanges ='), 'app.js 仍保留流月范围构造器');
     assert(!appSource.includes("pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '大运')"), 'app.js 仍直接组装大运关系');
     assert(timingSource.includes("pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '大运')"), 'bazi-timing 未接管大运关系组装');
-    const corePos = html.indexOf('<script src="./js/bazi-core.js?v=13.42.13"></script>');
-    const timingPos = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.13"></script>');
-    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.13"></script>');
+    const corePos = html.indexOf('<script src="./js/bazi-core.js?v=13.42.14"></script>');
+    const timingPos = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.14"></script>');
+    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
     assert(corePos >= 0 && timingPos > corePos && appPos > timingPos, 'bazi-timing script 加载顺序错误');
 });
 
@@ -2250,9 +2250,9 @@ test('证据行长标签不换行且左右文字基线对齐', () => {
 test('八字详细分析模块独立加载且不新增专用 CSS', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const css = fs.readFileSync(path.join(ROOT, 'assets/app.css'), 'utf8');
-    const interpretationPos = html.indexOf('<script src="./js/bazi-interpretation.js?v=13.42.13"></script>');
-    const detailPos = html.indexOf('<script src="./js/bazi-detail.js?v=13.42.13"></script>');
-    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.13"></script>');
+    const interpretationPos = html.indexOf('<script src="./js/bazi-interpretation.js?v=13.42.14"></script>');
+    const detailPos = html.indexOf('<script src="./js/bazi-detail.js?v=13.42.14"></script>');
+    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
     assert(interpretationPos >= 0 && detailPos > interpretationPos && appPos > detailPos, 'bazi-detail 加载顺序错误');
     assert(!css.includes('bazi-detail-'), '详细分析新增了专用 CSS，未复用现有组件');
 });
@@ -2328,9 +2328,9 @@ test('岁运分析优先完整方局/三层结构，而不是只取第一条二�
 test('岁运页面以分析层为主，结构证据不再重复呈现在用户界面', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const app = fs.readFileSync(path.join(ROOT, 'js/app.js'), 'utf8');
-    const transitScript = html.indexOf('<script src="./js/bazi-transit-analysis.js?v=13.42.13"></script>');
-    const timingScript = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.13"></script>');
-    const appScript = html.indexOf('<script src="./js/app.js?v=13.42.13"></script>');
+    const transitScript = html.indexOf('<script src="./js/bazi-transit-analysis.js?v=13.42.14"></script>');
+    const timingScript = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.14"></script>');
+    const appScript = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
     assert(transitScript > timingScript && transitScript < appScript, '岁运分析模块加载顺序错误');
     assert(html.includes('activeDaYunAnalysis.headline'), '大运页未接入综合分析');
     assert(html.includes('activeLiuNianAnalysis.headline'), '流年页未接入综合分析');
@@ -2827,7 +2827,7 @@ test('岁运复制上下文包含原局、大运、流年、流月与结构证�
 
 test('岁运分析脚本使用版本化 URL，升级后避免浏览器继续命中旧文案缓存', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-    assert(html.includes('<script src="./js/bazi-transit-analysis.js?v=13.42.13"></script>'), '岁运分析脚本缓存版本参数未同步');
+    assert(html.includes('<script src="./js/bazi-transit-analysis.js?v=13.42.14"></script>'), '岁运分析脚本缓存版本参数未同步');
     assert(!html.includes('<script src="./js/bazi-transit-analysis.js"></script>'), '仍保留未版本化的岁运分析脚本加载');
 });
 
@@ -3068,9 +3068,9 @@ test('岁运页面明确虚岁口径，并对交运年/月显示时间状态', (
     assert(html.includes('activeLiuNian.isTransitionYear'), '交运年缺页面标识');
     assert(html.includes('activeLiuYue.isTransitionMonth'), '跨交运流月缺页面标识');
     assert(html.includes('activeLiuYue.effectiveDaYun'), '普通流月未显示实际所在大运');
-    assert(html.includes('<script src="./js/bazi-core.js?v=13.42.13"></script>'), 'bazi-core 未版本化避免缓存');
-    assert(html.includes('<script src="./js/bazi-timing.js?v=13.42.13"></script>'), 'bazi-timing 未版本化避免缓存');
-    assert(html.includes('<script src="./js/app.js?v=13.42.13"></script>'), 'app.js 未版本化避免缓存');
+    assert(html.includes('<script src="./js/bazi-core.js?v=13.42.14"></script>'), 'bazi-core 未版本化避免缓存');
+    assert(html.includes('<script src="./js/bazi-timing.js?v=13.42.14"></script>'), 'bazi-timing 未版本化避免缓存');
+    assert(html.includes('<script src="./js/app.js?v=13.42.14"></script>'), 'app.js 未版本化避免缓存');
 });
 
 
@@ -3608,19 +3608,19 @@ test('六爻结构解读 judgment 保留分点数据，长关系链不再只能�
     assert(css.includes('.timing-trigger-row .timing-trigger { margin-top: 0; }'), '应期灰色说明仍继承通用 margin-top 下沉');
 });
 
-test('v13.42.13 发布资源、首页免责声明与当前分类边界同步', () => {
+test('v13.42.14 发布资源、首页免责声明与当前分类边界同步', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
     const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
     const checklist = fs.readFileSync(path.join(ROOT, 'docs', 'DEPLOYMENT_CHECKLIST.md'), 'utf8');
-    assert(pkg.version === '13.42.13', `package version 未切到 13.42.13：${pkg.version}`);
-    ['assets/tailwind-utilities.css?v=13.42.13','assets/app.css?v=13.42.13','./js/common.js?v=13.42.13','./js/iching-loader.js?v=13.42.13','./js/bazi-core.js?v=13.42.13','./js/bazi-timing.js?v=13.42.13','./js/bazi-transit-analysis.js?v=13.42.13','./js/bazi-literature.js?v=13.42.13','./js/bazi-interpretation.js?v=13.42.13','./js/bazi-detail.js?v=13.42.13','./js/liuyao-core.js?v=13.42.13','./js/liuyao-interpretation.js?v=13.42.13','./js/liuyao-literature.js?v=13.42.13','./js/app.js?v=13.42.13']
+    assert(pkg.version === '13.42.14', `package version 未切到 13.42.14：${pkg.version}`);
+    ['assets/tailwind-utilities.css?v=13.42.14','assets/app.css?v=13.42.14','./js/common.js?v=13.42.14','./js/iching-loader.js?v=13.42.14','./js/bazi-core.js?v=13.42.14','./js/bazi-timing.js?v=13.42.14','./js/bazi-transit-analysis.js?v=13.42.14','./js/bazi-literature.js?v=13.42.14','./js/bazi-interpretation.js?v=13.42.14','./js/bazi-detail.js?v=13.42.14','./js/liuyao-core.js?v=13.42.14','./js/liuyao-interpretation.js?v=13.42.14','./js/liuyao-literature.js?v=13.42.14','./js/app.js?v=13.42.14']
         .forEach((ref) => assert(html.includes(ref), `发布资源未统一缓存版本：${ref}`));
     assert(html.includes('<section v-if="timingCandidates.length" class="panel-card ui-layer-evidence">'), '无应期时仍会显示空白应期卡');
     assert(html.includes('释义与适用范围') && html.includes('<dt>适用范围</dt>'), '古籍浏览仍保留开发式“边界”标题');
     assert(!html.includes('不自动代断') && !html.includes('不直接转化为吉凶断语'), '首页仍保留开发式边界文案');
-    assert(readme.startsWith('# 龟甲 v13.42.13') && readme.includes('首页免责声明与上线收尾') && readme.includes('自然语言取用固定回归集'), 'README 未同步 v13.42.13 发布说明');
-    assert(checklist.includes('龟甲 v13.42.13') && checklist.includes('npm run predeploy'), '部署清单未同步 v13.42.13');
+    assert(readme.startsWith('# 龟甲 v13.42.14') && readme.includes('首页免责声明与上线收尾') && readme.includes('自然语言取用固定回归集'), 'README 未同步 v13.42.14 发布说明');
+    assert(checklist.includes('龟甲 v13.42.14') && checklist.includes('npm run predeploy'), '部署清单未同步 v13.42.14');
     assert(html.includes('class="site-disclaimer"') && html.includes('龟甲仅供传统文化学习、研究与娱乐参考') && html.includes('不构成医疗、法律、投资等专业意见'), '首页免责声明未进入发布页面');
     assert(checklist.includes('首页底部免责声明'), '部署清单未加入首页免责声明 smoke test');
     assert(html.includes('尽量写清“谁／什么事／想问什么结果”') && html.includes('这次面试能否通过？') && html.includes('这笔款项什么时候到账？') && html.includes('我和伴侣的感情接下来会怎样？'), '六爻占问填写引导未进入发布页面');
@@ -3632,8 +3632,35 @@ test('v13.42.13 发布资源、首页免责声明与当前分类边界同步', (
     ['房屋','住宅','医药','治疗','药物','行人','寻人'].forEach((term) => assert(!liuyaoCoreSource.includes(term), `后续专项“${term}”相关文字仍提前出现在当前六爻取用配置`));
     const css = fs.readFileSync(path.join(ROOT, 'assets', 'app.css'), 'utf8');
     assert(css.includes('.liuyao-lines-card {') && css.includes('grid-template-rows: repeat(6, minmax(0, 1fr));'), '六爻录入六行未在宽屏等分剩余高度');
-    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.42.13.md')), 'v13.42.13 发布说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.42.14.md')), 'v13.42.14 发布说明缺失');
     assert(!fs.existsSync(path.join(ROOT, '#U5347#U7ea7#U8bf4#U660e.md')), '旧乱码升级说明文件仍存在');
+});
+
+
+test('v13.42.14 六爻窄屏录入保持上爻至初爻单列顺序', () => {
+    const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    const css = fs.readFileSync(path.join(ROOT, 'assets', 'app.css'), 'utf8');
+    assert(html.includes('v-for="index in [5, 4, 3, 2, 1, 0]"'), '六爻录入 DOM 顺序不再是上爻至初爻');
+    assert(css.includes('/* 六爻录入保持卦象自上而下的单列顺序，避免窄屏分栏打乱阅读次序。 */'), '窄屏单列保护规则缺失');
+    const mobileRule = /@media \(max-width: 900px\)[\s\S]*?\.liuyao-lines-card > \.yao-entry-grid\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\);[\s\S]*?\}/;
+    assert(mobileRule.test(css), '900px 以下六爻录入未固定为单列');
+});
+
+test('v13.42.14 依赖工作流关闭普通 Dependabot 版本 PR 并修复监测脚本', () => {
+    const dependabot = fs.readFileSync(path.join(ROOT, '.github', 'dependabot.yml'), 'utf8');
+    const watch = fs.readFileSync(path.join(ROOT, '.github', 'workflows', 'dependency-watch.yml'), 'utf8');
+    const workflowFiles = ['dependency-watch.yml','test.yml','pages.yml','vendor-snapshot-pr.yml'];
+    assert(dependabot.includes('open-pull-requests-limit: 0'), 'Dependabot 普通版本 PR 未关闭');
+    assert(!dependabot.includes('review-required') && !dependabot.includes('      - "dependencies"'), 'Dependabot 仍引用不存在的自定义 label');
+    assert(watch.includes('--search "${title} in:title"'), 'Dependency watch 的 gh issue search 引号未修复');
+    assert(!watch.includes('--search \\"${title} in:title\\"'), 'Dependency watch 仍保留错误转义引号');
+    assert(!watch.includes('--label dependencies'), 'Dependency watch 创建 issue 仍依赖不存在的 dependencies label');
+    workflowFiles.forEach((file) => {
+        const source = fs.readFileSync(path.join(ROOT, '.github', 'workflows', file), 'utf8');
+        assert(source.includes('actions/checkout@v5'), `${file} 未升级 checkout@v5`);
+        assert(source.includes('actions/setup-node@v5'), `${file} 未升级 setup-node@v5`);
+        assert(!source.includes('actions/checkout@v4') && !source.includes('actions/setup-node@v4'), `${file} 仍保留 Node 20 runtime 的 v4 action`);
+    });
 });
 
 

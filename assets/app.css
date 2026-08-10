@@ -2607,6 +2607,10 @@
                 gap: 14px;
                 min-height: 0;
             }
+            /* 六爻录入保持卦象自上而下的单列顺序，避免窄屏分栏打乱阅读次序。 */
+            .liuyao-lines-card > .yao-entry-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
             .site-disclaimer {
                 margin-left: 0;
                 padding-left: 2px;
