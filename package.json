@@ -12,7 +12,7 @@
     "predeploy": "node tests/run-tests.js && node tests/lunar-integration-tests.js && node scripts/verify-source-config.mjs && node scripts/verify-static-site.mjs . source"
   },
   "devDependencies": {
-    "vue": "3.5.40",
+    "vue": "3.5.41",
     "lunar-javascript": "1.7.7"
   }
 }
