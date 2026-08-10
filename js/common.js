@@ -115,6 +115,38 @@
         };
     };
 
+    const naturalCountWords = Object.freeze({ 0:'零', 1:'一', 2:'两', 3:'三', 4:'四', 5:'五', 6:'六', 7:'七', 8:'八', 9:'九', 10:'十' });
+    const formatNaturalCount = (value) => {
+        const count = Number(value);
+        if (Number.isInteger(count) && Object.prototype.hasOwnProperty.call(naturalCountWords, count)) return naturalCountWords[count];
+        return String(value);
+    };
+
+    const isLiteratureLocator = (item) => item?.excerptType === 'locator' || item?.verified === false || item?.sourceKind === '原典定位';
+
+    // 复制分析上下文时，古籍部分只保留进一步分析真正需要的内容：
+    // 已核对条目输出原文 + 匹配依据；尚未逐字核对的条目输出定位 + 匹配依据。
+    // 匹配层级、来源核对状态等 UI / 内部元数据不进入复制文本。
+    const buildLiteratureContextLines = (items, emptyText = '暂无匹配条目') => {
+        const entries = Array.isArray(items) ? items : [];
+        if (!entries.length) return [`- ${emptyText}`];
+        const lines = [];
+        entries.forEach((item) => {
+            const book = item?.book || '未注明书名';
+            const chapter = item?.chapter || '未注明条目';
+            const quote = String(item?.quote || '').trim();
+            const match = String(item?.contextMatch || item?.match || '').trim();
+            lines.push(`- 《${book}》·${chapter}`);
+            if (isLiteratureLocator(item)) {
+                lines.push(`  条目定位：${quote || chapter}`);
+            } else if (quote) {
+                lines.push(`  原文：${quote}`);
+            }
+            if (match) lines.push(`  匹配依据：${match}`);
+        });
+        return lines;
+    };
+
     GuiJia.common = {
         parseLocalDateTime,
         formatWallDateTime,
@@ -124,6 +156,8 @@
         normalizeDegrees,
         calculateEquationOfTime,
         formatSignedMinutes,
-        buildSolarCorrection
+        buildSolarCorrection,
+        formatNaturalCount,
+        buildLiteratureContextLines
     };
 })(window);

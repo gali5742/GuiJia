@@ -34,7 +34,7 @@ export function verifyIntegrity(buffer, integrity) {
 export async function downloadBuffer(url) {
   const response = await fetch(url, {
     redirect: 'follow',
-    headers: { 'user-agent': 'Guijia-vendor-builder/13.29.0' }
+    headers: { 'user-agent': 'Guijia-vendor-builder/13.32.0' }
   });
   if (!response.ok) throw new Error(`Download failed ${response.status}: ${url}`);
   return Buffer.from(await response.arrayBuffer());

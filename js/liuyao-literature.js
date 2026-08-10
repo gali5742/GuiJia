@@ -2,6 +2,7 @@
     'use strict';
     const GuiJia = global.GuiJia = global.GuiJia || {};
     const { hasMoveCode, hasStatusCode, sixSpirits } = GuiJia.liuyaoCore;
+    const { formatNaturalCount = (value) => String(value) } = GuiJia.common || {};
     const liuyaoLiteratureEntries = [
         {
             id: 'zengshan-month', book: '增删卜易', chapter: '月将章第十六', level: '方法参考', sourceKind: '原文摘录', verified: true,
@@ -47,10 +48,24 @@
         },
         {
             id: 'zengshan-sanhe', book: '增删卜易', chapter: '六合章第十九·三合局', level: '精确结构', sourceKind: '原文摘录', verified: true,
-            quote: '三爻若有两爻动，不成局，须待后之补凑合成其局。', tagsAll: ['sanhe'], matchKey: 'sanHe',
-            hint: '三支齐全与“两支待一支”分开观察，缺支可列入应期候选。',
+            quote: '三爻若有两爻动，不成局，须待后之补凑合成其局。', tagsAll: ['sanhe-pending'], matchKey: 'sanHe',
+            hint: '三支齐全与“两支待一支”分开观察，缺支可列入应期观察。',
             boundary: '三合还要检查空破、入墓及世爻或用神是否在局内，不能只凭支数宣布成局。',
             sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/19'
+        },
+        {
+            id: 'zengshan-hex-harmony', book: '增删卜易', chapter: '六合章第十九', level: '精确结构', sourceKind: '原文摘录', verified: true,
+            quote: '卦逢六合四也。', tagsAny: ['original-six-harmony','changed-six-harmony'], matchKey: 'hexHarmony',
+            hint: '本卦或变卦出现六合时，可把卦体六合与世应、用神、动变关系并列核对。',
+            boundary: '六合是当前卦体结构之一，仍需落到具体用神与动变位置。',
+            sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/19'
+        },
+        {
+            id: 'zengshan-hex-clash', book: '增删卜易', chapter: '六冲章第二十', level: '精确结构', sourceKind: '原文摘录', verified: true,
+            quote: '卦逢六冲二也。', tagsAny: ['original-six-clash','changed-six-clash'], matchKey: 'hexClash',
+            hint: '本卦或变卦出现六冲时，可把卦体六冲与世应、用神、动变关系并列核对。',
+            boundary: '六冲是当前卦体结构之一，仍需落到具体用神与动变位置。',
+            sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/20'
         },
         {
             id: 'zengshan-fanfu', book: '增删卜易', chapter: '反伏章第二十五', level: '精确结构', sourceKind: '原文摘录', verified: true,
@@ -161,15 +176,17 @@
         if (lines.some((line) => hasStatusCode(line, 'VOID'))) features.add('void');
         if (lines.some((line) => hasStatusCode(line, 'MONTH_BREAK') || hasMoveCode(line, 'TRANSFORM_MONTH_BREAK'))) features.add('month-break');
         if (lines.some((line) => hasStatusCode(line, 'DAY_BREAK'))) features.add('day-break');
-        if ((full.sanHe?.complete || []).length || (full.sanHe?.pending || []).length) features.add('sanhe');
+        if ((full.sanHe?.complete || []).length) features.add('sanhe-complete');
+        if ((full.sanHe?.pending || []).length) features.add('sanhe-pending');
         if ((full.fanFu || []).length) features.add('fanfu');
         if (lines.some((line) => hasMoveCode(line, 'PROGRESS'))) features.add('progress');
         if (lines.some((line) => hasMoveCode(line, 'RETREAT'))) features.add('retreat');
         if ((resultObj?.flyingHidden || []).some((item) => item.candidate)) features.add('flying-hidden');
         if (full.originalNatureCode === 'SIX_CLASH') features.add('original-six-clash');
         if (full.originalNatureCode === 'SIX_HARMONY') features.add('original-six-harmony');
-        if (full.changedNatureCode === 'SIX_CLASH') features.add('changed-six-clash');
-        if (full.changedNatureCode === 'SIX_HARMONY') features.add('changed-six-harmony');
+        const hasMoving = lines.some((line) => line.moving);
+        if (hasMoving && full.changedNatureCode === 'SIX_CLASH') features.add('changed-six-clash');
+        if (hasMoving && full.changedNatureCode === 'SIX_HARMONY') features.add('changed-six-harmony');
         return features;
     };
 
@@ -177,17 +194,77 @@
         framework: () => '本卦已计算月建、日辰、旬空、动变、世应、用神链与飞伏等结构，可据这些标签继续核对原书。',
         month: (r) => `本卦起于${r.monthGanZhi}月，六爻状态均以月支【${r.monthZhi}】参与生克冲合。`,
         day: (r) => `起卦日为${r.dayGanZhi}，可结合日生、日克、日合、日冲及临日辰观察。`,
-        useGod: (r, t) => t ? `当前确认以${t.sourceText}中的【${t.relation}${t.branch}${t.element}】为主要观察对象。` : '尚未确认用神。',
+        useGod: (r, t) => {
+            if (!t) return '尚未确认用神。';
+            const selection = r?.useGodSelection;
+            if (selection?.specificity === 'display-start' && Number(selection?.candidateCount || 0) > 1) {
+                return `当前取用类别为【${selection.target || t.relation}】；本卦有${formatNaturalCount(selection.candidateCount)}处同类候选，暂以${t.sourceText}中的【${t.relation}${t.branch}${t.element}】作为展示起点。`;
+            }
+            return `当前确认以${t.sourceText}中的【${t.relation}${t.branch}${t.element}】为主要观察对象。`;
+        },
         moving: (r) => `本卦有${r.lines.filter((line) => line.moving).map((line) => line.label).join('、')}发动，可分别观察回头生克、合冲、进退、墓绝与空破。`,
         darkMoving: (r) => `${r.lines.filter((line) => hasStatusCode(line, 'DARK_MOVING')).map((line) => `${line.label}${line.relation}${line.branch}`).join('、')}符合当前程序的暗动提示条件。`,
         void: (r) => `${r.lines.filter((line) => hasStatusCode(line, 'VOID')).map((line) => `${line.label}${line.relation}${line.branch}`).join('、')}落于${r.xunKong}旬空。`,
-        sanHe: (r) => [...(r.fullStructure?.sanHe?.complete || []), ...(r.fullStructure?.sanHe?.pending || [])].join('；'),
+        sanHe: (r) => (r.fullStructure?.sanHe?.pending || []).join('；'),
         fanFu: (r) => (r.fullStructure?.fanFu || []).join('；'),
         progressRetreat: (r) => r.lines.filter((line) => hasMoveCode(line, 'PROGRESS') || hasMoveCode(line, 'RETREAT')).map((line) => `${line.label}${line.branch}化${line.changedBranch}：${line.moveTags.map((tag) => tag.text).join('、')}`).join('；'),
+        hexHarmony: (r) => {
+            const parts = [];
+            if (r.fullStructure?.originalNatureCode === 'SIX_HARMONY') parts.push('本卦为六合卦');
+            if ((r.lines || []).some((line) => line.moving) && r.fullStructure?.changedNatureCode === 'SIX_HARMONY') parts.push('变卦为六合卦');
+            return parts.join('；') || '当前卦体见六合结构。';
+        },
+        hexClash: (r) => {
+            const parts = [];
+            if (r.fullStructure?.originalNatureCode === 'SIX_CLASH') parts.push('本卦为六冲卦');
+            if ((r.lines || []).some((line) => line.moving) && r.fullStructure?.changedNatureCode === 'SIX_CLASH') parts.push('变卦为六冲卦');
+            return parts.join('；') || '当前卦体见六冲结构。';
+        },
         shiYing: (r) => r.fullStructure?.shiYing?.text || '已按八宫卦序定位世应。',
         sixSpirits: (r) => `本卦依${r.dayGan}日起六神，逐爻排出青龙、朱雀、勾陈、螣蛇、白虎、玄武。`,
-        flyingHidden: (r) => `本卦属${r.palace.palace}宫${r.palace.stage}，当前识别出${r.flyingHidden.filter((item) => item.candidate).length}个伏神候选。`,
+        flyingHidden: (r) => `本卦属${r.palace.palace}宫${r.palace.stage}，当前识别出${formatNaturalCount(r.flyingHidden.filter((item) => item.candidate).length)}个伏神候选。`,
         jingPalace: (r) => `本卦为${r.original.symbol || ''}${r.original.name}，属${r.palace.palace}宫${r.palace.stage}；可在《京氏易传》相应卦条核对世应、飞伏等记载。`
+    };
+
+    const buildDarkMovingContextAudit = (resultObj) => {
+        const lines = (resultObj?.lines || []).filter((line) => hasStatusCode(line, 'DARK_MOVING'));
+        if (!lines.length) return '';
+        const checks = lines.map((line) => {
+            const seasonText = line.statusTags?.find((tag) => tag.code === 'SEASON_STATE')?.text || '';
+            const monthSupport = (line.statusTags || [])
+                .filter((tag) => ['MONTH_COMMAND','MONTH_GENERATE','MONTH_SUPPORT'].includes(tag.code) || (tag.code === 'SEASON_STATE' && /月令[旺相]/.test(tag.text || '')))
+                .map((tag) => tag.text);
+            const supportText = monthSupport.length ? monthSupport.join('、') : seasonText || '当前程序已判定具月令支持条件';
+            return `${line.label}${line.relation}${line.branch}：静爻 ✓；日辰相冲 ✓；月令支持／旺相条件 ✓（${supportText}）`;
+        });
+        return `原文条件核对：${checks.join('；')}。按当前程序采用的暗动规则，上述爻符合“静爻 + 日冲 + 月令有气／扶持”的暗动提示条件；这里只确认暗动结构成立，不据此直接判断其对用神的吉凶作用。`;
+    };
+
+    const LIUYAO_CONTEXT_NOTES = {
+        framework: '此条仅说明这些项目属于断卦纲领，不表示当前卦已经由此得到吉凶结论。',
+        month: '这里只确认月建作为全卦背景参与作用；具体生克得失仍须落到用神、动变与空破。',
+        day: '这里只确认日辰作为触发与生克背景；日冲究竟构成暗动、破损或其他作用仍需结合爻的旺衰与动静。',
+        useGod: '这里只确认当前人工选定的主要观察对象；取用是否最合适仍取决于具体占问语义。',
+        moving: '这里只确认动爻及其变爻存在；动变是否有利、是否应事仍须结合用神链与旺衰。',
+        darkMoving: '程序只确认当前实现中的暗动提示条件，因此将此条列作进一步核对；是否完全符合原文所说旺相、休囚及其他受制条件仍需复核。',
+        void: '这里只确认旬空事实；原文所说填实、冲空或出旬何时“有用”，仍需结合旺衰、动静与用忌身份判断。',
+        sanHe: '程序只确认三合齐全或“两支待一支”的结构形态；是否真正成局并发生有效作用，仍需检查空破、入墓、冲散及用神是否在局内。',
+        fanFu: '这里只确认反吟或伏吟结构存在；原文并未因此自动给出吉凶，仍需结合用神旺衰与救应。',
+        progressRetreat: '这里只确认进神或退神结构；原文应期口诀是否适用仍需结合该爻的用忌身份、旺衰与所占事项。',
+        hexHarmony: '这里只确认本卦或变卦的六合卦体事实。',
+        hexClash: '这里只确认本卦或变卦的六冲卦体事实。',
+        shiYing: '这里只确认世应位置及当前关系；世应所代表的现实角色仍需结合具体占问与用神确定。',
+        sixSpirits: '此条只作为六神取象的方法约束，不据六神名称越过五行、用神与动变直接定吉凶。',
+        flyingHidden: '这里只提供飞伏神相关原典定位；未逐字核对正文时不据此补写古籍结论。',
+        jingPalace: '这里只提供本卦八宫、世应与飞伏的原典定位；不同卦条正文尚未逐卦核对时不作拟似引文。'
+    };
+
+    const appendContextNote = (match, note) => {
+        const base = String(match || '').trim();
+        const suffix = String(note || '').trim();
+        if (!suffix) return base;
+        if (!base) return suffix;
+        return `${base}${/[。！？]$/.test(base) ? '' : '。'}${suffix}`;
     };
 
     const matchLiuYaoLiteratureEntry = (entry, features) => {
@@ -204,12 +281,21 @@
         if (!resultObj) return [];
         const features = collectLiuYaoLiteratureFeatures(resultObj, target);
         const levelWeight = { '精确结构': 0, '结构匹配': 1, '方法参考': 2, '条目定位': 3 };
+        const levelKeyMap = { '精确结构': 'exact', '结构匹配': 'structure', '方法参考': 'method', '条目定位': 'method' };
         return liuyaoLiteratureEntries
             .filter((entry) => matchLiuYaoLiteratureEntry(entry, features))
-            .map((entry) => ({
-                ...entry,
-                match: (liuyaoLiteratureMatchText[entry.matchKey] || (() => '与当前卦象结构相符。'))(resultObj, target)
-            }))
+            .map((entry) => {
+                const match = (liuyaoLiteratureMatchText[entry.matchKey] || (() => '与当前卦象结构相符。'))(resultObj, target);
+                return {
+                    ...entry,
+                    levelKey: levelKeyMap[entry.level] || 'method',
+                    excerptType: entry.verified ? 'quote' : 'locator',
+                    match,
+                    contextMatch: appendContextNote(match, entry.matchKey === 'darkMoving'
+                        ? buildDarkMovingContextAudit(resultObj)
+                        : LIUYAO_CONTEXT_NOTES[entry.matchKey])
+                };
+            })
             .sort((a, b) => (levelWeight[a.level] ?? 9) - (levelWeight[b.level] ?? 9));
     };
 
@@ -217,6 +303,7 @@
         liuyaoLiteratureEntries,
         collectLiuYaoLiteratureFeatures,
         liuyaoLiteratureMatchText,
+        LIUYAO_CONTEXT_NOTES,
         matchLiuYaoLiteratureEntry,
         buildLiuYaoLiterature
     };

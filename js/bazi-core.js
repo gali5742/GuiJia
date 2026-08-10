@@ -1,6 +1,7 @@
 (function (global) {
     'use strict';
     const GuiJia = global.GuiJia = global.GuiJia || {};
+    const { formatNaturalCount = (value) => String(value) } = GuiJia.common || {};
     const shiShenMap = {
         '甲': {'甲':'比肩', '乙':'劫财', '丙':'食神', '丁':'伤官', '戊':'偏财', '己':'正财', '庚':'七杀', '辛':'正官', '壬':'偏印', '癸':'正印'},
         '乙': {'甲':'劫财', '乙':'比肩', '丙':'伤官', '丁':'食神', '戊':'正财', '己':'偏财', '庚':'正官', '辛':'七杀', '壬':'正印', '癸':'偏印'},
@@ -45,10 +46,10 @@
         '亥': [['壬','本气'],['甲','中气']]
     };
     const palaceMap = {
-        '年柱': { short: '家族·祖上·早年环境', detail: '常用于观察家族系统、祖上资源及早期外部环境。传统书目对六亲分配并不完全一致，因此只作位置参考。' },
+        '年柱': { short: '家族·祖上·早年环境', detail: '常用于观察家族系统、祖上资源及早期外部环境；不同传统的六亲分配略有差异。' },
         '月柱': { short: '提纲·父母手足·社会环境', detail: '月支为月令提纲，月柱也常用于观察成长家庭、父母手足、工作与社会秩序。' },
         '日柱': { short: '本人·亲密关系', detail: '日干为命局主体；日支常作为配偶宫或亲密关系位置，同时也是日主所坐之地。' },
-        '时柱': { short: '子女·成果·后期发展', detail: '常用于观察子女、作品与成果、内在规划及人生后段，但不能机械地按年龄切割。' }
+        '时柱': { short: '子女·成果·后期发展', detail: '常用于观察子女、作品与成果、内在规划及人生后段；具体年龄划分因体系而异。' }
     };
 
     const naYinPairs = [
@@ -150,10 +151,86 @@
         SAN_HUI_PARTIAL: 'SAN_HUI_PARTIAL'
     });
 
+    // 原局关系的统一元数据。排序、解释与后续 matcher 应尽量读取这里，
+    // 避免不同模块各自维护优先级或关系族而逐渐漂移。
+    const baziRelationMeta = Object.freeze({
+        [baziRelationCodes.SAN_HUI_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 120, complete: true }),
+        [baziRelationCodes.SAN_HE_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 115, complete: true }),
+        [baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 110, complete: true }),
+        [baziRelationCodes.SELF_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 86, complete: false }),
+        [baziRelationCodes.BRANCH_SIX_CLASH]: Object.freeze({ scope: 'branch', family: '冲', baseScore: 82, complete: false }),
+        [baziRelationCodes.STEM_FIVE_HARMONY]: Object.freeze({ scope: 'stem', family: '合', baseScore: 78, complete: false }),
+        [baziRelationCodes.BRANCH_SIX_HARMONY]: Object.freeze({ scope: 'branch', family: '合', baseScore: 72, complete: false }),
+        [baziRelationCodes.BRANCH_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 70, complete: false }),
+        [baziRelationCodes.BRANCH_SIX_HARM]: Object.freeze({ scope: 'branch', family: '害', baseScore: 66, complete: false }),
+        [baziRelationCodes.BRANCH_SIX_BREAK]: Object.freeze({ scope: 'branch', family: '破', baseScore: 62, complete: false }),
+        [baziRelationCodes.SAN_HE_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false }),
+        [baziRelationCodes.SAN_HUI_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false }),
+        [baziRelationCodes.STEM_CLASH]: Object.freeze({ scope: 'stem', family: '冲', baseScore: 48, complete: false })
+    });
+
+
+    // 岁运层关系中，部分语义无法用原局关系码直接表达（如伏吟、反吟、岁运并临）。
+    // 这些 code 只用于机器识别与未来扩展；用户界面仍只展示 text。
+    const baziTransitRelationCodes = Object.freeze({
+        STEM_SAME: 'TRANSIT_STEM_SAME',
+        BRANCH_SAME: 'TRANSIT_BRANCH_SAME',
+        PILLAR_FUYIN: 'TRANSIT_PILLAR_FUYIN',
+        PILLAR_FANYIN: 'TRANSIT_PILLAR_FANYIN',
+        PILLAR_HEAVEN_EARTH_HARMONY: 'TRANSIT_PILLAR_HEAVEN_EARTH_HARMONY',
+        LAYER_SAME_GANZHI: 'TRANSIT_LAYER_SAME_GANZHI',
+        LAYER_HEAVEN_EARTH_CLASH: 'TRANSIT_LAYER_HEAVEN_EARTH_CLASH',
+        LAYER_HEAVEN_EARTH_HARMONY: 'TRANSIT_LAYER_HEAVEN_EARTH_HARMONY'
+    });
+
+    const baziTransitRelationMeta = Object.freeze({
+        [baziTransitRelationCodes.STEM_SAME]: Object.freeze({ scope: 'stem', family: '同干' }),
+        [baziTransitRelationCodes.BRANCH_SAME]: Object.freeze({ scope: 'branch', family: '同支' }),
+        [baziTransitRelationCodes.PILLAR_FUYIN]: Object.freeze({ scope: 'pillar', family: '伏吟' }),
+        [baziTransitRelationCodes.PILLAR_FANYIN]: Object.freeze({ scope: 'pillar', family: '反吟' }),
+        [baziTransitRelationCodes.PILLAR_HEAVEN_EARTH_HARMONY]: Object.freeze({ scope: 'pillar', family: '天合地合' }),
+        [baziTransitRelationCodes.LAYER_SAME_GANZHI]: Object.freeze({ scope: 'layer', family: '并临' }),
+        [baziTransitRelationCodes.LAYER_HEAVEN_EARTH_CLASH]: Object.freeze({ scope: 'layer', family: '天克地冲' }),
+        [baziTransitRelationCodes.LAYER_HEAVEN_EARTH_HARMONY]: Object.freeze({ scope: 'layer', family: '天合地合' })
+    });
+
+    const getBaziRelationMeta = (relationOrCode) => {
+        const code = typeof relationOrCode === 'string' ? relationOrCode : relationOrCode?.code;
+        return baziRelationMeta[code] || baziTransitRelationMeta[code] || null;
+    };
+
+    const scoreBaziRelation = (relation) => {
+        const meta = getBaziRelationMeta(relation);
+        let score = meta?.baseScore ?? 40;
+        const pillarIndices = Array.isArray(relation?.pillarIndices) ? relation.pillarIndices : [];
+        if (pillarIndices.includes(2)) score += 14;
+        if (pillarIndices.includes(1)) score += 8;
+        if (pillarIndices.includes(0) && pillarIndices.includes(3)) score += 2;
+        return score;
+    };
+
+    const getRelationSemanticKey = (relation) => {
+        if (!relation?.code) return `${relation?.type || ''}|${relation?.text || ''}`;
+        const numberList = (items) => [...new Set(items || [])].sort((a, b) => a - b).join(',');
+        const textList = (items) => [...new Set(items || [])].sort().join(',');
+        return [
+            relation.code,
+            relation.action || '',
+            numberList(relation.pillarIndices),
+            textList(relation.stems),
+            textList(relation.branches),
+            relation.targetGan || '', relation.targetZhi || '',
+            relation.originalGan || '', relation.originalZhi || '',
+            textList(relation.layerLabels),
+            relation.element || '', relation.pairKind || '',
+            relation.targetLabel || ''
+        ].join('|');
+    };
+
     const uniqueRelations = (relations) => {
         const seen = new Set();
         return relations.filter((rel) => {
-            const key = `${rel.type}|${rel.text}`;
+            const key = getRelationSemanticKey(rel);
             if (seen.has(key)) return false;
             seen.add(key);
             return true;
@@ -174,8 +251,16 @@
         const relations = [];
         const pillarNames = ['年干','月干','日干（主）','时干'];
         originalGansArr.forEach((originalGan, index) => {
-            if (tianGanHeMap[targetGan] === originalGan) relations.push({ type: 'stem', text: `与${pillarNames[index]}【${originalGan}】天干五合` });
-            if (tianGanChongMap[targetGan] === originalGan) relations.push({ type: 'stem', text: `与${pillarNames[index]}【${originalGan}】天干相冲` });
+            if (tianGanHeMap[targetGan] === originalGan) relations.push({
+                type: 'stem', code: baziRelationCodes.STEM_FIVE_HARMONY,
+                action: 'external-direct', pillarIndices: [index], stems: [targetGan, originalGan],
+                targetGan, originalGan, text: `与${pillarNames[index]}【${originalGan}】天干五合`
+            });
+            if (tianGanChongMap[targetGan] === originalGan) relations.push({
+                type: 'stem', code: baziRelationCodes.STEM_CLASH,
+                action: 'external-direct', pillarIndices: [index], stems: [targetGan, originalGan],
+                targetGan, originalGan, text: `与${pillarNames[index]}【${originalGan}】天干相冲`
+            });
         });
         return uniqueRelations(relations);
     };
@@ -186,21 +271,33 @@
         const combinedSet = new Set([...originalZhisArr, targetZhi]);
         const pillarNames = ['年支','月支','日支','时支'];
         const completedXingTriads = xingTriads.filter((group) => group.set.includes(targetZhi) && containsAll(combinedSet, group.set));
+        const originalIndicesFor = (branches) => originalZhisArr
+            .map((zhi, index) => branches.includes(zhi) ? index : null)
+            .filter((index) => index !== null);
 
         originalZhisArr.forEach((originalZhi, index) => {
-            if (chongMap[targetZhi] === originalZhi) relations.push({ type: 'chong', text: `冲${pillarNames[index]}【${originalZhi}】` });
-            if (heMap[targetZhi] === originalZhi) relations.push({ type: 'hehui', text: `合${pillarNames[index]}【${originalZhi}】（六合）` });
-            if (haiMap[targetZhi] === originalZhi) relations.push({ type: 'hai', text: `害${pillarNames[index]}【${originalZhi}】（六害）` });
-            if (poMap[targetZhi] === originalZhi) relations.push({ type: 'po', text: `破${pillarNames[index]}【${originalZhi}】（六破）` });
+            const common = { action:'external-direct', pillarIndices:[index], branches:[targetZhi, originalZhi], targetZhi, originalZhi };
+            if (chongMap[targetZhi] === originalZhi) relations.push({ ...common, type:'chong', code:baziRelationCodes.BRANCH_SIX_CLASH, text:`冲${pillarNames[index]}【${originalZhi}】` });
+            if (heMap[targetZhi] === originalZhi) relations.push({ ...common, type:'hehui', code:baziRelationCodes.BRANCH_SIX_HARMONY, text:`合${pillarNames[index]}【${originalZhi}】（六合）` });
+            if (haiMap[targetZhi] === originalZhi) relations.push({ ...common, type:'hai', code:baziRelationCodes.BRANCH_SIX_HARM, text:`害${pillarNames[index]}【${originalZhi}】（六害）` });
+            if (poMap[targetZhi] === originalZhi) relations.push({ ...common, type:'po', code:baziRelationCodes.BRANCH_SIX_BREAK, text:`破${pillarNames[index]}【${originalZhi}】（六破）` });
             const xingName = xingPairMap[`${targetZhi}${originalZhi}`];
             const belongsToCompletedTriad = completedXingTriads.some((group) => group.set.includes(targetZhi) && group.set.includes(originalZhi));
-            if (xingName && !belongsToCompletedTriad) relations.push({ type: 'xing', text: `与${pillarNames[index]}【${originalZhi}】构成${xingName}` });
-            if (targetZhi === originalZhi && selfXingBranches.has(targetZhi)) relations.push({ type: 'xing', text: `与${pillarNames[index]}【${originalZhi}】构成${targetZhi}${targetZhi}自刑` });
+            if (xingName && !belongsToCompletedTriad) relations.push({ ...common, type:'xing', code:baziRelationCodes.BRANCH_PUNISHMENT, text:`与${pillarNames[index]}【${originalZhi}】构成${xingName}` });
+            if (targetZhi === originalZhi && selfXingBranches.has(targetZhi)) relations.push({
+                ...common, type:'xing', code:baziRelationCodes.SELF_PUNISHMENT, action:'external-self-punishment',
+                text:`与${pillarNames[index]}【${originalZhi}】构成${targetZhi}${targetZhi}自刑`
+            });
         });
 
         completedXingTriads.forEach((group) => {
             const alreadyComplete = containsAll(originalSet, group.set);
-            relations.push({ type: 'xing', text: alreadyComplete ? `原局已有${group.name}，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】引动完整${group.name}` });
+            relations.push({
+                type:'xing', code:baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE,
+                action: alreadyComplete ? 'retrigger' : 'complete-by-external',
+                pillarIndices: originalIndicesFor(group.set), branches:[...group.set], targetZhi,
+                text: alreadyComplete ? `原局已有${group.name}，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】引动完整${group.name}`
+            });
         });
 
         sanHeGroups.forEach((group) => {
@@ -208,10 +305,24 @@
             const before = group.set.filter((zhi) => originalSet.has(zhi));
             const after = group.set.filter((zhi) => combinedSet.has(zhi));
             if (after.length === 3) {
-                relations.push({ type: 'hehui', text: before.length === 3 ? `原局已有三合${group.wx}局【${group.set.join('')}】，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】补齐三合${group.wx}局【${group.set.join('')}】` });
+                const alreadyComplete = before.length === 3;
+                relations.push({
+                    type:'hehui', code:baziRelationCodes.SAN_HE_COMPLETE,
+                    action: alreadyComplete ? 'retrigger' : 'complete-by-external',
+                    pillarIndices: originalIndicesFor(group.set), branches:[...group.set], element:group.wx, targetZhi,
+                    text: alreadyComplete ? `原局已有三合${group.wx}局【${group.set.join('')}】，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】补齐三合${group.wx}局【${group.set.join('')}】`
+                });
             } else if (after.length === 2) {
                 const pairInfo = getSanHePair(group, after);
-                if (pairInfo) relations.push({ type: 'hehui', text: before.length === 2 ? `原局已有${pairInfo.kind}${group.wx}组合【${pairInfo.pair}】，外来【${targetZhi}】重复引动` : `与原局形成${pairInfo.kind}${group.wx}组合【${pairInfo.pair}】（尚未成三合局）` });
+                if (pairInfo) {
+                    const alreadyPresent = before.length === 2;
+                    relations.push({
+                        type:'hehui', code:baziRelationCodes.SAN_HE_PARTIAL,
+                        action: alreadyPresent ? 'retrigger' : 'formed-by-external',
+                        pillarIndices: originalIndicesFor(after), branches:[...after], element:group.wx, pairKind:pairInfo.kind, targetZhi,
+                        text: alreadyPresent ? `原局已有${pairInfo.kind}${group.wx}组合【${pairInfo.pair}】，外来【${targetZhi}】重复引动` : `与原局形成${pairInfo.kind}${group.wx}组合【${pairInfo.pair}】（尚未成三合局）`
+                    });
+                }
             }
         });
 
@@ -220,10 +331,22 @@
             const before = group.set.filter((zhi) => originalSet.has(zhi));
             const after = group.set.filter((zhi) => combinedSet.has(zhi));
             if (after.length === 3) {
-                relations.push({ type: 'hehui', text: before.length === 3 ? `原局已有三会${group.wx}方【${group.set.join('')}】，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】补齐三会${group.wx}方【${group.set.join('')}】` });
+                const alreadyComplete = before.length === 3;
+                relations.push({
+                    type:'hehui', code:baziRelationCodes.SAN_HUI_COMPLETE,
+                    action: alreadyComplete ? 'retrigger' : 'complete-by-external',
+                    pillarIndices: originalIndicesFor(group.set), branches:[...group.set], element:group.wx, targetZhi,
+                    text: alreadyComplete ? `原局已有三会${group.wx}方【${group.set.join('')}】，外来【${targetZhi}】再次引动` : `外来【${targetZhi}】补齐三会${group.wx}方【${group.set.join('')}】`
+                });
             } else if (after.length === 2) {
-                const pair = group.set.filter((zhi) => combinedSet.has(zhi)).join('');
-                relations.push({ type: 'hehui', text: before.length === 2 ? `原局已有同方组合【${pair}】，外来【${targetZhi}】重复引动（未成三会${group.wx}方）` : `与原局形成同方组合【${pair}】（未成三会${group.wx}方）` });
+                const pair = group.set.filter((zhi) => combinedSet.has(zhi));
+                const alreadyPresent = before.length === 2;
+                relations.push({
+                    type:'hehui', code:baziRelationCodes.SAN_HUI_PARTIAL,
+                    action: alreadyPresent ? 'retrigger' : 'formed-by-external',
+                    pillarIndices: originalIndicesFor(after), branches:[...after], element:group.wx, targetZhi,
+                    text: alreadyPresent ? `原局已有同方组合【${pair.join('')}】，外来【${targetZhi}】重复引动（未成三会${group.wx}方）` : `与原局形成同方组合【${pair.join('')}】（未成三会${group.wx}方）`
+                });
             }
         });
         return uniqueRelations(relations);
@@ -278,7 +401,7 @@
             if ((zhiCounts[zhi] || 0) >= 2) relations.push({
                 type: 'xing', code: baziRelationCodes.SELF_PUNISHMENT,
                 pillarIndices: zhis.map((item,index) => item === zhi ? index : null).filter((index) => index !== null),
-                branches: [zhi], text: `原局有${zhiCounts[zhi]}个【${zhi}】，构成${zhi}${zhi}自刑`
+                branches: [zhi], text: `原局有${formatNaturalCount(zhiCounts[zhi])}个【${zhi}】，构成${zhi}${zhi}自刑`
             });
         });
         completeXingTriads.forEach((group) => relations.push({
@@ -328,9 +451,13 @@
             const zhiChong = chongMap[targetZhi] === originalZhis[index];
             const ganHe = tianGanHeMap[targetGan] === originalGans[index];
             const zhiHe = heMap[targetZhi] === originalZhis[index];
-            if (sameGan && sameZhi) relations.push({ type: 'neutral', text: `${targetLabel}与${name}同柱，构成伏吟【${targetGan}${targetZhi}】` });
-            else if (ganChong && zhiChong) relations.push({ type: 'chong', text: `${targetLabel}与${name}天克地冲（反吟）` });
-            else if (ganHe && zhiHe) relations.push({ type: 'hehui', text: `${targetLabel}与${name}天合地合` });
+            const common = {
+                pillarIndices:[index], stems:[targetGan, originalGans[index]], branches:[targetZhi, originalZhis[index]],
+                targetGan, targetZhi, originalGan:originalGans[index], originalZhi:originalZhis[index], targetLabel
+            };
+            if (sameGan && sameZhi) relations.push({ ...common, type:'neutral', code:baziTransitRelationCodes.PILLAR_FUYIN, text:`${targetLabel}与${name}同柱，构成伏吟【${targetGan}${targetZhi}】` });
+            else if (ganChong && zhiChong) relations.push({ ...common, type:'chong', code:baziTransitRelationCodes.PILLAR_FANYIN, text:`${targetLabel}与${name}天克地冲（反吟）` });
+            else if (ganHe && zhiHe) relations.push({ ...common, type:'hehui', code:baziTransitRelationCodes.PILLAR_HEAVEN_EARTH_HARMONY, text:`${targetLabel}与${name}天合地合` });
         });
         return uniqueRelations(relations);
     };
@@ -338,19 +465,26 @@
     const calculatePairRelations = (a, b, labelA, labelB) => {
         if (!a || !b) return [];
         const relations = [];
-        if (a.gan === b.gan && a.zhi === b.zhi) return [{ type: 'neutral', text: `${labelA}与${labelB}干支相同，岁运并临【${a.gan}${a.zhi}】` }];
-        if (tianGanChongMap[a.gan] === b.gan && chongMap[a.zhi] === b.zhi) return [{ type: 'chong', text: `${labelA}与${labelB}天克地冲` }];
-        if (tianGanHeMap[a.gan] === b.gan && heMap[a.zhi] === b.zhi) return [{ type: 'hehui', text: `${labelA}与${labelB}天合地合` }];
-        if (a.gan === b.gan) relations.push({ type: 'stem', text: `${labelA}与${labelB}天干同为【${a.gan}】` });
-        if (tianGanHeMap[a.gan] === b.gan) relations.push({ type: 'stem', text: `${labelA}【${a.gan}】与${labelB}【${b.gan}】天干五合` });
-        if (tianGanChongMap[a.gan] === b.gan) relations.push({ type: 'stem', text: `${labelA}【${a.gan}】与${labelB}【${b.gan}】天干相冲` });
-        if (a.zhi === b.zhi) relations.push({ type: selfXingBranches.has(a.zhi) ? 'xing' : 'neutral', text: `${labelA}与${labelB}地支同为【${a.zhi}】${selfXingBranches.has(a.zhi) ? '，并见自刑条件' : ''}` });
-        if (heMap[a.zhi] === b.zhi) relations.push({ type: 'hehui', text: `${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六合` });
-        if (chongMap[a.zhi] === b.zhi) relations.push({ type: 'chong', text: `${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六冲` });
-        if (haiMap[a.zhi] === b.zhi) relations.push({ type: 'hai', text: `${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六害` });
-        if (poMap[a.zhi] === b.zhi) relations.push({ type: 'po', text: `${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六破` });
+        const common = { layerLabels:[labelA,labelB], stems:[a.gan,b.gan], branches:[a.zhi,b.zhi] };
+        if (a.gan === b.gan && a.zhi === b.zhi) return [{ ...common, type:'neutral', code:baziTransitRelationCodes.LAYER_SAME_GANZHI, text:`${labelA}与${labelB}干支相同，岁运并临【${a.gan}${a.zhi}】` }];
+        if (tianGanChongMap[a.gan] === b.gan && chongMap[a.zhi] === b.zhi) return [{ ...common, type:'chong', code:baziTransitRelationCodes.LAYER_HEAVEN_EARTH_CLASH, text:`${labelA}与${labelB}天克地冲` }];
+        if (tianGanHeMap[a.gan] === b.gan && heMap[a.zhi] === b.zhi) return [{ ...common, type:'hehui', code:baziTransitRelationCodes.LAYER_HEAVEN_EARTH_HARMONY, text:`${labelA}与${labelB}天合地合` }];
+        if (a.gan === b.gan) relations.push({ ...common, type:'stem', code:baziTransitRelationCodes.STEM_SAME, text:`${labelA}与${labelB}天干同为【${a.gan}】` });
+        if (tianGanHeMap[a.gan] === b.gan) relations.push({ ...common, type:'stem', code:baziRelationCodes.STEM_FIVE_HARMONY, text:`${labelA}【${a.gan}】与${labelB}【${b.gan}】天干五合` });
+        if (tianGanChongMap[a.gan] === b.gan) relations.push({ ...common, type:'stem', code:baziRelationCodes.STEM_CLASH, text:`${labelA}【${a.gan}】与${labelB}【${b.gan}】天干相冲` });
+        if (a.zhi === b.zhi) relations.push({
+            ...common,
+            type:selfXingBranches.has(a.zhi) ? 'xing' : 'neutral',
+            code:selfXingBranches.has(a.zhi) ? baziRelationCodes.SELF_PUNISHMENT : baziTransitRelationCodes.BRANCH_SAME,
+            action:selfXingBranches.has(a.zhi) ? 'layer-self-punishment' : 'layer-same-branch',
+            text:`${labelA}与${labelB}地支同为【${a.zhi}】${selfXingBranches.has(a.zhi) ? '，并见自刑条件' : ''}`
+        });
+        if (heMap[a.zhi] === b.zhi) relations.push({ ...common, type:'hehui', code:baziRelationCodes.BRANCH_SIX_HARMONY, text:`${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六合` });
+        if (chongMap[a.zhi] === b.zhi) relations.push({ ...common, type:'chong', code:baziRelationCodes.BRANCH_SIX_CLASH, text:`${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六冲` });
+        if (haiMap[a.zhi] === b.zhi) relations.push({ ...common, type:'hai', code:baziRelationCodes.BRANCH_SIX_HARM, text:`${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六害` });
+        if (poMap[a.zhi] === b.zhi) relations.push({ ...common, type:'po', code:baziRelationCodes.BRANCH_SIX_BREAK, text:`${labelA}【${a.zhi}】与${labelB}【${b.zhi}】六破` });
         const xingName = xingPairMap[`${a.zhi}${b.zhi}`];
-        if (xingName) relations.push({ type: 'xing', text: `${labelA}【${a.zhi}】与${labelB}【${b.zhi}】构成${xingName}` });
+        if (xingName) relations.push({ ...common, type:'xing', code:baziRelationCodes.BRANCH_PUNISHMENT, text:`${labelA}【${a.zhi}】与${labelB}【${b.zhi}】构成${xingName}` });
         return uniqueRelations(relations);
     };
 
@@ -362,14 +496,15 @@
         const withYear = new Set([...originalZhis, liuNian.zhi]);
         const all = new Set([...originalZhis, daYun.zhi, liuNian.zhi]);
         const requiresBoth = (set) => containsAll(all, set) && !containsAll(withYun, set) && !containsAll(withYear, set) && !containsAll(base, set);
+        const common = { action:'complete-by-three-layers', layerLabels:['原局','大运','流年'] };
         sanHeGroups.forEach((group) => {
-            if (requiresBoth(group.set)) relations.push({ type: 'hehui', text: `原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐三合${group.wx}局【${group.set.join('')}】` });
+            if (requiresBoth(group.set)) relations.push({ ...common, type:'hehui', code:baziRelationCodes.SAN_HE_COMPLETE, branches:[...group.set], element:group.wx, text:`原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐三合${group.wx}局【${group.set.join('')}】` });
         });
         sanHuiGroups.forEach((group) => {
-            if (requiresBoth(group.set)) relations.push({ type: 'hehui', text: `原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐三会${group.wx}方【${group.set.join('')}】` });
+            if (requiresBoth(group.set)) relations.push({ ...common, type:'hehui', code:baziRelationCodes.SAN_HUI_COMPLETE, branches:[...group.set], element:group.wx, text:`原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐三会${group.wx}方【${group.set.join('')}】` });
         });
         xingTriads.forEach((group) => {
-            if (requiresBoth(group.set)) relations.push({ type: 'xing', text: `原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐${group.name}` });
+            if (requiresBoth(group.set)) relations.push({ ...common, type:'xing', code:baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE, branches:[...group.set], text:`原局＋大运【${daYun.zhi}】＋流年【${liuNian.zhi}】共同会齐${group.name}` });
         });
         return uniqueRelations(relations);
     };
@@ -397,21 +532,38 @@
         const dayElement = getWuXing(dayGan);
         const visibleOther = pillars.filter((_, i) => i !== 2).map((p) => ({ gan: p.gan, shishen: p.shishenGan, title: p.title }));
         const hidden = pillars.flatMap((p) => p.cangGan.map((c) => ({ ...c, title: p.title, zhi: p.zhi })));
-        const exactRoots = hidden.filter((c) => c.gan === dayGan).map((c) => `${c.title}${c.zhi}中${c.gan}（${c.level}）`);
-        const sameElementRoots = hidden.filter((c) => c.wuxing === dayElement && c.gan !== dayGan).map((c) => `${c.title}${c.zhi}中${c.gan}（${c.level}）`);
+        const formatHiddenLocation = (item) => `${String(item.title || '').replace('柱', '支')}${item.zhi}中${item.gan}（${item.level}）`;
+        const exactRoots = hidden.filter((c) => c.gan === dayGan);
+        const sameElementRoots = hidden.filter((c) => c.wuxing === dayElement && c.gan !== dayGan);
         const supportVisible = visibleOther.filter((x) => ['比肩','劫财','正印','偏印'].includes(x.shishen));
         const supportHidden = hidden.filter((x) => ['比肩','劫财','正印','偏印'].includes(x.shishen));
         const outputVisible = visibleOther.filter((x) => ['食神','伤官','正财','偏财','正官','七杀'].includes(x.shishen));
         const outputHidden = hidden.filter((x) => ['食神','伤官','正财','偏财','正官','七杀'].includes(x.shishen));
         const dayStatus = monthSeason.states.find((x) => x.wuxing === dayElement)?.status || '—';
-        const fullStructureCodes = new Set([baziRelationCodes.SAN_HE_COMPLETE, baziRelationCodes.SAN_HUI_COMPLETE, baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE]);
-        const fullStructures = internalRelations.filter((x) => fullStructureCodes.has(x.code)).map((x) => x.text);
+        const uniqueGods = (items) => [...new Set(items.map((item) => item.shishen).filter(Boolean))];
+        const layerSummary = (visible, hiddenItems, emptyLabel) => {
+            const visibleGods = uniqueGods(visible);
+            const hiddenGods = uniqueGods(hiddenItems);
+            if (visibleGods.length && hiddenGods.length) return `天干见${visibleGods.join('、')}；藏干见${hiddenGods.join('、')}。`;
+            if (visibleGods.length) return `主要见于天干：${visibleGods.join('、')}。`;
+            if (hiddenGods.length) return `主要见于藏干：${hiddenGods.join('、')}。`;
+            return `天干与藏干均未见${emptyLabel}。`;
+        };
+        let rootText = '';
+        if (exactRoots.length) {
+            rootText = `本干通根见于${exactRoots.map(formatHiddenLocation).join('、')}`;
+            if (sameElementRoots.length) rootText += `；另有同类得地：${sameElementRoots.map(formatHiddenLocation).join('、')}`;
+            rootText += '。';
+        } else if (sameElementRoots.length) {
+            rootText = `同类得地见于${sameElementRoots.map(formatHiddenLocation).join('、')}。`;
+        } else {
+            rootText = '四支藏干未见本干通根或同类五行。';
+        }
         return [
-            { key: '得令', value: `${monthSeason.monthZhi}月属${monthSeason.season}，日主${dayElement}在旺相休囚死表中为“${dayStatus}”。这只是季节状态。` },
-            { key: '通根', value: exactRoots.length ? `见本干根：${exactRoots.join('；')}。${sameElementRoots.length ? `另有同五行根气：${sameElementRoots.join('；')}。` : ''}` : (sameElementRoots.length ? `未见本干同字，见同五行根气：${sameElementRoots.join('；')}。` : '四支藏干未见日主同五行根气。') },
-            { key: '扶助', value: `天干可见比劫、印星 ${supportVisible.length} 处；地支藏干可见 ${supportHidden.length} 处。位置与层级比单纯数量更重要。` },
-            { key: '泄耗克', value: `天干可见食伤、财、官杀 ${outputVisible.length} 处；地支藏干可见 ${outputHidden.length} 处。需分别观察是否透出、是否得令与是否有制化。` },
-            { key: '方局', value: fullStructures.length ? `${fullStructures.join('；')}。成方成局可能改变整体气势，不能仍按孤立五行计数。` : '原局未检测到完整三合、三会或三刑；半合、同方组合仍需结合透干与月令观察。' }
+            { key: '月令', value: `${monthSeason.monthZhi}月属${monthSeason.season}，日主${dayElement}处“${dayStatus}”。` },
+            { key: '根气', value: rootText },
+            { key: '扶助', value: layerSummary(supportVisible, supportHidden, '比劫、印星') },
+            { key: '泄耗克', value: layerSummary(outputVisible, outputHidden, '食伤、财、官杀') }
         ];
     };
 
@@ -443,42 +595,52 @@
         const huaGai = {'申':'辰','子':'辰','辰':'辰','寅':'戌','午':'戌','戌':'戌','巳':'丑','酉':'丑','丑':'丑','亥':'未','卯':'未','未':'未'};
         const jiangXing = {'申':'子','子':'子','辰':'子','寅':'午','午':'午','戌':'午','巳':'酉','酉':'酉','丑':'酉','亥':'卯','卯':'卯','未':'卯'};
         return [
-            ganStar('天乙贵人', tianYiMap[dayGan] || [], '传统上用于辅助观察助力与解厄条件，不代表必有外援。'),
+            ganStar('天乙贵人', tianYiMap[dayGan] || [], '传统上用于辅助观察助力与解厄条件。'),
             ganStar('文昌贵人', wenChangMap[dayGan] || [], '多用于辅助观察学习、表达与文书主题。'),
             ganStar('禄神', luMap[dayGan] || [], '用于辅助观察日干临官之位、资源与职分主题。'),
             ganStar('羊刃', renMap[dayGan] || [], '用于辅助观察日干旺极之位与行动锋芒；阴干羊刃查法存在版本差异。', '（采用常见十干表）'),
-            groupStar('驿马', yiMa, '用于辅助观察移动、迁转与环境变化，不等同一定奔波。'),
-            groupStar('桃花／咸池', taoHua, '用于辅助观察社交吸引、审美与人际互动，不单指情感事件。'),
+            groupStar('驿马', yiMa, '用于辅助观察移动、迁转与环境变化。'),
+            groupStar('桃花／咸池', taoHua, '用于辅助观察社交吸引、审美与人际互动。'),
             groupStar('华盖', huaGai, '用于辅助观察独立、精神性、技艺与内向倾向，不可单断孤独。'),
-            groupStar('将星', jiangXing, '用于辅助观察组织、承担与统摄主题，不代表固定权位。')
+            groupStar('将星', jiangXing, '用于辅助观察组织、承担与统摄主题。')
         ];
     };
 
     const calculateFourLayerRelations = (daYun, liuNian, liuYue, originalZhis) => {
-        if (!daYun || !liuNian || !liuYue) return [];
+        if (!liuNian || !liuYue) return [];
         const relations = [];
-        const beforeItems = [...originalZhis, daYun.zhi, liuNian.zhi];
+        const layerLabels = daYun ? ['原局','大运','流年','流月'] : ['原局','流年','流月'];
+        const beforeItems = [...originalZhis, ...(daYun ? [daYun.zhi] : []), liuNian.zhi];
         const afterItems = [...beforeItems, liuYue.zhi];
         const before = new Set(beforeItems);
         const after = new Set(afterItems);
-        const addGroup = (group, label, type) => {
+        const beforeLabel = daYun ? '前三层' : '原局与流年';
+        const addGroup = (group, label, type, code, element = '') => {
             if (!containsAll(after, group.set)) return;
             if (!containsAll(before, group.set)) {
-                relations.push({ type, text: `流月【${liuYue.zhi}】加入后补齐${label}【${group.set.join('')}】` });
+                relations.push({
+                    type, code, action:'complete-by-liuyue', layerLabels,
+                    branches:[...group.set], element,
+                    text:`流月【${liuYue.zhi}】加入后补齐${label}【${group.set.join('')}】`
+                });
             } else if (group.set.includes(liuYue.zhi)) {
-                relations.push({ type, text: `前三层已有${label}【${group.set.join('')}】，流月【${liuYue.zhi}】再次引动` });
+                relations.push({
+                    type, code, action:'retrigger-by-liuyue', layerLabels,
+                    branches:[...group.set], element,
+                    text:`${beforeLabel}已有${label}【${group.set.join('')}】，流月【${liuYue.zhi}】再次引动`
+                });
             }
         };
-        sanHeGroups.forEach((group) => addGroup(group, `三合${group.wx}局`, 'hehui'));
-        sanHuiGroups.forEach((group) => addGroup(group, `三会${group.wx}方`, 'hehui'));
-        xingTriads.forEach((group) => addGroup(group, group.name, 'xing'));
+        sanHeGroups.forEach((group) => addGroup(group, `三合${group.wx}局`, 'hehui', baziRelationCodes.SAN_HE_COMPLETE, group.wx));
+        sanHuiGroups.forEach((group) => addGroup(group, `三会${group.wx}方`, 'hehui', baziRelationCodes.SAN_HUI_COMPLETE, group.wx));
+        xingTriads.forEach((group) => addGroup(group, group.name, 'xing', baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE));
         const beforeCount = countMap(beforeItems);
         const afterCount = countMap(afterItems);
         selfXingBranches.forEach((zhi) => {
             if ((afterCount[zhi] || 0) >= 2 && (beforeCount[zhi] || 0) < 2) {
-                relations.push({ type: 'xing', text: `流月【${liuYue.zhi}】加入后出现${zhi}${zhi}自刑条件` });
+                relations.push({ type:'xing', code:baziRelationCodes.SELF_PUNISHMENT, action:'complete-by-liuyue', layerLabels, branches:[zhi], targetZhi:liuYue.zhi, text:`流月【${liuYue.zhi}】加入后出现${zhi}${zhi}自刑条件` });
             } else if (liuYue.zhi === zhi && (beforeCount[zhi] || 0) >= 2) {
-                relations.push({ type: 'xing', text: `前三层已有${zhi}${zhi}自刑条件，流月【${zhi}】再次引动` });
+                relations.push({ type:'xing', code:baziRelationCodes.SELF_PUNISHMENT, action:'retrigger-by-liuyue', layerLabels, branches:[zhi], targetZhi:liuYue.zhi, text:`${beforeLabel}已有${zhi}${zhi}自刑条件，流月【${zhi}】再次引动` });
             }
         });
         return uniqueRelations(relations);
@@ -517,6 +679,12 @@
         tianGanHeMap,
         tianGanChongMap,
         baziRelationCodes,
+        baziRelationMeta,
+        baziTransitRelationCodes,
+        baziTransitRelationMeta,
+        getBaziRelationMeta,
+        scoreBaziRelation,
+        getRelationSemanticKey,
         uniqueRelations,
         countMap,
         containsAll,

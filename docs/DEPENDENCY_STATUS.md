@@ -1,22 +1,16 @@
-# 运行依赖状态 · v13.29.0
+# 运行依赖状态 · v13.32.0
 
 ## 生产 Pages：同源 vendor
 
-GitHub Pages workflow 在 `.site/` 部署目录保证：
+GitHub Pages 只使用仓库中已经提交并通过校验的 vendor 快照：
 
 ```text
-固定 npm package tarball
+仓库 vendor/ + vendor-lock.json
         ↓
-SHA-512 integrity 校验
-        ↓
-提取发行文件与 LICENSE
+SHA-256 / 版本 / LICENSE / JS syntax / lunar smoke test
         ↓
 .site/vendor/vue.global.prod.js
 .site/vendor/lunar.js
-        ↓
-index.html 使用同源路径
-        ↓
-SHA-256 / JS syntax / lunar smoke test
         ↓
 静态 artifact 引用检查
         ↓
@@ -30,24 +24,18 @@ GitHub Pages
 
 版本、tarball URL 与 npm integrity 记录在 `vendor-config.json`。
 
-## 源码仓库的两种状态
+## 源码仓库要求
 
-### 尚未固化 vendor
-
-`index.html` 可以保留精确版本 CDN 引用用于源码预览；Pages 构建时会改写部署副本为同源 vendor。
-
-### 已运行 Vendor Snapshot PR
-
-仓库会直接具有：
+生产仓库必须直接具有：
 
 - `vendor/vue.global.prod.js`
 - `vendor/lunar.js`
 - 两份 LICENSE
 - `vendor-lock.json`
 
-并把源码 `index.html` 改为本地 vendor 路径。推荐正式上线前采用这一状态。
+`index.html` 必须引用本地 vendor 路径。v13.32.0 起，Pages / CI 如果发现 vendor 缺失或校验失败会直接失败，不再静默联网下载替代。更新 vendor 统一通过 `Vendor Snapshot PR` 或人工候选升级流程。
 
-`vendor-lock.json` 已改为确定性内容，同一固定版本重复生成不会仅因时间戳产生无意义 PR。
+`vendor-lock.json` 保持确定性内容，同一固定版本重复生成不会仅因时间戳产生无意义 PR。
 
 ## 更新监测
 

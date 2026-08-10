@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { ROOT, materializeVendor, verifyVendorTree } from './vendor-lib.mjs';
+import { ROOT, verifyVendorTree } from './vendor-lib.mjs';
 
 const out = path.join(ROOT, '.site');
 fs.rmSync(out, { recursive: true, force: true });
@@ -13,23 +13,15 @@ for (const dir of ['assets', 'data', 'js']) {
   fs.cpSync(path.join(ROOT, dir), path.join(out, dir), { recursive: true });
 }
 
-let reusedCheckedInVendor = false;
-if (fs.existsSync(path.join(ROOT, 'vendor-lock.json')) && fs.existsSync(path.join(ROOT, 'vendor'))) {
-  try {
-    verifyVendorTree(ROOT);
-    fs.cpSync(path.join(ROOT, 'vendor'), path.join(out, 'vendor'), { recursive: true });
-    fs.copyFileSync(path.join(ROOT, 'vendor-lock.json'), path.join(out, 'vendor-lock.json'));
-    reusedCheckedInVendor = true;
-    console.log('Using checked-in verified vendor snapshots.');
-  } catch (error) {
-    console.warn(`Checked-in vendor not reusable: ${error.message}`);
-  }
+const vendorDir = path.join(ROOT, 'vendor');
+const vendorLock = path.join(ROOT, 'vendor-lock.json');
+if (!fs.existsSync(vendorDir) || !fs.existsSync(vendorLock)) {
+  throw new Error('Checked-in vendor snapshots are required for Pages builds. Run the Vendor Snapshot PR workflow first.');
 }
 
-if (!reusedCheckedInVendor) {
-  await materializeVendor(out, { rewriteHtml: true });
-  console.log('Built Pages artifact with verified vendor snapshots from pinned npm tarballs.');
-}
+verifyVendorTree(ROOT);
+fs.cpSync(vendorDir, path.join(out, 'vendor'), { recursive: true });
+fs.copyFileSync(vendorLock, path.join(out, 'vendor-lock.json'));
 
 verifyVendorTree(out);
-console.log(`GitHub Pages site built at ${out}`);
+console.log(`GitHub Pages site built from checked-in verified vendor snapshots at ${out}`);

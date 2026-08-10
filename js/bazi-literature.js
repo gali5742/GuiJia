@@ -34,6 +34,77 @@
     const SEASON_CLASSIC_LABEL = { '春': '三春', '夏': '三夏', '秋': '三秋', '冬': '三冬' };
     const STEM_ELEMENT_LABEL = { '甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水' };
 
+    const BRANCH_MONTH_LABEL = {
+        '寅':'正月','卯':'二月','辰':'三月',
+        '巳':'四月','午':'五月','未':'六月',
+        '申':'七月','酉':'八月','戌':'九月',
+        '亥':'十月','子':'十一月','丑':'十二月'
+    };
+
+    const getQiongQuoteScope = (quote, season) => {
+        const text = String(quote || '').trim();
+        if (!text) return { type: 'none' };
+        if ((season === '春' && /^(三春|春月)/.test(text)) ||
+            (season === '夏' && /^三夏/.test(text)) ||
+            (season === '秋' && /^三秋/.test(text)) ||
+            (season === '冬' && /^三冬/.test(text))) {
+            return { type: 'season' };
+        }
+        const monthMatch = text.match(/^(正月|二月|三月|四月|五月|六月|七月|八月|九月|十月|十一月|十二月)/);
+        return monthMatch ? { type: 'month', monthLabel: monthMatch[1] } : { type: 'season' };
+    };
+
+    const appendContextNote = (match, note) => {
+        const base = String(match || '').trim();
+        const suffix = String(note || '').trim();
+        if (!suffix) return base;
+        if (!base) return suffix;
+        return `${base}${/[。！？]$/.test(base) ? '' : '。'}${suffix}`;
+    };
+
+    const visibleStemPositionText = (originalGans, stem) => {
+        const labels = ['年干','月干','日主','时干'];
+        const hits = originalGans
+            .map((gan, index) => gan === stem ? labels[index] : '')
+            .filter(Boolean);
+        return hits;
+    };
+
+    const buildQiongContextAudit = (quote, originalGans, dayGan) => {
+        const stems = [...new Set((String(quote || '').match(/[甲乙丙丁戊己庚辛壬癸]/g) || []))]
+            .filter((stem) => stem !== dayGan)
+            .slice(0, 4);
+        if (!stems.length) return '';
+        const checks = stems.map((stem) => {
+            const hits = visibleStemPositionText(originalGans, stem);
+            return hits.length ? `${stem}已见（${hits.join('、')}）` : `${stem}未见`;
+        });
+        return `原文点名天干核对：${checks.join('；')}。这里只核对原文点名天干在原局天干层面的出现情况；同五行异干不能自动替代原文指定天干，也不据此直接确定调候喜用。`;
+    };
+
+    const buildZipingZhengGuanAudit = (internalRelations, hasGod, relationHitsByCode) => {
+        const wealth = hasGod('正财') || hasGod('偏财');
+        const seal = hasGod('正印') || hasGod('偏印');
+        const adverseCodes = [
+            baziRelationCodes.STEM_CLASH,
+            baziRelationCodes.BRANCH_SIX_CLASH,
+            baziRelationCodes.BRANCH_PUNISHMENT,
+            baziRelationCodes.SELF_PUNISHMENT,
+            baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE,
+            baziRelationCodes.BRANCH_SIX_BREAK,
+            baziRelationCodes.BRANCH_SIX_HARM
+        ].filter(Boolean);
+        const adverse = internalRelations.filter((item) => adverseCodes.includes(item.code));
+        const checks = [
+            `财星：${wealth ? '已见' : '未见'}`,
+            `印星：${seal ? '已见' : '未见'}`,
+            adverse.length
+                ? `“无刑冲破害”：当前宽口径原局检查不满足（见${[...new Set(adverse.map((item) => item.text))].slice(0, 4).join('；')}）`
+                : '“无刑冲破害”：当前宽口径原局检查未见刑、冲、破、害'
+        ];
+        return `原文条件核对：${checks.join('；')}。这里仅做原文条件与程序已识别结构的逐项对照；尤其“无刑冲破害”采用原局宽口径检查，不等于已经完成官格成败的全部判断。`;
+    };
+
     // 《穷通宝鉴》以日干与月令为主轴。这里先把十干四季入口系统化；
     // 对季内三个月的细分仍以来源全文为准，因此按“结构匹配”而不是把季节总论冒充单月精确断语。
     const QIONGTONG_SEASON_INDEX = {
@@ -171,6 +242,7 @@
             entries.push({
                 excerptType: 'quote',
                 ...item,
+                contextMatch: appendContextNote(item.match, item.contextNote),
                 levelKey,
                 level: ({ exact: '精确匹配', structure: '结构匹配', method: '方法参考' })[levelKey],
                 specific: levelKey !== 'method'
@@ -211,6 +283,7 @@
                 chapter: diStem[0],
                 quote: diStem[1],
                 match: `本局日干为【${dayGan}】，直接对应《滴天髓》天干论“${diStem[0].replace('天干·','')}”条。`,
+                contextNote: '这是十干总论的直接索引；仅凭日干对应不能说明原文涉及的全部条件都已在本局成立。',
                 hint: '先把日干总论作为入口，再核对原局是否实际具备原文提到的根气、寒暖、合化与制化条件。',
                 boundary: '十干取象是总论，不等于仅凭日干即可判断强弱、格局、喜忌或吉凶。',
                 sourceUrl: CLASSIC_SOURCE_URLS.ditiansui
@@ -220,17 +293,40 @@
         // 2. 《穷通宝鉴》：十干 × 四季的系统入口。季内月份不同，故只标结构匹配。
         const qiongQuote = QIONGTONG_SEASON_INDEX[dayGan]?.[season];
         if (qiongQuote) {
-            const chapter = `${SEASON_CLASSIC_LABEL[season]}${dayGan}${STEM_ELEMENT_LABEL[dayGan]}`;
-            add('structure', {
-                id: `qiongtong-${dayGan}-${season}`,
-                book: '穷通宝鉴',
-                chapter,
-                quote: qiongQuote,
-                match: `日干为【${dayGan}】，月令为【${monthZhi}】，属于${season}季，直接进入“${chapter}”这一组月令条目。`,
-                hint: `本条用于建立${dayGan}日主在${season}季的调候背景；再按【${monthZhi}】月细读该季内部的具体月份。`,
-                boundary: '季节条只是调候入口，不能把摘录中的某一干直接指定为全局喜用；具体仍须核对当月、透藏、根气与制化。',
-                sourceUrl: CLASSIC_SOURCE_URLS.qiongtong
-            });
+            const monthLabel = BRANCH_MONTH_LABEL[monthZhi] || `${monthZhi}月`;
+            const quoteScope = getQiongQuoteScope(qiongQuote, season);
+            const isExactMonthQuote = quoteScope.type === 'month' && quoteScope.monthLabel === monthLabel;
+            const isSeasonQuote = quoteScope.type === 'season';
+            if (isSeasonQuote || isExactMonthQuote) {
+                const chapter = isExactMonthQuote
+                    ? `${monthLabel}${dayGan}${STEM_ELEMENT_LABEL[dayGan]}`
+                    : `${SEASON_CLASSIC_LABEL[season]}${dayGan}${STEM_ELEMENT_LABEL[dayGan]}`;
+                add('structure', {
+                    id: `qiongtong-${dayGan}-${monthZhi}`,
+                    book: '穷通宝鉴',
+                    chapter,
+                    quote: qiongQuote,
+                    match: `日干为【${dayGan}】，月令为【${monthZhi}】（${monthLabel}），与当前已核对的“${chapter}”条目范围对应。`,
+                    contextNote: `这里确认的是月令条目的对应关系；原文中的调候取法仍须结合透藏、根气、寒暖与制化逐项判断，不能直接视为全局喜用结论。${buildQiongContextAudit(qiongQuote, originalGans, dayGan)}`,
+                    hint: `本条用于建立${dayGan}日主在【${monthZhi}】月的调候背景，再与原局透藏、根气和制化合看。`,
+                    boundary: '月令条只是调候入口，不能把摘录中的某一干直接指定为全局喜用；具体仍须核对当月、透藏、根气与制化。',
+                    sourceUrl: CLASSIC_SOURCE_URLS.qiongtong
+                });
+            } else {
+                const locator = `${monthLabel}${dayGan}${STEM_ELEMENT_LABEL[dayGan]}`;
+                add('structure', {
+                    id: `qiongtong-locator-${dayGan}-${monthZhi}`,
+                    book: '穷通宝鉴',
+                    chapter: locator,
+                    quote: locator,
+                    excerptType: 'locator',
+                    match: `日干为【${dayGan}】，月令为【${monthZhi}】（${monthLabel}），应按该书日干—月令条目定位到“${locator}”。`,
+                    contextNote: '当前本地语料尚未逐字核对该月原文，因此只提供条目定位，不引用同季其他月份的原文代替。',
+                    hint: '同一季节内部各月取法并不完全相同；未核对到本月正文时只给定位。',
+                    boundary: '条目定位不等于原文摘录，也不据同季其他月份的文字推断本月结论。',
+                    sourceUrl: CLASSIC_SOURCE_URLS.qiongtong
+                });
+            }
         }
 
         // 3. 《三命通会》卷八：日干 + 时柱本身就是原书的索引骨架。
@@ -251,6 +347,7 @@
                 id: 'sanming-liuding-jiyou-verified', book: '三命通会', chapter: '卷八·六丁日己酉时断',
                 quote: '丁日己酉时，丁火酉上长生，学堂、天乙贵人皆兼得之',
                 match: '日干为丁、时柱为己酉，与卷八已核对条目完全对应。',
+                contextNote: '这里确认的是日干与时柱的条目对应；原文中的命例式判断仍需继续核对日支、年月与行运条件。',
                 hint: '原条进一步检查己、辛及卯乙等条件，说明日时组合只是入口。',
                 boundary: '月令、年柱、日支、冲合及行运仍会改变适用程度。',
                 sourceUrl: CLASSIC_SOURCE_URLS.sanming8
@@ -260,6 +357,7 @@
                     id: 'sanming-dinghai-jiyou-verified', book: '三命通会', chapter: '卷八·丁亥日己酉时',
                     quote: '丁亥日己酉时，蹇滞。如戊己丙丁年月，居近侍有权',
                     match: '日柱为丁亥、时柱为己酉，与原书日时细分条完全相同。',
+                    contextNote: '这里确认的是日时细分条目对应；原文同时附带年月条件，不能把其中短断直接视为无条件结论。',
                     hint: '原文同时列出不同年月条件，表明同一日时并不是单一固定结论。',
                     boundary: '古代命例式短断不能直接翻译成现代人生结论，应逐项核对后列年月与行运条件。',
                     sourceUrl: CLASSIC_SOURCE_URLS.sanming8
@@ -284,6 +382,7 @@
                 id: 'bazitiyao-ding-zi-jiyou-verified', book: '八字提要', chapter: '丁日子月·己酉时',
                 quote: '月提子水，克制丁火，时下酉金，有恋水之情',
                 match: '日干为丁、月支为子、时柱为己酉，与已核对扫描条目三个检索条件完全对应。',
+                contextNote: '这里确认的是日干、月支、时柱三项检索条件；原文尚未覆盖年柱、日支与全局会合，因此不视为完整命局结论。',
                 hint: '此条把月令子水、时支酉金和时干己土放在同一组合中观察。',
                 boundary: '该条仍未纳入年柱、日支及全局会合，后续从格或用神判断不能直接套用。',
                 sourceUrl: CLASSIC_SOURCE_URLS.bazitiyao
@@ -300,6 +399,9 @@
                 chapter: zipingRule.chapter,
                 quote: zipingRule.quote,
                 match: `月支【${monthZhi}】本气【${monthMainGan}】相对日主【${dayGan}】为【${monthMainGod}】${supportHits.length ? `；原局同时见${supportHits.join('、')}` : ''}。`,
+                contextNote: monthMainGod === '正官'
+                    ? `本程序确认月令本气为正官，并进一步对照原文可机器核对的条件。${buildZipingZhengGuanAudit(internalRelations, hasGod, relationHitsByCode)}`
+                    : '本程序只确认月令十神及相关十神已经出现，因此将此条列作进一步核对；是否符合原文所述成格、破格或救应条件，尚未由此匹配判定。',
                 hint: zipingRule.hint,
                 boundary: '这里仅按月令本气确定应优先核对的格局章节；成格、破格与救应仍要继续比较透干、会合、刑冲和全局轻重。',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
@@ -310,6 +412,7 @@
                 id: 'ziping-hui-change', book: '子平真诠', chapter: '论用神变化',
                 quote: '用神既主月令矣，然月令所藏不一，而用神遂有变化',
                 match: `原局检测到：${relationHitsByCode(baziRelationCodes.SAN_HUI_COMPLETE, baziRelationCodes.SAN_HE_COMPLETE).join('；')}。月令【${monthZhi}】不能只按单支孤立阅读。`,
+                contextNote: '这里只确认会合结构存在，因此列入《真诠》“用神变化”相关论述；是否发生原文意义上的用神变化，仍需结合透干、冲破与实际成化条件判断。',
                 hint: '《真诠》把透干与会支视为月令结构发生变化的重要路径。',
                 boundary: '会齐不等于一定化成，也不自动决定格局优劣；仍须看月令、透干、冲破与救应。',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
@@ -320,6 +423,7 @@
                 id: 'ziping-qisha-shishen', book: '子平真诠', chapter: '论用神·顺逆',
                 quote: '七煞喜食神以制伏，忌财印以资扶',
                 match: `月令本气为七杀；原局同时见食神：${godPositions('食神').join('、')}。`,
+                contextNote: '这里只确认“七杀月令 + 食神出现”的入口条件；是否形成有效食神制杀，尚需比较旺衰、透藏、位置与制化。',
                 hint: '这使“七杀—食神”成为需要继续核对力量与位置的明确结构线索。',
                 boundary: '是否真正形成食神制杀，要比较旺衰、透藏、位置、根气和官杀混杂。',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
@@ -332,6 +436,7 @@
                 id: 'yuanhai-guansha', book: '渊海子平', chapter: '先看月令，次看浅深',
                 quote: '官煞混杂，身弱则贫，官煞两停，合煞为贵',
                 match: `原局同时见正官（${godPositions('正官').join('、')}）与七杀（${godPositions('七杀').join('、')}）。`,
+                contextNote: '这里只确认正官、七杀同时出现；原文所说的身弱、两停、合煞等条件并未由此自动成立。',
                 hint: '原文把“官杀并见”放入强弱、去留与合制条件中讨论，不能只凭“混杂”二字下结论。',
                 boundary: '“身弱”“两停”“合煞”都需要另行判断；这里只确认官杀两类同时出现。',
                 sourceUrl: CLASSIC_SOURCE_URLS.yuanhai
@@ -341,6 +446,7 @@
             id: 'yuanhai-rizhu-yueling', book: '渊海子平', chapter: '论日为主',
             quote: '以日为主，年为本，月为提纲，时为辅佐',
             match: `本局以日干【${dayGan}】为主体，月支【${monthZhi}】为月令提纲，年时两柱参与辅助比较。`,
+            contextNote: '此条用于说明分析次序与方法，不表示月令一项可以取代全局判断。',
             hint: '先确定日主和月令，再把年、日、时、透藏与岁运纳入，不宜把八个字平均计数。',
             boundary: '同篇又强调不可拘泥，因此“月为提纲”不是只凭月令一项定全局。',
             sourceUrl: CLASSIC_SOURCE_URLS.yuanhai
@@ -352,6 +458,7 @@
                 id: 'qianli-guansha', book: '千里命稿', chapter: '六神篇·官杀并见',
                 quote: '日主喜克，官杀并见，吉力加增；日主忌克，官杀并见，凶力更显',
                 match: `命局同时出现正官与七杀；正官位置：${godPositions('正官').join('、')}；七杀位置：${godPositions('七杀').join('、')}。`,
+                contextNote: '这里只确认官杀并见；原文关于“喜克”或“忌克”的分岔仍须先完成日主强弱与喜忌判断。',
                 hint: '该书把官杀并见的影响建立在“日主究竟喜克还是忌克”的前提上，而非固定视为吉或凶。',
                 boundary: '身强弱、喜忌与去留仍需综合判断，此处只提示继续核对的分岔。',
                 sourceUrl: CLASSIC_SOURCE_URLS.qianli
@@ -363,6 +470,7 @@
                 id: 'qianli-relations-priority', book: '千里命稿', chapter: '刑冲合害并见',
                 quote: '刑冲合害并见，以紧贴者为有力',
                 match: `原局同时出现多类干支关系：${internalRelations.map((item) => item.text).join('；')}。`,
+                contextNote: '此条用于提供关系轻重的分析原则；程序并未仅凭“紧贴”一项完成全部力量排序。',
                 hint: '多种关系并见时，需要比较紧贴、月令和力量，而不是把所有标签等量相加。',
                 boundary: '相邻只是重要条件之一，仍需看是否得令、透干及被其他关系解化。',
                 sourceUrl: CLASSIC_SOURCE_URLS.qianli
@@ -372,6 +480,7 @@
             id: 'qianli-strength', book: '千里命稿', chapter: '强弱篇',
             quote: '论命以日干为主，称之曰身，身之强弱，关系最为紧要',
             match: `本局日干为【${dayGan}】，可结合得令、通根、扶助与泄耗克分项观察。`,
+            contextNote: '此条作为强弱分析的方法依据，不表示程序已经由这句原文得出身强或身弱结论。',
             hint: '这段说明为何需要专设“日主结构证据”，而不只看五行字数。',
             boundary: '“关系紧要”不等于已经判定身强或身弱；仍要结合月令、根气、透藏、会局与制化。',
             sourceUrl: CLASSIC_SOURCE_URLS.qianli
@@ -382,6 +491,7 @@
             id: 'sanming-shengwang-caution', book: '三命通会', chapter: '卷二·论五行旺相休囚死',
             quote: '生旺者未必便作吉论，休囚死绝未必便作凶言',
             match: `日主五行【${dayElement}】在${monthSeason.season}季状态表中为“${dayStatus}”。`,
+            contextNote: '这里只确认季节状态；原文明示旺相休囚死不能直接等同吉凶，因此不据此单项推出成败。',
             hint: '季节状态是证据之一，后续仍要看通根、印比、泄耗克与成方成局。',
             boundary: '不能把“旺”直接等同吉，也不能把“死”直接等同凶。',
             sourceUrl: 'https://zh.wikisource.org/zh-hans/%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B702'
@@ -397,6 +507,8 @@
         MONTH_SEASON_INDEX,
         SEASON_CLASSIC_LABEL,
         STEM_ELEMENT_LABEL,
+        BRANCH_MONTH_LABEL,
+        getQiongQuoteScope,
         QIONGTONG_SEASON_INDEX,
         ZIPING_MONTH_CATEGORY_INDEX,
         buildMatchedLiterature

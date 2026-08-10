@@ -1,4 +1,4 @@
-# Vendor 升级流程 · 龟甲 v13.29.0
+# Vendor 升级流程 · 龟甲 v13.32.0
 
 原则：**发现更新 ≠ 自动升级。**
 
@@ -40,7 +40,7 @@ node scripts/fetch-vendor.mjs --target .
 node scripts/verify-vendor.mjs .
 ```
 
-也可先让 GitHub Actions 生成 Vendor Snapshot PR，再在该 PR 上继续审核。
+也可让 GitHub Actions 生成 Vendor Snapshot PR，再在该 PR 上继续审核。生产 Pages 构建不会自动联网替换失效或缺失的 vendor。
 
 ## 5. 跑自动回归
 

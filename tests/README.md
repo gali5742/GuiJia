@@ -3,25 +3,27 @@
 运行：
 
 ```bash
-node tests/run-tests.js
+npm test
 ```
 
-或执行完整部署前检查：
+完整发布前检查：
 
 ```bash
 npm run predeploy
 ```
 
-当前测试覆盖：
+当前覆盖包括：
 
 - 十神 10×10 映射、藏干、六十甲子旬空；
-- 八字 relation code 与典型刑冲合会结构；
-- 八字古籍 matcher 不依赖展示文案；
-- 乾 / 坤固定卦例、64 卦唯一映射、八宫、纳甲、六神；
-- 动变三合 missingBranch 与应期 matcher；
-- 六爻古籍 matcher 机器结构路径；
-- Tailwind 静态化、六爻录入视觉顺序；
-- Vue setup / hash 离线 smoke test；
-- vendor 固定版本与监测配置；
-- GitHub Pages Actions 部署与最终静态 artifact 校验；
-- 部署文档、`.nojekyll`、`.gitattributes` 等首发工程不变量。
+- 八字原局与岁运关系机器码、典型刑冲合会结构、流年流月 builder 与古籍 matcher；
+- pinned lunar-javascript：固定四柱、立春 / 节令边界、晚子时口径、起运与流月；
+- 六爻 64 卦唯一映射、八宫、纳甲、六神、世应与飞伏；
+- 月建 / 日辰 / 旬空 / 月破、暗动、日破及明动变爻状态；
+- 用神—元神—忌神—仇神来源与逐条直接生克、六合、六冲事实；
+- 回头生克、进退、化空、化月破、墓绝长生等动变结构；
+- 动变三合具体爻位来源、完整成局 / 待补成局与应期补局；
+- 应期按时间节点聚合、旬空 / 月破术语分流，以及 23:00 子初换日的时间窗；
+- 六爻结构解读分点输出与复制分析上下文；
+- 古籍 matcher 机器结构路径与完整 / 待补三合分流；
+- 宽窄屏关键 DOM / CSS 契约、Tailwind 静态化、Vue setup / hash 离线 smoke test；
+- vendor 固定版本、GitHub Pages Actions、静态 artifact 与部署工程不变量。

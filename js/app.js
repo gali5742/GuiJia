@@ -1,25 +1,114 @@
-// GuiJia v13.27 application shell. Domain rules live in sibling modules under ./js/.
-    const { createApp, ref, reactive, computed } = Vue;
+// GuiJia application shell. Domain rules, timing builders, interpretation engines, and detail builders live in sibling modules under ./js/.
+    const { createApp, ref, reactive, computed, watch } = Vue;
+    const { formatNaturalCount = (value) => String(value) } = window.GuiJia?.common || {};
+
+    const literatureLevelOrder = { exact: 0, structure: 1, method: 2 };
+    const literatureLevelLabels = { exact: '精确', structure: '结构', method: '方法' };
+    const resolveLiteratureLevelKey = (item) => {
+        if (['exact', 'structure', 'method'].includes(item?.levelKey)) return item.levelKey;
+        return ({ '精确结构': 'exact', '精确匹配': 'exact', '结构匹配': 'structure', '方法参考': 'method', '条目定位': 'method' })[item?.level] || 'method';
+    };
+
+    // 八字、六爻共用同一套古籍“总览 / 单书分览”浏览组件。
+    // 领域 matcher 只负责返回条目；本组件只做排序、按书聚合与展示，不参与命理判断。
+    const LiteratureBrowser = {
+        template: '#literature-browser-template',
+        props: {
+            modelValue: { type: String, default: '总览' },
+            entries: { type: Array, default: () => [] },
+            intro: { type: String, default: '' },
+            emptyText: { type: String, default: '当前暂无匹配的古籍文段或条目定位。' }
+        },
+        emits: ['update:modelValue'],
+        setup(props, { emit }) {
+            const normalizedEntries = computed(() => [...(props.entries || [])]
+                .map((item) => {
+                    const isLocator = item.excerptType === 'locator' || item.verified === false || item.sourceKind === '原典定位';
+                    return {
+                        ...item,
+                        _levelKey: resolveLiteratureLevelKey(item),
+                        _isLocator: isLocator,
+                        _sourceLabel: isLocator ? '条目定位' : '已核对来源',
+                        _sourceAction: isLocator ? '查看原典入口 ↗' : '查看核对来源 ↗'
+                    };
+                })
+                .sort((a, b) => (literatureLevelOrder[a._levelKey] ?? 9) - (literatureLevelOrder[b._levelKey] ?? 9)));
+
+            const books = computed(() => [...new Set(normalizedEntries.value.map((item) => item.book).filter(Boolean))]);
+            const activeFilter = computed(() => {
+                const value = props.modelValue || '总览';
+                return value === '总览' || books.value.includes(value) ? value : '总览';
+            });
+            const filteredEntries = computed(() => activeFilter.value === '总览'
+                ? []
+                : normalizedEntries.value.filter((item) => item.book === activeFilter.value));
+            const counts = computed(() => {
+                const result = { total: normalizedEntries.value.length, exact: 0, structure: 0, method: 0, verified: 0, locator: 0 };
+                normalizedEntries.value.forEach((item) => {
+                    if (result[item._levelKey] !== undefined) result[item._levelKey] += 1;
+                    if (item._isLocator) result.locator += 1;
+                    else result.verified += 1;
+                });
+                return result;
+            });
+            const overview = computed(() => books.value.map((book) => {
+                const items = normalizedEntries.value.filter((item) => item.book === book);
+                const levelCounts = { exact: 0, structure: 0, method: 0 };
+                let verified = 0;
+                let locator = 0;
+                items.forEach((item) => {
+                    levelCounts[item._levelKey] += 1;
+                    if (item._isLocator) locator += 1;
+                    else verified += 1;
+                });
+                const chapters = [...new Set(items.map((item) => item.chapter).filter(Boolean))];
+                const levelText = Object.entries(levelCounts)
+                    .filter(([, count]) => count > 0)
+                    .map(([key, count]) => `${literatureLevelLabels[key]} ${count}`)
+                    .join(' · ');
+                return {
+                    book,
+                    count: items.length,
+                    verified,
+                    locator,
+                    levelText,
+                    chapterText: `${chapters.slice(0, 3).join('、')}${chapters.length > 3 ? ` 等 ${formatNaturalCount(chapters.length)}个条目` : ''}`
+                };
+            }));
+            const selectBook = (book) => emit('update:modelValue', book);
+            return { normalizedEntries, books, activeFilter, filteredEntries, counts, overview, selectBook };
+        }
+    };
 
     createApp({
+        components: { LiteratureBrowser },
         setup() {
             const {
                 parseLocalDateTime, formatWallDateTime, formatInputDateTime, formatSignedMinutes, buildSolarCorrection
             } = window.GuiJia.common;
             const {
                 shiShenMap, cangGanMap, palaceMap, getWuXing, getColorClass, getStatusClass,
-                getShiShenExplanation, getRelationTagClass, getNaYin, getDiShi, getXunInfo, calculateStemRelations,
-                calculateBranchRelations, calculateInternalChartRelations, calculatePillarSignals, calculatePairRelations,
-                calculateThreeLayerRelations, buildMonthSeason, buildDayMasterEvidence, buildShenSha,
-                calculateFourLayerRelations
+                getShiShenExplanation, getRelationTagClass, calculateInternalChartRelations,
+                buildMonthSeason, buildDayMasterEvidence, buildShenSha
             } = window.GuiJia.baziCore;
+            const {
+                buildYunProfile, buildLiuNianList, buildLiuYueList,
+                getAvailableYearRange, findDaYunIndexForYear, findDaYunIndexForDate
+            } = window.GuiJia.baziTiming;
+            const {
+                buildDaYunAnalysis, buildLiuNianAnalysis, buildLiuYueAnalysis, buildBaziTransitContextText
+            } = window.GuiJia.baziTransitAnalysis;
             const { buildMatchedLiterature } = window.GuiJia.baziLiterature;
+            const { buildBaziInterpretation, buildBaziContextText } = window.GuiJia.baziInterpretation;
+            const { buildBaziDetail } = window.GuiJia.baziDetail;
             const {
                 lineKey, getHexagram, liuyaoPalaceMap, naJiaForLines, sixRelation, sixSpirits,
                 buildLiuYaoLineStatus, buildMoveAnalysis, buildFullHexagramStructure, buildFlyingHidden,
+                USE_GOD_FOCUS_OPTIONS, useGodFocusOptionByTarget, useGodFocusOptionById, resolveUseGodFocus,
                 suggestUseGod, buildUseGodChoices, buildUseGodAnalysis, zhouyiSourceUrl, buildTimingCandidates
             } = window.GuiJia.liuyaoCore;
             const { buildLiuYaoLiterature } = window.GuiJia.liuyaoLiterature;
+            const { buildLiuYaoInterpretation, buildLiuYaoContextText } = window.GuiJia.liuyaoInterpretation;
             const { ichingTextRecords, ichingTextState } = window.GuiJia.createIChingLoader(ref, reactive);
 
 
@@ -42,14 +131,39 @@
             const currentPage = ref('input');
             const baziResultView = ref('overview');
             const liuyaoResultView = ref('overview');
+            const liuyaoDaySectStorageKey = 'guijia.liuyao.daySect';
+            const readStoredLiuYaoDaySect = () => {
+                try {
+                    const stored = window.localStorage?.getItem(liuyaoDaySectStorageKey);
+                    return stored === '1' ? '1' : '2';
+                } catch (error) {
+                    return '2';
+                }
+            };
             const liuyaoForm = reactive({
                 question: '',
                 datetime: formatInputDateTime(now),
+                daySect: readStoredLiuYaoDaySect(),
                 lines: [null, null, null, null, null, null]
+            });
+            watch(() => liuyaoForm.daySect, (value) => {
+                const normalized = value === '1' ? '1' : '2';
+                if (liuyaoForm.daySect !== normalized) liuyaoForm.daySect = normalized;
+                try { window.localStorage?.setItem(liuyaoDaySectStorageKey, normalized); } catch (error) { /* localStorage 不可用时保持当前会话设置 */ }
+            });
+            const liuyaoLateZiHour = computed(() => {
+                try {
+                    const value = parseLocalDateTime(liuyaoForm.datetime);
+                    return value.getHours() === 23;
+                } catch (error) {
+                    return false;
+                }
             });
             const yaoPositionLabels = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
             const liuyaoResult = ref(null);
             const selectedUseGodKey = ref('');
+            const selectedUseGodFocusId = ref('');
+            const useGodFocusFeedback = ref('');
             const result = ref(null);
             const errorMsg = ref('');
             const activeDaYunIndex = ref(0);
@@ -63,6 +177,9 @@
             const yearQueryMsg = ref('');
             const yearQueryError = ref(false);
             const literatureTab = ref(2);
+            const copyBaziContextStatus = ref('');
+            const copyBaziTransitContextStatus = ref('');
+            const copyLiuYaoContextStatus = ref('');
 
             const solarCorrectionPreview = computed(() => {
                 if (form.solarTimeMode === 'none') return { valid: true };
@@ -114,7 +231,7 @@
             };
             const goToInput = () => navigateTo('input', { replace: true, module: activeModule.value });
             const setBaziResultView = (view) => {
-                baziResultView.value = view === 'timing' ? 'timing' : 'overview';
+                baziResultView.value = ['overview', 'detail', 'timing'].includes(view) ? view : 'overview';
                 requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
             };
             const setLiuyaoResultView = (view) => {
@@ -133,48 +250,159 @@
             const activeDaYun = computed(() => result.value?.daYunList?.[activeDaYunIndex.value] || null);
             const activeLiuNian = computed(() => activeLiuNianList.value[activeLiuNianIndex.value] || null);
             const activeLiuYue = computed(() => activeLiuYueList.value[activeLiuYueIndex.value] || null);
+            const activeDaYunAnalysis = computed(() => buildDaYunAnalysis(result.value, activeDaYun.value));
+            const activeLiuNianAnalysis = computed(() => buildLiuNianAnalysis(result.value, activeDaYun.value, activeLiuNian.value));
+            const activeLiuYueAnalysis = computed(() => buildLiuYueAnalysis(result.value, activeDaYun.value, activeLiuNian.value, activeLiuYue.value));
 
-            const scoreBaziRelation = (relation) => {
-                const scoreByCode = {
-                    SAN_HUI_COMPLETE: 120,
-                    SAN_HE_COMPLETE: 115,
-                    PUNISHMENT_TRIAD_COMPLETE: 110,
-                    SELF_PUNISHMENT: 86,
-                    BRANCH_SIX_CLASH: 82,
-                    STEM_FIVE_HARMONY: 78,
-                    BRANCH_SIX_HARMONY: 72,
-                    BRANCH_PUNISHMENT: 70,
-                    BRANCH_SIX_HARM: 66,
-                    BRANCH_SIX_BREAK: 62,
-                    SAN_HE_PARTIAL: 52,
-                    SAN_HUI_PARTIAL: 52,
-                    STEM_CLASH: 48
-                };
-                let score = scoreByCode[relation?.code] ?? 40;
-                const pillarIndices = Array.isArray(relation?.pillarIndices) ? relation.pillarIndices : [];
-                if (pillarIndices.includes(2)) score += 14;
-                if (pillarIndices.includes(1)) score += 8;
-                if (pillarIndices.includes(0) && pillarIndices.includes(3)) score += 2;
-                return score;
+            const baziInterpretation = computed(() => buildBaziInterpretation(result.value));
+            const baziDetail = computed(() => buildBaziDetail(result.value));
+
+            const copyBaziAnalysisContext = async () => {
+                const text = buildBaziContextText(result.value, baziInterpretation.value);
+                if (!text) return;
+                try {
+                    if (navigator.clipboard?.writeText) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = text;
+                        textarea.setAttribute('readonly', '');
+                        textarea.style.position = 'fixed';
+                        textarea.style.opacity = '0';
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        const copied = document.execCommand('copy');
+                        textarea.remove();
+                        if (!copied) throw new Error('浏览器未允许复制。');
+                    }
+                    copyBaziContextStatus.value = '已复制分析上下文';
+                } catch (error) {
+                    console.warn('复制分析上下文失败', error);
+                    copyBaziContextStatus.value = '复制失败，请手动选择文本';
+                }
+                window.setTimeout(() => { copyBaziContextStatus.value = ''; }, 2200);
             };
 
-            const baziKeyRelations = computed(() => {
-                const relations = result.value?.internalRelations || [];
-                return [...relations]
-                    .map((item, index) => ({ item, index, score: scoreBaziRelation(item) }))
-                    .sort((a, b) => b.score - a.score || a.index - b.index)
-                    .slice(0, 3)
-                    .map((entry) => entry.item);
-            });
-            const availableYearRange = computed(() => {
-                const allYears = result.value?.daYunList
-                    ?.flatMap((item) => (item.rawObj?.getLiuNian?.() || []).map((liuNian) => liuNian.getYear()))
-                    ?.filter(Number.isFinite) || [];
-                return {
-                    min: allYears.length ? Math.min(...allYears) : '',
-                    max: allYears.length ? Math.max(...allYears) : ''
-                };
-            });
+            const copyBaziTransitAnalysisContext = async () => {
+                const text = buildBaziTransitContextText(result.value, baziInterpretation.value, {
+                    daYun: activeDaYun.value,
+                    liuNian: activeLiuNian.value,
+                    liuYue: activeLiuYue.value,
+                    daYunAnalysis: activeDaYunAnalysis.value,
+                    liuNianAnalysis: activeLiuNianAnalysis.value,
+                    liuYueAnalysis: activeLiuYueAnalysis.value
+                });
+                if (!text) return;
+                try {
+                    if (navigator.clipboard?.writeText) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = text;
+                        textarea.setAttribute('readonly', '');
+                        textarea.style.position = 'fixed';
+                        textarea.style.opacity = '0';
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        const copied = document.execCommand('copy');
+                        textarea.remove();
+                        if (!copied) throw new Error('浏览器未允许复制。');
+                    }
+                    copyBaziTransitContextStatus.value = '已复制岁运上下文';
+                } catch (error) {
+                    console.warn('复制岁运上下文失败', error);
+                    copyBaziTransitContextStatus.value = '复制失败，请手动选择文本';
+                }
+                window.setTimeout(() => { copyBaziTransitContextStatus.value = ''; }, 2200);
+            };
+
+            const availableYearRange = computed(() => getAvailableYearRange(result.value?.daYunList || []));
+
+            const selectLiuYue = (index) => {
+                if (index < 0 || index >= activeLiuYueList.value.length) return;
+                activeLiuYueIndex.value = index;
+                liuYueMsg.value = '';
+            };
+            const buildActiveLiuYueList = () => {
+                activeLiuYueList.value = [];
+                activeLiuYueIndex.value = 0;
+                liuYueError.value = '';
+                liuYueMsg.value = '';
+                const liuNian = activeLiuNian.value;
+                const daYun = activeDaYun.value;
+                const { items, error } = buildLiuYueList(liuNian, daYun, result.value || {}, { daYunList: result.value?.daYunList || [daYun] });
+                if (error) {
+                    liuYueError.value = error;
+                    return;
+                }
+                activeLiuYueList.value = items;
+                const currentIndex = activeLiuYueList.value.findIndex((item) => item.isCurrent);
+                activeLiuYueIndex.value = currentIndex >= 0 ? currentIndex : 0;
+            };
+
+            const selectLiuNian = (index) => {
+                if (index < 0 || index >= activeLiuNianList.value.length) return;
+                activeLiuNianIndex.value = index;
+                buildActiveLiuYueList();
+            };
+            const jumpToCurrentLiuYue = () => {
+                const index = activeLiuYueList.value.findIndex((item) => item.isCurrent);
+                if (index >= 0) {
+                    activeLiuYueIndex.value = index;
+                    liuYueMsg.value = '已定位到当前节令流月。';
+                } else {
+                    liuYueMsg.value = '当前日期不在所选流年的节令范围内；请先切换到当前流年。';
+                }
+            };
+
+            const selectDaYun = (index, daYunObj, preferredYear = null) => {
+                activeDaYunIndex.value = index;
+                activeLiuNianIndex.value = 0;
+                activeLiuYueList.value = [];
+                activeLiuYueIndex.value = 0;
+                liuYueMsg.value = '';
+                liuYueError.value = '';
+                if (!daYunObj?.rawObj) { activeLiuNianList.value = []; return; }
+                activeLiuNianList.value = buildLiuNianList(daYunObj, result.value || {}, { daYunList: result.value?.daYunList || [daYunObj] });
+                if (Number.isFinite(preferredYear)) {
+                    const preferredIndex = activeLiuNianList.value.findIndex((item) => item.year === preferredYear);
+                    activeLiuNianIndex.value = preferredIndex >= 0 ? preferredIndex : 0;
+                }
+                buildActiveLiuYueList();
+            };
+
+            const jumpToYear = () => {
+                yearQueryMsg.value = '';
+                yearQueryError.value = false;
+                if (!result.value?.daYunList?.length) { yearQueryError.value = true; yearQueryMsg.value = '请先完成排盘。'; return; }
+                const targetYear = Number(queryYear.value);
+                if (!Number.isInteger(targetYear)) { yearQueryError.value = true; yearQueryMsg.value = '请输入完整的公历年份。'; return; }
+                const matchedDaYunIndex = findDaYunIndexForYear(result.value.daYunList, targetYear);
+                if (matchedDaYunIndex < 0) {
+                    yearQueryError.value = true;
+                    const { min, max } = availableYearRange.value;
+                    yearQueryMsg.value = min && max ? `当前排盘可查询 ${min}—${max} 年，${targetYear} 年不在已生成范围内。` : `未找到 ${targetYear} 年对应的大运流年。`;
+                    return;
+                }
+                selectDaYun(matchedDaYunIndex, result.value.daYunList[matchedDaYunIndex], targetYear);
+                const matchedYear = activeLiuNianList.value[activeLiuNianIndex.value];
+                yearQueryMsg.value = matchedYear?.isTransitionYear
+                    ? `已定位到 ${targetYear} 年；该流年跨越大运交接。`
+                    : `已定位到 ${targetYear} 年及其所在大运。`;
+            };
+            const jumpToCurrentYear = () => {
+                const currentDate = new Date();
+                queryYear.value = currentDate.getFullYear();
+                const exactIndex = findDaYunIndexForDate(result.value?.daYunList || [], currentDate);
+                if (exactIndex >= 0) {
+                    selectDaYun(exactIndex, result.value.daYunList[exactIndex], currentDate.getFullYear());
+                    yearQueryMsg.value = `已按当前日期定位到 ${currentDate.getFullYear()} 年及实际所在大运。`;
+                    yearQueryError.value = false;
+                    return;
+                }
+                jumpToYear();
+            };
+
 
             const literatureNotes = [
                 {
@@ -221,19 +449,8 @@
                 }
             ];
             const activeLiterature = computed(() => literatureNotes[literatureTab.value] || literatureNotes[0]);
-            const literatureFilter = ref('全部');
-            const literatureLevelOrder = { exact: 0, structure: 1, method: 2 };
-            const matchedLiteratureBooks = computed(() => [...new Set((result.value?.matchedLiterature || []).map((item) => item.book))]);
-            const literatureLevelCounts = computed(() => {
-                const counts = { exact: 0, structure: 0, method: 0 };
-                (result.value?.matchedLiterature || []).forEach((item) => { if (counts[item.levelKey] !== undefined) counts[item.levelKey] += 1; });
-                return counts;
-            });
-            const filteredLiteratureMatches = computed(() => {
-                const entries = [...(result.value?.matchedLiterature || [])]
-                    .sort((a, b) => (literatureLevelOrder[a.levelKey] ?? 9) - (literatureLevelOrder[b.levelKey] ?? 9));
-                return literatureFilter.value === '全部' ? entries : entries.filter((item) => item.book === literatureFilter.value);
-            });
+            const literatureFilter = ref('总览');
+            const liuyaoLiteratureFilter = ref('总览');
             const openLiterature = (book, index = null) => {
                 if (Number.isInteger(index)) literatureTab.value = index;
                 literatureFilter.value = book;
@@ -246,212 +463,6 @@
                 });
             };
 
-            const jieMonthDefs = [
-                { name: '立春', alias: 'LI_CHUN', zhi: '寅' },
-                { name: '惊蛰', alias: 'JING_ZHE', zhi: '卯' },
-                { name: '清明', alias: 'QING_MING', zhi: '辰' },
-                { name: '立夏', alias: 'LI_XIA', zhi: '巳' },
-                { name: '芒种', alias: 'MANG_ZHONG', zhi: '午' },
-                { name: '小暑', alias: 'XIAO_SHU', zhi: '未' },
-                { name: '立秋', alias: 'LI_QIU', zhi: '申' },
-                { name: '白露', alias: 'BAI_LU', zhi: '酉' },
-                { name: '寒露', alias: 'HAN_LU', zhi: '戌' },
-                { name: '立冬', alias: 'LI_DONG', zhi: '亥' },
-                { name: '大雪', alias: 'DA_XUE', zhi: '子' },
-                { name: '小寒', alias: 'XIAO_HAN', zhi: '丑' }
-            ];
-            const solarToDate = (solar) => solar ? new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay(), solar.getHour(), solar.getMinute(), solar.getSecond?.() || 0) : null;
-            const solarText = (solar) => solar ? `${solar.getYear()}-${String(solar.getMonth()).padStart(2,'0')}-${String(solar.getDay()).padStart(2,'0')} ${String(solar.getHour()).padStart(2,'0')}:${String(solar.getMinute()).padStart(2,'0')}` : '—';
-            const solarShort = (solar) => solar ? `${solar.getMonth()}/${solar.getDay()}` : '—';
-            const findJieQiSolar = (targetYear, def) => {
-                const probes = [
-                    [targetYear, 1, 15], [targetYear, 6, 15], [targetYear, 12, 15],
-                    [targetYear - 1, 12, 15], [targetYear + 1, 1, 15]
-                ];
-                for (const [year, month, day] of probes) {
-                    try {
-                        const table = Solar.fromYmd(year, month, day).getLunar().getJieQiTable();
-                        const direct = table?.[def.name] || table?.[def.alias];
-                        if (direct && direct.getYear() === targetYear) return direct;
-                        for (const [key, value] of Object.entries(table || {})) {
-                            if (!value?.getYear || value.getYear() !== targetYear) continue;
-                            if (key === def.name || key === def.alias || key.includes(def.name)) return value;
-                        }
-                    } catch (error) {
-                        console.warn('读取节气失败', targetYear, def.name, error);
-                    }
-                }
-                return null;
-            };
-            const buildLiuYueRanges = (liuNianYear) => {
-                const starts = jieMonthDefs.map((def, index) => {
-                    const year = index === 11 ? liuNianYear + 1 : liuNianYear;
-                    return { ...def, solar: findJieQiSolar(year, def) };
-                });
-                const nextLiChun = findJieQiSolar(liuNianYear + 1, jieMonthDefs[0]);
-                return starts.map((item, index) => {
-                    const end = index < starts.length - 1 ? starts[index + 1].solar : nextLiChun;
-                    const complete = Boolean(item.solar && end);
-                    return {
-                        startSolar: item.solar,
-                        endSolar: end,
-                        startDate: solarToDate(item.solar),
-                        endDate: solarToDate(end),
-                        rangeText: complete ? `${item.name} ${solarText(item.solar)} 起，至 ${index < starts.length - 1 ? starts[index + 1].name : '次年立春'} ${solarText(end)} 前` : `${item.name}起（精确交接时刻读取失败）`,
-                        shortRange: complete ? `${solarShort(item.solar)}—${solarShort(end)}` : `${item.name}起`
-                    };
-                });
-            };
-
-            const selectLiuYue = (index) => {
-                if (index < 0 || index >= activeLiuYueList.value.length) return;
-                activeLiuYueIndex.value = index;
-                liuYueMsg.value = '';
-            };
-            const buildActiveLiuYueList = () => {
-                activeLiuYueList.value = [];
-                activeLiuYueIndex.value = 0;
-                liuYueError.value = '';
-                liuYueMsg.value = '';
-                const liuNian = activeLiuNian.value;
-                const daYun = activeDaYun.value;
-                if (!liuNian?.rawObj?.getLiuYue) {
-                    liuYueError.value = '暂时无法读取流月数据。';
-                    return;
-                }
-                let rawMonths = [];
-                try { rawMonths = liuNian.rawObj.getLiuYue() || []; }
-                catch (error) { console.warn('读取流月失败', error); liuYueError.value = '读取流月数据时发生异常。'; return; }
-                const ranges = buildLiuYueRanges(liuNian.year);
-                const originalGans = result.value.originalGans;
-                const originalZhis = result.value.originalZhis;
-                const dayGan = result.value.dayGan;
-                const nowDate = new Date();
-                activeLiuYueList.value = rawMonths.map((rawMonth, index) => {
-                    const ganZhi = rawMonth.getGanZhi?.() || '';
-                    if (ganZhi.length < 2) return null;
-                    const gan = ganZhi.substring(0, 1);
-                    const zhi = ganZhi.substring(1, 2);
-                    const xunInfo = getXunInfo(ganZhi);
-                    const range = ranges[index] || {};
-                    const isCurrent = Boolean(range.startDate && range.endDate && nowDate >= range.startDate && nowDate < range.endDate);
-                    const monthObj = { gan, zhi };
-                    return {
-                        rawObj: rawMonth,
-                        index,
-                        monthName: rawMonth.getMonthInChinese?.() || String(index + 1),
-                        gan, zhi,
-                        ganWuXing: getWuXing(gan),
-                        zhiWuXing: getWuXing(zhi),
-                        shiShen: shiShenMap[dayGan]?.[gan] || '',
-                        diShi: getDiShi(dayGan, zhi),
-                        naYin: getNaYin(ganZhi),
-                        xun: rawMonth.getXun?.() || xunInfo.xun,
-                        xunKong: rawMonth.getXunKong?.() || xunInfo.xunKong,
-                        rangeText: range.rangeText || '节令范围读取失败',
-                        shortRange: range.shortRange || '—',
-                        isCurrent,
-                        relations: calculateBranchRelations(zhi, originalZhis),
-                        stemRelations: calculateStemRelations(gan, originalGans),
-                        pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '流月'),
-                        yunRelations: calculatePairRelations(daYun, monthObj, '大运', '流月'),
-                        yearRelations: calculatePairRelations(liuNian, monthObj, '流年', '流月'),
-                        layeredRelations: calculateFourLayerRelations(daYun, liuNian, monthObj, originalZhis)
-                    };
-                }).filter(Boolean);
-                const currentIndex = activeLiuYueList.value.findIndex((item) => item.isCurrent);
-                activeLiuYueIndex.value = currentIndex >= 0 ? currentIndex : 0;
-            };
-            const selectLiuNian = (index) => {
-                if (index < 0 || index >= activeLiuNianList.value.length) return;
-                activeLiuNianIndex.value = index;
-                buildActiveLiuYueList();
-            };
-            const jumpToCurrentLiuYue = () => {
-                const index = activeLiuYueList.value.findIndex((item) => item.isCurrent);
-                if (index >= 0) {
-                    activeLiuYueIndex.value = index;
-                    liuYueMsg.value = '已定位到当前节令流月。';
-                } else {
-                    liuYueMsg.value = '当前日期不在所选流年的节令范围内；请先切换到当前流年。';
-                }
-            };
-
-            // 古籍匹配层 v13.13：把“资料索引”与“命局匹配”拆开，避免围绕少数测试盘逐条补 if。
-            // 已核对公开文本：
-            // 1) 穷通宝鉴：https://zh.wikisource.org/wiki/穷通宝鉴
-            // 2) 滴天髓：https://zh.wikisource.org/wiki/滴天髓/02
-            // 3) 三命通会卷八：https://zh.wikisource.org/zh-hans/三命通會/卷八
-            // 4) 子平真诠评注：https://ctext.org/wiki.pl?chapter=974137&if=gb
-            // 5) 渊海子平：https://zh.wikisource.org/wiki/淵海子平
-            // 6) 八字提要（国家图书馆藏本扫描）：https://commons.wikimedia.org/wiki/File:NLC511-51003343-75959_八字提要.pdf
-            // 7) 千里命稿（国家图书馆藏本扫描）：https://commons.wikimedia.org/wiki/File:NLC416-01jh000372-10197_千里命稿.pdf
-            const selectDaYun = (index, daYunObj, preferredYear = null) => {
-                activeDaYunIndex.value = index;
-                activeLiuNianIndex.value = 0;
-                activeLiuYueList.value = [];
-                activeLiuYueIndex.value = 0;
-                liuYueMsg.value = '';
-                liuYueError.value = '';
-                if (!daYunObj?.rawObj) { activeLiuNianList.value = []; return; }
-                const dayGan = result.value.dayGan;
-                const originalZhis = result.value.originalZhis;
-                const originalGans = result.value.originalGans;
-                const liuNianArr = daYunObj.rawObj.getLiuNian() || [];
-                activeLiuNianList.value = liuNianArr.map((liuNian) => {
-                    const ganZhi = liuNian.getGanZhi();
-                    if (!ganZhi || ganZhi.length < 2) return null;
-                    const gan = ganZhi.substring(0, 1);
-                    const zhi = ganZhi.substring(1, 2);
-                    const xunInfo = getXunInfo(ganZhi);
-                    const liuNianObj = { gan, zhi };
-                    return {
-                        rawObj: liuNian,
-                        year: liuNian.getYear(),
-                        age: liuNian.getAge(),
-                        gan, zhi,
-                        ganWuXing: getWuXing(gan),
-                        zhiWuXing: getWuXing(zhi),
-                        shiShen: shiShenMap[dayGan]?.[gan] || '',
-                        diShi: getDiShi(dayGan, zhi),
-                        naYin: getNaYin(ganZhi),
-                        xun: liuNian.getXun?.() || xunInfo.xun,
-                        xunKong: liuNian.getXunKong?.() || xunInfo.xunKong,
-                        relations: calculateBranchRelations(zhi, originalZhis),
-                        stemRelations: calculateStemRelations(gan, originalGans),
-                        pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '流年'),
-                        yunRelations: calculatePairRelations(daYunObj, liuNianObj, '大运', '流年'),
-                        layeredRelations: calculateThreeLayerRelations(daYunObj, liuNianObj, originalZhis)
-                    };
-                }).filter(Boolean);
-                if (Number.isFinite(preferredYear)) {
-                    const preferredIndex = activeLiuNianList.value.findIndex((item) => item.year === preferredYear);
-                    activeLiuNianIndex.value = preferredIndex >= 0 ? preferredIndex : 0;
-                }
-                buildActiveLiuYueList();
-            };
-
-            const jumpToYear = () => {
-                yearQueryMsg.value = '';
-                yearQueryError.value = false;
-                if (!result.value?.daYunList?.length) { yearQueryError.value = true; yearQueryMsg.value = '请先完成排盘。'; return; }
-                const targetYear = Number(queryYear.value);
-                if (!Number.isInteger(targetYear)) { yearQueryError.value = true; yearQueryMsg.value = '请输入完整的公历年份。'; return; }
-                let matchedDaYunIndex = -1;
-                for (let index = 0; index < result.value.daYunList.length; index += 1) {
-                    const years = (result.value.daYunList[index].rawObj?.getLiuNian?.() || []).map((liuNian) => liuNian.getYear());
-                    if (years.includes(targetYear)) { matchedDaYunIndex = index; break; }
-                }
-                if (matchedDaYunIndex < 0) {
-                    yearQueryError.value = true;
-                    const { min, max } = availableYearRange.value;
-                    yearQueryMsg.value = min && max ? `当前排盘可查询 ${min}—${max} 年，${targetYear} 年不在已生成范围内。` : `未找到 ${targetYear} 年对应的大运流年。`;
-                    return;
-                }
-                selectDaYun(matchedDaYunIndex, result.value.daYunList[matchedDaYunIndex], targetYear);
-                yearQueryMsg.value = `已定位到 ${targetYear} 年及其所在大运。`;
-            };
-            const jumpToCurrentYear = () => { queryYear.value = new Date().getFullYear(); jumpToYear(); };
 
 
             // 六爻装卦：八宫、纳甲、世应、六亲与六神
@@ -460,6 +471,20 @@
                 return choices.find((item) => item.key === selectedUseGodKey.value) || null;
             });
             const useGodAnalysis = computed(() => buildUseGodAnalysis(selectedUseGodTarget.value, liuyaoResult.value));
+            const useGodSelectionIsDisplayStart = computed(() => {
+                const selection = liuyaoResult.value?.useGodSelection;
+                return selection?.specificity === 'display-start' && Number(selection?.candidateCount || 0) > 1;
+            });
+            const useGodTargetLocationText = computed(() => {
+                const target = useGodAnalysis.value?.target;
+                if (!target) return '';
+                if (!useGodSelectionIsDisplayStart.value) return target.sourceText || '';
+                const labels = ['', '初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
+                const position = target.type === 'hidden'
+                    ? `${labels[target.position] || ''}下伏`
+                    : `${labels[target.position] || ''}${target.isShi ? '（世）' : ''}${target.isYing ? '（应）' : ''}`;
+                return [position, target.sourceText].filter(Boolean).join(' · ');
+            });
             const liuyaoKeyStructures = computed(() => {
                 const chart = liuyaoResult.value;
                 if (!chart?.fullStructure) return [];
@@ -492,8 +517,85 @@
                 }
                 return items.slice(0, 4);
             });
+            const useGodFocusOptions = computed(() => {
+                const chart = liuyaoResult.value;
+                if (!chart) return [];
+                return USE_GOD_FOCUS_OPTIONS.map((option) => {
+                    const resolution = resolveUseGodFocus(option.target, chart.lines || [], chart.flyingHidden || []);
+                    return {
+                        ...option,
+                        ...resolution,
+                        countLabel: resolution.count ? `${formatNaturalCount(resolution.count)}处候选` : '当前未见候选'
+                    };
+                });
+            });
+            const setUseGodSelectionMeta = (meta = {}) => {
+                if (!liuyaoResult.value) return;
+                liuyaoResult.value.useGodSelection = {
+                    mode: meta.mode || 'manual',
+                    focusId: meta.focusId || '',
+                    focusLabel: meta.focusLabel || '',
+                    target: meta.target || '',
+                    key: selectedUseGodKey.value || '',
+                    candidateCount: Number(meta.candidateCount || 0),
+                    specificity: meta.specificity || 'specific',
+                    categoryConfidence: meta.categoryConfidence || ''
+                };
+            };
+            const focusChoiceLabel = (key) => liuyaoResult.value?.useGodChoices?.find((item) => item.key === key)?.label || '';
+            const selectUseGodFocus = (focusId) => {
+                const chart = liuyaoResult.value;
+                const option = USE_GOD_FOCUS_OPTIONS.find((item) => item.id === focusId);
+                if (!chart || !option) return;
+                const resolution = resolveUseGodFocus(option.target, chart.lines || [], chart.flyingHidden || []);
+                if (!resolution.available) {
+                    selectedUseGodFocusId.value = '';
+                    useGodFocusFeedback.value = `本卦明爻及已列伏神候选中暂未见“${option.target}”候选，当前观察对象未切换。可以改选其他观察重点，或展开下方手动选择具体爻。`;
+                    return;
+                }
+                selectedUseGodFocusId.value = option.id;
+                selectedUseGodKey.value = resolution.suggestedUseKey;
+                const choiceLabel = focusChoiceLabel(resolution.suggestedUseKey);
+                if (resolution.count > 1) {
+                    useGodFocusFeedback.value = `这一观察重点在本卦有${formatNaturalCount(resolution.count)}处候选，当前先以${choiceLabel}展开；同类候选会完整保留在盘面中，也可以在下方调整具体爻。`;
+                } else {
+                    useGodFocusFeedback.value = `已按“${option.label}”切换到${choiceLabel}。`;
+                }
+                setUseGodSelectionMeta({
+                    mode:'focus',
+                    focusId:option.id,
+                    focusLabel:option.label,
+                    target:option.target,
+                    candidateCount:resolution.count,
+                    specificity:resolution.count > 1 ? 'display-start' : 'specific',
+                    categoryConfidence:'user-selected'
+                });
+            };
             const applySuggestedUseGod = () => {
-                if (liuyaoResult.value?.useGodSuggestion?.suggestedUseKey) selectedUseGodKey.value = liuyaoResult.value.useGodSuggestion.suggestedUseKey;
+                const suggestion = liuyaoResult.value?.useGodSuggestion;
+                if (!suggestion?.suggestedUseKey) return;
+                selectedUseGodKey.value = suggestion.suggestedUseKey;
+                const focusOption = useGodFocusOptionById(suggestion.focusId) || useGodFocusOptionByTarget(suggestion.recommendedTarget);
+                selectedUseGodFocusId.value = focusOption?.id || '';
+                const choiceLabel = focusChoiceLabel(suggestion.suggestedUseKey);
+                useGodFocusFeedback.value = suggestion.candidateCount > 1
+                    ? `已采用【${suggestion.recommendedTarget}】取用类别；本卦有${formatNaturalCount(suggestion.candidateCount)}处候选，当前以${choiceLabel}作为展示起点。`
+                    : (focusOption ? `已采用占问建议，并按“${focusOption.label}”作为当前观察重点。` : '已采用占问建议。');
+                setUseGodSelectionMeta({
+                    mode:'suggestion',
+                    focusId:focusOption?.id || '',
+                    focusLabel:focusOption?.label || '',
+                    target:suggestion.recommendedTarget || '',
+                    candidateCount:suggestion.candidateCount || 0,
+                    specificity:suggestion.candidateCount > 1 ? 'display-start' : 'specific',
+                    categoryConfidence:'high'
+                });
+            };
+            const onManualUseGodChange = () => {
+                selectedUseGodFocusId.value = '';
+                useGodFocusFeedback.value = '';
+                const choice = selectedUseGodTarget.value;
+                setUseGodSelectionMeta({ mode:'manual', target:choice?.relation || '' });
             };
 
             const currentIChingText = computed(() => {
@@ -521,6 +623,44 @@
             // v13.16 — 六爻古籍检索：结构特征 -> 文献数据 -> 通用 matcher。
             // 文献正文与匹配逻辑分离；未逐字核对的内容只作为“原典定位”，不伪装成原文摘录。
             const liuyaoLiterature = computed(() => buildLiuYaoLiterature(liuyaoResult.value, selectedUseGodTarget.value));
+            const liuyaoInterpretation = computed(() => buildLiuYaoInterpretation(
+                liuyaoResult.value,
+                selectedUseGodTarget.value,
+                useGodAnalysis.value,
+                timingCandidates.value
+            ));
+            const copyLiuYaoAnalysisContext = async () => {
+                const text = buildLiuYaoContextText(
+                    liuyaoResult.value,
+                    selectedUseGodTarget.value,
+                    useGodAnalysis.value,
+                    liuyaoInterpretation.value,
+                    timingCandidates.value,
+                    liuyaoLiterature.value
+                );
+                if (!text) return;
+                try {
+                    if (navigator.clipboard?.writeText) {
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        const textarea = document.createElement('textarea');
+                        textarea.value = text;
+                        textarea.setAttribute('readonly', '');
+                        textarea.style.position = 'fixed';
+                        textarea.style.opacity = '0';
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        const copied = document.execCommand('copy');
+                        textarea.remove();
+                        if (!copied) throw new Error('浏览器未允许复制。');
+                    }
+                    copyLiuYaoContextStatus.value = '已复制分析上下文';
+                } catch (error) {
+                    console.warn('复制六爻分析上下文失败', error);
+                    copyLiuYaoContextStatus.value = '复制失败，请手动选择文本';
+                }
+                window.setTimeout(() => { copyLiuYaoContextStatus.value = ''; }, 2200);
+            };
 
             const simulateCoinLine = () => {
                 let total = 0;
@@ -538,6 +678,7 @@
             };
             const calculateLiuYao = () => {
                 errorMsg.value = '';
+                copyLiuYaoContextStatus.value = '';
                 try {
                     const rawValues = liuyaoForm.lines.map((value) => Number(value));
                     if (rawValues.some((value) => ![6,7,8,9].includes(value))) throw new Error('请完整录入六爻结果（6、7、8、9）。');
@@ -545,7 +686,9 @@
                     const solar = Solar.fromDate(castDate);
                     const lunar = solar.getLunar();
                     const eightChar = lunar.getEightChar();
-                    eightChar.setSect(2);
+                    const liuyaoDaySect = liuyaoForm.daySect === '1' ? 1 : 2;
+                    eightChar.setSect(liuyaoDaySect);
+                    const dayChangeLabel = liuyaoDaySect === 1 ? '23:00 子初换日' : '24:00 换日（默认）';
                     const monthGan = eightChar.getMonthGan();
                     const monthZhi = eightChar.getMonthZhi();
                     const monthGanZhi = `${monthGan}${monthZhi}`;
@@ -608,6 +751,8 @@
                         dayGan,
                         dayZhi,
                         dayXun: eightChar.getDayXun?.() || '',
+                        daySect: liuyaoDaySect,
+                        dayChangeLabel,
                         castTimestamp: castDate.getTime(),
                         xunKong,
                         original,
@@ -623,9 +768,26 @@
                         flyingHidden,
                         useGodSuggestion,
                         useGodChoices,
+                        useGodSelection: null,
                         seasonalRuleNote: ['辰','戌','丑','未'].includes(monthZhi) ? '四季土月按“土旺、金相、火休、木囚、水死”列示。' : '旺相休囚死仅用于观察月令季节态势，不等同于完整强弱结论。'
                     };
+                    liuyaoLiteratureFilter.value = '总览';
                     selectedUseGodKey.value = useGodSuggestion.suggestedUseKey || useGodChoices[0]?.key || '';
+                    const suggestedFocus = useGodSuggestion.canApplySuggestion ? (useGodFocusOptionById(useGodSuggestion.focusId) || useGodFocusOptionByTarget(useGodSuggestion.recommendedTarget)) : null;
+                    selectedUseGodFocusId.value = suggestedFocus?.id || '';
+                    useGodFocusFeedback.value = '';
+                    liuyaoResult.value.useGodSelection = suggestedFocus
+                        ? {
+                            mode:'suggestion',
+                            focusId:suggestedFocus.id,
+                            focusLabel:suggestedFocus.label,
+                            target:useGodSuggestion.recommendedTarget || suggestedFocus.target,
+                            key:selectedUseGodKey.value,
+                            candidateCount:useGodSuggestion.candidateCount || 0,
+                            specificity:(useGodSuggestion.candidateCount || 0) > 1 ? 'display-start' : 'specific',
+                            categoryConfidence:'high'
+                        }
+                        : { mode:'default', focusId:'', focusLabel:'', target:'世', key:selectedUseGodKey.value, candidateCount:1, specificity:'display-start', categoryConfidence:'' };
                     liuyaoResultView.value = 'overview';
                     navigateTo('result', { module: 'liuyao' });
                 } catch (error) {
@@ -647,6 +809,7 @@
                 queryYear.value = new Date().getFullYear();
                 yearQueryMsg.value = '';
                 yearQueryError.value = false;
+                literatureFilter.value = '总览';
 
                 try {
                     if (!form.datetime) throw new Error('请选择出生时间。');
@@ -685,35 +848,14 @@
                         { name: '身宫', ganZhi: baZi.getShenGong(), naYin: baZi.getShenGongNaYin(), note: '按月支、时支推算，仅作辅助参照。' }
                     ].map((item) => ({ ...item, shiShen: shiShenMap[dayGan]?.[item.ganZhi.substring(0,1)] || '' }));
 
-                    const yun = baZi.getYun(Number.parseInt(form.gender, 10), Number.parseInt(form.yunSect, 10));
-                    let qiYunInfo = '起运时间读取异常';
-                    try {
-                        const startSolar = yun.getStartSolar();
-                        qiYunInfo = `公历 ${startSolar.getYear()}年${startSolar.getMonth()}月${startSolar.getDay()}日 ${String(startSolar.getHour()).padStart(2,'0')}:00交运`;
-                    } catch (error) { console.warn('读取起运时间失败', error); }
+                    const { qiYunInfo, daYunList } = buildYunProfile(baZi, {
+                        gender: form.gender,
+                        yunSect: form.yunSect,
+                        dayGan,
+                        originalGans,
+                        originalZhis
+                    });
 
-                    const daYunList = (yun.getDaYun() || []).map((daYun) => {
-                        const ganZhi = daYun.getGanZhi();
-                        if (!ganZhi || ganZhi.length < 2) return null;
-                        const gan = ganZhi.substring(0,1);
-                        const zhi = ganZhi.substring(1,2);
-                        const xunInfo = getXunInfo(ganZhi);
-                        return {
-                            rawObj: daYun,
-                            startYear: daYun.getStartYear(), endYear: daYun.getEndYear(),
-                            startAge: daYun.getStartAge(), endAge: daYun.getEndAge(),
-                            gan, zhi,
-                            ganWuXing: getWuXing(gan), zhiWuXing: getWuXing(zhi),
-                            shiShen: shiShenMap[dayGan]?.[gan] || '',
-                            diShi: getDiShi(dayGan, zhi),
-                            naYin: getNaYin(ganZhi),
-                            xun: daYun.getXun?.() || xunInfo.xun,
-                            xunKong: daYun.getXunKong?.() || xunInfo.xunKong,
-                            relations: calculateBranchRelations(zhi, originalZhis),
-                            stemRelations: calculateStemRelations(gan, originalGans),
-                            pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '大运')
-                        };
-                    }).filter(Boolean);
 
                     const daySectLabel = form.daySect === '1' ? '子初换日（23:00起按次日）' : '午夜换日（晚子时按当天）';
                     const yunSectLabel = form.yunSect === '2' ? '分钟细分起运' : '时辰折算起运';
@@ -747,8 +889,10 @@
                     };
 
                     if (daYunList.length > 0) {
-                        const currentYear = new Date().getFullYear();
-                        let defaultIndex = daYunList.findIndex((item) => currentYear >= item.startYear && currentYear <= item.endYear);
+                        const currentDate = new Date();
+                        const currentYear = currentDate.getFullYear();
+                        let defaultIndex = findDaYunIndexForDate(daYunList, currentDate);
+                        if (defaultIndex < 0) defaultIndex = daYunList.findIndex((item) => currentYear >= item.startYear && currentYear <= item.endYear);
                         if (defaultIndex < 0) defaultIndex = 0;
                         selectDaYun(defaultIndex, daYunList[defaultIndex], currentYear);
                     }
@@ -771,17 +915,17 @@
             };
 
             return {
-                form, result, errorMsg, activeModule, currentPage, baziResultView, liuyaoResultView, solarCorrectionPreview, baziKeyRelations, goToInput, setBaziResultView, setLiuyaoResultView, switchModule,
-                liuyaoForm, liuyaoResult, selectedUseGodKey, selectedUseGodTarget, useGodAnalysis, liuyaoKeyStructures,
-                applySuggestedUseGod, timingCandidates, liuyaoLiterature,
+                form, result, errorMsg, activeModule, currentPage, baziResultView, liuyaoResultView, solarCorrectionPreview, baziInterpretation, baziDetail, copyBaziAnalysisContext, copyBaziContextStatus, copyBaziTransitAnalysisContext, copyBaziTransitContextStatus, goToInput, setBaziResultView, setLiuyaoResultView, switchModule,
+                liuyaoForm, liuyaoLateZiHour, liuyaoResult, selectedUseGodKey, selectedUseGodTarget, selectedUseGodFocusId, useGodFocusOptions, useGodFocusFeedback, useGodAnalysis, useGodSelectionIsDisplayStart, useGodTargetLocationText, liuyaoKeyStructures, liuyaoInterpretation,
+                selectUseGodFocus, applySuggestedUseGod, onManualUseGodChange, timingCandidates, liuyaoLiterature, liuyaoLiteratureFilter, copyLiuYaoAnalysisContext, copyLiuYaoContextStatus,
                 ichingTextState, currentIChingText, zhouyiSourceUrl,
                 yaoPositionLabels, hasEnteredLiuYaoLines, simulateAllLines, clearLiuYaoLines, calculateLiuYao,
                 activeDaYunIndex, activeLiuNianList, activeLiuNianIndex,
                 activeLiuYueList, activeLiuYueIndex, activeLiuYue, liuYueMsg, liuYueError,
-                activeDaYun, activeLiuNian,
+                activeDaYun, activeLiuNian, activeDaYunAnalysis, activeLiuNianAnalysis, activeLiuYueAnalysis,
                 queryYear, yearQueryMsg, yearQueryError, availableYearRange,
                 literatureNotes, literatureTab, activeLiterature,
-                literatureFilter, matchedLiteratureBooks, literatureLevelCounts, filteredLiteratureMatches, openLiterature,
+                literatureFilter, openLiterature,
                 calculateBazi, getColorClass, getStatusClass, getPaddedCangGan, selectDaYun, selectLiuNian, selectLiuYue,
                 jumpToYear, jumpToCurrentYear, jumpToCurrentLiuYue, getShiShenExplanation, getRelationTagClass
             };
