@@ -10,7 +10,12 @@ for (const name of ['index.html', 'README.md', 'vendor-versions.json', '.nojekyl
   fs.copyFileSync(path.join(ROOT, name), path.join(out, name));
 }
 for (const dir of ['assets', 'data', 'js']) {
-  fs.cpSync(path.join(ROOT, dir), path.join(out, dir), { recursive: true });
+  const source = path.join(ROOT, dir);
+  const target = path.join(out, dir);
+  fs.cpSync(source, target, {
+    recursive: true,
+    filter: (entry) => !(dir === 'js' && path.basename(entry) === 'liuyao-time-review.js')
+  });
 }
 
 const vendorDir = path.join(ROOT, 'vendor');

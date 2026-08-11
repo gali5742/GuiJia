@@ -6,11 +6,11 @@
     <title>龟甲｜排盘与结构分析</title>
     <meta name="theme-color" content="#f2f0eb">
     <meta name="description" content="龟甲：静态八字与六爻排盘、结构分析及古籍检索工具。">
-    <!-- Runtime snapshots: Vue 3.5.40 · static Tailwind-compatible utility subset · lunar-javascript 1.7.7 · GuiJia v13.42.14 -->
+    <!-- Runtime snapshots: Vue 3.5.40 · static Tailwind-compatible utility subset · lunar-javascript 1.7.7 · GuiJia v13.44.0 -->
     <script src="./vendor/vue.global.prod.js"></script>
     <script src="./vendor/lunar.js"></script>
-    <link rel="stylesheet" href="assets/tailwind-utilities.css?v=13.42.14">
-    <link rel="stylesheet" href="assets/app.css?v=13.42.14">
+    <link rel="stylesheet" href="assets/tailwind-utilities.css?v=13.44.0">
+    <link rel="stylesheet" href="assets/app.css?v=13.44.0">
 </head>
 <body class="bg-slate-100 p-1 sm:p-2 lg:p-3 font-sans text-gray-800">
 
@@ -1164,18 +1164,18 @@
             </section>
 
             <section class="panel-card ui-layer-evidence">
-                <div class="detail-section-title">用神与元忌仇神</div>
-                <div class="detail-section-note">{{ useGodSelectionIsDisplayStart ? '当前观察对象及同类候选、元神、忌神、仇神的盘面分布。' : '当前用神及元神、忌神、仇神在明爻、变爻与伏神中的分布。' }}</div>
+                <div class="detail-section-title">{{ useGodSelectionIsTravel ? '主要观察爻与生克关系' : '用神与元忌仇神' }}</div>
+                <div class="detail-section-note">{{ useGodSelectionIsTravel ? '世爻作为主要观察爻；下列五行关系围绕该爻展开。' : (useGodSelectionIsDisplayStart ? '当前观察对象及同类候选、元神、忌神、仇神的盘面分布。' : '当前用神及元神、忌神、仇神在明爻、变爻与伏神中的分布。') }}</div>
                 <template v-if="useGodAnalysis">
                     <div class="detail-evidence-grid">
-                        <div class="detail-evidence-cell"><span>{{ useGodSelectionIsDisplayStart ? '当前观察对象' : '当前用神' }}</span><strong>{{ useGodAnalysis.target.relation }}{{ useGodAnalysis.target.branch }}{{ useGodAnalysis.target.element }}</strong></div>
-                        <div class="detail-evidence-cell"><span>{{ useGodSelectionIsDisplayStart ? '展示位置' : '出现位置' }}</span><strong>{{ useGodTargetLocationText }}</strong></div>
+                        <div class="detail-evidence-cell"><span>{{ useGodSelectionIsObservation ? '主要观察爻' : '当前用神' }}</span><strong>{{ useGodAnalysis.target.relation }}{{ useGodAnalysis.target.branch }}{{ useGodAnalysis.target.element }}</strong></div>
+                        <div class="detail-evidence-cell"><span>{{ useGodSelectionIsObservation ? '观察位置' : '出现位置' }}</span><strong>{{ useGodTargetLocationText }}</strong></div>
                         <div class="detail-evidence-cell"><span>{{ useGodSelectionIsDisplayStart ? '同类候选' : '同类出现' }}</span><strong>{{ useGodAnalysis.sameRelationText }}</strong></div>
                     </div>
                     <div class="deity-chain-grid mt-3">
-                        <div class="deity-chain-card"><div class="deity-chain-title">元神 · 生用神</div><div class="deity-chain-element">{{ useGodAnalysis.sourceElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.sourceLines }}</div></div>
-                        <div class="deity-chain-card"><div class="deity-chain-title">忌神 · 克用神</div><div class="deity-chain-element">{{ useGodAnalysis.tabooElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.tabooLines }}</div></div>
-                        <div class="deity-chain-card"><div class="deity-chain-title">仇神 · 生忌克元</div><div class="deity-chain-element">{{ useGodAnalysis.enemyElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.enemyLines }}</div></div>
+                        <div class="deity-chain-card"><div class="deity-chain-title">{{ useGodSelectionIsTravel ? '生扶五行' : '元神 · 生用神' }}</div><div class="deity-chain-element">{{ useGodAnalysis.sourceElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.sourceLines }}</div></div>
+                        <div class="deity-chain-card"><div class="deity-chain-title">{{ useGodSelectionIsTravel ? '克制五行' : '忌神 · 克用神' }}</div><div class="deity-chain-element">{{ useGodAnalysis.tabooElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.tabooLines }}</div></div>
+                        <div class="deity-chain-card"><div class="deity-chain-title">{{ useGodSelectionIsTravel ? '间接制约五行' : '仇神 · 生忌克元' }}</div><div class="deity-chain-element">{{ useGodAnalysis.enemyElement }}</div><div class="deity-chain-lines">{{ useGodAnalysis.enemyLines }}</div></div>
                     </div>
                 </template>
                 <p v-else class="text-sm text-gray-500 mt-3">请先在占算总览中确认用神。</p>
@@ -1207,7 +1207,46 @@
                 </div>
             </section>
 
-            <section v-if="timingCandidates.length" class="panel-card ui-layer-evidence">
+            <section v-if="questionTimeFocus?.kind === 'range'" class="panel-card ui-layer-evidence">
+                <div class="detail-section-title">目标时间范围</div>
+                <div class="detail-section-note">{{ questionTimeFocus.title }} · {{ questionTimeFocus.modeLabel }}</div>
+                <div class="detail-section-note">{{ questionTimeFocus.note }}</div>
+                <div v-if="questionTimeFocus.comparisonBasisNote" class="detail-section-note mt-2">{{ questionTimeFocus.comparisonBasisNote }}</div>
+                <div v-if="questionTimeFocus.comparison?.summary" class="detail-section-note mt-2">比较结果：{{ questionTimeFocus.comparison.summary }}</div>
+                <div v-if="questionTimeFocus.keyNodes?.length" class="timing-list">
+                    <div v-for="entry in questionTimeFocus.keyNodes" :key="entry.title" class="timing-item">
+                        <div class="timing-title">{{ entry.title }}</div>
+                        <div v-if="entry.assessment?.text || entry.effectSummary || entry.facts?.length" class="timing-trigger-list">
+                            <div v-if="entry.assessment?.text" class="timing-trigger-row"><span class="timing-trigger">日期判断：{{ entry.assessment.text }}</span></div>
+                            <div v-if="entry.effectSummary" class="timing-trigger-row"><span class="timing-trigger">节点效力：{{ entry.effectSummary }}</span></div>
+                            <div v-for="fact in entry.facts" :key="`${entry.title}-${fact}`" class="timing-trigger-row">
+                                <span class="timing-trigger">{{ fact }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="detail-section-note mt-3">当前范围内未提取到高区分度的结构节点。</div>
+            </section>
+
+            <section v-else-if="questionTimeFocus?.entries?.length" class="panel-card ui-layer-evidence">
+                <div class="detail-section-title">目标时点</div>
+                <div v-if="questionTimeFocus.comparisonBasisNote" class="detail-section-note">{{ questionTimeFocus.comparisonBasisNote }}</div>
+                <div v-if="questionTimeFocus.comparison?.summary" class="detail-section-note">比较结果：{{ questionTimeFocus.comparison.summary }}</div>
+                <div class="timing-list">
+                    <div v-for="entry in questionTimeFocus.entries" :key="entry.title" class="timing-item">
+                        <div class="timing-title">{{ entry.title }}</div>
+                        <div v-if="entry.assessment?.text || entry.effectSummary || entry.facts?.length" class="timing-trigger-list">
+                            <div v-if="entry.assessment?.text" class="timing-trigger-row"><span class="timing-trigger">日期判断：{{ entry.assessment.text }}</span></div>
+                            <div v-if="entry.effectSummary" class="timing-trigger-row"><span class="timing-trigger">节点效力：{{ entry.effectSummary }}</span></div>
+                            <div v-for="fact in entry.facts" :key="`${entry.title}-${fact}`" class="timing-trigger-row">
+                                <span class="timing-trigger">{{ fact }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section v-if="timingCandidates.length && questionTimeFocus?.kind !== 'range' && !questionTimeFocus?.suppressTimingCandidates" class="panel-card ui-layer-evidence">
                 <div class="detail-section-title">应期观察</div>
                 <div class="detail-section-note">按时间汇总当前卦中的关键结构变化与用神动静观察点。</div>
                 <div class="timing-list">
@@ -1293,18 +1332,26 @@
     </div>
 </template>
 
-<script src="./js/common.js?v=13.42.14"></script>
-<script src="./js/iching-loader.js?v=13.42.14"></script>
-<script src="./js/bazi-core.js?v=13.42.14"></script>
-<script src="./js/bazi-timing.js?v=13.42.14"></script>
-<script src="./js/bazi-transit-analysis.js?v=13.42.14"></script>
-<script src="./js/bazi-literature.js?v=13.42.14"></script>
-<script src="./js/bazi-interpretation.js?v=13.42.14"></script>
-<script src="./js/bazi-detail.js?v=13.42.14"></script>
-<script src="./js/liuyao-core.js?v=13.42.14"></script>
-<script src="./js/liuyao-interpretation.js?v=13.42.14"></script>
-<script src="./js/liuyao-literature.js?v=13.42.14"></script>
-<script src="./js/app.js?v=13.42.14"></script>
+<script src="./js/common.js?v=13.44.0"></script>
+<script src="./js/question-time.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-facts.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-effects.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-assessment.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-evidence.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-relevance.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-output.js?v=13.44.0"></script>
+<script src="./js/liuyao-time-selection.js?v=13.44.0"></script>
+<script src="./js/iching-loader.js?v=13.44.0"></script>
+<script src="./js/bazi-core.js?v=13.44.0"></script>
+<script src="./js/bazi-timing.js?v=13.44.0"></script>
+<script src="./js/bazi-transit-analysis.js?v=13.44.0"></script>
+<script src="./js/bazi-literature.js?v=13.44.0"></script>
+<script src="./js/bazi-interpretation.js?v=13.44.0"></script>
+<script src="./js/bazi-detail.js?v=13.44.0"></script>
+<script src="./js/liuyao-core.js?v=13.44.0"></script>
+<script src="./js/liuyao-interpretation.js?v=13.44.0"></script>
+<script src="./js/liuyao-literature.js?v=13.44.0"></script>
+<script src="./js/app.js?v=13.44.0"></script>
 
 
 </body>

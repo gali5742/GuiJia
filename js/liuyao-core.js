@@ -2,6 +2,20 @@
     'use strict';
     const GuiJia = global.GuiJia = global.GuiJia || {};
     const { chongMap, heMap, getWuXing } = GuiJia.baziCore;
+    const timeFactApi = GuiJia.liuyaoTimeFacts;
+    const timeEffectApi = GuiJia.liuyaoTimeEffects;
+    const timeAssessmentApi = GuiJia.liuyaoTimeAssessment;
+    const timeEvidenceApi = GuiJia.liuyaoTimeEvidence;
+    const timeOutputApi = GuiJia.liuyaoTimeOutput;
+    const timeRelevanceApi = GuiJia.liuyaoTimeRelevance;
+    const timeSelectionApi = GuiJia.liuyaoTimeSelection;
+    if (!timeFactApi?.factFromLegacyEvent) throw new Error('liuyao-time-facts.js must be loaded before liuyao-core.js');
+    if (!timeEffectApi?.mapTimeFactToEffects) throw new Error('liuyao-time-effects.js must be loaded before liuyao-core.js');
+    if (!timeAssessmentApi?.assessNodeEvents) throw new Error('liuyao-time-assessment.js must be loaded before liuyao-core.js');
+    if (!timeEvidenceApi?.selectNodeEvidence) throw new Error('liuyao-time-evidence.js must be loaded before liuyao-core.js');
+    if (!timeOutputApi?.buildCandidateNodeOutput) throw new Error('liuyao-time-output.js must be loaded before liuyao-core.js');
+    if (!timeRelevanceApi?.buildStructuralRelevanceProfile) throw new Error('liuyao-time-relevance.js must be loaded before liuyao-core.js');
+    if (!timeSelectionApi?.buildDateSelectionComparison) throw new Error('liuyao-time-selection.js must be loaded before liuyao-core.js');
     const { formatNaturalCount = (value) => String(value) } = GuiJia.common || {};
     const trigramData = {
         7: { name: '乾', nature: '天', element: '金', innerStem: '甲', outerStem: '壬', innerBranches: ['子','寅','辰'], outerBranches: ['午','申','戌'] },
@@ -130,17 +144,20 @@
         const seasonState = liuyaoSeasonState(monthBranch, element);
         tags.push({ code: 'SEASON_STATE', text: `月令${seasonState}`, type: ['旺','相'].includes(seasonState) ? 'support' : (['囚','死'].includes(seasonState) ? 'constraint' : 'neutral') });
 
+        const monthHarmony = heMap[branch] === monthBranch;
+        const monthClash = chongMap[branch] === monthBranch;
         if (branch === monthBranch) tags.push({ code: 'MONTH_COMMAND', text: '临月建', type: 'support' });
-        if (heMap[branch] === monthBranch) tags.push({ code: 'MONTH_HARMONY', text: '月合', type: 'support' });
-        if (chongMap[branch] === monthBranch) tags.push({ code: 'MONTH_BREAK', text: '月破', type: 'constraint' });
-        if (branch !== monthBranch) {
+        if (monthHarmony) tags.push({ code: 'MONTH_HARMONY', text: '月合', type: 'support' });
+        if (monthClash) tags.push({ code: 'MONTH_BREAK', text: '月破', type: 'constraint' });
+        if (branch !== monthBranch && !monthClash) {
             if (generateMap[monthElement] === element) tags.push({ code: 'MONTH_GENERATE', text: '月建生', type: 'support' });
             else if (controlMap[monthElement] === element) tags.push({ code: 'MONTH_CONTROL', text: '月建克', type: 'constraint' });
             else if (monthElement === element) tags.push({ code: 'MONTH_SUPPORT', text: '月令比扶', type: 'support' });
         }
 
+        const dayHarmony = heMap[branch] === dayBranch;
         if (branch === dayBranch) tags.push({ code: 'DAY_COMMAND', text: '临日辰', type: 'support' });
-        if (heMap[branch] === dayBranch) tags.push({ code: 'DAY_HARMONY', text: moving ? '日合·合绊提示' : '日合·合起提示', type: 'trigger' });
+        if (dayHarmony) tags.push({ code: 'DAY_HARMONY', text: moving ? '日合·合绊提示' : '日合·合起提示', type: 'trigger' });
         const dayClash = chongMap[branch] === dayBranch;
         if (dayClash) {
             if (moving) {
@@ -152,7 +169,7 @@
                     : { code: 'DAY_BREAK', text: '日冲·日破提示', type: 'trigger' });
             }
         }
-        if (branch !== dayBranch) {
+        if (branch !== dayBranch && !dayClash) {
             if (generateMap[dayElement] === element) tags.push({ code: 'DAY_GENERATE', text: '日辰生', type: 'support' });
             else if (controlMap[dayElement] === element) tags.push({ code: 'DAY_CONTROL', text: '日辰克', type: 'constraint' });
             else if (dayElement === element) tags.push({ code: 'DAY_SUPPORT', text: '日辰比扶', type: 'support' });
@@ -257,7 +274,7 @@
         { branches:['寅','午','戌'], element:'火' },
         { branches:['巳','酉','丑'], element:'金' }
     ];
-    const buildMovingSanHe = (rows) => {
+    const buildMovingSanHe = (rows, monthBranch = '', dayBranch = '') => {
         const sourceRows = Array.isArray(rows) ? rows : [];
         const isActiveOriginal = (line) => Boolean(line?.moving || hasStatusCode(line, 'DARK_MOVING'));
         const sourceToken = (line, source = 'original') => {
@@ -270,6 +287,12 @@
                 relation: changed ? (line?.changedRelation || '') : (line?.relation || ''),
                 branch,
                 element: changed ? (line?.changedElement || getWuXing(branch)) : (line?.element || getWuXing(branch)),
+                statusCodes: changed
+                    ? (line?.moveTags || []).map((tag) => tag.code).filter(Boolean)
+                    : (line?.statusTags || []).map((tag) => tag.code).filter(Boolean),
+                statusTexts: changed
+                    ? (line?.moveTags || []).map((tag) => tag.text).filter(Boolean)
+                    : (line?.statusTags || []).map((tag) => tag.text).filter(Boolean),
                 active: changed ? Boolean(line?.moving) : isActiveOriginal(line),
                 darkMoving: !line?.moving && hasStatusCode(line, 'DARK_MOVING')
             });
@@ -308,17 +331,26 @@
                 return;
             }
             // “虚三待用”：仅两支已由明动／暗动爻实际发动，第三支尚未在本卦出现。
+            // 若所缺一支恰由当前月建或日辰补足，则直接记为当前成局，不再另列未来补局应期。
             if (activeOriginal.length === 2 && presentOriginal.length === 2) {
                 const missingBranch = group.branches.find((branch) => !presentOriginal.includes(branch));
                 const tokens = originalTokens.filter((item) => activeOriginal.includes(item.branch) && item.active);
-                addPending(group, {
-                    mode:'ACTIVE_PAIR_PENDING',
+                const calendarSource = dayBranch === missingBranch
+                    ? { source:'day', sourceLabel:'日辰', branch:dayBranch }
+                    : monthBranch === missingBranch
+                        ? { source:'month', sourceLabel:'月建', branch:monthBranch }
+                        : null;
+                const formation = {
+                    mode:calendarSource ? 'CALENDAR_COMPLETED_ACTIVE_PAIR' : 'ACTIVE_PAIR_PENDING',
                     scope:'whole',
-                    sourceTokens:tokens,
+                    sourceTokens:calendarSource ? [...tokens, { ...calendarSource, element:getWuXing(calendarSource.branch), active:true }] : tokens,
                     positions:uniquePositions(tokens),
                     presentBranches:[...activeOriginal],
-                    missingBranch
-                });
+                    missingBranch,
+                    calendarSource
+                };
+                if (calendarSource) addComplete(group, formation);
+                else addPending(group, formation);
             }
         });
 
@@ -347,6 +379,7 @@
         const formationPriority = {
             INNER_FIRST_THIRD_CHANGE: 30,
             OUTER_FOURTH_SIXTH_CHANGE: 30,
+            CALENDAR_COMPLETED_ACTIVE_PAIR: 25,
             ORIGINAL_BRANCHES: 20
         };
         const completeByGroup = new Map();
@@ -355,19 +388,43 @@
             if (!completeByGroup.has(key)) completeByGroup.set(key, { group, formations:[] });
             completeByGroup.get(key).formations.push(formation);
         });
-        const completeDetails = [...completeByGroup.values()].map(({ group, formations }) => {
-            const primary = [...formations].sort((a,b) => (formationPriority[b.mode] || 0) - (formationPriority[a.mode] || 0))[0];
-            const text = primary.mode === 'INNER_FIRST_THIRD_CHANGE'
+        const sanHeBlocker = (token) => {
+            const codes = new Set(token?.statusCodes || []);
+            if (codes.has('VOID') || codes.has('TRANSFORM_VOID')) return { code:'VOID', label:'旬空', token };
+            if (codes.has('MONTH_BREAK') || codes.has('TRANSFORM_MONTH_BREAK')) return { code:'MONTH_BREAK', label:'月破', token };
+            if (codes.has('TRANSFORM_TOMB')) return { code:'TRANSFORM_TOMB', label:'入墓', token };
+            return null;
+        };
+        const blockerSubject = (blocker) => {
+            const token = blocker?.token || {};
+            const position = Number.isInteger(token.position) ? ({1:'初爻',2:'二爻',3:'三爻',4:'四爻',5:'五爻',6:'上爻'}[token.position] || `${token.position}爻`) : '';
+            const layer = token.source === 'changed' ? '变爻' : '';
+            return `${position}${layer}${token.relation || ''}${token.branch || ''}${token.element || getWuXing(token.branch)}`;
+        };
+        const completeAndDeferred = [...completeByGroup.values()].map(({ group, formations }) => {
+            const rankedFormations = [...formations].sort((a,b) => (formationPriority[b.mode] || 0) - (formationPriority[a.mode] || 0));
+            const blockersForFormation = (formation) => [...new Map((formation?.sourceTokens || []).map((token) => sanHeBlocker(token)).filter(Boolean).map((item) => [`${item.code}|${item.token?.source}|${item.token?.position}|${item.token?.branch}`, item])).values()];
+            const validFormation = rankedFormations.find((formation) => blockersForFormation(formation).length === 0) || null;
+            const primary = validFormation || rankedFormations[0];
+            const completeText = primary.mode === 'INNER_FIRST_THIRD_CHANGE'
                 ? `内卦初、三爻动变成${group.branches.join('')}三合${group.element}局`
                 : primary.mode === 'OUTER_FOURTH_SIXTH_CHANGE'
                     ? `外卦四、上爻动变成${group.branches.join('')}三合${group.element}局`
-                    : `本卦${group.branches.join('')}三合${group.element}局`;
+                    : primary.mode === 'CALENDAR_COMPLETED_ACTIVE_PAIR'
+                        ? `${positionLabel(primary.positions || [])}见${(primary.presentBranches || []).join('')}，得${primary.calendarSource?.sourceLabel || '日月'}【${primary.missingBranch}】补足，成${group.branches.join('')}三合${group.element}局`
+                        : `本卦${group.branches.join('')}三合${group.element}局`;
+            const readyText = primary.mode === 'INNER_FIRST_THIRD_CHANGE'
+                ? `内卦初、三爻动变见${group.branches.join('')}三支`
+                : primary.mode === 'OUTER_FOURTH_SIXTH_CHANGE'
+                    ? `外卦四、上爻动变见${group.branches.join('')}三支`
+                    : primary.mode === 'CALENDAR_COMPLETED_ACTIVE_PAIR'
+                        ? `${positionLabel(primary.positions || [])}见${(primary.presentBranches || []).join('')}，得${primary.calendarSource?.sourceLabel || '日月'}【${primary.missingBranch}】补足${group.branches.join('')}三支`
+                        : `本卦${group.branches.join('')}三支齐备`;
             const combinedTokens = formations.flatMap((item) => item.sourceTokens || []);
-            return {
-                code:'MOVING_SAN_HE_COMPLETE',
+            const primaryTokens = primary?.sourceTokens || [];
+            const blockers = validFormation ? [] : blockersForFormation(primary);
+            const base = {
                 family:'moving-san-he',
-                type:'transform',
-                text,
                 element:group.element,
                 groupBranches:[...group.branches],
                 presentBranches:[...group.branches],
@@ -377,12 +434,27 @@
                 scope:primary.scope,
                 positions:uniquePositions(combinedTokens),
                 formations,
-                members:sourceMembers(group.branches, combinedTokens)
+                members:sourceMembers(group.branches, combinedTokens),
+                blockers
             };
+            if (!blockers.length) return { state:'complete', item:{ ...base, code:'MOVING_SAN_HE_COMPLETE', type:'transform', text:completeText } };
+            const blockerText = blockers.map((item) => `${blockerSubject(item)}${item.label}`).join('、');
+            let waitText = '待相关条件解除后再观察成局';
+            if (blockers.length === 1 && blockers[0].code === 'VOID') {
+                const token = blockers[0].token || {};
+                waitText = `待${token.branch || ''}${token.element || getWuXing(token.branch)}填实／冲空／出空后再观察成局`;
+            } else if (blockers.length === 1 && blockers[0].code === 'MONTH_BREAK') {
+                waitText = '待月破解除后再观察成局';
+            } else if (blockers.length === 1 && blockers[0].code === 'TRANSFORM_TOMB') {
+                waitText = '待入墓条件解除后再观察成局';
+            }
+            return { state:'deferred', item:{ ...base, code:'MOVING_SAN_HE_DEFERRED', type:'neutral', text:`${readyText}；但${blockerText}，三合局尚未落实，${waitText}` } };
         });
+        const completeDetails = completeAndDeferred.filter((entry) => entry.state === 'complete').map((entry) => entry.item);
+        const deferredDetails = completeAndDeferred.filter((entry) => entry.state === 'deferred').map((entry) => entry.item);
 
-        // 已经以合法路径成局的同组，不再同时列“待补”。
-        const completeKeys = new Set(completeDetails.map((item) => item.groupBranches.join('')));
+        // 三支已经齐备（包括“齐备但待实”）的同组，不再同时列“待补”。
+        const completeKeys = new Set(completeAndDeferred.map((entry) => entry.item.groupBranches.join('')));
         const pendingDetails = pendingCandidates
             .filter(({ group }) => !completeKeys.has(group.branches.join('')))
             .map(({ group, formation }) => {
@@ -408,9 +480,11 @@
         return {
             complete: completeDetails.map((item) => item.text),
             completeDetails,
+            deferred: deferredDetails.map((item) => item.text),
+            deferredDetails,
             pending: pendingDetails.map((item) => item.text),
             pendingDetails,
-            facts:[...completeDetails, ...pendingDetails]
+            facts:[...completeDetails, ...deferredDetails, ...pendingDetails]
         };
     };
     const buildFanFuFacts = (rows) => {
@@ -439,7 +513,7 @@
         return facts;
     };
     const buildFanFuSummary = (rows) => buildFanFuFacts(rows).map((item) => item.text);
-    const buildFullHexagramStructure = (rows, originalNaJia, changedNaJia) => {
+    const buildFullHexagramStructure = (rows, originalNaJia, changedNaJia, monthBranch = '', dayBranch = '') => {
         const originalNature = getHexagramPairNature(originalNaJia);
         const changedNature = getHexagramPairNature(changedNaJia);
         let transition = `${originalNature.text} → ${changedNature.text}`;
@@ -453,7 +527,7 @@
             transitionCode = 'SIX_HARMONY_TO_SIX_CLASH';
         }
         const shiYing = buildShiYingSummary(rows);
-        const sanHe = buildMovingSanHe(rows);
+        const sanHe = buildMovingSanHe(rows, monthBranch, dayBranch);
         const fanFuDetails = buildFanFuFacts(rows);
         const fanFu = fanFuDetails.map((item) => item.text);
         const natureFacts = [
@@ -805,6 +879,7 @@
             statusTags: line.statusTags,
             moveTags: line.moveTags || [],
             moving: line.moving,
+            changedRelation: line.changedRelation,
             changedBranch: line.changedBranch,
             changedElement: line.changedElement,
             isShi: line.isShi,
@@ -1106,6 +1181,904 @@
             return { branch: eightChar.getDayZhi(), xun: eightChar.getDayXun?.() || '' };
         } catch (error) { return { branch: '', xun: '' }; }
     };
+    const getDayGanZhiAt = (dateObj, daySect = 2) => {
+        try {
+            const eightChar = Solar.fromDate(dateObj).getLunar().getEightChar();
+            eightChar.setSect(normalizeLiuYaoDaySect(daySect));
+            const gan = eightChar.getDayGan();
+            const branch = eightChar.getDayZhi();
+            const monthGan = eightChar.getMonthGan?.() || '';
+            const monthBranch = eightChar.getMonthZhi?.() || '';
+            return { gan, branch, ganZhi:`${gan}${branch}`, xun:eightChar.getDayXun?.() || '', xunKong:eightChar.getDayXunKong?.() || '', monthGan, monthBranch, monthGanZhi:`${monthGan}${monthBranch}` };
+        } catch (error) { return { gan:'', branch:'', ganZhi:'', xun:'', xunKong:'' }; }
+    };
+    const questionDateAtNoon = (year, month, day) => {
+        const dateObj = new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0, 0);
+        if (Number.isNaN(dateObj.getTime())) return null;
+        if (dateObj.getFullYear() !== Number(year) || dateObj.getMonth() !== Number(month) - 1 || dateObj.getDate() !== Number(day)) return null;
+        return dateObj;
+    };
+    const resolveQuestionTimeScope = (question, startDate) => {
+        const parser = GuiJia.questionTime?.parseQuestionTimeScope;
+        if (typeof parser !== 'function') return null;
+        return parser(question, startDate);
+    };
+    const resolveQuestionTargetDates = (question, startDate) => {
+        const scope = resolveQuestionTimeScope(question, startDate);
+        if (!scope || scope.confidence === 'low' || !scope.hardFilter) return null;
+        const expand = GuiJia.questionTime?.expandScopeDates;
+        const dates = scope.dates?.length
+            ? scope.dates
+            : (typeof expand === 'function' ? expand(scope, 2) : []);
+        if (!dates.length) return { label:scope.sourceText, dates:[], scope };
+        return { label:scope.sourceText, dates, scope };
+    };
+    const branchRelationToTargetDay = (branch, dayBranch) => {
+        if (!branch || !dayBranch) return '';
+        if (branch === dayBranch) return '临目标日';
+        if (heMap[branch] === dayBranch) return '与目标日六合';
+        if (chongMap[branch] === dayBranch) return '与目标日六冲';
+        return '';
+    };
+    const baseLinePositionLabel = (line) => {
+        const raw = String(line?.label || '').trim();
+        const match = raw.match(/^(初爻|二爻|三爻|四爻|五爻|上爻)/);
+        if (match) return match[1];
+        return ({ 1:'初爻',2:'二爻',3:'三爻',4:'四爻',5:'五爻',6:'上爻' }[Number(line?.position)] || raw || '爻');
+    };
+    const lineTargetDayLabel = (line) => `${baseLinePositionLabel(line)}${line?.isShi ? '（世）' : ''}${line?.isYing ? '（应）' : ''}${line?.relation || ''}${line?.branch || ''}${line?.element || ''}`;
+    const targetDayElementFact = (target, dayInfo) => {
+        if (!target?.element || !dayInfo?.branch) return '';
+        const dayElement = getWuXing(dayInfo.branch);
+        if (generateMap[dayElement] === target.element) return `目标日【${dayInfo.branch}】${dayElement}生扶主要观察爻【${target.branch}】${target.element}`;
+        if (controlMap[dayElement] === target.element) return `目标日【${dayInfo.branch}】${dayElement}克制主要观察爻【${target.branch}】${target.element}`;
+        if (dayElement === target.element) return `目标日【${dayInfo.branch}】${dayElement}与主要观察爻【${target.branch}】${target.element}比和`;
+        if (generateMap[target.element] === dayElement) return `主要观察爻【${target.branch}】${target.element}生目标日【${dayInfo.branch}】${dayElement}，目标日对主要观察爻形成泄力`;
+        if (controlMap[target.element] === dayElement) return `主要观察爻【${target.branch}】${target.element}克目标日【${dayInfo.branch}】${dayElement}`;
+        return '';
+    };
+    const rangeModeLabels = {
+        'event-occurrence':'事件触发观察',
+        'process-evaluation':'过程节点观察',
+        'date-selection':'日期比较',
+        'deadline':'期限内触发观察',
+        'vague':'模糊时间观察'
+    };
+    const rangeModeNotes = {
+        'event-occurrence':'聚焦范围内与主要观察爻及关键结构直接相关的时间节点。',
+        'process-evaluation':'聚焦这段时间内结构变化较明显的日期，观察过程中的起伏与转折。',
+        'date-selection':'比较范围内对主要观察爻作用差异较明显的日期，并标出优先观察顺序。',
+        'deadline':'聚焦期限以内可能触发主要观察爻或关键结构的时间节点。'
+    };
+    const rangeEffectLabels = {
+        supportive:'生扶',
+        adverse:'受制',
+        activating:'触发',
+        restraining:'牵制',
+        mixed:'交错',
+        neutral:'观察'
+    };
+    const rangeTierRank = { primary:3, secondary:2, context:1 };
+    const rangeAssessmentRank = { preferred:5, secondary:4, mixed:3, observe:2, caution:1 };
+    const rangeAssessmentLabels = {
+        preferred:'优先观察',
+        secondary:'可作次选',
+        mixed:'利弊并见',
+        observe:'一般观察',
+        caution:'谨慎观察'
+    };
+    const makeRangeEvent = (code, label, text, score, effect = 'neutral', options = {}) => {
+        const direction = options.direction || (effect === 'supportive' ? 'supportive' : ['adverse','restraining'].includes(effect) ? 'adverse' : effect === 'mixed' ? 'mixed' : 'neutral');
+        const event = {
+            code,
+            label,
+            text,
+            score:Number(score || 0),
+            effect,
+            effectLabel:rangeEffectLabels[effect] || rangeEffectLabels.neutral,
+            direction,
+            tier:options.tier || 'context',
+            subject:options.subject || 'context',
+            roleCode:options.roleCode || '',
+            caveat:options.caveat || ''
+        };
+        // v13.44.0-alpha.2：TimeFact 与六维 TimeEffect 并行建立；旧 effect/direction 仍只供兼容摘要器使用。
+        event.factMeta = { ...(options.factMeta || {}) };
+        event.fact = timeFactApi.factFromLegacyEvent(event);
+        event.timeEffects = timeEffectApi.mapTimeFactToEffects(event.fact);
+        return event;
+    };
+    const pushRangeEvent = (events, event) => {
+        if (!event?.text) return;
+        // v13.43.7：展示语义相同即去重，避免同一三合事实因后台来源 code 不同重复占位。
+        if (events.some((item) => (item.code === event.code && item.text === event.text)
+            || (item.label === event.label && item.text === event.text))) return;
+        events.push(event);
+    };
+    const rangeMonthStrength = (target, monthBranch) => {
+        if (!target?.element || !monthBranch) return { seasonState:'—', strong:false, constrained:false, monthBreak:false };
+        const monthElement = getWuXing(monthBranch);
+        const seasonState = liuyaoSeasonState(monthBranch, target.element);
+        const monthBreak = chongMap[target.branch] === monthBranch;
+        // v13.43.7：直接月冲（月破）优先于“同五行比扶”。辰戌、丑未不能因同属土而误判为得月支持。
+        const strong = !monthBreak && (target.branch === monthBranch
+            || monthElement === target.element
+            || generateMap[monthElement] === target.element
+            || ['旺','相'].includes(seasonState));
+        const constrained = monthBreak
+            || controlMap[monthElement] === target.element
+            || ['囚','死'].includes(seasonState);
+        return { seasonState, strong, constrained, monthElement, monthBreak };
+    };
+    const rangeRoleDirection = (lineElement, targetElement, action = 'activate') => {
+        const role = deityRoleInfo(lineElement, targetElement);
+        if (!role) return { direction:'mixed', roleCode:'' };
+        if (action === 'restrain') {
+            if (role.code === 'SOURCE') return { direction:'adverse', roleCode:role.code };
+            if (['TABOO','ENEMY'].includes(role.code)) return { direction:'supportive', roleCode:role.code };
+            return { direction:'mixed', roleCode:role.code };
+        }
+        if (role.code === 'SOURCE') return { direction:'supportive', roleCode:role.code };
+        if (['TABOO','ENEMY'].includes(role.code)) return { direction:'adverse', roleCode:role.code };
+        return { direction:'mixed', roleCode:role.code };
+    };
+    const rangeMovingValueMeta = (lineElement, targetElement) => {
+        if (!lineElement || !targetElement) return null;
+        const role = deityRoleInfo(lineElement, targetElement);
+        if (role?.code === 'SOURCE') return { label:'生扶动爻逢值', direction:'supportive', roleCode:'SOURCE', note:'该动爻属主要观察爻的生扶五行' };
+        if (role?.code === 'TABOO') return { label:'克制动爻逢值', direction:'adverse', roleCode:'TABOO', note:'该动爻属主要观察爻的克制五行' };
+        if (role?.code === 'ENEMY') return { label:'间接制约动爻逢值', direction:'adverse', roleCode:'ENEMY', note:'该动爻属生克链中的间接制约五行' };
+        if (lineElement === targetElement) return { label:'比和动爻逢值', direction:'supportive', roleCode:'PEER', note:'该动爻与主要观察爻五行比和' };
+        return null;
+    };
+    const rangeStaticValueMeta = (lineElement, targetElement) => {
+        if (!lineElement || !targetElement) return null;
+        const role = deityRoleInfo(lineElement, targetElement);
+        if (role?.code === 'SOURCE') return { label:'生扶爻逢值', direction:'supportive', roleCode:'SOURCE', roleLabel:'生扶爻', note:'该爻属主要观察爻的生扶五行' };
+        if (role?.code === 'TABOO') return { label:'克制爻逢值', direction:'adverse', roleCode:'TABOO', roleLabel:'克制爻', note:'该爻属主要观察爻的克制五行' };
+        if (role?.code === 'ENEMY') return { label:'间接制约爻逢值', direction:'adverse', roleCode:'ENEMY', roleLabel:'间接制约爻', note:'该爻属生克链中的间接制约五行' };
+        if (lineElement === targetElement) return { label:'比和爻逢值', direction:'supportive', roleCode:'PEER', roleLabel:'比和爻', note:'该爻与主要观察爻五行比和' };
+        return null;
+    };
+    const rangeFormationDirection = (formationElement, targetElement) => {
+        if (!formationElement || !targetElement) return 'mixed';
+        if (formationElement === targetElement || generateMap[formationElement] === targetElement) return 'supportive';
+        if (controlMap[formationElement] === targetElement || generateMap[targetElement] === formationElement) return 'adverse';
+        return 'mixed';
+    };
+    const rangeTargetCaveat = (target) => {
+        if (!target?.moving) return '';
+        const texts = (target.moveTags || [])
+            .filter((tag) => ['constraint','void'].includes(tag.type) || ['RETURN_CONTROL','RETREAT','TRANSFORM_TOMB','TRANSFORM_EXTINCTION','TRANSFORM_MONTH_BREAK','TRANSFORM_VOID'].includes(tag.code))
+            .map((tag) => tag.text)
+            .filter(Boolean);
+        return texts.length ? `本爻原有${[...new Set(texts)].join('、')}仍需并看` : '';
+    };
+    const rangeNodeEffectPool = (events = []) => {
+        const decisive = events.filter((item) => item.tier === 'primary' || item.subject === 'main-observer');
+        return decisive.length ? decisive : events;
+    };
+    const summarizeRangeNodeEffect = (node, target) => {
+        const events = node?.events || [];
+        if (!events.length) return '';
+        // v13.43.7：一级结构事件不能遮掉主要观察爻自身的二级/背景五行效力。
+        const pool = rangeNodeEffectPool(events);
+        const support = pool.some((item) => item.direction === 'supportive');
+        const adverse = pool.some((item) => item.direction === 'adverse');
+        const activating = pool.some((item) => item.effect === 'activating');
+        const restraining = pool.some((item) => item.effect === 'restraining');
+        const activeControlCost = pool.some((item) => item.code === 'TARGET_CONTROLS_DAY');
+        let summary = '以结构触发为主';
+        if (support && adverse) summary = '生扶与受制并见';
+        else if (support && activeControlCost) summary = '生扶与耗力并见';
+        else if (support && activating) summary = '触发偏向生扶';
+        else if (adverse && activating) summary = '触发中受制较明显';
+        else if (restraining && !support) summary = '牵制较明显';
+        else if (support) summary = '对主要观察爻偏生扶';
+        else if (adverse) summary = '对主要观察爻偏受制';
+        else if (activeControlCost && activating) summary = '触发伴随耗力';
+        else if (activating) summary = '以触发为主';
+        const caveat = rangeTargetCaveat(target);
+        return caveat ? `${summary}；${caveat}` : summary;
+    };
+    const assessRangeNode = (node) => {
+        const events = node?.events || [];
+        const direct = events.filter((item) => item.subject === 'main-observer');
+        const strong = events.filter((item) => item.tier === 'primary');
+        const supportDirect = direct.some((item) => item.direction === 'supportive');
+        const adverseDirect = direct.some((item) => item.direction === 'adverse');
+        const supportStrong = strong.some((item) => item.direction === 'supportive');
+        const adverseStrong = strong.some((item) => item.direction === 'adverse');
+        const anySupport = events.some((item) => item.direction === 'supportive');
+        const anyAdverse = events.some((item) => item.direction === 'adverse');
+        let code = 'observe';
+        if (supportDirect && !anyAdverse) code = 'preferred';
+        else if ((supportDirect || supportStrong || anySupport) && (adverseDirect || adverseStrong || anyAdverse)) code = 'mixed';
+        else if (adverseDirect || adverseStrong || anyAdverse) code = 'caution';
+        else if (supportStrong || anySupport) code = 'secondary';
+        const eventEffectText = (item) => {
+            if (item.effect === 'activating') {
+                if (item.direction === 'supportive') return '触发·偏生扶';
+                if (item.direction === 'adverse') return '触发·偏受制';
+                return '触发·方向交错';
+            }
+            if (item.effect === 'restraining') {
+                if (item.direction === 'supportive') return '牵制·方向偏生扶';
+                if (item.direction === 'adverse') return '牵制·方向偏受制';
+                return '牵制·方向交错';
+            }
+            return item.effectLabel;
+        };
+        const reasons = events
+            .filter((item) => item.tier !== 'context' || item.subject === 'main-observer')
+            .slice(0, 2)
+            .map((item) => `${item.label}（${eventEffectText(item)}）`);
+        return {
+            code,
+            label:rangeAssessmentLabels[code],
+            rank:rangeAssessmentRank[code] || 0,
+            text:reasons.length ? `${rangeAssessmentLabels[code]}：${reasons.join('、')}` : rangeAssessmentLabels[code]
+        };
+    };
+    const compareDateSelectionNodes = (a, b) => {
+        const rankDiff = (b.assessment?.rank || 0) - (a.assessment?.rank || 0);
+        if (rankDiff) return rankDiff;
+        const directPrimarySupport = (node) => (node.events || []).some((item) => item.subject === 'main-observer' && item.tier === 'primary' && item.direction === 'supportive');
+        const directPrimary = (node) => (node.events || []).some((item) => item.subject === 'main-observer' && item.tier === 'primary');
+        const directSecondarySupport = (node) => (node.events || []).some((item) => item.subject === 'main-observer' && item.tier === 'secondary' && item.direction === 'supportive');
+        const directPrimaryAdverse = (node) => (node.events || []).some((item) => item.subject === 'main-observer' && item.tier === 'primary' && item.direction === 'adverse');
+        const checks = [directPrimarySupport, directPrimary, directSecondarySupport];
+        for (const check of checks) {
+            const diff = Number(check(b)) - Number(check(a));
+            if (diff) return diff;
+        }
+        const adverseDiff = Number(directPrimaryAdverse(a)) - Number(directPrimaryAdverse(b));
+        if (adverseDiff) return adverseDiff;
+        return a.sortTime - b.sortTime;
+    };
+    const buildDateSelectionComparison = (nodes) => {
+        const usable = (nodes || []).filter((node) => node?.assessment).sort(compareDateSelectionNodes);
+        if (!usable.length) return null;
+        const topRank = usable[0].assessment.rank;
+        const top = usable.filter((item) => item.assessment.rank === topRank);
+        if (top.length > 1) {
+            return {
+                status:'tie',
+                preferredDates:top.map((item) => item.dateText),
+                summary:`较值得比较：${top.map((item) => `${item.dateText} ${item.dayGanZhi}日`).join('、')}；当前未形成单一优先日。`
+            };
+        }
+        const next = usable.find((item) => item.assessment.rank < topRank);
+        const prefix = usable[0].assessment.code === 'preferred'
+            ? '优先观察'
+            : usable[0].assessment.code === 'secondary'
+                ? '相对较顺'
+                : usable[0].assessment.code === 'mixed'
+                    ? '相对可先观察'
+                    : '相对较少受制';
+        return {
+            status:'preferred',
+            preferredDates:[usable[0].dateText],
+            summary:`${prefix}：${usable[0].dateText} ${usable[0].dayGanZhi}日${next ? `；次看：${next.dateText} ${next.dayGanZhi}日` : ''}。`
+        };
+    };
+    const rangeDayEvents = (resultObj, target, dayInfo, dateObj, daySect = 2) => {
+        const events = [];
+        if (!target || !dayInfo?.branch) return events;
+        const dayBranch = dayInfo.branch;
+        const dayElement = getWuXing(dayBranch);
+        const targetLabel = lineTargetDayLabel(target);
+        const direct = branchRelationToTargetDay(target.branch, dayBranch);
+        const monthStrength = rangeMonthStrength(target, dayInfo.monthBranch || resultObj.monthZhi);
+        const targetVoid = hasStatusCode(target, 'VOID');
+        const targetMonthBreak = dayInfo.monthBranch ? chongMap[target.branch] === dayInfo.monthBranch : hasStatusCode(target, 'MONTH_BREAK');
+        const originalXun = String(resultObj?.dayXun || '');
+        const inOriginalXun = !originalXun || !dayInfo.xun || dayInfo.xun === originalXun;
+        const targetXunKong = String(dayInfo.xunKong || '');
+        const branchStillVoid = (branch) => Boolean(branch && targetXunKong.includes(branch));
+        let leavesOriginalXunToday = false;
+        if (originalXun && dayInfo.xun && dayInfo.xun !== originalXun && dateObj instanceof Date) {
+            const previousDate = new Date(dateObj.getTime() - 86400000);
+            const previousInfo = getDayGanZhiAt(previousDate, daySect);
+            leavesOriginalXunToday = previousInfo.xun === originalXun;
+        }
+        if (targetVoid && leavesOriginalXunToday && !branchStillVoid(target.branch)) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_VOID_OUT', '旬空出空', `${targetLabel}随原旬结束进入出空观察点`, 118, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        } else if (targetVoid && inOriginalXun && dayBranch === target.branch) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_VOID_FILL', '旬空填实', `${targetLabel}值【${dayBranch}】日，旬空填实`, 116, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        } else if (targetVoid && inOriginalXun && chongMap[target.branch] === dayBranch) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_VOID_CLASH', '旬空冲空', `${targetLabel}旬空，逢【${dayBranch}】日相冲，为冲空观察点`, 114, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        }
+        if (targetMonthBreak && dayBranch === target.branch) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_MONTH_BREAK_VALUE', '月破逢值', `${targetLabel}月破，逢【${dayBranch}】日值日`, 108, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        } else if (targetMonthBreak && heMap[target.branch] === dayBranch) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_MONTH_BREAK_HARMONY', '月破合破', `${targetLabel}月破，逢【${dayBranch}】日六合，为合破观察点`, 104, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        }
+        if (direct === '临目标日') {
+            pushRangeEvent(events, makeRangeEvent('TARGET_VALUE', '观察爻逢值', `${targetLabel}临【${dayBranch}】日`, 105, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+        } else if (direct === '与目标日六冲') {
+            if (target.moving) {
+                pushRangeEvent(events, makeRangeEvent('TARGET_MOVING_CLASH', '动爻逢冲', `${targetLabel}发动，逢【${dayBranch}】日六冲，作为动爻触发点观察`, 102, 'activating', { direction:'mixed', tier:'primary', subject:'main-observer' }));
+            } else if (monthStrength.strong) {
+                pushRangeEvent(events, makeRangeEvent('TARGET_STATIC_CLASH_ACTIVE', '静爻逢冲·暗动', `${targetLabel}静爻得月令支持，逢【${dayBranch}】日六冲，按当前规则作暗动触发观察`, 102, 'activating', { direction:'mixed', tier:'primary', subject:'main-observer' }));
+            } else {
+                const monthStateText = monthStrength.monthBreak
+                    ? `受月建【${dayInfo.monthBranch || resultObj.monthZhi}】直接六冲（月破）`
+                    : `月令${monthStrength.seasonState}${monthStrength.constrained ? '且受月令制约' : ''}`;
+                pushRangeEvent(events, makeRangeEvent('TARGET_STATIC_CLASH_BREAK', '静爻逢冲·日破', `${targetLabel}静爻${monthStateText}，逢【${dayBranch}】日六冲，按当前规则作受制／日破倾向观察`, 102, 'adverse', { direction:'adverse', tier:'primary', subject:'main-observer' }));
+            }
+        } else if (direct === '与目标日六合') {
+            if (target.moving) {
+                pushRangeEvent(events, makeRangeEvent('TARGET_MOVING_HARMONY', '动爻逢合·合绊', `${targetLabel}发动，逢【${dayBranch}】日六合，见合绊牵制`, 98, 'restraining', { direction:'adverse', tier:'primary', subject:'main-observer' }));
+            } else {
+                pushRangeEvent(events, makeRangeEvent('TARGET_HARMONY', '静爻逢合·合起', `${targetLabel}静爻逢【${dayBranch}】日六合，见合起触发`, 98, 'activating', { direction:'supportive', tier:'primary', subject:'main-observer' }));
+            }
+        }
+        // v13.43.7：地支值/合/冲与五行生克是并行事实，不能用同一条 else-if 链互相遮蔽。
+        if (generateMap[dayElement] === target.element) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_DAY_SUPPORT', '目标日生扶', `【${dayBranch}】${dayElement}生扶${targetLabel}`, 62, 'supportive', { direction:'supportive', tier:'secondary', subject:'main-observer' }));
+        } else if (controlMap[dayElement] === target.element) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_DAY_CONTROL', '目标日克制', `【${dayBranch}】${dayElement}克制${targetLabel}`, 67, 'adverse', { direction:'adverse', tier:'secondary', subject:'main-observer' }));
+        } else if (dayElement === target.element) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_DAY_PEER', '目标日比和', `【${dayBranch}】${dayElement}与${targetLabel}五行比和`, 52, 'supportive', { direction:'supportive', tier:'secondary', subject:'main-observer' }));
+        } else if (generateMap[target.element] === dayElement) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_DAY_DRAIN', '目标日泄力', `${targetLabel}生【${dayBranch}】${dayElement}，目标日形成泄力`, 48, 'adverse', { direction:'adverse', tier:'context', subject:'main-observer' }));
+        } else if (controlMap[target.element] === dayElement) {
+            pushRangeEvent(events, makeRangeEvent('TARGET_CONTROLS_DAY', '观察爻克目标日', `${targetLabel}克【${dayBranch}】${dayElement}，见主动制约同时伴随耗力`, 44, 'mixed', { direction:'mixed', tier:'context', subject:'main-observer' }));
+        }
+
+        if (target.moving && target.changedBranch) {
+            const changedLabel = `${baseLinePositionLabel(target)}变爻${target.changedRelation || ''}${target.changedBranch}${target.changedElement || getWuXing(target.changedBranch)}`;
+            const changedDirect = branchRelationToTargetDay(target.changedBranch, dayBranch);
+            if (changedDirect === '临目标日') pushRangeEvent(events, makeRangeEvent('TARGET_CHANGED_VALUE', '变爻逢值', `${changedLabel}临【${dayBranch}】日`, 92, 'activating', { direction:'mixed', tier:'secondary', subject:'main-observer-change' }));
+            else if (changedDirect === '与目标日六冲') pushRangeEvent(events, makeRangeEvent('TARGET_CHANGED_CLASH', '变爻逢冲', `${changedLabel}与【${dayBranch}】日六冲`, 88, 'activating', { direction:'mixed', tier:'secondary', subject:'main-observer-change' }));
+            else if (changedDirect === '与目标日六合') pushRangeEvent(events, makeRangeEvent('TARGET_CHANGED_HARMONY', '变爻逢合', `${changedLabel}与【${dayBranch}】日六合`, 86, 'restraining', { direction:'mixed', tier:'secondary', subject:'main-observer-change' }));
+        }
+
+        const opposite = (resultObj.lines || []).find((line) => target.isShi ? line.isYing : (target.isYing ? line.isShi : false));
+        if (opposite) {
+            const oppositeDirect = branchRelationToTargetDay(opposite.branch, dayBranch);
+            const oppositeLabel = lineTargetDayLabel(opposite);
+            const action = oppositeDirect === '与目标日六合' && opposite.moving ? 'restrain' : 'activate';
+            const roleDirection = rangeRoleDirection(opposite.element, target.element, action);
+            const criticalValue = opposite.moving && oppositeDirect === '临目标日' ? rangeMovingValueMeta(opposite.element, target.element) : null;
+            if (oppositeDirect === '临目标日') pushRangeEvent(events, makeRangeEvent('OPPOSITE_VALUE', criticalValue?.label || `${target.isShi ? '应爻' : '世爻'}逢值`, criticalValue ? `${oppositeLabel}临【${dayBranch}】日；${criticalValue.note}` : `${oppositeLabel}临【${dayBranch}】日`, criticalValue ? 97 : 78, 'activating', { direction:criticalValue?.direction || roleDirection.direction, tier:criticalValue ? 'primary' : 'secondary', subject:'opposite', roleCode:criticalValue?.roleCode || roleDirection.roleCode, factMeta:{ lineMoving:Boolean(opposite.moving) } }));
+            else if (oppositeDirect === '与目标日六冲') pushRangeEvent(events, makeRangeEvent('OPPOSITE_CLASH', `${target.isShi ? '应爻' : '世爻'}逢冲`, `${oppositeLabel}与【${dayBranch}】日六冲`, 74, 'activating', { direction:roleDirection.direction, tier:'secondary', subject:'opposite', roleCode:roleDirection.roleCode, factMeta:{ lineMoving:Boolean(opposite.moving) } }));
+            else if (oppositeDirect === '与目标日六合') pushRangeEvent(events, makeRangeEvent('OPPOSITE_HARMONY', `${target.isShi ? '应爻' : '世爻'}逢合`, `${oppositeLabel}与【${dayBranch}】日六合${opposite.moving ? '，见合绊' : '，见合起'}`, 72, opposite.moving ? 'restraining' : 'activating', { direction:roleDirection.direction, tier:'secondary', subject:'opposite', roleCode:roleDirection.roleCode, factMeta:{ lineMoving:Boolean(opposite.moving) } }));
+        }
+
+        const oppositePosition = opposite?.position || null;
+        (resultObj.lines || []).filter((line) => line.moving && line.position !== target.position && line.position !== oppositePosition).forEach((line) => {
+            const relation = branchRelationToTargetDay(line.branch, dayBranch);
+            if (!relation) return;
+            const label = lineTargetDayLabel(line);
+            const action = relation === '与目标日六合' ? 'restrain' : 'activate';
+            const roleDirection = rangeRoleDirection(line.element, target.element, action);
+            if (relation === '临目标日') {
+                const criticalValue = rangeMovingValueMeta(line.element, target.element);
+                pushRangeEvent(events, makeRangeEvent(`MOVING_VALUE_${line.position}`, criticalValue?.label || '动爻逢值', criticalValue ? `${label}临【${dayBranch}】日；${criticalValue.note}` : `${label}临【${dayBranch}】日`, criticalValue ? 96 : 66, 'activating', { direction:criticalValue?.direction || roleDirection.direction, tier:criticalValue ? 'primary' : 'secondary', subject:'moving-line', roleCode:criticalValue?.roleCode || roleDirection.roleCode }));
+            } else if (relation === '与目标日六冲') pushRangeEvent(events, makeRangeEvent(`MOVING_CLASH_${line.position}`, '动爻逢冲', `${label}与【${dayBranch}】日六冲，作为发动爻触发点观察`, 64, 'activating', { direction:roleDirection.direction, tier:'secondary', subject:'moving-line', roleCode:roleDirection.roleCode }));
+            else if (relation === '与目标日六合') pushRangeEvent(events, makeRangeEvent(`MOVING_HARMONY_${line.position}`, '动爻逢合·合绊', `${label}发动，逢【${dayBranch}】日六合，见合绊牵制`, 63, 'restraining', { direction:roleDirection.direction, tier:'secondary', subject:'moving-line', roleCode:roleDirection.roleCode }));
+        });
+
+        // 关键动爻的时间状态不只服务于三合：旬空动爻／化空变爻在冲空、出空、出空后逢值时
+        // 都进入一级候选；已成／待实三合中的动爻成员逢值也提升为结构触发点。
+        const pushVoidTransition = ({ branch, label, codePrefix, transitionLabel = '动爻', direction = 'mixed', roleCode = '', subject = 'moving-line', tier = 'primary', isVoid = false }) => {
+            if (!isVoid || !branch) return;
+            const options = { direction, tier, subject, roleCode };
+            if (leavesOriginalXunToday && !branchStillVoid(branch)) {
+                if (dayBranch === branch) pushRangeEvent(events, makeRangeEvent(`${codePrefix}_VOID_OUT_VALUE`, `${transitionLabel}出空并逢值`, `${label}随原旬结束出空，并临【${dayBranch}】日，进入重新落实的触发点`, 110, 'activating', options));
+                else pushRangeEvent(events, makeRangeEvent(`${codePrefix}_VOID_OUT`, `${transitionLabel}出空`, `${label}原旬空随原旬结束出空，进入状态复核点`, 106, 'activating', options));
+            } else if (inOriginalXun && dayBranch === branch) {
+                pushRangeEvent(events, makeRangeEvent(`${codePrefix}_VOID_FILL`, `${transitionLabel}填实`, `${label}旬空，逢【${dayBranch}】日值日填实`, 108, 'activating', options));
+            } else if (inOriginalXun && chongMap[branch] === dayBranch) {
+                pushRangeEvent(events, makeRangeEvent(`${codePrefix}_VOID_CLASH`, `${transitionLabel}冲空`, `${label}旬空，逢【${dayBranch}】日相冲，为冲空触发点`, 104, 'activating', options));
+            } else if (!inOriginalXun && !branchStillVoid(branch) && dayBranch === branch) {
+                pushRangeEvent(events, makeRangeEvent(`${codePrefix}_VOID_VALUE_AFTER_OUT`, `${transitionLabel}出空后逢值`, `${label}已出原旬空，逢【${dayBranch}】日值日，作为重新落实的触发点`, 110, 'activating', options));
+            }
+        };
+        const sanHeDetails = [
+            ...(resultObj.fullStructure?.sanHe?.completeDetails || []),
+            ...(resultObj.fullStructure?.sanHe?.deferredDetails || []),
+            ...(resultObj.fullStructure?.sanHe?.pendingDetails || [])
+        ];
+        const tokenInSanHe = (item, line, source) => (item?.members || []).some((member) =>
+            (member.sources || []).some((token) => token.position === line.position && token.source === source)
+        );
+        (resultObj.lines || []).filter((line) => line.moving && line.position !== target.position).forEach((line) => {
+            const originalRole = rangeRoleDirection(line.element, target.element, 'activate');
+            const originalLabel = lineTargetDayLabel(line);
+            pushVoidTransition({
+                branch:line.branch,
+                label:originalLabel,
+                codePrefix:`MOVING_${line.position}`,
+                direction:originalRole.direction,
+                roleCode:originalRole.roleCode,
+                isVoid:hasStatusCode(line, 'VOID')
+            });
+            if (dayBranch === line.branch) {
+                sanHeDetails.forEach((item, index) => {
+                    if (!tokenInSanHe(item, line, 'original')) return;
+                    const direction = rangeFormationDirection(item.element, target.element);
+                    pushRangeEvent(events, makeRangeEvent(`SANHE_MEMBER_VALUE_${index}_${line.position}`, '三合成员逢值', `${originalLabel}临【${dayBranch}】日，且为${(item.groupBranches || []).join('')}三合${item.element || ''}局的结构成员`, 101, 'activating', { direction, tier:'primary', subject:'sanhe-member', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+                });
+            }
+            if (!line.changedBranch) return;
+            const changedElement = line.changedElement || getWuXing(line.changedBranch);
+            const changedRole = rangeRoleDirection(changedElement, target.element, 'activate');
+            const changedLabel = `${baseLinePositionLabel(line)}变爻${line.changedRelation || ''}${line.changedBranch}${changedElement}`;
+            pushVoidTransition({
+                branch:line.changedBranch,
+                label:changedLabel,
+                codePrefix:`CHANGED_${line.position}`,
+                transitionLabel:'变爻',
+                direction:changedRole.direction,
+                roleCode:changedRole.roleCode,
+                subject:'changed-line',
+                isVoid:hasMoveCode(line, 'TRANSFORM_VOID')
+            });
+            // 变爻的普通值 / 冲 / 合作为已入选关键日期的补充事实，不单独抬升为过程节点。
+            // 若原记录为化月破，逢值时同时提示月破复核；化空则由 pushVoidTransition 负责状态转换。
+            const changedDirect = branchRelationToTargetDay(line.changedBranch, dayBranch);
+            const changedMonthBreak = dayInfo.monthBranch ? chongMap[line.changedBranch] === dayInfo.monthBranch : hasMoveCode(line, 'TRANSFORM_MONTH_BREAK');
+            if (changedDirect === '临目标日') {
+                const changedValueLabel = changedMonthBreak ? '变爻逢值·月破复核' : '变爻逢值';
+                const changedValueText = changedMonthBreak
+                    ? `${changedLabel}临【${dayBranch}】日；原有化月破进入逢值复核点`
+                    : `${changedLabel}临【${dayBranch}】日`;
+                pushRangeEvent(events, makeRangeEvent(`CHANGED_VALUE_${line.position}`, changedValueLabel, changedValueText, 58, 'activating', { direction:changedRole.direction, tier:'context', subject:'changed-line', roleCode:changedRole.roleCode }));
+            } else if (changedDirect === '与目标日六冲') {
+                pushRangeEvent(events, makeRangeEvent(`CHANGED_CLASH_${line.position}`, '变爻逢冲', `${changedLabel}与【${dayBranch}】日六冲`, 54, 'activating', { direction:changedRole.direction, tier:'context', subject:'changed-line', roleCode:changedRole.roleCode }));
+            } else if (changedDirect === '与目标日六合') {
+                const restrained = rangeRoleDirection(changedElement, target.element, 'restrain');
+                pushRangeEvent(events, makeRangeEvent(`CHANGED_HARMONY_${line.position}`, '变爻逢合', `${changedLabel}与【${dayBranch}】日六合`, 52, 'restraining', { direction:restrained.direction, tier:'context', subject:'changed-line', roleCode:restrained.roleCode }));
+            }
+            if (dayBranch === line.changedBranch) {
+                sanHeDetails.forEach((item, index) => {
+                    if (!tokenInSanHe(item, line, 'changed')) return;
+                    const direction = rangeFormationDirection(item.element, target.element);
+                    pushRangeEvent(events, makeRangeEvent(`SANHE_CHANGED_MEMBER_VALUE_${index}_${line.position}`, '三合变爻成员逢值', `${changedLabel}临【${dayBranch}】日，且为${(item.groupBranches || []).join('')}三合${item.element || ''}局的结构成员`, 99, 'activating', { direction, tier:'primary', subject:'sanhe-member', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+                });
+            }
+        });
+
+        // v13.43.6：状态不再反向决定重要性。先判定 KeyLine，再追踪其旬空／月破等状态。
+        // 旬空、月破、入墓只是 KeyLine 的状态，不再因为“本身有特殊状态”就把普通静爻抬升为关键爻。
+        const isStaticHexagram = !(resultObj.lines || []).some((line) => line.moving);
+        const selectedUseRelation = ['父母','子孙','妻财','官鬼','兄弟'].includes(String(resultObj.useGodSelection?.target || ''))
+            ? String(resultObj.useGodSelection.target)
+            : '';
+        const staticKeyLineMeta = (line) => {
+            const isOpposite = Boolean(oppositePosition && line.position === oppositePosition);
+            const isShiYing = Boolean(line.isShi || line.isYing);
+            const isExplicitCandidate = Boolean(selectedUseRelation && line.relation === selectedUseRelation);
+            const valueMeta = rangeStaticValueMeta(line.element, target.element);
+            const isStructureMember = sanHeDetails.some((item) => tokenInSanHe(item, line, 'original'));
+            const isVoid = hasStatusCode(line, 'VOID');
+            const isMonthBreak = dayInfo.monthBranch ? chongMap[line.branch] === dayInfo.monthBranch : hasStatusCode(line, 'MONTH_BREAK');
+            const isKey = isShiYing || isExplicitCandidate || Boolean(valueMeta) || isStructureMember;
+            let roleLabel = '关键爻';
+            if (line.isShi) roleLabel = '世爻';
+            else if (line.isYing) roleLabel = '应爻';
+            else if (isExplicitCandidate) roleLabel = `${line.relation || '同类'}候选爻`;
+            else if (valueMeta?.roleLabel) roleLabel = valueMeta.roleLabel;
+            else if (isStructureMember) roleLabel = '三合成员';
+            return {
+                isOpposite,
+                isShiYing,
+                isExplicitCandidate,
+                isStructureMember,
+                isVoid,
+                isMonthBreak,
+                valueMeta,
+                roleLabel,
+                isKey
+            };
+        };
+        (resultObj.lines || []).filter((line) => !line.moving && line.position !== target.position).forEach((line) => {
+            const meta = staticKeyLineMeta(line);
+            if (!meta.isKey) return;
+            const label = lineTargetDayLabel(line);
+            const roleDirection = rangeRoleDirection(line.element, target.element, 'activate');
+            const subject = meta.isOpposite ? 'opposite' : 'static-key-line';
+            const staticTier = (meta.isShiYing || isStaticHexagram) ? 'primary' : 'secondary';
+            if (meta.isVoid) {
+                pushVoidTransition({
+                    branch:line.branch,
+                    label,
+                    codePrefix:`STATIC_${line.position}`,
+                    transitionLabel:meta.roleLabel,
+                    direction:meta.valueMeta?.direction || roleDirection.direction,
+                    roleCode:meta.valueMeta?.roleCode || roleDirection.roleCode,
+                    subject,
+                    tier:staticTier,
+                    isVoid:true
+                });
+            }
+            if (dayBranch === line.branch && meta.isMonthBreak && meta.valueMeta && !meta.isOpposite) {
+                pushRangeEvent(events, makeRangeEvent(
+                    `STATIC_MONTH_BREAK_VALUE_${line.position}`,
+                    `${meta.valueMeta.label}·月破复核`,
+                    `${label}临【${dayBranch}】日；${meta.valueMeta.note}；原有月破进入逢值复核点`,
+                    103,
+                    'activating',
+                    { direction:meta.valueMeta.direction, tier:staticTier, subject:'static-key-line', roleCode:meta.valueMeta.roleCode }
+                ));
+            }
+        });
+
+        (resultObj.fullStructure?.sanHe?.pendingDetails || []).forEach((item, index) => {
+            if (item?.missingBranch !== dayBranch) return;
+            const direction = rangeFormationDirection(item.element, target.element);
+            pushRangeEvent(events, makeRangeEvent(`SANHE_PENDING_${index}`, '三合补局', `${item.text}；【${dayBranch}】日补足所缺一支`, 100, 'activating', { direction, tier:'primary', subject:'sanhe', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+        });
+        (resultObj.fullStructure?.sanHe?.deferredDetails || []).forEach((item, index) => {
+            (item.blockers || []).forEach((blocker, blockerIndex) => {
+                if (blocker?.code !== 'VOID') return;
+                const branch = blocker?.token?.branch;
+                if (!branch) return;
+                const formationLabel = `${(item.groupBranches || []).join('')}三合${item.element || ''}局`;
+                const direction = rangeFormationDirection(item.element, target.element);
+                if (leavesOriginalXunToday && !branchStillVoid(branch)) pushRangeEvent(events, makeRangeEvent(`SANHE_DEFERRED_OUT_${index}_${blockerIndex}`, '三合待实·出空', `${formationLabel}所涉旬空支【${branch}】随原旬结束出空，进入成局条件复核点`, 111, 'activating', { direction, tier:'primary', subject:'sanhe', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+                else if (inOriginalXun && dayBranch === branch) pushRangeEvent(events, makeRangeEvent(`SANHE_DEFERRED_FILL_${index}_${blockerIndex}`, '三合待实·填实', `${formationLabel}所涉旬空支【${branch}】逢值填实，进入成局条件复核点`, 109, 'activating', { direction, tier:'primary', subject:'sanhe', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+                else if (inOriginalXun && chongMap[branch] === dayBranch) pushRangeEvent(events, makeRangeEvent(`SANHE_DEFERRED_CLASH_${index}_${blockerIndex}`, '三合待实·冲空', `${formationLabel}所涉旬空支【${branch}】逢【${dayBranch}】日相冲，为冲空观察点`, 107, 'activating', { direction, tier:'primary', subject:'sanhe', factMeta:{ formationElement:item.element || '', observerElement:target.element || '' } }));
+            });
+        });
+        return events.sort((a,b) => (rangeTierRank[b.tier] || 0) - (rangeTierRank[a.tier] || 0) || b.score - a.score || a.code.localeCompare(b.code));
+    };
+    const buildTimeFactsForDay = (resultObj, target, dateObj, daySect = resultObj?.daySect) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return [];
+        const sect = normalizeLiuYaoDaySect(daySect);
+        const dayInfo = getDayGanZhiAt(dateObj, sect);
+        if (!dayInfo?.branch) return [];
+        return rangeDayEvents(resultObj, target, dayInfo, dateObj, sect)
+            .map((event) => event.fact)
+            .filter(Boolean);
+    };
+    const buildTimeEffectsForDay = (resultObj, target, dateObj, daySect = resultObj?.daySect) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return [];
+        const sect = normalizeLiuYaoDaySect(daySect);
+        const dayInfo = getDayGanZhiAt(dateObj, sect);
+        if (!dayInfo?.branch) return [];
+        return rangeDayEvents(resultObj, target, dayInfo, dateObj, sect)
+            .map((event) => event.timeEffects)
+            .filter(Boolean);
+    };
+    const buildTimeAssessmentForDay = (resultObj, target, dateObj, daySect = resultObj?.daySect) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return null;
+        const sect = normalizeLiuYaoDaySect(daySect);
+        const dayInfo = getDayGanZhiAt(dateObj, sect);
+        if (!dayInfo?.branch) return null;
+        return timeAssessmentApi.assessNodeEvents(rangeDayEvents(resultObj, target, dayInfo, dateObj, sect));
+    };
+    const buildTimeEvidenceForDay = (resultObj, target, dateObj, daySect = resultObj?.daySect, preferredLimit = 3) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return null;
+        const sect = normalizeLiuYaoDaySect(daySect);
+        const dayInfo = getDayGanZhiAt(dateObj, sect);
+        if (!dayInfo?.branch) return null;
+        const events = rangeDayEvents(resultObj, target, dayInfo, dateObj, sect);
+        const assessment = timeAssessmentApi.assessNodeEvents(events);
+        return timeEvidenceApi.selectNodeEvidence(events, assessment, preferredLimit);
+    };
+    const buildCandidateTimeOutputForDay = (resultObj, target, dateObj, daySect = resultObj?.daySect, preferredLimit = 3) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return null;
+        const sect = normalizeLiuYaoDaySect(daySect);
+        const dayInfo = getDayGanZhiAt(dateObj, sect);
+        if (!dayInfo?.branch) return null;
+        const events = rangeDayEvents(resultObj, target, dayInfo, dateObj, sect);
+        const assessment = timeAssessmentApi.assessNodeEvents(events);
+        const evidence = timeEvidenceApi.selectNodeEvidence(events, assessment, preferredLimit);
+        return timeOutputApi.buildCandidateNodeOutput(assessment, evidence, { caveat:rangeTargetCaveat(target) });
+    };
+    const selectRangeDisplayEvents = (node, limit = 3) => {
+        const events = node?.events || [];
+        if (events.length <= limit) return events;
+        const pool = rangeNodeEffectPool(events);
+        const selected = [];
+        const add = (event) => {
+            if (!event || selected.includes(event) || selected.length >= limit) return;
+            selected.push(event);
+        };
+        add(events[0]);
+        const hasSupport = pool.some((item) => item.direction === 'supportive');
+        const hasAdverse = pool.some((item) => item.direction === 'adverse');
+        // 若节点总性质由相反方向共同构成，展示层必须各保留一条依据，避免“总结说利弊并见、事实却只见一边”。
+        if (hasSupport && hasAdverse) {
+            add(pool.find((item) => item.direction === 'supportive'));
+            add(pool.find((item) => item.direction === 'adverse'));
+        }
+        const isRedundantTargetElementFact = (event) => {
+            if (!/^TARGET_(DAY_|CONTROLS_DAY)/.test(event.code || '')) return false;
+            const oppositeDirectionExists = pool.some((item) => ['supportive','adverse'].includes(item.direction) && item.direction !== event.direction);
+            if (oppositeDirectionExists) return false;
+            return events.some((item) => item !== event && item.subject === 'main-observer' && item.tier === 'primary' && item.direction === event.direction);
+        };
+        events.forEach((event) => {
+            if (selected.length >= limit || isRedundantTargetElementFact(event)) return;
+            add(event);
+        });
+        events.forEach(add);
+        return selected.sort((a,b) => events.indexOf(a) - events.indexOf(b));
+    };
+    // v13.44.0-beta.3：过程型关键节点准入正式脱离 legacy primary/secondary tier。
+    // 准入由两层共同决定：
+    // 1) Structural Relevance 说明触发对象离主要观察爻有多近；
+    // 2) TimeFact 说明这是不是足以形成“过程节点”的状态变化，而不是普通背景冲合。
+    // 因此不会把所有 axis / key-line 的普通六合六冲都抬成关键日；但主要观察爻之变、
+    // 旬空／月破状态转换、三合落实、关键关系爻逢值等可以独立获得过程资格。
+    const processEventHasTrigger = (event) => Boolean(event?.timeEffects?.dimensions?.trigger?.length);
+    const processFactHas = (event, family, relation = '') => (event?.fact?.components || []).some((component) => (
+        component?.family === family && (!relation || component?.relation === relation)
+    ));
+    const processEventRelevanceRank = (event) => timeRelevanceApi.rankForLevel(timeRelevanceApi.levelForReason({ subject:event?.subject }));
+    const processEventEligible = (event) => {
+        if (!processEventHasTrigger(event)) return false;
+        const subject = String(event?.subject || 'context');
+        if (subject === 'main-observer' || subject === 'main-observer-change') return true;
+        if (subject === 'sanhe' || subject === 'sanhe-member') return true;
+        if (processFactHas(event, 'void-transition') || processFactHas(event, 'month-break-review') || processFactHas(event, 'formation')) return true;
+        const isValue = processFactHas(event, 'branch-relation', 'value');
+        const hasObserverRole = Boolean(event?.fact?.subjectRef?.relativeElementRelation);
+        if (subject === 'moving-line' && isValue && hasObserverRole) return true;
+        if (subject === 'opposite' && isValue && hasObserverRole && event?.fact?.meta?.lineMoving) return true;
+        return false;
+    };
+    const processTriggerEvents = (node) => (node?.events || []).filter(processEventEligible);
+    const processTriggerRank = (node) => {
+        const events = processTriggerEvents(node);
+        return events.length ? Math.max(...events.map(processEventRelevanceRank)) : 0;
+    };
+    const processTriggerTopEvent = (node) => {
+        const events = processTriggerEvents(node);
+        return [...events].sort((a,b) => {
+            const relevanceDiff = processEventRelevanceRank(b) - processEventRelevanceRank(a);
+            if (relevanceDiff) return relevanceDiff;
+            return Number(b?.score || 0) - Number(a?.score || 0) || String(a?.code || '').localeCompare(String(b?.code || ''));
+        })[0] || null;
+    };
+    const processTriggerScore = (node) => Number(processTriggerTopEvent(node)?.score || 0);
+    const processTriggerSignature = (node) => String(processTriggerTopEvent(node)?.code || node?.dayBranch || '');
+    const processNodeEligible = (node) => processTriggerEvents(node).length > 0;
+
+    const selectRangeKeyNodes = (nodes, mode) => {
+        if (!nodes.length) return [];
+        const limit = mode === 'process-evaluation' ? 4 : mode === 'date-selection' ? 4 : 3;
+        const eligible = nodes.filter((node) => {
+            if (mode === 'date-selection') return (node.assessment?.rank || 0) >= rangeAssessmentRank.mixed || node.events.some((item) => item.subject === 'main-observer' && item.tier === 'primary');
+            return processNodeEligible(node);
+        });
+        const ranked = [...eligible].sort((a,b) => {
+            if (mode === 'date-selection') {
+                const selectionDiff = compareDateSelectionNodes(a, b);
+                if (selectionDiff) return selectionDiff;
+                const tierDiff = (b.primaryTierRank || 0) - (a.primaryTierRank || 0);
+                if (tierDiff) return tierDiff;
+                return b.primaryScore - a.primaryScore || a.sortTime - b.sortTime;
+            }
+            const relevanceDiff = processTriggerRank(b) - processTriggerRank(a);
+            if (relevanceDiff) return relevanceDiff;
+            const triggerScoreDiff = processTriggerScore(b) - processTriggerScore(a);
+            if (triggerScoreDiff) return triggerScoreDiff;
+            return a.sortTime - b.sortTime;
+        });
+        const selected = [];
+        const signatures = new Set();
+        ranked.forEach((node) => {
+            if (selected.length >= limit) return;
+            if (mode !== 'date-selection') {
+                const signature = processTriggerSignature(node);
+                if (signature && signatures.has(signature)) return;
+                if (signature) signatures.add(signature);
+            }
+            selected.push(node);
+        });
+        return selected.sort((a,b) => a.sortTime - b.sortTime);
+    };
+    const buildRangeQuestionTimeFocus = (resultObj, target, scope, startDate) => {
+        if (!scope?.start || !scope?.end || scope.purpose === 'alternatives' || scope.type === 'alternatives' || scope.precision === 'discrete-days') return null;
+        const expand = GuiJia.questionTime?.expandScopeDates;
+        const rangeText = GuiJia.questionTime?.scopeRangeText?.(scope) || '';
+        const mode = GuiJia.questionTime?.classifyQuestionTimeMode?.(resultObj.question, scope) || 'process-evaluation';
+        const dates = typeof expand === 'function' ? expand(scope, 1100) : [];
+        if (dates.length < 2) return null;
+        const daySect = normalizeLiuYaoDaySect(resultObj.daySect);
+        const nodes = dates.map((dateObj) => {
+            const dayInfo = getDayGanZhiAt(dateObj, daySect);
+            if (!dayInfo.branch) return null;
+            const events = rangeDayEvents(resultObj, target, dayInfo, dateObj, daySect);
+            const node = {
+                dateText:candidateDateKey(dateObj),
+                dayGanZhi:dayInfo.ganZhi,
+                dayBranch:dayInfo.branch,
+                sortTime:dateObj.getTime(),
+                primaryScore:events[0]?.score || 0,
+                primaryTierRank:events.length ? Math.max(...events.map((item) => rangeTierRank[item.tier] || 0)) : 0,
+                events
+            };
+            node.timeAssessment = timeAssessmentApi.assessNodeEvents(events);
+            node.structuralRelevance = timeRelevanceApi.buildStructuralRelevanceProfile(node.timeAssessment);
+            node.timeEvidence = timeEvidenceApi.selectNodeEvidence(events, node.timeAssessment, 3);
+            node.candidateOutput = timeOutputApi.buildCandidateNodeOutput(node.timeAssessment, node.timeEvidence, { caveat:rangeTargetCaveat(target) });
+            node.effectSummary = summarizeRangeNodeEffect(node, target);
+            node.assessment = assessRangeNode(node);
+            return node;
+        }).filter(Boolean);
+        const selectedNodes = selectRangeKeyNodes(nodes, mode);
+        const legacyKeyNodes = selectedNodes.map((node) => ({
+            dateText:node.dateText,
+            dayGanZhi:node.dayGanZhi,
+            dayBranch:node.dayBranch,
+            title:`${node.dateText} · ${node.dayGanZhi}日`,
+            effectSummary:node.effectSummary,
+            assessment:mode === 'date-selection' ? node.assessment : null,
+            facts:selectRangeDisplayEvents(node, 3).map((item) => `${item.label}：${item.text}`)
+        }));
+        const candidateSelectedNodes = mode === 'date-selection'
+            ? timeSelectionApi.selectCandidateNodesForReview(nodes, 4).sort((a,b) => a.sortTime - b.sortTime)
+            : selectedNodes;
+        const candidateKeyNodes = candidateSelectedNodes.map((node) => ({
+            dateText:node.dateText,
+            dayGanZhi:node.dayGanZhi,
+            dayBranch:node.dayBranch,
+            title:`${node.dateText} · ${node.dayGanZhi}日`,
+            effectSummary:node.candidateOutput.summary.text,
+            assessment:mode === 'date-selection' ? node.candidateOutput.dateAssessment : null,
+            facts:[...node.candidateOutput.facts],
+            effectKinds:[...node.candidateOutput.summary.kinds]
+        }));
+        let legacyComparison = mode === 'date-selection' ? buildDateSelectionComparison(selectedNodes) : null;
+        let candidateComparison = mode === 'date-selection' ? timeSelectionApi.buildDateSelectionComparison(nodes) : null;
+        const comparisonBasisNote = mode === 'date-selection' && resultObj.useGodSelection?.mode === 'default'
+            ? '比较事项未明确，以下仅按世爻状态作为当前比较基准。'
+            : '';
+        if (legacyComparison && comparisonBasisNote) legacyComparison = { ...legacyComparison, summary:`按当前观察基准，${legacyComparison.summary.replace(/^优先观察：/, '相对优先观察：')}` };
+        if (candidateComparison && comparisonBasisNote) candidateComparison = { ...candidateComparison, summary:`按当前观察基准，${candidateComparison.summary.replace(/^优先观察：/, '相对优先观察：')}` };
+        return {
+            kind:'range',
+            outputModel:'time-v2',
+            label:scope.sourceText,
+            scope,
+            rangeText,
+            title:`${scope.sourceText}${rangeText ? ` · ${rangeText}` : ''}`,
+            mode,
+            modeLabel:rangeModeLabels[mode] || '时间范围观察',
+            note:rangeModeNotes[mode] || rangeModeNotes['process-evaluation'],
+            totalDays:dates.length,
+            comparison:candidateComparison,
+            comparisonBasisNote,
+            keyNodes:candidateKeyNodes,
+            candidateOutput:{
+                comparison:candidateComparison,
+                comparisonBasisNote,
+                keyNodes:candidateKeyNodes
+            },
+            legacyShadow:{
+                comparison:legacyComparison,
+                comparisonBasisNote,
+                keyNodes:legacyKeyNodes
+            },
+            suppressTimingCandidates:true
+        };
+    };
+    const buildQuestionTimeFocus = (resultObj, target) => {
+        if (!resultObj?.castTimestamp || !String(resultObj?.question || '').trim()) return null;
+        const startDate = new Date(resultObj.castTimestamp);
+        const scope = resolveQuestionTimeScope(resultObj.question, startDate);
+        if (!scope || scope.confidence === 'low' || !scope.hardFilter) return null;
+        const rangeFocus = buildRangeQuestionTimeFocus(resultObj, target, scope, startDate);
+        if (rangeFocus) return rangeFocus;
+        const resolved = resolveQuestionTargetDates(resultObj.question, startDate);
+        if (!resolved?.dates?.length) return null;
+        const daySect = normalizeLiuYaoDaySect(resultObj.daySect);
+        const isAlternatives = resolved.scope?.purpose === 'alternatives' || resolved.scope?.type === 'alternatives';
+        const alternativeLabels = isAlternatives ? String(resolved.scope?.sourceText || resolved.label || '').split(/\s*\/\s*/).filter(Boolean) : [];
+        const pointNodes = [];
+        const entries = resolved.dates.map((dateObj, index) => {
+            const dayInfo = getDayGanZhiAt(dateObj, daySect);
+            if (!dayInfo.branch) return null;
+            const facts = [];
+            if (target) {
+                const direct = branchRelationToTargetDay(target.branch, dayInfo.branch);
+                if (direct === '临目标日') facts.push(`${lineTargetDayLabel(target)}临目标日【${dayInfo.branch}】`);
+                else if (direct === '与目标日六合') facts.push(`${lineTargetDayLabel(target)}与目标日【${dayInfo.branch}】六合`);
+                else if (direct === '与目标日六冲') facts.push(`${lineTargetDayLabel(target)}与目标日【${dayInfo.branch}】六冲`);
+                else {
+                    const elementFact = targetDayElementFact(target, dayInfo);
+                    if (elementFact) facts.push(elementFact);
+                }
+            }
+            const directLines = (resultObj.lines || []).filter((line) => !target || line.position !== target.position).map((line) => {
+                const relation = branchRelationToTargetDay(line.branch, dayInfo.branch);
+                if (relation === '临目标日') return `${lineTargetDayLabel(line)}临目标日【${dayInfo.branch}】`;
+                if (relation === '与目标日六合') return `${lineTargetDayLabel(line)}与目标日【${dayInfo.branch}】六合`;
+                if (relation === '与目标日六冲') return `${lineTargetDayLabel(line)}与目标日【${dayInfo.branch}】六冲`;
+                return '';
+            }).filter(Boolean);
+            directLines.slice(0, 4).forEach((text) => facts.push(text));
+            (resultObj.lines || []).filter((line) => line.moving && line.changedBranch).forEach((line) => {
+                const relation = branchRelationToTargetDay(line.changedBranch, dayInfo.branch);
+                const changedText = `${baseLinePositionLabel(line)}变爻${line.changedRelation || ''}${line.changedBranch}${line.changedElement || getWuXing(line.changedBranch)}`;
+                if (relation === '临目标日') facts.push(`${changedText}临目标日【${dayInfo.branch}】`);
+                else if (relation === '与目标日六合') facts.push(`${changedText}与目标日【${dayInfo.branch}】六合`);
+                else if (relation === '与目标日六冲') facts.push(`${changedText}与目标日【${dayInfo.branch}】六冲`);
+            });
+            const monthRelation = branchRelationToTargetDay(resultObj.monthZhi, dayInfo.branch);
+            if (monthRelation) facts.push(`月建【${resultObj.monthZhi}】${monthRelation.replace('目标日', `目标日【${dayInfo.branch}】`)}`);
+            const currentDayRelation = branchRelationToTargetDay(resultObj.dayZhi, dayInfo.branch);
+            if (currentDayRelation && resultObj.dayZhi !== dayInfo.branch) facts.push(`当前日辰【${resultObj.dayZhi}】${currentDayRelation.replace('目标日', `目标日【${dayInfo.branch}】`)}`);
+            const events = rangeDayEvents(resultObj, target, dayInfo, dateObj, daySect);
+            const node = {
+                dateText:candidateDateKey(dateObj),
+                dayGanZhi:dayInfo.ganZhi,
+                dayBranch:dayInfo.branch,
+                sortTime:dateObj.getTime(),
+                primaryScore:events[0]?.score || 0,
+                primaryTierRank:events.length ? Math.max(...events.map((item) => rangeTierRank[item.tier] || 0)) : 0,
+                events
+            };
+            node.timeAssessment = timeAssessmentApi.assessNodeEvents(events);
+            node.timeEvidence = timeEvidenceApi.selectNodeEvidence(events, node.timeAssessment, 3);
+            node.candidateOutput = timeOutputApi.buildCandidateNodeOutput(node.timeAssessment, node.timeEvidence, { caveat:rangeTargetCaveat(target) });
+            node.effectSummary = summarizeRangeNodeEffect(node, target);
+            node.assessment = assessRangeNode(node);
+            pointNodes.push(node);
+            const entryLabel = alternativeLabels[index] || resolved.label;
+            return {
+                label:entryLabel,
+                dateText:node.dateText,
+                dayGanZhi:node.dayGanZhi,
+                dayBranch:node.dayBranch,
+                title:`${entryLabel} · ${node.dateText} · ${node.dayGanZhi}日`,
+                effectSummary:node.effectSummary,
+                assessment:isAlternatives ? node.assessment : null,
+                facts:[...new Set(facts)],
+                candidateOutput:{
+                    effectSummary:node.candidateOutput.summary.text,
+                    assessment:isAlternatives ? node.candidateOutput.dateAssessment : null,
+                    facts:[...node.candidateOutput.facts],
+                    effectKinds:[...node.candidateOutput.summary.kinds]
+                }
+            };
+        }).filter(Boolean);
+        let legacyComparison = isAlternatives ? buildDateSelectionComparison(pointNodes) : null;
+        let candidateComparison = isAlternatives ? timeSelectionApi.buildDateSelectionComparison(pointNodes) : null;
+        const comparisonBasisNote = isAlternatives && resultObj.useGodSelection?.mode === 'default'
+            ? '比较事项未明确，以下仅按世爻状态作为当前比较基准。'
+            : '';
+        if (legacyComparison && comparisonBasisNote) legacyComparison = { ...legacyComparison, summary:`按当前观察基准，${legacyComparison.summary.replace(/^优先观察：/, '相对优先观察：')}` };
+        if (candidateComparison && comparisonBasisNote) candidateComparison = { ...candidateComparison, summary:`按当前观察基准，${candidateComparison.summary.replace(/^优先观察：/, '相对优先观察：')}` };
+        const legacyEntries = entries.map(({ candidateOutput, ...entry }) => entry);
+        const candidateEntries = entries.map((entry) => ({
+            label:entry.label,
+            dateText:entry.dateText,
+            dayGanZhi:entry.dayGanZhi,
+            dayBranch:entry.dayBranch,
+            title:entry.title,
+            ...entry.candidateOutput
+        }));
+        return entries.length ? {
+            kind:'point',
+            outputModel:'time-v2',
+            label:resolved.label,
+            scope:resolved.scope,
+            mode:isAlternatives ? 'date-selection' : 'point',
+            modeLabel:isAlternatives ? rangeModeLabels['date-selection'] : '',
+            comparison:candidateComparison,
+            comparisonBasisNote,
+            entries:candidateEntries,
+            candidateOutput:{
+                comparison:candidateComparison,
+                comparisonBasisNote,
+                entries:candidateEntries
+            },
+            legacyShadow:{
+                comparison:legacyComparison,
+                comparisonBasisNote,
+                entries:legacyEntries
+            },
+            suppressTimingCandidates:['target','alternatives'].includes(resolved.scope?.purpose)
+        } : null;
+    };
     const findNextBranchDate = (startDate, branch, maxDays = 60, daySect = 2) => {
         const sect = normalizeLiuYaoDaySect(daySect);
         for (let offset = 1; offset <= maxDays; offset += 1) {
@@ -1400,7 +2373,16 @@
                 { branch: target.branch, label: target.type === 'hidden' ? `${target.branch}日值伏神` : `${target.branch}日值用神`, eventLabel: target.type === 'hidden' ? '伏神值日' : '值用神', eventReason: target.type === 'hidden' ? `伏神${targetText}逢${target.branch}日值日。` : `${targetText}值日。` }
             ], [], 'regular');
         }
-        return mergeTimingCandidatesByDate(candidates);
+        const merged = mergeTimingCandidatesByDate(candidates);
+        const questionScope = String(resultObj.question || '').trim()
+            ? resolveQuestionTimeScope(resultObj.question, startDate)
+            : null;
+        if (!questionScope || !questionScope.hardFilter || questionScope.confidence === 'low') return merged;
+        const contains = GuiJia.questionTime?.scopeContainsDate;
+        if (typeof contains !== 'function') return merged;
+        return merged.filter((item) => Number.isFinite(item.sortTime)
+            && item.sortTime < Number.MAX_SAFE_INTEGER
+            && contains(questionScope, new Date(item.sortTime)));
     };
 
     GuiJia.liuyaoCore = {
@@ -1459,6 +2441,13 @@
         candidateDateWindow,
         findNextJieBoundary,
         getDayBranchAt,
+        resolveQuestionTimeScope,
+        buildQuestionTimeFocus,
+        buildTimeFactsForDay,
+        buildTimeEffectsForDay,
+        buildTimeAssessmentForDay,
+        buildTimeEvidenceForDay,
+        buildCandidateTimeOutputForDay,
         findNextBranchDate,
         findNextXunDate,
         mergeTimingCandidatesByDate,

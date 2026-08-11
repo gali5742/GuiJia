@@ -37,12 +37,20 @@ function loadScripts(relativeFiles) {
 
 const GuiJia = loadScripts([
     'js/common.js',
+    'js/question-time.js',
     'js/bazi-core.js',
     'js/bazi-timing.js',
     'js/bazi-transit-analysis.js',
     'js/bazi-literature.js',
     'js/bazi-interpretation.js',
     'js/bazi-detail.js',
+    'js/liuyao-time-facts.js',
+    'js/liuyao-time-effects.js',
+    'js/liuyao-time-assessment.js',
+    'js/liuyao-time-evidence.js',
+    'js/liuyao-time-relevance.js',
+    'js/liuyao-time-output.js',
+    'js/liuyao-time-selection.js',
     'js/liuyao-core.js',
     'js/liuyao-interpretation.js',
     'js/liuyao-literature.js'
@@ -1026,7 +1034,7 @@ test('Vue 应用 setup 可在离线环境完成初始化，且 #liuyao 不被重
     vm.createContext(context);
     [
         'js/common.js', 'js/bazi-core.js', 'js/bazi-timing.js', 'js/bazi-transit-analysis.js', 'js/bazi-literature.js', 'js/bazi-interpretation.js', 'js/bazi-detail.js',
-        'js/liuyao-core.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'
+        'js/liuyao-time-facts.js', 'js/liuyao-time-effects.js', 'js/liuyao-time-assessment.js', 'js/liuyao-time-evidence.js', 'js/liuyao-time-relevance.js', 'js/liuyao-time-output.js', 'js/liuyao-time-selection.js', 'js/liuyao-core.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'
     ].forEach((relative) => {
         const filename = path.join(ROOT, relative);
         vm.runInContext(fs.readFileSync(filename, 'utf8'), context, { filename });
@@ -1601,9 +1609,9 @@ test('bazi-timing 拆分后由独立模块承担岁运数据组装，app 只保�
     assert(!appSource.includes('const buildLiuYueRanges ='), 'app.js 仍保留流月范围构造器');
     assert(!appSource.includes("pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '大运')"), 'app.js 仍直接组装大运关系');
     assert(timingSource.includes("pillarSignals: calculatePillarSignals(gan, zhi, originalGans, originalZhis, '大运')"), 'bazi-timing 未接管大运关系组装');
-    const corePos = html.indexOf('<script src="./js/bazi-core.js?v=13.42.14"></script>');
-    const timingPos = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.14"></script>');
-    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
+    const corePos = html.indexOf('<script src="./js/bazi-core.js?v=13.44.0"></script>');
+    const timingPos = html.indexOf('<script src="./js/bazi-timing.js?v=13.44.0"></script>');
+    const appPos = html.indexOf('<script src="./js/app.js?v=13.44.0"></script>');
     assert(corePos >= 0 && timingPos > corePos && appPos > timingPos, 'bazi-timing script 加载顺序错误');
 });
 
@@ -2250,9 +2258,9 @@ test('证据行长标签不换行且左右文字基线对齐', () => {
 test('八字详细分析模块独立加载且不新增专用 CSS', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const css = fs.readFileSync(path.join(ROOT, 'assets/app.css'), 'utf8');
-    const interpretationPos = html.indexOf('<script src="./js/bazi-interpretation.js?v=13.42.14"></script>');
-    const detailPos = html.indexOf('<script src="./js/bazi-detail.js?v=13.42.14"></script>');
-    const appPos = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
+    const interpretationPos = html.indexOf('<script src="./js/bazi-interpretation.js?v=13.44.0"></script>');
+    const detailPos = html.indexOf('<script src="./js/bazi-detail.js?v=13.44.0"></script>');
+    const appPos = html.indexOf('<script src="./js/app.js?v=13.44.0"></script>');
     assert(interpretationPos >= 0 && detailPos > interpretationPos && appPos > detailPos, 'bazi-detail 加载顺序错误');
     assert(!css.includes('bazi-detail-'), '详细分析新增了专用 CSS，未复用现有组件');
 });
@@ -2328,9 +2336,9 @@ test('岁运分析优先完整方局/三层结构，而不是只取第一条二�
 test('岁运页面以分析层为主，结构证据不再重复呈现在用户界面', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const app = fs.readFileSync(path.join(ROOT, 'js/app.js'), 'utf8');
-    const transitScript = html.indexOf('<script src="./js/bazi-transit-analysis.js?v=13.42.14"></script>');
-    const timingScript = html.indexOf('<script src="./js/bazi-timing.js?v=13.42.14"></script>');
-    const appScript = html.indexOf('<script src="./js/app.js?v=13.42.14"></script>');
+    const transitScript = html.indexOf('<script src="./js/bazi-transit-analysis.js?v=13.44.0"></script>');
+    const timingScript = html.indexOf('<script src="./js/bazi-timing.js?v=13.44.0"></script>');
+    const appScript = html.indexOf('<script src="./js/app.js?v=13.44.0"></script>');
     assert(transitScript > timingScript && transitScript < appScript, '岁运分析模块加载顺序错误');
     assert(html.includes('activeDaYunAnalysis.headline'), '大运页未接入综合分析');
     assert(html.includes('activeLiuNianAnalysis.headline'), '流年页未接入综合分析');
@@ -2827,7 +2835,7 @@ test('岁运复制上下文包含原局、大运、流年、流月与结构证�
 
 test('岁运分析脚本使用版本化 URL，升级后避免浏览器继续命中旧文案缓存', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-    assert(html.includes('<script src="./js/bazi-transit-analysis.js?v=13.42.14"></script>'), '岁运分析脚本缓存版本参数未同步');
+    assert(html.includes('<script src="./js/bazi-transit-analysis.js?v=13.44.0"></script>'), '岁运分析脚本缓存版本参数未同步');
     assert(!html.includes('<script src="./js/bazi-transit-analysis.js"></script>'), '仍保留未版本化的岁运分析脚本加载');
 });
 
@@ -3068,9 +3076,9 @@ test('岁运页面明确虚岁口径，并对交运年/月显示时间状态', (
     assert(html.includes('activeLiuNian.isTransitionYear'), '交运年缺页面标识');
     assert(html.includes('activeLiuYue.isTransitionMonth'), '跨交运流月缺页面标识');
     assert(html.includes('activeLiuYue.effectiveDaYun'), '普通流月未显示实际所在大运');
-    assert(html.includes('<script src="./js/bazi-core.js?v=13.42.14"></script>'), 'bazi-core 未版本化避免缓存');
-    assert(html.includes('<script src="./js/bazi-timing.js?v=13.42.14"></script>'), 'bazi-timing 未版本化避免缓存');
-    assert(html.includes('<script src="./js/app.js?v=13.42.14"></script>'), 'app.js 未版本化避免缓存');
+    assert(html.includes('<script src="./js/bazi-core.js?v=13.44.0"></script>'), 'bazi-core 未版本化避免缓存');
+    assert(html.includes('<script src="./js/bazi-timing.js?v=13.44.0"></script>'), 'bazi-timing 未版本化避免缓存');
+    assert(html.includes('<script src="./js/app.js?v=13.44.0"></script>'), 'app.js 未版本化避免缓存');
 });
 
 
@@ -3241,7 +3249,7 @@ test('流月选择卡对跨交运月显示轻量标签', () => {
 
 test('六爻详细页用神关系链不再显示悬空状态标签行', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-    const start = html.indexOf('<div class="detail-section-title">用神与元忌仇神</div>');
+    const start = html.indexOf('<section class="panel-card ui-layer-evidence">', html.indexOf('详细装卦与逐爻状态'));
     const end = html.indexOf('<h2 class="panel-title">结构解读</h2>', start);
     assert(start >= 0 && end > start, '无法定位六爻详细页用神关系链模块');
     const section = html.slice(start, end);
@@ -3535,6 +3543,53 @@ test('应期同一时间节点优先用明确干支日作为标题，出旬退�
     assert(items[0].triggers.some((item)=>item.label==='出空') && items[0].triggers.some((item)=>item.label==='动爻逢合'), `聚合后触发条件丢失：${JSON.stringify(items[0])}`);
 });
 
+test('v13.42.16 当前日月可补足两动爻三合，不再生成未来同支补局应期', () => {
+    const rows = [
+        {position:1,label:'初爻',relation:'兄弟',branch:'未',element:'土',moving:false,statusTags:[],changedBranch:'未'},
+        {position:2,label:'二爻',relation:'父母',branch:'巳',element:'火',moving:false,statusTags:[],changedBranch:'巳'},
+        {position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,statusTags:[],changedBranch:'卯'},
+        {position:4,label:'四爻',relation:'子孙',branch:'申',element:'金',moving:true,statusTags:[],changedBranch:'午'},
+        {position:5,label:'五爻',relation:'兄弟',branch:'戌',element:'土',moving:false,statusTags:[],changedBranch:'戌'},
+        {position:6,label:'上爻',relation:'妻财',branch:'子',element:'水',moving:true,statusTags:[],changedBranch:'戌'}
+    ];
+    const sanHe = liuyao.buildMovingSanHe(rows, '申', '辰');
+    assert(sanHe.complete.some((text) => text.includes('四爻、上爻见申子') && text.includes('得日辰【辰】补足') && text.includes('申子辰三合水局')), `当前辰日未补成申子辰三合：${JSON.stringify(sanHe)}`);
+    assert(sanHe.pending.length === 0 && sanHe.pendingDetails.length === 0, `当前日辰已补局却仍保留待补：${JSON.stringify(sanHe.pending)}`);
+    const candidates = liuyao.buildTimingCandidates(rows[2], {castTimestamp:Date.now(),dayXun:'',daySect:2,fullStructure:{sanHe}});
+    assert(!candidates.some((item) => item.triggers?.some((trigger) => String(trigger.id).startsWith('sanhe-'))), `已由当前日辰补局却仍生成未来补局应期：${JSON.stringify(candidates)}`);
+});
+
+test('v13.42.16 日冲日破优先于同五行比扶，避免同一日辰标签自相冲突', () => {
+    const status = liuyao.buildLiuYaoLineStatus({branch:'戌',element:'土'}, '申', '辰', '子丑', false);
+    const codes = new Set(status.tags.map((tag) => tag.code));
+    assert(codes.has('DAY_BREAK'), `辰日冲戌未形成日破提示：${JSON.stringify(status.tags)}`);
+    assert(!codes.has('DAY_SUPPORT'), `辰戌相冲时仍同时输出日辰比扶：${JSON.stringify(status.tags)}`);
+});
+
+test('v13.42.16 出行以世爻作为主要观察爻，不再把世爻六亲误写为占类用神', () => {
+    const target = {type:'line',position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,isShi:true,isYing:false,sourceText:'本卦明爻',statusTags:[{code:'SEASON_STATE',text:'月令死',type:'constraint'},{code:'MONTH_CONTROL',text:'月建克',type:'constraint'}],moveTags:[]};
+    const ying = {type:'line',position:6,label:'上爻',relation:'妻财',branch:'子',element:'水',moving:true,isShi:false,isYing:true,statusTags:[],moveTags:[]};
+    const result = {
+        question:'明天出行如何', solarText:'2026年8月10日 15:51', lunarText:'丙午年 六月廿八 申时', monthGanZhi:'丙申', monthZhi:'申', dayGanZhi:'丙辰', dayZhi:'辰', dayChangeLabel:'24:00 换日（默认）', xunKong:'子丑',
+        original:{symbol:'䷇',name:'比',number:8}, changed:{symbol:'䷋',name:'否',number:12}, palace:{palace:'坤',stage:'归魂',element:'土'}, movingText:'四爻、上爻',
+        lines:[target,ying], displayLines:[ying,target], flyingHidden:[], fullStructure:{originalNature:'非六冲六合卦',changedNature:'六合卦',originalNatureCode:'NEUTRAL',changedNatureCode:'SIX_HARMONY',shiYing:{tags:[],text:'—'},sanHe:{complete:[],pending:[]},fanFu:[]},
+        useGodSelection:{mode:'suggestion',focusId:'travel',focusLabel:'出行、旅行与行程',target:'世',candidateCount:1,specificity:'specific',categoryConfidence:'high'}
+    };
+    const analysis = liuyao.buildUseGodAnalysis(target, result);
+    const interpretation = liuyaoInterpretation.buildLiuYaoInterpretation(result, target, analysis, []);
+    assert(interpretation.judgments[0]?.title.startsWith('观察对象'), `出行结构解读仍以“用神”命名：${interpretation.judgments[0]?.title}`);
+    const timeFocus = {entries:[{title:'明天 · 2026/8/11 · 丁巳日',facts:['二爻父母巳火临目标日【巳】']}]};
+    const text = liuyaoInterpretation.buildLiuYaoContextText(result, target, analysis, interpretation, [], [], timeFocus);
+    assert(text.includes('【主要观察爻】') && !text.includes('【当前用神／观察对象】'), `出行复制上下文未切换主要观察爻标题：${text}`);
+    assert(text.includes('围绕主观察爻的生扶五行') && text.includes('【目标时点】') && text.includes('明天 · 2026/8/11 · 丁巳日'), `出行上下文未写入目标时点或观察爻生克口径：${text}`);
+});
+
+test('v13.42.16 六爻详细页单列目标时点，并按出行状态切换观察爻标题', () => {
+    const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    assert(html.includes('<div class="detail-section-title">目标时点</div>') && html.includes('questionTimeFocus.entries'), '详细分析页未加入目标时点模块');
+    assert(html.includes("useGodSelectionIsTravel ? '主要观察爻与生克关系' : '用神与元忌仇神'"), '出行详细页未区分主要观察爻与传统用神标题');
+});
+
 test('三合待补文案说明现有两支、所缺支与补成后的三合局', () => {
     const sanHe = liuyao.buildMovingSanHe([
         {position:1,label:'初爻',branch:'子',moving:true,changedBranch:'未'},
@@ -3577,15 +3632,23 @@ test('六爻月破应期使用逢值/合破/出破，且出破读取下一节令
     assert(!allTriggers.some((trigger) => trigger.label === '填实' && trigger.id === 'month-break'), '月破仍错误使用填实标签');
 });
 
-test('六爻三合古籍 matcher 严格区分完整三合与待补三合', () => {
+test('六爻三合古籍 matcher 区分待补、空破待实与入墓待冲', () => {
     const base = {monthGanZhi:'丙申',monthZhi:'申',dayGanZhi:'丙辰',dayGan:'丙',dayZhi:'辰',xunKong:'子丑',original:{symbol:'䷂',name:'屯'},palace:{palace:'坎',stage:'二世'},lines:[], flyingHidden:[], fullStructure:{originalNatureCode:'NEUTRAL',changedNatureCode:'NEUTRAL',fanFu:[],shiYing:{text:'—'}}};
-    const complete = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:['动变支会齐申子辰三合水局'],pending:[]}}};
-    const pending = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:[],pending:['子辰两支待申（未成局）']}}};
+    const complete = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:['动变支会齐申子辰三合水局'],deferred:[],deferredDetails:[],pending:[]}}};
+    const pending = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:[],deferred:[],deferredDetails:[],pending:['子辰两支待申（未成局）']}}};
+    const voidDeferred = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:[],pending:[],deferred:['申子辰三支齐备；但上爻妻财子水旬空，三合局尚未落实'],deferredDetails:[{blockers:[{code:'VOID',token:{branch:'子'}}]}]}}};
+    const tombDeferred = {...base, fullStructure:{...base.fullStructure, sanHe:{complete:[],pending:[],deferred:['亥卯未三支齐备；但变爻未土入墓，三合局尚未落实'],deferredDetails:[{blockers:[{code:'TRANSFORM_TOMB',token:{branch:'未'}}]}]}}};
     const completeEntries = liuyaoLit.buildLiuYaoLiterature(complete,null);
     const pendingEntries = liuyaoLit.buildLiuYaoLiterature(pending,null);
-    assert(!completeEntries.some((item)=>item.id==='zengshan-sanhe'), '完整三合错误匹配“两支待补”原文');
-    const pendingEntry = pendingEntries.find((item)=>item.id==='zengshan-sanhe');
-    assert(pendingEntry && pendingEntry.match.includes('待申'), '待补三合未匹配待补原文或匹配依据异常');
+    const voidEntries = liuyaoLit.buildLiuYaoLiterature(voidDeferred,null);
+    const tombEntries = liuyaoLit.buildLiuYaoLiterature(tombDeferred,null);
+    assert(!completeEntries.some((item)=>item.id.startsWith('zengshan-sanhe-pending') || item.id.startsWith('zengshan-sanhe-deferred')), '完整三合错误匹配待补/待实原文');
+    const pendingEntry = pendingEntries.find((item)=>item.id==='zengshan-sanhe-pending');
+    assert(pendingEntry && pendingEntry.quote.includes('须待后之补凑') && pendingEntry.match.includes('待申'), '待补三合未匹配“两爻动待第三支”原文');
+    const voidEntry = voidEntries.find((item)=>item.id==='zengshan-sanhe-deferred-void-break');
+    assert(voidEntry && voidEntry.quote.includes('一空破者') && voidEntry.match.includes('旬空'), '旬空待实未匹配“空破待填满”原文');
+    const tombEntry = tombEntries.find((item)=>item.id==='zengshan-sanhe-deferred-tomb');
+    assert(tombEntry && tombEntry.quote.includes('入墓者待冲开') && tombEntry.match.includes('入墓'), '入墓待实未匹配“待冲开”原文');
 });
 
 test('六爻结构解读 judgment 保留分点数据，长关系链不再只能输出单段摘要', () => {
@@ -3608,23 +3671,169 @@ test('六爻结构解读 judgment 保留分点数据，长关系链不再只能�
     assert(css.includes('.timing-trigger-row .timing-trigger { margin-top: 0; }'), '应期灰色说明仍继承通用 margin-top 下沉');
 });
 
-test('v13.42.14 发布资源、首页免责声明与当前分类边界同步', () => {
+
+test('v13.42.16 三合三支齐备但参与支旬空时改列待实，不直接宣布成局', () => {
+    const rows = [
+        {position:1,label:'初爻',relation:'兄弟',branch:'未',element:'土',moving:false,statusTags:[],moveTags:[],changedBranch:'未'},
+        {position:2,label:'二爻',relation:'父母',branch:'巳',element:'火',moving:false,statusTags:[],moveTags:[],changedBranch:'巳'},
+        {position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,statusTags:[],moveTags:[],changedBranch:'卯'},
+        {position:4,label:'四爻',relation:'子孙',branch:'申',element:'金',moving:true,statusTags:[],moveTags:[],changedBranch:'午',changedElement:'火'},
+        {position:5,label:'五爻',relation:'兄弟',branch:'戌',element:'土',moving:false,statusTags:[],moveTags:[],changedBranch:'戌'},
+        {position:6,label:'上爻',relation:'妻财',branch:'子',element:'水',moving:true,statusTags:[{code:'VOID',text:'旬空',type:'void'}],moveTags:[],changedBranch:'戌',changedElement:'土'}
+    ];
+    const sanHe = liuyao.buildMovingSanHe(rows, '申', '辰');
+    assert(sanHe.complete.length === 0, `子水旬空仍被直接判成局：${JSON.stringify(sanHe)}`);
+    assert(sanHe.deferred?.length === 1 && sanHe.deferred[0].includes('得日辰【辰】补足申子辰三支') && sanHe.deferred[0].includes('上爻妻财子水旬空') && sanHe.deferred[0].includes('三合局尚未落实') && sanHe.deferred[0].includes('待子水填实／冲空／出空后再观察成局'), `三合待实文案异常：${JSON.stringify(sanHe)}`);
+    assert(sanHe.pending.length === 0, `三支已齐备却又退回待补：${JSON.stringify(sanHe.pending)}`);
+});
+
+test('v13.42.16 明确问明天时过滤目标日之外的普通应期', () => {
+    const target = {type:'line',position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,statusTags:[],moveTags:[]};
+    const result = {
+        question:'明天出行如何',
+        castTimestamp:'2026-08-10T16:17:00+09:00',
+        dayXun:'甲寅', daySect:2,
+        fullStructure:{sanHe:{pendingDetails:[]}}
+    };
+    const items = liuyao.buildTimingCandidates(target, result);
+    assert(items.length === 0, `明天占问仍显示 8/15 等窗口外应期：${JSON.stringify(items)}`);
+});
+
+test('v13.42.16 出行结构解读不再混用元神忌神仇神，并移除用神章直接匹配', () => {
+    const target = {type:'line',position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,isShi:true,isYing:false,sourceText:'本卦明爻',statusTags:[],moveTags:[]};
+    const rows = [
+        {position:1,label:'初爻',relation:'兄弟',branch:'未',element:'土',moving:false,statusTags:[],moveTags:[],isShi:false,isYing:false},
+        {position:2,label:'二爻',relation:'父母',branch:'巳',element:'火',moving:false,statusTags:[],moveTags:[],isShi:false,isYing:false},
+        target,
+        {position:4,label:'四爻',relation:'子孙',branch:'申',element:'金',moving:true,changedRelation:'父母',changedBranch:'午',changedElement:'火',statusTags:[],moveTags:[],isShi:false,isYing:false},
+        {position:5,label:'五爻',relation:'兄弟',branch:'戌',element:'土',moving:false,statusTags:[],moveTags:[],isShi:false,isYing:false},
+        {position:6,label:'上爻',relation:'妻财',branch:'子',element:'水',moving:true,changedRelation:'兄弟',changedBranch:'戌',changedElement:'土',statusTags:[{code:'VOID',text:'旬空',type:'void'}],moveTags:[],isShi:false,isYing:true}
+    ];
+    const result = {
+        question:'明天出行如何', monthGanZhi:'丙申',monthZhi:'申',dayGanZhi:'丙辰',dayGan:'丙',dayZhi:'辰',xunKong:'子丑',
+        original:{symbol:'䷇',name:'比'}, palace:{palace:'坤',stage:'归魂'}, lines:rows, flyingHidden:[],
+        fullStructure:{originalNature:'非六冲六合卦',changedNature:'六合卦',originalNatureCode:'NEUTRAL',changedNatureCode:'SIX_HARMONY',transition:'非六冲六合卦 → 六合卦',shiYing:{text:'世应',tags:[]},sanHe:{complete:[],deferred:[],pending:[]},fanFu:[]},
+        useGodSelection:{mode:'suggestion',focusId:'travel',focusLabel:'出行、旅行与行程',target:'世',candidateCount:1,specificity:'specific',categoryConfidence:'high'}
+    };
+    const analysis = liuyao.buildUseGodAnalysis(target, result);
+    const interpretation = liuyaoInterpretation.buildLiuYaoInterpretation(result, target, analysis, []);
+    const relation = interpretation.judgments.find((item)=>item.id==='use-relations');
+    assert(relation && relation.summary.includes('生扶五行') && relation.summary.includes('克制五行') && relation.summary.includes('间接制约五行'), `出行关系链未使用新术语：${relation?.summary}`);
+    assert(!/[元忌仇]神/.test(relation.summary), `出行关系链仍混用元神/忌神/仇神：${relation.summary}`);
+    const literature = liuyaoLit.buildLiuYaoLiterature(result, target);
+    assert(!literature.some((item)=>item.id==='zengshan-use'), '出行以世爻为观察对象时仍匹配用神章');
+});
+
+test('v13.42.16 无目标窗口内应期时复制上下文省略空应期标题', () => {
+    const target = {type:'line',position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,isShi:true,isYing:false,sourceText:'本卦明爻',statusTags:[],moveTags:[]};
+    const result = {question:'明天出行如何',solarText:'2026年8月10日 16:17',lunarText:'丙午年 六月廿八 申时',monthGanZhi:'丙申',monthZhi:'申',dayGanZhi:'丙辰',dayZhi:'辰',dayChangeLabel:'24:00 换日（默认）',xunKong:'子丑',original:{symbol:'䷇',name:'比',number:8},changed:{symbol:'䷋',name:'否',number:12},palace:{palace:'坤',stage:'归魂',element:'土'},movingText:'四爻、上爻',lines:[target],displayLines:[target],flyingHidden:[],fullStructure:{originalNature:'非六冲六合卦',changedNature:'六合卦',originalNatureCode:'NEUTRAL',changedNatureCode:'SIX_HARMONY',shiYing:{text:'—',tags:[]},sanHe:{complete:[],deferred:[],pending:[]},fanFu:[]},useGodSelection:{mode:'suggestion',focusId:'travel',target:'世'}};
+    const analysis = liuyao.buildUseGodAnalysis(target,result);
+    const interpretation = liuyaoInterpretation.buildLiuYaoInterpretation(result,target,analysis,[]);
+    const text = liuyaoInterpretation.buildLiuYaoContextText(result,target,analysis,interpretation,[],[],{entries:[{title:'明天 · 2026/8/11 · 丁巳日',facts:[]}]});
+    assert(!text.includes('【应期观察】'), `无有效应期仍输出空标题：${text}`);
+});
+
+test('v13.43.0 QuestionTimeScope 被六爻核心统一读取', () => {
+    const scope = liuyao.resolveQuestionTimeScope('下周三到下下周一出差如何', new Date(2026,7,10,16,42,0));
+    assert(scope && scope.type === 'explicit-range' && scope.purpose === 'target', `六爻核心未取得标准时间范围：${JSON.stringify(scope)}`);
+    assert(GuiJia.questionTime.dateKey(scope.start) === '2026/8/19' && GuiJia.questionTime.dateKey(scope.end) === '2026/8/24', `六爻核心时间范围错误：${JSON.stringify(scope)}`);
+});
+
+test('v13.43.0 明确范围可硬过滤应期，模糊时间不得硬过滤', () => {
+    const target = {type:'line',position:3,label:'三爻',relation:'官鬼',branch:'卯',element:'木',moving:false,isShi:true,isYing:false,statusTags:[],moveTags:[]};
+    const baseResult = {castTimestamp:new Date(2026,7,10,16,42,0).getTime(),daySect:2,dayXun:'甲寅',fullStructure:{sanHe:{pendingDetails:[]}}};
+    const rangeItems = liuyao.buildTimingCandidates(target, {...baseResult, question:'8月15日至20日什么时候有变化'});
+    assert(rangeItems.every((item) => item.sortTime >= new Date(2026,7,15,0,0,0).getTime() && item.sortTime <= new Date(2026,7,20,23,59,59).getTime()), `明确范围外仍有应期：${JSON.stringify(rangeItems)}`);
+    const vagueItems = liuyao.buildTimingCandidates(target, {...baseResult, question:'近期什么时候有变化'});
+    assert(vagueItems.length > 0, '模糊时间错误清空普通应期');
+});
+
+test('v13.43.5 范围时间上下文使用独立目标时间范围并抑制重复应期区', () => {
+    const result = {
+        question:'8月15日至20日出差如何', solarText:'2026年8月10日 16:55', lunarText:'丙午年 六月廿八 申时', monthGanZhi:'丙申', monthZhi:'申', dayGanZhi:'丙辰', dayZhi:'辰', dayChangeLabel:'24:00 换日（默认）', xunKong:'子丑',
+        original:{symbol:'䷱',name:'鼎',number:50}, changed:{symbol:'䷬',name:'萃',number:45}, palace:{palace:'离',stage:'二世',element:'火'}, movingText:'二爻、三爻、五爻、上爻',
+        lines:[], displayLines:[], flyingHidden:[], fullStructure:{originalNature:'非六冲六合卦',changedNature:'非六冲六合卦',shiYing:{tags:[],text:'—'},sanHe:{complete:[],deferred:[],pending:[]},fanFu:[]},
+        useGodSelection:{mode:'suggestion',focusId:'travel',focusLabel:'出行、旅行与行程',target:'世',candidateCount:1,specificity:'specific',categoryConfidence:'high'}
+    };
+    const target = {type:'line',position:2,label:'二爻',relation:'官鬼',branch:'亥',element:'水',moving:true,isShi:true,isYing:false,sourceText:'本卦明爻',statusTags:[],moveTags:[]};
+    result.lines = [target]; result.displayLines = [target];
+    const analysis = liuyao.buildUseGodAnalysis(target, result);
+    const interpretation = liuyaoInterpretation.buildLiuYaoInterpretation(result, target, analysis, []);
+    const rangeFocus = {kind:'range',title:'8月15日至20日 · 2026/8/15 ～ 2026/8/20',modeLabel:'过程节点观察',note:'聚焦这段时间内结构变化较明显的日期，观察过程中的起伏与转折。',keyNodes:[{title:'2026/8/20 · 丙寅日',facts:['动爻逢合：二爻（世）官鬼亥水与【寅】日六合']}]};
+    const timing = [{title:'寅日 · 2026/8/20',contextTitle:'寅日 · 2026/8/20',triggers:[{label:'动爻逢合',reason:'官鬼亥水发动，寅日与亥六合。'}]}];
+    const text = liuyaoInterpretation.buildLiuYaoContextText(result, target, analysis, interpretation, timing, [], rangeFocus);
+    assert(text.includes('【目标时间范围】') && text.includes('2026/8/20 · 丙寅日'), `范围上下文缺少关键节点：${text}`);
+    assert(!text.includes('【应期观察】'), `范围分析后仍重复输出独立应期区：${text}`);
+});
+
+test('v13.43.5 明确离散候选抑制重复应期并提示默认世爻比较基准', () => {
+    const result = {
+        question:'明天还是周五哪个好', solarText:'2026年8月10日 17:40', lunarText:'丙午年 六月廿八 酉时', monthGanZhi:'丙申', monthZhi:'申', dayGanZhi:'丙辰', dayZhi:'辰', dayChangeLabel:'24:00 换日（默认）', xunKong:'子丑',
+        original:{symbol:'䷺',name:'涣',number:59}, changed:{symbol:'䷧',name:'解',number:40}, palace:{palace:'离',stage:'五世',element:'火'}, movingText:'五爻',
+        lines:[], displayLines:[], flyingHidden:[], fullStructure:{originalNature:'非六冲六合卦',changedNature:'非六冲六合卦',shiYing:{tags:[],text:'—'},sanHe:{complete:[],deferred:[],pending:[]},fanFu:[]},
+        useGodSelection:{mode:'default'}
+    };
+    const target = {type:'line',position:5,label:'五爻',relation:'兄弟',branch:'巳',element:'火',moving:true,isShi:true,isYing:false,sourceText:'本卦明爻',statusTags:[],moveTags:[],changedRelation:'妻财',changedBranch:'申',changedElement:'金'};
+    result.lines = [target]; result.displayLines = [target];
+    const analysis = liuyao.buildUseGodAnalysis(target, result);
+    const interpretation = liuyaoInterpretation.buildLiuYaoInterpretation(result, target, analysis, []);
+    const pointFocus = {kind:'point',suppressTimingCandidates:true,comparisonBasisNote:'比较事项未明确，以下仅按世爻状态作为当前比较基准。',comparison:{summary:'按当前观察基准，相对优先观察：2026/8/11 丁巳日；次看：2026/8/14 庚申日。'},entries:[{title:'明天 · 2026/8/11 · 丁巳日',facts:[]},{title:'周五 · 2026/8/14 · 庚申日',facts:[]}]};
+    const timing = [{title:'申日 · 2026/8/14',contextTitle:'申日 · 2026/8/14',triggers:[{label:'动爻逢合',reason:'兄弟巳火发动，申日与巳六合。'}]}];
+    const text = liuyaoInterpretation.buildLiuYaoContextText(result, target, analysis, interpretation, timing, [], pointFocus);
+    assert(text.includes('仅按世爻状态作为当前比较基准') && text.includes('按当前观察基准，相对优先观察'), `事项不明的日期比较没有降级：${text}`);
+    assert(!text.includes('【应期观察】'), `明确离散候选后仍重复输出应期观察：${text}`);
+});
+
+test('v13.44.0 时间专项正式收口与发布审计封存', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
     const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
     const checklist = fs.readFileSync(path.join(ROOT, 'docs', 'DEPLOYMENT_CHECKLIST.md'), 'utf8');
-    assert(pkg.version === '13.42.14', `package version 未切到 13.42.14：${pkg.version}`);
-    ['assets/tailwind-utilities.css?v=13.42.14','assets/app.css?v=13.42.14','./js/common.js?v=13.42.14','./js/iching-loader.js?v=13.42.14','./js/bazi-core.js?v=13.42.14','./js/bazi-timing.js?v=13.42.14','./js/bazi-transit-analysis.js?v=13.42.14','./js/bazi-literature.js?v=13.42.14','./js/bazi-interpretation.js?v=13.42.14','./js/bazi-detail.js?v=13.42.14','./js/liuyao-core.js?v=13.42.14','./js/liuyao-interpretation.js?v=13.42.14','./js/liuyao-literature.js?v=13.42.14','./js/app.js?v=13.42.14']
+    assert(pkg.version === '13.44.0', `package version 未切到 13.44.0：${pkg.version}`);
+    ['assets/tailwind-utilities.css?v=13.44.0','assets/app.css?v=13.44.0','./js/common.js?v=13.44.0','./js/question-time.js?v=13.44.0','./js/liuyao-time-facts.js?v=13.44.0','./js/liuyao-time-effects.js?v=13.44.0','./js/liuyao-time-assessment.js?v=13.44.0','./js/liuyao-time-evidence.js?v=13.44.0','./js/liuyao-time-relevance.js?v=13.44.0','./js/liuyao-time-output.js?v=13.44.0','./js/liuyao-time-selection.js?v=13.44.0','./js/iching-loader.js?v=13.44.0','./js/bazi-core.js?v=13.44.0','./js/bazi-timing.js?v=13.44.0','./js/bazi-transit-analysis.js?v=13.44.0','./js/bazi-literature.js?v=13.44.0','./js/bazi-interpretation.js?v=13.44.0','./js/bazi-detail.js?v=13.44.0','./js/liuyao-core.js?v=13.44.0','./js/liuyao-interpretation.js?v=13.44.0','./js/liuyao-literature.js?v=13.44.0','./js/app.js?v=13.44.0']
         .forEach((ref) => assert(html.includes(ref), `发布资源未统一缓存版本：${ref}`));
-    assert(html.includes('<section v-if="timingCandidates.length" class="panel-card ui-layer-evidence">'), '无应期时仍会显示空白应期卡');
+    assert(html.includes('<div class="detail-section-title">目标时间范围</div>') && html.includes('questionTimeFocus.keyNodes') && html.includes('questionTimeFocus.modeLabel'), '时间范围分析卡未进入详细页');
+    assert(html.includes("<section v-if=\"timingCandidates.length && questionTimeFocus?.kind !== 'range' && !questionTimeFocus?.suppressTimingCandidates\" class=\"panel-card ui-layer-evidence\">"), '明确目标时间启用时应期卡未去重或无应期时仍会显示空白卡');
     assert(html.includes('释义与适用范围') && html.includes('<dt>适用范围</dt>'), '古籍浏览仍保留开发式“边界”标题');
     assert(!html.includes('不自动代断') && !html.includes('不直接转化为吉凶断语'), '首页仍保留开发式边界文案');
-    assert(readme.startsWith('# 龟甲 v13.42.14') && readme.includes('首页免责声明与上线收尾') && readme.includes('自然语言取用固定回归集'), 'README 未同步 v13.42.14 发布说明');
-    assert(checklist.includes('龟甲 v13.42.14') && checklist.includes('npm run predeploy'), '部署清单未同步 v13.42.14');
+    assert(readme.startsWith('# 龟甲 v13.44.0') && readme.includes('TimeFact') && readme.includes('TimeEffect') && readme.includes('Node Assessment') && readme.includes('Evidence Selector') && readme.includes('Candidate Output') && readme.includes('Time Review') && readme.includes('Date Selection') && readme.includes('Structural Relevance') && readme.includes('六维非补偿 Pareto') && readme.includes('判断原则冻结') && readme.includes('旧节点摘要'), 'README 未同步 v13.44.0 正式收口说明');
+    assert(checklist.includes('龟甲 v13.44.0') && checklist.includes('TimeFact') && checklist.includes('TimeEffect') && checklist.includes('Node Assessment') && checklist.includes('Evidence Selector') && checklist.includes('Candidate Output') && checklist.includes('alpha.6 开发对照审阅') && checklist.includes('alpha.7 日期选择原则审阅') && checklist.includes('alpha.8 结构相关性 / 触发重要度审阅') && checklist.includes('alpha.9 剩余并列分型审计') && checklist.includes('alpha.10 六维 Date Selection 冻结验收') && checklist.includes('关键动爻 / 化空变爻时间状态回归') && checklist.includes('npm run predeploy'), '阶段验证清单未同步 v13.44.0 正式版');
+    assert(checklist.includes('值 / 合 / 冲与五行生克并行计算') && checklist.includes('直接月冲优先按月破 / 日破方向') && checklist.includes('TimeFact') && checklist.includes('TimeEffect 六维映射'), '既有时间效力 smoke test 或 Fact/Effect 阶段检查未写入清单');
     assert(html.includes('class="site-disclaimer"') && html.includes('龟甲仅供传统文化学习、研究与娱乐参考') && html.includes('不构成医疗、法律、投资等专业意见'), '首页免责声明未进入发布页面');
+    assert(html.includes('比较结果：{{ questionTimeFocus.comparison.summary }}') && html.includes('节点效力：{{ entry.effectSummary }}') && html.includes('日期判断：{{ entry.assessment.text }}'), '时间节点效力 / 日期比较结果未进入详细页');
     assert(checklist.includes('首页底部免责声明'), '部署清单未加入首页免责声明 smoke test');
     assert(html.includes('尽量写清“谁／什么事／想问什么结果”') && html.includes('这次面试能否通过？') && html.includes('这笔款项什么时候到账？') && html.includes('我和伴侣的感情接下来会怎样？'), '六爻占问填写引导未进入发布页面');
     const liuyaoCoreSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-core.js'), 'utf8');
+    assert(liuyaoCoreSource.includes("'静爻逢冲·日破'") && liuyaoCoreSource.includes("'静爻逢冲·暗动'") && liuyaoCoreSource.includes("'静爻逢合·合起'") && liuyaoCoreSource.includes("'动爻逢合·合绊'"), '时间节点效力层未区分暗动/日破/合起/合绊');
+    assert(liuyaoCoreSource.includes('pushVoidTransition') && liuyaoCoreSource.includes('出空后逢值') && liuyaoCoreSource.includes('三合成员逢值'), '关键动爻旬空转换或三合成员逢值未进入范围事件池');
+    assert(liuyaoCoreSource.includes('rangeMovingValueMeta') && liuyaoCoreSource.includes('生扶动爻逢值') && liuyaoCoreSource.includes('变爻逢值·月破复核'), '普通关键动爻逢值或变爻日期补充事实未进入范围事件池');
+    assert(liuyaoCoreSource.includes('rangeStaticValueMeta') && liuyaoCoreSource.includes('生扶爻逢值') && liuyaoCoreSource.includes('状态不再反向决定重要性') && liuyaoCoreSource.includes('staticKeyLineMeta') && liuyaoCoreSource.includes('isKey = isShiYing || isExplicitCandidate || Boolean(valueMeta) || isStructureMember'), 'KeyLine 状态收束未进入范围事件池');
+    assert(liuyaoCoreSource.includes('地支值/合/冲与五行生克是并行事实') && liuyaoCoreSource.includes('rangeNodeEffectPool') && liuyaoCoreSource.includes('一级结构事件不能遮掉主要观察爻自身'), '目标日地支关系与五行效力未并行合流');
+    assert(liuyaoCoreSource.includes('直接月冲（月破）优先于') && liuyaoCoreSource.includes('selectRangeDisplayEvents') && liuyaoCoreSource.includes('展示语义相同即去重'), '月破优先级或范围事实展示去重未进入发布源码');
+    const evidenceSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-time-evidence.js'), 'utf8');
+    const outputSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-time-output.js'), 'utf8');
+    assert(liuyaoCoreSource.includes('node.timeEvidence = timeEvidenceApi.selectNodeEvidence') && liuyaoCoreSource.includes('buildTimeEvidenceForDay'), 'Evidence Selector 未并行接入范围节点');
+    assert(evidenceSource.includes('subsumed-by-compound') && evidenceSource.includes('coalesced-into-compound') && evidenceSource.includes('uncoveredKinds'), 'Evidence Selector 缺少结构化包含去重或覆盖校验');
+    assert(liuyaoCoreSource.includes('node.candidateOutput = timeOutputApi.buildCandidateNodeOutput') && liuyaoCoreSource.includes('buildCandidateTimeOutputForDay'), 'Candidate Output 未并行接入时间节点');
+    assert(liuyaoCoreSource.includes('processNodeEligible') && liuyaoCoreSource.includes('processEventEligible') && liuyaoCoreSource.includes('processEventRelevanceRank'), '过程型关键节点准入未迁移到 Structural Relevance + TimeFact');
+    assert(!liuyaoCoreSource.includes("return node.events.some((item) => item.tier === 'primary');"), '过程型关键节点仍直接依赖 legacy primary tier');
+    assert(outputSource.includes('buildCandidateNodeOutput') && outputSource.includes('buildDateSelectionComparison') && outputSource.includes('DIMENSION_LABELS'), 'Candidate Output 缺少候选摘要、日期比较或六维文案映射');
+    const selectionSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-time-selection.js'), 'utf8');
+    assert(selectionSource.includes('six-dimensional-non-compensatory-pareto') && selectionSource.includes('受制') && selectionSource.includes('六维非补偿 Pareto') && selectionSource.includes('nondominatedFrontier'), 'Date Selection 缺少冻结后的六维非补偿受制门槛或 Pareto 前沿');
+    assert(!selectionSource.includes('const aBenefit = av.support || av.peer') && !selectionSource.includes('const aSoftCost = av.outflow || av.exertion'), 'Date Selection 仍保留 coarse benefit / soft-cost comparator');
+    assert(selectionSource.includes('Number(av.support) >= Number(bv.support)') && selectionSource.includes('Number(av.peer) >= Number(bv.peer)') && selectionSource.includes('Number(av.outflow) <= Number(bv.outflow)') && selectionSource.includes('Number(av.exertion) <= Number(bv.exertion)'), 'Date Selection 未按四个独立实质维度执行六维 Pareto');
+    const relevanceSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-time-relevance.js'), 'utf8');
+    assert(relevanceSource.includes('observer-direct') && relevanceSource.includes('observer-change') && relevanceSource.includes('key-line') && relevanceSource.includes('formation'), 'Structural Relevance 缺少结构层级定义');
+    assert(selectionSource.includes('structuralRelevanceDominatesEquivalent') && selectionSource.includes('materialPolarity') && selectionSource.includes('structuralRelevanceSignature'), 'Date Selection 未接入同质日期结构相关性细化');
+    const reviewSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-time-review.js'), 'utf8');
+    assert(reviewSource.includes('buildQuestionTimeReview') && reviewSource.includes('formatQuestionTimeReview') && reviewSource.includes('preferred-date-changed'), 'Time Review 缺少结构化对照或差异分类');
+    const liuyaoInterpretationSource = fs.readFileSync(path.join(ROOT, 'js', 'liuyao-interpretation.js'), 'utf8');
+    assert(!liuyaoInterpretationSource.includes('candidateOutput') && !liuyaoInterpretationSource.includes('liuyaoTimeReview'), '复制分析上下文不应直接耦合 Candidate/Review 内部字段，应统一读取 production top-level 时间字段');
+    assert(liuyaoCoreSource.includes("outputModel:'time-v2'") && liuyaoCoreSource.includes('legacyShadow') && liuyaoCoreSource.includes('comparison:candidateComparison') && liuyaoCoreSource.includes('keyNodes:candidateKeyNodes'), 'Time v2 production top-level 或源码级历史影子材料缺失');
+    assert(!html.includes('liuyao-time-review.js'), '正式 index.html 仍加载开发期 Time Review 模块');
+    const buildPagesSource = fs.readFileSync(path.join(ROOT, 'scripts', 'build-pages-site.mjs'), 'utf8');
+    assert(buildPagesSource.includes("path.basename(entry) === 'liuyao-time-review.js'"), 'Pages 构建未排除开发期 Time Review 模块');
+    assert(html.includes('questionTimeFocus.comparisonBasisNote') && html.includes('questionTimeFocus?.suppressTimingCandidates'), '事项不明比较提示或明确目标应期去重未进入页面');
     assert(liuyaoCoreSource.includes("label:'感情、恋爱与婚姻'") && liuyaoCoreSource.includes('关系问题先看世应'), '感情观察重点未进入六爻总览配置');
     assert(liuyaoCoreSource.includes("'合作伙伴','合伙人','甲方','乙方'") && !liuyaoCoreSource.includes("'竞争对手','合伙人'"), '外部合作对象与兄弟关键词边界未同步');
     assert(liuyaoCoreSource.includes("id:'travel', target:'世', focusId:'travel'") && liuyaoCoreSource.includes("label:'出行、旅行与行程'"), '出行观察重点或自动规则未进入发布源码');
@@ -3632,7 +3841,62 @@ test('v13.42.14 发布资源、首页免责声明与当前分类边界同步', (
     ['房屋','住宅','医药','治疗','药物','行人','寻人'].forEach((term) => assert(!liuyaoCoreSource.includes(term), `后续专项“${term}”相关文字仍提前出现在当前六爻取用配置`));
     const css = fs.readFileSync(path.join(ROOT, 'assets', 'app.css'), 'utf8');
     assert(css.includes('.liuyao-lines-card {') && css.includes('grid-template-rows: repeat(6, minmax(0, 1fr));'), '六爻录入六行未在宽屏等分剩余高度');
-    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.42.14.md')), 'v13.42.14 发布说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-alpha.8.md')), 'v13.44.0-alpha.8 阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-fact-tests.js')), 'TimeFact 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-effect-tests.js')), 'TimeEffect 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-facts.js')), 'TimeFact 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-effects.js')), 'TimeEffect 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-assessment.js')), 'TimeAssessment 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-evidence.js')), 'TimeEvidence 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-output.js')), 'TimeOutput 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-review.js')), 'TimeReview 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-selection.js')), 'TimeSelection 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'liuyao-time-relevance.js')), 'Structural Relevance 模块缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-relevance-tests.js')), 'Structural Relevance 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-selection-tests.js')), 'TimeSelection 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-date-selection.mjs')), 'Date Selection 批量审阅脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_SELECTION_v13.44.0-alpha.8.md')), 'Date Selection 审阅报告缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-structural-relevance.mjs')), 'Structural Relevance 批量审阅脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_RELEVANCE_v13.44.0-alpha.8.md')), 'Structural Relevance 审阅报告缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-alpha.9.md')), 'v13.44.0-alpha.9 阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-selection-ties.mjs')), '剩余并列分型审计脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_TIES_v13.44.0-alpha.9.md')), '剩余并列分型审计报告缺失');
+    const tieReview = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_TIES_v13.44.0-alpha.9.md'), 'utf8');
+    assert(tieReview.includes('未分类剩余并列：0') && tieReview.includes('alpha.8 单选 → 六维细粒度并列：528') && tieReview.includes('纯生扶 vs 纯比和') && tieReview.includes('纯泄力 vs 纯耗力'), 'alpha.9 并列分型审计结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-alpha.10.md')), 'v13.44.0-alpha.10 阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-six-dimensional-selection.mjs')), 'alpha.10 六维日期选择独立审阅脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_SELECTION_v13.44.0-alpha.10.md')), 'alpha.10 六维日期选择审阅报告缺失');
+    const selection10Review = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_SELECTION_v13.44.0-alpha.10.md'), 'utf8');
+    assert(selection10Review.includes('完全一致：4096（100.00%）') && selection10Review.includes('未分类剩余并列：0') && selection10Review.includes('纯生扶 vs 纯比和') && selection10Review.includes('纯泄力 vs 纯耗力'), 'alpha.10 六维日期选择冻结审阅结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-alpha.11.md')), 'v13.44.0-alpha.11 阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-wording-tests.js')), 'alpha.11 Candidate 文案专项测试缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-candidate-wording.mjs')), 'alpha.11 Candidate 文案压力脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_WORDING_v13.44.0-alpha.11.md')), 'alpha.11 Candidate 文案压力报告缺失');
+    const wording11Review = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_WORDING_v13.44.0-alpha.11.md'), 'utf8');
+    assert(wording11Review.includes('Candidate 节点：49152') && wording11Review.includes('“泄耗”残留：0') && wording11Review.includes('同义效力括注（如“生扶（生扶）”）：0') && wording11Review.includes('超过 4 条证据：0'), 'alpha.11 Candidate 文案压力结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-beta.3.md')), 'v13.44.0-beta.3 正式切换阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-rc.1.md')), 'v13.44.0-rc.1 RC 阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-rc1-semantics.mjs')), 'RC.1 时间语义收口压力脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_RC1_v13.44.0-rc.1.md')), 'RC.1 时间语义收口压力报告缺失');
+    const rc1Review = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_RC1_v13.44.0-rc.1.md'), 'utf8');
+    assert(rc1Review.includes('间接制约未映射耗力：0') && rc1Review.includes('间接制约误映射受制：0') && rc1Review.includes('主要观察爻直接证据被外围事实挤掉：0') && rc1Review.includes('Evidence uncovered：0'), 'RC.1 时间语义收口压力结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0-rc.2.md')), 'v13.44.0-rc.2 端到端回归阶段说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_RC2_v13.44.0-rc.2.md')), 'v13.44.0-rc.2 真实案例回归报告缺失');
+    assert(fs.existsSync(path.join(ROOT, '升级说明.md')), 'v13.44.0 正式升级说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'RELEASE_v13.44.0.md')), 'v13.44.0 正式发布说明缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-v13.44.0-release.mjs')), 'v13.44.0 正式压力脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_RELEASE_v13.44.0.md')), 'v13.44.0 正式压力报告缺失');
+    const releaseReview = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_RELEASE_v13.44.0.md'), 'utf8');
+    assert(releaseReview.includes('间接制约未映射耗力：0') && releaseReview.includes('主要观察爻直接证据遗漏：0') && releaseReview.includes('遗漏 0') && releaseReview.includes('阻断项为 0'), 'v13.44.0 正式压力验收结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'docs', 'REVIEW_BETA_SWITCH_v13.44.0-beta.1.md')), 'beta.1 新旧输出切换压力报告缺失');
+    const betaSwitchReview = fs.readFileSync(path.join(ROOT, 'docs', 'REVIEW_BETA_SWITCH_v13.44.0-beta.1.md'), 'utf8');
+    assert(betaSwitchReview.includes('总运行：12288') && betaSwitchReview.includes('production 与 Candidate 不一致：0') && betaSwitchReview.includes('legacyShadow 缺失：0') && betaSwitchReview.includes('Time Review schema 异常：0') && betaSwitchReview.includes('“泄耗”残留：0'), 'beta.1 正式切换压力结果不完整');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-review-tests.js')), 'TimeReview 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'scripts', 'review-liuyao-time-diffs.mjs')), 'TimeReview 批量审阅脚本缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-output-tests.js')), 'TimeOutput 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'time-evidence-tests.js')), 'TimeEvidence 专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'tests', 'question-time-tests.js')), '时间解析专项测试文件缺失');
+    assert(fs.existsSync(path.join(ROOT, 'js', 'question-time.js')), 'QuestionTimeScope 解析模块缺失');
     assert(!fs.existsSync(path.join(ROOT, '#U5347#U7ea7#U8bf4#U660e.md')), '旧乱码升级说明文件仍存在');
 });
 
@@ -3800,7 +4064,7 @@ test('v13.42.7 手动具体爻选择使用统一折叠项目 UI', () => {
     const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     assert(html.includes('<details class="fold-card compact-fold use-god-manual-details">'), '手动具体爻选择未切换为统一 fold-card');
     assert(html.includes('<summary>手动选择具体爻（熟悉六爻时）</summary>') && html.includes('<div class="fold-content">'), '手动具体爻折叠内容结构不完整');
-    assert(html.includes("useGodSelectionIsDisplayStart ? '当前观察对象' : '当前用神'"), '详细页未按多候选状态切换观察对象称谓');
+    assert(html.includes("useGodSelectionIsObservation ? '主要观察爻' : '当前用神'"), '详细页未按观察对象状态切换主要观察爻称谓');
     assert(html.includes('useGodTargetLocationText'), '详细页展示起点未显示具体爻位');
 });
 

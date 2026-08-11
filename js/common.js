@@ -25,6 +25,16 @@
         String(dateObj.getMinutes()).padStart(2, '0')
     ].join(':');
 
+    // 民用钟点对应十二时辰，与“23:00/24:00 换日”是两件独立的事。
+    // 无论日辰采用哪种换日口径，23:00–00:59 都属于子时。
+    const civilTimeBranch = (dateObj) => {
+        if (!(dateObj instanceof Date) || Number.isNaN(dateObj.getTime())) return '';
+        const branches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+        const hour = dateObj.getHours();
+        const index = Math.floor(((hour + 1) % 24) / 2);
+        return branches[index] || '';
+    };
+
     const degToRad = (deg) => deg * Math.PI / 180;
     const radToDeg = (rad) => rad * 180 / Math.PI;
     const normalizeDegrees = (deg) => ((deg % 360) + 360) % 360;
@@ -151,6 +161,7 @@
         parseLocalDateTime,
         formatWallDateTime,
         formatInputDateTime,
+        civilTimeBranch,
         degToRad,
         radToDeg,
         normalizeDegrees,

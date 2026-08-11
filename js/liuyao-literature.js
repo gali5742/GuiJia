@@ -47,10 +47,24 @@
             sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/26%E5%8F%883'
         },
         {
-            id: 'zengshan-sanhe', book: '增删卜易', chapter: '六合章第十九·三合局', level: '精确结构', sourceKind: '原文摘录', verified: true,
-            quote: '三爻若有两爻动，不成局，须待后之补凑合成其局。', tagsAll: ['sanhe-pending'], matchKey: 'sanHe',
-            hint: '三支齐全与“两支待一支”分开观察，缺支可列入应期观察。',
-            boundary: '三合还要检查空破、入墓及世爻或用神是否在局内，不能只凭支数宣布成局。',
+            id: 'zengshan-sanhe-pending', book: '增删卜易', chapter: '六合章第十九·三合局', level: '精确结构', sourceKind: '原文摘录', verified: true,
+            quote: '三爻若有两爻动，不成局，须待后之补凑合成其局。', tagsAll: ['sanhe-pending'], matchKey: 'sanHePending',
+            hint: '两支已见而缺一支时，先作为待补结构，后续再观察所缺地支是否由日月补足。',
+            boundary: '补足第三支后仍须检查空破、入墓及三合局对世爻或用神的作用方向。',
+            sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/19'
+        },
+        {
+            id: 'zengshan-sanhe-deferred-void-break', book: '增删卜易', chapter: '六合章第十九·三合局', level: '精确结构', sourceKind: '原文摘录', verified: true,
+            quote: '三合局中若有一空破者，待填满之日月成之。', tagsAny: ['sanhe-deferred-void','sanhe-deferred-month-break'], matchKey: 'sanHeDeferred',
+            hint: '三支已经齐备但其中有旬空或月破时，先列作待实，不把“支齐”直接等同于已经成局。',
+            boundary: '填实或月破解除后仍需复核是否有其他阻滞，并观察合局对主要观察对象的生克方向。',
+            sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/19'
+        },
+        {
+            id: 'zengshan-sanhe-deferred-tomb', book: '增删卜易', chapter: '六合章第十九·三合局', level: '精确结构', sourceKind: '原文摘录', verified: true,
+            quote: '有一爻入墓者待冲开之日成之。', tagsAll: ['sanhe-deferred-tomb'], matchKey: 'sanHeDeferred',
+            hint: '三支齐备而其中一爻入墓时，先列作待实，后续观察冲开入墓条件的时间点。',
+            boundary: '冲开之后仍需结合用神、世应及其他空破条件复核成局作用。',
             sourceUrl: 'https://zh.wikisource.org/zh-hans/%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/19'
         },
         {
@@ -170,13 +184,22 @@
         const features = new Set(['always', 'month-command', 'day-command', 'shi-ying', 'six-spirits', 'palace']);
         const lines = resultObj?.lines || [];
         const full = resultObj?.fullStructure || {};
-        if (target) features.add('use-god');
+        const travelObservation = resultObj?.useGodSelection?.focusId === 'travel';
+        if (target && !travelObservation) features.add('use-god');
         if (lines.some((line) => line.moving)) features.add('moving');
         if (lines.some((line) => hasStatusCode(line, 'DARK_MOVING'))) features.add('dark-moving');
         if (lines.some((line) => hasStatusCode(line, 'VOID'))) features.add('void');
         if (lines.some((line) => hasStatusCode(line, 'MONTH_BREAK') || hasMoveCode(line, 'TRANSFORM_MONTH_BREAK'))) features.add('month-break');
         if (lines.some((line) => hasStatusCode(line, 'DAY_BREAK'))) features.add('day-break');
         if ((full.sanHe?.complete || []).length) features.add('sanhe-complete');
+        if ((full.sanHe?.deferred || []).length) {
+            features.add('sanhe-deferred');
+            (full.sanHe?.deferredDetails || []).forEach((item) => (item.blockers || []).forEach((blocker) => {
+                if (blocker?.code === 'VOID') features.add('sanhe-deferred-void');
+                else if (blocker?.code === 'MONTH_BREAK') features.add('sanhe-deferred-month-break');
+                else if (blocker?.code === 'TRANSFORM_TOMB') features.add('sanhe-deferred-tomb');
+            }));
+        }
         if ((full.sanHe?.pending || []).length) features.add('sanhe-pending');
         if ((full.fanFu || []).length) features.add('fanfu');
         if (lines.some((line) => hasMoveCode(line, 'PROGRESS'))) features.add('progress');
@@ -205,7 +228,13 @@
         moving: (r) => `本卦有${r.lines.filter((line) => line.moving).map((line) => line.label).join('、')}发动，可分别观察回头生克、合冲、进退、墓绝与空破。`,
         darkMoving: (r) => `${r.lines.filter((line) => hasStatusCode(line, 'DARK_MOVING')).map((line) => `${line.label}${line.relation}${line.branch}`).join('、')}符合当前程序的暗动提示条件。`,
         void: (r) => `${r.lines.filter((line) => hasStatusCode(line, 'VOID')).map((line) => `${line.label}${line.relation}${line.branch}`).join('、')}落于${r.xunKong}旬空。`,
-        sanHe: (r) => (r.fullStructure?.sanHe?.pending || []).join('；'),
+        sanHePending: (r) => (r.fullStructure?.sanHe?.pending || []).join('；'),
+        sanHeDeferred: (r) => (r.fullStructure?.sanHe?.deferred || []).join('；'),
+        sanHe: (r) => [
+            ...(r.fullStructure?.sanHe?.deferred || []),
+            ...(r.fullStructure?.sanHe?.pending || []),
+            ...(r.fullStructure?.sanHe?.complete || [])
+        ].join('；'),
         fanFu: (r) => (r.fullStructure?.fanFu || []).join('；'),
         progressRetreat: (r) => r.lines.filter((line) => hasMoveCode(line, 'PROGRESS') || hasMoveCode(line, 'RETREAT')).map((line) => `${line.label}${line.branch}化${line.changedBranch}：${line.moveTags.map((tag) => tag.text).join('、')}`).join('；'),
         hexHarmony: (r) => {
@@ -248,6 +277,8 @@
         moving: '这里只确认动爻及其变爻存在；动变是否有利、是否应事仍须结合用神链与旺衰。',
         darkMoving: '程序只确认当前实现中的暗动提示条件，因此将此条列作进一步核对；是否完全符合原文所说旺相、休囚及其他受制条件仍需复核。',
         void: '这里只确认旬空事实；原文所说填实、冲空或出旬何时“有用”，仍需结合旺衰、动静与用忌身份判断。',
+        sanHePending: '这里只确认“两支待一支”的待补结构；第三支出现后仍需复核空破、入墓及合局对主要观察对象的作用方向。',
+        sanHeDeferred: '这里只确认三支齐备但仍受空破或入墓条件阻滞；相关条件解除后仍需复核是否真正成局及其作用方向。',
         sanHe: '程序只确认三合齐全或“两支待一支”的结构形态；是否真正成局并发生有效作用，仍需检查空破、入墓、冲散及用神是否在局内。',
         fanFu: '这里只确认反吟或伏吟结构存在；原文并未因此自动给出吉凶，仍需结合用神旺衰与救应。',
         progressRetreat: '这里只确认进神或退神结构；原文应期口诀是否适用仍需结合该爻的用忌身份、旺衰与所占事项。',

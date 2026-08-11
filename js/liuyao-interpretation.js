@@ -19,6 +19,12 @@
         'DAY_CLASH', 'DARK_MOVING', 'DAY_HARMONY', 'RETURN_CLASH', 'RETURN_HARMONY'
     ]);
 
+    const ensureSentenceEnd = (text) => {
+        const value = String(text || '').trim();
+        if (!value) return '';
+        return /[。！？]$/.test(value) ? value : `${value}。`;
+    };
+
     const makeJudgment = (id, title, summary, evidence = [], tags = [], priority = 0, points = []) => ({
         id,
         title,
@@ -38,8 +44,9 @@
 
     const isDisplayStartSelection = (resultObj) => resultObj?.useGodSelection?.specificity === 'display-start'
         && Number(resultObj?.useGodSelection?.candidateCount || 0) > 1;
-    const focusNoun = (resultObj) => isDisplayStartSelection(resultObj) ? '当前观察对象' : '用神';
-    const focusTermText = (resultObj, text = '') => isDisplayStartSelection(resultObj)
+    const isObservationSelection = (resultObj) => isDisplayStartSelection(resultObj) || resultObj?.useGodSelection?.focusId === 'travel';
+    const focusNoun = (resultObj) => isObservationSelection(resultObj) ? '当前观察对象' : '用神';
+    const focusTermText = (resultObj, text = '') => isObservationSelection(resultObj)
         ? String(text).replaceAll('用神', '当前观察对象')
         : String(text);
     const linePositionText = (target) => {
@@ -196,6 +203,15 @@
         return '';
     }
 
+    function displayRoleLabel(role, resultObj) {
+        if (!isObservationSelection(resultObj)) return role;
+        return ({
+            '元神':'生扶五行',
+            '忌神':'克制五行',
+            '仇神':'间接制约五行'
+        })[role] || role;
+    }
+
     function shiYingRelationPhrase(tags = []) {
         const codes = tagCodes(tags);
         const parts = [];
@@ -241,7 +257,7 @@
             ['VOID', '旬空'], ['DARK_MOVING', '暗动']
         ];
         ordered.forEach(([code, text]) => { if (codes.has(code)) parts.push(text); });
-        const noun = isDisplayStartSelection(resultObj) ? '观察对象' : '用神';
+        const noun = isObservationSelection(resultObj) ? '观察对象' : '用神';
         if (parts.length) return `${noun}${parts.slice(0, 3).join('、')}`;
         if (target?.type === 'hidden') return `${noun}伏藏`;
         if (target?.moving) return `${noun}发动`;
@@ -256,7 +272,7 @@
         const monthTexts = tagText(tags.filter((tag) => MONTH_STATUS_CODES.has(tag.code)));
         const dayTexts = tagText(tags.filter((tag) => DAY_STATUS_CODES.has(tag.code)));
         const moveTexts = tagText(target.moveTags || []).filter((text) => text !== '动而有变');
-        const displayStart = isDisplayStartSelection(resultObj);
+        const displayStart = isObservationSelection(resultObj);
         const sentences = [displayStart ? `${linePositionText(target)}为当前观察对象。` : `${roleLabel}为当前用神。`];
         const calendarParts = calendarRelationText(resultObj, target, 'judgment');
         if (calendarParts.length) {
@@ -298,7 +314,7 @@
                 tags.length ? `日月与空破：${tagText(tags).join('、')}` : '',
                 target.type === 'hidden' ? '形态：伏神' : target.moving ? `动变：${tagText(target.moveTags).join('、') || '发动而有变'}` : '动静：静爻'
             ],
-            ['用神'],
+            [displayStart ? '观察对象' : '用神'],
             100,
             sentences
         );
@@ -374,18 +390,19 @@
 
     function buildRoleDistributionSentence(role, element, entries = [], oppositeContext = null, resultObj = null) {
         if (!entries.length) return '';
+        const roleText = displayRoleLabel(role, resultObj);
         const visible = entries.filter((entry) => entry.layer === 'visible');
         const changed = entries.filter((entry) => entry.layer === 'changed');
         const hidden = entries.filter((entry) => entry.layer === 'hidden');
         const layerClauses = [];
-        if (visible.length) layerClauses.push(`${role}${element}见${groupVisibleRoleEntries(visible).join('、')}`);
+        if (visible.length) layerClauses.push(`${roleText}${element}见${groupVisibleRoleEntries(visible).join('、')}`);
         if (changed.length) {
             const changedText = changed.map((entry) => `${entry.label}化${entry.relation}${entry.branch}${entry.element}`).join('、');
-            layerClauses.push(`${visible.length ? '变爻另见' : `${role}${element}见变爻`}${changedText}`);
+            layerClauses.push(`${visible.length ? '变爻另见' : `${roleText}${element}见变爻`}${changedText}`);
         }
         if (hidden.length) {
             const hiddenText = hidden.map((entry) => `${entry.label}下伏${entry.relation}${entry.branch}${entry.element}`).join('、');
-            layerClauses.push(`${visible.length || changed.length ? '伏神候选另见' : `${role}${element}见`}${hiddenText}`);
+            layerClauses.push(`${visible.length || changed.length ? '伏神候选另见' : `${roleText}${element}见`}${hiddenText}`);
         }
 
         const notes = directRelationNotes(entries, oppositeContext, resultObj);
@@ -429,9 +446,9 @@
             });
             const visibleUnique = [...new Set(visibleFacts)];
             const changedUnique = [...new Set(changedFacts)];
-            if (originalRole) details.push(`本爻为${originalRole}${visibleUnique.length ? `并${visibleUnique.join('、')}` : ''}`);
+            if (originalRole) details.push(`本爻为${displayRoleLabel(originalRole, resultObj)}${visibleUnique.length ? `并${visibleUnique.join('、')}` : ''}`);
             else if (visibleUnique.length) details.push(`本爻${visibleUnique.join('、')}`);
-            if (changedRole) details.push(`变爻为${changedRole}${changedUnique.length ? `并${changedUnique.join('、')}` : ''}`);
+            if (changedRole) details.push(`变爻为${displayRoleLabel(changedRole, resultObj)}${changedUnique.length ? `并${changedUnique.join('、')}` : ''}`);
             else if (changedUnique.length) details.push(`变爻${changedUnique.join('、')}`);
             return `${base}${details.length ? `；${details.join('，')}` : ''}。`;
         }).filter(Boolean);
@@ -514,15 +531,19 @@
         });
 
         if (!sentences.length) {
-            sentences.push(`元神${useGodAnalysis.sourceElement}见于${layerPresenceText(useGodAnalysis.sourceEntries || []) || '当前未见'}；忌神${useGodAnalysis.tabooElement}见于${layerPresenceText(useGodAnalysis.tabooEntries || []) || '当前未见'}；仇神${useGodAnalysis.enemyElement}见于${layerPresenceText(useGodAnalysis.enemyEntries || []) || '当前未见'}。`);
+            if (isObservationSelection(resultObj)) {
+                sentences.push(`生扶五行${useGodAnalysis.sourceElement}见于${layerPresenceText(useGodAnalysis.sourceEntries || []) || '当前未见'}；克制五行${useGodAnalysis.tabooElement}见于${layerPresenceText(useGodAnalysis.tabooEntries || []) || '当前未见'}；间接制约五行${useGodAnalysis.enemyElement}见于${layerPresenceText(useGodAnalysis.enemyEntries || []) || '当前未见'}。`);
+            } else {
+                sentences.push(`元神${useGodAnalysis.sourceElement}见于${layerPresenceText(useGodAnalysis.sourceEntries || []) || '当前未见'}；忌神${useGodAnalysis.tabooElement}见于${layerPresenceText(useGodAnalysis.tabooEntries || []) || '当前未见'}；仇神${useGodAnalysis.enemyElement}见于${layerPresenceText(useGodAnalysis.enemyEntries || []) || '当前未见'}。`);
+            }
         }
 
-        const tags = ['元忌'];
+        const tags = [isObservationSelection(resultObj) ? '生克' : '元忌'];
         if (target.isShi || target.isYing || relationPhrase) tags.push('世应');
         if ((useGodAnalysis.directMovingFacts || []).length) tags.push('动变');
         return makeJudgment(
             'use-relations',
-            isDisplayStartSelection(resultObj) ? '观察对象关系链' : '用神关系链',
+            isObservationSelection(resultObj) ? '观察对象关系链' : '用神关系链',
             sentences.join(''),
             evidence,
             tags,
@@ -579,12 +600,13 @@
         const full = resultObj?.fullStructure;
         if (!full) return null;
         const complete = full.sanHe?.complete || [];
+        const deferred = full.sanHe?.deferred || [];
         const pending = full.sanHe?.pending || [];
         const fanFu = full.fanFu || [];
         const movingLines = (resultObj?.lines || []).filter((line) => line.moving);
         const darkSentences = darkMovingStructureSentences(resultObj, target);
         const specialNature = full.originalNatureCode !== 'NEUTRAL' || full.changedNatureCode !== 'NEUTRAL';
-        if (!specialNature && !complete.length && !pending.length && !fanFu.length && !movingLines.length && !darkSentences.length) return null;
+        if (!specialNature && !complete.length && !deferred.length && !pending.length && !fanFu.length && !movingLines.length && !darkSentences.length) return null;
 
         const summaryBits = [];
         const staticHexagram = !movingLines.length;
@@ -601,6 +623,7 @@
             summaryBits.push(`本卦不属六冲、六合，变卦为${full.changedNature}`);
         }
         if (complete.length) summaryBits.push(`三合结构见${complete.join('、')}`);
+        else if (deferred.length) summaryBits.push(`三合待实见${deferred.join('、')}`);
         else if (pending.length) summaryBits.push(`三合待补见${pending.join('、')}`);
         if (fanFu.length) summaryBits.push(`另见${fanFu.join('、')}`);
         const evidence = [];
@@ -608,6 +631,7 @@
         darkSentences.forEach((text) => evidence.push(`暗动：${text}`));
         if (specialNature) evidence.push(`六合／六冲：${full.transition}`);
         if (complete.length) evidence.push(`三合结构：${complete.join('、')}`);
+        else if (deferred.length) evidence.push(`三合待实：${deferred.join('、')}`);
         else if (pending.length) evidence.push(`三合待补：${pending.join('、')}`);
         if (fanFu.length) evidence.push(`反吟／伏吟：${fanFu.join('、')}`);
 
@@ -637,16 +661,17 @@
             const opposite = (resultObj.lines || []).find((line) => target.isShi ? line.isYing : line.isShi);
             const deityRole = opposite ? deityRoleByElement(opposite.element, useGodAnalysis) : '';
             const relationPhrase = shiYingRelationPhrase(resultObj.fullStructure?.shiYing?.tags || []);
-            if (deityRole && opposite) clauses.push(`${deityRole}落${target.isShi ? '应爻' : '世爻'}${relationPhrase ? `并与${isDisplayStartSelection(resultObj) ? '当前观察对象' : '用神'}${relationPhrase}` : ''}`);
+            if (deityRole && opposite) clauses.push(`${deityRole}落${target.isShi ? '应爻' : '世爻'}${relationPhrase ? `并与${isObservationSelection(resultObj) ? '当前观察对象' : '用神'}${relationPhrase}` : ''}`);
             else if (relationPhrase) clauses.push(`世应见${relationPhrase}`);
         } else if ((useGodAnalysis?.directMovingFacts || []).length) {
-            clauses.push(`动爻与变爻进入${isDisplayStartSelection(resultObj) ? '观察对象' : '用神'}关系链`);
+            clauses.push(`动爻与变爻进入${isObservationSelection(resultObj) ? '观察对象' : '用神'}关系链`);
         }
 
         const full = resultObj.fullStructure;
         const wholeBits = [];
         if (full?.originalNatureCode !== 'NEUTRAL') wholeBits.push(full.originalNature);
         if (full?.sanHe?.complete?.length) wholeBits.push('三合成局');
+        else if (full?.sanHe?.deferred?.length) wholeBits.push('三合待实');
         else if (full?.sanHe?.pending?.length) wholeBits.push('三合待补');
         if (full?.fanFu?.length) wholeBits.push('反吟／伏吟');
         if (wholeBits.length) clauses.push(`卦体另见${wholeBits.slice(0, 2).join('、')}`);
@@ -722,12 +747,13 @@
         }
         lines.push(compactShiYingFactLine(full.shiYing));
         if (!staticHexagram && full.sanHe?.complete?.length) lines.push(`三合结构：${full.sanHe.complete.join('、')}`);
+        else if (!staticHexagram && full.sanHe?.deferred?.length) lines.push(`三合待实：${full.sanHe.deferred.join('、')}`);
         else if (!staticHexagram && full.sanHe?.pending?.length) lines.push(`三合待补：${full.sanHe.pending.join('、')}`);
         if (!staticHexagram && full.fanFu?.length) lines.push(`反吟／伏吟：${full.fanFu.join('、')}`);
         return lines;
     }
 
-    function buildLiuYaoContextText(resultObj, target, useGodAnalysis, interpretation, timingCandidates = [], literature = []) {
+    function buildLiuYaoContextText(resultObj, target, useGodAnalysis, interpretation, timingCandidates = [], literature = [], questionTimeFocus = null) {
         if (!resultObj) return '';
         const lines = [];
         const add = (text = '') => lines.push(text);
@@ -747,7 +773,8 @@
         add(`动爻：${resultObj.movingText || '—'}`);
         add('');
 
-        add('【当前用神／观察对象】');
+        const travelSelection = resultObj?.useGodSelection?.focusId === 'travel';
+        add(travelSelection ? '【主要观察爻】' : '【当前用神／观察对象】');
         if (target) {
             const movementText = target.type === 'hidden' ? '伏神' : target.moving ? '发动' : hasStatusCode(target, 'DARK_MOVING') ? '静爻（暗动提示）' : '静爻';
             const targetLine = (resultObj.lines || []).find((line) => line.position === target.position);
@@ -755,7 +782,9 @@
             const positionText = target.type === 'hidden'
                 ? `${basePositionLabel}下伏`
                 : `${basePositionLabel}${target.isShi ? '（世）' : ''}${target.isYing ? '（应）' : ''}`;
-            add(`${targetLabel(target)}；${positionText}；${target.sourceText || '—'}；${movementText}`);
+            add(travelSelection
+                ? `${positionText}${targetLabel(target)}；${target.sourceText || '—'}；${movementText}`
+                : `${targetLabel(target)}；${positionText}；${target.sourceText || '—'}；${movementText}`);
             const sameRelation = sameRelationDistributionText(useGodAnalysis, target, staticHexagram);
             if (sameRelation) add(`同类六亲分布：${sameRelation}`);
             const statusTexts = tagText(target.statusTags);
@@ -796,11 +825,48 @@
             }
         } else add('尚未确认用神。');
         if (useGodAnalysis) {
-            add(`元神：${useGodAnalysis.sourceElement}；${contextRoleDistribution(useGodAnalysis.sourceLines, staticHexagram)}`);
-            add(`忌神：${useGodAnalysis.tabooElement}；${contextRoleDistribution(useGodAnalysis.tabooLines, staticHexagram)}`);
-            add(`仇神：${useGodAnalysis.enemyElement}；${contextRoleDistribution(useGodAnalysis.enemyLines, staticHexagram)}`);
+            if (travelSelection) {
+                add(`围绕主观察爻的生扶五行：${useGodAnalysis.sourceElement}；${contextRoleDistribution(useGodAnalysis.sourceLines, staticHexagram)}`);
+                add(`围绕主观察爻的克制五行：${useGodAnalysis.tabooElement}；${contextRoleDistribution(useGodAnalysis.tabooLines, staticHexagram)}`);
+                add(`生克链中的间接制约五行：${useGodAnalysis.enemyElement}；${contextRoleDistribution(useGodAnalysis.enemyLines, staticHexagram)}`);
+            } else {
+                add(`元神：${useGodAnalysis.sourceElement}；${contextRoleDistribution(useGodAnalysis.sourceLines, staticHexagram)}`);
+                add(`忌神：${useGodAnalysis.tabooElement}；${contextRoleDistribution(useGodAnalysis.tabooLines, staticHexagram)}`);
+                add(`仇神：${useGodAnalysis.enemyElement}；${contextRoleDistribution(useGodAnalysis.enemyLines, staticHexagram)}`);
+            }
         }
         add('');
+
+        if (questionTimeFocus?.kind === 'range') {
+            add('【目标时间范围】');
+            add(`${questionTimeFocus.title}`);
+            add(`分析方式：${questionTimeFocus.modeLabel}；${questionTimeFocus.note}`);
+            if (questionTimeFocus.comparisonBasisNote) add(questionTimeFocus.comparisonBasisNote);
+            if (questionTimeFocus.comparison?.summary) add(`比较结果：${questionTimeFocus.comparison.summary}`);
+            if (questionTimeFocus.keyNodes?.length) {
+                add('关键节点：');
+                questionTimeFocus.keyNodes.forEach((entry) => {
+                    add(`- ${entry.title}`);
+                    if (entry.assessment?.text) add(`  - 日期判断：${ensureSentenceEnd(entry.assessment.text)}`);
+                    if (entry.effectSummary) add(`  - 节点效力：${ensureSentenceEnd(entry.effectSummary)}`);
+                    (entry.facts || []).forEach((fact) => add(`  - ${ensureSentenceEnd(fact)}`));
+                });
+            } else {
+                add('当前范围内未提取到高区分度的结构节点。');
+            }
+            add('');
+        } else if (questionTimeFocus?.entries?.length) {
+            add('【目标时点】');
+            if (questionTimeFocus.comparisonBasisNote) add(questionTimeFocus.comparisonBasisNote);
+            if (questionTimeFocus.comparison?.summary) add(`比较结果：${questionTimeFocus.comparison.summary}`);
+            questionTimeFocus.entries.forEach((entry) => {
+                add(`- ${entry.title}`);
+                if (entry.assessment?.text) add(`  - 日期判断：${ensureSentenceEnd(entry.assessment.text)}`);
+                if (entry.effectSummary) add(`  - 节点效力：${ensureSentenceEnd(entry.effectSummary)}`);
+                (entry.facts || []).forEach((fact) => add(`  - ${ensureSentenceEnd(fact)}`));
+            });
+            add('');
+        }
 
         add('【结构解读】');
         (interpretation?.judgments || []).forEach((item, index) => {
@@ -837,15 +903,17 @@
         buildCompactStructureFactLines(resultObj).forEach(add);
         add('');
 
-        add('【应期观察】');
-        timingCandidates.forEach((item) => {
-            add(`- ${item.contextTitle || item.title}`);
-            if (item.triggers?.length) item.triggers.forEach((trigger) => add(`  - ${trigger.label}：${trigger.reason}`));
-            else if (item.reason) add(`  ${item.reason}`);
-            const dates = item.contextDates?.length ? item.contextDates : item.dates;
-            if (dates?.length) add(`  日期：${dates.join('、')}`);
-        });
-        add('');
+        if (timingCandidates.length && questionTimeFocus?.kind !== 'range' && !questionTimeFocus?.suppressTimingCandidates) {
+            add('【应期观察】');
+            timingCandidates.forEach((item) => {
+                add(`- ${item.contextTitle || item.title}`);
+                if (item.triggers?.length) item.triggers.forEach((trigger) => add(`  - ${trigger.label}：${trigger.reason}`));
+                else if (item.reason) add(`  ${item.reason}`);
+                const dates = item.contextDates?.length ? item.contextDates : item.dates;
+                if (dates?.length) add(`  日期：${dates.join('、')}`);
+            });
+            add('');
+        }
 
         add('【古籍参考】');
         const compactLiterature = compactLiuYaoLiteratureForContext(literature);

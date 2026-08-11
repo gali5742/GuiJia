@@ -84,7 +84,7 @@
         components: { LiteratureBrowser },
         setup() {
             const {
-                parseLocalDateTime, formatWallDateTime, formatInputDateTime, formatSignedMinutes, buildSolarCorrection
+                parseLocalDateTime, formatWallDateTime, formatInputDateTime, civilTimeBranch, formatSignedMinutes, buildSolarCorrection
             } = window.GuiJia.common;
             const {
                 shiShenMap, cangGanMap, palaceMap, getWuXing, getColorClass, getStatusClass,
@@ -105,7 +105,7 @@
                 lineKey, getHexagram, liuyaoPalaceMap, naJiaForLines, sixRelation, sixSpirits,
                 buildLiuYaoLineStatus, buildMoveAnalysis, buildFullHexagramStructure, buildFlyingHidden,
                 USE_GOD_FOCUS_OPTIONS, useGodFocusOptionByTarget, useGodFocusOptionById, resolveUseGodFocus,
-                suggestUseGod, buildUseGodChoices, buildUseGodAnalysis, zhouyiSourceUrl, buildTimingCandidates
+                suggestUseGod, buildUseGodChoices, buildUseGodAnalysis, zhouyiSourceUrl, buildQuestionTimeFocus, buildTimingCandidates
             } = window.GuiJia.liuyaoCore;
             const { buildLiuYaoLiterature } = window.GuiJia.liuyaoLiterature;
             const { buildLiuYaoInterpretation, buildLiuYaoContextText } = window.GuiJia.liuyaoInterpretation;
@@ -475,10 +475,12 @@
                 const selection = liuyaoResult.value?.useGodSelection;
                 return selection?.specificity === 'display-start' && Number(selection?.candidateCount || 0) > 1;
             });
+            const useGodSelectionIsTravel = computed(() => liuyaoResult.value?.useGodSelection?.focusId === 'travel');
+            const useGodSelectionIsObservation = computed(() => useGodSelectionIsDisplayStart.value || useGodSelectionIsTravel.value);
             const useGodTargetLocationText = computed(() => {
                 const target = useGodAnalysis.value?.target;
                 if (!target) return '';
-                if (!useGodSelectionIsDisplayStart.value) return target.sourceText || '';
+                if (!useGodSelectionIsObservation.value) return target.sourceText || '';
                 const labels = ['', '初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
                 const position = target.type === 'hidden'
                     ? `${labels[target.position] || ''}下伏`
@@ -618,6 +620,7 @@
                 };
             });
 
+            const questionTimeFocus = computed(() => buildQuestionTimeFocus(liuyaoResult.value, selectedUseGodTarget.value));
             const timingCandidates = computed(() => buildTimingCandidates(selectedUseGodTarget.value, liuyaoResult.value));
 
             // v13.16 — 六爻古籍检索：结构特征 -> 文献数据 -> 通用 matcher。
@@ -636,7 +639,8 @@
                     useGodAnalysis.value,
                     liuyaoInterpretation.value,
                     timingCandidates.value,
-                    liuyaoLiterature.value
+                    liuyaoLiterature.value,
+                    questionTimeFocus.value
                 );
                 if (!text) return;
                 try {
@@ -744,7 +748,7 @@
                     liuyaoResult.value = {
                         question: liuyaoForm.question,
                         solarText: formatWallDateTime(castDate),
-                        lunarText: `${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月${lunar.getDayInChinese()} ${lunar.getTimeZhi()}时`,
+                        lunarText: `${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月${lunar.getDayInChinese()} ${civilTimeBranch(castDate) || lunar.getTimeZhi()}时`,
                         monthGanZhi,
                         monthZhi,
                         dayGanZhi,
@@ -764,7 +768,7 @@
                         movingText: movingPositions.length ? movingPositions.join('、') : '静卦（无动爻）',
                         lines: rows,
                         displayLines: [...rows].reverse(),
-                        fullStructure: buildFullHexagramStructure(rows, originalNaJia, changedNaJia),
+                        fullStructure: buildFullHexagramStructure(rows, originalNaJia, changedNaJia, monthZhi, dayZhi),
                         flyingHidden,
                         useGodSuggestion,
                         useGodChoices,
@@ -916,8 +920,8 @@
 
             return {
                 form, result, errorMsg, activeModule, currentPage, baziResultView, liuyaoResultView, solarCorrectionPreview, baziInterpretation, baziDetail, copyBaziAnalysisContext, copyBaziContextStatus, copyBaziTransitAnalysisContext, copyBaziTransitContextStatus, goToInput, setBaziResultView, setLiuyaoResultView, switchModule,
-                liuyaoForm, liuyaoLateZiHour, liuyaoResult, selectedUseGodKey, selectedUseGodTarget, selectedUseGodFocusId, useGodFocusOptions, useGodFocusFeedback, useGodAnalysis, useGodSelectionIsDisplayStart, useGodTargetLocationText, liuyaoKeyStructures, liuyaoInterpretation,
-                selectUseGodFocus, applySuggestedUseGod, onManualUseGodChange, timingCandidates, liuyaoLiterature, liuyaoLiteratureFilter, copyLiuYaoAnalysisContext, copyLiuYaoContextStatus,
+                liuyaoForm, liuyaoLateZiHour, liuyaoResult, selectedUseGodKey, selectedUseGodTarget, selectedUseGodFocusId, useGodFocusOptions, useGodFocusFeedback, useGodAnalysis, useGodSelectionIsDisplayStart, useGodSelectionIsTravel, useGodSelectionIsObservation, useGodTargetLocationText, liuyaoKeyStructures, liuyaoInterpretation,
+                selectUseGodFocus, applySuggestedUseGod, onManualUseGodChange, questionTimeFocus, timingCandidates, liuyaoLiterature, liuyaoLiteratureFilter, copyLiuYaoAnalysisContext, copyLiuYaoContextStatus,
                 ichingTextState, currentIChingText, zhouyiSourceUrl,
                 yaoPositionLabels, hasEnteredLiuYaoLines, simulateAllLines, clearLiuYaoLines, calculateLiuYao,
                 activeDaYunIndex, activeLiuNianList, activeLiuNianIndex,
