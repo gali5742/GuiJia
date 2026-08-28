@@ -34,11 +34,11 @@
 <body>
 <main>
   <h1>龟甲 · 六爻 Rule Registry 测试台</h1>
-  <p class="sub">第一阶段开发测试页。这里只测试 <code>Question → DivinationIntent → Participant Resolver → RuleSelection → ObservationPlan</code>，不会替代龟甲当前正式六爻前台逻辑。当前自然语言解析仍是 baseline，后续会由 NLP 替换。</p>
+  <p class="sub">当前链路：<code>Question → Semantic Parser → DivinationIntent v0.1 → RuleSelection → ObservationPlan</code>。baseline 只承担显式语义与 fallback；需要叙述理解、共指消解的输入会标记为 B · NLP required。</p>
 
   <section class="card">
     <label for="question"><strong>占问</strong></label>
-    <textarea id="question">我是一个男生，和一个女性朋友能不能发展为恋爱关系</textarea>
+    <textarea id="question">我是一个母胎单身的女生，和新认识的一个男性朋友能不能发展为恋爱关系</textarea>
     <div class="row">
       <label>规则模式：
         <select id="mode">
@@ -57,6 +57,11 @@
     <div class="quick" id="quick"></div>
   </section>
 
+  <section class="card mini">
+    <h2>Semantic Parser / A-B-C-D 诊断</h2>
+    <pre id="diagnosis">—</pre>
+  </section>
+
   <section class="grid">
     <article class="card mini"><h2>DivinationIntent</h2><pre id="intent">—</pre></article>
     <article class="card mini"><h2>RuleSelection</h2><pre id="selection">—</pre></article>
@@ -72,9 +77,10 @@
 
 <script src="./js/question-time.js?v=13.44.0"></script>
 <script src="./js/liuyao-intent.js?v=13.44.0"></script>
-<script src="./js/liuyao-participant-resolver.js?v=phase1.1"></script>
+<script src="./js/liuyao-participant-resolver.js?v=phase1.2"></script>
+<script src="./js/liuyao-semantic-parser.js?v=phase2.0"></script>
 <script src="./js/liuyao-rule-registry.js?v=13.44.0"></script>
-<script src="./js/liuyao-observation-plan.js?v=13.44.0"></script>
+<script src="./js/liuyao-observation-plan.js?v=phase2.0"></script>
 <script>
 (function () {
   const rows = [
@@ -86,11 +92,12 @@
     { position:6, relation:'兄弟', isShi:false, isYing:false, moving:false }
   ];
   const samples = [
-    '我是一个男生，和一个女性朋友能不能发展为恋爱关系',
+    '我是一个二十五岁男生，和一个女性朋友能不能发展为恋爱关系',
+    '我是一个刚大学毕业的女生，和一个男性朋友能不能发展为恋爱关系',
+    '我是一个母胎单身的女生，和新认识的一个男性朋友能不能发展为恋爱关系',
+    '我是一个母胎单身的女生，最近我认识了一个男生，我对他有点好感，想算一下我们之间有没有可能',
+    '我是一个二十五岁男生，和一个朋友能不能发展为恋爱关系',
     '我是一个男生，和一个男性朋友能不能发展为恋爱关系',
-    '我是一个女生，和一个男性朋友能不能发展为恋爱关系',
-    '我是一个女生，和一个女性朋友能不能发展为恋爱关系',
-    '我和一个朋友能不能发展为恋爱关系',
     '今年能不能谈上恋爱',
     '今年财运怎么样？',
     '我这一生财运怎么样？',
@@ -122,43 +129,26 @@
     $('quick').appendChild(b);
   });
 
-  function buildHeadline(result, mode) {
-    const intent = result.intent;
-    const selection = result.selection;
-    const plan = result.plan;
-    if (!intent) return { text:'未生成语义结果', kind:'warn' };
-    if (intent.status === 'blocked') return { text:`语义阻断：${intent.blockReason || 'unknown'}`, kind:'bad' };
-    if (plan?.status === 'resolved') {
-      const refs = plan.ruleRefs?.join(', ') || selection?.baseRuleRefs?.join(', ') || '—';
+  function buildHeadline(result) {
+    const diagnosis = result.diagnosis;
+    if (!result.intent) return { text:'未生成语义结果', kind:'warn' };
+    if (result.intent.status === 'blocked') return { text:`语义阻断：${result.intent.blockReason || 'unknown'}`, kind:'bad' };
+    if (diagnosis?.code === 'OK') {
+      const refs = result.plan?.ruleRefs?.join(', ') || result.selection?.baseRuleRefs?.join(', ') || '—';
       return { text:`语义已识别 · 规则 ${refs} · 观察方案已生成`, kind:'ok' };
     }
-
-    const provisional = selection?.provisionalCandidates || [];
-    if (provisional.length && mode === 'normal') {
-      return { text:`语义已识别 · 候选规则 ${provisional.join(', ')}（provisional，normal 未执行） · 未生成观察方案`, kind:'warn' };
+    if (diagnosis?.category === 'A') return { text:`A · baseline parser failure · ${diagnosis.message}`, kind:'bad' };
+    if (diagnosis?.category === 'B') return { text:`B · NLP required · ${diagnosis.message}`, kind:'warn' };
+    if (diagnosis?.category === 'C') return { text:`C · Intent schema gap · ${diagnosis.message}`, kind:'bad' };
+    if (diagnosis?.category === 'D') {
+      const provisional = result.selection?.provisionalCandidates || [];
+      if (diagnosis.subtype === 'provisional_rule_skipped' && provisional.length) {
+        return { text:`D · 规则层未执行 · 候选 ${provisional.join(', ')} 为 provisional，normal 模式未执行 · 未生成观察方案`, kind:'warn' };
+      }
+      return { text:`D · 规则层未覆盖 · ${diagnosis.message} · 未生成观察方案`, kind:'warn' };
     }
-
-    const sexUnknown = intent.ambiguities?.find((item) => item.code === 'romantic_sex_role_unknown');
-    if (sexUnknown) {
-      return { text:`语义已识别 · 特定恋爱对象已识别 · ${sexUnknown.message} · 未生成观察方案`, kind:'warn' };
-    }
-
-    const counterpart = intent.participants?.find((item) => item.role === 'romantic_counterpart');
-    const selfSex = intent.semantics?.querentSex;
-    const sameSexKnown = intent.event?.type === 'relationship_development'
-      && ['male','female'].includes(selfSex)
-      && ['male','female'].includes(counterpart?.sex)
-      && selfSex === counterpart.sex;
-    if (sameSexKnown) {
-      return { text:'语义已识别 · 当前未建立该男女角色组合的自动取用映射 · 未生成观察方案', kind:'warn' };
-    }
-
-    const issue = selection?.issues?.[0];
-    if (issue?.type === 'no_confirmed_rule') {
-      return { text:'语义已识别 · 当前无已确认规则 · 未生成观察方案', kind:'warn' };
-    }
-    if (issue?.type) return { text:`语义已识别 · 规则未决：${issue.type} · 未生成观察方案`, kind:'warn' };
-    return { text:'语义已识别 · 未生成观察方案', kind:'warn' };
+    if (diagnosis?.code === 'SEMANTIC_AMBIGUITY') return { text:`语义信息不足 · ${diagnosis.message} · 未生成观察方案`, kind:'warn' };
+    return { text:diagnosis?.message || '语义已识别 · 未生成观察方案', kind:'warn' };
   }
 
   function run() {
@@ -167,21 +157,22 @@
     if (!question) { $('headline').textContent = '请输入占问'; $('headline').className = 'status warn'; return; }
     try {
       const result = window.GuiJia.liuyaoObservationPlan.analyzeQuestionToPlan(question, rows, [], { mode });
+      $('diagnosis').textContent = fmt({ semanticParse:result.semanticParse, diagnosis:result.diagnosis });
       $('intent').textContent = fmt(result.intent);
       $('selection').textContent = fmt(result.selection);
       $('plan').textContent = fmt(result.plan);
-      const headline = buildHeadline(result, mode);
+      const headline = buildHeadline(result);
       $('headline').textContent = headline.text;
       $('headline').className = `status ${headline.kind}`;
     } catch (error) {
       $('headline').textContent = '执行错误';
       $('headline').className = 'status bad';
-      $('plan').textContent = error && error.stack ? error.stack : String(error);
+      $('diagnosis').textContent = error && error.stack ? error.stack : String(error);
     }
   }
 
   $('run').addEventListener('click', run);
-  $('clear').addEventListener('click', () => { $('question').value=''; $('headline').textContent=''; $('intent').textContent='—'; $('selection').textContent='—'; $('plan').textContent='—'; });
+  $('clear').addEventListener('click', () => { $('question').value=''; $('headline').textContent=''; $('diagnosis').textContent='—'; $('intent').textContent='—'; $('selection').textContent='—'; $('plan').textContent='—'; });
   $('question').addEventListener('keydown', (event) => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') run(); });
   run();
 })();
