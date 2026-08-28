@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龟甲｜六爻 Rule Registry 测试台</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    body { margin:0; background:#f4f2ed; color:#282621; }
+    main { max-width:1080px; margin:0 auto; padding:28px 18px 48px; }
+    h1 { margin:0 0 6px; font-size:26px; }
+    .sub { margin:0 0 24px; color:#68645d; line-height:1.6; }
+    .card { background:white; border:1px solid #dedbd3; border-radius:14px; padding:18px; margin:14px 0; box-shadow:0 5px 18px rgba(50,45,35,.05); }
+    textarea { width:100%; min-height:86px; box-sizing:border-box; border:1px solid #cfcac0; border-radius:10px; padding:12px; font:inherit; resize:vertical; }
+    button, select { font:inherit; }
+    button { border:0; border-radius:9px; padding:10px 16px; background:#38352f; color:white; cursor:pointer; }
+    button.secondary { background:#ece9e2; color:#38352f; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
+    .status { display:inline-flex; align-items:center; border-radius:999px; padding:4px 9px; font-size:12px; background:#eeece6; }
+    .ok { background:#e8f3e9; color:#285b31; }
+    .warn { background:#fff2d9; color:#7a5315; }
+    .bad { background:#f9e4e4; color:#7e2d2d; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#f7f6f2; border-radius:10px; padding:12px; overflow:auto; font-size:12px; line-height:1.55; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    @media (max-width:800px){ .grid{grid-template-columns:1fr;} }
+    .mini h2 { font-size:16px; margin:0 0 8px; }
+    .quick { display:flex; flex-wrap:wrap; gap:7px; }
+    .quick button { padding:7px 10px; font-size:12px; }
+    code { background:#eeeae2; padding:1px 5px; border-radius:5px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>龟甲 · 六爻 Rule Registry 测试台</h1>
+  <p class="sub">第一阶段开发测试页。这里只测试 <code>Question → DivinationIntent → RuleSelection → ObservationPlan</code>，不会替代龟甲当前正式六爻前台逻辑。</p>
+
+  <section class="card">
+    <label for="question"><strong>占问</strong></label>
+    <textarea id="question">我新买的电脑明天快递能不能收到？</textarea>
+    <div class="row">
+      <label>规则模式：
+        <select id="mode">
+          <option value="normal">normal（只执行 enabled）</option>
+          <option value="research">research（允许 provisional）</option>
+        </select>
+      </label>
+      <button id="run">解析</button>
+      <button id="clear" class="secondary">清空</button>
+      <span id="headline" class="status"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <strong>快速样例</strong>
+    <div class="quick" id="quick"></div>
+  </section>
+
+  <section class="grid">
+    <article class="card mini"><h2>DivinationIntent</h2><pre id="intent">—</pre></article>
+    <article class="card mini"><h2>RuleSelection</h2><pre id="selection">—</pre></article>
+    <article class="card mini"><h2>ObservationPlan</h2><pre id="plan">—</pre></article>
+  </section>
+
+  <section class="card">
+    <strong>测试卦 Fixture</strong>
+    <p class="sub" style="margin:6px 0 0">为让 selector 能解析到具体爻位，本页固定使用一组每种六亲各有代表的测试行。它只用于验证 Plan 结构，不用于实际断卦。</p>
+    <pre id="fixture"></pre>
+  </section>
+</main>
+
+<script src="./js/question-time.js?v=13.44.0"></script>
+<script src="./js/liuyao-intent.js?v=13.44.0"></script>
+<script src="./js/liuyao-rule-registry.js?v=13.44.0"></script>
+<script src="./js/liuyao-observation-plan.js?v=13.44.0"></script>
+<script>
+(function () {
+  const rows = [
+    { position:1, relation:'父母', isShi:true, isYing:false, moving:false },
+    { position:2, relation:'妻财', isShi:false, isYing:false, moving:false },
+    { position:3, relation:'官鬼', isShi:false, isYing:false, moving:false },
+    { position:4, relation:'兄弟', isShi:false, isYing:true, moving:false },
+    { position:5, relation:'子孙', isShi:false, isYing:false, moving:false },
+    { position:6, relation:'兄弟', isShi:false, isYing:false, moving:false }
+  ];
+  const samples = [
+    '今年财运怎么样？',
+    '我这一生财运怎么样？',
+    '开这个店能不能赚钱？',
+    '我向银行申请房贷能不能批下来？',
+    '我今年能不能把房贷全部还清？',
+    '现在买这只股票能赚钱吗？',
+    '这个项目适不适合投资？',
+    '这只股票继续持有还是现在卖？',
+    '这只股票下周走势怎么样？',
+    '我已经持有这只股票，下周走势怎么样？',
+    '我今年工资能不能涨？',
+    '今年年终奖能不能发？',
+    '我新买的电脑明天快递能不能收到？',
+    '我买这台电脑好不好？',
+    '我是男生，我喜欢的这个女生会接受我的表白吗？',
+    '我是女生，我喜欢的这个男生会接受我的表白吗？',
+    '今年财运怎么样，而且我和她能不能结婚？',
+    '明天能不能？'
+  ];
+  const $ = (id) => document.getElementById(id);
+  const fmt = (value) => value == null ? 'null' : JSON.stringify(value, null, 2);
+
+  $('fixture').textContent = fmt(rows);
+  samples.forEach((text) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'secondary'; b.textContent = text;
+    b.addEventListener('click', () => { $('question').value = text; run(); });
+    $('quick').appendChild(b);
+  });
+
+  function run() {
+    const question = $('question').value.trim();
+    const mode = $('mode').value;
+    if (!question) { $('headline').textContent = '请输入占问'; $('headline').className = 'status warn'; return; }
+    try {
+      const result = window.GuiJia.liuyaoObservationPlan.analyzeQuestionToPlan(question, rows, [], { mode });
+      $('intent').textContent = fmt(result.intent);
+      $('selection').textContent = fmt(result.selection);
+      $('plan').textContent = fmt(result.plan);
+      const intentStatus = result.intent?.status || 'null';
+      const ruleStatus = result.selection?.status || 'null';
+      const planStatus = result.plan?.status || 'null';
+      const refs = result.plan?.ruleRefs?.join(', ') || result.selection?.provisionalCandidates?.join(', ') || '—';
+      $('headline').textContent = `Intent ${intentStatus} · Rule ${ruleStatus} · Plan ${planStatus} · ${refs}`;
+      $('headline').className = 'status ' + (planStatus === 'resolved' ? 'ok' : intentStatus === 'blocked' ? 'bad' : 'warn');
+    } catch (error) {
+      $('headline').textContent = '执行错误';
+      $('headline').className = 'status bad';
+      $('plan').textContent = error && error.stack ? error.stack : String(error);
+    }
+  }
+
+  $('run').addEventListener('click', run);
+  $('clear').addEventListener('click', () => { $('question').value=''; $('headline').textContent=''; $('intent').textContent='—'; $('selection').textContent='—'; $('plan').textContent='—'; });
+  $('question').addEventListener('keydown', (event) => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') run(); });
+  run();
+})();
+</script>
+</body>
+</html>
