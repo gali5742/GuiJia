@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲六爻 Rule Registry 第一阶段在线测试台">
   <title>龟甲｜六爻 Rule Registry 测试台</title>
   <meta name="robots" content="noindex,nofollow">
   <style>
@@ -17,7 +18,7 @@
     button { border:0; border-radius:9px; padding:10px 16px; background:#38352f; color:white; cursor:pointer; }
     button.secondary { background:#ece9e2; color:#38352f; }
     .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
-    .status { display:inline-flex; align-items:center; border-radius:999px; padding:4px 9px; font-size:12px; background:#eeece6; }
+    .status { display:inline-flex; align-items:center; border-radius:999px; padding:5px 10px; font-size:12px; line-height:1.45; background:#eeece6; }
     .ok { background:#e8f3e9; color:#285b31; }
     .warn { background:#fff2d9; color:#7a5315; }
     .bad { background:#f9e4e4; color:#7e2d2d; }
@@ -33,11 +34,11 @@
 <body>
 <main>
   <h1>龟甲 · 六爻 Rule Registry 测试台</h1>
-  <p class="sub">第一阶段开发测试页。这里只测试 <code>Question → DivinationIntent → RuleSelection → ObservationPlan</code>，不会替代龟甲当前正式六爻前台逻辑。</p>
+  <p class="sub">第一阶段开发测试页。这里只测试 <code>Question → DivinationIntent → Participant Resolver → RuleSelection → ObservationPlan</code>，不会替代龟甲当前正式六爻前台逻辑。当前自然语言解析仍是 baseline，后续会由 NLP 替换。</p>
 
   <section class="card">
     <label for="question"><strong>占问</strong></label>
-    <textarea id="question">我新买的电脑明天快递能不能收到？</textarea>
+    <textarea id="question">我是一个男生，和一个女性朋友能不能发展为恋爱关系</textarea>
     <div class="row">
       <label>规则模式：
         <select id="mode">
@@ -71,6 +72,7 @@
 
 <script src="./js/question-time.js?v=13.44.0"></script>
 <script src="./js/liuyao-intent.js?v=13.44.0"></script>
+<script src="./js/liuyao-participant-resolver.js?v=phase1.1"></script>
 <script src="./js/liuyao-rule-registry.js?v=13.44.0"></script>
 <script src="./js/liuyao-observation-plan.js?v=13.44.0"></script>
 <script>
@@ -84,6 +86,12 @@
     { position:6, relation:'兄弟', isShi:false, isYing:false, moving:false }
   ];
   const samples = [
+    '我是一个男生，和一个女性朋友能不能发展为恋爱关系',
+    '我是一个男生，和一个男性朋友能不能发展为恋爱关系',
+    '我是一个女生，和一个男性朋友能不能发展为恋爱关系',
+    '我是一个女生，和一个女性朋友能不能发展为恋爱关系',
+    '我和一个朋友能不能发展为恋爱关系',
+    '今年能不能谈上恋爱',
     '今年财运怎么样？',
     '我这一生财运怎么样？',
     '开这个店能不能赚钱？',
@@ -114,6 +122,45 @@
     $('quick').appendChild(b);
   });
 
+  function buildHeadline(result, mode) {
+    const intent = result.intent;
+    const selection = result.selection;
+    const plan = result.plan;
+    if (!intent) return { text:'未生成语义结果', kind:'warn' };
+    if (intent.status === 'blocked') return { text:`语义阻断：${intent.blockReason || 'unknown'}`, kind:'bad' };
+    if (plan?.status === 'resolved') {
+      const refs = plan.ruleRefs?.join(', ') || selection?.baseRuleRefs?.join(', ') || '—';
+      return { text:`语义已识别 · 规则 ${refs} · 观察方案已生成`, kind:'ok' };
+    }
+
+    const provisional = selection?.provisionalCandidates || [];
+    if (provisional.length && mode === 'normal') {
+      return { text:`语义已识别 · 候选规则 ${provisional.join(', ')}（provisional，normal 未执行） · 未生成观察方案`, kind:'warn' };
+    }
+
+    const sexUnknown = intent.ambiguities?.find((item) => item.code === 'romantic_sex_role_unknown');
+    if (sexUnknown) {
+      return { text:`语义已识别 · 特定恋爱对象已识别 · ${sexUnknown.message} · 未生成观察方案`, kind:'warn' };
+    }
+
+    const counterpart = intent.participants?.find((item) => item.role === 'romantic_counterpart');
+    const selfSex = intent.semantics?.querentSex;
+    const sameSexKnown = intent.event?.type === 'relationship_development'
+      && ['male','female'].includes(selfSex)
+      && ['male','female'].includes(counterpart?.sex)
+      && selfSex === counterpart.sex;
+    if (sameSexKnown) {
+      return { text:'语义已识别 · 当前未建立该男女角色组合的自动取用映射 · 未生成观察方案', kind:'warn' };
+    }
+
+    const issue = selection?.issues?.[0];
+    if (issue?.type === 'no_confirmed_rule') {
+      return { text:'语义已识别 · 当前无已确认规则 · 未生成观察方案', kind:'warn' };
+    }
+    if (issue?.type) return { text:`语义已识别 · 规则未决：${issue.type} · 未生成观察方案`, kind:'warn' };
+    return { text:'语义已识别 · 未生成观察方案', kind:'warn' };
+  }
+
   function run() {
     const question = $('question').value.trim();
     const mode = $('mode').value;
@@ -123,12 +170,9 @@
       $('intent').textContent = fmt(result.intent);
       $('selection').textContent = fmt(result.selection);
       $('plan').textContent = fmt(result.plan);
-      const intentStatus = result.intent?.status || 'null';
-      const ruleStatus = result.selection?.status || 'null';
-      const planStatus = result.plan?.status || 'null';
-      const refs = result.plan?.ruleRefs?.join(', ') || result.selection?.provisionalCandidates?.join(', ') || '—';
-      $('headline').textContent = `Intent ${intentStatus} · Rule ${ruleStatus} · Plan ${planStatus} · ${refs}`;
-      $('headline').className = 'status ' + (planStatus === 'resolved' ? 'ok' : intentStatus === 'blocked' ? 'bad' : 'warn');
+      const headline = buildHeadline(result, mode);
+      $('headline').textContent = headline.text;
+      $('headline').className = `status ${headline.kind}`;
     } catch (error) {
       $('headline').textContent = '执行错误';
       $('headline').className = 'status bad';

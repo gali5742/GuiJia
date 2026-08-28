@@ -27,10 +27,7 @@ jobs:
           node-version: "22"
 
       - name: Regression tests
-        run: node tests/run-tests.js
-
-      - name: Verify dependency policy
-        run: node scripts/verify-source-config.mjs
+        run: npm test
 
       - name: Build Pages artifact with local vendor snapshots
         run: node scripts/build-pages-site.mjs
