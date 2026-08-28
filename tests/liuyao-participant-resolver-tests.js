@@ -97,14 +97,14 @@ test('R4 女问女性朋友：Intent resolved，但无 confirmed mapping', () =>
     assert(result.plan?.status === 'unresolved', 'Plan 应 unresolved');
 });
 
-test('R5 特定朋友但性别未知：specific + romantic_sex_role_unknown', () => {
-    const result = analyze('我和一个朋友能不能发展为恋爱关系');
+test('R5 特定朋友但对象性别未知：specific + counterpart ambiguity', () => {
+    const result = analyze('我是男生，我和一个朋友能不能发展为恋爱关系');
     const counterpart = counterpartOf(result);
     assert(result.intent?.status === 'resolved', 'Intent 应 resolved');
     assert(counterpart?.specificity === 'specific', '一个现实朋友应识别 specific');
     assert(counterpart?.relationToQuerent === 'friend', '应保留 friend 关系');
     assert(counterpart?.sex === 'unknown', '未给对象性别时不得猜测');
-    assert(result.intent?.ambiguities?.some((item) => item.code === 'romantic_sex_role_unknown'), '应提示 romantic_sex_role_unknown');
+    assert(result.intent?.ambiguities?.some((item) => item.code === 'romantic_counterpart_sex_unknown'), '应提示 romantic_counterpart_sex_unknown');
     assert(result.selection?.status === 'unresolved', '缺传统角色映射时 Rule 应 unresolved');
 });
 
@@ -114,7 +114,7 @@ test('R6 泛恋爱机会：generic，且不产生 sex-role ambiguity', () => {
     assert(result.intent?.status === 'resolved', 'Intent 应 resolved');
     assert(result.intent?.event?.type === 'relationship_development', '应识别 relationship_development');
     assert(counterpart?.specificity === 'generic', `specificity ${counterpart?.specificity} != generic`);
-    assert(!result.intent?.ambiguities?.some((item) => item.code === 'romantic_sex_role_unknown'), '泛恋爱机会不应要求特定对象男女角色');
+    assert(!result.intent?.ambiguities?.some((item) => item.code?.startsWith('romantic_')), '泛恋爱机会不应要求特定对象男女角色');
     assert(result.selection?.status === 'unresolved', '当前无 generic romance rule');
     assert(result.selection?.issues?.some((item) => item.type === 'no_confirmed_rule'), '应为 no_confirmed_rule');
 });
