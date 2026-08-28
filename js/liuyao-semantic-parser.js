@@ -5,7 +5,7 @@
     if (!GuiJia.liuyaoIntent?.parseDivinationIntent) throw new Error('liuyao-intent.js must be loaded before liuyao-semantic-parser.js');
 
     const INTENT_SCHEMA_VERSION = '0.1';
-    const ADAPTER_VERSION = '0.1';
+    const ADAPTER_VERSION = '0.2';
     const FORBIDDEN_TRADITIONAL_KEYS = new Set([
         'sixRelative','six_relative','useGod','use_god','yao','yaoTarget','yao_target',
         'shiYing','shi_ying','traditionalRole','traditional_role','selector','semanticDuty'
@@ -78,6 +78,60 @@
         return intent;
     };
 
+    const parseTimeScope = (question) => {
+        try {
+            return GuiJia.questionTime?.parseQuestionTimeScope?.(String(question || ''), new Date()) || null;
+        } catch (_error) {
+            return null;
+        }
+    };
+
+    const defaultSemantics = () => ({
+        incomeType:'unknown',
+        investmentAction:'none',
+        investmentGoal:'unknown',
+        investmentPosition:'unknown',
+        deliveryMode:'unknown',
+        purchaseGoal:'unknown',
+        transactionPurpose:'unknown',
+        romanticStage:'unknown',
+        querentSex:'unknown',
+        counterpartSex:'unknown',
+        fortuneScope:'short_or_bounded'
+    });
+
+    const promoteResolvedIntent = (intent, question, overrides = {}) => ({
+        version:INTENT_SCHEMA_VERSION,
+        rawQuestion:String(question || intent?.rawQuestion || '').trim(),
+        status:'resolved',
+        goals:Array.isArray(overrides.goals) ? overrides.goals : Array.isArray(intent?.goals) && intent.goals.length ? intent.goals : [{ type:'outcome' }],
+        event:overrides.event || intent?.event || { type:'unknown' },
+        participants:Array.isArray(overrides.participants) ? overrides.participants : Array.isArray(intent?.participants) ? intent.participants : [],
+        targetTime:overrides.targetTime !== undefined ? overrides.targetTime : (intent?.targetTime || parseTimeScope(question)),
+        expectedState:overrides.expectedState !== undefined ? overrides.expectedState : (intent?.expectedState || ''),
+        confidence:Number.isFinite(overrides.confidence) ? overrides.confidence : Number.isFinite(intent?.confidence) ? Math.max(intent.confidence, 0.86) : 0.86,
+        ambiguities:Array.isArray(overrides.ambiguities) ? overrides.ambiguities : Array.isArray(intent?.ambiguities) ? intent.ambiguities.filter((item) => item.code !== 'missing_event' && item.code !== 'unknown_event') : [],
+        semantics:{ ...defaultSemantics(), ...(intent?.semantics || {}), ...(overrides.semantics || {}) }
+    });
+
+    const isExplicitStockTrendQuery = (text) => {
+        if (!/(?:股票|持股|持仓|大盘|基金|ETF|etf|期货|外汇)/.test(text)) return false;
+        return /(?:走势|趋势|涨不涨|跌不跌|会不会(?:继续|还|再|仍然)?(?:涨|跌|上涨|下跌)|还会不会(?:涨|跌|上涨|下跌)|是否(?:继续|还|再)?(?:涨|跌|上涨|下跌)|(?:继续|还会|仍会|再)(?:涨|跌|上涨|下跌)|接下来[^，。？！?]{0,8}(?:涨|跌|上涨|下跌))/.test(text);
+    };
+
+    const isExplicitReceiveItemQuery = (text) => (
+        /(?:买了|新买了|新买|购买了|订了|下单(?:买)?了)[^，。？！?]{0,30}(?:能不能|能否|会不会|是否)[^，。？！?]{0,10}(?:收到|拿到)/.test(text)
+    );
+
+    const isComparativeFinanceQuery = (text) => (
+        /(?:今年|本年)[^，。？！?]{0,16}(?:比|较)[^，。？！?]{0,8}(?:去年|上年)[^，。？！?]{0,18}(?:赚|收入|收益|进账)[^，。？！?]{0,10}(?:更多|更高|多|增加)/.test(text)
+        || /(?:今年|本年)[^，。？！?]{0,24}(?:赚|收入|收益|进账)[^，。？！?]{0,10}(?:比|较)[^，。？！?]{0,8}(?:去年|上年)[^，。？！?]{0,8}(?:更多|更高|多)/.test(text)
+    );
+
+    const isCompactExplicitRomance = (text) => (
+        /(?:喜欢的|追求的)(?:这个|那个)?(?:女生|女性|女孩|男生|男性|男孩)[^，。？！?]{0,18}(?:会不会|能不能|能否|是否|会)[^，。？！?]{0,10}(?:接受我|愿意|喜欢我|和我在一起|发展)/.test(text)
+    );
+
     const detectNlpRequirement = (question, intent) => {
         const text = normalize(question);
         const narrativeSignals = [
@@ -91,12 +145,86 @@
         ].filter((pattern) => pattern.test(text)).length;
         const relationalOutcome = /(?:有没有|是否有|还有没有|会不会有).*(?:可能|机会)|(?:可能|机会)(?:吗|\?|？|$)/.test(text);
         const pronounChain = /(?:认识|遇到).*(?:男生|女生|男性|女性).*(?:他|她|我们)/.test(text);
+        const crossClauseOpportunity = /(?:喜欢|有好感)[^，,。；;]{0,18}(?:一个|某个)?(?:男生|女生|男性|女性)[，,。；;][^，,。；;]{0,24}(?:我们|我和(?:他|她))[^，,。；;]{0,16}(?:机会|可能)/.test(text);
         const unknownButRelational = intent?.event?.type === 'unknown' && narrativeSignals >= 2 && relationalOutcome;
-        return Boolean(unknownButRelational || (narrativeSignals >= 3 && relationalOutcome) || (pronounChain && relationalOutcome));
+        return Boolean(crossClauseOpportunity || unknownButRelational || (narrativeSignals >= 3 && relationalOutcome) || (pronounChain && relationalOutcome));
+    };
+
+    const refineBaselineIntent = (question, originalIntent) => {
+        const text = normalize(question);
+        let intent = originalIntent;
+        const schemaGaps = [];
+
+        if (isExplicitReceiveItemQuery(text) && (intent?.status === 'blocked' || intent?.event?.type !== 'receive_item')) {
+            intent = promoteResolvedIntent(intent, question, {
+                goals:[{ type:'outcome' }],
+                event:{ type:'receive_item' },
+                expectedState:'received',
+                confidence:0.9,
+                ambiguities:[],
+                semantics:{ deliveryMode:'unknown', transactionPurpose:'personal_purchase' }
+            });
+        }
+
+        if (isComparativeFinanceQuery(text) && (intent?.status === 'blocked' || intent?.event?.type === 'unknown')) {
+            intent = promoteResolvedIntent(intent, question, {
+                goals:[{ type:'outcome' }],
+                event:{ type:'financial_fortune' },
+                expectedState:'increase',
+                confidence:0.92,
+                ambiguities:[],
+                semantics:{ fortuneScope:'short_or_bounded' }
+            });
+        }
+        if (isComparativeFinanceQuery(text)) {
+            schemaGaps.push({
+                code:'comparative_period_semantics',
+                message:'已识别“目标期间相对参照期间”的财务比较，但 DivinationIntent v0.1 尚未定义 comparison 结构。',
+                targetPeriod:'this_year',
+                referencePeriod:'last_year',
+                metric:'earnings',
+                relation:'greater_than'
+            });
+        }
+
+        if (intent?.status === 'resolved' && intent?.event?.type === 'investment' && isExplicitStockTrendQuery(text) && intent?.semantics?.investmentGoal !== 'price_trend') {
+            intent = promoteResolvedIntent(intent, question, {
+                expectedState:'price_trend',
+                semantics:{ investmentGoal:'price_trend' }
+            });
+        }
+
+        if (intent?.status === 'resolved' && intent?.event?.type === 'unknown' && isCompactExplicitRomance(text)) {
+            intent = promoteResolvedIntent(intent, question, {
+                goals:[{ type:'outcome' }],
+                event:{ type:'relationship_development' },
+                expectedState:'relationship_possible',
+                confidence:0.9,
+                ambiguities:[],
+                semantics:{ romanticStage:'unestablished_interest' }
+            });
+            if (GuiJia.liuyaoParticipantResolver?.refineDivinationIntent) {
+                intent = GuiJia.liuyaoParticipantResolver.refineDivinationIntent(intent);
+            }
+        }
+
+        const requiresNlp = detectNlpRequirement(question, intent);
+        const baselineFailures = [];
+        if (!requiresNlp) {
+            if (isExplicitStockTrendQuery(text) && intent?.semantics?.investmentGoal !== 'price_trend') baselineFailures.push({ code:'investment_price_trend_missed' });
+            if (isExplicitReceiveItemQuery(text) && intent?.event?.type !== 'receive_item') baselineFailures.push({ code:'receive_item_missed' });
+            if (isComparativeFinanceQuery(text) && intent?.event?.type !== 'financial_fortune') baselineFailures.push({ code:'comparative_finance_event_missed' });
+            if (isCompactExplicitRomance(text) && intent?.event?.type !== 'relationship_development') baselineFailures.push({ code:'compact_romance_event_missed' });
+            if (intent?.status === 'resolved' && intent?.event?.type === 'unknown') baselineFailures.push({ code:'unknown_event_after_baseline' });
+        }
+
+        return { intent, requiresNlp, schemaGaps, baselineFailures };
     };
 
     const parseBaseline = (question) => {
-        const intent = GuiJia.liuyaoIntent.parseDivinationIntent(question);
+        const originalIntent = GuiJia.liuyaoIntent.parseDivinationIntent(question);
+        const refined = refineBaselineIntent(question, originalIntent);
+        const intent = refined.intent;
         const validation = intent ? validateIntent(intent) : { valid:true, errors:[] };
         return {
             intent,
@@ -104,8 +232,9 @@
             adapterVersion:ADAPTER_VERSION,
             validation,
             diagnostics:{
-                requiresNlp:detectNlpRequirement(question, intent),
-                schemaGaps:[]
+                requiresNlp:refined.requiresNlp,
+                schemaGaps:refined.schemaGaps,
+                baselineFailures:refined.baselineFailures
             }
         };
     };
@@ -119,7 +248,7 @@
                 source:'nlp_override',
                 adapterVersion:ADAPTER_VERSION,
                 validation,
-                diagnostics:{ requiresNlp:false, schemaGaps:Array.isArray(options.schemaGaps) ? options.schemaGaps : [] }
+                diagnostics:{ requiresNlp:false, schemaGaps:Array.isArray(options.schemaGaps) ? options.schemaGaps : [], baselineFailures:[] }
             };
         }
         return parseBaseline(question);
@@ -147,7 +276,8 @@
                 validation,
                 diagnostics:{
                     requiresNlp:false,
-                    schemaGaps:Array.isArray(payload?.schemaGaps) ? payload.schemaGaps : []
+                    schemaGaps:Array.isArray(payload?.schemaGaps) ? payload.schemaGaps : [],
+                    baselineFailures:[]
                 }
             };
         } catch (error) {
@@ -160,19 +290,23 @@
 
     const classifyPipelineResult = ({ question, intent, selection, plan, semanticParse } = {}) => {
         if (!intent) return { code:'INPUT_EMPTY', category:null, message:'未生成语义结果。' };
-        if (intent.status === 'blocked') return { code:'INPUT_BLOCKED', category:null, message:`语义阻断：${intent.blockReason || 'unknown'}` };
-        if (plan?.status === 'resolved') return { code:'OK', category:null, message:'语义、规则与观察方案均已解析。' };
 
         const validationErrors = semanticParse?.validation?.errors || [];
         if (semanticParse?.source === 'baseline' && validationErrors.length) {
             return { code:'A_BASELINE_PARSER_FAILURE', category:'A', message:'baseline 解析结果未通过 Intent 契约校验。', details:validationErrors };
         }
+        const baselineFailures = semanticParse?.diagnostics?.baselineFailures || [];
+        if (semanticParse?.source === 'baseline' && baselineFailures.length) {
+            return { code:'A_BASELINE_PARSER_FAILURE', category:'A', message:'当前输入包含 baseline 应能识别的显式语义，但核心字段仍未正确抽取。', details:baselineFailures };
+        }
         if (semanticParse?.diagnostics?.requiresNlp && semanticParse?.source === 'baseline') {
-            return { code:'B_NLP_REQUIRED', category:'B', message:'该输入包含叙述、指代或主问题识别需求，应交由 NLP 语义解析。' };
+            return { code:'B_NLP_REQUIRED', category:'B', message:'该输入包含跨分句叙述、指代或主问题识别需求，应交由 NLP 语义解析。' };
         }
         if ((semanticParse?.diagnostics?.schemaGaps || []).length) {
             return { code:'C_INTENT_SCHEMA_GAP', category:'C', message:'当前 DivinationIntent v0.1 无法完整表达已识别语义。', details:semanticParse.diagnostics.schemaGaps };
         }
+        if (intent.status === 'blocked') return { code:'INPUT_BLOCKED', category:null, message:`语义阻断：${intent.blockReason || 'unknown'}` };
+        if (plan?.status === 'resolved') return { code:'OK', category:null, message:'语义、规则与观察方案均已解析。' };
 
         const ambiguityCodes = new Set((intent.ambiguities || []).map((item) => item.code));
         if (ambiguityCodes.has('romantic_querent_sex_unknown')) {
@@ -195,7 +329,7 @@
                     ? '已找到候选规则，但当前模式不执行 provisional 规则。'
                     : issue.type === 'rule_conflict'
                         ? '规则层出现同级冲突，当前不自动决断。'
-                        : '语义已解析，但当前没有已确认的自动取用规则。'
+                        : '语义已完整解析，但当前没有已确认的自动取用规则。'
             };
         }
         return { code:'UNCLASSIFIED_UNRESOLVED', category:null, message:'当前未生成观察方案，需检查语义或规则层诊断。' };
@@ -211,6 +345,7 @@
         adapterVersion:ADAPTER_VERSION,
         validateIntent,
         normalizeNlpIntent,
+        refineBaselineIntent,
         parseQuestionSync,
         parseQuestion,
         classifyPipelineResult,
