@@ -10,6 +10,7 @@
     const FEMALE_TERMS = /(?:女生|女性|女人|女孩|女的|女方)/;
     const MALE_TERMS = /(?:男生|男性|男人|男孩|男的|男方)/;
     const PERSON_RELATION_TERMS = /(?:朋友|同事|同学|网友|对象|女朋友|男朋友)/;
+    const SELF_CLAUSE_MARKER = /^(?:(?:我|本人)(?:是|为)?|作为(?:一个|一名|个)?)/;
 
     const extractSexFromSpan = (span) => {
         const text = String(span || '');
@@ -29,7 +30,7 @@
     const extractSelfSpan = (text) => {
         const clauses = String(text || '').split(CLAUSE_SPLIT).filter(Boolean);
         for (const clause of clauses) {
-            if (!/(?:^|作为)(?:我|本人)?|^(?:我|本人)/.test(clause)) continue;
+            if (!SELF_CLAUSE_MARKER.test(clause)) continue;
             if (!FEMALE_TERMS.test(clause) && !MALE_TERMS.test(clause)) continue;
             const connector = clause.search(/(?:和|与|跟)/);
             return connector > 0 ? clause.slice(0, connector) : clause;
