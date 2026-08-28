@@ -98,6 +98,7 @@ test('S6 叙述性关系输入归 B：NLP required，不继续堆 baseline regex
     const result = analyze('我是一个母胎单身的女生，最近我认识了一个男生，我对他有点好感，想算一下我们之间有没有可能');
     assert(result.diagnosis?.category === 'B', `应归 B，实际 ${result.diagnosis?.category}/${result.diagnosis?.code}`);
     assert(result.diagnosis?.code === 'B_NLP_REQUIRED', '应明确 B_NLP_REQUIRED');
+    assert(result.plan?.status === 'unresolved', 'B 类不得继续生成观察方案');
 });
 
 test('S7 generic romance 无规则属于 D，不误报 B', () => {
@@ -148,6 +149,65 @@ test('S11 NLP Adapter 拒绝传统术数字段泄漏', () => {
     const parsed = parser.parseQuestionSync('测试', { intentOverride:payload });
     assert(!parsed.validation.valid, '含 selector 的 NLP 输出必须无效');
     assert(parsed.validation.errors.some((item) => item.code === 'traditional_mapping_leak'), '应检测 traditional_mapping_leak');
+});
+
+test('S12 股票“会不会继续跌”属于显式趋势表达，应直接命中 MR-002-E1', () => {
+    const result = analyze('这只股票现在跌了，下周会不会继续跌');
+    assert(result.intent?.event?.type === 'investment', '应识别 investment');
+    assert(result.intent?.semantics?.investmentGoal === 'price_trend', `investmentGoal ${result.intent?.semantics?.investmentGoal} != price_trend`);
+    assert(result.selection?.baseRuleRefs?.[0] === 'MR-002-E1', `规则 ${result.selection?.baseRuleRefs?.[0] || 'none'} != MR-002-E1`);
+    assert(result.diagnosis?.code === 'OK', `应 OK，实际 ${result.diagnosis?.code}`);
+});
+
+test('S13 股票“还会不会涨”同样归 price_trend', () => {
+    const result = analyze('这只股票现在跌了，下周还会不会涨');
+    assert(result.intent?.semantics?.investmentGoal === 'price_trend', '还会不会涨应归 price_trend');
+    assert(result.selection?.baseRuleRefs?.[0] === 'MR-002-E1', '应命中 MR-002-E1');
+});
+
+test('S14 紧凑显式恋爱表达仍属 A 能力范围，修后应直接命中规则', () => {
+    const result = analyze('我是男生，我非常喜欢的这个女生会接受我吗？');
+    const counterpart = counterpartOf(result);
+    assert(result.intent?.event?.type === 'relationship_development', `event ${result.intent?.event?.type} != relationship_development`);
+    assert(result.intent?.semantics?.querentSex === 'male', '占问者应 male');
+    assert(counterpart?.sex === 'female' && counterpart?.specificity === 'specific', '特定女生应被显式抽取');
+    assert(result.selection?.baseRuleRefs?.[0] === 'MR-001-A', '应命中 MR-001-A');
+    assert(result.selection?.augmentationRuleRefs?.includes('MSR-001'), '应应用 MSR-001');
+    assert(result.diagnosis?.code === 'OK', `应 OK，实际 ${result.diagnosis?.code}`);
+});
+
+test('S15 “喜欢一个女生，我们有机会吗”保持 B，不让 baseline 假装理解共指', () => {
+    const result = analyze('我是男生，我非常喜欢一个女生，我们有机会吗');
+    assert(result.diagnosis?.code === 'B_NLP_REQUIRED', `应 B_NLP_REQUIRED，实际 ${result.diagnosis?.code}`);
+    assert(result.selection?.issues?.[0]?.category === 'B', 'RuleSelection 应在 semantic preflight 停止');
+    assert(result.plan?.status === 'unresolved', 'B 类不得生成 Plan');
+});
+
+test('S16 买入物品后问“能不能收到”应识别 receive_item，但不得猜快递方式', () => {
+    const result = analyze('我上周新买了一台电脑，这周内能不能收到');
+    assert(result.intent?.status === 'resolved', `Intent 应 resolved，实际 ${result.intent?.status}/${result.intent?.blockReason || ''}`);
+    assert(result.intent?.event?.type === 'receive_item', `event ${result.intent?.event?.type} != receive_item`);
+    assert(result.intent?.semantics?.deliveryMode === 'unknown', '未说明运输方式不得猜 courier/shipped');
+    assert(result.diagnosis?.category === 'D', `当前 MR-004 前提不足应归 D，实际 ${result.diagnosis?.category}`);
+    assert(result.plan?.status === 'unresolved', 'deliveryMode unknown 时 Plan 应 unresolved');
+});
+
+test('S17 明确快递时仍应命中 MR-004', () => {
+    const result = analyze('我上周新买了一台电脑，快递这周内能不能收到');
+    assert(result.intent?.event?.type === 'receive_item', '应识别 receive_item');
+    assert(result.intent?.semantics?.deliveryMode === 'courier', '快递应识别 courier');
+    assert(result.selection?.baseRuleRefs?.[0] === 'MR-004', `规则 ${result.selection?.baseRuleRefs?.[0] || 'none'} != MR-004`);
+    assert(result.diagnosis?.code === 'OK', '明确快递应正常生成 Plan');
+});
+
+test('S18 年度财务比较应从 partial 提升为 C schema gap，不降格成普通今年财运', () => {
+    const result = analyze('今年能不能比去年赚得更多');
+    assert(result.intent?.status === 'resolved', `Intent 应 resolved，实际 ${result.intent?.status}/${result.intent?.blockReason || ''}`);
+    assert(result.intent?.event?.type === 'financial_fortune', `event ${result.intent?.event?.type} != financial_fortune`);
+    assert(result.diagnosis?.code === 'C_INTENT_SCHEMA_GAP', `应 C_INTENT_SCHEMA_GAP，实际 ${result.diagnosis?.code}`);
+    assert(result.semanticParse?.diagnostics?.schemaGaps?.some((item) => item.code === 'comparative_period_semantics'), '应登记 comparative_period_semantics');
+    assert(result.selection?.issues?.[0]?.category === 'C', 'RuleSelection 应在 C preflight 停止');
+    assert(result.plan?.status === 'unresolved', 'C 类不得降格生成普通财运 Plan');
 });
 
 console.log(`\nSemantic parser regression: ${passed} passed, ${failed} failed`);
