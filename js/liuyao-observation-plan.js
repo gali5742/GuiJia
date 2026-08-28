@@ -79,16 +79,16 @@
         return relations;
     };
 
+    const unresolvedPlanFromSelection = (selection) => ({
+        version:'0.1', status:'unresolved', subjects:[], primarySubjectIds:[], roleSubjectIds:[], domainSubjectIds:[], auxiliarySubjectIds:[],
+        ruleRefs:[...(selection?.baseRuleRefs || []), ...(selection?.augmentationRuleRefs || [])], unresolvedReasons:selection?.issues || [],
+        provisionalRuleRefs:selection?.provisionalCandidates || [], legacyPrimaryTarget:null, crossObservationRelations:[]
+    });
+
     const buildObservationPlan = (intent, rows = [], flyingHidden = [], options = {}) => {
         if (!intent) return null;
         const selection = registry.selectObservationRule(intent, options);
-        if (selection.status !== 'resolved') {
-            return {
-                version:'0.1', status:'unresolved', subjects:[], primarySubjectIds:[], roleSubjectIds:[], domainSubjectIds:[], auxiliarySubjectIds:[],
-                ruleRefs:[...selection.baseRuleRefs, ...selection.augmentationRuleRefs], unresolvedReasons:selection.issues,
-                provisionalRuleRefs:selection.provisionalCandidates || [], legacyPrimaryTarget:null, crossObservationRelations:[]
-            };
-        }
+        if (selection.status !== 'resolved') return unresolvedPlanFromSelection(selection);
 
         const subjects = selection.candidates.map((candidate, index) => resolveCandidate(candidate, intent, rows, flyingHidden, index));
         const blocking = subjects.filter((subject) => subject.required && subject.resolutionStatus !== 'resolved');
@@ -127,14 +127,44 @@
     const parseQuestionSync = (question, options = {}) => {
         const parser = GuiJia.liuyaoSemanticParser;
         if (parser?.parseQuestionSync) return parser.parseQuestionSync(question, options.semantic || {});
-        return { intent:GuiJia.liuyaoIntent.parseDivinationIntent(question), source:'baseline', validation:{ valid:true, errors:[] }, diagnostics:{ requiresNlp:false, schemaGaps:[] } };
+        return { intent:GuiJia.liuyaoIntent.parseDivinationIntent(question), source:'baseline', validation:{ valid:true, errors:[] }, diagnostics:{ requiresNlp:false, schemaGaps:[], baselineFailures:[] } };
+    };
+
+    const semanticPreflightIssue = (semanticParse) => {
+        if (!semanticParse) return null;
+        if (semanticParse.source === 'baseline' && (semanticParse.validation?.errors || []).length) {
+            return { type:'semantic_preflight_stop', category:'A', reason:'intent_validation_failed' };
+        }
+        if (semanticParse.source === 'baseline' && (semanticParse.diagnostics?.baselineFailures || []).length) {
+            return { type:'semantic_preflight_stop', category:'A', reason:'baseline_parser_failure', details:semanticParse.diagnostics.baselineFailures };
+        }
+        if (semanticParse.source === 'baseline' && semanticParse.diagnostics?.requiresNlp) {
+            return { type:'semantic_preflight_stop', category:'B', reason:'nlp_required' };
+        }
+        if ((semanticParse.diagnostics?.schemaGaps || []).length) {
+            return { type:'semantic_preflight_stop', category:'C', reason:'intent_schema_gap', details:semanticParse.diagnostics.schemaGaps };
+        }
+        return null;
     };
 
     const completePipeline = (question, semanticParse, rows, flyingHidden, options) => {
         const intent = semanticParse?.intent || null;
         if (!intent) return { intent:null, semanticParse, diagnosis:null, selection:null, plan:null };
-        const selection = registry.selectObservationRule(intent, options);
-        const plan = buildObservationPlan(intent, rows, flyingHidden, options);
+
+        const preflightIssue = semanticPreflightIssue(semanticParse);
+        let selection;
+        let plan;
+        if (preflightIssue) {
+            selection = {
+                status:'unresolved', baseRuleRefs:[], inheritedRuleRefs:[], augmentationRuleRefs:[], candidates:[], provisionalCandidates:[],
+                issues:[preflightIssue]
+            };
+            plan = unresolvedPlanFromSelection(selection);
+        } else {
+            selection = registry.selectObservationRule(intent, options);
+            plan = buildObservationPlan(intent, rows, flyingHidden, options);
+        }
+
         const diagnosis = GuiJia.liuyaoSemanticParser?.classifyPipelineResult
             ? GuiJia.liuyaoSemanticParser.classifyPipelineResult({ question, intent, selection, plan, semanticParse })
             : null;
