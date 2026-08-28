@@ -21,7 +21,6 @@
         if (!selectorSpec) return { status:'missing', selector:null, issue:{ type:'missing_selector' } };
         if (selectorSpec.kind === 'static') return { status:'resolved', selector:selectorSpec.value, issue:null };
         if (selectorSpec.kind === 'resolver') {
-            // Represented marriage intentionally stays explicit until the participant-role mapping is separately implemented and source-audited.
             if (selectorSpec.resolverRef === 'PRR-REPRESENTED-MARRIAGE-SUBJECT') {
                 return { status:'unresolved', selector:null, issue:{ type:'resolver_pending', resolverRef:selectorSpec.resolverRef, participant:intent?.participants?.find((item) => item.role === 'represented_subject') || null } };
             }
@@ -125,18 +124,41 @@
         return plan;
     };
 
-    const analyzeQuestionToPlan = (question, rows = [], flyingHidden = [], options = {}) => {
-        const intent = GuiJia.liuyaoIntent.parseDivinationIntent(question);
-        if (!intent) return { intent:null, selection:null, plan:null };
+    const parseQuestionSync = (question, options = {}) => {
+        const parser = GuiJia.liuyaoSemanticParser;
+        if (parser?.parseQuestionSync) return parser.parseQuestionSync(question, options.semantic || {});
+        return { intent:GuiJia.liuyaoIntent.parseDivinationIntent(question), source:'baseline', validation:{ valid:true, errors:[] }, diagnostics:{ requiresNlp:false, schemaGaps:[] } };
+    };
+
+    const completePipeline = (question, semanticParse, rows, flyingHidden, options) => {
+        const intent = semanticParse?.intent || null;
+        if (!intent) return { intent:null, semanticParse, diagnosis:null, selection:null, plan:null };
         const selection = registry.selectObservationRule(intent, options);
         const plan = buildObservationPlan(intent, rows, flyingHidden, options);
-        return { intent, selection, plan };
+        const diagnosis = GuiJia.liuyaoSemanticParser?.classifyPipelineResult
+            ? GuiJia.liuyaoSemanticParser.classifyPipelineResult({ question, intent, selection, plan, semanticParse })
+            : null;
+        return { intent, semanticParse, diagnosis, selection, plan };
+    };
+
+    const analyzeQuestionToPlan = (question, rows = [], flyingHidden = [], options = {}) => {
+        const semanticParse = parseQuestionSync(question, options);
+        return completePipeline(question, semanticParse, rows, flyingHidden, options);
+    };
+
+    const analyzeQuestionToPlanAsync = async (question, rows = [], flyingHidden = [], options = {}) => {
+        const parser = GuiJia.liuyaoSemanticParser;
+        const semanticParse = parser?.parseQuestion
+            ? await parser.parseQuestion(question, options.semantic || {})
+            : parseQuestionSync(question, options);
+        return completePipeline(question, semanticParse, rows, flyingHidden, options);
     };
 
     GuiJia.liuyaoObservationPlan = Object.freeze({
         findTargets,
         buildCrossObservationRelations,
         buildObservationPlan,
-        analyzeQuestionToPlan
+        analyzeQuestionToPlan,
+        analyzeQuestionToPlanAsync
     });
 })(typeof window !== 'undefined' ? window : globalThis);
