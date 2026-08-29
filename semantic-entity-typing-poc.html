@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex,nofollow">
   <title>龟甲 · Entity Typing PoC v0.1</title>
   <style>
-    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}label{display:block;font-weight:650;margin-bottom:7px}select,textarea,input{width:100%;box-sizing:border-box;border:1px solid #cfc7b8;border-radius:10px;padding:10px;background:#fff;font:inherit}textarea{min-height:86px;resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn.alt{background:#e9e4da;color:#29251f}.btn:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e8e2d8;padding:9px 7px}th{background:#faf8f4}.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eee9df;margin:2px 4px 2px 0;font-size:12px}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}}
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}label{display:block;font-weight:650;margin-bottom:7px}select,textarea,input{width:100%;box-sizing:border-box;border:1px solid #cfc7b8;border-radius:10px;padding:10px;background:#fff;font:inherit}input[type="checkbox"]{width:auto;padding:0}textarea{min-height:86px;resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn.alt{background:#e9e4da;color:#29251f}.btn:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e8e2d8;padding:9px 7px}th{background:#faf8f4}.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eee9df;margin:2px 4px 2px 0;font-size:12px}.check{display:flex;align-items:center;gap:8px;font-weight:500;margin:12px 0 0}.note{background:#f7f5f1;border-left:3px solid #bcb3a3;padding:10px 12px;border-radius:0 8px 8px 0;color:#5d574e;font-size:13px;line-height:1.65}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}}
   </style>
 </head>
 <body>
@@ -33,11 +33,13 @@
 
   <section class="card">
     <h2>2. 单句对象角色测试</h2>
+    <p class="note">这里把三件事分开显示：Entity Typing 只判断“这个对象在当前上下文里是什么角色”；Object/Slot Provider 决定对象 slot 是否成立；Semantic Sufficiency 还会检查购买语境、交付语境等其他 required slot。购买/收货样例可勾选“模拟上游 Structured Intent”，表示这些事件语境已经由正式的 Semantic Parser / Intent 层独立建立，而不是由 candidate route 反推。</p>
     <div class="grid">
       <div><label for="route">Candidate route</label><select id="route"><option>investment_price_trend</option><option>investment_profit</option><option>investment_suitability</option><option>investment_position_decision</option><option>item_purchase</option><option>receive_item</option></select></div>
       <div><label for="entity">Entity candidate</label><input id="entity" value="英伟达"></div>
     </div>
     <div style="margin-top:14px"><label for="context">完整当前问题 / 局部上下文</label><textarea id="context">英伟达下周还会涨吗</textarea></div>
+    <label class="check"><input type="checkbox" id="simulateUpstream"> 模拟上游 Structured Intent（仅为购买/收货等提供独立 event context，不生成对象 slot）</label>
     <div class="row" style="margin-top:12px">
       <button class="btn" id="extract">用 Object Resolver 抽候选</button>
       <button class="btn" id="classify" disabled>Entity Typing → Sufficiency</button>
@@ -48,7 +50,8 @@
     </div>
     <div class="grid" style="margin-top:14px">
       <div><h3>Typing</h3><div id="typingResult" class="mono">—</div></div>
-      <div><h3>Slot / Sufficiency</h3><div id="slotResult" class="mono">—</div></div>
+      <div><h3>Object / Slot Providers</h3><div id="slotProviderResult" class="mono">—</div></div>
+      <div><h3>Semantic Sufficiency</h3><div id="sufficiencyResult" class="mono">—</div></div>
     </div>
   </section>
 
@@ -58,8 +61,10 @@
       <thead><tr><th>输入</th><th>应该发生什么</th></tr></thead>
       <tbody>
         <tr><td>这只股票下周会不会涨</td><td>高精度 Object Resolver 已足够，不需要 Entity Typing。</td></tr>
-        <tr><td>英伟达下周还会涨吗</td><td>先抽到“英伟达”；只有 typing 高置信 = investment_asset 才能补 investment_target。</td></tr>
-        <tr><td>英伟达下一次财报什么时候发布</td><td>应该偏向 unknown；不能因为实体是上市公司就自动视作投资标的。</td></tr>
+        <tr><td>英伟达下周还会涨吗</td><td>先抽到“英伟达”；Entity Typing 通过自己的 class-specific threshold + margin 后即可补 investment_target，不再叠加固定 0.65 门槛。</td></tr>
+        <tr><td>MacBook Pro现在值不值得买</td><td>对象角色可以正确识别；完整 sufficiency 还需要上游独立提供 purchase_context，测试页可模拟该上游事实。</td></tr>
+        <tr><td>我订的MacBook Pro明天能收到吗</td><td>对象角色可以正确识别；完整 sufficiency 还需要上游独立提供 delivery_context，测试页可模拟该上游事实。</td></tr>
+        <tr><td>英伟达下一次财报什么时候发布</td><td>应因自身 threshold / margin 不通过而拒绝；不能因为实体是上市公司就自动视作投资标的。</td></tr>
         <tr><td>后面会不会涨</td><td>没有显式 entity candidate，Entity Typing 无权制造对象。</td></tr>
       </tbody>
     </table>
@@ -70,28 +75,34 @@
 <script src="js/liuyao-semantic-sufficiency.js"></script>
 <script src="js/liuyao-semantic-slot-provider.js"></script>
 <script src="js/liuyao-object-entity-resolver.js"></script>
-<script src="js/liuyao-entity-typing-adapter.js"></script>
+<script src="js/liuyao-entity-typing-adapter.js?v=0.1.1"></script>
 <script type="module">
 import { entityTypingPocV01 as poc } from './js/liuyao-entity-typing-poc.js?v=0.1';
 const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';
 const provider=window.GuiJia?.liuyaoSemanticSlotProvider;const objectResolver=window.GuiJia?.liuyaoObjectEntityResolver;
 const status=(text,kind='')=>{$('status').textContent=text;$('status').className=`status ${kind}`;};
 
+const simulatedIntent=(route,context,enabled)=>{
+  if(!enabled)return null;
+  if(route!=='item_purchase'&&route!=='receive_item')return null;
+  return {version:'0.1',rawQuestion:context,status:'resolved',goals:[],event:{type:route},participants:[],confidence:0.99,ambiguities:[],semantics:{}};
+};
+
 $('loadModel').onclick=async()=>{$('loadModel').disabled=true;status('加载 BGE…','warn');try{await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('progress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('trainText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('progress').style.width='100%';status('BGE 已就绪','');$('train').disabled=false;$('trainText').textContent=`${poc.modelId} · ${poc.modelDtype} · encoder frozen`;}catch(e){status('模型加载失败','bad');$('trainText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
 
 $('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;status('训练中…','warn');try{const r=await poc.train({onStage:(stage,text)=>{$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('progress').style.width=`${total?done/total*100:0}%`;}});$('mTop1').textContent=pct(r.validationMetrics.top1Accuracy);$('mCoverage').textContent=pct(r.validationMetrics.typedCoverage);$('mAccepted').textContent=pct(r.validationMetrics.acceptedTypedAccuracy);$('mUnknown').textContent=pct(r.validationMetrics.unknownRejection);$('thresholds').textContent=`Validation-only thresholds\n${JSON.stringify(r.thresholds,null,2)}\ntrain=${r.trainCount} · validation=${r.validationCount} · min margin=${poc.minMargin}`;status('训练完成','');$('classify').disabled=false;}catch(e){status('训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
 
-$('extract').onclick=()=>{const candidates=objectResolver.extractReferentCandidates($('context').value.trim());$('typingResult').textContent=`Object Resolver candidates\n${JSON.stringify(candidates,null,2)}`;if(candidates[0])$('entity').value=candidates[0].text;};
+$('extract').onclick=()=>{const candidates=objectResolver.extractReferentCandidates($('context').value.trim());$('slotProviderResult').textContent=`Object Resolver candidates\n${JSON.stringify(candidates,null,2)}`;if(candidates[0])$('entity').value=candidates[0].text;};
 
-$('classify').onclick=async()=>{$('classify').disabled=true;try{const entity=$('entity').value.trim();const context=$('context').value.trim();const r=await poc.classify(entity,context);$('typingResult').textContent=JSON.stringify({entity:r.entity,top1:r.top1,top2:r.top2,margin:r.margin,threshold:r.threshold,accepted:r.accepted,prediction:r.prediction,top4:r.scores},null,2);const predictions=r.prediction.accepted?[r.prediction]:[{...r.prediction,type:r.top1.id,confidence:r.confidence}];const evalResult=provider.evaluateWithProviders({routeId:$('route').value,question:context,entityTypingPredictions:predictions});$('slotResult').textContent=JSON.stringify({status:evalResult.status,missing:evalResult.missing,resolvedSlots:evalResult.slotResolution.resolvedSlots,ignoredClaims:evalResult.slotResolution.ignoredClaims.filter(x=>x.providerId==='object_or_entity_resolver'||x.providerId==='entity_typing'),conflicts:evalResult.slotResolution.conflicts},null,2);}catch(e){$('typingResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
+$('classify').onclick=async()=>{$('classify').disabled=true;try{const entity=$('entity').value.trim();const context=$('context').value.trim();const route=$('route').value;const r=await poc.classify(entity,context);$('typingResult').textContent=JSON.stringify({entity:r.entity,top1:r.top1,top2:r.top2,margin:r.margin,threshold:r.threshold,accepted:r.accepted,prediction:r.prediction,top4:r.scores},null,2);const intent=simulatedIntent(route,context,$('simulateUpstream').checked);const evalResult=provider.evaluateWithProviders({routeId:route,question:context,intent,entityTypingPredictions:[r.prediction]});$('slotProviderResult').textContent=JSON.stringify({simulatedStructuredIntent:intent?{event:intent.event}:null,resolvedSlots:evalResult.slotResolution.resolvedSlots,ignoredClaims:evalResult.slotResolution.ignoredClaims.filter(x=>x.providerId==='object_or_entity_resolver'||x.providerId==='entity_typing'||x.providerId==='structured_intent'),conflicts:evalResult.slotResolution.conflicts},null,2);$('sufficiencyResult').textContent=JSON.stringify({status:evalResult.status,missing:evalResult.missing,objectRoleAccepted:r.accepted,typingType:r.prediction.type,upstreamContextSimulated:Boolean(intent)},null,2);}catch(e){$('typingResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
 
 const samples={
- invest:{route:'investment_price_trend',entity:'英伟达',context:'英伟达下周还会涨吗'},
- purchase:{route:'item_purchase',entity:'MacBook Pro',context:'MacBook Pro现在值不值得买'},
- delivery:{route:'receive_item',entity:'MacBook Pro',context:'我订的MacBook Pro明天能收到吗'},
- unknown:{route:'investment_price_trend',entity:'英伟达',context:'英伟达下一次财报什么时候发布'}
+ invest:{route:'investment_price_trend',entity:'英伟达',context:'英伟达下周还会涨吗',simulate:false},
+ purchase:{route:'item_purchase',entity:'MacBook Pro',context:'MacBook Pro现在值不值得买',simulate:true},
+ delivery:{route:'receive_item',entity:'MacBook Pro',context:'我订的MacBook Pro明天能收到吗',simulate:true},
+ unknown:{route:'investment_price_trend',entity:'英伟达',context:'英伟达下一次财报什么时候发布',simulate:false}
 };
-document.querySelectorAll('[data-sample]').forEach((button)=>button.onclick=()=>{const s=samples[button.dataset.sample];$('route').value=s.route;$('entity').value=s.entity;$('context').value=s.context;});
+document.querySelectorAll('[data-sample]').forEach((button)=>button.onclick=()=>{const s=samples[button.dataset.sample];$('route').value=s.route;$('entity').value=s.entity;$('context').value=s.context;$('simulateUpstream').checked=s.simulate;});
 </script>
 </body>
 </html>
