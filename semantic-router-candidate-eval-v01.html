@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · 六爻 Semantic Router Fresh Candidate Eval v0.1</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#282621;background:#f4f2ed}body{margin:0}main{max-width:1280px;margin:0 auto;padding:28px 18px 56px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 12px;font-size:18px}p{line-height:1.7}.sub,.small{color:#6b675f}.small{font-size:12px}.notice{border-left:4px solid #bfae78;padding:10px 12px;background:#faf7ee;line-height:1.7}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}@media(max-width:760px){.flow{grid-template-columns:1fr}.arrow{display:none}}button{font:inherit;border:0;border-radius:9px;padding:11px 17px;background:#37342f;color:#fff;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{height:8px;background:#ece9e2;border-radius:999px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#69655d;transition:width .15s}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}@media(max-width:980px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}}.metric{border:1px solid #ebe7df;border-radius:12px;padding:14px}.metric span{display:block;color:#777168;font-size:12px}.metric strong{display:block;font-size:24px;margin-top:5px}.scroll{max-height:640px;overflow:auto;border:1px solid #eeeae2;border-radius:10px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ebe7df;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#fff;color:#666158}.num{text-align:right;white-space:nowrap}.badrow{background:#fff8f7}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.tag{display:inline-block;border-radius:999px;background:#efede7;padding:3px 7px;margin:2px 4px 2px 0;font-size:12px}
+  </style>
+</head>
+<body><main>
+  <h1>六爻 Semantic Router · Fresh Candidate Eval v0.1</h1>
+  <p class="sub">独立于此前 301 条开发 Validation 的 300 条新样本。评测 v0.8.1 Router，同时把 Semantic Sufficiency 与 route-level Rule availability 分层记录。</p>
+
+  <section class="card">
+    <h2>评测边界</h2>
+    <div class="notice">本页不是完整 DivinationIntent / ObservationPlan 端到端测试。原始问句只由 Router 真跑；Sufficiency 使用每条样本预先封存的现代语义 fixture（goal + slots）验证合同，避免把当前尚未完成的论元抽取能力假装成已实现。此 Candidate Eval 已 sealed，结果不得回头用于调 v0.8.1。</div>
+    <p class="small">样本：220 route-known + 60 当前 22-route inventory 外 + 20 underspecified。已知样本按 domain 配额平衡，并同时报告 route macro 与 domain macro。</p>
+  </section>
+
+  <section class="card">
+    <h2>运行</h2>
+    <div class="flow">
+      <div>
+        <strong>1. 加载 BGE</strong>
+        <div class="row" style="margin-top:10px"><button id="loadModel">加载 BGE</button><span id="modelStatus" class="status warn">尚未加载</span></div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <strong>2. 训练冻结 v0.8.1 并运行 300 条 Fresh Eval</strong>
+        <div class="row" style="margin-top:10px"><button id="run" disabled>训练并运行 Candidate Eval</button><span id="runStatus" class="status">—</span></div>
+      </div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p id="progressText" class="small">—</p>
+  </section>
+
+  <section class="card">
+    <h2>总指标</h2>
+    <div class="grid">
+      <div class="metric"><span>Known Route Top-1</span><strong id="mTop1">—</strong></div>
+      <div class="metric"><span>Known coverage</span><strong id="mCoverage">—</strong></div>
+      <div class="metric"><span>Accepted known accuracy</span><strong id="mAccepted">—</strong></div>
+      <div class="metric"><span>Out-of-scope rejection</span><strong id="mOut">—</strong></div>
+      <div class="metric"><span>Underspecified rejection</span><strong id="mUnder">—</strong></div>
+      <div class="metric"><span>False activation</span><strong id="mFalse">—</strong></div>
+      <div class="metric"><span>Route macro</span><strong id="mRouteMacro">—</strong></div>
+      <div class="metric"><span>Domain macro</span><strong id="mDomainMacro">—</strong></div>
+      <div class="metric"><span>Oracle Sufficiency contract</span><strong id="mOracleSuff">—</strong></div>
+      <div class="metric"><span>Sufficiency E2E</span><strong id="mSuff">—</strong></div>
+      <div class="metric"><span>Rule availability E2E</span><strong id="mRule">—</strong></div>
+      <div class="metric"><span>Joint exact · 300</span><strong id="mJoint">—</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>按大类</h2>
+    <div class="scroll"><table><thead><tr><th>Domain</th><th class="num">n</th><th class="num">Route exact</th><th class="num">Sufficiency E2E</th><th class="num">Rule E2E</th><th class="num">Joint</th></tr></thead><tbody id="domainRows"><tr><td colspan="6">尚未运行。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>按 route</h2>
+    <div class="scroll"><table><thead><tr><th>Route</th><th class="num">n</th><th class="num">Top-1</th><th class="num">Coverage</th><th class="num">Accepted acc.</th><th class="num">Route exact</th><th class="num">Suff E2E</th><th class="num">Rule E2E</th><th class="num">Joint</th></tr></thead><tbody id="routeRows"><tr><td colspan="9">尚未运行。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>异常样本</h2>
+    <p class="small">只显示联合结果失败的样本。Router 当前只能“接受某 route / 拒绝”，还不能把拒绝进一步自动区分成 out-of-scope 与 underspecified；这两个标签只用于分别统计拒绝率。</p>
+    <div class="scroll"><table><thead><tr><th>ID / 问题</th><th>Expected</th><th>Top-1 / Final</th><th>Gate</th><th>Sufficiency</th><th>Rule</th></tr></thead><tbody id="issues"><tr><td colspan="6">尚未运行。</td></tr></tbody></table></div>
+  </section>
+</main>
+<script src="./js/liuyao-semantic-sufficiency.js?v=0.2"></script>
+<script type="module">
+import { semanticRouterCandidateEvalV01 as evalApi } from './js/liuyao-semantic-router-candidate-eval-v01.js?v=0.1';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const status=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const setProgress=(p,text)=>{$('progressBar').style.width=`${Math.max(0,Math.min(100,p))}%`;$('progressText').textContent=text;};
+function paintSummary(s){$('mTop1').textContent=pct(s.routeTop1Accuracy);$('mCoverage').textContent=pct(s.knownCoverage);$('mAccepted').textContent=pct(s.acceptedKnownAccuracy);$('mOut').textContent=pct(s.outOfScopeRejection);$('mUnder').textContent=pct(s.underspecifiedRejection);$('mFalse').textContent=pct(s.falseActivationRate);$('mRouteMacro').textContent=pct(s.routeMacro);$('mDomainMacro').textContent=pct(s.domainMacro);$('mOracleSuff').textContent=pct(s.oracleSufficiencyAccuracy);$('mSuff').textContent=pct(s.sufficiencyE2E);$('mRule').textContent=pct(s.ruleAvailabilityE2E);$('mJoint').textContent=pct(s.jointExact);}
+function paintDomains(rows){$('domainRows').innerHTML='';for(const r of rows){const tr=document.createElement('tr');[r.domain,r.count,pct(r.finalRouteAccuracy),pct(r.sufficiencyE2E),pct(r.ruleAvailabilityE2E),pct(r.jointExact)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$('domainRows').appendChild(tr);}}
+function paintRoutes(rows){$('routeRows').innerHTML='';for(const r of rows){const tr=document.createElement('tr');[r.routeId,r.count,pct(r.top1Accuracy),pct(r.coverage),pct(r.acceptedAccuracy),pct(r.finalRouteAccuracy),pct(r.sufficiencyE2E),pct(r.ruleAvailabilityE2E),pct(r.jointExact)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$('routeRows').appendChild(tr);}}
+function paintIssues(rows){const bad=rows.filter(r=>!r.jointExact);$('issues').innerHTML='';if(!bad.length){$('issues').innerHTML='<tr><td colspan="6">没有异常样本。</td></tr>';return;}for(const r of bad){const tr=document.createElement('tr');tr.className='badrow';const expected=`${r.expectedRouterDisposition}\nroute=${r.expectedRoute}\nsuff=${r.expectedSufficiencyStatus}\nrule=${r.expectedRuleAvailabilityStatus}`;const actual=`top1=${r.top1?.id||'—'} ${f(r.top1?.score)}\nfinal=${r.finalRoute}`;const gate=`${r.accepted?'accepted':'rejected'}\n${f(r.gate?.score)} / ${f(r.gate?.threshold)}\nmargin=${f(r.routeMargin)}`;const suff=`oracle=${r.oracleSufficiency}\nchain=${r.chainSufficiency}`;const rule=`actual=${r.actualRuleAvailability}`;[[`${r.id}\n${r.text}`],[expected],[actual],[gate],[suff],[rule]].forEach(([v])=>{const td=document.createElement('td');td.textContent=v;td.style.whiteSpace='pre-wrap';tr.appendChild(td)});$('issues').appendChild(tr);}}
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;status('modelStatus','加载中…','warn');try{await evalApi.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))setProgress(n*0.35,[p?.status,p?.file].filter(Boolean).join(' · '));});status('modelStatus','BGE 已就绪','ok');setProgress(35,'BGE 已加载，可以开始评测。');$('run').disabled=false;}catch(e){status('modelStatus','加载失败','bad');setProgress(0,e?.message||String(e));$('loadModel').disabled=false;}};
+$('run').onclick=async()=>{$('run').disabled=true;status('runStatus','训练 v0.8.1…','warn');try{await evalApi.train({onStage:(stage,text)=>{status('runStatus',text,stage==='done'?'ok':'warn');},onEmbeddingProgress:(done,total)=>{setProgress(35+(total?done/total*30:0),`训练准备：embedding ${done}/${total}`);}});status('runStatus','运行 300 条 Fresh Eval…','warn');const result=await evalApi.runCandidateEval({onProgress:(done,total,row)=>{setProgress(65+done/total*35,`Fresh Eval ${done}/${total} · ${row.id}`);}});paintSummary(result.summary);paintDomains(result.summary.domainSummaries);paintRoutes(result.summary.routeSummaries);paintIssues(result.results);setProgress(100,'Candidate Eval 完成。');status('runStatus','评测完成','ok');}catch(e){status('runStatus','评测失败','bad');setProgress(0,e?.stack||e?.message||String(e));}finally{$('run').disabled=false;}};
+</script>
+</body>
+</html>
