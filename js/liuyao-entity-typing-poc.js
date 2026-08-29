@@ -21,41 +21,50 @@ const dot = (weights, vector) => {
   for (let i = 0; i < weights.length; i += 1) sum += weights[i] * vector[i];
   return sum;
 };
+
 const softmax = (logits) => {
   let max = -Infinity;
   for (const value of logits) if (value > max) max = value;
   const exps = new Float64Array(logits.length);
   let total = 0;
-  for (let i = 0; i < logits.length; i += 1) { exps[i] = Math.exp(logits[i] - max); total += exps[i]; }
+  for (let i = 0; i < logits.length; i += 1) {
+    const value = Math.exp(logits[i] - max);
+    exps[i] = value;
+    total += value;
+  }
   const probs = new Float64Array(logits.length);
   for (let i = 0; i < logits.length; i += 1) probs[i] = exps[i] / Math.max(total, 1e-12);
   return probs;
 };
+
 const tensorToVectors = (tensor, count) => {
   const dims = tensor?.dims || [];
   const hidden = dims[dims.length - 1] || VECTOR_SIZE;
   const batch = count || dims[0] || 1;
-  const values = tensor?.data || [];
-  const result = [];
+  const raw = tensor?.data || [];
+  const vectors = [];
   for (let row = 0; row < batch; row += 1) {
     const offset = row * hidden;
     const vector = new Float32Array(hidden);
-    for (let col = 0; col < hidden; col += 1) vector[col] = Number(values[offset + col] || 0);
-    result.push(vector);
+    for (let col = 0; col < hidden; col += 1) vector[col] = Number(raw[offset + col] || 0);
+    vectors.push(vector);
   }
-  return result;
+  return vectors;
 };
+
 const fetchJson = async (url) => {
   const response = await fetch(url, { cache:'no-cache' });
   if (!response.ok) throw new Error(`无法读取 ${url.pathname}: HTTP ${response.status}`);
   return response.json();
 };
-const composeInput = (entity, context) => `对象：${String(entity || '').trim()}。上下文：${String(context || '').trim()}`;
 
 const ensureData = async () => {
   if (!data) data = await fetchJson(DATA_URL);
   return data;
 };
+
+const composeInput = (entity, context) => `对象：${String(entity || '').trim()}。上下文：${String(context || '').trim()}`;
+
 const flatten = (split) => {
   const rows = [];
   for (const label of LABELS) {
@@ -65,6 +74,7 @@ const flatten = (split) => {
   }
   return rows;
 };
+
 const embedTexts = async (texts, { chunkSize=24, onProgress } = {}) => {
   if (!extractor) throw new Error('模型尚未加载');
   const missing = [...new Set(texts)].filter((text) => !embeddingCache.has(text));
@@ -79,13 +89,14 @@ const embedTexts = async (texts, { chunkSize=24, onProgress } = {}) => {
   return texts.map((text) => embeddingCache.get(text));
 };
 
-const trainMultinomial = (rows, vectors, { epochs=260, learningRate=0.78, l2=0.0006 } = {}) => {
+const trainMultinomial = (rows, vectors, { epochs=260, learningRate=0.82, l2=0.0007 } = {}) => {
   const classCount = LABELS.length;
   const weights = Array.from({ length:classCount }, () => new Float32Array(VECTOR_SIZE));
   const biases = new Float64Array(classCount);
   const gradients = Array.from({ length:classCount }, () => new Float64Array(VECTOR_SIZE));
   const gradBiases = new Float64Array(classCount);
   const labelIndex = new Map(LABELS.map((id, index) => [id, index]));
+
   for (let epoch = 0; epoch < epochs; epoch += 1) {
     for (const gradient of gradients) gradient.fill(0);
     gradBiases.fill(0);
@@ -94,9 +105,9 @@ const trainMultinomial = (rows, vectors, { epochs=260, learningRate=0.78, l2=0.0
       const logits = new Float64Array(classCount);
       for (let c = 0; c < classCount; c += 1) logits[c] = dot(weights[c], vector) + biases[c];
       const probs = softmax(logits);
-      const target = labelIndex.get(rows[i].label);
+      const targetIndex = labelIndex.get(rows[i].label);
       for (let c = 0; c < classCount; c += 1) {
-        const error = probs[c] - (c === target ? 1 : 0);
+        const error = probs[c] - (c === targetIndex ? 1 : 0);
         gradBiases[c] += error;
         for (let j = 0; j < VECTOR_SIZE; j += 1) gradients[c][j] += error * vector[j];
       }
@@ -158,7 +169,7 @@ const classifyVector = (vector) => {
     margin,
     threshold,
     accepted,
-    type:accepted ? top1.id : (top1.id === 'unknown' ? 'unknown' : 'unknown'),
+    type:accepted ? top1.id : 'unknown',
     confidence:top1.score,
     scores
   };
@@ -238,6 +249,7 @@ const classify = async (entity, context) => {
       confidence:result.confidence,
       score:result.top1.score,
       margin:result.margin,
+      threshold:result.threshold,
       accepted:result.accepted,
       modelId:'guijia-entity-typing-poc-v0.1'
     }
