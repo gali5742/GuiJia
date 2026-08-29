@@ -202,6 +202,7 @@ const metrics = (rows, results) => {
     typedCoverage:typedAccepted / Math.max(1, knownTotal),
     acceptedTypedAccuracy:typedCorrect / Math.max(1, typedAccepted),
     unknownRejection:unknownRejected / Math.max(1, unknownTotal),
+    falseTypedActivation:(unknownTotal - unknownRejected) / Math.max(1, unknownTotal),
     trainableKnown:knownTotal,
     unknownTotal
   };
@@ -256,6 +257,19 @@ const classify = async (entity, context) => {
   };
 };
 
+const evaluateSamples = async (samples, { onProgress } = {}) => {
+  if (!head || !thresholds) throw new Error('请先训练 Entity Typing PoC');
+  const rows = (samples || []).map((sample) => ({
+    label:String(sample.label || ''),
+    entity:String(sample.entity || '').trim(),
+    context:String(sample.context || '').trim(),
+    text:composeInput(sample.entity, sample.context)
+  }));
+  const vectors = await embedTexts(rows.map((row) => row.text), { onProgress });
+  const results = vectors.map(classifyVector);
+  return { rows, results, metrics:metrics(rows, results) };
+};
+
 export const entityTypingPocV01 = Object.freeze({
   version:'0.1',
   modelId:MODEL_ID,
@@ -264,5 +278,6 @@ export const entityTypingPocV01 = Object.freeze({
   minMargin:MIN_MARGIN,
   loadModel,
   train,
-  classify
+  classify,
+  evaluateSamples
 });
