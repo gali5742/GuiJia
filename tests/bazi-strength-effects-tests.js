@@ -133,11 +133,12 @@ test('十二长生只形成 context-only 中间状态，不映射为得气、失
     effects.forEach((item) => {
         assert(item.status === 'context-only', `${item.id} 十二长生状态不应进入实际效力状态`);
         assert(item.direction === 'contextual', `${item.id} 十二长生状态被提前映射方向`);
+        assert(!('aggregateClassification' in item), `${item.id} 不应生成支气聚合分类`);
+        assert(!('strengthClass' in item), `${item.id} 不应生成扶身强度分类`);
+        assert(!['support-candidate','seasonal-support','seasonal-non-support'].includes(item.direction), `${item.id} 十二长生不应提前映射为扶抑方向`);
     });
     const changsheng = effects.find((item) => item.zhi === '酉');
     assert(changsheng?.state === '长生' && changsheng.direction === 'contextual', '“长生”字样本身不应自动变成扶身候选');
-    const text = JSON.stringify(effects);
-    assert(!/(支得气|支失气|扶身强度)/.test(text), `十二长生越级解释：${text}`);
 });
 
 test('中间层不设置权重、分数、多寡阈值，也不解释三会五合实际效力', () => {
