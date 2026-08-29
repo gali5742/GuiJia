@@ -120,7 +120,11 @@ for (const [routeId, spec] of Object.entries(candidate.routes || {})) for (const
 for (const text of candidate.rejection?.out_of_scope || []) rememberPrior(text, 'candidate-v0.1:out_of_scope');
 for (const text of candidate.rejection?.underspecified || []) rememberPrior(text, 'candidate-v0.1:underspecified');
 
-for (const [key, bucket] of seen.entries()) assert(!prior.has(key), `v0.9 development leak: ${bucket} duplicates ${prior.get(key)}: ${key}`);
+const leaks = [];
+for (const [key, bucket] of seen.entries()) {
+  if (prior.has(key)) leaks.push(`${bucket} duplicates ${prior.get(key)}: ${key}`);
+}
+if (leaks.length) fail(`v0.9 development exact overlap(s):\n- ${leaks.join('\n- ')}`);
 
 console.log('LiuYao Semantic Router Decision v0.9 development data verification passed.');
 console.log('- 22 routes × (3 train / 2 calibration / 3 validation) = 176 routeable');
