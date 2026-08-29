@@ -5,6 +5,12 @@
   "purpose": "Remove exact wording overlap discovered by CI before the v0.9 development experiment is run. This patch changes wording only and does not alter labels, splits, or routeability semantics.",
   "replacements": {
     "我正在考虑买一台新的显示器": "我最近打算换一台新的显示器自用",
-    "我和丈夫最近一直在冷战": "最近我和丈夫总是互相不说话"
+    "我和丈夫最近一直在冷战": "最近我和丈夫总是互相不说话",
+    "我的签证申请会不会被批准": "这次签证续签能不能获准",
+    "这次资格考试能不能通过": "这回职业资格考试能不能考过",
+    "这件事最后能不能成": "这个事情最终有没有可能办成",
+    "什么时候能收到": "到底要等到什么时候才能拿到",
+    "我们以后会怎么样": "后面我们会变成什么状态",
+    "这次能不能批下来": "这一回到底会不会获批"
   }
 }
