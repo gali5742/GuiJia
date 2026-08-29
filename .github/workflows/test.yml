@@ -21,7 +21,9 @@ jobs:
           node-version: "22"
 
       - name: Apply BaZi context final cleanup
-        run: python3 .bazi-final3.py
+        run: |
+          python3 .bazi-final3.py
+          python3 .bazi-final3-regression.py
 
       - name: Core regression tests
         run: npm test
@@ -41,9 +43,9 @@ jobs:
         run: |
           set -euo pipefail
           git show f380f8e2d424b447f1b70c61f371a7376971afe4:.github/workflows/test.yml > .github/workflows/test.yml
-          rm -f .bazi-final3.py
+          rm -f .bazi-final3.py .bazi-final3-regression.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js tests/run-tests.js .github/workflows/test.yml .bazi-final3.py
+          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js tests/run-tests.js .github/workflows/test.yml .bazi-final3.py .bazi-final3-regression.py
           git commit -m 'refactor: finalize BaZi context wording'
           git push origin HEAD:bazi-context-final3
