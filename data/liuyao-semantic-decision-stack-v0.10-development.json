@@ -1,0 +1,497 @@
+{
+  "version": "0.10-development",
+  "status": "development_preuse",
+  "scope": "liuyao_current_22_semantic_decision_stack",
+  "purpose": "Fresh development corpus for Route Identifiability and full current-22 semantic decision-stack integration. It does not modify frozen v0.8.1 Router, Scope Gate v0.1, sealed Candidate Eval v0.1, Semantic Sufficiency v0.2, or Rule Registry.",
+  "policy": {
+    "modifyV081": false,
+    "modifyScopeGateV01": false,
+    "reuseScopeGateValidationAsScoreSet": false,
+    "reuseV09ValidationAsScoreSet": false,
+    "reuseSealedCandidateAsTraining": false,
+    "identifiabilityPositiveMeansUniqueCurrent22RouteCanBeNamedEvenIfDownstreamSufficiencyFails": true,
+    "identifiabilityNegativeMeansCurrent22AdjacentButNoUniqueRouteCanBeNamed": true,
+    "outsideCurrent22ExcludedFromIdentifiabilityTraining": true,
+    "scopeHardRejectIsStackPolicyNotScopeGateRetraining": true,
+    "sufficiencyUsesOracleModernSemanticFixtures": true,
+    "traditionalLiuYaoFieldsForbidden": true
+  },
+  "counts": {
+    "identifiability_total": 176,
+    "identifiability_train": 88,
+    "identifiability_calibration": 44,
+    "identifiability_validation": 44,
+    "scope_policy_outside_calibration": 22,
+    "stack_validation": 110,
+    "total_unique_texts": 308
+  },
+  "identifiability": {
+    "route_identifiable": {
+      "financial_fortune": {
+        "train": [
+          {"text": "接下来半年我的整体钱财状况会不会比现在宽松", "downstreamSufficiency": "sufficient"},
+          {"text": "最近一段时间我的总体收支一直有些吃紧", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "今年后半段手头整体会不会逐渐宽裕起来", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "未来几个月我的综合进账会不会稳定一些", "downstreamSufficiency": "sufficient"}]
+      },
+      "business_operation": {
+        "train": [
+          {"text": "我开的烘焙店今年后面能不能扭亏为盈", "downstreamSufficiency": "sufficient"},
+          {"text": "这家小店最近经营状况一直不太理想", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这个工作室继续经营下去能不能开始赚钱", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我这家网店明年经营利润能不能改善", "downstreamSufficiency": "sufficient"}]
+      },
+      "commercial_transaction": {
+        "train": [
+          {"text": "我和客户正在谈的这笔批发单最后能不能成交", "downstreamSufficiency": "sufficient"},
+          {"text": "这份商业采购合同双方还在谈条件", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这单供应商订单月底前能不能正式签下来", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我跟买家的这笔交易最后能不能顺利落地", "downstreamSufficiency": "sufficient"}]
+      },
+      "inventory_purchase": {
+        "train": [
+          {"text": "门店下批货能不能按计划采购回来", "downstreamSufficiency": "sufficient"},
+          {"text": "店里正在准备下一轮补库存", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "我给网店补的这批货能不能及时进到仓库", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "这次经营用进货月底前能不能全部到位", "downstreamSufficiency": "sufficient"}]
+      },
+      "inventory_sale": {
+        "train": [
+          {"text": "仓库现有这批尾货下个月能不能清完", "downstreamSufficiency": "sufficient"},
+          {"text": "我准备把店里压着的旧库存逐步出清", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这批门店存货年底前能不能基本卖完", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "仓库这批库存接下来出货会不会顺利", "downstreamSufficiency": "sufficient"}]
+      },
+      "borrow_money": {
+        "train": [
+          {"text": "这次向亲戚借周转金能不能借到", "downstreamSufficiency": "sufficient"},
+          {"text": "我准备找家里借一笔钱周转", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "向银行申请这笔经营贷款能不能批下来", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我找朋友借的这笔钱这周能不能拿到", "downstreamSufficiency": "sufficient"}]
+      },
+      "lend_money": {
+        "train": [
+          {"text": "同事来找我借钱，我借给他之后能不能顺利收回", "downstreamSufficiency": "sufficient"},
+          {"text": "朋友最近想从我这里借一笔钱，我在考虑借给他", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "我把这笔钱借给亲戚合不合适", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "对方向我借钱，这次借出去会不会有麻烦", "downstreamSufficiency": "sufficient"}]
+      },
+      "debt_collection": {
+        "train": [
+          {"text": "以前借给朋友的钱这个月还能不能追回来", "downstreamSufficiency": "sufficient"},
+          {"text": "客户那边还有一笔应收货款没有付给我", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "对方拖欠我的款项年底前能不能收回来", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我手上的这笔应收账款还能不能顺利追回", "downstreamSufficiency": "sufficient"}]
+      },
+      "debt_repayment": {
+        "train": [
+          {"text": "我这笔车贷明年能不能提前结清", "downstreamSufficiency": "sufficient"},
+          {"text": "我打算把剩下的消费贷款提前还掉", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "现有房贷年底前有没有机会还清", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我欠银行的这笔贷款接下来能不能顺利结清", "downstreamSufficiency": "sufficient"}]
+      },
+      "partnership": {
+        "train": [
+          {"text": "我和朋友合伙开的店今年能不能一起赚钱", "downstreamSufficiency": "sufficient"},
+          {"text": "我准备和同学共同经营一个小项目", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这次跟搭档一起开店合作会不会顺利", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我和这个合伙人继续共同经营合不合适", "downstreamSufficiency": "sufficient"}]
+      },
+      "investment_profit": {
+        "train": [
+          {"text": "这笔指数基金持有到年底能不能有利润", "downstreamSufficiency": "sufficient"},
+          {"text": "这只基金已经买入了，我现在主要关心后续收益", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这次投进这个新能源项目能不能赚到钱", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我买的这只债券基金一年后能不能实现盈利", "downstreamSufficiency": "sufficient"}]
+      },
+      "investment_liquidation": {
+        "train": [
+          {"text": "这只股票全部卖掉套现能不能顺利完成", "downstreamSufficiency": "sufficient"},
+          {"text": "我准备把现在这笔持仓全部卖掉换成现金", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这只基金这周全部赎回会不会卡住", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我现在把这笔ETF仓位清掉能不能顺利退出", "downstreamSufficiency": "sufficient"}]
+      },
+      "investment_suitability": {
+        "train": [
+          {"text": "现在买入这只黄金基金到底合不合适", "downstreamSufficiency": "sufficient"},
+          {"text": "现在进场是不是合适", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这只科技ETF适不适合我现在参与", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "这个债券投资项目目前值得不值得参加", "downstreamSufficiency": "sufficient"}]
+      },
+      "investment_position_decision": {
+        "train": [
+          {"text": "这只股票现在继续持有还是先减仓更合适", "downstreamSufficiency": "sufficient"},
+          {"text": "我正在考虑把目前的仓位减掉一部分", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这笔基金仓位现在要不要继续拿着", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我手上的这只ETF应该继续持有还是退出一部分", "downstreamSufficiency": "sufficient"}]
+      },
+      "investment_price_trend": {
+        "train": [
+          {"text": "这只基金未来一个月净值会不会继续上行", "downstreamSufficiency": "sufficient"},
+          {"text": "后面价格还会不会接着涨", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这只股票下周走势会偏强还是偏弱", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我关注的黄金ETF月底前价格会不会回落", "downstreamSufficiency": "sufficient"}]
+      },
+      "income_salary": {
+        "train": [
+          {"text": "明年我的固定月薪还有没有上涨机会", "downstreamSufficiency": "sufficient"},
+          {"text": "公司刚公布了下一轮调薪安排", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这次续约以后我的基本工资能不能提高", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "今年剩下时间我的薪资还会不会继续增长", "downstreamSufficiency": "sufficient"}]
+      },
+      "income_bonus": {
+        "train": [
+          {"text": "今年年底我能不能拿到比去年更多的奖金", "downstreamSufficiency": "sufficient"},
+          {"text": "部门今年的绩效奖金方案已经确定了", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这个项目结束后我有没有机会分到奖励金", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "明年春节前我的年终奖会不会明显增加", "downstreamSufficiency": "sufficient"}]
+      },
+      "receive_item": {
+        "train": [
+          {"text": "我订的机械键盘周末前能不能收到", "downstreamSufficiency": "sufficient"},
+          {"text": "大概还要多久才能真正收到", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "已经发出的那台相机下周能不能到手", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我买的路由器月底前能不能送到家", "downstreamSufficiency": "sufficient"}]
+      },
+      "item_purchase": {
+        "train": [
+          {"text": "这款空气净化器现在值不值得买", "downstreamSufficiency": "sufficient"},
+          {"text": "这个到底值不值得买", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "我现在入手这台投影仪会不会后悔", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "这副耳机现在买下来合不合适", "downstreamSufficiency": "sufficient"}]
+      },
+      "relationship_development": {
+        "train": [
+          {"text": "我和这个男生以后能不能发展成恋人", "downstreamSufficiency": "sufficient"},
+          {"text": "我们以后有没有可能变成情侣", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "我跟这个女生接下来有没有机会在一起", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我和这个人后面能不能从暧昧发展成正式恋爱", "downstreamSufficiency": "sufficient"}]
+      },
+      "marriage_match": {
+        "train": [
+          {"text": "我和现在这个对象明年有没有机会结婚", "downstreamSufficiency": "sufficient"},
+          {"text": "我们最近已经开始商量领证的事情", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "这门婚事今年能不能顺利定下来", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我跟这个女生最后有没有机会成为夫妻", "downstreamSufficiency": "sufficient"}]
+      },
+      "marital_relationship": {
+        "train": [
+          {"text": "我和老婆接下来这段婚姻能不能稳定下来", "downstreamSufficiency": "sufficient"},
+          {"text": "我和丈夫最近一直在为同一件事冷战", "downstreamSufficiency": "semantic_insufficient"}
+        ],
+        "calibration": [{"text": "我跟老公今年能不能把夫妻关系修复好", "downstreamSufficiency": "sufficient"}],
+        "validation": [{"text": "我和妻子最近很疏远，之后关系能不能缓和", "downstreamSufficiency": "sufficient"}]
+      }
+    },
+    "route_unresolved": {
+      "generic_outcome": {
+        "train": ["这次最后到底能不能行", "这件事情最终有没有结果", "后面整体会不会往好的方向走", "最后能不能达到我想要的结果"],
+        "calibration": ["这回事最终能不能有个好结果", "接下来事情会不会慢慢好起来"],
+        "validation": ["眼前这件事最后能不能成", "后续结果会不会比现在理想"]
+      },
+      "generic_choice": {
+        "train": ["我现在这么决定是不是对的", "眼下这个选择到底值不值得", "现在换一个方向会不会更好", "我这样处理是不是合适"],
+        "calibration": ["这次选择会不会选错", "我现在改主意是不是更好"],
+        "validation": ["眼下这么选究竟对不对", "现在做这个决定合不合适"]
+      },
+      "generic_continue_exit": {
+        "train": ["我是不是还应该继续下去", "这件事现在退出会不会更好", "我还要不要继续坚持", "现在停下来是不是更稳妥"],
+        "calibration": ["继续推进还是先放弃比较好", "我现在要不要就此退出"],
+        "validation": ["这件事还值得继续争取吗", "现在撤出来是不是更合适"]
+      },
+      "generic_counterparty": {
+        "train": ["对方最后会不会同意", "这个人接下来会怎么决定", "他最终会不会接受", "对方之后会不会改变想法"],
+        "calibration": ["她最后到底会不会答应", "对方接下来会做什么选择"],
+        "validation": ["这个人最后会不会点头", "他之后到底会怎么考虑"]
+      },
+      "generic_timing": {
+        "train": ["大概还要多久才会有结果", "月底以前能不能有定论", "什么时候才能真正落实", "这件事下周能不能处理完"],
+        "calibration": ["还要等多久才会有明确结果", "年底前能不能彻底定下来"],
+        "validation": ["什么时候才能看出最终结果", "这个月底之前会不会有结论"]
+      },
+      "generic_money": {
+        "train": ["月底之前这笔钱能不能进来", "接下来能不能多拿到一些钱", "这笔款到时候能不能到账", "今年后面进账会不会增加"],
+        "calibration": ["下个月会不会多进一笔钱", "这笔钱月底能不能拿到"],
+        "validation": ["接下来这笔款能不能顺利进账", "今年剩下时间钱会不会多一些"]
+      },
+      "generic_profit": {
+        "train": ["做下去最后到底能不能赚钱", "这件事最终有没有利润", "继续投入以后能不能有收益", "最后能不能做到不亏钱"],
+        "calibration": ["这次最终有没有赚钱的可能", "后面收益会不会变好"],
+        "validation": ["这件事情最后能不能赚到钱", "继续下去会不会开始有利润"]
+      },
+      "generic_price_change": {
+        "train": ["后面还会不会继续往下跌", "接下来价格会不会重新涨起来", "年底前还会不会继续走高", "之后价格有没有可能反弹"],
+        "calibration": ["未来几周还会不会继续下滑", "接下来价格走势会不会转强"],
+        "validation": ["后面价格还会不会再跌一段", "接下来还会不会继续上涨"]
+      },
+      "generic_receive": {
+        "train": ["这个月底前到底能不能拿到", "什么时候才能拿到手", "下周之前有没有机会收到", "我还要等多久才能收到"],
+        "calibration": ["月底以前能不能收到手里", "大概哪天才能真正拿到"],
+        "validation": ["这周之内到底能不能收到", "还要多久才会拿到"]
+      },
+      "generic_relation": {
+        "train": ["我们接下来会变成什么关系", "以后我们还能不能继续这样", "两个人之后会不会更亲近", "我们后面会不会慢慢疏远"],
+        "calibration": ["我和对方以后关系会怎么变化", "我们接下来还能不能走近一点"],
+        "validation": ["以后两个人的关系会不会改善", "我们后面到底会变成什么样"]
+      },
+      "generic_approval": {
+        "train": ["这个申请最后能不能通过", "这次审核会不会被批准", "我交上去的材料能不能批下来", "这项申请月底前能不能过"],
+        "calibration": ["这次审批最后能不能下来", "提交的申请什么时候能批准"],
+        "validation": ["这个审批最终会不会通过", "我这次申请能不能顺利获批"]
+      }
+    }
+  },
+  "scope_policy_calibration": {
+    "outside_current_22": [
+      "这次竞聘组长最后能不能成功",
+      "我下周的面试能不能拿到录用通知",
+      "这次资格考试我有没有机会通过",
+      "研究生复试最后能不能上岸",
+      "下个月去北海道这趟旅行会不会顺利",
+      "明早那班飞机能不能按时起飞",
+      "我昨天丢的门禁卡还能不能找到",
+      "那串钥匙不知道落哪了还能找回来吗",
+      "这次劳动仲裁最后会怎么判",
+      "我和物业的赔偿纠纷能不能谈妥",
+      "这套房明年还能不能继续续租",
+      "我准备换到另一套公寓住合不合适",
+      "这次签证续签能不能顺利批准",
+      "护照补办月底前能不能下来",
+      "我和父亲最近关系紧张以后会不会缓和",
+      "我跟普通同事以后能不能相处得更好",
+      "这篇论文投稿这次能不能被期刊接收",
+      "我的新书今年有没有机会顺利出版",
+      "孩子这次转学申请能不能办成",
+      "我准备报名这个培训课程合不合适",
+      "这次驾照考试能不能一次通过",
+      "我申请的研究项目今年能不能立项"
+    ]
+  },
+  "stack_validation": {
+    "routes": {
+      "financial_fortune": {
+        "sufficient": [
+          {"text": "明年上半年我的整体财务会不会比今年稳定", "goalType": "outcome", "slots": ["financial_scope"]},
+          {"text": "接下来三个月总体进账有没有机会增加", "goalType": "outcome", "slots": ["financial_scope"]}
+        ],
+        "insufficient": {"text": "最近我的总体钱财状态一直比较紧", "goalType": "unknown", "slots": ["financial_scope"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "business_operation": {
+        "sufficient": [
+          {"text": "我经营的摄影工作室今年能不能转为盈利", "goalType": "outcome", "slots": ["business_context"]},
+          {"text": "这家线上店铺明年经营收益会不会提高", "goalType": "outcome", "slots": ["business_context"]}
+        ],
+        "insufficient": {"text": "这家咖啡馆最近经营一直没有起色", "goalType": "unknown", "slots": ["business_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "commercial_transaction": {
+        "sufficient": [
+          {"text": "和这个客户谈的设备采购单最终能不能签成", "goalType": "outcome", "slots": ["transaction_context"]},
+          {"text": "这笔批发交易月底前有没有机会成交", "goalType": "outcome", "slots": ["transaction_context"]}
+        ],
+        "insufficient": {"text": "双方正在谈这份商业供货合同", "goalType": "unknown", "slots": ["transaction_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "inventory_purchase": {
+        "sufficient": [
+          {"text": "店里下一批补货能不能在月底前到齐", "goalType": "outcome", "slots": ["inventory_purchase_context"]},
+          {"text": "这次为门店采购的新货能不能按计划进库", "goalType": "outcome", "slots": ["inventory_purchase_context"]}
+        ],
+        "insufficient": {"text": "仓库准备开始新一轮经营补货", "goalType": "unknown", "slots": ["inventory_purchase_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "inventory_sale": {
+        "sufficient": [
+          {"text": "店里这批旧库存春节前能不能清完", "goalType": "outcome", "slots": ["inventory_sale_context"]},
+          {"text": "仓库积压的尾货下个月出清会不会顺利", "goalType": "outcome", "slots": ["inventory_sale_context"]}
+        ],
+        "insufficient": {"text": "我准备把现有门店库存陆续卖掉", "goalType": "unknown", "slots": ["inventory_sale_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "borrow_money": {
+        "sufficient": [
+          {"text": "这次找表哥借的周转款能不能拿到", "goalType": "outcome", "slots": ["borrowing_context"]},
+          {"text": "银行这笔信用贷款申请能不能顺利获批", "goalType": "outcome", "slots": ["borrowing_context"]}
+        ],
+        "insufficient": {"text": "我最近打算向家人借一笔钱", "goalType": "unknown", "slots": ["borrowing_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "lend_money": {
+        "sufficient": [
+          {"text": "朋友向我借钱，这次借给他会不会顺利", "goalType": "outcome", "slots": ["lending_context"]},
+          {"text": "我把钱借给同事以后能不能按时收回", "goalType": "outcome", "slots": ["lending_context"]}
+        ],
+        "insufficient": {"text": "亲戚想从我这里借一笔钱，我准备答应", "goalType": "unknown", "slots": ["lending_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "debt_collection": {
+        "sufficient": [
+          {"text": "客户欠我的尾款这个月能不能收回来", "goalType": "outcome", "slots": ["debt_collection_context"]},
+          {"text": "之前借给朋友的钱年底前还能不能追回", "goalType": "outcome", "slots": ["debt_collection_context"]}
+        ],
+        "insufficient": {"text": "我账上还有一笔别人拖欠的应收款", "goalType": "unknown", "slots": ["debt_collection_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "debt_repayment": {
+        "sufficient": [
+          {"text": "我现在这笔房贷三年内能不能还清", "goalType": "outcome", "slots": ["debt_context"]},
+          {"text": "信用卡这笔欠款年底前能不能全部结清", "goalType": "outcome", "slots": ["debt_context"]}
+        ],
+        "insufficient": {"text": "我准备提前偿还剩余的车贷", "goalType": "unknown", "slots": ["debt_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "partnership": {
+        "sufficient": [
+          {"text": "我和朋友一起开的店今年合作会不会顺利", "goalType": "outcome", "slots": ["partnership_context"]},
+          {"text": "继续跟这个搭档共同经营明年合不合适", "goalType": "choice", "slots": ["partnership_context"]}
+        ],
+        "insufficient": {"text": "我最近准备和朋友一起合伙做生意", "goalType": "unknown", "slots": ["partnership_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "investment_profit": {
+        "sufficient": [
+          {"text": "这只红利基金拿到明年能不能赚到钱", "goalType": "outcome", "slots": ["investment_target"]},
+          {"text": "我投的这个储能项目年底前能不能实现盈利", "goalType": "outcome", "slots": ["investment_target"]}
+        ],
+        "insufficient": {"text": "我现在主要想知道以后能不能盈利", "goalType": "outcome", "slots": [], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "investment_liquidation": {
+        "sufficient": [
+          {"text": "这只股票现在全部卖出套现能不能顺利完成", "goalType": "outcome", "slots": ["position_context"]},
+          {"text": "我把这笔基金全部赎回会不会遇到阻碍", "goalType": "outcome", "slots": ["position_context"]}
+        ],
+        "insufficient": {"text": "我准备把这只ETF仓位全部清掉", "goalType": "unknown", "slots": ["position_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "investment_suitability": {
+        "sufficient": [
+          {"text": "现在参与这只商品基金适不适合我", "goalType": "choice", "slots": ["investment_target"]},
+          {"text": "这个新能源投资项目目前值不值得投", "goalType": "choice", "slots": ["investment_target"]}
+        ],
+        "insufficient": {"text": "现在参与进去到底合不合适", "goalType": "choice", "slots": [], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "investment_position_decision": {
+        "sufficient": [
+          {"text": "这只基金目前继续持有还是减仓比较好", "goalType": "choice", "slots": ["position_context"]},
+          {"text": "我现在这个股票仓位要不要先退出一部分", "goalType": "choice", "slots": ["position_context"]}
+        ],
+        "insufficient": {"text": "我打算把现在的仓位稍微减一点", "goalType": "unknown", "slots": ["position_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "investment_price_trend": {
+        "sufficient": [
+          {"text": "这只科技基金下个月净值会不会继续上涨", "goalType": "outcome", "slots": ["investment_target"]},
+          {"text": "黄金ETF未来两周价格会不会转弱", "goalType": "outcome", "slots": ["investment_target"]}
+        ],
+        "insufficient": {"text": "后面价格还会不会继续走高", "goalType": "outcome", "slots": [], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "income_salary": {
+        "sufficient": [
+          {"text": "下一轮调薪以后我的月薪能不能增加", "goalType": "outcome", "slots": ["employment_income_context"]},
+          {"text": "明年我的基本工资会不会比今年高", "goalType": "outcome", "slots": ["employment_income_context"]}
+        ],
+        "insufficient": {"text": "公司最近开始讨论明年的调薪方案", "goalType": "unknown", "slots": ["employment_income_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "income_bonus": {
+        "sufficient": [
+          {"text": "今年我拿到的绩效奖金会不会比去年多", "goalType": "outcome", "slots": ["bonus_context"]},
+          {"text": "这个项目结束后我能不能分到项目奖励", "goalType": "outcome", "slots": ["bonus_context"]}
+        ],
+        "insufficient": {"text": "部门已经通知今年会发一笔特别奖金", "goalType": "unknown", "slots": ["bonus_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "receive_item": {
+        "sufficient": [
+          {"text": "我买的麦克风下周之前能不能送到", "goalType": "outcome", "slots": ["delivery_context", "delivery_target"]},
+          {"text": "已经寄出的那台显示器月底前能不能收到", "goalType": "outcome", "slots": ["delivery_context", "delivery_target"]}
+        ],
+        "insufficient": {"text": "大概还要几天才能收到", "goalType": "timing", "slots": ["delivery_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "item_purchase": {
+        "sufficient": [
+          {"text": "这台咖啡机现在值不值得买", "goalType": "choice", "slots": ["purchase_context", "purchase_object"]},
+          {"text": "我现在入手这款路由器会不会后悔", "goalType": "choice", "slots": ["purchase_context", "purchase_object"]}
+        ],
+        "insufficient": {"text": "这个东西现在到底值不值得买", "goalType": "choice", "slots": ["purchase_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "relationship_development": {
+        "sufficient": [
+          {"text": "我和这个女生之后能不能正式在一起", "goalType": "outcome", "slots": ["specific_counterpart"]},
+          {"text": "我跟这个男生现在的暧昧关系能不能继续发展", "goalType": "outcome", "slots": ["specific_counterpart"]}
+        ],
+        "insufficient": {"text": "我们两个以后有没有机会成为恋人", "goalType": "outcome", "slots": [], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "marriage_match": {
+        "sufficient": [
+          {"text": "我和现在这个男朋友明年能不能领证结婚", "goalType": "outcome", "slots": ["marriage_proposal_context"]},
+          {"text": "这门亲事年底前能不能正式定下来", "goalType": "outcome", "slots": ["marriage_proposal_context"]}
+        ],
+        "insufficient": {"text": "我们最近已经在讨论结婚安排", "goalType": "unknown", "slots": ["marriage_proposal_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      },
+      "marital_relationship": {
+        "sufficient": [
+          {"text": "我和老公接下来夫妻关系能不能缓和", "goalType": "outcome", "slots": ["existing_marriage_context"]},
+          {"text": "我跟妻子今年能不能把婚姻关系修复好", "goalType": "outcome", "slots": ["existing_marriage_context"]}
+        ],
+        "insufficient": {"text": "我和老婆最近一直没有好好说话", "goalType": "unknown", "slots": ["existing_marriage_context"], "expectedSufficiencyStatus": "semantic_insufficient"}
+      }
+    },
+    "outside_current_22": [
+      "这次部门主管竞聘我有没有机会被选上",
+      "下周那场技术面试能不能顺利拿到offer",
+      "这次职业资格笔试我能不能通过",
+      "孩子今年报考的学校能不能录取",
+      "国庆去冲绳这趟行程会不会顺利",
+      "明天下午那趟新干线会不会晚点",
+      "我前几天弄丢的公交卡还能找回来吗",
+      "那只丢失的手表还有没有机会找到",
+      "这次合同纠纷最后法院会不会支持我",
+      "跟邻居的赔偿争议月底前能不能解决",
+      "现在住的房子明年还能不能续约租下去",
+      "年底搬去新的城市生活合不合适",
+      "这次在留资格更新能不能顺利通过",
+      "补办的证件这个月能不能审批下来",
+      "我和母亲最近总有矛盾以后会不会好些",
+      "我跟一个普通朋友以后会不会越来越熟",
+      "这篇文章投给杂志能不能被采用",
+      "我准备发行的作品今年能不能顺利上线",
+      "孩子申请转到另一所学校能不能成功",
+      "我报名的这个培训班能不能顺利结业",
+      "下个月驾照路考我能不能一次过",
+      "这个科研申请今年有没有机会获批"
+    ],
+    "route_unresolved": [
+      "眼前这件事最终到底行不行",
+      "我现在这么处理是不是最合适",
+      "对方最后究竟会不会答应",
+      "这件事情还要不要继续做下去",
+      "年底以前能不能有个明确结果",
+      "我这样坚持下去还有没有意义",
+      "最后是不是会比现在好一点",
+      "接下来整体状况会不会改善",
+      "这笔钱到时候能不能进来",
+      "最终到底能不能赚到一些",
+      "后面价格还有没有可能继续涨",
+      "大概要再等多久才能拿到",
+      "我们两个人以后关系会怎么走",
+      "他接下来会不会改变决定",
+      "现在是不是应该先退出",
+      "我继续保持现在这样好不好",
+      "这个月底之前会不会有结果",
+      "最后有没有机会拿下来",
+      "我这样选是不是会后悔",
+      "之后还能不能继续推进",
+      "明年是不是能多拿一些",
+      "这次申请最后能不能批下来"
+    ]
+  }
+}
