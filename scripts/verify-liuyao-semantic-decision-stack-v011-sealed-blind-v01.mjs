@@ -1,3 +1,4 @@
+import './verify-liuyao-semantic-decision-stack-v011-sealed-blind-runtime-v01.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
