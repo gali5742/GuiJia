@@ -63,7 +63,7 @@ function makeResult(gans = ['丁','壬','丁','己'], zhis = ['丑','子','亥',
         title:['年柱','月柱','日柱','时柱'][index],
         gan,
         zhi:zhis[index],
-        ganZhi:gan + zhi,
+        ganZhi:gan + zhis[index],
         shishenGan:index === 2 ? '日主' : bazi.shiShenMap[dayGan][gan],
         cangGan:bazi.cangGanMap[zhis[index]].map(([hiddenGan, level]) => ({
             gan:hiddenGan,
