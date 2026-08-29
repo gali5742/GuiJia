@@ -231,5 +231,24 @@ test('岁运复制上下文分区平级，并将同干主题与结构事实分�
     assert(text.includes('\n\n结构证据：'), '结构证据标题未与上一 bullet 平级分隔');
 });
 
+
+test('原局完整结构与地支组合文案只描述实际存在关系', () => {
+    const output = baziInterpretation.buildBaziInterpretation(makeResult());
+    const complete = output.judgments.find((item) => item.id === 'complete-structure');
+    assert(complete?.summary.includes('完整三会结构'), `三会结构未按实际类型描述：${complete?.summary}`);
+    assert(!complete?.summary.includes('完整三刑'), `当前盘不存在三刑却进入解释：${complete?.summary}`);
+    const branch = output.judgments.find((item) => item.id === 'branch-network');
+    assert(branch?.title === '地支关系与组合交织', `关系与半合组合未使用统一标题：${branch?.title}`);
+    assert(branch?.summary.includes('六合') && branch.summary.includes('六破') && branch.summary.includes('半合金'), `地支正文未覆盖实际关系与组合：${branch?.summary}`);
+    assert(output.headline.includes('地支关系与组合交织'), `总括仍退回不完整的合破标题：${output.headline}`);
+});
+
+test('岁运上下文把原局关系底表提升为独立区块', () => {
+    const result = makeResult();
+    const interpretation = baziInterpretation.buildBaziInterpretation(result);
+    const text = baziTransitAnalysis.buildBaziTransitContextText(result, interpretation, {});
+    assert(text.includes('\n\n原局关系：\n- '), '原局关系仍附着在最后一条编号解释下');
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);
