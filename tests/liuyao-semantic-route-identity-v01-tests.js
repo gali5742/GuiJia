@@ -13,5 +13,7 @@ t('RI9 普通申请审批不得建立借款 route',()=>eq(api.evaluate('borrow_m
 t('RI10 明确贷款申请建立借款 route',()=>eq(api.evaluate('borrow_money','我向银行申请的经营贷这周能不能批下来').passed,true));
 t('RI11 丢失手表不得伪装成 receive_item',()=>eq(api.evaluate('receive_item','那只丢失的手表还能不能找到').passed,false));
 t('RI12 有边界商业订单即使只是陈述也能建立交易 route',()=>eq(api.evaluate('commercial_transaction','客户这笔订单目前还在谈价格条件').passed,true));
-t('RI13 Route Identity 只返回现代 route/evidence',()=>{const r=api.evaluate('income_salary','明年基本工资能不能提高');eq(r.passed,true);if(/妻财|官鬼|世爻|应爻|用神/.test(JSON.stringify(r)))throw new Error('traditional leakage');});
+t('RI13 提前偿还消费贷的陈述仍能建立还债 route',()=>eq(api.evaluate('debt_repayment','我打算提前偿还剩下的消费贷').passed,true));
+t('RI14 持仓减掉一部分的陈述仍能建立仓位决策 route',()=>eq(api.evaluate('investment_position_decision','我正在考虑把现在的持仓减掉一部分').passed,true));
+t('RI15 Route Identity 只返回现代 route/evidence',()=>{const r=api.evaluate('income_salary','明年基本工资能不能提高');eq(r.passed,true);if(/妻财|官鬼|世爻|应爻|用神/.test(JSON.stringify(r)))throw new Error('traditional leakage');});
 console.log(`\nRoute Identity Contract v0.1: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
