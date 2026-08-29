@@ -13,7 +13,7 @@
 <div class="wrap">
   <section class="card">
     <h1>龟甲 · SemanticSlot Provider v0.1</h1>
-    <p class="muted">这一页只测试现代语义 slot 的来源与合并。它不调用 BGE Router，不判断六亲/世应，也不把当前显式 fixture extractor 当正式 NLP。</p>
+    <p class="muted">这一页只测试现代语义 slot 的来源与合并。现在同时加载高精度 Object / Entity Resolver；它不调用 BGE Router，不判断六亲/世应，也不把当前显式 fixture extractor 当正式 NLP。</p>
   </section>
 
   <section class="card">
@@ -39,7 +39,7 @@
         <div class="muted">例：[{"id":"specific_counterpart","value":"前文：新认识的男生","confidence":0.98}]</div>
       </div>
       <div>
-        <label for="mlSlots">未来 ML/Object Provider 模拟输入（JSON 数组）</label>
+        <label for="mlSlots">未来 ML Provider 模拟输入（JSON 数组）</label>
         <textarea id="mlSlots">[]</textarea>
         <div class="muted">例：[{"id":"purchase_object","value":"这台电脑","confidence":0.91,"modelId":"fixture"}]</div>
       </div>
@@ -66,7 +66,7 @@
 
   <section class="card">
     <h2>3. Slot Provider 审计</h2>
-    <p class="muted">`interface_only` 表示数据合同和接入口已经存在，但目前没有训练新的 ML/Object Resolver。当前 route 本身不会被拿来自动制造 required slot。</p>
+    <p class="muted">对象型 slot 目前采用高精度 Object / Entity Resolver；`implemented_high_precision` 表示已经有保守 Provider，但不承诺覆盖所有公司名、商品名和复杂实体表达。ML 接口仍保留作为后续补充。</p>
     <div style="overflow:auto;max-height:640px">
       <table>
         <thead><tr><th>Slot</th><th>主 Provider</th><th>当前</th><th>Fallback</th><th>说明</th></tr></thead>
@@ -79,6 +79,7 @@
 <script src="js/liuyao-participant-resolver.js"></script>
 <script src="js/liuyao-semantic-sufficiency.js"></script>
 <script src="js/liuyao-semantic-slot-provider.js"></script>
+<script src="js/liuyao-object-entity-resolver.js"></script>
 <script>
 (() => {
   const provider = window.GuiJia?.liuyaoSemanticSlotProvider;
@@ -121,7 +122,7 @@
       const sr = result.slotResolution;
       $('runs').textContent = JSON.stringify(sr.providerRuns, null, 2);
       $('resolved').textContent = JSON.stringify(sr.resolvedSlots, null, 2);
-      $('claims').textContent = JSON.stringify({ claims:sr.claims, ignoredClaims:sr.ignoredClaims, superseded:sr.superseded }, null, 2);
+      $('claims').textContent = JSON.stringify({ claims:sr.claims, ignoredClaims:sr.ignoredClaims, superseded:sr.superseded, objectCandidates:sr.objectCandidates || [] }, null, 2);
       $('missing').textContent = JSON.stringify({ status:result.status, missing:result.missing, conflicts:sr.conflicts }, null, 2);
       const summary = $('summary');
       summary.textContent = result.status === 'sufficient' ? 'sufficient' : result.status;
@@ -138,8 +139,8 @@
       route.value = 'relationship_development'; $('question').value = '我们有机会吗'; $('useIntent').checked = false;
       $('contextSlots').value = '[{"id":"specific_counterpart","value":"前文：新认识的男生","evidence":"上一句","confidence":0.98}]'; $('mlSlots').value = '[]';
     } else if (type === 'purchase') {
-      route.value = 'item_purchase'; $('question').value = '这个值得买吗'; $('useIntent').checked = true;
-      $('contextSlots').value = '[]'; $('mlSlots').value = '[{"id":"purchase_object","value":"这台电脑","confidence":0.91,"modelId":"future-object-head"}]';
+      route.value = 'item_purchase'; $('question').value = '这台电脑值不值得买'; $('useIntent').checked = true;
+      $('contextSlots').value = '[]'; $('mlSlots').value = '[]';
     } else {
       route.value = 'investment_price_trend'; $('question').value = '后面会不会涨'; $('useIntent').checked = false;
       $('contextSlots').value = '[{"id":"investment_target","value":"股票B","confidence":0.99}]';
