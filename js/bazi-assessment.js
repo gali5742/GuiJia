@@ -11,6 +11,9 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootEffectState) {
         document.write('<script src="./js/bazi-root-effect-state.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootSixRelations) {
+        document.write('<script src="./js/bazi-root-six-relations.js?v=13.44.0"><\/script>');
+    }
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
@@ -44,7 +47,9 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-012', scope:'global', statement:'Sufficiency 不得依据证据数量、方向数量或 actor 数量决定，必须依据明确规则覆盖与必要依赖是否满足。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-013', scope:'global', statement:'Synthesis 的 insufficient 只表示尚不足以执行最终判断，不得直接转换为 strong、weak、balanced 或 indeterminate。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-014', scope:'global', statement:'月令季节作为独立一级判断轴，不得被改写为固定倍数、分值、一票否决或绝对优先于其他判断轴的规则。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-015', scope:'global', statement:'根所在支命中冲、合、刑、害、破或组合结构，只表示进入交互观察；在没有独立效力规则时不得自动写成根受扰、削弱、失效或根拔。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-015', scope:'global', statement:'根所在支命中冲、合、刑、害、破或组合结构，只表示进入交互观察；在没有独立效力规则时不得自动写成根受扰、削弱、失效或根拔。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-016', scope:'global', statement:'根所在支参与六冲时，不得仅凭“冲”决定根拔、受伤或发动；至少须先比较冲双方相对旺衰与有力程度，并保留扶助、制化、解救等未解析条件。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-017', scope:'global', statement:'根所在支参与六合时，六合关系本身只证明相合；不得直接等同于根被合住、根更有效、根失效或成化。' })
         ])
     });
 
@@ -160,7 +165,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色与根有效状态合同；明干实际效力、根／藏支扶身 actor 的实际效力及支气汇总仍未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同及六冲／六合条件契约；六冲所需相对旺衰与扶助制化前提、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
