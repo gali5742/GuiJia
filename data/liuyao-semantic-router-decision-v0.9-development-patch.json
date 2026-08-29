@@ -4,6 +4,7 @@
   "base": "liuyao-semantic-router-decision-v0.9-development.json",
   "purpose": "Remove exact wording overlap discovered by CI before the v0.9 development experiment is run. This patch changes wording only and does not alter labels, splits, or routeability semantics.",
   "replacements": {
-    "我正在考虑买一台新的显示器": "我最近打算换一台新的显示器自用"
+    "我正在考虑买一台新的显示器": "我最近打算换一台新的显示器自用",
+    "我和丈夫最近一直在冷战": "最近我和丈夫总是互相不说话"
   }
 }
