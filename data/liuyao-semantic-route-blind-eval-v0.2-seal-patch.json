@@ -1,0 +1,10 @@
+{
+  "version": "0.2-seal-patch",
+  "status": "sealed",
+  "purpose": "Pre-run wording-only corrections made solely to eliminate exact string overlap with earlier train/validation/development corpora. Labels and category counts are unchanged; this patch must not be modified after Blind Eval v0.2 is first executed.",
+  "replacements": {
+    "这个网课值不值得学": "这个线上课程有没有学习价值",
+    "这场足球比赛谁会赢": "今晚那场足球赛哪一边更可能取胜",
+    "明天东京会不会下雨": "后天东京有没有可能下雨"
+  }
+}
