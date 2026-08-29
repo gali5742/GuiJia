@@ -109,7 +109,7 @@
             sourceRefs:Object.freeze(checkedRefs(item.sourceRefs, semanticModel)),
             statement:`${item.positionLabel || ''}${item.gan || ''}与日主构成“${item.relation || '未定'}”关系，记为${meta.label}的存在证据。`,
             boundary:'这里只确认作用方向候选，不判断该天干是否已经获得有效承载、通根或实际发挥多少力量。'
-        })))
+        }))
     );
 
     const buildRootEffects = (result = {}, semanticModel = {}) => {
@@ -141,7 +141,7 @@
             }),
             makePresenceEffect({
                 id:'FX-ROOT-SAME-ELEMENT', category:'sameElementRootPresence', actors:sameElementRoots, sourceRefs:['F04','D04'],
-                presentStatement:`地支藏干见与日主同五行的异干，形成同类得地的存在事实。`,
+                presentStatement:'地支藏干见与日主同五行的异干，形成同类得地的存在事实。',
                 absentStatement:'地支藏干未见日主同五行异干得地。'
             }),
             makePresenceEffect({
