@@ -304,4 +304,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootBaselineEffectiveness) {
         document.write('<script src="./js/bazi-root-baseline-effectiveness.js?v=13.44.0"><\\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziStemBearingEffect) {
+        document.write('<script src="./js/bazi-stem-bearing-effect.js?v=13.44.0"><\\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
