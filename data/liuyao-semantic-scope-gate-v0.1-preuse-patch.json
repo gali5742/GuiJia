@@ -1,0 +1,12 @@
+{
+  "version": "0.1-preuse-wording-patch",
+  "status": "development_preuse_patch",
+  "base": "liuyao-semantic-scope-gate-v0.1-development.json",
+  "purpose": "Remove exact wording overlaps discovered by CI before the Scope Gate v0.1 experiment is first run. Wording only; labels, splits, categories and scope semantics remain unchanged.",
+  "replacements": {
+    "我丢的钥匙还能不能找回来": "早上弄丢的钥匙这两天还能不能找到",
+    "昨天不见的钱包最后能不能找到": "前几天遗失的钱包还有机会寻回来吗",
+    "我提交的休假申请会不会被批准": "我递交的年假申请领导会不会同意",
+    "学校的奖学金申请能不能批准": "学校那份奖学金材料这轮能不能审核下来"
+  }
+}
