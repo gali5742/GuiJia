@@ -14,7 +14,8 @@ for (const file of [
     'js/liuyao-intent.js',
     'js/liuyao-participant-resolver.js',
     'js/liuyao-semantic-sufficiency.js',
-    'js/liuyao-semantic-slot-provider.js'
+    'js/liuyao-semantic-slot-provider.js',
+    'js/liuyao-semantic-slot-provider-v02.js'
 ]) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, file), 'utf8'), context, { filename:file });
 }
@@ -40,7 +41,7 @@ function test(name, fn) {
 }
 function resolvedIntent(event, semantics = {}, extras = {}) {
     return {
-        version:'0.1', rawQuestion:extras.rawQuestion || '', status:'resolved', goals:[{ type:'outcome' }],
+        version:'0.1', rawQuestion:extras.rawQuestion || '', status:'resolved', goals:[{ type:extras.goalType || 'outcome' }],
         event:{ type:event }, participants:extras.participants || [], confidence:extras.confidence ?? 0.92,
         ambiguities:[], semantics:{ ...semantics }, ...(extras.object ? { object:extras.object } : {})
     };
@@ -49,8 +50,8 @@ function hasSlot(result, id) {
     return result.resolvedSlots.some((slot) => slot.id === id);
 }
 
-test('SP1 Provider audit 覆盖全部 15 个 SemanticSlot', () => {
-    assert(provider.version === '0.1', `version ${provider.version} != 0.1`);
+test('SP1 Provider v0.2 audit 覆盖全部 SemanticSlot', () => {
+    assert(provider.version === '0.2', `version ${provider.version} != 0.2`);
     const schemaSlots = Object.keys(sufficiency.slotSchema).sort();
     const auditSlots = Object.keys(provider.providerAudit).sort();
     assert(JSON.stringify(schemaSlots) === JSON.stringify(auditSlots), 'providerAudit 必须与 slot schema 一一覆盖');
@@ -152,9 +153,10 @@ test('SP13 同值多来源应合并 supportingProviders，而不是制造冲突'
     assert(merged.conflicts.length === 0, '同值不应冲突');
 });
 
-test('SP14 provider 解析后的 specific_counterpart 可直接驱动 sufficiency', () => {
+test('SP14 provider 解析后的 specific_counterpart 可继续驱动 legacy slot sufficiency', () => {
     const result = provider.evaluateWithProviders({ routeId:'relationship_development', question:'我和这个女生以后有机会吗' });
     assert(result.status === 'sufficient', `实际 ${result.status}`);
+    assert(result.goalCheck === 'not_evaluated', '未显式传 Intent 时保持 legacy slot-only 兼容');
 });
 
 test('SP15 裸“我们有机会吗”没有上游 context 时保持 semantic_insufficient', () => {
@@ -179,7 +181,7 @@ test('SP17 item_purchase 只有 purchase_context 而无对象时仍不足', () =
     assert(result.missing.some((item) => item.slotId === 'purchase_object'), '应缺 purchase_object');
 });
 
-test('SP18 未来 object/ML provider 补齐购买对象后即可通过，不需改 requirement matrix', () => {
+test('SP18 object/ML provider 补齐购买对象后即可通过', () => {
     const intent = resolvedIntent('item_purchase', { purchaseGoal:'value' });
     const result = provider.evaluateWithProviders({
         routeId:'item_purchase', intent,
@@ -195,12 +197,53 @@ test('SP19 marital relationship 可由 spouse participant 提供 existing_marria
     assert(result.slotResolution.resolvedSlots.some((slot) => slot.id === 'existing_marriage_context'), '应存在 existing_marriage_context');
 });
 
-test('SP20 Provider 层不得出现传统六亲/世应字段', () => {
+test('SP20 commercial_transaction Intent 提供 transaction_context', () => {
+    const intent = resolvedIntent('transaction', { transactionPurpose:'commercial_trade' });
+    const result = provider.evaluateWithProviders({ routeId:'commercial_transaction', intent });
+    assert(result.status === 'sufficient', `实际 ${result.status}: ${JSON.stringify(result.missing)}`);
+    assert(hasSlot(result.slotResolution, 'transaction_context'), '应提供 transaction_context');
+});
+
+test('SP21 inventory purchase/sale 各自提供独立 context slot', () => {
+    const purchase = provider.evaluateWithProviders({ routeId:'inventory_purchase', intent:resolvedIntent('inventory_purchase') });
+    const sale = provider.evaluateWithProviders({ routeId:'inventory_sale', intent:resolvedIntent('inventory_sale') });
+    assert(purchase.status === 'sufficient' && hasSlot(purchase.slotResolution, 'inventory_purchase_context'), '进货应 sufficient');
+    assert(sale.status === 'sufficient' && hasSlot(sale.slotResolution, 'inventory_sale_context'), '出货应 sufficient');
+});
+
+test('SP22 lend/debt_collection 由资金方向事件提供不同 context slot', () => {
+    const lend = provider.evaluateWithProviders({ routeId:'lend_money', intent:resolvedIntent('lend_money') });
+    const collect = provider.evaluateWithProviders({ routeId:'debt_collection', intent:resolvedIntent('debt_collection') });
+    assert(lend.status === 'sufficient' && hasSlot(lend.slotResolution, 'lending_context'), 'lend_money 应有 lending_context');
+    assert(collect.status === 'sufficient' && hasSlot(collect.slotResolution, 'debt_collection_context'), 'debt_collection 应有 debt_collection_context');
+});
+
+test('SP23 partnership Intent 提供 partnership_context', () => {
+    const result = provider.evaluateWithProviders({ routeId:'partnership', intent:resolvedIntent('partnership') });
+    assert(result.status === 'sufficient', `实际 ${result.status}`);
+    assert(hasSlot(result.slotResolution, 'partnership_context'), '应提供 partnership_context');
+});
+
+test('SP24 liquidation goal/action 可补 position_context，但 unknown divination goal 仍阻断', () => {
+    const intent = resolvedIntent('investment', { investmentGoal:'liquidation' }, { goalType:'unknown' });
+    const result = provider.evaluateWithProviders({ routeId:'investment_liquidation', intent });
+    assert(hasSlot(result.slotResolution, 'position_context'), 'liquidation 应补 position_context');
+    assert(result.status === 'semantic_insufficient', `实际 ${result.status}`);
+    assert(result.reasonCode === 'missing_divination_goal', '应由 generic goal contract 阻断');
+});
+
+test('SP25 liquidation 明确 outcome goal 后可通过', () => {
+    const intent = resolvedIntent('investment', { investmentGoal:'liquidation' });
+    const result = provider.evaluateWithProviders({ routeId:'investment_liquidation', intent });
+    assert(result.status === 'sufficient', `实际 ${result.status}: ${JSON.stringify(result.missing)}`);
+});
+
+test('SP26 Provider 层不得出现传统六亲/世应字段', () => {
     const serialized = JSON.stringify({ audit:provider.providerAudit, result:provider.resolveSemanticSlots({ routeId:'financial_fortune', intent:resolvedIntent('financial_fortune', { fortuneScope:'short_or_bounded_fortune' }) }) });
     for (const forbidden of ['妻财','官鬼','父母','兄弟','子孙','世爻','应爻']) {
         assert(!serialized.includes(forbidden), `provider 层不得泄漏 ${forbidden}`);
     }
 });
 
-console.log(`\nSemantic slot provider regression: ${passed} passed, ${failed} failed`);
+console.log(`\nSemantic slot provider regression v0.2: ${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);
