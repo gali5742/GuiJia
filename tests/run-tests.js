@@ -2680,8 +2680,10 @@ test('八字结构解读前台只描述命盘结构，后台限制仍保留给�
     ['需要同时观察', '不能只据', '不宜只取', '解释时应先看', '仍需结合'].forEach((phrase) => {
         assert(!visibleText.includes(phrase), `结构解读前台仍有方法说明式文案：${phrase}`);
     });
-    assert(Array.isArray(interpretation.limitations) && interpretation.limitations.length >= 1, '复制上下文所需后台边界被误删');
-    assert(source.includes("lines.push('', '【使用边界】')"), '复制分析上下文未保留使用边界');
+    assert(Array.isArray(interpretation.limitations) && interpretation.limitations.length >= 1, '解释对象内部边界被误删');
+    const contextText = baziInterpretation.buildBaziContextText(result, interpretation);
+    assert(contextText.includes('【Assessment｜作用与结论层】') && contextText.includes('不得自动升级为实际效力判断'), '复制分析上下文未在 Assessment 层保留全局边界');
+    assert(!contextText.includes('【使用边界】'), '复制分析上下文仍重复输出独立使用边界区');
 });
 
 
@@ -2829,7 +2831,10 @@ test('岁运复制上下文包含原局、大运、流年、流月与结构证�
     assert(text.includes('【当前流年】') && text.includes('流年：2026年 · 丙午 · 劫财'), '岁运上下文缺当前流年');
     assert(text.includes('【当前流月】') && text.includes('流月：七月 · 丙申 · 劫财'), '岁运上下文缺当前流月');
     assert(text.includes('结构证据：'), '岁运上下文缺结构证据');
+    assert(text.includes('解释提示：') && text.includes('结构事实：'), '岁运上下文未区分解释提示与结构事实');
     assert(text.includes('【使用要求】'), '岁运上下文缺使用要求');
+    assert(text.includes('仅在结构事实明确标记为补齐时说明结构补齐'), '岁运上下文未把补齐改为条件式措辞');
+    assert(!text.includes('延续、补齐、再次参与与新增关系'), '岁运上下文仍无条件要求寻找结构补齐');
     assert(!/BRANCH_|LAYER_|SAN_HE_|SAN_HUI_|PILLAR_/.test(text), `岁运复制上下文泄露机器关系码：${text.match(/BRANCH_|LAYER_|SAN_HE_|SAN_HUI_|PILLAR_/)?.[0] || ''}`);
 });
 
