@@ -1,0 +1,57 @@
+{
+  "version": "0.4-expansion-label-patch",
+  "status": "development",
+  "base": "liuyao-semantic-route-training-v0.4-expansion.json",
+  "purpose": "Correct the semantic label of expansion hard-negative rows that are negatives only for a targeted competing route but are themselves complete questions belonging to another supported 22-route class. Unmapped rows remain genuine __other__/underspecified negatives. This patch does not modify any frozen or sealed corpus.",
+  "train": {
+    "这家店今年整体经营能不能赚到钱": "business_operation",
+    "这次我买一台电脑自己用值不值得": "item_purchase",
+    "跟客户长期合作以后生意会不会越来越好": "business_operation",
+    "我和朋友合伙开的店今年利润怎么样": "partnership",
+    "这次客户已经成交了，后面的经营利润会好吗": "business_operation",
+
+    "我自己买这个咖啡机放家里用合适吗": "item_purchase",
+    "供应商已经发出的补货什么时候能收到": "receive_item",
+    "店里这批库存什么时候能够卖完": "inventory_sale",
+    "我跟供应商谈的这笔交易能不能成交": "commercial_transaction",
+    "这家门店未来半年经营能不能盈利": "business_operation",
+
+    "这笔商业交易能不能顺利成交": "commercial_transaction",
+    "店铺今年整体销售和经营会不会赚钱": "business_operation",
+
+    "我向朋友借一笔钱能不能借到": "borrow_money",
+    "我之前借给朋友的钱什么时候能要回来": "debt_collection",
+    "银行会不会批准我申请的这笔贷款": "borrow_money",
+    "我今年能不能把欠朋友的钱全部还清": "debt_repayment",
+
+    "我今年能不能把自己欠的贷款全部还完": "debt_repayment",
+    "我现在向银行申请借款能不能获批": "borrow_money",
+    "朋友找我借钱我该不该借给他": "lend_money",
+    "我自己的信用卡债什么时候能还清": "debt_repayment",
+
+    "我自己一个人开的店后面能不能赚钱": "business_operation",
+    "我和客户谈的这一单能不能成交": "commercial_transaction",
+    "朋友只是借钱给我开店，店以后能赚钱吗": "business_operation",
+    "我准备投资这个项目但没有合伙人，能盈利吗": "investment_profit",
+    "我跟朋友合买一台电脑自己用合适吗": "item_purchase",
+
+    "这只股票现在应该卖掉还是继续持有": "investment_position_decision",
+    "这只股票下周还会不会继续上涨": "investment_price_trend",
+    "我买这只基金最终能不能赚到钱": "investment_profit",
+    "这只股票现在适不适合继续投资": "investment_suitability"
+  },
+  "validation": {
+    "这门生意未来几个月经营利润怎么样": "business_operation",
+    "我买这个设备自己使用划不划算": "item_purchase",
+    "这批现有库存月底前能不能卖出去": "inventory_sale",
+    "供应商已经把我采购的货发出了什么时候到": "receive_item",
+    "我向同事借钱这次能不能借到": "borrow_money",
+    "以前借给同事的钱现在能不能收回来": "debt_collection",
+    "我欠银行的贷款年底前能不能结清": "debt_repayment",
+    "朋友向我借钱我现在借给他合适吗": "lend_money",
+    "我独自经营这个工作室今年能盈利吗": "business_operation",
+    "我和供应商这笔订单最后能不能成交": "commercial_transaction",
+    "这只股票我是继续拿还是卖掉比较好": "investment_position_decision",
+    "我已经卖完股票了，接下来价格会不会涨": "investment_price_trend"
+  }
+}
