@@ -85,6 +85,15 @@ if (mode === 'deployed') {
   for (const expected of liuyaoRouterV081Requirements) {
     if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao semantic router v0.8.1 file: ${expected}`);
   }
+  const liuyaoRouterCandidateEvalRequirements = [
+    'semantic-router-candidate-eval-v01.html',
+    'js/liuyao-semantic-router-candidate-eval-v01.js',
+    'data/liuyao-semantic-router-candidate-eval-v0.1.json',
+    'js/liuyao-semantic-sufficiency.js'
+  ];
+  for (const expected of liuyaoRouterCandidateEvalRequirements) {
+    if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao fresh candidate eval file: ${expected}`);
+  }
   if (!fs.existsSync(path.join(target, 'vendor-lock.json'))) fail('Deployed artifact missing vendor-lock.json');
 } else {
   const approvedRemoteScripts = new Set([
