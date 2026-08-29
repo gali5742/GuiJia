@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲本地语义路由 PoC v0.4：冻结 BGE encoder，二分类 Known/Other Gate 加 15 类 Multinomial Logistic Regression。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲｜本地语义路由 PoC v0.4</title>
+  <style>
+    :root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{margin:0;background:#f4f2ed;color:#282621}main{max-width:1180px;margin:0 auto;padding:28px 18px 54px}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 10px;font-size:17px}.sub,.small{color:#68645d;line-height:1.7}.small{font-size:12px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}button,input{font:inherit}button{border:0;border-radius:9px;padding:10px 16px;background:#38352f;color:#fff;cursor:pointer}button.secondary{background:#ece9e2;color:#38352f}button:disabled{opacity:.5;cursor:not-allowed}textarea{width:100%;min-height:88px;box-sizing:border-box;border:1px solid #cfcac0;border-radius:10px;padding:12px;font:inherit;resize:vertical}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:860px){.grid{grid-template-columns:1fr}}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}pre{white-space:pre-wrap;word-break:break-word;background:#f7f6f2;border-radius:10px;padding:12px;overflow:auto;font-size:12px;line-height:1.55}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #ebe7df;padding:8px 7px;text-align:left;vertical-align:top}th{color:#666158;font-weight:600}td.num,th.num{text-align:right;white-space:nowrap}.threshold label{display:flex;align-items:center;gap:6px}.threshold input{width:78px;padding:6px 7px;border:1px solid #cfcac0;border-radius:8px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chips button{padding:7px 10px;font-size:12px}code{background:#eeeae2;padding:1px 5px;border-radius:5px}
+  </style>
+</head>
+<body><main>
+  <h1>龟甲 · 本地语义路由 PoC v0.4</h1>
+  <p class="sub">继续冻结约 24MB 的 <code>bge-small-zh-v1.5 q8</code>。这版把 v0.3 的“15 个分类头顺便兼任 OOD 判断”拆成两个监督任务：先用 Binary Known/Other Gate 判断当前 15 类 PoC 是否覆盖，再由 15-class Multinomial Logistic Regression 判断具体现代语义 route。冻结 Eval v0.1 的 125 条仍不参与训练或阈值选择。</p>
+
+  <section class="card">
+    <h2>1. 加载 BGE</h2>
+    <div class="row"><button id="loadModel">加载本地模型</button><span id="modelStatus" class="status warn">尚未加载</span></div>
+    <div class="progress"><div id="modelProgress"></div></div><pre id="modelText">模型：Xenova/bge-small-zh-v1.5 · q8</pre>
+  </section>
+
+  <section class="card">
+    <h2>2. 训练 Gate + Route classifier</h2>
+    <p class="small">当前合并训练集为 25 条 positive / route，validation 为 8 条 positive / route；另外加入针对“通过 / 涨 / 值不值得 / 到达 / 和好”等近邻表达的 hard negatives。所有向量与线性权重均只在本浏览器内生成。</p>
+    <div class="row"><button id="train" disabled>训练 v0.4</button><span id="trainStatus" class="status">—</span></div>
+    <div class="progress"><div id="trainProgress"></div></div><pre id="trainText">—</pre>
+    <div class="grid" style="margin-top:12px">
+      <article class="card metric"><span>Gate Known recall</span><strong id="valGateKnown">—</strong></article>
+      <article class="card metric"><span>Gate Other rejection</span><strong id="valGateOther">—</strong></article>
+      <article class="card metric"><span>Route Top-1 accuracy（known）</span><strong id="valRouteTop1">—</strong></article>
+      <article class="card metric"><span>Final Known coverage</span><strong id="valCoverage">—</strong></article>
+      <article class="card metric"><span>Final accepted accuracy</span><strong id="valAccepted">—</strong></article>
+      <article class="card metric"><span>Final false activation</span><strong id="valFalse">—</strong></article>
+      <article class="card metric"><span>自动 Gate 阈值</span><strong id="valGateThreshold">—</strong></article>
+      <article class="card metric"><span>自动 Route margin</span><strong id="valRouteMargin">—</strong></article>
+      <article class="card metric"><span>Validation 样本数</span><strong id="valCount">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. 单句测试</h2>
+    <textarea id="question">这只股票现在跌了，下周会不会重新涨</textarea>
+    <div class="row threshold">
+      <label>Gate ≥ <input id="minGate" type="number" min="0" max="1" step="0.01" value="0.50"></label>
+      <label>Route margin ≥ <input id="minRouteMargin" type="number" min="0" max="1" step="0.01" value="0.05"></label>
+      <button id="classify" disabled>本地分类</button><span id="classifyStatus" class="status">—</span>
+    </div>
+    <div class="chips" id="samples" style="margin-top:12px"></div><pre id="singleResult">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>4. 冻结 Eval v0.1（125 条）</h2>
+    <p class="small">这 125 条继续完全冻结。不要根据这一栏结果手工调阈值；阈值只允许由独立 validation 选择。重点仍是 Known coverage、accepted accuracy、Other rejection 与 false activation。</p>
+    <div class="row"><button id="runEval" disabled>运行整套 Eval</button><span id="evalStatus" class="status">—</span></div>
+    <div class="progress"><div id="evalProgress"></div></div>
+    <div class="grid" style="margin-top:12px">
+      <article class="card metric"><span>总样本准确率</span><strong id="metricExact">—</strong></article>
+      <article class="card metric"><span>已知类覆盖率</span><strong id="metricCoverage">—</strong></article>
+      <article class="card metric"><span>已接受样本准确率</span><strong id="metricAccepted">—</strong></article>
+      <article class="card metric"><span>Other 拒绝率</span><strong id="metricOther">—</strong></article>
+      <article class="card metric"><span>False rule activation</span><strong id="metricFalse">—</strong></article>
+      <article class="card metric"><span>Route Top-1 accuracy</span><strong id="metricRouteTop1">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card"><h2>错误 / 拒绝样本</h2><div style="overflow:auto"><table><thead><tr><th>问题</th><th>Expected</th><th>Predicted</th><th class="num">Gate</th><th>Route Top1</th><th>Route Top2</th><th class="num">Margin</th><th>Reason</th></tr></thead><tbody id="errorRows"><tr><td colspan="8">尚未运行 Eval。</td></tr></tbody></table></div></section>
+</main>
+<script type="module">
+import { semanticRouterPocV04 as poc } from './js/liuyao-semantic-router-poc-v04.js?v=poc0.4';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const setStatus=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const currentThresholds=()=>({minGateProbability:Number($('minGate').value),minRouteMargin:Number($('minRouteMargin').value)});
+['这只股票跌了这么久，下星期能不能掉头向上','这只股票以后能不能让我赚钱','这本书值不值得看','明天考试能不能通过','我和她以后有没有可能在一起','我和她最后能不能结婚','我和老婆最近还能不能和好'].forEach((text)=>{const b=document.createElement('button');b.className='secondary';b.textContent=text;b.onclick=()=>{$('question').value=text;};$('samples').appendChild(b);});
+
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;setStatus('modelStatus','加载中…','warn');try{await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('modelProgress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('modelText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('modelProgress').style.width='100%';setStatus('modelStatus','BGE 已就绪','ok');$('modelText').textContent=`${poc.modelId} · ${poc.modelDtype} · encoder frozen`;$('train').disabled=false;}catch(e){setStatus('modelStatus','加载失败','bad');$('modelText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
+
+$('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;$('runEval').disabled=true;setStatus('trainStatus','准备训练…','warn');$('trainProgress').style.width='0%';try{const result=await poc.train({onStage:(stage,text)=>{setStatus('trainStatus',text,stage==='done'?'ok':'warn');$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('trainProgress').style.width=`${total?done/total*75:0}%`;$('trainText').textContent=`embedding ${done}/${total}`;}});$('trainProgress').style.width='100%';const m=result.validationMetrics;$('valGateKnown').textContent=pct(m.gateKnownRecall);$('valGateOther').textContent=pct(m.gateOtherRejectionRate);$('valRouteTop1').textContent=pct(m.routeKnownTop1Accuracy);$('valCoverage').textContent=pct(m.knownCoverage);$('valAccepted').textContent=pct(m.acceptedKnownAccuracy);$('valFalse').textContent=pct(m.falseActivationRate);$('valGateThreshold').textContent=result.thresholds.minGateProbability.toFixed(3);$('valRouteMargin').textContent=result.thresholds.minRouteMargin.toFixed(3);$('valCount').textContent=String(result.validationCount);$('minGate').value=result.thresholds.minGateProbability.toFixed(3);$('minRouteMargin').value=result.thresholds.minRouteMargin.toFixed(3);$('trainText').textContent=`train=${result.trainCount} (known ${result.trainPositiveCount} / other ${result.trainOtherCount}) · validation=${result.validationCount} (known ${result.validationPositiveCount} / other ${result.validationOtherCount}) · routes=${result.routeCount} · strict calibration=${result.strictCalibration}`;$('classify').disabled=false;$('runEval').disabled=false;}catch(e){setStatus('trainStatus','训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
+
+$('classify').onclick=async()=>{const text=$('question').value.trim();if(!text)return;$('classify').disabled=true;setStatus('classifyStatus','计算中…','warn');try{const r=await poc.classify(text,currentThresholds());const reason=!r.gatePassed?'gate_rejected':(!r.routePassed?'route_ambiguous':'accepted');setStatus('classifyStatus',r.accepted?`接受：${r.predicted}`:`拒绝：__other__ · ${reason}`,r.accepted?'ok':'warn');$('singleResult').textContent=JSON.stringify({question:text,predicted:r.predicted,accepted:r.accepted,knownProbability:r.knownProbability,gatePassed:r.gatePassed,routePassed:r.routePassed,top1:r.top1,top2:r.top2,routeMargin:r.routeMargin,thresholds:r.thresholds,top5:r.scores.slice(0,5)},null,2);}catch(e){setStatus('classifyStatus','失败','bad');$('singleResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
+
+$('runEval').onclick=async()=>{$('runEval').disabled=true;setStatus('evalStatus','运行中…','warn');$('evalProgress').style.width='0%';try{const ev=await poc.runEvaluation({customThresholds:currentThresholds(),onProgress:(done,total)=>{$('evalProgress').style.width=`${done/total*100}%`;setStatus('evalStatus',`运行中 ${done}/${total}`,'warn');}});const m=ev.metrics;$('metricExact').textContent=pct(m.exactAccuracy);$('metricCoverage').textContent=pct(m.knownCoverage);$('metricAccepted').textContent=pct(m.acceptedKnownAccuracy);$('metricOther').textContent=pct(m.otherRejectionRate);$('metricFalse').textContent=pct(m.falseActivationRate);$('metricRouteTop1').textContent=pct(m.routeKnownTop1Accuracy);setStatus('evalStatus','Eval 完成','ok');$('evalProgress').style.width='100%';const issues=ev.results.filter((r)=>!r.correct||!r.accepted).sort((a,b)=>Number(a.correct)-Number(b.correct)||b.knownProbability-a.knownProbability);$('errorRows').innerHTML='';if(!issues.length){$('errorRows').innerHTML='<tr><td colspan="8">没有错误或拒绝样本。</td></tr>';}else{for(const r of issues){const reason=r.accepted?'misclassified':(!r.gatePassed?'gate_rejected':'route_ambiguous');const values=[r.text,r.label,r.predicted,f(r.knownProbability),`${r.top1.id} ${f(r.top1.score)}`,`${r.top2.id} ${f(r.top2.score)}`,f(r.routeMargin),reason];const tr=document.createElement('tr');values.forEach((value,index)=>{const td=document.createElement('td');td.textContent=value;if(index===3||index===6)td.className='num';tr.appendChild(td);});$('errorRows').appendChild(tr);}}}catch(e){setStatus('evalStatus','Eval 失败','bad');$('errorRows').innerHTML='<tr><td colspan="8"></td></tr>';$('errorRows').firstElementChild.firstElementChild.textContent=e?.stack||String(e);}finally{$('runEval').disabled=false;}};
+</script></body></html>
