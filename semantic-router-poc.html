@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲本地语义路由 PoC：浏览器内运行 BGE-small-zh-v1.5，不接入正式 Rule Registry">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲｜本地语义路由 PoC</title>
+  <style>
+    :root { color-scheme: light; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+    body { margin:0; background:#f4f2ed; color:#282621; }
+    main { max-width:1120px; margin:0 auto; padding:28px 18px 54px; }
+    h1 { margin:0 0 6px; font-size:26px; }
+    h2 { margin:0 0 10px; font-size:17px; }
+    .sub { margin:0 0 20px; color:#68645d; line-height:1.7; }
+    .card { background:#fff; border:1px solid #dedbd3; border-radius:14px; padding:18px; margin:14px 0; box-shadow:0 5px 18px rgba(50,45,35,.05); }
+    textarea { width:100%; min-height:90px; box-sizing:border-box; border:1px solid #cfcac0; border-radius:10px; padding:12px; font:inherit; resize:vertical; }
+    button,input { font:inherit; }
+    button { border:0; border-radius:9px; padding:10px 16px; background:#38352f; color:#fff; cursor:pointer; }
+    button.secondary { background:#ece9e2; color:#38352f; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
+    .status { display:inline-flex; align-items:center; border-radius:999px; padding:5px 10px; font-size:12px; line-height:1.45; background:#eeece6; }
+    .ok { background:#e8f3e9; color:#285b31; }
+    .warn { background:#fff2d9; color:#7a5315; }
+    .bad { background:#f9e4e4; color:#7e2d2d; }
+    .progress { width:100%; height:8px; border-radius:999px; background:#ece9e2; overflow:hidden; margin-top:12px; }
+    .progress > div { height:100%; width:0; background:#6a665d; transition:width .15s linear; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    @media(max-width:860px){ .grid{grid-template-columns:1fr;} }
+    .metric strong { display:block; font-size:24px; margin-top:5px; }
+    .metric span { color:#777168; font-size:12px; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#f7f6f2; border-radius:10px; padding:12px; overflow:auto; font-size:12px; line-height:1.55; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th,td { border-bottom:1px solid #ebe7df; padding:8px 7px; text-align:left; vertical-align:top; }
+    th { color:#666158; font-weight:600; }
+    td.num,th.num { text-align:right; white-space:nowrap; }
+    .small { color:#6f6a62; font-size:12px; line-height:1.6; }
+    .threshold label { display:flex; align-items:center; gap:6px; }
+    .threshold input { width:78px; padding:6px 7px; border:1px solid #cfcac0; border-radius:8px; }
+    code { background:#eeeae2; padding:1px 5px; border-radius:5px; }
+    .chips { display:flex; flex-wrap:wrap; gap:7px; }
+    .chips button { padding:7px 10px; font-size:12px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>龟甲 · 本地语义路由 PoC</h1>
+  <p class="sub">实验目标只有一个：验证约 24MB 的 <code>bge-small-zh-v1.5 q8</code> 能否在浏览器本地把不同自然语言表述聚到正确的现代语义路由。当前页面<strong>不接入正式 DivinationIntent / Rule Registry</strong>，也不会上传占问文本。</p>
+
+  <section class="card">
+    <h2>1. 准备本地模型</h2>
+    <p class="small">首次运行需要从 Hugging Face 下载模型权重与 tokenizer；Transformers.js 会使用浏览器缓存，后续一般无需重复下载。为兼容手机，本 PoC 默认走 WASM，不要求 WebGPU。</p>
+    <div class="row">
+      <button id="loadModel">加载本地模型</button>
+      <span id="modelStatus" class="status warn">尚未加载</span>
+    </div>
+    <div class="progress" aria-hidden="true"><div id="modelProgress"></div></div>
+    <pre id="progressText">模型：Xenova/bge-small-zh-v1.5 · dtype=q8</pre>
+  </section>
+
+  <section class="card">
+    <h2>2. 单句测试</h2>
+    <textarea id="question">这只股票现在跌了，下周会不会重新涨</textarea>
+    <div class="row threshold">
+      <label>最低相似度 <input id="minSimilarity" type="number" min="0" max="1" step="0.005" value="0.550"></label>
+      <label>最低 Top1-Top2 间隔 <input id="minMargin" type="number" min="0" max="1" step="0.005" value="0.025"></label>
+      <button id="classify" disabled>本地分类</button>
+      <span id="classifyStatus" class="status"></span>
+    </div>
+    <div class="chips" id="samples" style="margin-top:12px"></div>
+    <pre id="singleResult">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>3. 固定 Eval</h2>
+    <p class="small">Eval 含已登记语义类和一组未覆盖问题。当前使用 prototype centroid，不训练分类器。这里最重要的指标不是单纯 accuracy，而是 <strong>false rule activation</strong>：未覆盖问题被错误吸入已知类别的比例。</p>
+    <div class="row">
+      <button id="runEval" disabled>运行整套 Eval</button>
+      <span id="evalStatus" class="status"></span>
+    </div>
+    <div class="progress" aria-hidden="true"><div id="evalProgress"></div></div>
+    <div class="grid" style="margin-top:12px">
+      <article class="card metric"><span>总样本准确率</span><strong id="metricExact">—</strong></article>
+      <article class="card metric"><span>已知类覆盖率</span><strong id="metricCoverage">—</strong></article>
+      <article class="card metric"><span>已接受样本准确率</span><strong id="metricAccepted">—</strong></article>
+      <article class="card metric"><span>Unknown 拒绝率</span><strong id="metricUnknown">—</strong></article>
+      <article class="card metric"><span>False rule activation</span><strong id="metricFalse">—</strong></article>
+      <article class="card metric"><span>样本数</span><strong id="metricCount">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>错误 / 拒绝样本</h2>
+    <div style="overflow:auto">
+      <table>
+        <thead><tr><th>问题</th><th>Expected</th><th>Predicted</th><th class="num">Top1</th><th class="num">Margin</th></tr></thead>
+        <tbody id="errorRows"><tr><td colspan="5">尚未运行 Eval。</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>当前语义路由</h2>
+    <pre id="routeList">—</pre>
+  </section>
+</main>
+
+<script type="module">
+  import { semanticRouterPoc } from './js/liuyao-semantic-router-poc.js?v=poc0.1';
+
+  const $ = (id) => document.getElementById(id);
+  const pct = (value) => Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : '—';
+  const fixed = (value) => Number.isFinite(value) ? value.toFixed(4) : '—';
+  const thresholds = () => ({
+    minSimilarity:Number($('minSimilarity').value),
+    minMargin:Number($('minMargin').value)
+  });
+
+  $('routeList').textContent = semanticRouterPoc.routes.map((route) => `${route.id}\n  ${route.title}\n  prototypes: ${route.prototypes.join(' / ')}`).join('\n\n');
+
+  [
+    '这只股票现在跌了，下周会不会重新涨',
+    '跌成这样后面还能反弹吗',
+    '我是男生，我非常喜欢的这个女生会接受我吗',
+    '最近认识一个男生，我对他有好感，我们有机会吗',
+    '我上周新买了一台电脑，这周内能不能收到',
+    '今年能不能比去年赚得更多',
+    '明天东京会不会下雨'
+  ].forEach((text) => {
+    const button = document.createElement('button');
+    button.className = 'secondary';
+    button.type = 'button';
+    button.textContent = text;
+    button.addEventListener('click', () => { $('question').value = text; });
+    $('samples').appendChild(button);
+  });
+
+  const setModelStatus = (text, kind='warn') => {
+    $('modelStatus').textContent = text;
+    $('modelStatus').className = `status ${kind}`;
+  };
+
+  $('loadModel').addEventListener('click', async () => {
+    $('loadModel').disabled = true;
+    setModelStatus('正在准备…', 'warn');
+    $('progressText').textContent = '正在初始化 Transformers.js…';
+    try {
+      await semanticRouterPoc.loadModel((progress) => {
+        const percent = Number(progress?.progress);
+        if (Number.isFinite(percent)) $('modelProgress').style.width = `${Math.max(0, Math.min(100, percent))}%`;
+        const file = progress?.file || progress?.name || '';
+        const status = progress?.status || '';
+        $('progressText').textContent = [status, file, Number.isFinite(percent) ? `${percent.toFixed(1)}%` : ''].filter(Boolean).join(' · ');
+      });
+      $('modelProgress').style.width = '100%';
+      setModelStatus('模型与 route centroid 已就绪', 'ok');
+      $('progressText').textContent = `${semanticRouterPoc.modelId} · ${semanticRouterPoc.modelDtype} · 本地推理就绪`;
+      $('classify').disabled = false;
+      $('runEval').disabled = false;
+    } catch (error) {
+      setModelStatus('加载失败', 'bad');
+      $('progressText').textContent = error?.stack || String(error);
+      $('loadModel').disabled = false;
+    }
+  });
+
+  $('classify').addEventListener('click', async () => {
+    const question = $('question').value.trim();
+    if (!question) return;
+    $('classify').disabled = true;
+    $('classifyStatus').textContent = '计算中…';
+    $('classifyStatus').className = 'status warn';
+    try {
+      const result = await semanticRouterPoc.classify(question, thresholds());
+      $('classifyStatus').textContent = result.accepted ? `接受：${result.predicted}` : '拒绝：__unknown__';
+      $('classifyStatus').className = `status ${result.accepted ? 'ok' : 'warn'}`;
+      $('singleResult').textContent = JSON.stringify({
+        question,
+        predicted:result.predicted,
+        accepted:result.accepted,
+        top1:result.top1,
+        top2:result.top2,
+        margin:result.margin,
+        thresholds:{ minSimilarity:result.minSimilarity, minMargin:result.minMargin },
+        top5:result.scores.slice(0, 5)
+      }, null, 2);
+    } catch (error) {
+      $('classifyStatus').textContent = '分类失败';
+      $('classifyStatus').className = 'status bad';
+      $('singleResult').textContent = error?.stack || String(error);
+    } finally {
+      $('classify').disabled = false;
+    }
+  });
+
+  $('runEval').addEventListener('click', async () => {
+    $('runEval').disabled = true;
+    $('evalStatus').textContent = '运行中…';
+    $('evalStatus').className = 'status warn';
+    $('evalProgress').style.width = '0%';
+    try {
+      const evaluation = await semanticRouterPoc.runEvaluation({
+        ...thresholds(),
+        onProgress:(done, total) => {
+          $('evalProgress').style.width = `${(done / total) * 100}%`;
+          $('evalStatus').textContent = `运行中 ${done}/${total}`;
+        }
+      });
+      const m = evaluation.metrics;
+      $('metricExact').textContent = pct(m.exactAccuracy);
+      $('metricCoverage').textContent = pct(m.knownCoverage);
+      $('metricAccepted').textContent = pct(m.acceptedKnownAccuracy);
+      $('metricUnknown').textContent = pct(m.unknownRejectionRate);
+      $('metricFalse').textContent = pct(m.falseRuleActivationRate);
+      $('metricCount').textContent = String(m.total);
+      $('evalStatus').textContent = 'Eval 完成';
+      $('evalStatus').className = 'status ok';
+      $('evalProgress').style.width = '100%';
+
+      const issues = evaluation.results
+        .filter((row) => !row.correct || !row.accepted)
+        .sort((a, b) => Number(a.correct) - Number(b.correct) || a.margin - b.margin);
+      $('errorRows').innerHTML = '';
+      if (!issues.length) {
+        $('errorRows').innerHTML = '<tr><td colspan="5">没有错误或拒绝样本。</td></tr>';
+      } else {
+        issues.forEach((row) => {
+          const tr = document.createElement('tr');
+          [row.text, row.expected, row.predicted].forEach((value) => {
+            const td = document.createElement('td'); td.textContent = value; tr.appendChild(td);
+          });
+          const score = document.createElement('td'); score.className = 'num'; score.textContent = fixed(row.top1?.score); tr.appendChild(score);
+          const margin = document.createElement('td'); margin.className = 'num'; margin.textContent = fixed(row.margin); tr.appendChild(margin);
+          $('errorRows').appendChild(tr);
+        });
+      }
+    } catch (error) {
+      $('evalStatus').textContent = 'Eval 失败';
+      $('evalStatus').className = 'status bad';
+      $('errorRows').innerHTML = `<tr><td colspan="5"></td></tr>`;
+      $('errorRows').firstElementChild.firstElementChild.textContent = error?.stack || String(error);
+    } finally {
+      $('runEval').disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
