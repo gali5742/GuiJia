@@ -1,0 +1,11 @@
+{
+  "version": "0.10-preuse-wording-patch",
+  "status": "development_preuse_patch",
+  "base": "liuyao-semantic-decision-stack-v0.10-development.json",
+  "purpose": "Wording-only isolation corrections applied before the first v0.10 Development run. Labels, splits, responsibilities, and counts are unchanged.",
+  "replacements": {
+    "我和这个男生以后能不能发展成恋人": "我和眼前这个男生之后有没有可能正式成为恋人",
+    "我和现在这个对象明年有没有机会结婚": "我跟目前交往的对象明年有没有可能正式结婚",
+    "这门婚事今年能不能顺利定下来": "眼下谈的这桩婚事今年能不能正式确定"
+  }
+}
