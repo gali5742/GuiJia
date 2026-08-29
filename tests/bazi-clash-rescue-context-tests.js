@@ -178,7 +178,7 @@ test('任氏直证命例：壬申 辛亥 辛酉 庚寅中的“亥解申冲”�
     assert(record.comparison.status === 'insufficient', '只解 rescue-context 不应直接完成六冲整体 comparison');
 });
 
-test('SP-05 exact case：第10日戊土司令解析三项必要维度后，Source Outcome 只记录“发／无伤”', () => {
+test('SP-05 exact case：第10日戊土司令解析巳亥必要维度后，只给该 clash 记录“发／无伤”', () => {
     const model = outputFor(['乙','辛','戊','甲'], ['亥','巳','申','寅'], '2026-05-14 12:00:00').semanticModel;
     const record = findSiHaiRecord(model);
     const rescue = rescueDimension(record);
@@ -193,15 +193,18 @@ test('SP-05 exact case：第10日戊土司令解析三项必要维度后，Sourc
     assert(signal.monthCommandSourceObservation?.resolutionStatus === 'case-assertion-observed', 'SP-05 必须依赖 exact Month Command source assertion');
     assert(signal.monthCommandSourceObservation?.offsetMatches === true, 'SP-05 必须命中第10日 offset');
     assert(signal.sourceRefs.includes('D08'), 'SP-05 rescue signal 应引用 calendar-position Derived Fact D08');
-    assert(record.comparison.status === 'resolved', `SP-05 完整必要维度应形成 resolved comparison：${record.comparison.status}`);
-    assert(record.comparison.outcome === 'root-side-dominant', `SP-05 应形成 root-side-dominant：${record.comparison.outcome}`);
-    assert(outcome.resolutionStatus === 'resolved-source-outcome', `SP-05 source outcome 应 resolved：${outcome.resolutionStatus}`);
-    assert(outcome.sourceOutcomeTerm === '发' && outcome.sourceDamageTerm === '无伤', `SP-05 只应记录“发／无伤”：${outcome.sourceOutcomeTerm}/${outcome.sourceDamageTerm}`);
+    assert(record.comparison.status === 'resolved', `SP-05 巳亥必要维度应形成 resolved comparison：${record.comparison.status}`);
+    assert(record.comparison.outcome === 'root-side-dominant', `SP-05 巳亥应形成 root-side-dominant：${record.comparison.outcome}`);
+    assert(outcome.resolutionStatus === 'resolved-source-outcome', `SP-05 巳亥 source outcome 应 resolved：${outcome.resolutionStatus}`);
+    assert(outcome.sourceOutcomeTerm === '发' && outcome.sourceDamageTerm === '无伤', `SP-05 巳亥只应记录“发／无伤”：${outcome.sourceOutcomeTerm}/${outcome.sourceDamageTerm}`);
     assert(outcome.genericEffectiveState === null && outcome.sourceOutcomeToEffectiveState === 'unresolved', '“发／无伤”不得直接映射 generic effectiveState');
     const deps = dependencyMap(model.strengthSynthesis);
-    assert(deps['SD-ROOT-SIX-CLASH-SOURCE-OUTCOME']?.status === 'resolved', 'SP-05 source outcome dependency 应 resolved');
+    const allOutcomes = model.strengthSynthesis.rootClashSourceOutcomeRecords || [];
+    assert(allOutcomes.some((item) => item.resolutionStatus === 'resolved-source-outcome'), 'SP-05 至少应有一条 root clash source outcome resolved');
+    assert(allOutcomes.some((item) => item.resolutionStatus !== 'resolved-source-outcome'), 'SP-05 同盘另有 root clash 未完成，测试必须保留聚合阻断');
+    assert(deps['SD-ROOT-SIX-CLASH-SOURCE-OUTCOME']?.status === 'unresolved', '聚合 Source Outcome dependency 应等待同盘所有 root clash，而不是因巳亥一条完成就 resolved');
     assert(deps['SD-ROOT-SIX-CLASH-SOURCE-OUTCOME-MAPPING']?.status === 'unresolved', 'source outcome → effectiveState mapping 必须继续 unresolved');
-    assert(deps['SD-ROOT-SIX-CLASH-EFFECTIVENESS']?.status === 'unresolved', '即使 source outcome resolved，六冲根实际效力仍不得直接 resolved');
+    assert(deps['SD-ROOT-SIX-CLASH-EFFECTIVENESS']?.status === 'unresolved', '即使某条 source outcome resolved，六冲根实际效力仍不得直接 resolved');
     assert(model.strengthSynthesis.rootActorStates.every((item) => item.effectiveState === null), 'Source Outcome 不得回写 rootActorStates.effectiveState');
     assert(model.assessmentLayer.domains.dayMasterStrength.status === 'not-evaluated', 'SP-05 不得直接启动最终 Assessment');
 });
