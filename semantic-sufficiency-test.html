@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>龟甲 · Semantic Sufficiency v0.2</title>
   <style>
-    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1f1b16;background:#f3f0e8}body{margin:0;padding:24px}main{max-width:1180px;margin:0 auto}.card{background:#fff;border:1px solid #ddd5c8;border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 4px 18px #4b403018}h1,h2{margin-top:0}p{line-height:1.65;color:#5a5148}label{font-weight:650}select,textarea,input{font:inherit;border:1px solid #cbc2b5;border-radius:10px;padding:10px;background:#fff}select,input{min-height:42px}textarea{width:100%;box-sizing:border-box;min-height:100px;resize:vertical}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:260px}button{font:inherit;border:0;border-radius:10px;padding:11px 18px;background:#35312b;color:#fff;cursor:pointer}.fixture{background:#ece7df;color:#302b25;padding:8px 10px}.status{display:inline-block;border-radius:999px;padding:6px 10px;font-weight:700}.ok{background:#e7f3e8;color:#245c2b}.warn{background:#fff0d8;color:#8a5311}.bad{background:#f8e4e4;color:#8b2d2d}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f5f2ec;padding:12px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#eee9e1;border-radius:999px;padding:6px 9px;font-size:.9rem}table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e6dfd5;padding:9px 8px}th{background:#faf8f4}.muted{color:#7b7167;font-size:.9rem}@media(max-width:700px){body{padding:12px}.card{padding:16px}table{display:block;overflow:auto;white-space:nowrap}}
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1f1b16;background:#f3f0e8}body{margin:0;padding:24px}main{max-width:1180px;margin:0 auto}.card{background:#fff;border:1px solid #ddd5c8;border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 4px 18px #4b403018}h1,h2{margin-top:0}p{line-height:1.65;color:#5a5148}label{font-weight:650}select,textarea,input{font:inherit;border:1px solid #cbc2b5;border-radius:10px;padding:10px;background:#fff}select,input{min-height:42px}textarea{width:100%;box-sizing:border-box;min-height:100px;resize:vertical}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:260px}button{font:inherit;border:0;border-radius:10px;padding:11px 18px;background:#35312b;color:#fff;cursor:pointer}.fixture{background:#ece7df;color:#302b25;padding:8px 10px}.fixture-panel{margin:0 0 18px;padding:14px;border:1px solid #e3ddd2;border-radius:12px;background:#faf8f4}.fixture-panel h3{margin:0 0 6px}.fixture-panel p{margin:0 0 10px}.status{display:inline-block;border-radius:999px;padding:6px 10px;font-weight:700}.ok{background:#e7f3e8;color:#245c2b}.warn{background:#fff0d8;color:#8a5311}.bad{background:#f8e4e4;color:#8b2d2d}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f5f2ec;padding:12px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#eee9e1;border-radius:999px;padding:6px 9px;font-size:.9rem}table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e6dfd5;padding:9px 8px}th{background:#faf8f4}.muted{color:#7b7167;font-size:.9rem}@media(max-width:700px){body{padding:12px}.card{padding:16px}table{display:block;overflow:auto;white-space:nowrap}}
   </style>
 </head>
 <body>
@@ -17,6 +17,13 @@
 
   <section class="card">
     <h2>1. 单句检查</h2>
+
+    <div class="fixture-panel">
+      <h3>快捷样例</h3>
+      <p class="muted">点击任一样例后，会自动填入下方的候选 route、DivinationIntent goal 与当前问题，并立即执行这一次 Sufficiency 检查。</p>
+      <div id="fixtures" class="chips"></div>
+    </div>
+
     <div class="row">
       <label for="route">候选 route</label>
       <select id="route"></select>
@@ -38,13 +45,7 @@
   </section>
 
   <section class="card">
-    <h2>2. 固定 fixtures</h2>
-    <p>重点验证 route-known / insufficient 的职责边界，不追求覆盖所有自然语言。</p>
-    <div id="fixtures" class="chips"></div>
-  </section>
-
-  <section class="card">
-    <h2>3. Route Requirement Matrix</h2>
+    <h2>2. Route Requirement Matrix</h2>
     <div class="muted">所有 route 默认还要求非 unknown 的 DivinationIntent goal；slot-only API 仅为组件兼容，不代表完整系统判断。</div>
     <table>
       <thead><tr><th>Route</th><th>Required</th><th>Required-any</th><th>Optional</th><th>Context recoverable</th><th>Goal</th><th>说明</th></tr></thead>
@@ -86,7 +87,7 @@
   ];
   fixtures.forEach(([r,q,g,c]) => {
     const button = document.createElement('button'); button.className = 'fixture';
-    button.textContent = `${r} · ${q} · goal=${g}${c.length ? ' · +context' : ''}`;
+    button.textContent = `载入并执行：${q} · ${r} · goal=${g}${c.length ? ' · +context' : ''}`;
     button.onclick = () => { route.value=r; question.value=q; goalType.value=g; contextSlots.value=c.join(','); evaluate(); };
     fixturesBox.appendChild(button);
   });
