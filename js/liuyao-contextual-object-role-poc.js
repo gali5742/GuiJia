@@ -286,6 +286,40 @@ const classify = async (entity, context) => {
   };
 };
 
+const evaluateSamples = async (samples, { onProgress } = {}) => {
+  if (!head || !thresholds) throw new Error('请先训练 Contextual Object Role PoC');
+  const rows = (Array.isArray(samples) ? samples : []).map((sample) => ({
+    label:String(sample.label || ''),
+    entity:String(sample.entity || '').trim(),
+    context:String(sample.context || '').trim(),
+    route:String(sample.route || ''),
+    text:composeInput(sample.entity, sample.context)
+  }));
+  const vectors = await embedTexts(rows.map((row) => row.text), { onProgress });
+  const results = vectors.map((vector, index) => {
+    const base = classifyVector(vector);
+    return {
+      entity:rows[index].entity,
+      context:rows[index].context,
+      route:rows[index].route,
+      ...base,
+      modelId:'guijia-contextual-object-role-poc-v0.2',
+      prediction:{
+        entity:rows[index].entity,
+        role:base.role,
+        type:base.role,
+        confidence:base.confidence,
+        score:base.top1.score,
+        margin:base.margin,
+        threshold:base.threshold,
+        accepted:base.accepted,
+        modelId:'guijia-contextual-object-role-poc-v0.2'
+      }
+    };
+  });
+  return { rows, results, metrics:metrics(rows, results) };
+};
+
 export const contextualObjectRolePocV02 = Object.freeze({
   version:'0.2',
   task:'contextual_object_role',
@@ -295,5 +329,6 @@ export const contextualObjectRolePocV02 = Object.freeze({
   minMargin:MIN_MARGIN,
   loadModel,
   train,
-  classify
+  classify,
+  evaluateSamples
 });
