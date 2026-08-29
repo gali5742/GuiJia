@@ -3,10 +3,12 @@ import { semanticScopeGateV01 as scopeGate } from './liuyao-semantic-scope-gate-
 import { semanticRouteIdentifiabilityV010 as identifiabilityGate } from './liuyao-semantic-route-identifiability-v010.js?v=ident0.10';
 
 const DATA_URL = new URL('../data/liuyao-semantic-decision-stack-v0.10-development.json', import.meta.url);
+const PATCH_URL = new URL('../data/liuyao-semantic-decision-stack-v0.10-preuse-patch.json', import.meta.url);
 const INVENTORY_URL = new URL('../data/liuyao-semantic-route-inventory-v0.2.json', import.meta.url);
 const VERSION = '0.10-development';
 
 let data = null;
+let dataPatch = null;
 let inventory = null;
 let trained = false;
 let scopeHardRejectThreshold = null;
@@ -27,14 +29,16 @@ const ruleStatusOf = (routeId) => {
 };
 const ensureData = async () => {
   if (!data || !inventory) {
-    [data, inventory] = await Promise.all([fetchJson(DATA_URL), fetchJson(INVENTORY_URL)]);
+    [data, dataPatch, inventory] = await Promise.all([fetchJson(DATA_URL), fetchJson(PATCH_URL), fetchJson(INVENTORY_URL)]);
     if (data.version !== VERSION || data.status !== 'development_preuse') throw new Error('Semantic Decision Stack v0.10 data mismatch');
     if (data.policy?.modifyV081 !== false || data.policy?.modifyScopeGateV01 !== false) throw new Error('v0.10 frozen-component policy mismatch');
     if (data.policy?.sufficiencyUsesOracleModernSemanticFixtures !== true) throw new Error('v0.10 Sufficiency fixture policy mismatch');
+    if (dataPatch.version !== '0.10-preuse-wording-patch' || dataPatch.status !== 'development_preuse_patch' || dataPatch.base !== 'liuyao-semantic-decision-stack-v0.10-development.json') throw new Error('Semantic Decision Stack v0.10 wording patch mismatch');
     if (inventory.version !== '0.2' || (inventory.routes || []).length !== 22) throw new Error('22-route inventory mismatch');
   }
   return { data, inventory };
 };
+const effectiveText = (text) => dataPatch?.replacements?.[text] || text;
 
 const flattenStackRows = async () => {
   await ensureData();
@@ -44,7 +48,7 @@ const flattenStackRows = async () => {
   for (const [routeId, spec] of Object.entries(data.stack_validation?.routes || {})) {
     for (const sample of spec.sufficient || []) rows.push({
       id:`V10-${String(index++).padStart(3,'0')}`,
-      text:sample.text,
+      text:effectiveText(sample.text),
       kind:'known',
       expectedDisposition:'route_known',
       expectedRoute:routeId,
@@ -56,7 +60,7 @@ const flattenStackRows = async () => {
     });
     if (spec.insufficient) rows.push({
       id:`V10-${String(index++).padStart(3,'0')}`,
-      text:spec.insufficient.text,
+      text:effectiveText(spec.insufficient.text),
       kind:'known',
       expectedDisposition:'route_known',
       expectedRoute:routeId,
@@ -69,7 +73,7 @@ const flattenStackRows = async () => {
   }
   for (const text of data.stack_validation?.outside_current_22 || []) rows.push({
     id:`V10-${String(index++).padStart(3,'0')}`,
-    text,
+    text:effectiveText(text),
     kind:'outside',
     expectedDisposition:'outside_current_22',
     expectedRoute:'__outside_current_22__',
@@ -79,7 +83,7 @@ const flattenStackRows = async () => {
   });
   for (const text of data.stack_validation?.route_unresolved || []) rows.push({
     id:`V10-${String(index++).padStart(3,'0')}`,
-    text,
+    text:effectiveText(text),
     kind:'unresolved',
     expectedDisposition:'route_unresolved',
     expectedRoute:'__unresolved__',
@@ -92,12 +96,8 @@ const flattenStackRows = async () => {
 };
 
 const calibrationKnownTexts = async () => {
-  await ensureData();
-  const texts = [];
-  for (const spec of Object.values(data.identifiability?.route_identifiable || {})) {
-    for (const sample of spec.calibration || []) texts.push(sample.text);
-  }
-  return texts;
+  const rows = await identifiabilityGate.flattenSplit('calibration');
+  return rows.filter((row)=>row.identifiable).map((row)=>row.text);
 };
 const chooseHardOutsideThreshold = (insideRows, outsideRows) => {
   const all = [...insideRows, ...outsideRows];
@@ -122,7 +122,7 @@ const chooseHardOutsideThreshold = (insideRows, outsideRows) => {
 const calibrateScopePolicy = async ({ onProgress } = {}) => {
   await ensureData();
   const insideTexts = await calibrationKnownTexts();
-  const outsideTexts = data.scope_policy_calibration?.outside_current_22 || [];
+  const outsideTexts = (data.scope_policy_calibration?.outside_current_22 || []).map(effectiveText);
   const insideRows = [];
   const outsideRows = [];
   let done = 0;
