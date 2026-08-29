@@ -32,10 +32,36 @@
         }
     ]);
 
+    const OTHER_DOMAIN_DETECTORS = Object.freeze([
+        { event:'financial_fortune', test:(text) => /(?:财运|财福)/.test(text) },
+        { event:'marriage_match', test:(text) => /(?:结婚|婚事|婚姻能不能成|婚姻能否成)/.test(text) },
+        { event:'marital_relationship', test:(text) => /(?:妻子|老婆|丈夫|老公)[^，。？！?]{0,16}(?:感情|关系|婚姻|和好|复合)/.test(text) },
+        { event:'relationship_development', test:(text) => /(?:恋爱|表白|喜欢|暧昧|在一起|复合|和好)/.test(text) },
+        { event:'investment', test:(text) => /(?:股票|股价|基金|ETF|etf|期货|外汇|加密|投资|持仓|持股)/.test(text) },
+        { event:'income', test:(text) => /(?:工资|薪水|薪资|奖金|年终奖|提成|佣金)/.test(text) },
+        { event:'business_operation', test:(text) => /(?:开店|创业|经营)/.test(text) },
+        { event:'partnership', test:(text) => /(?:合伙|合伙人)/.test(text) },
+        { event:'borrow_money', test:(text) => /(?:向[^，。？！?]{0,10}借钱|贷款|房贷|申请贷款|融资贷款)/.test(text) },
+        { event:'debt_repayment', test:(text) => /(?:还清|还完|偿清|偿还)[^，。？！?]{0,10}(?:房贷|贷款|债务|欠款|债)/.test(text) },
+        { event:'receive_item', test:(text) => /(?:快递|包裹|邮寄|送到|收到)/.test(text) },
+        { event:'item_purchase', test:(text) => /(?:买这台|买这个|购买这台|购买这个)/.test(text) }
+    ]);
+
     const detectCommercialEvent = (question) => {
         const text = normalize(question);
         const hit = DETECTORS.find((item) => item.test(text));
         return hit?.event || '';
+    };
+
+    const detectIndependentOtherGoal = (text) => {
+        if (!INDEPENDENT_GOAL_CONNECTOR.test(text)) return '';
+        const clauses = text.split(INDEPENDENT_GOAL_CONNECTOR).filter(Boolean);
+        for (const clause of clauses) {
+            if (detectCommercialEvent(clause)) continue;
+            const hit = OTHER_DOMAIN_DETECTORS.find((item) => item.test(clause));
+            if (hit) return hit.event;
+        }
+        return '';
     };
 
     const inferGoal = (text, existingGoals) => {
@@ -82,6 +108,17 @@
         return participants;
     };
 
+    const blockedMultipleGoals = (rawQuestion, firstEvent, secondEvent) => ({
+        version:'0.1',
+        rawQuestion,
+        status:'blocked',
+        blockReason:'multiple_goals',
+        goals:[{ type:'unknown', event:firstEvent }, { type:'unknown', event:secondEvent }],
+        participants:[],
+        confidence:0.98,
+        ambiguities:[]
+    });
+
     const refineDivinationIntent = (intent, question) => {
         const rawQuestion = String(question || intent?.rawQuestion || '').trim();
         if (!rawQuestion) return intent;
@@ -93,17 +130,12 @@
 
         const previousEvent = intent?.event?.type || 'unknown';
         const compatibleAlias = event === 'lend_money' && previousEvent === 'borrow_money';
+        const independentOtherEvent = detectIndependentOtherGoal(text);
+        if (independentOtherEvent && independentOtherEvent !== event) {
+            return blockedMultipleGoals(rawQuestion, event, independentOtherEvent);
+        }
         if (intent?.status === 'resolved' && previousEvent !== 'unknown' && previousEvent !== event && !compatibleAlias && INDEPENDENT_GOAL_CONNECTOR.test(text)) {
-            return {
-                version:'0.1',
-                rawQuestion,
-                status:'blocked',
-                blockReason:'multiple_goals',
-                goals:[{ type:'unknown', event:previousEvent }, { type:'unknown', event }],
-                participants:[],
-                confidence:0.98,
-                ambiguities:[]
-            };
+            return blockedMultipleGoals(rawQuestion, previousEvent, event);
         }
 
         const semantics = { ...(intent?.semantics || {}) };
@@ -129,6 +161,7 @@
     GuiJia.liuyaoCommercialEventResolver = Object.freeze({
         version:VERSION,
         detectCommercialEvent,
+        detectIndependentOtherGoal,
         refineDivinationIntent
     });
 
