@@ -50,7 +50,7 @@
         return creditor ? pass(routeId,['creditor-direction']) : fail(routeId,'missing_creditor_direction');
       }
       case 'debt_repayment': {
-        const debtor = has(text, /(?:(?:我|本人)[^，。？！?]{0,8}(?:欠|还|偿还|清偿)[^，。？！?]{0,10}(?:贷款|房贷|欠款|债务|钱)|(?:房贷|贷款|消费贷|欠款|债务|信用卡欠款)[^，。？！?]{0,12}(?:还清|还完|结清|偿还|清掉))/);
+        const debtor = has(text, /(?:(?:我|本人)[^，。？！?]{0,8}(?:欠|还|偿还|清偿)[^，。？！?]{0,10}(?:贷款|房贷|消费贷|欠款|债务|信用卡欠款|钱)|(?:房贷|贷款|消费贷|欠款|债务|信用卡欠款)[^，。？！?]{0,12}(?:还清|还完|结清|偿还|清掉))/);
         return debtor ? pass(routeId,['debtor-direction']) : fail(routeId,'missing_debtor_direction');
       }
       case 'partnership': {
@@ -70,7 +70,7 @@
         return domain && choice ? pass(routeId,['investment-anchor','suitability-goal']) : fail(routeId,!domain?'missing_investment_anchor':'missing_suitability_goal');
       }
       case 'investment_position_decision': {
-        const domain = has(text, INVESTMENT), choice = has(text, /(?:继续持有|继续拿|继续留|减仓|加仓|持有[^，。？！?]{0,10}还是|要不要[^，。？！?]{0,8}(?:卖|减仓|继续)|应该[^，。？！?]{0,8}(?:持有|减仓|继续)|考虑[^，。？！?]{0,8}(?:减仓|加仓))/);
+        const domain = has(text, INVESTMENT), choice = has(text, /(?:继续持有|继续拿|继续留|减仓|加仓|持仓[^，。？！?]{0,8}(?:减少|减掉)|持有[^，。？！?]{0,10}还是|要不要[^，。？！?]{0,8}(?:卖|减仓|继续)|应该[^，。？！?]{0,8}(?:持有|减仓|继续)|考虑[^，。？！?]{0,8}(?:减仓|加仓|减少|减掉))/);
         return domain && choice ? pass(routeId,['investment-anchor','position-choice']) : fail(routeId,!domain?'missing_investment_anchor':'missing_position_choice');
       }
       case 'investment_price_trend': {
