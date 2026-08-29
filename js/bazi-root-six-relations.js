@@ -70,6 +70,7 @@
                     resolutionStatus:'unresolved',
                     effectiveState:null,
                     prerequisiteKeys:freezeArray(config.prerequisiteKeys),
+                    sourceEffectIds:freezeArray(rootState.sourceEffectIds || []),
                     sourceBasis:Object.freeze(config.sourceBasis.map((item) => Object.freeze({ ...item }))),
                     statement:config.statement,
                     boundary:config.boundary
