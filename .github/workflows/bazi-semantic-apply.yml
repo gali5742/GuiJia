@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
 
+# staging trigger 2
 jobs:
   apply:
     runs-on: ubuntu-latest
