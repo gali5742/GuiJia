@@ -23,7 +23,9 @@ jobs:
           node-version: "22"
 
       - name: Apply BaZi structure reference refinement
-        run: python3 .bazi-structure-ref-v2.py
+        run: |
+          python3 .bazi-structure-ref-v2.py
+          python3 .bazi-structure-ref-v2-fix.py
 
       - name: Core regression tests
         run: npm test
@@ -43,9 +45,9 @@ jobs:
         run: |
           set -euo pipefail
           git show 2e40a5a3b652b82002584907337edb8681bd6584:.github/workflows/test.yml > .github/workflows/test.yml
-          rm -f .bazi-structure-ref-v2.py
+          rm -f .bazi-structure-ref-v2.py .bazi-structure-ref-v2-fix.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/bazi-core.js js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js .github/workflows/test.yml .bazi-structure-ref-v2.py
+          git add js/bazi-core.js js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js tests/run-tests.js .github/workflows/test.yml .bazi-structure-ref-v2.py .bazi-structure-ref-v2-fix.py
           git commit -m 'refactor: distinguish BaZi structure member interactions'
           git push origin HEAD:bazi-structure-ref-v2-stage
