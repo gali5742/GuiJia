@@ -9,7 +9,7 @@
     const OUTPUT_GODS = new Set(['食神', '伤官']);
     const WEALTH_GODS = new Set(['正财', '偏财']);
     const OFFICER_GODS = new Set(['正官', '七杀']);
-    const { baziRelationMeta = {}, scoreBaziRelation } = GuiJia.baziCore || {};
+    const { baziRelationMeta = {}, buildBaziStructureCatalog = (relations = []) => relations } = GuiJia.baziCore || {};
     const COMPLETE_CODES = new Set(Object.entries(baziRelationMeta)
         .filter(([, meta]) => meta.complete)
         .map(([code]) => code));
@@ -619,12 +619,13 @@
 
         const structures = relations.map((relation, index) => {
             const meta = baziRelationMeta[relation.code] || {};
+            const structuralRole = relation.structuralRole || meta.structuralRole || 'coexistingRelation';
             return {
-                id: relation._semanticRef || `S${String(index + 1).padStart(2, '0')}`,
+                id: relation.id || relation._semanticRef || `S${String(index + 1).padStart(2, '0')}`,
                 code: relation.code || '',
                 system: 'stemBranchRelation',
-                structuralRole: meta.structuralRole || 'coexistingRelation',
-                structuralRoleLabel: meta.structuralRole === 'majorCompositeStructure' ? '主要组合' : '并存关系',
+                structuralRole,
+                structuralRoleLabel: relation.structuralRoleLabel || (structuralRole === 'majorCompositeStructure' ? '主要组合' : '并存关系'),
                 text: relation.text
             };
         });
@@ -647,9 +648,7 @@
         const monthSeason = result.monthSeason || { monthZhi: '—', season: '—', states: [] };
         const dayState = monthSeason.states?.find((item) => item.isDayMaster)?.status || '—';
         const support = rootsAndSupport(result);
-        const relations = [...(result.internalRelations || [])]
-            .sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))
-            .map((relation, index) => ({ ...relation, _semanticRef: `S${String(index + 1).padStart(2, '0')}` }));
+        const relations = buildBaziStructureCatalog(result.internalRelations || []);
         const completeRelations = relations.filter((item) => COMPLETE_CODES.has(item.code));
         const semanticModel = buildSemanticModel(result, monthSeason, dayState, support, relations);
 

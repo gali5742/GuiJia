@@ -210,6 +210,21 @@
         return score;
     };
 
+    const buildBaziStructureCatalog = (relations = []) => [...relations]
+        .sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))
+        .map((relation, index) => {
+            const meta = baziRelationMeta[relation?.code] || {};
+            const id = `S${String(index + 1).padStart(2, '0')}`;
+            const structuralRole = meta.structuralRole || 'coexistingRelation';
+            return {
+                ...relation,
+                id,
+                _semanticRef: id,
+                structuralRole,
+                structuralRoleLabel: structuralRole === 'majorCompositeStructure' ? '主要组合' : '并存关系'
+            };
+        });
+
     const getRelationSemanticKey = (relation) => {
         if (!relation?.code) return `${relation?.type || ''}|${relation?.text || ''}`;
         const numberList = (items) => [...new Set(items || [])].sort((a, b) => a - b).join(',');
@@ -704,6 +719,7 @@
         baziTransitRelationMeta,
         getBaziRelationMeta,
         scoreBaziRelation,
+        buildBaziStructureCatalog,
         getRelationSemanticKey,
         uniqueRelations,
         countMap,

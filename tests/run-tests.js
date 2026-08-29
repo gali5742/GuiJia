@@ -1495,7 +1495,10 @@ test('八字关系元数据覆盖全部机器码，排序统一由 bazi-core 提
     assert(appSource.includes('calculateInternalChartRelations'), 'app 未从 bazi-core 读取原局关系计算');
     assert(!appSource.includes('scoreBaziRelation'), '总览已取消关系标签排名后，app 仍保留无用评分依赖');
     assert(!appSource.includes('const scoreBaziRelation = (relation)'), 'app 仍保留重复的关系评分表');
-    assert(interpretationSource.includes('scoreBaziRelation } = GuiJia.baziCore'), '解释引擎未读取统一评分函数');
+    const coreSource = fs.readFileSync(path.join(ROOT, 'js/bazi-core.js'), 'utf8');
+    assert(interpretationSource.includes('buildBaziStructureCatalog'), '解释引擎未读取统一 Structure Catalog');
+    assert(coreSource.includes('const buildBaziStructureCatalog = (relations = []) =>'), 'bazi-core 缺统一 Structure Catalog');
+    assert(coreSource.includes('.sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))'), 'Structure Catalog 未读取统一评分函数');
     assert(!interpretationSource.includes('function scoreRelation('), '解释引擎仍保留重复的关系评分函数');
 });
 
