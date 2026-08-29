@@ -6,7 +6,7 @@ const out = path.join(ROOT, '.site');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 
-for (const name of ['index.html', 'rule-registry-test.html', 'semantic-router-poc.html', 'semantic-router-poc-v02.html', 'semantic-router-poc-v03.html', 'semantic-router-poc-v04.html', 'semantic-router-poc-v05.html', 'semantic-router-poc-v06.html', 'semantic-router-runtime-v01.html', 'semantic-sufficiency-test.html', 'semantic-slot-provider-test.html', 'semantic-object-resolver-test.html', 'semantic-entity-typing-poc.html', 'README.md', 'vendor-versions.json', '.nojekyll']) {
+for (const name of ['index.html', 'rule-registry-test.html', 'semantic-router-poc.html', 'semantic-router-poc-v02.html', 'semantic-router-poc-v03.html', 'semantic-router-poc-v04.html', 'semantic-router-poc-v05.html', 'semantic-router-poc-v06.html', 'semantic-router-runtime-v01.html', 'semantic-sufficiency-test.html', 'semantic-slot-provider-test.html', 'semantic-object-resolver-test.html', 'semantic-entity-typing-poc.html', 'semantic-entity-typing-blind-eval.html', 'README.md', 'vendor-versions.json', '.nojekyll']) {
   fs.copyFileSync(path.join(ROOT, name), path.join(out, name));
 }
 for (const dir of ['assets', 'data', 'js']) {
