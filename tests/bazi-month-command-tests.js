@@ -50,7 +50,7 @@ function loadMonthCommand({ fakeEvidence = false } = {}) {
 }
 
 function simpleResult({
-    solarStr = '2026-05-15 12:00:00',
+    solarStr = '2026-05-14 12:00:00',
     chart = ['乙亥','辛巳','戊申','甲寅']
 } = {}) {
     return {
@@ -190,15 +190,25 @@ test('普通巳月即使已有序日位置，也不从首表／玉井／任氏�
     assert(dts?.resolutionStatus === 'not-applicable-to-current-chart', '任氏个案不得泛化到其他四柱');
 });
 
-test('任氏“立夏后十天，戊土司令”仍只保存为个案 assertion，不造前十天窗口', () => {
+test('任氏“立夏后十天，戊土司令”只有第10日 exact case 才标记 observed', () => {
     const source = api.sourceProfiles.DI_TIAN_SUI_CHAN_WEI_WAR_CASE;
     assert(source.chart === '乙亥 辛巳 戊申 甲寅', '任氏命例四柱异常');
     assert(source.offsetText === '立夏后十天' && source.assertedCommandGan === '戊', '个案原文条件异常');
+    assert(source.expectedCivilOrdinalDayAfterJie === 10, '个案规范化序日应冻结为第10日');
     assert(source.genericWindow === null && source.generalizationStatus === 'case-only', '不得发明 0—10 日通用窗口');
-    const observation = api.buildMonthCommandObservation(simpleResult());
-    const dts = observation.sourceProfiles.find((item) => item.sourceId === 'DTS-CW-WAR-CASE-001');
-    assert(dts?.resolutionStatus === 'case-assertion-observed', '原命例只应标记 source assertion observed');
-    assert(observation.canonicalCommandGan === null, '个案断言不得升级 canonical command');
+
+    const exact = api.buildMonthCommandObservation(simpleResult({ solarStr:'2026-05-14 12:00:00' }));
+    const exactSource = exact.sourceProfiles.find((item) => item.sourceId === 'DTS-CW-WAR-CASE-001');
+    assert(exact.timeContext.civilOrdinalDayAfterJie === 10, `测试日期应规范化为第10日：${exact.timeContext.civilOrdinalDayAfterJie}`);
+    assert(exactSource?.chartMatches === true && exactSource?.anchorMatches === true && exactSource?.offsetMatches === true, 'exact case 三项条件都应匹配');
+    assert(exactSource?.resolutionStatus === 'case-assertion-observed', `exact case 状态异常：${exactSource?.resolutionStatus}`);
+    assert(exact.canonicalCommandGan === null, '个案断言不得升级 canonical command');
+
+    const late = api.buildMonthCommandObservation(simpleResult({ solarStr:'2026-05-15 12:00:00' }));
+    const lateSource = late.sourceProfiles.find((item) => item.sourceId === 'DTS-CW-WAR-CASE-001');
+    assert(late.timeContext.civilOrdinalDayAfterJie === 11, `晚一天应为第11日：${late.timeContext.civilOrdinalDayAfterJie}`);
+    assert(lateSource?.offsetMatches === false, '第11日不得匹配“立夏后十天”个案条件');
+    assert(lateSource?.resolutionStatus === 'case-offset-not-matched', `错日状态异常：${lateSource?.resolutionStatus}`);
 });
 
 test('Strength Evidence hook 仍只追加 F05/F06/D08；source-specific command 不伪装成新 Fact', () => {
