@@ -7,6 +7,7 @@ const trainBasePath = path.join(root, 'data', 'liuyao-semantic-route-training-v0
 const trainAugPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.2-augmentation.json');
 const trainTargetedPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.3-targeted.json');
 const evalPath = path.join(root, 'data', 'liuyao-semantic-route-eval-v0.1.json');
+const blindPath = path.join(root, 'data', 'liuyao-semantic-route-blind-eval-v0.2.json');
 
 const fail = (message) => { throw new Error(message); };
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -16,6 +17,7 @@ const base = readJson(trainBasePath);
 const augmentation = readJson(trainAugPath);
 const targeted = readJson(trainTargetedPath);
 const evaluation = readJson(evalPath);
+const blind = readJson(blindPath);
 
 if (base.version !== '0.1') fail(`Unexpected base training version: ${base.version}`);
 if (augmentation.version !== '0.2') fail(`Unexpected augmentation version: ${augmentation.version}`);
@@ -23,10 +25,12 @@ if (augmentation.base !== path.basename(trainBasePath)) fail(`Augmentation base 
 if (targeted.version !== '0.3-targeted') fail(`Unexpected targeted refinement version: ${targeted.version}`);
 if (!Array.isArray(targeted.base) || !targeted.base.includes(path.basename(trainBasePath)) || !targeted.base.includes(path.basename(trainAugPath))) fail('Targeted refinement base list mismatch.');
 if (evaluation.version !== '0.1' || evaluation.status !== 'frozen') fail('Development benchmark v0.1 file must remain content-frozen.');
+if (blind.version !== '0.2' || blind.status !== 'sealed') fail('Blind Eval v0.2 must remain sealed.');
 
 const routeIds = Object.keys(base.routes || {});
 const augmentationIds = Object.keys(augmentation.routes || {});
 const evalIds = Object.keys(evaluation.samples || {}).filter((id) => id !== '__other__');
+const blindIds = Object.keys(blind.samples || {}).filter((id) => !id.startsWith('__'));
 const targetedIds = Object.keys(targeted.routes || {});
 const expectedTargetedIds = [
   'financial_fortune','income_salary','business_operation','investment_profit',
@@ -35,6 +39,7 @@ const expectedTargetedIds = [
 if (routeIds.length !== 15) fail(`Expected 15 supervised routes, got ${routeIds.length}.`);
 if (routeIds.join('|') !== augmentationIds.join('|')) fail('Base and augmentation route order/IDs differ.');
 if (routeIds.join('|') !== evalIds.join('|')) fail('Training and development benchmark route order/IDs differ.');
+if (routeIds.join('|') !== blindIds.join('|')) fail('Training and Blind Eval route order/IDs differ.');
 if (targetedIds.join('|') !== expectedTargetedIds.join('|')) fail(`Unexpected targeted route IDs/order: ${targetedIds.join('|')}`);
 
 const seen = new Map();
@@ -110,10 +115,27 @@ for (const [label, texts] of Object.entries(evaluation.samples || {})) {
 if (evalCount !== 125) fail(`Development benchmark must contain exactly 125 samples, got ${evalCount}.`);
 if ((evaluation.samples.__other__ || []).length !== 16) fail('Development benchmark must retain 16 __other__ samples.');
 
-console.log('Semantic route data verification passed (PoC v0.6 targeted refinement).');
+let blindKnownCount = 0;
+for (const routeId of routeIds) {
+  const texts = blind.samples?.[routeId];
+  if (!Array.isArray(texts) || texts.length !== 12) fail(`Blind Eval ${routeId} must contain exactly 12 known samples.`);
+  for (const text of texts) { remember(text, `blind-known:${routeId}`); blindKnownCount += 1; }
+}
+const blindOut = blind.samples?.__out_of_scope__ || [];
+const blindUnder = blind.samples?.__underspecified__ || [];
+if (!Array.isArray(blindOut) || blindOut.length !== 121) fail(`Blind Eval must contain exactly 121 out_of_scope samples, got ${blindOut.length}.`);
+if (!Array.isArray(blindUnder) || blindUnder.length !== 60) fail(`Blind Eval must contain exactly 60 underspecified samples, got ${blindUnder.length}.`);
+for (const text of blindOut) remember(text, 'blind:out_of_scope');
+for (const text of blindUnder) remember(text, 'blind:underspecified');
+const blindCount = blindKnownCount + blindOut.length + blindUnder.length;
+if (blindKnownCount !== 180 || blindCount !== 361) fail(`Blind Eval count mismatch: known=${blindKnownCount}, total=${blindCount}.`);
+
+console.log('Semantic route data verification passed (architecture frozen + sealed Blind Eval v0.2).');
 console.log(`- ${routeIds.length} supervised routes`);
 console.log(`- ${trainPositive} train positives (${targetedTrainPositive} targeted additions)`);
 console.log(`- ${validationPositive} validation positives (${targetedValidationPositive} targeted additions)`);
 console.log(`- ${baseTrainNegatives.length + augTrainNegatives.length} train hard negatives unchanged from v0.5`);
 console.log(`- ${baseValidationNegatives.length + augValidationNegatives.length} validation hard negatives unchanged from v0.5`);
-console.log(`- ${evalCount} development benchmark samples; zero exact overlap across all train/validation sources`);
+console.log(`- ${evalCount} development benchmark samples`);
+console.log(`- ${blindCount} sealed Blind Eval v0.2 samples (${blindKnownCount} known / ${blindOut.length} out_of_scope / ${blindUnder.length} underspecified)`);
+console.log('- zero exact overlap across train, validation, development benchmark, and Blind Eval');
