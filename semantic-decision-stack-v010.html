@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲六爻 Semantic Decision Stack v0.10 Development：组合 Scope Gate、v0.8.1 Route Head、Semantic Arbitration、Route Identifiability、Semantic Sufficiency 与 Rule availability。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · 六爻 Semantic Decision Stack v0.10</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#282621;background:#f4f2ed}body{margin:0}main{max-width:1320px;margin:0 auto;padding:28px 18px 56px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 12px;font-size:18px}.sub,.small{color:#6b675f;line-height:1.7}.small{font-size:12px}.notice{border-left:4px solid #bfae78;background:#faf7ee;padding:10px 12px;line-height:1.75}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}button{font:inherit;border:0;border-radius:9px;padding:11px 17px;background:#37342f;color:#fff;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{height:8px;background:#ece9e2;border-radius:999px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#69655d;transition:width .15s}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}@media(max-width:980px){.metrics{grid-template-columns:1fr 1fr}}@media(max-width:520px){.metrics{grid-template-columns:1fr}}.metric{border:1px solid #ebe7df;border-radius:12px;padding:14px}.metric span{display:block;color:#777168;font-size:12px}.metric strong{display:block;font-size:22px;margin-top:5px}.scroll{max-height:680px;overflow:auto;border:1px solid #eeeae2;border-radius:10px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ebe7df;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#fff;color:#666158}.num{text-align:right;white-space:nowrap}.badrow{background:#fff8f7}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body><main>
+  <h1>六爻 Semantic Decision Stack v0.10 · Development</h1>
+  <p class="sub">当前只测试现代语义决策链：Scope Gate v0.1 → 冻结 v0.8.1 Route Head → Semantic Arbitration v0.9.1 → Route Identifiability v0.10 → Semantic Sufficiency v0.2 → Rule availability。</p>
+
+  <section class="card">
+    <h2>职责边界</h2>
+    <div class="notice">本页不会重新调 Scope Gate v0.1，也不会使用上一轮 Scope Gate 的 44 条 Validation / 30 条 Diagnostic 作为成绩集。Route Identifiability 只判断“能否唯一命名 current-22 route”；对象、参与者、明确占问目标是否足够仍由 Sufficiency 处理。Sufficiency 在本开发页继续使用独立封存的现代语义 fixture，不假装现有 Parser 已经端到端解决全部 slots。</div>
+  </section>
+
+  <section class="card">
+    <h2>运行</h2>
+    <div class="row">
+      <button id="load">1. 加载模型</button><span id="modelStatus" class="status warn">尚未加载</span>
+      <button id="run" disabled>2. 运行 v0.10</button><span id="runStatus" class="status">—</span>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <p id="progress" class="small">—</p>
+  </section>
+
+  <section class="card">
+    <h2>组件校准 / 独立验证</h2>
+    <div class="metrics">
+      <div class="metric"><span>Stack Scope hard-reject cutoff</span><strong id="scopeCut">—</strong></div>
+      <div class="metric"><span>Scope calibration · known pass</span><strong id="scopeInside">—</strong></div>
+      <div class="metric"><span>Scope calibration · outside reject</span><strong id="scopeOutside">—</strong></div>
+      <div class="metric"><span>Route Identifiability threshold</span><strong id="identCut">—</strong></div>
+      <div class="metric"><span>Identifiability Validation · identifiable recall</span><strong id="identRecall">—</strong></div>
+      <div class="metric"><span>Identifiability Validation · unresolved reject</span><strong id="identReject">—</strong></div>
+      <div class="metric"><span>Identifiability Validation · balanced acc.</span><strong id="identBal">—</strong></div>
+      <div class="metric"><span>Identifiability Validation · overall exact</span><strong id="identExact">—</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Stack Validation · 110 条全新样本</h2>
+    <div class="metrics">
+      <div class="metric"><span>Overall disposition exact</span><strong id="dispExact">—</strong></div>
+      <div class="metric"><span>Joint exact · 110</span><strong id="joint">—</strong></div>
+      <div class="metric"><span>Known Route exact</span><strong id="knownRoute">—</strong></div>
+      <div class="metric"><span>Known activation coverage</span><strong id="knownCoverage">—</strong></div>
+      <div class="metric"><span>Accepted known accuracy</span><strong id="acceptedAcc">—</strong></div>
+      <div class="metric"><span>v0.8.1 Head Top-1</span><strong id="headTop1">—</strong></div>
+      <div class="metric"><span>Outside-current-22 exact</span><strong id="outsideExact">—</strong></div>
+      <div class="metric"><span>Route-unresolved exact</span><strong id="unresolvedExact">—</strong></div>
+      <div class="metric"><span>False route activation</span><strong id="falseActivation">—</strong></div>
+      <div class="metric"><span>Oracle Sufficiency contract</span><strong id="oracleSuff">—</strong></div>
+      <div class="metric"><span>Sufficiency E2E</span><strong id="suffE2E">—</strong></div>
+      <div class="metric"><span>Rule availability E2E</span><strong id="ruleE2E">—</strong></div>
+    </div>
+    <p id="arb" class="small">Semantic arbitration：—</p>
+  </section>
+
+  <section class="card">
+    <h2>异常样本</h2>
+    <p class="small">只显示 Joint 失败。Scope p 使用 v0.1 原始概率；hard cutoff 是 v0.10 组合策略。v0.8.1 legacy local Gate 仅保留作诊断，不参与最终决策。</p>
+    <div class="scroll"><table><thead><tr><th>ID / 问题</th><th>Expected</th><th class="num">Scope p / hard</th><th class="num">Ident p / cut</th><th>Head Top-1</th><th>Arbitration</th><th>Final</th><th>Suff / Rule</th></tr></thead><tbody id="issues"><tr><td colspan="8">尚未运行。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>按 route / domain</h2>
+    <div class="grid2">
+      <div><strong>Route</strong><div class="scroll" style="margin-top:9px"><table><thead><tr><th>Route</th><th class="num">n</th><th class="num">Scope pass</th><th class="num">Ident.</th><th class="num">Head</th><th class="num">Route exact</th><th class="num">Joint</th></tr></thead><tbody id="routeRows"><tr><td colspan="7">尚未运行。</td></tr></tbody></table></div></div>
+      <div><strong>Domain</strong><div class="scroll" style="margin-top:9px"><table><thead><tr><th>Domain</th><th class="num">n</th><th class="num">Route exact</th><th class="num">Joint</th></tr></thead><tbody id="domainRows"><tr><td colspan="4">尚未运行。</td></tr></tbody></table></div></div>
+    </div>
+  </section>
+</main>
+<script src="./js/liuyao-semantic-sufficiency.js?v=0.2"></script>
+<script src="./js/liuyao-semantic-route-arbitration-v091.js?v=0.9.1-dev"></script>
+<script type="module">
+import { semanticDecisionStackV010 as api } from './js/liuyao-semantic-decision-stack-v010.js?v=0.10-dev';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const status=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const setProgress=(value,text)=>{$('bar').style.width=`${Math.max(0,Math.min(100,value))}%`;$('progress').textContent=text;};
+const stageText=(stage,payload)=>{if(payload&&typeof payload==='object')return `${stage} · ${payload.status||''} ${payload.file||''}`.trim();return `${stage}${payload?` · ${payload}`:''}`;};
+function paintMetrics(summary){$('scopeCut').textContent=f(summary.scopeHardRejectThreshold);$('scopeInside').textContent=pct(summary.scopePolicyCalibration?.insideRecall);$('scopeOutside').textContent=pct(summary.scopePolicyCalibration?.outsideReject);const ident=summary.identifiabilityValidation||{};$('identCut').textContent=f(ident.threshold);$('identRecall').textContent=pct(ident.identifiableRecall);$('identReject').textContent=pct(ident.unresolvedRejection);$('identBal').textContent=pct(ident.balancedAccuracy);$('identExact').textContent=pct(ident.overallExact);$('dispExact').textContent=pct(summary.overallDispositionExact);$('joint').textContent=pct(summary.jointExact);$('knownRoute').textContent=pct(summary.knownRouteExact);$('knownCoverage').textContent=pct(summary.knownActivationCoverage);$('acceptedAcc').textContent=pct(summary.acceptedKnownAccuracy);$('headTop1').textContent=pct(summary.routeHeadTop1);$('outsideExact').textContent=pct(summary.outsideDispositionExact);$('unresolvedExact').textContent=pct(summary.unresolvedDispositionExact);$('falseActivation').textContent=pct(summary.falseRouteActivation);$('oracleSuff').textContent=pct(summary.oracleSufficiency);$('suffE2E').textContent=pct(summary.sufficiencyE2E);$('ruleE2E').textContent=pct(summary.ruleAvailabilityE2E);$('arb').textContent=`Semantic arbitration hits: ${summary.arbitrationHits}；其中 known 命中正确：${summary.arbitrationCorrectKnownHits}`;}
+function paintIssues(results){const bad=results.filter(r=>!r.jointExact);$('issues').innerHTML='';if(!bad.length){$('issues').innerHTML='<tr><td colspan="8">110 条 Stack Validation 全部通过。</td></tr>';return;}for(const r of bad){const tr=document.createElement('tr');tr.className='badrow';const expected=r.kind==='known'?`${r.expectedDisposition}\n${r.expectedRoute}\n${r.expectedSufficiencyStatus}\n${r.expectedRuleAvailabilityStatus}`:r.expectedDisposition;const final=`${r.finalDisposition}\n${r.finalRoute}`;const arb=r.arbitration?`${r.arbitration.routeId}\n${r.arbitration.evidence}`:'—';const sr=`${r.chainSufficiency}\n${r.actualRuleAvailability}`;const cells=[`${r.id}\n${r.text}`,expected,`${f(r.scope.probability)} / ${f(r.scope.hardRejectThreshold)}`,`${f(r.identifiability.probability)} / ${f(r.identifiability.threshold)}`,`${r.router.top1?.id||'—'} ${f(r.router.top1?.score)}`,arb,final,sr];cells.forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;td.style.whiteSpace='pre-wrap';if(i===2||i===3)td.className='num';tr.appendChild(td)});$('issues').appendChild(tr);}}
+function paintRoutes(rows){$('routeRows').innerHTML='';for(const r of rows){const tr=document.createElement('tr');[r.routeId,String(r.n),pct(r.scopePass),pct(r.identifiable),pct(r.headTop1),pct(r.finalRouteExact),pct(r.joint)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$('routeRows').appendChild(tr);}}
+function paintDomains(rows){$('domainRows').innerHTML='';for(const r of rows){const tr=document.createElement('tr');[r.domain,String(r.n),pct(r.finalRouteExact),pct(r.joint)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$('domainRows').appendChild(tr);}}
+$('load').onclick=async()=>{$('load').disabled=true;status('modelStatus','加载中…','warn');let step=0;try{await api.loadModels((stage,payload)=>{const base=step<1?5:step<2?15:25;setProgress(base,stageText(stage,payload));if(stage==='router-model')step=1;if(stage==='ident-model')step=2;});status('modelStatus','模型已就绪','ok');setProgress(30,'三个组件均已加载；浏览器缓存会复用 BGE 权重文件。');$('run').disabled=false;}catch(e){status('modelStatus','加载失败','bad');setProgress(0,e?.message||String(e));$('load').disabled=false;}};
+$('run').onclick=async()=>{$('run').disabled=true;status('runStatus','训练与校准…','warn');try{const training=await api.train({onStage:(stage,msg)=>setProgress(30,`${stage} · ${msg||''}`),onProgress:(done,total,label)=>setProgress(30+(total?done/total*35:0),`${label} ${done}/${total}`)});const ident=training.identifiabilityValidation||{};$('identCut').textContent=f(ident.threshold);$('identRecall').textContent=pct(ident.identifiableRecall);$('identReject').textContent=pct(ident.unresolvedRejection);$('identBal').textContent=pct(ident.balancedAccuracy);$('identExact').textContent=pct(ident.overallExact);$('scopeCut').textContent=f(training.scopePolicy.threshold);$('scopeInside').textContent=pct(training.scopePolicy.insideRecall);$('scopeOutside').textContent=pct(training.scopePolicy.outsideReject);status('runStatus','运行 110 条 Stack Validation…','warn');const result=await api.runStackValidation({onProgress:(done,total,label)=>setProgress(65+(total?done/total*35:0),`${label} ${done}/${total}`)});paintMetrics(result.summary);paintIssues(result.results);paintRoutes(result.summary.routeSummaries);paintDomains(result.summary.domainSummaries);setProgress(100,'Semantic Decision Stack v0.10 Development 完成。');status('runStatus','实验完成','ok');}catch(e){status('runStatus','实验失败','bad');setProgress(0,e?.stack||e?.message||String(e));}finally{$('run').disabled=false;}};
+</script>
+</body></html>
