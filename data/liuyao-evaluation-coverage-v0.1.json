@@ -5,6 +5,7 @@
   "scope": "liuyao_only",
   "sourcesOfTruth": [
     "js/liuyao-intent.js",
+    "js/liuyao-commercial-event-resolver.js",
     "js/liuyao-rule-registry.js",
     "js/liuyao-observation-plan.js",
     "data/semantic-router-weights-v0.1.json"
@@ -28,12 +29,12 @@
   ],
   "registryRules": [
     { "ruleId": "TR-001-A", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "business_operation", "semanticBranch": "business operation", "routerCoverage": "direct", "routerRoute": "business_operation", "parserReachability": "covered", "planExpectation": "resolved" },
-    { "ruleId": "TR-001-B", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "transaction", "semanticBranch": "commercial trade", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "missing_event_entry", "planExpectation": "unreachable_from_current_parser" },
-    { "ruleId": "TR-001-C", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "inventory_purchase", "semanticBranch": "inventory purchase", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "missing_event_entry", "planExpectation": "unreachable_from_current_parser" },
-    { "ruleId": "TR-001-D", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "inventory_sale", "semanticBranch": "inventory sale", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "missing_event_entry", "planExpectation": "unreachable_from_current_parser" },
+    { "ruleId": "TR-001-B", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "transaction", "semanticBranch": "commercial trade", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
+    { "ruleId": "TR-001-C", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "inventory_purchase", "semanticBranch": "inventory purchase", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
+    { "ruleId": "TR-001-D", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "inventory_sale", "semanticBranch": "inventory sale", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
     { "ruleId": "TR-001-E", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "borrow_money", "semanticBranch": "borrow / loan approval", "routerCoverage": "direct", "routerRoute": "borrow_money", "parserReachability": "covered", "planExpectation": "resolved" },
-    { "ruleId": "TR-001-F", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "lend_money", "semanticBranch": "lend money", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "missing_event_entry", "planExpectation": "unreachable_from_current_parser" },
-    { "ruleId": "TR-001-G", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "debt_collection", "semanticBranch": "collect debt", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "missing_event_entry", "planExpectation": "unreachable_from_current_parser" },
+    { "ruleId": "TR-001-F", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "lend_money", "semanticBranch": "lend money", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
+    { "ruleId": "TR-001-G", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "debt_collection", "semanticBranch": "collect debt", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
     { "ruleId": "TR-001-H", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "partnership", "semanticBranch": "partnership profit", "routerCoverage": "absent", "routerRoute": null, "parserReachability": "covered", "planExpectation": "resolved" },
     { "ruleId": "TR-001-I-S", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "financial_fortune", "semanticBranch": "short or bounded financial fortune", "routerCoverage": "collapsed", "routerRoute": "financial_fortune", "parserReachability": "covered", "planExpectation": "resolved" },
     { "ruleId": "TR-001-I-L", "domain": "wealth_finance", "family": "traditional", "automationStatus": "enabled", "eventType": "financial_fortune", "semanticBranch": "long-term or lifetime financial fortune", "routerCoverage": "collapsed", "routerRoute": "financial_fortune", "parserReachability": "covered", "planExpectation": "resolved" },
@@ -61,13 +62,7 @@
   "augmentationRules": [
     { "ruleId": "MSR-001", "domain": "relationship_marriage", "family": "modern", "automationStatus": "enabled", "compatibleRuleRefs": ["MR-001-A", "MR-001-B"], "semanticBranch": "specific romantic counterpart adds Ying observation", "parserReachability": "covered", "planExpectation": "resolved_when_base_rule_resolved" }
   ],
-  "knownParserEventGaps": [
-    "transaction",
-    "inventory_purchase",
-    "inventory_sale",
-    "lend_money",
-    "debt_collection"
-  ],
+  "knownParserEventGaps": [],
   "semanticRoutesWithoutEnabledRule": [
     { "routeId": "debt_repayment", "eventType": "debt_repayment", "status": "no_confirmed_rule" },
     { "routeId": "item_purchase", "eventType": "item_purchase", "status": "no_confirmed_rule" },
