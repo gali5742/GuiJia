@@ -9,6 +9,7 @@ const assert = (condition, message) => { if (!condition) fail(message); };
 const normalize = (text) => String(text || '').trim().replace(/\s+/g, '');
 
 const scope = read('data/liuyao-semantic-scope-gate-v0.1-development.json');
+const scopePatch = read('data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json');
 const inventory = read('data/liuyao-semantic-route-inventory-v0.2.json');
 const base = read('data/liuyao-semantic-route-training-v0.1.json');
 const augmentation = read('data/liuyao-semantic-route-training-v0.2-augmentation.json');
@@ -29,6 +30,15 @@ assert(scope.policy?.useRouterConfidenceFeatures === false, 'scope gate must use
 assert(scope.policy?.useUnresolvedAsNegativeTraining === false, 'unresolved rows must not train the scope gate');
 assert(scope.policy?.outsideCurrent22DoesNotMeanUnsupportedByLiuYao === true, 'outside-current-22 must not be relabeled as globally unsupported LiuYao');
 assert(scope.policy?.diagnosticUnresolvedExcludedFromMetrics === true, 'unresolved diagnostic rows must be excluded from scope metrics');
+assert(scopePatch.version === '0.1-preuse-wording-patch' && scopePatch.status === 'development_preuse_patch', 'scope pre-use wording patch metadata mismatch');
+assert(scopePatch.base === 'liuyao-semantic-scope-gate-v0.1-development.json', 'scope pre-use wording patch base mismatch');
+const replacements = scopePatch.replacements || {};
+const effectiveText = (text) => replacements[text] || text;
+for (const [from,to] of Object.entries(replacements)) {
+  assert(typeof from === 'string' && from.trim(), 'scope wording patch contains empty source');
+  assert(typeof to === 'string' && to.trim(), `scope wording patch contains empty replacement for ${from}`);
+  assert(normalize(from) !== normalize(to), `scope wording patch must change wording: ${from}`);
+}
 
 const routeIds = (inventory.routes || []).map((row) => row.routeId);
 assert(routeIds.length === 22, `inventory route count ${routeIds.length} != 22`);
@@ -37,10 +47,13 @@ assert(JSON.stringify(Object.keys(scope.supported || {})) === JSON.stringify(rou
 const expectedRouteCounts = { train:3, calibration:1, validation:1 };
 const expectedOutsideCounts = { train:6, calibration:2, validation:2 };
 const seen = new Map();
-const remember = (text, bucket) => {
-  assert(typeof text === 'string' && text.trim(), `empty scope text in ${bucket}`);
+const rawOccurrences = new Map();
+const remember = (raw, bucket) => {
+  assert(typeof raw === 'string' && raw.trim(), `empty scope text in ${bucket}`);
+  rawOccurrences.set(raw, (rawOccurrences.get(raw) || 0) + 1);
+  const text = effectiveText(raw);
   const key = normalize(text);
-  assert(!seen.has(key), `duplicate scope text: ${text} in ${bucket} and ${seen.get(key)}`);
+  assert(!seen.has(key), `duplicate effective scope text: ${text} in ${bucket} and ${seen.get(key)}`);
   seen.set(key, bucket);
 };
 
@@ -73,8 +86,9 @@ assert(outsideCounts.train === 66 && outsideCounts.calibration === 22 && outside
 const diagnostic = scope.diagnostic_unresolved || [];
 assert(diagnostic.length === 30, `diagnostic unresolved count ${diagnostic.length} != 30`);
 for (const text of diagnostic) remember(text, 'diagnostic:unresolved');
-assert(seen.size === 250, `scope corpus unique total ${seen.size} != 250`);
+assert(seen.size === 250, `effective scope corpus unique total ${seen.size} != 250`);
 assert(scope.counts?.total === 250 && scope.counts?.diagnostic_unresolved === 30, 'declared scope totals mismatch');
+for (const source of Object.keys(replacements)) assert(rawOccurrences.get(source) === 1, `scope patch source must occur exactly once: ${source}`);
 
 const forbiddenTraditional = /(妻财|官鬼|父母爻|兄弟爻|子孙爻|世爻|应爻|用神|元神|忌神|仇神)/;
 for (const key of seen.keys()) assert(!forbiddenTraditional.test(key), `scope data leaks traditional LiuYao terminology: ${key}`);
@@ -120,4 +134,5 @@ console.log('LiuYao current-22 Semantic Scope Gate v0.1 data verification passed
 console.log('- 110 supported-current-22 rows: 66 train / 22 calibration / 22 validation');
 console.log('- 110 clear outside-current-22 rows: 66 train / 22 calibration / 22 validation');
 console.log('- 30 unresolved diagnostic rows excluded from binary training/calibration/metrics');
+console.log(`- ${Object.keys(replacements).length} pre-use wording-only isolation correction(s)`);
 console.log('- zero exact overlap with prior Router corpora, sealed Candidate v0.1, and effective v0.9 development data');
