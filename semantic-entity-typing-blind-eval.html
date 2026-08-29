@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲 Entity Typing / Object Role v0.1 封存 Blind Eval：仅评估，不用于调参。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · Entity Typing Blind Eval v0.1</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1220px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.note{background:#f7f5f1;border-left:3px solid #bcb3a3;padding:10px 12px;border-radius:0 8px 8px 0;color:#5d574e;font-size:13px;line-height:1.65}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e8e2d8;padding:9px 7px}th{background:#faf8f4;position:sticky;top:0}.table-wrap{overflow:auto;max-height:70vh}.good{color:#356033}.danger{color:#9a3528}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}table{font-size:12px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="card">
+    <h1>龟甲 · Entity Typing / Object Role · Sealed Blind Eval v0.1</h1>
+    <p class="muted">本测试在 Entity Typing v0.1 的训练数据、Validation 校准、类型集合与 acceptance policy 冻结后建立。共 160 条：四类各 40 条。结果只用于一次性评估真实泛化能力，<strong>不得再用于修改 v0.1 训练集、阈值或架构</strong>。</p>
+    <p class="note">重点不是记住实体名，而是判断 <code>entity + current context</code> 的对象角色。Blind Eval 特意包含陌生实体、同一实体在购买/收货/其他语境中的角色切换，以及公司、品牌、产品、文件等近邻负例。</p>
+  </section>
+
+  <section class="card">
+    <h2>1. 冻结训练流程</h2>
+    <div class="row">
+      <button class="btn" id="loadModel">加载 BGE</button>
+      <button class="btn" id="train" disabled>按冻结流程训练 v0.1</button>
+      <span id="status" class="status warn">尚未加载</span>
+    </div>
+    <div class="progress"><div id="progress"></div></div>
+    <div id="trainText" class="mono">Xenova/bge-small-zh-v1.5 · q8 · Train 96 · Validation 32 · Validation-only calibration</div>
+  </section>
+
+  <section class="card">
+    <h2>2. 一次性 Blind Eval</h2>
+    <div class="row"><button class="btn" id="runBlind" disabled>运行一次 Blind Eval</button><span id="blindStatus" class="status warn">尚未运行</span></div>
+    <div class="progress"><div id="blindProgress"></div></div>
+    <div class="grid" style="margin-top:14px">
+      <article class="card metric"><span>Blind Top-1 accuracy</span><strong id="mTop1">—</strong></article>
+      <article class="card metric"><span>Known typed coverage</span><strong id="mCoverage">—</strong></article>
+      <article class="card metric"><span>Accepted typed accuracy</span><strong id="mAccepted">—</strong></article>
+      <article class="card metric"><span>Unknown rejection</span><strong id="mUnknown">—</strong></article>
+      <article class="card metric"><span>False typed activation</span><strong id="mFalse">—</strong></article>
+      <article class="card metric"><span>样本数</span><strong id="mCount">160</strong></article>
+    </div>
+    <div id="summary" class="mono">等待 Blind Eval。</div>
+  </section>
+
+  <section class="card">
+    <h2>3. Blind Eval 异常样本</h2>
+    <p class="muted">仅列：known 被拒绝、known 接受后类型错误、unknown 被错误接受。原始 Top-1 错但最终安全拒绝也会显示。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Entity</th><th>Context</th><th>Expected</th><th>Final</th><th>Top1</th><th>Top2</th><th>Margin</th><th>Threshold</th><th>Accepted</th></tr></thead>
+        <tbody id="errors"><tr><td colspan="9">尚未运行。</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<script type="module">
+import { entityTypingPocV01 as poc } from './js/liuyao-entity-typing-poc.js?v=0.1.2';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';
+const setStatus=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+let blindData=null;
+const loadBlind=async()=>{if(blindData)return blindData;const r=await fetch('./data/liuyao-entity-typing-blind-eval-v0.1.json',{cache:'no-cache'});if(!r.ok)throw new Error(`Blind Eval data HTTP ${r.status}`);blindData=await r.json();return blindData;};
+const flattenBlind=(data)=>{const rows=[];for(const label of poc.labels){for(const sample of data.labels?.[label]||[])rows.push({label,entity:sample.entity,context:sample.context});}return rows;};
+
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;setStatus('status','加载 BGE…','warn');try{await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('progress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('trainText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('progress').style.width='100%';$('trainText').textContent=`${poc.modelId} · ${poc.modelDtype} · encoder frozen`;setStatus('status','BGE 已就绪');$('train').disabled=false;}catch(e){setStatus('status','模型加载失败','bad');$('trainText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
+
+$('train').onclick=async()=>{$('train').disabled=true;$('runBlind').disabled=true;setStatus('status','按冻结流程训练中…','warn');try{const r=await poc.train({onStage:(stage,text)=>{$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('progress').style.width=`${total?done/total*100:0}%`;}});$('trainText').textContent=`训练完成 · train=${r.trainCount} · validation=${r.validationCount} · thresholds=${JSON.stringify(r.thresholds)} · minMargin=${poc.minMargin}`;setStatus('status','v0.1 已冻结复现');$('runBlind').disabled=false;}catch(e){setStatus('status','训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
+
+$('runBlind').onclick=async()=>{$('runBlind').disabled=true;setStatus('blindStatus','Blind Eval 运行中…','warn');try{const data=await loadBlind();const samples=flattenBlind(data);const evaluated=await poc.evaluateSamples(samples,{onProgress:(done,total)=>{$('blindProgress').style.width=`${total?done/total*100:0}%`;}});$('blindProgress').style.width='100%';const m=evaluated.metrics;$('mTop1').textContent=pct(m.top1Accuracy);$('mCoverage').textContent=pct(m.typedCoverage);$('mAccepted').textContent=pct(m.acceptedTypedAccuracy);$('mUnknown').textContent=pct(m.unknownRejection);$('mFalse').textContent=pct(m.falseTypedActivation);$('mCount').textContent=String(samples.length);
+const exceptions=[];for(let i=0;i<evaluated.rows.length;i++){const row=evaluated.rows[i];const r=evaluated.results[i];const finalType=r.accepted?r.type:'unknown';const badKnown=row.label!=='unknown'&&(!r.accepted||r.type!==row.label);const badUnknown=row.label==='unknown'&&r.accepted;if(badKnown||badUnknown)exceptions.push({row,r,finalType});}
+$('summary').textContent=`sealed=${data.sealed} · version=${data.version} · known=${m.trainableKnown} · unknown=${m.unknownTotal} · exceptions=${exceptions.length}\n注意：此结果不得用于回调 Entity Typing v0.1。`;
+$('errors').innerHTML=exceptions.length?exceptions.map(({row,r,finalType})=>`<tr><td>${escapeHtml(row.entity)}</td><td>${escapeHtml(row.context)}</td><td>${escapeHtml(row.label)}</td><td class="${finalType===row.label||(row.label==='unknown'&&!r.accepted)?'good':'danger'}">${escapeHtml(r.accepted?finalType:'__unresolved__')}</td><td>${escapeHtml(r.top1.id)} ${r.top1.score.toFixed(4)}</td><td>${escapeHtml(r.top2.id)} ${r.top2.score.toFixed(4)}</td><td>${r.margin.toFixed(4)}</td><td>${r.threshold.toFixed(4)}</td><td>${r.accepted?'true':'false'}</td></tr>`).join(''):'<tr><td colspan="9" class="good">无异常样本。</td></tr>';setStatus('blindStatus','Blind Eval 完成');}catch(e){setStatus('blindStatus','Blind Eval 失败','bad');$('summary').textContent=e?.stack||String(e);$('runBlind').disabled=false;}};
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,(c)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>
