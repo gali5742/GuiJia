@@ -7,6 +7,7 @@ const MODEL_ID = 'Xenova/bge-small-zh-v1.5';
 const MODEL_DTYPE = 'q8';
 const VECTOR_SIZE = 512;
 const DATA_URL = new URL('../data/liuyao-contextual-object-role-training-v0.2.json', import.meta.url);
+const PATCH_URL = new URL('../data/liuyao-contextual-object-role-training-v0.2-seal-patch.json', import.meta.url);
 const LABELS = Object.freeze(['investment_target_role','purchase_target_role','delivery_target_role','no_supported_role']);
 const MIN_MARGIN = 0.03;
 
@@ -58,8 +59,31 @@ const fetchJson = async (url) => {
   return response.json();
 };
 
+const applySealPatch = (source, patch) => {
+  const clone = JSON.parse(JSON.stringify(source));
+  const replacements = new Map((patch?.replacements || []).map((item) => [String(item.from || ''), String(item.to || '')]));
+  let applied = 0;
+  for (const group of Object.values(clone.labels || {})) {
+    for (const split of ['train','validation']) {
+      for (const sample of group?.[split] || []) {
+        const replacement = replacements.get(String(sample.context || ''));
+        if (replacement) {
+          sample.context = replacement;
+          applied += 1;
+        }
+      }
+    }
+  }
+  if (applied !== replacements.size) throw new Error(`Contextual Object Role seal patch 只应用 ${applied}/${replacements.size} 条`);
+  clone.sealPatch = { version:patch?.version || null, applied };
+  return clone;
+};
+
 const ensureData = async () => {
-  if (!data) data = await fetchJson(DATA_URL);
+  if (!data) {
+    const [base, patch] = await Promise.all([fetchJson(DATA_URL), fetchJson(PATCH_URL)]);
+    data = applySealPatch(base, patch);
+  }
   return data;
 };
 
@@ -235,7 +259,7 @@ const train = async ({ onStage, onEmbeddingProgress } = {}) => {
   const validationResults = validationVectors.map(classifyVector);
   const validationMetrics = metrics(validationRows, validationResults);
   onStage?.('done', 'Contextual Object Role PoC v0.2 已训练');
-  return { trainCount:trainRows.length, validationCount:validationRows.length, thresholds, validationMetrics, validationRows, validationResults };
+  return { trainCount:trainRows.length, validationCount:validationRows.length, thresholds, validationMetrics, validationRows, validationResults, sealPatch:data.sealPatch };
 };
 
 const classify = async (entity, context) => {
