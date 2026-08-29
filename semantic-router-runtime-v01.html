@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲本地语义路由 Runtime v0.1：BGE + 已冻结静态分类权重，无浏览器现场训练。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲｜本地语义路由 Runtime v0.1</title>
+  <style>
+    :root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{margin:0;background:#f4f2ed;color:#282621}main{max-width:1180px;margin:0 auto;padding:28px 18px 54px}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 10px;font-size:18px}.sub,.small{color:#68645d;line-height:1.7}.small{font-size:12px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}button{font:inherit;border:0;border-radius:9px;padding:10px 16px;background:#38352f;color:#fff;cursor:pointer}button.secondary{background:#ece9e2;color:#38352f}button:disabled{opacity:.5;cursor:not-allowed}textarea{width:100%;min-height:92px;box-sizing:border-box;border:1px solid #cfcac0;border-radius:10px;padding:12px;font:inherit;resize:vertical}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:860px){.grid{grid-template-columns:1fr}}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}pre{white-space:pre-wrap;word-break:break-word;background:#f7f6f2;border-radius:10px;padding:12px;overflow:auto;font-size:12px;line-height:1.55}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid #ebe7df;padding:8px 7px;text-align:left;vertical-align:top}th{color:#666158;font-weight:600}.chips{display:flex;flex-wrap:wrap;gap:7px}.chips button{padding:7px 10px;font-size:12px}.notice{border-left:4px solid #c7b989;padding-left:12px;margin:12px 0;color:#5c5130}.method{border-left:4px solid #d7d2c8;padding-left:14px;margin-top:18px}
+  </style>
+</head>
+<body><main>
+  <h1>龟甲 · 本地语义路由 Runtime v0.1</h1>
+  <p class="sub">正式运行形态验证页。浏览器只加载 BGE encoder 与已冻结的静态分类权重，不再生成训练集 embedding、不训练分类器、不重新校准阈值。现代语义路由仍与 DivinationIntent / Rule Registry 隔离。</p>
+
+  <section class="card">
+    <h2>1. 加载静态路由器</h2>
+    <p class="small">静态权重：<code>semantic-router-weights-v0.1</code>。训练来源和 validation-only threshold 已写入权重 metadata。</p>
+    <div class="row"><button id="load">加载 BGE + 静态权重</button><span id="loadStatus" class="status warn">尚未加载</span></div>
+    <div class="progress"><div id="loadProgress"></div></div><pre id="loadText">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>2. 单句运行时测试</h2>
+    <textarea id="question">这只股票现在跌了，下周会不会重新涨</textarea>
+    <div class="row"><button id="classify" disabled>静态路由分类</button><span id="classifyStatus" class="status">—</span></div>
+    <div class="chips" id="samples" style="margin-top:12px"></div><pre id="singleResult">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>3. Sealed Blind Eval v0.2</h2>
+    <div class="notice">这套 Blind Eval 在架构、训练来源、校准方法和静态权重冻结后才建立。运行结果只用于一次性评估真实泛化能力，不再据此修改 v0.1 训练集、阈值或架构。</div>
+    <p class="small">共 361 条：180 条 known route、121 条 out_of_scope、60 条 underspecified。underspecified 单独评估，不与 out_of_scope 混成一类。</p>
+    <div class="row"><button id="blind" disabled>运行一次 Blind Eval</button><span id="blindStatus" class="status">尚未运行</span></div>
+    <div class="progress"><div id="blindProgress"></div></div>
+    <div class="grid" style="margin-top:14px">
+      <article class="card metric"><span>Known Route Top-1 accuracy</span><strong id="mRoute">—</strong></article>
+      <article class="card metric"><span>Known coverage</span><strong id="mCoverage">—</strong></article>
+      <article class="card metric"><span>Accepted known accuracy</span><strong id="mAccepted">—</strong></article>
+      <article class="card metric"><span>Out-of-scope rejection</span><strong id="mOutReject">—</strong></article>
+      <article class="card metric"><span>False activation</span><strong id="mFalse">—</strong></article>
+      <article class="card metric"><span>Underspecified rejection</span><strong id="mUnderReject">—</strong></article>
+      <article class="card metric"><span>Underspecified activation</span><strong id="mUnderAct">—</strong></article>
+      <article class="card metric"><span>Safe overall accuracy</span><strong id="mOverall">—</strong></article>
+      <article class="card metric"><span>样本数</span><strong id="mCount">361</strong></article>
+    </div>
+  </section>
+
+  <section class="card"><h2>Blind Eval 异常样本</h2><p class="small">仅列：known 被拒绝/错分、out_of_scope 被接受、underspecified 被接受。</p><div style="overflow:auto"><table><thead><tr><th>问题</th><th>类别</th><th>Expected</th><th>Final</th><th>Route Top1</th><th>Gate score / th</th><th>Top2</th><th>Margin</th></tr></thead><tbody id="issues"><tr><td colspan="8">尚未运行 Blind Eval。</td></tr></tbody></table></div></section>
+</main>
+<script type="module">
+import { semanticRouterRuntimeV01 as router } from './js/liuyao-semantic-router-runtime-v01.js?v=runtime0.1';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const setStatus=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+[
+ '这只股票跌了这么久，下星期能不能掉头向上',
+ '这只股票以后能不能让我赚钱',
+ '这本书值不值得看',
+ '我和她以后有没有可能在一起',
+ '我和她最后能不能结婚',
+ '这次面试能不能过',
+ '我们还有机会吗'
+].forEach((text)=>{const b=document.createElement('button');b.className='secondary';b.textContent=text;b.onclick=()=>{$('question').value=text;};$('samples').appendChild(b);});
+
+$('load').onclick=async()=>{$('load').disabled=true;setStatus('loadStatus','加载中…','warn');try{const info=await router.load((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('loadProgress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('loadText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('loadProgress').style.width='100%';setStatus('loadStatus','静态路由器已就绪','ok');$('loadText').textContent=JSON.stringify(info,null,2);$('classify').disabled=false;$('blind').disabled=false;}catch(e){setStatus('loadStatus','加载失败','bad');$('loadText').textContent=e?.stack||String(e);$('load').disabled=false;}};
+
+$('classify').onclick=async()=>{const text=$('question').value.trim();if(!text)return;$('classify').disabled=true;setStatus('classifyStatus','计算中…','warn');try{const r=await router.classify(text);setStatus('classifyStatus',r.accepted?`接受：${r.predicted}`:'未自动接受',r.accepted?'ok':'warn');$('singleResult').textContent=JSON.stringify({question:text,predicted:r.predicted,accepted:r.accepted,routeTop1:r.top1,routeTop2:r.top2,routeMargin:r.routeMargin,gateScore:r.gateScore,gateThreshold:r.gateThreshold,top5:r.scores.slice(0,5)},null,2);}catch(e){setStatus('classifyStatus','失败','bad');$('singleResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
+
+$('blind').onclick=async()=>{$('blind').disabled=true;setStatus('blindStatus','运行中…','warn');$('blindProgress').style.width='0%';try{const result=await router.runBlindEvaluation({onProgress:(done,total)=>{$('blindProgress').style.width=`${done/total*100}%`;setStatus('blindStatus',`运行中 ${done}/${total}`,'warn');}});const m=result.metrics;$('mRoute').textContent=pct(m.routeKnownTop1Accuracy);$('mCoverage').textContent=pct(m.knownCoverage);$('mAccepted').textContent=pct(m.acceptedKnownAccuracy);$('mOutReject').textContent=pct(m.outOfScopeRejectionRate);$('mFalse').textContent=pct(m.falseActivationRate);$('mUnderReject').textContent=pct(m.underspecifiedRejectionRate);$('mUnderAct').textContent=pct(m.underspecifiedActivationRate);$('mOverall').textContent=pct(m.safeOverallAccuracy);$('mCount').textContent=String(m.total);$('blindProgress').style.width='100%';setStatus('blindStatus','Blind Eval 完成','ok');const issues=result.results.filter((r)=>(r.category==='known_route'&&(!r.accepted||r.predicted!==r.expected))||(r.category!=='known_route'&&r.accepted));$('issues').innerHTML='';if(!issues.length){$('issues').innerHTML='<tr><td colspan="8">没有异常样本。</td></tr>';}else{for(const r of issues){const tr=document.createElement('tr');const vals=[r.text,r.category,r.expected,r.predicted,`${r.top1.id} ${f(r.top1.score)}`,`${f(r.gateScore)} / ${f(r.gateThreshold)}`,`${r.top2.id} ${f(r.top2.score)}`,f(r.routeMargin)];for(const value of vals){const td=document.createElement('td');td.textContent=value;tr.appendChild(td);}$('issues').appendChild(tr);}}}catch(e){setStatus('blindStatus','Blind Eval 失败','bad');$('issues').innerHTML=`<tr><td colspan="8">${String(e?.stack||e)}</td></tr>`;}finally{$('blind').disabled=false;}};
+</script>
+</body>
+</html>
