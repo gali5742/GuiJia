@@ -21,75 +21,7 @@ jobs:
           node-version: "22"
 
       - name: Apply BaZi context final cleanup
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          p = Path('js/bazi-interpretation.js')
-          text = p.read_text(encoding='utf-8')
-
-          old = """        const labels = completeRelations.map(completeRelationLabel);\n        return makeJudgment(\n            'complete-structure',\n            `${labels[0]}形成完整结构`,\n            `原局地支会齐${labels.join('、')}。完整方局或完整三刑作为主要组合，优先构成整体观察背景；其他已识别关系仍作为并存结构保留。`,\n"""
-          new = """        const labels = completeRelations.map(completeRelationLabel);\n        const structureKinds = [...new Set(completeRelations.map((relation) => {\n            if (relation.code === 'SAN_HUI_COMPLETE') return '完整三会结构';\n            if (relation.code === 'SAN_HE_COMPLETE') return '完整三合结构';\n            if (relation.code === 'PUNISHMENT_TRIAD_COMPLETE') return '完整三刑';\n            return '完整结构';\n        }))];\n        const prioritySubject = structureKinds.length === 1\n            ? structureKinds[0]\n            : `${structureKinds.join('、')}等完整组合`;\n        return makeJudgment(\n            'complete-structure',\n            `${labels[0]}形成完整结构`,\n            `原局地支会齐${labels.join('、')}。${prioritySubject}优先构成这一层的整体观察背景；其他已识别关系仍作为并存结构保留。`,\n"""
-          if text.count(old) != 1:
-              raise SystemExit('complete-structure block mismatch')
-          text = text.replace(old, new, 1)
-
-          old = """    function branchFamily(relation) {\n        const meta = baziRelationMeta[relation?.code];\n        return meta?.scope === 'branch' ? (meta.family || '其他') : '其他';\n    }\n\n    function shortBranchRelation(relation) {\n"""
-          new = """    function branchFamily(relation) {\n        const meta = baziRelationMeta[relation?.code];\n        return meta?.scope === 'branch' ? (meta.family || '其他') : '其他';\n    }\n\n    function branchSummaryLabel(relation) {\n        if (!relation) return '';\n        if (relation.code === 'BRANCH_SIX_HARMONY') return '六合';\n        if (relation.code === 'BRANCH_SIX_CLASH') return '六冲';\n        if (relation.code === 'BRANCH_PUNISHMENT') return '相刑';\n        if (relation.code === 'SELF_PUNISHMENT') return '自刑';\n        if (relation.code === 'BRANCH_SIX_HARM') return '六害';\n        if (relation.code === 'BRANCH_SIX_BREAK') return '六破';\n        if (relation.code === 'SAN_HE_PARTIAL') return `${relation.pairKind || '半合'}${relation.element || ''}`;\n        if (relation.code === 'SAN_HUI_PARTIAL') return `同方${relation.element || ''}`;\n        return branchFamily(relation);\n    }\n\n    function shortBranchRelation(relation) {\n"""
-          if text.count(old) != 1:
-              raise SystemExit('branchFamily block mismatch')
-          text = text.replace(old, new, 1)
-
-          old = """        const repeatedPattern = buildRepeatedBranchPattern(branchRelations);\n        let title;\n        if (repeatedPattern) title = repeatedPattern.title;\n        else if (families.length >= 2) title = `地支${families.join('、')}交织`;\n        else if (branchRelations.length >= 2) title = `地支多组${families[0] || '关系'}同时成立`;\n        else title = '地支见一组直接关系';\n\n        let summary = repeatedPattern?.summary || `地支层面识别到${formatNaturalCount(branchRelations.length)}项关系或组合${families.length ? `，涉及${families.join('、')}` : ''}`;\n"""
-          new = """        const repeatedPattern = buildRepeatedBranchPattern(branchRelations);\n        const hasCompositeRelation = branchRelations.some((item) => item.code === 'SAN_HE_PARTIAL' || item.code === 'SAN_HUI_PARTIAL');\n        const summaryLabels = [...new Set(branchRelations.map(branchSummaryLabel).filter(Boolean))];\n        let title;\n        if (repeatedPattern) title = repeatedPattern.title;\n        else if (hasCompositeRelation && branchRelations.length >= 2) title = '地支关系与组合交织';\n        else if (families.length >= 2) title = `地支${families.join('、')}交织`;\n        else if (branchRelations.length >= 2) title = `地支多组${families[0] || '关系'}同时成立`;\n        else title = '地支见一组直接关系';\n\n        let summary = repeatedPattern?.summary || `地支层面识别到${formatNaturalCount(branchRelations.length)}项关系或组合${summaryLabels.length ? `，包括${summaryLabels.join('、')}` : ''}`;\n"""
-          if text.count(old) != 1:
-              raise SystemExit('branch judgment block mismatch')
-          text = text.replace(old, new, 1)
-
-          old = """        if (branchJudgment) {\n            const branchRelations = (result.internalRelations || [])\n                .filter((item) => BRANCH_RELATION_CODES.has(item.code) && !COMPLETE_CODES.has(item.code));\n            const families = [...new Set(branchRelations\n                .map(branchFamily)\n                .filter((item) => item !== '其他'))]\n                .sort((a, b) => familyOrder.indexOf(a) - familyOrder.indexOf(b));\n            if (families.length >= 2) later.push(`地支${families.join('')}交织`);\n            else if (families.length === 1 && branchRelations.length >= 2) later.push(`地支见多组${families[0]}`);\n            else if (families.length === 1 && branchRelations.length === 1) later.push(`地支仅见一处${families[0]}`);\n        }\n"""
-          new = """        if (branchJudgment) {\n            if (branchJudgment.title === '地支关系与组合交织') {\n                later.push(branchJudgment.title);\n            } else {\n                const branchRelations = (result.internalRelations || [])\n                    .filter((item) => BRANCH_RELATION_CODES.has(item.code) && !COMPLETE_CODES.has(item.code));\n                const families = [...new Set(branchRelations\n                    .map(branchFamily)\n                    .filter((item) => item !== '其他'))]\n                    .sort((a, b) => familyOrder.indexOf(a) - familyOrder.indexOf(b));\n                if (families.length >= 2) later.push(`地支${families.join('')}交织`);\n                else if (families.length === 1 && branchRelations.length >= 2) later.push(`地支见多组${families[0]}`);\n                else if (families.length === 1 && branchRelations.length === 1) later.push(`地支仅见一处${families[0]}`);\n            }\n        }\n"""
-          if text.count(old) != 1:
-              raise SystemExit('headline branch block mismatch')
-          text = text.replace(old, new, 1)
-          p.write_text(text, encoding='utf-8')
-
-          p = Path('js/bazi-transit-analysis.js')
-          text = p.read_text(encoding='utf-8')
-          old = """        if (result.internalRelations?.length) {\n            lines.push('原局关系：');\n            result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));\n        }\n"""
-          new = """        if (result.internalRelations?.length) {\n            lines.push('', '原局关系：');\n            result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));\n        }\n"""
-          if text.count(old) != 1:
-              raise SystemExit('transit original-relations block mismatch')
-          p.write_text(text.replace(old, new, 1), encoding='utf-8')
-
-          p = Path('tests/bazi-semantic-layer-tests.js')
-          text = p.read_text(encoding='utf-8')
-          marker = "\nconsole.log(`\\n${passed} passed, ${failed} failed`);"
-          if text.count(marker) != 1:
-              raise SystemExit('semantic test insertion marker mismatch')
-          addition = r'''
-
-test('原局完整结构与地支组合文案只描述实际存在关系', () => {
-    const output = baziInterpretation.buildBaziInterpretation(makeResult());
-    const complete = output.judgments.find((item) => item.id === 'complete-structure');
-    assert(complete?.summary.includes('完整三会结构'), `三会结构未按实际类型描述：${complete?.summary}`);
-    assert(!complete?.summary.includes('完整三刑'), `当前盘不存在三刑却进入解释：${complete?.summary}`);
-    const branch = output.judgments.find((item) => item.id === 'branch-network');
-    assert(branch?.title === '地支关系与组合交织', `关系与半合组合未使用统一标题：${branch?.title}`);
-    assert(branch?.summary.includes('六合') && branch.summary.includes('六破') && branch.summary.includes('半合金'), `地支正文未覆盖实际关系与组合：${branch?.summary}`);
-    assert(output.headline.includes('地支关系与组合交织'), `总括仍退回不完整的合破标题：${output.headline}`);
-});
-
-test('岁运上下文把原局关系底表提升为独立区块', () => {
-    const result = makeResult();
-    const interpretation = baziInterpretation.buildBaziInterpretation(result);
-    const text = baziTransitAnalysis.buildBaziTransitContextText(result, interpretation, {});
-    assert(text.includes('\n\n原局关系：\n- '), '原局关系仍附着在最后一条编号解释下');
-});
-'''
-          p.write_text(text.replace(marker, addition + marker, 1), encoding='utf-8')
-          PY
+        run: python3 .bazi-final3.py
 
       - name: Core regression tests
         run: npm test
@@ -108,9 +40,10 @@ test('岁运上下文把原局关系底表提升为独立区块', () => {
         shell: bash
         run: |
           set -euo pipefail
-          git checkout HEAD^ -- .github/workflows/test.yml
+          git show f380f8e2d424b447f1b70c61f371a7376971afe4:.github/workflows/test.yml > .github/workflows/test.yml
+          rm -f .bazi-final3.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js .github/workflows/test.yml
+          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js .github/workflows/test.yml .bazi-final3.py
           git commit -m 'refactor: finalize BaZi context wording'
           git push origin HEAD:bazi-context-final3
