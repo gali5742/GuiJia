@@ -1,0 +1,42 @@
+name: Apply BaZi semantic-layer refactor
+
+on:
+  push:
+    branches: [bazi-semantic-stage]
+    paths:
+      - '.bazi-update/**'
+      - '.github/workflows/bazi-semantic-apply.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bazi-semantic-stage
+      - name: Materialize and verify BaZi files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bazi-update/literature-b64-part-* | base64 -d > .bazi-update/bazi-literature.js.gz
+          gzip -t .bazi-update/bazi-core.js.gz
+          gzip -t .bazi-update/bazi-interpretation.js.gz
+          gzip -t .bazi-update/bazi-literature.js.gz
+          gzip -t .bazi-update/bazi-timing.js.gz
+          gzip -dc .bazi-update/bazi-core.js.gz > js/bazi-core.js
+          gzip -dc .bazi-update/bazi-interpretation.js.gz > js/bazi-interpretation.js
+          gzip -dc .bazi-update/bazi-literature.js.gz > js/bazi-literature.js
+          gzip -dc .bazi-update/bazi-timing.js.gz > js/bazi-timing.js
+          npm test
+          rm -rf .bazi-update
+          rm -f .github/workflows/bazi-semantic-apply.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'refactor: separate BaZi analysis semantic layers'
+            git push origin HEAD:bazi-semantic-stage
+          fi
