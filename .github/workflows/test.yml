@@ -22,7 +22,9 @@ jobs:
           node-version: "22"
 
       - name: Apply BaZi context compaction
-        run: python3 .bazi-context-compact.py
+        run: |
+          python3 .bazi-context-compact.py
+          python3 .bazi-context-regression-repair.py
 
       - name: Core regression tests
         run: npm test
@@ -42,7 +44,7 @@ jobs:
           set -euo pipefail
           git fetch origin main --depth=1
           git checkout origin/main -- .github/workflows/test.yml
-          rm -f .bazi-context-compact.py .github/workflows/bazi-context-compact.yml
+          rm -f .bazi-context-compact.py .bazi-context-regression-repair.py .github/workflows/bazi-context-compact.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
