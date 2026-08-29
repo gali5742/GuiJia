@@ -1,0 +1,416 @@
+{
+  "version": "0.1",
+  "purpose": "PoC v0.3 supervised linear heads over frozen BGE embeddings. This dataset must never include the frozen Eval v0.1 sentences.",
+  "encoder": "Xenova/bge-small-zh-v1.5",
+  "routes": {
+    "financial_fortune": {
+      "train": [
+        "今年整体进财情况会好吗",
+        "接下来半年我的财务状况会不会转好",
+        "今年总体赚钱运势如何",
+        "这一阵子的收入和进账顺不顺",
+        "今年手里的钱会不会越来越宽裕",
+        "未来几个月财运总体怎样",
+        "今年赚钱这件事整体有没有起色",
+        "这段时间我的经济状况会改善吗",
+        "今年整体收入水平会往上走吗",
+        "今年财务上能不能比往年轻松",
+        "接下来一年的整体财势如何",
+        "最近整体求财顺不顺利"
+      ],
+      "validation": [
+        "今年总的来说能不能多赚些钱",
+        "这半年整体进账会不会增加",
+        "我今年总体上的赚钱状况怎么样"
+      ]
+    },
+    "business_operation": {
+      "train": [
+        "我开的店接下来能不能有利润",
+        "这门买卖继续经营能赚到钱吗",
+        "自己做这个生意今年盈利情况怎样",
+        "这个小店未来几个月生意会不会好",
+        "经营这项业务最终能否挣钱",
+        "这个创业项目做下去有没有收益",
+        "店铺继续开着会不会越来越赚钱",
+        "这项经营活动最后能不能盈利",
+        "我做的这门生意前景如何",
+        "开这个工作室能不能赚到钱",
+        "今年店里的经营情况会变好吗",
+        "我的店今年能不能扭亏为盈"
+      ],
+      "validation": [
+        "这家店接下来经营得起来吗",
+        "做这项买卖最后有无利润",
+        "这个创业生意今年能赚吗"
+      ]
+    },
+    "borrow_money": {
+      "train": [
+        "这次向银行申请借款能批吗",
+        "我的贷款申请最后能不能通过审批",
+        "申请房贷这次银行会放款吗",
+        "这次融资申请有机会拿到资金吗",
+        "我向机构申请贷款能获准吗",
+        "这笔借款申请最终会不会批准",
+        "银行会不会给我批这笔额度",
+        "我申请的贷款什么时候能有结果",
+        "这次贷款审批能顺利通过吗",
+        "房屋贷款申请会被银行同意吗",
+        "我去申请融资能拿到所需款项吗",
+        "这次借钱申请能不能获批"
+      ],
+      "validation": [
+        "银行是否会批准我的借款",
+        "我的融资请求能通过吗",
+        "这次申请信贷能拿到钱吗"
+      ]
+    },
+    "debt_repayment": {
+      "train": [
+        "今年能不能把剩余债务还完",
+        "我什么时候可以彻底还清欠款",
+        "这笔贷款年底前能结清吗",
+        "剩下的房贷今年能不能清掉",
+        "我能否按计划把债务全部偿还",
+        "这笔借款什么时候能完全还完",
+        "今年有希望把信用卡欠款清零吗",
+        "贷款余额能不能在今年还清",
+        "我什么时候才能没有这笔债",
+        "这项债务能否顺利结清",
+        "年底之前我能把欠的钱全还了吗",
+        "这笔欠款最终能不能彻底偿还"
+      ],
+      "validation": [
+        "我今年能摆脱这笔债务吗",
+        "剩下的欠款何时能够还清",
+        "这笔贷款今年能结掉吗"
+      ]
+    },
+    "investment_profit": {
+      "train": [
+        "买入这只股票最后能赚到钱吗",
+        "投这个基金能不能获得收益",
+        "这项投资最终会有利润吗",
+        "把钱投进去以后能回本吗",
+        "投资这个标的会不会挣钱",
+        "这笔投资最终回报会不会是正的",
+        "买这只基金以后能赚吗",
+        "参与这个投资项目有没有收益",
+        "这次投入的资金最后能不能盈利",
+        "我投这家公司能赚到钱吗",
+        "这项投资能否带来实际利润",
+        "买入以后最终能不能赚钱"
+      ],
+      "validation": [
+        "投这只票最后会有收益吗",
+        "这次投资能不能让我盈利",
+        "把钱放进这个项目会赚吗"
+      ]
+    },
+    "investment_suitability": {
+      "train": [
+        "这个基金现在值得投资吗",
+        "现在介入这家公司合不合适",
+        "这个投资项目适合参与吗",
+        "这只股票目前值得买入吗",
+        "现在把钱投进去是否合适",
+        "这个标的现在适不适合布局",
+        "此时参与这项投资值不值得",
+        "现在进场这只基金合适吗",
+        "这个投资机会适不适合现在参加",
+        "目前买入这个金融标的是否合适",
+        "现在投资这家公司是不是好选择",
+        "这个项目值得我现在投入资金吗"
+      ],
+      "validation": [
+        "现在投这个基金合适不合适",
+        "这个标的此刻值得介入吗",
+        "我现在参与这项投资是否妥当"
+      ]
+    },
+    "investment_position_decision": {
+      "train": [
+        "手里的这只股票该继续持有还是卖掉",
+        "现在是清仓还是接着拿着比较好",
+        "这个仓位要继续保留还是退出",
+        "持有中的股票现在要不要卖出",
+        "这只票应该继续拿还是止盈离场",
+        "我现在该减仓还是继续持有",
+        "这个持仓是否应该马上退出",
+        "手上的基金继续拿着还是赎回",
+        "现在卖出这只股票还是继续等",
+        "这个仓位该不该继续留着",
+        "我手里的股票是卖掉好还是继续持有",
+        "目前这个投资仓位应该退出还是保留"
+      ],
+      "validation": [
+        "这只票现在要卖还是继续拿",
+        "当前仓位该继续持有还是离场",
+        "手上的基金要不要现在赎回"
+      ]
+    },
+    "investment_price_trend": {
+      "train": [
+        "这只股票接下来还会不会上涨",
+        "股价后面会继续下跌吗",
+        "这只票跌下去以后会反弹吗",
+        "下周这只股票价格会向上还是向下",
+        "基金净值后面还有回升机会吗",
+        "这只股票之后能不能涨回去",
+        "接下来股价会不会转为上涨",
+        "这只票后面的价格走势怎样",
+        "跌了一阵以后股价会重新走高吗",
+        "下周股票会继续跌还是开始回升",
+        "这个基金之后价格会不会继续走弱",
+        "股票价格接下来有没有反弹空间"
+      ],
+      "validation": [
+        "这只票之后会不会掉头上涨",
+        "股价下周还能不能重新走强",
+        "这个基金接下来是涨还是跌"
+      ]
+    },
+    "income_salary": {
+      "train": [
+        "今年我的工资有没有加薪机会",
+        "公司这次会不会给我涨工资",
+        "我的月薪接下来能提高吗",
+        "今年薪资待遇会不会上涨",
+        "这份工作的工资今年能增加吗",
+        "下半年我的基本工资会调高吗",
+        "公司今年会给我调薪吗",
+        "我的薪水接下来有没有提升空间",
+        "今年工资水平能不能往上调",
+        "这次薪酬调整我能涨多少",
+        "我的固定薪资今年会增加吗",
+        "接下来公司会不会提高我的工资"
+      ],
+      "validation": [
+        "今年我的薪酬能上调吗",
+        "这次调薪会给我加工资吗",
+        "下半年月薪有没有上涨机会"
+      ]
+    },
+    "income_bonus": {
+      "train": [
+        "今年公司会不会给我发年终奖",
+        "这次绩效奖金能拿到吗",
+        "我的年末奖金会不会到账",
+        "公司今年还有奖金可以发吗",
+        "这笔绩效奖励最后会兑现吗",
+        "年底我能不能拿到公司奖金",
+        "本季度奖金会发下来吗",
+        "我的奖金什么时候能够入账",
+        "今年年终奖金能顺利拿到吗",
+        "这次奖励金最终会不会发给我",
+        "公司承诺的奖金能兑现吗",
+        "这笔绩效奖年底前能到账吗"
+      ],
+      "validation": [
+        "今年还有没有年末奖金",
+        "我的绩效奖励能发下来吗",
+        "年底这笔奖金会到账吗"
+      ]
+    },
+    "receive_item": {
+      "train": [
+        "我买的电脑这几天能送到吗",
+        "网购的手机什么时候能收到",
+        "这个快递明天能不能到手",
+        "已经下单的商品月底前能收到吗",
+        "卖家寄出的东西这周能不能拿到",
+        "我的包裹今天有机会送到吗",
+        "前几天买的相机什么时候能到",
+        "这件网购商品能在周末前收到吗",
+        "快递已经发出了，明天能到吗",
+        "我订的设备这周能送过来吗",
+        "已经购买的东西什么时候到手",
+        "物流中的包裹月底前能不能收到"
+      ],
+      "validation": [
+        "刚买的电脑周五前能到吗",
+        "寄出来的商品明天可以收到吗",
+        "我这个包裹什么时候能拿到"
+      ]
+    },
+    "item_purchase": {
+      "train": [
+        "这台笔记本电脑现在值得买吗",
+        "这个手机现在入手划算吗",
+        "我买这台相机会不会后悔",
+        "这件商品现在适合买回家吗",
+        "这个电子设备值得我花钱买吗",
+        "这台机器买回来是否好用",
+        "现在入手这个耳机合适吗",
+        "这件东西值不值这个价钱",
+        "我现在该不该买这台电脑",
+        "这个家电值得现在购买吗",
+        "买这个产品对我来说合不合适",
+        "这台设备现在买是不是好选择"
+      ],
+      "validation": [
+        "这个平板现在值得入手吗",
+        "我买这台相机合不合适",
+        "这个产品值不值得花钱买"
+      ]
+    },
+    "relationship_development": {
+      "train": [
+        "我和这个男生以后有机会在一起吗",
+        "我喜欢的女生会不会接受我的追求",
+        "我们从朋友发展成恋人的可能大吗",
+        "我对这个人有好感，我们能进一步吗",
+        "这个女生愿不愿意和我开始交往",
+        "我和他以后会不会成为恋人",
+        "我追的这个人会答应和我在一起吗",
+        "我们之间能不能从暧昧变成恋爱",
+        "这个男生对我有没有恋爱发展的想法",
+        "我和这个具体对象以后有没有可能交往",
+        "她会接受我成为她的男朋友吗",
+        "我和这个朋友还有没有感情发展的机会"
+      ],
+      "validation": [
+        "我和他能不能从朋友走到恋爱",
+        "这个女生会愿意和我交往吗",
+        "我们两个人有没有成为恋人的可能"
+      ]
+    },
+    "marriage_match": {
+      "train": [
+        "我和这个对象以后能不能结婚",
+        "这段恋爱最终会走到婚姻吗",
+        "我们两个以后有成为夫妻的可能吗",
+        "我和她这门婚事能不能成",
+        "跟这个人继续交往最后会结婚吗",
+        "我们今年有机会把婚结了吗",
+        "我和男朋友最终能进入婚姻吗",
+        "我和女朋友以后会不会结为夫妻",
+        "这段感情有走进婚姻的结果吗",
+        "我们两个人将来能成婚吗",
+        "和这个对象最终有没有婚姻缘分",
+        "我跟他最后会不会办婚礼结婚"
+      ],
+      "validation": [
+        "我和对象未来能结成夫妻吗",
+        "这段关系最终能不能成婚",
+        "我们以后会不会正式结婚"
+      ]
+    },
+    "marital_relationship": {
+      "train": [
+        "我和妻子现在的婚姻还能维持吗",
+        "我跟丈夫最近的夫妻关系怎么样",
+        "我和老婆以后还能不能和好",
+        "我们夫妻之间的关系会改善吗",
+        "这段已经存在的婚姻还能继续下去吗",
+        "我和老公最近能不能缓和关系",
+        "妻子和我的感情状态接下来怎样",
+        "我们夫妻还能不能重新和睦",
+        "我和丈夫这段婚姻会不会继续",
+        "结婚以后我们最近关系很差，会好转吗",
+        "我和配偶还能恢复以前的关系吗",
+        "夫妻之间这段冷战能不能结束"
+      ],
+      "validation": [
+        "我和老婆的关系接下来会缓和吗",
+        "这段婚姻现在还能继续维持吗",
+        "我和丈夫以后还能和好吗"
+      ]
+    }
+  },
+  "hardNegatives": {
+    "train": [
+      {"text":"这本小说值不值得看","targets":["item_purchase"]},
+      {"text":"这部电影值得去看吗","targets":["item_purchase"]},
+      {"text":"这个网课值不值得学","targets":["item_purchase"]},
+      {"text":"这家餐厅值不值得去","targets":["item_purchase"]},
+      {"text":"这个展览现在值得看吗","targets":["item_purchase"]},
+      {"text":"明天适不适合换发型","targets":["item_purchase","investment_suitability"]},
+      {"text":"这个城市适不适合去旅行","targets":["item_purchase","investment_suitability"]},
+      {"text":"这门课程适不适合我学","targets":["item_purchase","investment_suitability"]},
+      {"text":"这个工作适不适合我做","targets":["item_purchase","investment_suitability"]},
+      {"text":"今晚适不适合出去跑步","targets":["item_purchase","investment_suitability"]},
+
+      {"text":"这次资格考试能不能通过","targets":["borrow_money"]},
+      {"text":"我的面试最后能不能过","targets":["borrow_money"]},
+      {"text":"签证申请这次能批准吗","targets":["borrow_money"]},
+      {"text":"驾照考试能顺利通过吗","targets":["borrow_money"]},
+      {"text":"学校申请会不会录取我","targets":["borrow_money"]},
+      {"text":"这个审核流程能不能通过","targets":["borrow_money"]},
+      {"text":"论文答辩这次可以过吗","targets":["borrow_money"]},
+      {"text":"入学申请能不能获批","targets":["borrow_money"]},
+
+      {"text":"明天气温还会继续上升吗","targets":["investment_price_trend","income_salary"]},
+      {"text":"我的体重下周还会不会涨","targets":["investment_price_trend","income_salary"]},
+      {"text":"河水水位后面还会不会上涨","targets":["investment_price_trend"]},
+      {"text":"这个视频的播放量还会继续涨吗","targets":["investment_price_trend"]},
+      {"text":"接下来室温会不会继续下降","targets":["investment_price_trend"]},
+      {"text":"这个游戏在线人数还会回升吗","targets":["investment_price_trend"]},
+      {"text":"我的跑步成绩下个月还能提高吗","targets":["investment_price_trend","income_salary"]},
+      {"text":"这门课的分数能不能再提高","targets":["investment_price_trend","income_salary"]},
+
+      {"text":"我和同事最近关系会不会改善","targets":["relationship_development","marital_relationship"]},
+      {"text":"我和室友以后还能好好相处吗","targets":["relationship_development","marital_relationship"]},
+      {"text":"我跟朋友吵架了还能和好吗","targets":["relationship_development","marital_relationship"]},
+      {"text":"我和姐姐最近关系很差，会缓和吗","targets":["relationship_development","marital_relationship"]},
+      {"text":"今年我有没有机会认识恋爱对象","targets":["relationship_development"]},
+      {"text":"我今年能不能脱单","targets":["relationship_development","marriage_match"]},
+      {"text":"以后我会不会结婚","targets":["marriage_match"]},
+      {"text":"我父母最近的关系会不会好一点","targets":["marital_relationship"]},
+
+      {"text":"朋友明天几点能到我家","targets":["receive_item"]},
+      {"text":"这趟列车什么时候到站","targets":["receive_item"]},
+      {"text":"我的航班今晚能按时抵达吗","targets":["receive_item"]},
+      {"text":"外卖骑手大概什么时候到","targets":["receive_item"]},
+      {"text":"出租车还要多久能到这里","targets":["receive_item"]},
+      {"text":"我朋友周末能不能赶到东京","targets":["receive_item"]},
+
+      {"text":"这个游戏我能不能赢","targets":["business_operation","investment_profit","financial_fortune"]},
+      {"text":"这场比赛最后能不能获胜","targets":["business_operation","investment_profit"]},
+      {"text":"这个学期成绩会不会变好","targets":["financial_fortune","income_salary"]},
+      {"text":"我的论文最终能不能完成","targets":["business_operation","debt_repayment"]},
+      {"text":"这个个人计划最后能不能做成","targets":["business_operation"]},
+      {"text":"这次旅行整体会不会顺利","targets":["financial_fortune"]},
+
+      {"text":"游戏活动奖励会不会发到账号里","targets":["income_bonus","receive_item"]},
+      {"text":"商店返的积分什么时候到账","targets":["income_bonus","receive_item"]},
+      {"text":"抽奖奖品能不能拿到","targets":["income_bonus","receive_item"]},
+      {"text":"平台优惠券什么时候发下来","targets":["income_bonus","receive_item"]},
+      {"text":"比赛奖金什么时候发给冠军","targets":["income_bonus"]},
+
+      {"text":"我的钥匙到底丢在哪里了","targets":["*"]},
+      {"text":"手机为什么突然无法开机","targets":["*"]},
+      {"text":"电脑连不上无线网是什么原因","targets":["*"]},
+      {"text":"明天下午会不会下大雨","targets":["*"]},
+      {"text":"周末高速公路会不会堵车","targets":["*"]},
+      {"text":"这个菜怎样做味道更好","targets":["*"]},
+      {"text":"我什么时候才能把法语学到B1","targets":["*"]},
+      {"text":"这次航班有没有可能延误","targets":["*"]},
+      {"text":"我的猫今天为什么一直躲着我","targets":["*"]},
+      {"text":"明天几点出门比较合适","targets":["*"]}
+    ],
+    "validation": [
+      {"text":"这部纪录片值不值得看","targets":["item_purchase"]},
+      {"text":"这个讲座值得去听吗","targets":["item_purchase"]},
+      {"text":"这次公务员考试能不能过","targets":["borrow_money"]},
+      {"text":"我的签证这次会批吗","targets":["borrow_money"]},
+      {"text":"明天最高气温还会升吗","targets":["investment_price_trend","income_salary"]},
+      {"text":"这个账号的粉丝数还会涨吗","targets":["investment_price_trend"]},
+      {"text":"我和合租室友还能和好吗","targets":["relationship_development","marital_relationship"]},
+      {"text":"今年我会遇到对象吗","targets":["relationship_development"]},
+      {"text":"飞机今晚什么时候到东京","targets":["receive_item"]},
+      {"text":"朋友大概几点会到","targets":["receive_item"]},
+      {"text":"这次比赛有没有机会赢","targets":["business_operation","investment_profit"]},
+      {"text":"我的毕业论文能按期完成吗","targets":["business_operation","debt_repayment"]},
+      {"text":"游戏签到奖励能到账吗","targets":["income_bonus","receive_item"]},
+      {"text":"平台积分什么时候给我","targets":["income_bonus","receive_item"]},
+      {"text":"明天大阪天气怎么样","targets":["*"]},
+      {"text":"耳机突然没有声音是什么原因","targets":["*"]},
+      {"text":"我的护照放到哪里了","targets":["*"]},
+      {"text":"这道菜要放多少盐","targets":["*"]},
+      {"text":"周日新干线会不会晚点","targets":["*"]},
+      {"text":"什么时候开始学钢琴比较好","targets":["*"]}
+    ]
+  }
+}
