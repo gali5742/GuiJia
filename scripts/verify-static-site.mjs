@@ -51,6 +51,15 @@ if (mode === 'deployed') {
   for (const expected of ['vendor/vue.global.prod.js', 'vendor/lunar.js', 'assets/app.css', 'assets/tailwind-utilities.css', 'js/app.js']) {
     if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing required file: ${expected}`);
   }
+  const liuyaoContextualRoleBlindRequirements = [
+    'semantic-contextual-object-role-blind-eval.html',
+    'data/liuyao-contextual-object-role-blind-eval-v0.2.json',
+    'js/liuyao-contextual-object-role-adapter.js',
+    'js/liuyao-contextual-object-role-poc.js'
+  ];
+  for (const expected of liuyaoContextualRoleBlindRequirements) {
+    if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao contextual role blind file: ${expected}`);
+  }
   if (!fs.existsSync(path.join(target, 'vendor-lock.json'))) fail('Deployed artifact missing vendor-lock.json');
 } else {
   const approvedRemoteScripts = new Set([
