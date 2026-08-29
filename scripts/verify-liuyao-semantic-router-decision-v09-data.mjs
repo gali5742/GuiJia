@@ -126,6 +126,12 @@ for (const [key, bucket] of seen.entries()) {
 }
 if (leaks.length) fail(`v0.9 development exact overlap(s):\n- ${leaks.join('\n- ')}`);
 
+console.log('AUDIT_VALIDATION_UNDERSPECIFIED_BEGIN');
+for (const [index, raw] of (dev.rejection?.validation?.underspecified || []).entries()) {
+  console.log(`${String(index + 1).padStart(2, '0')}\t${applyDevelopmentPatch(raw)}`);
+}
+console.log('AUDIT_VALIDATION_UNDERSPECIFIED_END');
+
 console.log('LiuYao Semantic Router Decision v0.9 development data verification passed.');
 console.log('- 22 routes × (3 train / 2 calibration / 3 validation) = 176 routeable');
 console.log('- 176 rejection rows: balanced out_of_scope / underspecified per split');
