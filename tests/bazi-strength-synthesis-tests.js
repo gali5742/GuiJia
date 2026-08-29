@@ -105,36 +105,47 @@ test('静态页面存在 Strength Synthesis 的生产加载路径', () => {
     assert(indexSource.includes(modulePath) || assessmentSource.includes(modulePath), '生产页面没有加载 bazi-strength-synthesis.js 的路径');
 });
 
-test('验证盘只启用月令层级 Synthesis Rule，不生成最终身强弱结论', () => {
+test('验证盘启用月令层级与根角色 Synthesis Rule，但不生成最终身强弱结论', () => {
     const output = outputFor();
     const model = output.semanticModel;
     const synthesis = model.strengthSynthesis;
     assert(synthesis?.version === '0.1', `synthesis version 异常：${synthesis?.version}`);
-    assert(synthesis?.state === 'evaluated', `启用月令层级规则后应为 evaluated：${synthesis?.state}`);
-    assert(synthesis.activeRuleIds.join(',') === 'BAZI-STRENGTH-SYNTH-SEASON-001', `activeRuleIds 异常：${synthesis.activeRuleIds.join(',')}`);
-    assert(synthesis.claims.length === 1, `当前只应生成一个月令层级 Claim：${synthesis.claims.length}`);
-    assert(synthesis.claims[0].claimKey === 'seasonal.hierarchy', '月令层级 Claim key 异常');
+    assert(synthesis?.state === 'evaluated', `启用 Synthesis 规则后应为 evaluated：${synthesis?.state}`);
+    assert(
+        synthesis.activeRuleIds.join(',') === 'BAZI-STRENGTH-SYNTH-SEASON-001,BAZI-STRENGTH-SYNTH-ROOT-001',
+        `activeRuleIds 异常：${synthesis.activeRuleIds.join(',')}`
+    );
+    assert(synthesis.claims.length === 2, `当前应生成月令层级与根角色两个 Claim：${synthesis.claims.length}`);
+    assert(synthesis.claims.some((item) => item.claimKey === 'seasonal.hierarchy'), '缺少月令层级 Claim');
+    assert(synthesis.claims.some((item) => item.claimKey === 'root.role-model'), '缺少根角色 Claim');
     assert(synthesis.conflicts.length === 0, '扶、克、泄方向并存不应自动制造 Conflict');
-    assert(synthesis.sufficiency.status === 'insufficient', '其余关键依赖未解析时必须保持 insufficient');
+    assert(synthesis.sufficiency.status === 'insufficient', '实际效力与支气依赖未解析时必须保持 insufficient');
     assert(model.assessmentLayer.state === 'contract-only', 'Assessment 仍应保持 contract-only');
-    assert(model.assessmentLayer.assessments.length === 0, 'Synthesis 层级规则不应生成 Assessment 结论');
+    assert(model.assessmentLayer.assessments.length === 0, 'Synthesis 角色规则不应生成 Assessment 结论');
     const strength = model.assessmentLayer.domains.dayMasterStrength;
     assert(strength.status === 'not-evaluated', 'Assessment status 不得被 Synthesis evaluated 改写');
     assert(strength.synthesisCollection === synthesis, 'Assessment 必须读取同一份 Synthesis collection');
     assert(strength.synthesisSufficiencyStatus === 'insufficient', 'Assessment 输入应看见 Synthesis 的充分性状态');
 });
 
-test('月令层级依赖已解析，其余三类依赖继续阻断 Sufficiency', () => {
+test('月令层级与根角色依赖已解析，根实际效力另立未解析依赖', () => {
     const synthesis = outputFor().semanticModel.strengthSynthesis;
     const dependencies = dependencyMap(synthesis);
+
     assert(dependencies['SD-SEASONAL-HIERARCHY']?.status === 'resolved', 'SD-SEASONAL-HIERARCHY 应已 resolved');
     assert(dependencies['SD-SEASONAL-HIERARCHY'].resolvedByClaimIds.includes('SC-SEASONAL-HIERARCHY'), '月令依赖缺 resolved Claim');
     assert(!synthesis.sufficiency.blockingDependencyIds.includes('SD-SEASONAL-HIERARCHY'), '已解析月令依赖仍在阻断 Sufficiency');
-    ['SD-VISIBLE-EFFECTIVENESS','SD-ROOT-ROLE','SD-BRANCH-QI-AGGREGATION'].forEach((id) => {
+
+    assert(dependencies['SD-ROOT-ROLE']?.status === 'resolved', 'SD-ROOT-ROLE 应已 resolved');
+    assert(dependencies['SD-ROOT-ROLE'].resolvedByClaimIds.includes('SC-ROOT-ROLE'), '根角色依赖缺 resolved Claim');
+    assert(!synthesis.sufficiency.blockingDependencyIds.includes('SD-ROOT-ROLE'), '已解析根角色依赖仍在阻断 Sufficiency');
+
+    ['SD-VISIBLE-EFFECTIVENESS','SD-ROOT-EFFECTIVENESS','SD-BRANCH-QI-AGGREGATION'].forEach((id) => {
         assert(dependencies[id], `缺少 ${id}`);
         assert(dependencies[id].status === 'unresolved', `${id} 不应提前 resolved`);
         assert(synthesis.sufficiency.blockingDependencyIds.includes(id), `${id} 未阻断最终充分性`);
     });
+
     const keys = collectKeys(synthesis);
     ['supportSide','restraintSide','drainSide','distributionSide','supportScore','againstScore','score','weight','points','strengthLevel'].forEach((key) => {
         assert(!keys.has(key), `Synthesis 不应出现阵营/计分字段：${key}`);
@@ -167,6 +178,36 @@ test('月令层级规则只解释层级，不复制 seasonal-support / non-suppo
     assert(claim.sourceLocator.includes('强弱篇'), '月令层级 Claim 缺原典定位');
     const serialized = JSON.stringify(claim.value);
     assert(!serialized.includes('strong') && !serialized.includes('weak'), '层级 Claim 偷渡最终强弱结论');
+});
+
+test('根角色规则区分本干通根、同类得地与藏支印比，不把藏支扶身替代为根', () => {
+    const synthesis = outputFor().semanticModel.strengthSynthesis;
+    const claim = synthesis.claims.find((item) => item.claimKey === 'root.role-model');
+    assert(claim?.status === 'resolved', '根角色 Claim 应 resolved');
+    assert(claim.ruleId === 'BAZI-STRENGTH-SYNTH-ROOT-001', '根角色 Claim ruleId 异常');
+    assert(claim.value.exactRootRole === 'root-same-stem-hidden', '本干通根角色定义异常');
+    assert(claim.value.sameElementRootRole === 'root-same-element-different-stem-hidden', '同类得地角色定义异常');
+    assert(claim.value.hiddenSupportRole === 'ten-god-support-umbrella', '藏支扶身角色定义异常');
+    assert(claim.value.rootActorMayAlsoBeHiddenSupport === true, '根 actor 应允许同时具有比劫扶身语义');
+    assert(claim.value.hiddenSupportCanSatisfyRootClaim === false, '藏支扶身不得替代“有根”命题');
+    assert(claim.value.rootSubtypesEquivalent === false, '本干通根与同类得地不得压成等价子类型');
+    assert(claim.value.effectivenessResolved === false, '角色解析不得偷渡根实际效力');
+    assert(claim.sourceEffectIds.includes('FX-ROOT-EXACT'), '根角色 Claim 缺本干通根 Effect');
+    assert(claim.sourceEffectIds.includes('FX-ROOT-SAME-ELEMENT'), '根角色 Claim 缺同类得地 Effect');
+    assert(claim.sourceEffectIds.includes('FX-HIDDEN-SUPPORT'), '根角色 Claim 缺藏支扶身 Effect');
+});
+
+test('仅有藏支印星时仍可形成扶身候选，但不能因此满足根气命题', () => {
+    const model = outputFor().semanticModel;
+    const exact = model.strengthEffects.effects.find((item) => item.id === 'FX-ROOT-EXACT');
+    const same = model.strengthEffects.effects.find((item) => item.id === 'FX-ROOT-SAME-ELEMENT');
+    const hidden = model.strengthEffects.effects.find((item) => item.id === 'FX-HIDDEN-SUPPORT');
+    const role = model.strengthSynthesis.claims.find((item) => item.claimKey === 'root.role-model');
+    assert(exact.presence === 'absent', '验证盘本干通根应 absent');
+    assert(same.presence === 'absent', '验证盘同类得地应 absent');
+    assert(hidden.presence === 'present', '验证盘亥中甲正印应形成藏支扶身候选');
+    assert(role.value.hiddenSupportCanSatisfyRootClaim === false, '印星扶身候选被错误当作根气替代');
+    assert(model.strengthSynthesis.sufficiency.status === 'insufficient', '藏支印星存在不应使 Synthesis sufficient');
 });
 
 test('不同 Intermediate Effect 方向共存不构成 Conflict', () => {
@@ -203,6 +244,8 @@ test('同一藏干多重语义在 Synthesis 中形成 overlap 记录但不重复
     assert(overlap.effectIds.includes('FX-ROOT-EXACT'), 'overlap 缺本干通根语义');
     assert(overlap.effectIds.includes('FX-HIDDEN-SUPPORT'), 'overlap 缺藏支扶身语义');
     assert(overlap.policy === 'same-actor-may-carry-multiple-semantics-do-not-add', 'overlap policy 异常');
+    const role = output.semanticModel.strengthSynthesis.claims.find((item) => item.claimKey === 'root.role-model');
+    assert(role.value.overlapPolicy === overlap.policy, '根角色 Claim 与 actor overlap policy 不一致');
 });
 
 test('Sufficiency 由规则覆盖、依赖和 Conflict 决定，不由数量决定', () => {
@@ -240,7 +283,19 @@ test('Synthesis 只引用现有 Intermediate Effect，复制上下文不泄漏�
     );
 
     const copied = interpretation.buildBaziContextText(result, output);
-    ['strengthSynthesis','SD-SEASONAL-HIERARCHY','SC-SEASONAL-HIERARCHY','actorOverlaps','blockingDependencyIds','synthesisSufficiencyStatus','independent-primary-axis'].forEach((term) => {
+    [
+        'strengthSynthesis',
+        'SD-SEASONAL-HIERARCHY',
+        'SC-SEASONAL-HIERARCHY',
+        'SD-ROOT-ROLE',
+        'SC-ROOT-ROLE',
+        'SD-ROOT-EFFECTIVENESS',
+        'actorOverlaps',
+        'blockingDependencyIds',
+        'synthesisSufficiencyStatus',
+        'independent-primary-axis',
+        'root-same-stem-hidden'
+    ].forEach((term) => {
         assert(!copied.includes(term), `复制上下文泄漏 Synthesis 内部字段：${term}`);
     });
 });
