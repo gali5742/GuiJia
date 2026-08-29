@@ -1,0 +1,291 @@
+{
+  "version": "0.1",
+  "status": "sealed",
+  "sealed": true,
+  "sealedAt": "2026-08-29",
+  "scope": "liuyao_semantic_decision_stack_v0.11_sealed_blind",
+  "baseStack": "Semantic Decision Stack v0.11",
+  "purpose": "Process-sealed blind evaluation for the frozen v0.11 modern semantic decision stack. Blind results must not be used to retune or rerun the same candidate.",
+  "policy": {
+    "modifyV011FromBlind": false,
+    "recalibrateFromBlind": false,
+    "reuseBlindAsTraining": false,
+    "rerunAfterTuningSameVersion": false,
+    "routerIsFrozenV081": true,
+    "scopeGateIsFrozenV01": true,
+    "arbitrationIsV092": true,
+    "routeIdentityIsV01": true,
+    "sufficiencyIsFrozenV02": true,
+    "outsideVsUnresolvedDiagnosticOnly": true,
+    "sufficiencyUsesOracleModernSemanticFixtures": true,
+    "traditionalLiuYaoFieldsForbidden": true
+  },
+  "counts": {
+    "route_known_regular": 176,
+    "outside_regular": 60,
+    "unresolved_regular": 40,
+    "adversarial": 24,
+    "total": 300,
+    "adversarial_known": 8,
+    "adversarial_outside": 8,
+    "adversarial_unresolved": 8
+  },
+  "routes": {
+    "financial_fortune": {
+      "samples": [
+        {"id":"BL-001","text":"从立秋到年底，我整体手头的钱会不会比现在宽裕","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-002","text":"未来半年我的总体收支状况能不能慢慢好起来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-003","text":"接下来两个季度综合进账会不会明显增加","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-004","text":"明年春天以前我的整体财务压力能不能减轻","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-005","text":"今年后半段总体钱财状况有没有改善空间","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-006","text":"往后三个月我整体现金流会不会更顺一些","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["financial_scope"]},
+        {"id":"BL-007","text":"最近我一直在盘点自己这一年的总体收支","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["financial_scope"]},
+        {"id":"BL-008","text":"这段时间手头钱财的起伏让我比较在意","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["financial_scope"]}
+      ]
+    },
+    "business_operation": {"samples":[
+      {"id":"BL-009","text":"我开的烘焙小店明年上半年能不能扭亏为盈","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-010","text":"这个独立工作室继续经营下去会不会逐渐稳定","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-011","text":"我经营的网店到年底能不能真正赚到钱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-012","text":"这家小餐馆未来半年利润能不能转正","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-013","text":"我的摄影工作室今年剩下几个月经营会不会顺起来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-014","text":"这个摊位继续做一季能不能把亏损收回来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["business_context"]},
+      {"id":"BL-015","text":"最近这家网店的经营数据一直忽高忽低","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["business_context"]},
+      {"id":"BL-016","text":"我这间工作室目前还在持续经营","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["business_context"]}
+    ]},
+    "commercial_transaction": {"samples":[
+      {"id":"BL-017","text":"我和客户谈的这一笔设备订单本周能不能正式签成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-018","text":"这单批发交易月底前双方能不能谈妥落地","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-019","text":"供应商这份采购合同这次能不能顺利签下来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-020","text":"这个买家正在谈的商业订单最后能不能成交","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-021","text":"我们和客户的这笔交易能不能按现在条件做成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-022","text":"这份企业采购单在期限前能不能最终确定","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["transaction_context"]},
+      {"id":"BL-023","text":"这笔客户订单目前还停在价格谈判阶段","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["transaction_context"]},
+      {"id":"BL-024","text":"供应商那份采购合同现在还没有最后定案","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["transaction_context"]}
+    ]},
+    "inventory_purchase": {"samples":[
+      {"id":"BL-025","text":"门店下一轮补货能不能在月底前全部进仓","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-026","text":"我给店里采购的这批库存能不能按计划到齐","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-027","text":"仓库这次补库存会不会顺利完成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-028","text":"下周给网店进的这批货能不能正常到位","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-029","text":"门店准备补的一批商品能不能及时入库","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-030","text":"经营用的下一批货这次采购能不能顺利完成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"]},
+      {"id":"BL-031","text":"店里已经开始安排下一轮补货","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["inventory_purchase_context"]},
+      {"id":"BL-032","text":"仓库最近在准备增加一批经营库存","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["inventory_purchase_context"]}
+    ]},
+    "inventory_sale": {"samples":[
+      {"id":"BL-033","text":"店里积压的这批旧库存春节前能不能卖完","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-034","text":"仓库剩下的尾货下个月能不能基本出清","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-035","text":"这批存货到季度末能不能顺利出掉","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-036","text":"门店压着的旧货未来两个月能不能清掉","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-037","text":"仓库这批库存能不能在换季前全部卖出去","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-038","text":"剩下这些经营存货月底前能不能出清","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_sale_context"]},
+      {"id":"BL-039","text":"我最近正在安排处理仓库里积压的尾货","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["inventory_sale_context"]},
+      {"id":"BL-040","text":"门店还有一批旧库存一直压着没有卖完","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["inventory_sale_context"]}
+    ]},
+    "borrow_money": {"samples":[
+      {"id":"BL-041","text":"这次找舅舅借一笔周转款能不能借到手","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-042","text":"我向银行办的信用贷这周有没有机会批下来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-043","text":"最近想从朋友那里借点钱周转，能不能顺利拿到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-044","text":"这笔经营贷款申请月底前能不能放款","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-045","text":"我跟家人借的这笔钱这次能不能拿到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-046","text":"银行那笔个人贷款我能不能顺利申请下来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"]},
+      {"id":"BL-047","text":"我正在考虑找亲戚借一笔钱应急","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["borrowing_context"]},
+      {"id":"BL-048","text":"最近我已经提交了一份贷款申请","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["borrowing_context"]}
+    ]},
+    "lend_money": {"samples":[
+      {"id":"BL-049","text":"朋友来找我借钱，这笔钱借出去合不合适","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-050","text":"同事想从我这里借一笔钱，我借给他会不会顺利","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-051","text":"亲戚向我借周转款，我现在出借是否合适","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-052","text":"有人想跟我借钱，我把钱借出去以后能不能收得回来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-053","text":"朋友这次向我开口借钱，我应不应该借给他","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-054","text":"同事从我这里借这笔款，我出借后会不会有麻烦","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["lending_context"]},
+      {"id":"BL-055","text":"朋友最近向我提出想借一笔钱","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["lending_context"]},
+      {"id":"BL-056","text":"我正在考虑要不要把一笔钱借给同事","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["lending_context"]}
+    ]},
+    "debt_collection": {"samples":[
+      {"id":"BL-057","text":"客户欠我的那笔尾款这个月能不能收回来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-058","text":"以前借给朋友的钱年底前还有没有机会追回","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-059","text":"公司这笔应收账款下周能不能到账","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-060","text":"对方拖欠我的货款月底前能不能要回来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-061","text":"我借出去的那笔钱这次能不能顺利收回","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-062","text":"客户一直没付的应收款这季度能不能追回","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_collection_context"]},
+      {"id":"BL-063","text":"对方欠我的那笔钱到现在还没有归还","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["debt_collection_context"]},
+      {"id":"BL-064","text":"公司账上还有一笔应收货款一直挂着","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["debt_collection_context"]}
+    ]},
+    "debt_repayment": {"samples":[
+      {"id":"BL-065","text":"我剩下的房贷明年上半年能不能全部还清","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-066","text":"这笔信用卡欠款年底前能不能结清","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-067","text":"我现在背着的消费贷今年能不能还完","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-068","text":"银行贷款余额明年能不能提前清掉","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-069","text":"我欠的这笔债务到春节前能不能处理完","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-070","text":"现有这笔房贷我能不能在计划时间内还清","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["debt_context"]},
+      {"id":"BL-071","text":"我正在计划提前偿还剩下的贷款","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["debt_context"]},
+      {"id":"BL-072","text":"最近我一直在安排处理信用卡欠款","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["debt_context"]}
+    ]},
+    "partnership": {"samples":[
+      {"id":"BL-073","text":"我和同学合伙开店以后能不能长期做下去","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-074","text":"跟这个搭档共同经营工作室会不会顺利","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-075","text":"我和朋友一起合伙做这门生意合不合适","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-076","text":"这次和合伙人共同开网店能不能赚钱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-077","text":"我与这个伙伴继续合伙经营有没有前景","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-078","text":"跟朋友共同经营这个小店以后会不会稳定","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["partnership_context"]},
+      {"id":"BL-079","text":"我最近在认真考虑和朋友一起合伙做生意","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["partnership_context"]},
+      {"id":"BL-080","text":"这个工作室目前是我和搭档共同经营","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["partnership_context"]}
+    ]},
+    "investment_profit": {"samples":[
+      {"id":"BL-081","text":"这只红利ETF拿到明年能不能有正收益","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-082","text":"我投的这只债券基金半年后能不能赚钱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-083","text":"这笔新能源项目投资到年底有没有利润","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-084","text":"手上的这只股票继续持有几个月能不能盈利","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-085","text":"这项基金投资今年剩下时间能不能回本","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-086","text":"我买入的这个指数基金未来一年收益会不会为正","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-087","text":"最近我一直在关注这只基金最终能带来多少收益","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]},
+      {"id":"BL-088","text":"这笔投资目前已经开始产生一些收益波动","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]}
+    ]},
+    "investment_liquidation": {"samples":[
+      {"id":"BL-089","text":"我现在把这只基金全部赎回能不能顺利完成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-090","text":"这笔股票仓位本周全部卖掉套现会不会卡住","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-091","text":"手上这只ETF现在清仓退出能不能顺利","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-092","text":"这项投资月底前全部变现能不能正常完成","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-093","text":"我把目前持仓一次性卖出退出会不会遇到阻碍","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-094","text":"现在将这只债券基金全部赎回是否能顺利到账","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["position_context"]},
+      {"id":"BL-095","text":"我已经决定近期把这笔股票仓位全部清掉","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["position_context"]},
+      {"id":"BL-096","text":"这只基金我准备下周全部赎回退出","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["position_context"]}
+    ]},
+    "investment_suitability": {"samples":[
+      {"id":"BL-097","text":"现在参与这只黄金ETF到底适不适合我","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-098","text":"这项新能源投资机会我现在进去合不合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-099","text":"眼下买入这只债券基金值不值得","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-100","text":"这个投资项目现在参与是不是合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-101","text":"我现在投这只指数基金是否合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-102","text":"这只科技股目前值不值得我作为投资买入","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"]},
+      {"id":"BL-103","text":"最近我一直在评估这项投资机会是否适合自己","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]},
+      {"id":"BL-104","text":"这只基金是否适合我的问题我考虑了很久","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]}
+    ]},
+    "investment_position_decision": {"samples":[
+      {"id":"BL-105","text":"这只股票现在继续持有还是先减仓更合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-106","text":"手里的基金仓位要不要继续留着","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-107","text":"这笔ETF持仓现在应该加仓还是保持不动","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-108","text":"我这只股票接下来继续拿还是卖掉一部分","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-109","text":"当前这笔持仓要不要先减掉一半","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-110","text":"这个基金仓位现在继续持有是否更合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"]},
+      {"id":"BL-111","text":"我最近正在考虑把手里的持仓减掉一部分","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["position_context"]},
+      {"id":"BL-112","text":"这笔ETF仓位我暂时还在犹豫要不要调整","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["position_context"]}
+    ]},
+    "investment_price_trend": {"samples":[
+      {"id":"BL-113","text":"这只黄金ETF未来一个月价格会不会继续走高","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-114","text":"我关注的科技基金下周净值会不会下跌","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-115","text":"这只股票到月底走势会偏强还是偏弱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-116","text":"这项指数基金接下来两周会不会继续回落","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-117","text":"手上这只ETF短期价格还有没有上涨空间","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-118","text":"这只债券基金未来一季净值走势会怎么变化","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["investment_target"]},
+      {"id":"BL-119","text":"最近我一直在观察这只股票的短期价格变化","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]},
+      {"id":"BL-120","text":"这只基金最近的净值走势让我很关注","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["investment_target"]}
+    ]},
+    "income_salary": {"samples":[
+      {"id":"BL-121","text":"明年我的固定工资能不能比今年高一些","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-122","text":"下一轮调薪我有没有机会涨月薪","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-123","text":"这次续签合同后基本工资会不会提高","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-124","text":"未来半年我的薪资还有没有上涨空间","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-125","text":"明年的固定薪酬能不能明显增加","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-126","text":"公司下次调薪时我的工资会不会往上调","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["employment_income_context"]},
+      {"id":"BL-127","text":"公司最近开始讨论下一年度的调薪安排","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["employment_income_context"]},
+      {"id":"BL-128","text":"我最近一直在关注自己的固定薪资变化","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["employment_income_context"]}
+    ]},
+    "income_bonus": {"samples":[
+      {"id":"BL-129","text":"今年年终奖我能不能比去年拿得更多","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-130","text":"这个项目结束后我有没有机会拿到奖金","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-131","text":"下一次绩效奖金额度会不会比现在高","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-132","text":"部门这次奖励金我能不能顺利分到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-133","text":"明年春节前的年终奖会不会增加","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-134","text":"这次季度奖励我最终能不能拿到手","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["bonus_context"]},
+      {"id":"BL-135","text":"公司已经开始讨论今年的年终奖方案","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["bonus_context"]},
+      {"id":"BL-136","text":"部门最近公布了新的绩效奖金规则","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["bonus_context"]}
+    ]},
+    "receive_item": {"samples":[
+      {"id":"BL-137","text":"我订的机械键盘下周三以前能不能送到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-138","text":"已经发货的相机镜头月底前能不能收到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-139","text":"那台显示器物流已经出库，这周能不能到手","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-140","text":"我买的平板周末之前能不能送到家","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-141","text":"这件快递里的耳机明天能不能拿到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-142","text":"已经寄出的路由器预计这几天能不能收到","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-143","text":"我买的相机镜头已经从仓库发出了","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["delivery_context","delivery_target"]},
+      {"id":"BL-144","text":"那台显示器目前还在物流运输途中","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["delivery_context","delivery_target"]}
+    ]},
+    "item_purchase": {"samples":[
+      {"id":"BL-145","text":"这款投影仪现在值不值得我买","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-146","text":"我最近想入手这台空气净化器，合不合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-147","text":"这部手机现在买下来会不会后悔","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-148","text":"这款机械键盘我现在入手是否合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-149","text":"家里要换路由器，这台设备值不值得买","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-150","text":"我现在购买这个显示器是不是合适","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-151","text":"我最近一直在看这款相机，准备考虑入手","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["purchase_context","purchase_object"]},
+      {"id":"BL-152","text":"这台扫地机器人已经被我列进购买清单","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["purchase_context","purchase_object"]}
+    ]},
+    "relationship_development": {"samples":[
+      {"id":"BL-153","text":"我和这个女生以后有没有机会正式谈恋爱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-154","text":"我跟眼前这个男生之后能不能发展成情侣","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-155","text":"我和这位同事现在有些暧昧，以后能不能在一起","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-156","text":"我喜欢的那个女生之后会不会愿意和我谈恋爱","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-157","text":"我跟这个男生目前只是约会，后面能不能成为恋人","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-158","text":"我和这个对象还没确定关系，之后有没有机会正式在一起","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["specific_counterpart"]},
+      {"id":"BL-159","text":"我和这个女生最近一直处在暧昧阶段","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["specific_counterpart"]},
+      {"id":"BL-160","text":"我跟眼前这个男生目前还没有正式确定关系","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["specific_counterpart"]}
+    ]},
+    "marriage_match": {"samples":[
+      {"id":"BL-161","text":"我和现在交往的对象明年能不能顺利结婚","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-162","text":"这桩婚事今年年底前有没有机会定下来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-163","text":"我跟这个男生以后能不能正式领证","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-164","text":"我和女朋友明年有没有机会成为夫妻","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-165","text":"我们谈的这门亲事春节前能不能确定","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-166","text":"我跟现在这个对象适不适合走进婚姻","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"]},
+      {"id":"BL-167","text":"我和现在的对象最近已经开始讨论结婚安排","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["marriage_proposal_context"]},
+      {"id":"BL-168","text":"这门亲事双方家里目前还在商量","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["marriage_proposal_context"]}
+    ]},
+    "marital_relationship": {"samples":[
+      {"id":"BL-169","text":"我和妻子接下来这段婚姻能不能稳定下来","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-170","text":"我跟丈夫最近关系很僵，之后能不能缓和","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-171","text":"我和老婆总在争执，年底前夫妻关系会不会改善","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-172","text":"我跟老公最近很疏远，以后还能不能重新亲近","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-173","text":"我们夫妻今年后面相处会不会比现在顺一些","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-174","text":"这段已经存在的婚姻接下来能不能修复","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"]},
+      {"id":"BL-175","text":"我和丈夫最近一直处于冷战状态","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["existing_marriage_context"]},
+      {"id":"BL-176","text":"我跟妻子这段时间交流得很少","expectedSufficiencyStatus":"semantic_insufficient","goalType":"unknown","slots":["existing_marriage_context"]}
+    ]}
+  },
+  "rejection": {
+    "outside_current_22": [
+      {"id":"BL-177","text":"我报名的那场面试下周能不能顺利通过"},{"id":"BL-178","text":"这次岗位晋升评审我有没有机会过关"},{"id":"BL-179","text":"明年的部门升职名单里会不会有我"},{"id":"BL-180","text":"我投递的这份简历能不能拿到面试邀请"},{"id":"BL-181","text":"这次职业资格考试最后能不能合格"},{"id":"BL-182","text":"下个月的语言考试我能不能达到目标分数"},{"id":"BL-183","text":"研究生入学考试这次能不能考上"},{"id":"BL-184","text":"驾照路考下周能不能一次通过"},{"id":"BL-185","text":"我的工作签证续签能不能顺利批准"},{"id":"BL-186","text":"这次旅游签证申请月底前能不能下来"},{"id":"BL-187","text":"护照换发申请能不能按期办好"},{"id":"BL-188","text":"居留资格更新这次会不会获批"},{"id":"BL-189","text":"我丢在电车上的雨伞还能不能找回来"},{"id":"BL-190","text":"前几天遗失的钱包还有没有机会找到"},{"id":"BL-191","text":"家里走失的猫这周能不能找到"},{"id":"BL-192","text":"我弄丢的门禁卡最终能不能寻回"},{"id":"BL-193","text":"这套公寓明年到期后还能不能续租"},{"id":"BL-194","text":"现在租的办公室合同能不能顺利续签"},{"id":"BL-195","text":"房东会不会同意我继续租这间房"},{"id":"BL-196","text":"这次搬家去横滨生活会不会顺利"},{"id":"BL-197","text":"明年搬到大阪工作生活合不合适"},{"id":"BL-198","text":"月底前搬进新住处能不能按计划完成"},{"id":"BL-199","text":"周末坐的新干线会不会出现严重晚点"},{"id":"BL-200","text":"下周回国的航班能不能准点起飞"},{"id":"BL-201","text":"这次长途自驾一路会不会顺利"},{"id":"BL-202","text":"明天去京都的行程能不能按计划完成"},{"id":"BL-203","text":"这场劳动争议最终能不能谈妥"},{"id":"BL-204","text":"公司和我的劳动仲裁会不会顺利结束"},{"id":"BL-205","text":"这次合同纠纷年底前能不能解决"},{"id":"BL-206","text":"那场民事诉讼最后会怎么判"},{"id":"BL-207","text":"我的专利申请今年能不能获得授权"},{"id":"BL-208","text":"这次商标注册能不能顺利通过审查"},{"id":"BL-209","text":"版权登记申请月底前能不能办下来"},{"id":"BL-210","text":"研究项目立项申请这次能不能获批"},{"id":"BL-211","text":"学校奖学金申请能不能通过"},{"id":"BL-212","text":"我申请的研究经费这次能不能拿到"},{"id":"BL-213","text":"大学宿舍申请能不能分到房间"},{"id":"BL-214","text":"孩子转学申请下学期能不能办成"},{"id":"BL-215","text":"这个课程选课申请能不能被批准"},{"id":"BL-216","text":"我报名的演出甄选最后能不能入选"},{"id":"BL-217","text":"这篇论文投稿能不能被期刊接收"},{"id":"BL-218","text":"我准备发行的作品今年能不能顺利上线"},{"id":"BL-219","text":"这个摄影展投稿有没有机会入选"},{"id":"BL-220","text":"家里的装修工程月底前能不能完工"},{"id":"BL-221","text":"这次电脑维修能不能彻底修好"},{"id":"BL-222","text":"汽车送去维修后能不能按期取回"},{"id":"BL-223","text":"新办公室的装修能不能按计划交付"},{"id":"BL-224","text":"我和父母最近的关系以后会不会缓和"},{"id":"BL-225","text":"我跟普通朋友以后会不会更亲近"},{"id":"BL-226","text":"我和同事之间的关系能不能改善"},{"id":"BL-227","text":"我跟室友最近闹矛盾，之后能不能和好"},{"id":"BL-228","text":"孩子和老师之间的关系会不会改善"},{"id":"BL-229","text":"这次赔偿争议双方能不能达成一致"},{"id":"BL-230","text":"房屋押金纠纷最后能不能解决"},{"id":"BL-231","text":"保险理赔申请这次能不能通过审核"},{"id":"BL-232","text":"我提交的休假申请会不会被批准"},{"id":"BL-233","text":"公司内部调岗申请能不能顺利通过"},{"id":"BL-234","text":"明年能不能调去自己想去的城市工作"},{"id":"BL-235","text":"我申请的停车位下个月能不能排到"},{"id":"BL-236","text":"这次社区活动报名能不能被选中"}
+    ],
+    "route_unresolved": [
+      {"id":"BL-237","text":"这件事最后到底能不能成"},{"id":"BL-238","text":"对方最后会不会答应我"},{"id":"BL-239","text":"我现在这么做是不是合适"},{"id":"BL-240","text":"接下来会不会比现在顺一点"},{"id":"BL-241","text":"最后结果能不能让我满意"},{"id":"BL-242","text":"现在继续下去还有没有意义"},{"id":"BL-243","text":"这件事情还有没有转机"},{"id":"BL-244","text":"后面还能不能继续推进"},{"id":"BL-245","text":"对方接下来会做什么决定"},{"id":"BL-246","text":"大概要多久才会有结果"},{"id":"BL-247","text":"明年整体会不会比今年好一些"},{"id":"BL-248","text":"我现在停下来是不是更合适"},{"id":"BL-249","text":"这个决定到底做得对不对"},{"id":"BL-250","text":"后面还有没有变好的可能"},{"id":"BL-251","text":"这次审批最后到底能不能过"},{"id":"BL-252","text":"最后那笔东西还能不能收回来"},{"id":"BL-253","text":"月底以前能不能顺利进账"},{"id":"BL-254","text":"大概还要多久才能收到"},{"id":"BL-255","text":"以后还能不能一直保持这样"},{"id":"BL-256","text":"我们接下来会变成什么状态"},{"id":"BL-257","text":"他最后会不会接受这个安排"},{"id":"BL-258","text":"她之后会怎么考虑这件事"},{"id":"BL-259","text":"这个申请下个月能不能批下来"},{"id":"BL-260","text":"眼前这个问题什么时候才能解决"},{"id":"BL-261","text":"接下来状况会不会逐渐好转"},{"id":"BL-262","text":"我还要不要继续争取下去"},{"id":"BL-263","text":"现在先观望是不是更好"},{"id":"BL-264","text":"究竟应该继续还是退出"},{"id":"BL-265","text":"后面价格还会不会继续往下"},{"id":"BL-266","text":"最终有没有可能真正赚到钱"},{"id":"BL-267","text":"这周能不能到账"},{"id":"BL-268","text":"我和他以后还有没有可能"},{"id":"BL-269","text":"我们之间以后关系会不会改善"},{"id":"BL-270","text":"这次选择会不会让我后悔"},{"id":"BL-271","text":"明年会不会多拿一些"},{"id":"BL-272","text":"对方会不会改变现在的想法"},{"id":"BL-273","text":"最后能不能顺利拿下来"},{"id":"BL-274","text":"现在要不要先放一放"},{"id":"BL-275","text":"这个月底以前能不能确定下来"},{"id":"BL-276","text":"往后发展会不会越来越好"}
+    ]
+  },
+  "adversarial": [
+    {"id":"BL-277","text":"朋友最近向我借钱，我把这笔钱借给他到底合不合适","expectedMainDisposition":"route_known","expectedRoute":"lend_money","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["lending_context"],"challenge":"fund_direction_friend"},
+    {"id":"BL-278","text":"我这次想找朋友借一笔钱周转，能不能顺利拿到","expectedMainDisposition":"route_known","expectedRoute":"borrow_money","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["borrowing_context"],"challenge":"fund_direction_querent"},
+    {"id":"BL-279","text":"这只黄金ETF现在买进去到底适不适合我","expectedMainDisposition":"route_known","expectedRoute":"investment_suitability","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["investment_target"],"challenge":"investment_vs_purchase"},
+    {"id":"BL-280","text":"我跟女朋友已经开始谈领证的事，明年能不能结婚","expectedMainDisposition":"route_known","expectedRoute":"marriage_match","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["marriage_proposal_context"],"challenge":"romance_vs_marriage"},
+    {"id":"BL-281","text":"我和老婆最近很少说话，接下来夫妻关系能不能改善","expectedMainDisposition":"route_known","expectedRoute":"marital_relationship","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["existing_marriage_context"],"challenge":"existing_marriage"},
+    {"id":"BL-282","text":"客户那笔订单已经签了，现在我只想知道货月底前能不能送到","expectedMainDisposition":"route_known","expectedRoute":"receive_item","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["delivery_context","delivery_target"],"challenge":"transaction_vs_delivery"},
+    {"id":"BL-283","text":"门店这次补货已经下单，我想问这批库存能不能顺利进仓","expectedMainDisposition":"route_known","expectedRoute":"inventory_purchase","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"outcome","slots":["inventory_purchase_context"],"challenge":"inventory_vs_delivery"},
+    {"id":"BL-284","text":"这只基金我已经持有半年，现在到底该继续拿还是减掉一些","expectedMainDisposition":"route_known","expectedRoute":"investment_position_decision","expectedRejectReason":"not_applicable","expectedSufficiencyStatus":"sufficient","goalType":"choice","slots":["position_context"],"challenge":"position_vs_liquidation"},
+    {"id":"BL-285","text":"我丢的那台相机还有没有机会找回来","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"lost_property_vs_receive_item"},
+    {"id":"BL-286","text":"现在住的房子到期后还能不能继续续租","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"lease_vs_marital"},
+    {"id":"BL-287","text":"我明年有没有机会升到部门主管","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"promotion_vs_salary"},
+    {"id":"BL-288","text":"学校这次奖学金申请能不能批准","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"approval_vs_borrow"},
+    {"id":"BL-289","text":"我和这个普通朋友以后关系会不会越来越亲近","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"friendship_vs_romance"},
+    {"id":"BL-290","text":"我跟父亲最近关系很僵，之后能不能缓和","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"family_vs_marital"},
+    {"id":"BL-291","text":"这次房屋押金争议最后能不能谈妥","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"dispute_vs_transaction"},
+    {"id":"BL-292","text":"明天这班飞机最终能不能准时到达","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"outside_current_22","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"travel_vs_receive"},
+    {"id":"BL-293","text":"现在这样选到底对不对","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"generic_choice"},
+    {"id":"BL-294","text":"后面还会不会继续跌","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"generic_trend"},
+    {"id":"BL-295","text":"最后到底能不能赚到钱","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"profit_without_domain"},
+    {"id":"BL-296","text":"我们以后关系会不会慢慢变好","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"relationship_without_stage"},
+    {"id":"BL-297","text":"这次申请最后能不能批下来","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"application_without_domain"},
+    {"id":"BL-298","text":"这笔钱大概什么时候能到账","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"money_without_relation"},
+    {"id":"BL-299","text":"我现在到底要不要继续","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"continue_without_domain"},
+    {"id":"BL-300","text":"大概什么时候才能拿到","expectedMainDisposition":"non_route","expectedRoute":"__non_route__","expectedRejectReason":"route_unresolved","expectedSufficiencyStatus":"not_applicable","goalType":"unknown","slots":[],"challenge":"receive_without_object"}
+  ]
+}
