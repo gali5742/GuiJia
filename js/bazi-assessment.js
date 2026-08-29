@@ -6,6 +6,7 @@
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
     const STRENGTH_EVIDENCE_SCHEMA_VERSION = '0.1';
+    const STRENGTH_EFFECTS_SCHEMA_VERSION = '0.1';
 
     const baziAssessmentDomains = Object.freeze({ DAY_MASTER_STRENGTH: 'dayMasterStrength' });
     const baziAssessmentStatuses = Object.freeze({
@@ -26,7 +27,9 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-005', scope:'global', statement:'根所在支见冲不得直接生成根拔结论。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-006', scope:'global', statement:'完整三合、三会等组合不得单独生成对应五行强弱或得势结论。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-007', scope:'global', statement:'天干明现不得自动等同于已获得有效承载或扶助。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-008', scope:'global', statement:'不得自行设置党众、多帮扶、多克泄等全局数字阈值。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-008', scope:'global', statement:'不得自行设置党众、多帮扶、多克泄等全局数字阈值。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-009', scope:'global', statement:'中间作用方向不得直接按数量、分值或权重累加为身强身弱结论。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-010', scope:'global', statement:'同一藏干可同时具有通根与印比等多重语义，但不得在未设规则时重复计作多份力量。' })
         ])
     });
 
@@ -110,6 +113,7 @@
 
     const buildDayMasterStrengthAssessmentInput = (semanticModel = {}) => {
         const evidenceCollection = semanticModel?.strengthEvidence || null;
+        const effectCollection = semanticModel?.strengthEffects || null;
         return {
             domain:baziAssessmentDomains.DAY_MASTER_STRENGTH,
             status:baziAssessmentStatuses.NOT_EVALUATED,
@@ -117,10 +121,13 @@
             activeRuleIds:assessmentRuleRegistry.rules.filter((rule) => rule.domain === baziAssessmentDomains.DAY_MASTER_STRENGTH && rule.enabled).map((rule) => rule.id),
             guardRuleIds:assessmentGuardRegistry.rules.map((rule) => rule.id),
             evidenceContractVersion:STRENGTH_EVIDENCE_SCHEMA_VERSION,
+            effectsSchemaVersion:STRENGTH_EFFECTS_SCHEMA_VERSION,
             evidenceContracts:Object.freeze({ qianliBasic:qianliBasicStrengthEvidenceContract }),
             evidenceCollection,
             evidenceCollectionStatus:evidenceCollection?.state || 'not-collected',
-            note:'身强弱规则尚未启用；当前只建立证据合同、证据抽取与推理边界，不生成结论。'
+            effectCollection,
+            effectCollectionStatus:effectCollection?.state || 'not-interpreted',
+            note:'身强弱规则尚未启用；当前已完成证据抽取与中间作用解释，但尚未执行证据聚合、冲突处理、充分性判断或最终结论。'
         };
     };
 
@@ -145,7 +152,7 @@
     });
 
     GuiJia.baziAssessment = {
-        ASSESSMENT_SCHEMA_VERSION, ASSESSMENT_RULESET_VERSION, STRENGTH_EVIDENCE_SCHEMA_VERSION,
+        ASSESSMENT_SCHEMA_VERSION, ASSESSMENT_RULESET_VERSION, STRENGTH_EVIDENCE_SCHEMA_VERSION, STRENGTH_EFFECTS_SCHEMA_VERSION,
         baziAssessmentDomains, baziAssessmentStatuses, baziAssessmentConclusionValues,
         assessmentGuardRegistry, qianliBasicStrengthEvidenceContract,
         assessmentRuleRegistry, collectSemanticRefs, validateAssessmentRecord, createAssessmentRecord,
