@@ -113,6 +113,8 @@
         const branchQi = effects.filter((item) => item.category === 'branchQiContext');
         const seasonalHierarchyClaims = resolvedClaimsFor(claims, 'seasonal.hierarchy');
         const seasonalHierarchyResolved = seasonalHierarchyClaims.length > 0;
+        const rootRoleClaims = resolvedClaimsFor(claims, 'root.role-model');
+        const rootRoleResolved = rootRoleClaims.length > 0;
 
         return Object.freeze([
             makeDependency({
@@ -141,10 +143,23 @@
                 id:'SD-ROOT-ROLE',
                 kind:synthesisDependencyKinds.INTERACTION,
                 scope:'root-and-hidden-support',
+                status:rootRoleResolved ? synthesisDependencyStatuses.RESOLVED : synthesisDependencyStatuses.UNRESOLVED,
                 sourceEffectIds:roots.map((item) => item.id),
                 sourceRefs:collectRefsFromEffects(roots),
-                statement:'本干通根、同类得地与藏支印比已经分轴记录，但三者在综合中的层级、替代关系和实际有效条件，当前尚未定义。',
-                boundary:'根或藏支印比的存在事实不得直接等同于实际扶身效力。'
+                resolvedByClaimIds:rootRoleClaims.map((item) => item.id),
+                statement:rootRoleResolved
+                    ? '本干通根、同类得地与藏支印比的语义角色已经分层：前两者属于根气子类型，后者属于按十神身份识别的藏支扶身候选轴；同一根 actor 可以同时具有比劫扶身语义，但不得据此重复计力，藏支印星也不能替代“有根”命题。'
+                    : '本干通根、同类得地与藏支印比已经分轴记录，但三者在综合中的角色、重叠关系与替代边界尚未定义。',
+                boundary:'角色分类只解决“是什么”；不得把根或藏支印比的存在事实直接等同于实际扶身效力。'
+            }),
+            makeDependency({
+                id:'SD-ROOT-EFFECTIVENESS',
+                kind:synthesisDependencyKinds.EFFECTIVENESS,
+                scope:'root-and-hidden-support',
+                sourceEffectIds:roots.map((item) => item.id),
+                sourceRefs:collectRefsFromEffects(roots),
+                statement:'根气与藏支扶身候选的角色已经可以识别，但这些 actor 在具体结构关系中是否保持、削弱或形成实际扶身效力，当前尚未定义。',
+                boundary:'不得从 presence-only 或 support-candidate 直接升级为 effective；冲合刑害等结构也不得在没有独立规则时直接删除原始根气事实。'
             }),
             makeDependency({
                 id:'SD-BRANCH-QI-AGGREGATION',
@@ -191,7 +206,7 @@
         const reasons = [];
 
         if (!activeRuleIds.length) reasons.push('尚未建立将中间作用候选转化为可用于最终身强弱判断的正向 Synthesis 规则。');
-        if (blockingDependencyIds.length) reasons.push('明干实际效力、根气层级或支气汇总仍存在未解析依赖。');
+        if (blockingDependencyIds.length) reasons.push('明干实际效力、根气实际效力或支气汇总仍存在未解析依赖。');
         if (blockingConflictIds.length) reasons.push('同一待决命题仍存在未解决的互斥规则结果。');
 
         const sufficient = activeRuleIds.length > 0 && !blockingDependencyIds.length && !blockingConflictIds.length;
@@ -235,9 +250,46 @@
         }
     });
 
+    const guijiaRootRoleRule = Object.freeze({
+        id:'BAZI-STRENGTH-SYNTH-ROOT-001',
+        enabled:true,
+        domain:'dayMasterStrength',
+        scope:'root-and-hidden-support',
+        sourceModel:'GuiJia Strength Effect v0.1',
+        evaluate(semanticModel = {}) {
+            const effects = semanticModel?.strengthEffects?.effects || [];
+            const exactRoot = effects.find((item) => item.category === 'exactRootPresence');
+            const sameElementRoot = effects.find((item) => item.category === 'sameElementRootPresence');
+            const hiddenSupport = effects.find((item) => item.category === 'hiddenSupportPresence');
+            if (!exactRoot || !sameElementRoot || !hiddenSupport) return null;
+
+            const sourceEffects = [exactRoot, sameElementRoot, hiddenSupport];
+            return Object.freeze({
+                id:'SC-ROOT-ROLE',
+                claimKey:'root.role-model',
+                status:synthesisClaimStatuses.RESOLVED,
+                value:Object.freeze({
+                    exactRootRole:'root-same-stem-hidden',
+                    sameElementRootRole:'root-same-element-different-stem-hidden',
+                    hiddenSupportRole:'ten-god-support-umbrella',
+                    rootActorMayAlsoBeHiddenSupport:true,
+                    hiddenSupportCanSatisfyRootClaim:false,
+                    rootSubtypesEquivalent:false,
+                    overlapPolicy:'same-actor-may-carry-multiple-semantics-do-not-add',
+                    effectivenessResolved:false
+                }),
+                sourceEffectIds:Object.freeze(sourceEffects.map((item) => item.id).filter(Boolean)),
+                sourceRefs:collectRefsFromEffects(sourceEffects),
+                sourceModel:'GuiJia Strength Effect v0.1',
+                rationale:'当前 Effect contract 以藏干与日主的同干／同五行关系定义本干通根和同类得地，并另以比劫、印星的十神身份定义藏支扶身候选。因此“根气”与“藏支印比”属于不同语义轴：根 actor 可同时具有比劫扶身身份，但这是同一 actor 的多重语义；印星虽可作为藏支扶身候选，却不因此成为日主之根。',
+                boundary:'本规则只解析角色、重叠和替代边界；不判断根的层级强弱、实际可用程度、受冲合后的状态，也不生成任何身强身弱结论。'
+            });
+        }
+    });
+
     const synthesisRuleRegistry = Object.freeze({
         version:'0.1-draft',
-        rules:Object.freeze([qianliSeasonalHierarchyRule])
+        rules:Object.freeze([qianliSeasonalHierarchyRule, guijiaRootRoleRule])
     });
 
     const buildStrengthSynthesis = (semanticModel = {}) => {
@@ -290,6 +342,8 @@
             boundaries:Object.freeze([
                 'Synthesis 组织 Intermediate Effect，不复制或改写其方向事实。',
                 '月令季节作为独立一级判断轴，不与其他证据按统一分值、权重或条数换算。',
+                '本干通根、同类得地与藏支印比保持语义分层；同一 actor 的根气与比劫身份可以重叠，但不得重复计力，藏支印星也不能替代根气命题。',
+                '根气角色已解析不等于根气实际效力已解析；presence-only 与 support-candidate 仍不得自动升级为 effective。',
                 '不同作用方向候选同时存在不构成 Conflict；Conflict 只针对同一 claimKey 的互斥已解析结果。',
                 'Sufficiency 依据规则覆盖与必要依赖，不依据证据、方向或 actor 数量。',
                 'insufficient 只表示尚不足以执行最终 Assessment，不等同于 indeterminate，更不生成 strong、weak 或 balanced。'
@@ -306,6 +360,7 @@
         synthesisSufficiencyStatuses,
         synthesisRuleRegistry,
         qianliSeasonalHierarchyRule,
+        guijiaRootRoleRule,
         collectEffectIds,
         collectActorOverlaps,
         buildDefaultDependencies,
