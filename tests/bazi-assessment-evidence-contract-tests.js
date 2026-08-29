@@ -142,13 +142,15 @@ test('Rescue Context Guard 阻止普通合会／生克自动解冲与 pattern �
     assert(text.includes('不得反推冲方占优'), 'GUARD-022 未阻止 pattern 未命中反推冲方');
 });
 
-test('Month Command Guard 锁定藏干／司事分层、来源分歧与“后十天”个案边界', () => {
+test('Month Command Guard 锁定同书异说、tradition choice、calendar position 与个案边界', () => {
     const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
     const text = guards['BAZI-ASSESS-GUARD-023'] || '';
     assert(text.includes('人元司事／月令司令'), 'GUARD-023 未覆盖月令司事层');
     assert(text.includes('本气、中气、余气') && text.includes('不得'), 'GUARD-023 未阻止由藏干层级反推司令');
-    assert(text.includes('按来源分开保存') && text.includes('不得合并成唯一司令人元'), 'GUARD-023 未锁定 source-scoped contract');
-    assert(text.includes('calendar mapping'), 'GUARD-023 未保留三十日分段映射依赖');
+    assert(text.includes('同一文献内部') && text.includes('按来源分层保存'), 'GUARD-023 未覆盖同书异说的 source-scoped 保存');
+    assert(text.includes('首列分日表') && text.includes('玉井') && text.includes('醉醒子'), 'GUARD-023 未保留《三命通会》内部多说并存');
+    assert(text.includes('calendar position') && text.includes('不等于自动选定某一传统'), 'GUARD-023 未区分日序计算与 tradition choice');
+    assert(text.includes('不得合并成唯一司令人元'), 'GUARD-023 未禁止来源仲裁越级');
     assert(text.includes('立夏后十天') && text.includes('立夏后前十天'), 'GUARD-023 未阻止命例时点扩张成通用窗口');
 });
 
