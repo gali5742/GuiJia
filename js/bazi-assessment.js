@@ -5,6 +5,9 @@
 
     // The static page still loads classic scripts in dependency order. Keep the new
     // Synthesis layers independent while ensuring they are available before Assessment.
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziMonthCommand) {
+        document.write('<script src="./js/bazi-month-command.js?v=13.44.0"><\/script>');
+    }
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziStrengthSynthesis) {
         document.write('<script src="./js/bazi-strength-synthesis.js?v=13.44.0"><\/script>');
     }
@@ -69,7 +72,8 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-019', scope:'global', statement:'六冲相对状态比较不得采用分数、权重、条数多数或补偿式累加；必要语义维度未解析时必须 insufficient，双方分别存在已解析优势且无独立优先规则时必须 incomparable。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-020', scope:'global', statement:'任氏“支中有……”的六冲上下文只可按原文明确列出的支类作存在性匹配；相反组同时出现时不得多数表决。同段“四柱有木／无金”等五行有无条件必须服从独立 element-presence scope contract，不得自行改换观察口径。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-021', scope:'global', statement:'《滴天髓阐微》六冲“四柱有／无某五行”例式按四柱表层干支观察：明干与地支本五行可满足字面有无，藏干单独出现及合化等派生结果不得改写该字面条件；例式条件未满足也不得反推对方占优。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-022', scope:'global', statement:'六冲“解救／抑冲／助泄”不得由普通五行生克、六合、三合、三会或其他关系存在自动推定；只有独立核证的 source-specific pattern 才可解析 rescue-context，且 pattern 未命中不等于“四柱无解救”，不得反推冲方占优。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-022', scope:'global', statement:'六冲“解救／抑冲／助泄”不得由普通五行生克、六合、三合、三会或其他关系存在自动推定；只有独立核证的 source-specific pattern 才可解析 rescue-context，且 pattern 未命中不等于“四柱无解救”，不得反推冲方占优。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-023', scope:'global', statement:'人元司事／月令司令不得从藏干本气、中气、余气标签直接推出；不同文献的司事分段与命例主张必须按来源分开保存，在 calendar mapping 与来源差异未独立解决前不得合并成唯一司令人元，也不得把“立夏后十天”改写为“立夏后前十天”的通用窗口。' })
         ])
     });
 
@@ -185,7 +189,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约、六冲非补偿比较合同、“月支提纲”季节地位窄规则、子午冲支类上下文、《滴天髓阐微》六冲元素有无的表层干支 scope，以及“亥解申冲”的 source-specific rescue-context 直证模式。通用抑冲／助泄机制、其他解救模式、四库冲、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约、六冲非补偿比较合同、“月支提纲”季节地位窄规则、子午冲支类上下文、《滴天髓阐微》六冲元素有无的表层干支 scope，以及“亥解申冲”的 source-specific rescue-context 直证模式。人元司事目前只记录节令时间位置与来源分歧，不生成统一司令人元；通用抑冲／助泄机制、其他解救模式、四库冲、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
