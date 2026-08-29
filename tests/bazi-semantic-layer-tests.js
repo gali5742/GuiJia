@@ -250,5 +250,105 @@ test('岁运上下文把原局关系底表提升为独立区块', () => {
     assert(text.includes('\n\n原局关系：\n- '), '原局关系仍附着在最后一条编号解释下');
 });
 
+
+test('岁运 StructureReference 把时间层关系挂回原局 Structure ID', () => {
+    const result = makeResult();
+    result.originalGans = ['丁','壬','丁','己'];
+    result.originalZhis = ['丑','子','亥','酉'];
+    const interpretation = baziInterpretation.buildBaziInterpretation(result);
+    const s01 = interpretation.semanticModel.structures.find((item) => item.code === bazi.baziRelationCodes.SAN_HUI_COMPLETE);
+    const s06 = interpretation.semanticModel.structures.find((item) => item.code === bazi.baziRelationCodes.SAN_HE_PARTIAL && /酉丑|丑酉/.test(item.text));
+    assert(s01?.id === 'S01', `三会主要组合 ID 异常：${s01?.id}`);
+    assert(Boolean(s06?.id), '未找到原局酉丑半合结构 ID');
+
+    const makeTransit = (gan, zhi, shiShen, label) => ({
+        gan, zhi, shiShen, diShi:'—', naYin:'—', xun:'—', xunKong:'—',
+        pillarSignals: bazi.calculatePillarSignals(gan, zhi, result.originalGans, result.originalZhis, label),
+        stemRelations: bazi.calculateStemRelations(gan, result.originalGans),
+        relations: bazi.calculateBranchRelations(zhi, result.originalZhis)
+    });
+
+    const daYun = makeTransit('己', '酉', '食神', '大运');
+    const daYunAnalysis = baziTransitAnalysis.buildDaYunAnalysis(result, daYun);
+    const yunRef = daYunAnalysis.structureReferences.find((item) => item.targetStructureId === s06.id);
+    assert(yunRef?.mode === 'retrigger' && yunRef.sourceZhi === '酉', `大运酉未统一归入原局半合再次参与：${JSON.stringify(daYunAnalysis.structureReferences)}`);
+
+    const liuNian = {
+        ...makeTransit('丙', '午', '劫财', '流年'),
+        year:2026, age:30, yunRelations:[], layeredRelations:[]
+    };
+    liuNian.yunRelations = bazi.calculatePairRelations(daYun, liuNian, '大运', '流年');
+    const liuNianAnalysis = baziTransitAnalysis.buildLiuNianAnalysis(result, daYun, liuNian);
+    const yearRef = liuNianAnalysis.structureReferences.find((item) => item.targetStructureId === s01.id);
+    assert(yearRef?.mode === 'touch' && yearRef.targetMembers.includes('子'), `午冲子未识别为触及 S01 成员：${JSON.stringify(liuNianAnalysis.structureReferences)}`);
+    assert(yearRef.relations.some((item) => item.member === '子' && item.code === bazi.baziRelationCodes.BRANCH_SIX_CLASH), 'S01 子成员未保留六冲关系');
+
+    const liuYue = {
+        ...makeTransit('丙', '申', '劫财', '流月'),
+        monthName:'七', rangeText:'测试范围', yearRelations:[], yunRelations:[], layeredRelations:[]
+    };
+    liuYue.yearRelations = bazi.calculatePairRelations(liuNian, liuYue, '流年', '流月');
+    liuYue.yunRelations = bazi.calculatePairRelations(daYun, liuYue, '大运', '流月');
+    const liuYueAnalysis = baziTransitAnalysis.buildLiuYueAnalysis(result, daYun, liuNian, liuYue);
+    const monthRef = liuYueAnalysis.structureReferences.find((item) => item.targetStructureId === s01.id);
+    assert(monthRef?.mode === 'touch' && monthRef.targetMembers.includes('子') && monthRef.targetMembers.includes('亥'), `申未同时识别 S01 子亥成员：${JSON.stringify(liuYueAnalysis.structureReferences)}`);
+    assert(monthRef.relations.some((item) => item.member === '子' && item.code === bazi.baziRelationCodes.SAN_HE_PARTIAL), '申子半合未进入 S01 结构引用');
+    assert(monthRef.relations.some((item) => item.member === '亥' && item.code === bazi.baziRelationCodes.BRANCH_SIX_HARM), '申亥害未进入 S01 结构引用');
+
+    const context = baziTransitAnalysis.buildBaziTransitContextText(result, interpretation, {
+        daYun, liuNian, liuYue, daYunAnalysis, liuNianAnalysis, liuYueAnalysis
+    });
+    assert(context.includes(`- ${s01.id}｜[主要组合]`), '岁运上下文原局关系未携带 Structure ID');
+    assert(context.includes(`触及原局主要组合 ${s01.id}`), '岁运上下文未输出主要组合成员级结构引用');
+    assert(!/(冲破|受损|水势增强|得助|成化)/.test(context), `结构引用越级进入 Assessment：${context}`);
+});
+
+test('StructureReference 无组合时为空，只有真实补齐才标记 complete', () => {
+    const makeCustomResult = (gans, zhis, dayGan = '丁') => {
+        const pillars = gans.map((gan, index) => ({
+            title: ['年柱','月柱','日柱','时柱'][index],
+            gan, zhi: zhis[index], ganZhi: gan + zhis[index],
+            shishenGan: index === 2 ? '日主' : bazi.shiShenMap[dayGan][gan],
+            cangGan: bazi.cangGanMap[zhis[index]].map(([hiddenGan, level]) => ({
+                gan:hiddenGan, level, wuxing:bazi.getWuXing(hiddenGan), shishen:bazi.shiShenMap[dayGan][hiddenGan]
+            }))
+        }));
+        const internalRelations = bazi.calculateInternalChartRelations(gans, zhis);
+        const monthSeason = bazi.buildMonthSeason(zhis[1], bazi.getWuXing(dayGan));
+        return {
+            dayGan,
+            dayGanWuXing:bazi.getWuXing(dayGan),
+            pillars,
+            internalRelations,
+            monthSeason,
+            originalGans:[...gans],
+            originalZhis:[...zhis],
+            lunarStr:'测试农历',
+            ruleSummary:'测试口径',
+            matchedLiterature:[]
+        };
+    };
+    const makeTransit = (result, gan, zhi, label) => ({
+        gan, zhi, shiShen:bazi.shiShenMap[result.dayGan][gan], diShi:'—', naYin:'—', xun:'—', xunKong:'—',
+        pillarSignals:bazi.calculatePillarSignals(gan, zhi, result.originalGans, result.originalZhis, label),
+        stemRelations:bazi.calculateStemRelations(gan, result.originalGans),
+        relations:bazi.calculateBranchRelations(zhi, result.originalZhis)
+    });
+
+    const noComposite = makeCustomResult(['甲','乙','丁','戊'], ['子','卯','巳','戌']);
+    const noCompositeAnalysis = baziTransitAnalysis.buildDaYunAnalysis(noComposite, makeTransit(noComposite, '庚', '酉', '大运'));
+    assert(noCompositeAnalysis.structureReferences.length === 0, `无原局组合却生成结构引用：${JSON.stringify(noCompositeAnalysis.structureReferences)}`);
+
+    const completable = makeCustomResult(['甲','乙','丁','戊'], ['申','子','午','未']);
+    const interpretation = baziInterpretation.buildBaziInterpretation(completable);
+    const partial = interpretation.semanticModel.structures.find((item) => item.code === bazi.baziRelationCodes.SAN_HE_PARTIAL && item.text.includes('申子'));
+    assert(Boolean(partial), '测试盘未形成申子半合原局结构');
+    const chen = makeTransit(completable, '庚', '辰', '大运');
+    const analysis = baziTransitAnalysis.buildDaYunAnalysis(completable, chen);
+    const completed = analysis.structureReferences.find((item) => item.targetStructureId === partial.id && item.mode === 'complete');
+    assert(completed?.completedStructure?.code === bazi.baziRelationCodes.SAN_HE_COMPLETE, `辰未按真实条件补齐申子辰：${JSON.stringify(analysis.structureReferences)}`);
+    assert((completed.completedStructure.branches || []).includes('申') && completed.completedStructure.branches.includes('子') && completed.completedStructure.branches.includes('辰'), '补齐结构成员不完整');
+});
+
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);

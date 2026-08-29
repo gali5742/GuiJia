@@ -7,14 +7,22 @@
 
     const {
         baziRelationCodes,
+        baziRelationMeta,
         baziTransitRelationCodes,
-        buildMonthSeason
+        buildMonthSeason,
+        scoreBaziRelation
     } = core;
 
     const completeCodes = new Set([
         baziRelationCodes.SAN_HUI_COMPLETE,
         baziRelationCodes.SAN_HE_COMPLETE,
         baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE
+    ]);
+
+    const referencableOriginalStructureCodes = new Set([
+        ...completeCodes,
+        baziRelationCodes.SAN_HE_PARTIAL,
+        baziRelationCodes.SAN_HUI_PARTIAL
     ]);
 
     const strongTransitCodes = new Set([
@@ -436,6 +444,170 @@
         return relationLabel(relation);
     };
 
+    const sameBranchSet = (a = [], b = []) => {
+        const left = [...a].sort().join('');
+        const right = [...b].sort().join('');
+        return left === right;
+    };
+
+    const buildOriginalStructureCatalog = (result) => [...(result?.internalRelations || [])]
+        .sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))
+        .map((relation, index) => ({
+            ...relation,
+            id: `S${String(index + 1).padStart(2, '0')}`,
+            structuralRole: baziRelationMeta?.[relation.code]?.structuralRole || 'coexistingRelation'
+        }))
+        .filter((relation) => referencableOriginalStructureCodes.has(relation.code))
+        .map((relation) => ({
+            ...relation,
+            name: structureName(relation),
+            branches: [...(relation.branches || [])]
+        }));
+
+    const relationMembersInsideStructure = (relation, structure, sourceZhi = '') => {
+        const memberSet = new Set(structure?.branches || []);
+        const hits = [];
+        if (relation?.originalZhi && memberSet.has(relation.originalZhi)) hits.push(relation.originalZhi);
+        (relation?.branches || []).forEach((zhi) => {
+            if (zhi && zhi !== sourceZhi && memberSet.has(zhi)) hits.push(zhi);
+        });
+        return [...new Set(hits)];
+    };
+
+    const buildStructureReferences = (result, item, sourceLabel = '') => {
+        if (!result || !item?.zhi) return [];
+        const sourceZhi = item.zhi;
+        const sourceGanZhi = `${item.gan || ''}${item.zhi || ''}`;
+        const relations = uniqueByText(item.relations || []);
+        const catalog = buildOriginalStructureCatalog(result);
+        const references = [];
+
+        catalog.forEach((structure) => {
+            const retrigger = relations.find((relation) =>
+                relation.action === 'retrigger'
+                && relation.code === structure.code
+                && sameBranchSet(relation.branches || [], structure.branches || [])
+            );
+            if (retrigger) {
+                references.push({
+                    sourceLayer: String(sourceLabel || '').toLowerCase(),
+                    sourceLabel,
+                    sourceGanZhi,
+                    sourceZhi,
+                    targetStructureId: structure.id,
+                    targetStructureCode: structure.code,
+                    targetStructureRole: structure.structuralRole,
+                    targetStructureName: structure.name,
+                    targetStructureBranches: [...structure.branches],
+                    targetMembers: structure.branches.includes(sourceZhi) ? [sourceZhi] : [],
+                    mode: 'retrigger',
+                    relations: []
+                });
+                return;
+            }
+
+            const completion = relations.find((relation) =>
+                relation.action === 'complete-by-external'
+                && completeCodes.has(relation.code)
+                && (structure.branches || []).every((zhi) => (relation.branches || []).includes(zhi))
+                && (relation.branches || []).includes(sourceZhi)
+            );
+            if (completion) {
+                references.push({
+                    sourceLayer: String(sourceLabel || '').toLowerCase(),
+                    sourceLabel,
+                    sourceGanZhi,
+                    sourceZhi,
+                    targetStructureId: structure.id,
+                    targetStructureCode: structure.code,
+                    targetStructureRole: structure.structuralRole,
+                    targetStructureName: structure.name,
+                    targetStructureBranches: [...structure.branches],
+                    targetMembers: [...structure.branches],
+                    mode: 'complete',
+                    relations: [],
+                    completedStructure: {
+                        code: completion.code,
+                        name: structureName(completion),
+                        branches: [...(completion.branches || [])]
+                    }
+                });
+                return;
+            }
+
+            if (structure.structuralRole !== 'majorCompositeStructure') return;
+            const details = [];
+            relations.forEach((relation) => {
+                if (relation.action === 'retrigger') return;
+                const members = relationMembersInsideStructure(relation, structure, sourceZhi);
+                members.forEach((member) => details.push({
+                    member,
+                    code: relation.code || '',
+                    label: relationLabel(relation),
+                    action: relation.action || '',
+                    branches: [...(relation.branches || [])]
+                }));
+            });
+            const seen = new Set();
+            const uniqueDetails = details.filter((detail) => {
+                const key = `${detail.member}|${detail.code}|${detail.label}|${detail.branches.join('')}`;
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            if (!uniqueDetails.length) return;
+            references.push({
+                sourceLayer: String(sourceLabel || '').toLowerCase(),
+                sourceLabel,
+                sourceGanZhi,
+                sourceZhi,
+                targetStructureId: structure.id,
+                targetStructureCode: structure.code,
+                targetStructureRole: structure.structuralRole,
+                targetStructureName: structure.name,
+                targetStructureBranches: [...structure.branches],
+                targetMembers: [...new Set(uniqueDetails.map((detail) => detail.member))],
+                mode: 'touch',
+                relations: uniqueDetails
+            });
+        });
+
+        return references;
+    };
+
+    const formatStructureReference = (reference) => {
+        if (!reference) return '';
+        const role = reference.targetStructureRole === 'majorCompositeStructure' ? '原局主要组合' : '原局结构';
+        const target = `${role} ${reference.targetStructureId} ${reference.targetStructureName}【${(reference.targetStructureBranches || []).join('')}】`;
+        const source = `${reference.sourceLabel || '时间层'}支【${reference.sourceZhi || ''}】`;
+        if (reference.mode === 'retrigger') return `${source}再次参与${target}`;
+        if (reference.mode === 'complete' && reference.completedStructure) {
+            return `${source}加入后，在${target}基础上补齐${reference.completedStructure.name}【${(reference.completedStructure.branches || []).join('')}】`;
+        }
+        if (reference.mode === 'touch') {
+            const members = (reference.targetMembers || []).map((zhi) => `【${zhi}】`).join('、');
+            const details = (reference.relations || []).map((detail) => {
+                if (detail.code === baziRelationCodes.SAN_HE_PARTIAL || detail.code === baziRelationCodes.SAN_HUI_PARTIAL) {
+                    return `与【${detail.member}】形成${detail.label}组合`;
+                }
+                if (completeCodes.has(detail.code)) {
+                    return `以【${detail.member}】为成员形成${detail.label}【${(detail.branches || []).join('')}】`;
+                }
+                return `与【${detail.member}】见${detail.label}`;
+            });
+            return `${source}触及${target}中的${members}${details.length ? `：${details.join('，')}` : ''}`;
+        }
+        return '';
+    };
+
+    const contextRowsWithStructureReferences = (analysis) => {
+        const rows = [...(analysis?.rows || [])];
+        const visible = (analysis?.structureReferences || []).filter((reference) => reference.mode !== 'retrigger');
+        const texts = visible.map(formatStructureReference).filter(Boolean);
+        if (texts.length) rows.push({ label: '结构引用', text: joinNarratives(texts) });
+        return rows;
+    };
+
     const isStructureGroup = (group) => {
         const code = group?.members?.[0]?.code || group?.code;
         return completeCodes.has(code)
@@ -829,6 +1001,7 @@
             headline: `${daYun.gan}${daYun.zhi}大运的十年背景。`,
             rows,
             keyRelations: original.relations,
+            structureReferences: buildStructureReferences(result, daYun, '大运'),
             evidenceGroups: [evidenceGroup('与原局', originalEvidenceItems(daYun, '大运', result))].filter(Boolean)
         };
     };
@@ -940,6 +1113,7 @@
             headline,
             rows,
             keyRelations: prioritizeGroups([...keyGroups, ...original.relations], 4),
+            structureReferences: buildStructureReferences(result, liuNian, '流年'),
             evidenceGroups: evidenceGroups.filter(Boolean)
         };
     };
@@ -1059,6 +1233,7 @@
             keyRelations: prioritizeGroups([...keyGroups, ...original.relations], 4),
             season,
             contextHints: [...new Set(contextHints.filter(Boolean))].map((text) => ({ label: '层间主题', text: `${text}。` })),
+            structureReferences: buildStructureReferences(result, liuYue, '流月'),
             evidenceGroups: evidenceGroups.filter(Boolean)
         };
     };
@@ -1088,7 +1263,7 @@
         lines.push('', `【${title}】`);
         metaLines.filter(Boolean).forEach((line) => lines.push(line));
         if (analysis.headline) lines.push(`概述：${analysis.headline}`);
-        appendTransitRowsContext(lines, item, analysis.rows || [], '', analysis.contextHints || []);
+        appendTransitRowsContext(lines, item, contextRowsWithStructureReferences(analysis), '', analysis.contextHints || []);
         if (analysis.evidenceGroups?.length) {
             lines.push('', '结构证据：');
             analysis.evidenceGroups.forEach((group) => {
@@ -1120,7 +1295,7 @@
             }
             lines.push(`- ${range}：【${segment.daYun.gan}${segment.daYun.zhi}】大运 · ${segment.daYun.shiShen || '—'}运`);
             const analysis = buildDaYunAnalysis(result, segment.daYun);
-            appendTransitRowsContext(lines, segment.daYun, analysis?.rows || [], '  ', analysis?.contextHints || []);
+            appendTransitRowsContext(lines, segment.daYun, contextRowsWithStructureReferences(analysis), '  ', analysis?.contextHints || []);
         });
     };
 
@@ -1151,7 +1326,11 @@
                 lines.push(`${index + 1}. ${item.title}：${item.summary}`);
             });
         }
-        if (result.internalRelations?.length) {
+        const semanticStructures = interpretation?.semanticModel?.structures || [];
+        if (semanticStructures.length) {
+            lines.push('', '原局关系：');
+            semanticStructures.forEach((item) => lines.push(`- ${item.id}｜[${item.structuralRoleLabel || '并存关系'}] ${item.text}`));
+        } else if (result.internalRelations?.length) {
             lines.push('', '原局关系：');
             result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));
         }
@@ -1200,6 +1379,8 @@
         compactRelationGroups,
         normalizeDirectInteractionFacts,
         normalizeInteractionFacts,
+        buildOriginalStructureCatalog,
+        buildStructureReferences,
         buildDaYunAnalysis,
         buildLiuNianAnalysis,
         buildLiuYueAnalysis,
