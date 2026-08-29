@@ -50,17 +50,17 @@ test('身强弱证据合同 v0.1 保持最终 Assessment 规则关闭', () => {
     assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('二十二条全局 Guard Rule 全部只阻断越级推理', () => {
+test('二十三条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 22, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 23, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 22; i += 1) {
+    for (let i = 1; i <= 23; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 22, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 23, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
@@ -140,6 +140,16 @@ test('Rescue Context Guard 阻止普通合会／生克自动解冲与 pattern �
     assert(text.includes('source-specific pattern'), 'GUARD-022 未要求独立核证的窄模式');
     assert(text.includes('不等于“四柱无解救”'), 'GUARD-022 未阻止 pattern 未命中反推无救');
     assert(text.includes('不得反推冲方占优'), 'GUARD-022 未阻止 pattern 未命中反推冲方');
+});
+
+test('Month Command Guard 锁定藏干／司事分层、来源分歧与“后十天”个案边界', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    const text = guards['BAZI-ASSESS-GUARD-023'] || '';
+    assert(text.includes('人元司事／月令司令'), 'GUARD-023 未覆盖月令司事层');
+    assert(text.includes('本气、中气、余气') && text.includes('不得'), 'GUARD-023 未阻止由藏干层级反推司令');
+    assert(text.includes('按来源分开保存') && text.includes('不得合并成唯一司令人元'), 'GUARD-023 未锁定 source-scoped contract');
+    assert(text.includes('calendar mapping'), 'GUARD-023 未保留三十日分段映射依赖');
+    assert(text.includes('立夏后十天') && text.includes('立夏后前十天'), 'GUARD-023 未阻止命例时点扩张成通用窗口');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
