@@ -14,6 +14,9 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootSixRelations) {
         document.write('<script src="./js/bazi-root-six-relations.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashPreconditions) {
+        document.write('<script src="./js/bazi-clash-preconditions.js?v=13.44.0"><\/script>');
+    }
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
@@ -49,7 +52,9 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-014', scope:'global', statement:'月令季节作为独立一级判断轴，不得被改写为固定倍数、分值、一票否决或绝对优先于其他判断轴的规则。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-015', scope:'global', statement:'根所在支命中冲、合、刑、害、破或组合结构，只表示进入交互观察；在没有独立效力规则时不得自动写成根受扰、削弱、失效或根拔。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-016', scope:'global', statement:'根所在支参与六冲时，不得仅凭“冲”决定根拔、受伤或发动；至少须先比较冲双方相对旺衰与有力程度，并保留扶助、制化、解救等未解析条件。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-017', scope:'global', statement:'根所在支参与六合时，六合关系本身只证明相合；不得直接等同于根被合住、根更有效、根失效或成化。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-017', scope:'global', statement:'根所在支参与六合时，六合关系本身只证明相合；不得直接等同于根被合住、根更有效、根失效或成化。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-018', scope:'global', statement:'六冲双方的旺相休囚死等单一季节状态只可作为条件输入，不得直接等同于《滴天髓》所谓旺者／衰者，也不得单独生成冲双方的相对占优结论。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-019', scope:'global', statement:'六冲相对状态比较不得采用分数、权重、条数多数或补偿式累加；必要语义维度未解析时必须 insufficient，双方分别存在已解析优势且无独立优先规则时必须 incomparable。' })
         ])
     });
 
@@ -165,7 +170,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同及六冲／六合条件契约；六冲所需相对旺衰与扶助制化前提、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约及六冲非补偿比较合同；六冲必要语义维度、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
