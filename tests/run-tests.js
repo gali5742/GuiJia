@@ -2477,12 +2477,14 @@ test('岁运分析解释层间延续、结构补齐与既有结构再动，而�
 
     const ln = baziTransitAnalysis.buildLiuNianAnalysis(result, daYun, year);
     const pairRow = ln.rows.find((row) => row.label === '岁运衔接');
-    assert(pairRow?.text.includes('重复大运已经带入的【食神】主题'), `同干未解释为层间延续：${pairRow?.text || '缺失'}`);
+    assert(pairRow?.text.includes('流年干与大运干同为【丙】，同一天干在两个时间层重复'), `同干结构事实异常：${pairRow?.text || '缺失'}`);
+    assert(!pairRow?.text.includes('主题'), `流年结构事实仍混入主题解释：${pairRow?.text || '缺失'}`);
 
     const ly = baziTransitAnalysis.buildLiuYueAnalysis(result, daYun, year, month);
     const linkRow = ly.rows.find((row) => row.label === '层间衔接');
-    assert(linkRow?.text.includes('流月干与流年、大运干同为【丙】'), `三层同干未合并解释：${linkRow?.text || '缺失'}`);
-    assert(linkRow?.text.includes('延续前两层的【食神】主题'), '三层同干仍停留在关系名层面');
+    assert(linkRow?.text.includes('流月干与流年、大运干同为【丙】，同一天干连续出现在三个时间层'), `三层同干结构事实异常：${linkRow?.text || '缺失'}`);
+    assert(!linkRow?.text.includes('主题'), `三层同干结构事实仍混入主题解释：${linkRow?.text || '缺失'}`);
+    assert(ly.contextHints?.some((item) => item.text.includes('食神') && item.text.includes('延续')), '三层同干的食神主题未进入解释提示');
     const structureRow = ly.rows.find((row) => row.label === '结构变化');
     assert(structureRow?.text.includes('再次参与前三层已成的'), `流月再动未解释：${structureRow?.text || '缺失'}`);
 });
@@ -2558,7 +2560,8 @@ test('岁运自然语言以当前时间层为主语，合并同一干支的多�
 
     const ln = baziTransitAnalysis.buildLiuNianAnalysis(result, daYun, year);
     const lnLink = ln.rows.find((row) => row.label === '岁运衔接')?.text || '';
-    assert(lnLink.includes('流年干与大运干同为【丙】，重复大运已经带入的【正印】主题，属于层间延续'), `流年主语或衔接文案不自然：${lnLink}`);
+    assert(lnLink.includes('流年干与大运干同为【丙】，同一天干在两个时间层重复'), `流年同干结构事实不自然：${lnLink}`);
+    assert(!lnLink.includes('主题'), `流年结构事实仍混入主题提示：${lnLink}`);
 
     const ly = baziTransitAnalysis.buildLiuYueAnalysis(result, daYun, year, month);
     const lyOriginal = ly.rows.find((row) => row.label === '原局作用')?.text || '';

@@ -702,7 +702,7 @@
         }
         if (first.code === baziTransitRelationCodes.STEM_SAME) {
             const gan = (first.stems || [])[0] || itemB?.gan || '';
-            return `${labelB}干与${labelA}干同为【${gan}】，重复${labelA}已经带入的${shiShen ? `【${shiShen}】` : ''}主题，属于层间延续`;
+            return `${labelB}干与${labelA}干同为【${gan}】，同一天干在两个时间层重复`;
         }
         if (first.code === baziTransitRelationCodes.BRANCH_SAME) {
             const zhi = (first.branches || [])[0] || itemB?.zhi || '';
@@ -785,18 +785,32 @@
 
     const buildThreeLayerContinuity = (daYun, liuNian, liuYue) => {
         const texts = [];
+        const themeHints = [];
         const skipCodes = new Set();
         if (daYun?.gan && daYun.gan === liuNian?.gan && liuNian.gan === liuYue?.gan) {
             const shiShen = liuYue.shiShen || liuNian.shiShen || daYun.shiShen || '';
-            texts.push(`流月干与流年、大运干同为【${liuYue.gan}】${shiShen ? `，延续前两层的【${shiShen}】主题` : '，天干主题连续重复'}`);
+            texts.push(`流月干与流年、大运干同为【${liuYue.gan}】，同一天干连续出现在三个时间层`);
+            if (shiShen) themeHints.push(`大运、流年、流月同见【${shiShen}】，可继续观察这一十神主题在流月层的延续`);
             skipCodes.add(baziTransitRelationCodes.STEM_SAME);
         }
         if (daYun?.zhi && daYun.zhi === liuNian?.zhi && liuNian.zhi === liuYue?.zhi) {
             texts.push(`流月支与流年、大运支同为【${liuYue.zhi}】，同一地支连续出现在三个时间层`);
             skipCodes.add(baziTransitRelationCodes.BRANCH_SAME);
         }
-        return { texts, skipCodes };
+        return { texts, themeHints, skipCodes };
     };
+
+    const buildSameStemThemeHints = (relations = [], itemA, itemB, skipCodes = new Set()) => compactRelationGroups(relations || [])
+        .filter((group) => group.members.some((member) => member.code === baziTransitRelationCodes.STEM_SAME && !skipCodes.has(member.code)))
+        .map((group) => {
+            const first = group.members.find((member) => member.code === baziTransitRelationCodes.STEM_SAME) || group.members[0];
+            const [labelA = '前层', labelB = '后层'] = first.layerLabels || [];
+            const gan = (first.stems || [])[0] || itemB?.gan || itemA?.gan || '';
+            const shiShen = itemB?.shiShen || itemA?.shiShen || '';
+            return shiShen
+                ? `${labelB}干与${labelA}干同为【${gan}】，可继续观察【${shiShen}】主题在${labelB}层的延续`
+                : `${labelB}干与${labelA}干同为【${gan}】，可作为层间主题延续的观察入口`;
+        });
 
     const buildDaYunAnalysis = (result, daYun) => {
         if (!result || !daYun) return null;
@@ -975,6 +989,7 @@
         const singleDaYun = !transition ? (hasResolvedSegments ? (segments[0]?.daYun || null) : daYun) : null;
         const preYunOnly = !transition && hasResolvedSegments && !segments[0]?.daYun;
         const yearPair = buildPairExplanations(liuYue.yearRelations || [], liuNian, liuYue);
+        const contextHints = buildSameStemThemeHints(liuYue.yearRelations || [], liuNian, liuYue);
         const evidenceGroups = [];
         let keyGroups = [...compactRelationGroups(liuYue.yearRelations || [])];
         let layeredStructuresForOriginal = [];
@@ -996,6 +1011,8 @@
             layeredStructuresForOriginal = [...baseLayeredRelations, ...segments.flatMap((segment) => segment.layeredRelations || [])];
         } else if (singleDaYun) {
             const continuity = buildThreeLayerContinuity(singleDaYun, liuNian, liuYue);
+            contextHints.push(...continuity.themeHints);
+            contextHints.push(...buildSameStemThemeHints(liuYue.yunRelations || [], singleDaYun, liuYue, continuity.skipCodes));
             const yearPairFiltered = buildPairExplanations(liuYue.yearRelations || [], liuNian, liuYue, continuity.skipCodes);
             const yunPair = buildPairExplanations(liuYue.yunRelations || [], singleDaYun, liuYue, continuity.skipCodes);
             const pairExplanations = [...continuity.texts, ...yearPairFiltered, ...yunPair];
@@ -1041,6 +1058,7 @@
             rows,
             keyRelations: prioritizeGroups([...keyGroups, ...original.relations], 4),
             season,
+            contextHints: [...new Set(contextHints.filter(Boolean))].map((text) => ({ label: '层间主题', text: `${text}。` })),
             evidenceGroups: evidenceGroups.filter(Boolean)
         };
     };
@@ -1048,14 +1066,18 @@
 
     const transitHintLabels = new Set(['长期背景', '年度主题']);
 
-    const appendTransitRowsContext = (lines, item, rows = [], indent = '') => {
-        const hints = rows.filter((row) => transitHintLabels.has(row.label));
+    const appendTransitRowsContext = (lines, item, rows = [], indent = '', extraHints = []) => {
+        const hints = [...rows.filter((row) => transitHintLabels.has(row.label)), ...extraHints];
         const facts = rows.filter((row) => !transitHintLabels.has(row.label));
         if (hints.length) {
             lines.push(`${indent}解释提示：`);
-            hints.forEach((row) => lines.push(`${indent}- ${row.label}：${buildThemeSentence(item)}。`));
+            hints.forEach((row) => {
+                const text = row.label === '年度主题' ? `${buildThemeSentence(item)}。` : row.text;
+                lines.push(`${indent}- ${row.label}：${text}`);
+            });
         }
         if (facts.length) {
+            if (hints.length) lines.push('');
             lines.push(`${indent}结构事实：`);
             facts.forEach((row) => lines.push(`${indent}- ${row.label}：${row.text}`));
         }
@@ -1066,9 +1088,9 @@
         lines.push('', `【${title}】`);
         metaLines.filter(Boolean).forEach((line) => lines.push(line));
         if (analysis.headline) lines.push(`概述：${analysis.headline}`);
-        appendTransitRowsContext(lines, item, analysis.rows || []);
+        appendTransitRowsContext(lines, item, analysis.rows || [], '', analysis.contextHints || []);
         if (analysis.evidenceGroups?.length) {
-            lines.push('结构证据：');
+            lines.push('', '结构证据：');
             analysis.evidenceGroups.forEach((group) => {
                 (group.items || []).forEach((evidence) => {
                     const parts = evidence.parts?.length
@@ -1098,7 +1120,7 @@
             }
             lines.push(`- ${range}：【${segment.daYun.gan}${segment.daYun.zhi}】大运 · ${segment.daYun.shiShen || '—'}运`);
             const analysis = buildDaYunAnalysis(result, segment.daYun);
-            appendTransitRowsContext(lines, segment.daYun, analysis?.rows || [], '  ');
+            appendTransitRowsContext(lines, segment.daYun, analysis?.rows || [], '  ', analysis?.contextHints || []);
         });
     };
 
