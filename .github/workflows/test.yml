@@ -44,6 +44,6 @@ jobs:
           rm -f .bazi-final3.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js .github/workflows/test.yml .bazi-final3.py
+          git add js/bazi-interpretation.js js/bazi-transit-analysis.js tests/bazi-semantic-layer-tests.js tests/run-tests.js .github/workflows/test.yml .bazi-final3.py
           git commit -m 'refactor: finalize BaZi context wording'
           git push origin HEAD:bazi-context-final3
