@@ -1502,6 +1502,18 @@ test('八字关系元数据覆盖全部机器码，排序统一由 bazi-core 提
     assert(!interpretationSource.includes('function scoreRelation('), '解释引擎仍保留重复的关系评分函数');
 });
 
+test('八字 Assessment 使用独立模块并在规则启用前保持空层', () => {
+    const indexSource = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
+    const interpretationSource = fs.readFileSync(path.join(ROOT, 'js/bazi-interpretation.js'), 'utf8');
+    assert(indexSource.includes('js/bazi-assessment.js'), '生产页面未加载独立 Assessment 模块');
+    assert(indexSource.indexOf('js/bazi-assessment.js') < indexSource.indexOf('js/bazi-interpretation.js'), 'Assessment 必须先于解释层加载');
+    assert(assessmentSource.includes('rules:Object.freeze([])') || assessmentSource.includes('rules: Object.freeze([])'), 'Assessment v0.1 不应预置未经审定的结论规则');
+    assert(assessmentSource.includes('validateAssessmentRecord'), 'Assessment 缺少证据引用校验');
+    assert(interpretationSource.includes('buildAssessmentLayer'), '解释层未接入独立 Assessment 合同');
+    assert(!interpretationSource.includes("conclusion:'weak'") && !interpretationSource.includes("conclusion:'strong'"), '解释层不应硬编码身强弱结论');
+});
+
 test('重新排八字会重置古籍筛选，避免跨命盘残留', () => {
     const appSource = fs.readFileSync(path.join(ROOT, 'js/app.js'), 'utf8');
     const start = appSource.indexOf('const calculateBazi = () => {');

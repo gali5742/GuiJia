@@ -38,6 +38,7 @@ function loadScripts(relativeFiles) {
 const GuiJia = loadScripts([
     'js/common.js',
     'js/bazi-core.js',
+    'js/bazi-assessment.js',
     'js/bazi-timing.js',
     'js/bazi-transit-analysis.js',
     'js/bazi-literature.js',
@@ -375,6 +376,42 @@ test('StructureReference 无组合时为空，只有真实补齐才标记 comple
     const completed = analysis.structureReferences.find((item) => item.targetStructureId === partial.id && item.mode === 'complete');
     assert(completed?.completedStructure?.code === bazi.baziRelationCodes.SAN_HE_COMPLETE, `辰未按真实条件补齐申子辰：${JSON.stringify(analysis.structureReferences)}`);
     assert((completed.completedStructure.branches || []).includes('申') && completed.completedStructure.branches.includes('子') && completed.completedStructure.branches.includes('辰'), '补齐结构成员不完整');
+});
+
+
+test('Assessment v0.1 只建立合同，未启用规则时不得生成身强弱结论', () => {
+    const result = makeResult();
+    const output = baziInterpretation.buildBaziInterpretation(result);
+    const layer = output.semanticModel?.assessmentLayer;
+    assert(layer?.version === '0.1', `Assessment schema 版本异常：${layer?.version}`);
+    assert(layer?.state === 'contract-only', `未启用规则却进入执行态：${layer?.state}`);
+    assert(Array.isArray(layer?.assessments) && layer.assessments.length === 0, 'Assessment 骨架阶段不应产生结论');
+    const strength = layer?.domains?.dayMasterStrength;
+    assert(strength?.status === 'not-evaluated', `身强弱接口不应提前判定：${strength?.status}`);
+    assert(strength?.activeRuleIds?.length === 0, '身强弱接口不得携带未审定规则');
+    assert(output.semanticModel.assessments.length === 0, '旧 assessments 字段应继续保持空层');
+});
+
+test('Assessment record 必须带 ruleId 且 sourceRefs 只能引用既有 F/D/S', () => {
+    const result = makeResult();
+    const output = baziInterpretation.buildBaziInterpretation(result);
+    const semanticModel = output.semanticModel;
+    const assessment = GuiJia.baziAssessment;
+    const valid = assessment.createAssessmentRecord({ id:'A01', ruleId:'TEST-ONLY', domain:'dayMasterStrength', status:'supported', conclusion:'indeterminate', sourceRefs:['D02','D03','S01'], rationale:'测试记录' }, semanticModel);
+    assert(valid.sourceRefs.join(',') === 'D02,D03,S01', '合法 Assessment 未保留来源引用');
+    let failedAsExpected = false;
+    try { assessment.createAssessmentRecord({ id:'A02', ruleId:'TEST-ONLY', domain:'dayMasterStrength', status:'supported', conclusion:'weak', sourceRefs:['D99'] }, semanticModel); }
+    catch (error) { failedAsExpected = /unknown sourceRef/.test(String(error?.message || error)); }
+    assert(failedAsExpected, 'Assessment 允许引用不存在的语义证据');
+});
+
+test('复制八字上下文在 Assessment 合同阶段仍保持空层边界，不泄漏内部接口元数据', () => {
+    const result = makeResult();
+    const output = baziInterpretation.buildBaziInterpretation(result);
+    const text = baziInterpretation.buildBaziContextText(result, output);
+    assert(text.includes('【Assessment｜作用与结论层】'), '复制上下文缺 Assessment 空层');
+    assert(text.includes('当前模块停在结构层'), 'Assessment 边界未保留');
+    assert(!text.includes('contract-only') && !text.includes('activeRuleIds') && !text.includes('dayMasterStrength'), '内部 Assessment 合同元数据泄漏到复制上下文');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
