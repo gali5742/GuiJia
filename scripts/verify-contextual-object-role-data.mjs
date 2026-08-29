@@ -4,11 +4,13 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const rolePath = path.join(root, 'data', 'liuyao-contextual-object-role-training-v0.2.json');
+const patchPath = path.join(root, 'data', 'liuyao-contextual-object-role-training-v0.2-seal-patch.json');
 const oldTypingPath = path.join(root, 'data', 'liuyao-entity-typing-training-v0.1.json');
 const oldBlindPath = path.join(root, 'data', 'liuyao-entity-typing-blind-eval-v0.1.json');
 const semanticBlindPath = path.join(root, 'data', 'liuyao-semantic-route-blind-eval-v0.2.json');
 
-const roleData = JSON.parse(fs.readFileSync(rolePath, 'utf8'));
+const baseRoleData = JSON.parse(fs.readFileSync(rolePath, 'utf8'));
+const patch = JSON.parse(fs.readFileSync(patchPath, 'utf8'));
 const oldTyping = JSON.parse(fs.readFileSync(oldTypingPath, 'utf8'));
 const oldBlind = JSON.parse(fs.readFileSync(oldBlindPath, 'utf8'));
 const semanticBlind = JSON.parse(fs.readFileSync(semanticBlindPath, 'utf8'));
@@ -22,6 +24,23 @@ const flattenStrings = (value, out = []) => {
   else if (value && typeof value === 'object') Object.values(value).forEach((item) => flattenStrings(item, out));
   return out;
 };
+
+const roleData = JSON.parse(JSON.stringify(baseRoleData));
+const replacements = new Map((patch?.replacements || []).map((item) => [normalize(item.from), normalize(item.to)]));
+let applied = 0;
+for (const group of Object.values(roleData.labels || {})) {
+  for (const split of ['train','validation']) {
+    for (const sample of group?.[split] || []) {
+      const replacement = replacements.get(normalize(sample.context));
+      if (replacement) {
+        sample.context = replacement;
+        applied += 1;
+      }
+    }
+  }
+}
+if (patch.version !== '0.2') fail(`unexpected contextual role seal patch version: ${patch.version}`);
+if (applied !== replacements.size) fail(`seal patch must apply every replacement: ${applied}/${replacements.size}`);
 
 if (roleData.version !== '0.2') fail(`unexpected contextual object role version: ${roleData.version}`);
 if (roleData.task !== 'contextual_object_role') fail(`unexpected task: ${roleData.task}`);
@@ -58,7 +77,7 @@ const externalStrings = new Set([
   ...flattenStrings(semanticBlind)
 ]);
 const overlaps = [...seen.keys()].filter((text) => externalStrings.has(text));
-if (overlaps.length) fail(`contextual object role data has exact overlap with prior sealed/development corpora:\n- ${overlaps.join('\n- ')}`);
+if (overlaps.length) fail(`effective contextual object role data has exact overlap with prior sealed/development corpora:\n- ${overlaps.join('\n- ')}`);
 
 const multiRoleEntities = [...entityLabels.values()].filter((set) => set.size >= 2).length;
 if (multiRoleEntities < 12) fail(`expected at least 12 entities to appear across multiple roles, got ${multiRoleEntities}`);
@@ -67,4 +86,5 @@ console.log('Contextual object role data verification passed');
 console.log(`- train: ${trainCount}`);
 console.log(`- validation: ${validationCount}`);
 console.log(`- cross-role entities: ${multiRoleEntities}`);
-console.log(`- exact overlaps with prior corpora: ${overlaps.length}`);
+console.log(`- pre-validation wording-only seal corrections: ${applied}`);
+console.log(`- exact overlaps with prior corpora after seal patch: ${overlaps.length}`);
