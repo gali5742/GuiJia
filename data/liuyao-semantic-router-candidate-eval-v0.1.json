@@ -1,0 +1,502 @@
+{
+  "version": "0.1",
+  "status": "sealed_candidate_eval",
+  "sealed": true,
+  "scope": "liuyao_only",
+  "modelCandidate": "semantic-router-v0.8.1",
+  "sampleCount": 300,
+  "purpose": "Fresh independent candidate evaluation for the 22-route LiuYao Semantic Router. It separately labels Router disposition, Semantic Sufficiency, and route-level Rule availability. It is not a full DivinationIntent/ObservationPlan end-to-end evaluation.",
+  "policy": {
+    "reuseCurrent301Validation": false,
+    "reuseLegacyDevelopmentBenchmark": false,
+    "reuseLegacyBlind": false,
+    "tuneV081FromThisEval": false,
+    "knownRouteCount": 220,
+    "outOfScopeCount": 60,
+    "underspecifiedCount": 20,
+    "reportRouteMacro": true,
+    "reportDomainMacro": true
+  },
+  "labelContract": {
+    "knownRoute": {
+      "expectedRouterDisposition": "route_known",
+      "expectedRoute": "route key",
+      "expectedSufficiencyStatus": "sample override or sufficient",
+      "expectedRuleAvailabilityStatus": "route-level contract"
+    },
+    "outOfScope": {
+      "expectedRouterDisposition": "route_out_of_scope",
+      "expectedRoute": "__other__",
+      "expectedSufficiencyStatus": "not_applicable",
+      "expectedRuleAvailabilityStatus": "not_applicable"
+    },
+    "underspecified": {
+      "expectedRouterDisposition": "route_unresolved_underspecified",
+      "expectedRoute": "__unresolved__",
+      "expectedSufficiencyStatus": "not_applicable",
+      "expectedRuleAvailabilityStatus": "not_applicable"
+    }
+  },
+  "routes": {
+    "financial_fortune": {
+      "goalType": "outcome",
+      "slots": ["financial_scope"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "未来半年我的整体财务状况会不会比现在轻松一些",
+        "今年后面几个月我的总收入和支出能不能慢慢平衡下来",
+        "接下来一年我的钱财状况总体会往好的方向走吗",
+        "最近财务压力比较大，秋天以后会不会缓过来",
+        {"text":"这一阶段我的整体进账情况一直不太稳定","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "business_operation": {
+      "goalType": "outcome",
+      "slots": ["business_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我开的烘焙工作室今年下半年能不能稳定赚钱",
+        "这家小餐馆继续经营下去利润能不能慢慢起来",
+        "我现在经营的网店年底前整体收益会怎么样",
+        "这个摄影工作室接下来几个月的经营状况会不会好转",
+        {"text":"这家咖啡店目前一直在亏损","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "commercial_transaction": {
+      "goalType": "outcome",
+      "slots": ["transaction_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我和这家客户谈的设备订单这个月能不能最终成交",
+        "这笔批发交易月底前能不能把合同签下来",
+        "供应商这单合作最后能不能谈成",
+        "这次和客户的一次性采购合同能不能顺利成交",
+        {"text":"和这家客户的合同还没签下来","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "inventory_purchase": {
+      "goalType": "outcome",
+      "slots": ["inventory_purchase_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "店里这次补一批夏季饮料库存能不能顺利到位",
+        "我准备给网店进一批新款配件，这次采购合适吗",
+        "门店下个月补货能不能按计划完成",
+        "我从批发商那里进这批货会不会出问题",
+        {"text":"店里准备下周补一批冬季库存","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "inventory_sale": {
+      "goalType": "outcome",
+      "slots": ["inventory_sale_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "仓库里这批过季存货月底前能不能清出去",
+        "门店现有尾货这个季度能不能基本卖完",
+        "这批经营库存接下来出货会不会顺利",
+        "网店积压的库存年前能不能出清",
+        {"text":"仓库还有一批旧库存没有清掉","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "borrow_money": {
+      "goalType": "outcome",
+      "slots": ["borrowing_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我向银行申请的这笔经营贷款能不能批下来",
+        "这次找朋友周转一笔钱能不能顺利借到",
+        "我申请的装修贷款下个月能不能放款",
+        "这次融资借款能不能按计划拿到资金",
+        {"text":"我正在申请一笔经营贷款","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "lend_money": {
+      "goalType": "choice",
+      "slots": ["lending_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "同事来找我借一笔钱，我现在借给他合不合适",
+        "亲戚想从我这里借钱周转，这次出借会不会有问题",
+        "我把这笔钱借给朋友以后能不能顺利收尾",
+        "对方想向我借三万元，我答应出借合适吗",
+        {"text":"朋友最近开口问我借五万块","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "debt_collection": {
+      "goalType": "outcome",
+      "slots": ["debt_collection_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "客户拖欠我的这笔货款这个月能不能收回来",
+        "之前借给朋友的钱年底前能不能追回来",
+        "对方欠我的款这次催收能不能拿到",
+        "这笔应收款拖了很久，近期能不能收回",
+        {"text":"客户还有一笔货款一直欠着我","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "debt_repayment": {
+      "goalType": "outcome",
+      "slots": ["debt_context"],
+      "ruleAvailability": "no_confirmed_rule",
+      "samples": [
+        "我这笔信用卡欠款今年能不能全部还清",
+        "房贷剩下这一部分明年能不能提前结清",
+        "我欠朋友的钱下个月能不能顺利还完",
+        "现在这笔负债能不能在年底前清掉",
+        {"text":"我现在还有一笔车贷没结清","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "partnership": {
+      "goalType": "outcome",
+      "slots": ["partnership_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我和朋友合伙开的店接下来能不能稳定盈利",
+        "这次和同学一起创业做工作室合不合适",
+        "我和这个合伙人继续共同经营会不会有收益",
+        "我们两个人一起做这门生意能不能长期做下去",
+        {"text":"我和朋友正在合伙做一家小店","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "investment_profit": {
+      "goalType": "outcome",
+      "slots": ["investment_target"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我买的这只指数基金这次投资最后能不能赚到钱",
+        "把资金投进这个新能源项目最终会不会有利润",
+        "这笔黄金投资做到年底能不能盈利",
+        "我现在这笔股票投资最后收益会不会为正",
+        "这只债券基金持有一年能不能给我带来利润",
+        "我入股这个项目之后最终能不能赚到钱",
+        "这次买入这只ETF到年底会不会有盈利",
+        {"text":"我已经把钱投进这个项目了","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "investment_liquidation": {
+      "goalType": "outcome",
+      "slots": ["position_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我已经决定卖掉这只股票，这次退出能不能顺利完成",
+        "这只基金准备全部赎回，资金能不能按时到账",
+        "我打算清掉这笔持仓，变现过程会不会顺利",
+        "这项投资已经决定退出，月底前能不能把钱拿回来",
+        "这只股票我准备卖出套现，执行上会不会卡住",
+        "这笔投资准备结束退出，资金回收能不能顺利",
+        "我已经确定明天把这只ETF卖掉，能不能顺利成交退出",
+        {"text":"我计划明天把这只ETF全部卖掉套现","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "investment_suitability": {
+      "goalType": "choice",
+      "slots": ["investment_target"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我现在适不适合开始买这只科技基金",
+        "这个新能源项目目前值得我投入资金吗",
+        "我现在进场买黄金ETF合不合适",
+        "这只股票现在作为长期投资适合我吗",
+        "我最近考虑配置这只债券基金，合适吗",
+        "现在把钱投到这个指数基金是不是合适的选择",
+        "我是否适合参与这个创业项目的投资",
+        {"text":"我最近在考虑配置这个指数基金","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "investment_position_decision": {
+      "goalType": "choice",
+      "slots": ["position_context"],
+      "ruleAvailability": "provisional_only",
+      "samples": [
+        "这只基金我现在应该继续拿着还是卖掉",
+        "这笔股票仓位现在要不要先减掉一部分",
+        "我手上的ETF是继续持有还是现在退出更合适",
+        "这只股票目前该止盈还是继续拿",
+        "我的基金仓位现在要不要赎回",
+        "这笔持仓要不要在本周先卖掉",
+        "我现在是继续持有这项投资还是退出",
+        {"text":"我正在考虑要不要调整这笔持仓","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "investment_price_trend": {
+      "goalType": "state",
+      "slots": ["investment_target"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "这只半导体股票下个月价格会不会继续上涨",
+        "这个黄金ETF接下来两周走势偏上还是偏下",
+        "我关注的这只基金年底前净值会怎么走",
+        "这只股票后面还有没有继续下跌的可能",
+        "这个标的下周价格方向大概会往哪边",
+        "这只指数基金接下来会不会重新走强",
+        "这只股票明年一季度价格趋势会怎样",
+        {"text":"我最近一直在观察这只ETF的价格走势","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "income_salary": {
+      "goalType": "outcome",
+      "slots": ["employment_income_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我明年固定工资有没有机会明显上涨",
+        "这次公司调薪我的月薪能不能提高",
+        "接下来半年我的基本薪资还会不会增加",
+        "今年公司给我的工资水平会不会往上调",
+        "我这份工作的固定收入明年能不能变高",
+        "下一次薪资评定我有没有加薪机会",
+        "我的月薪今年年底前还能不能再涨一次",
+        "公司这轮调薪我能不能拿到更高的基本工资",
+        "未来一年我的薪酬水平整体会不会提高",
+        "我现在这份工作的工资还能不能继续增长",
+        "下季度我的固定薪水有没有上涨空间",
+        "这次续约以后月薪能不能比现在高",
+        "公司明年会不会给我调整基本工资",
+        "我今年的薪酬增长幅度会不会比较明显",
+        {"text":"公司最近正在讨论下一轮调薪方案","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "income_bonus": {
+      "goalType": "outcome",
+      "slots": ["bonus_context"],
+      "ruleAvailability": "provisional_only",
+      "samples": [
+        "今年年终奖我能不能拿到比去年更多",
+        "这次季度绩效奖金能不能正常发下来",
+        "年底公司的奖金我大概能不能拿到",
+        "这个项目结束后我有没有机会拿到项目奖金",
+        "今年绩效奖金额度会不会比较高",
+        "这次部门奖金我能不能分到",
+        "明年春节前的年终奖会不会有明显增加",
+        "这轮绩效考核以后奖金能不能拿到",
+        "我今年有没有额外奖金进账",
+        "这个季度的奖励金最后能不能兑现",
+        "公司年底会不会给我发一笔奖金",
+        "这次项目奖励我能不能顺利拿到",
+        "今年的绩效奖金会不会比预期高",
+        "年末那笔奖金最终能不能发到我手里",
+        {"text":"公司已经公布今年会有年终奖","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "receive_item": {
+      "goalType": "timing",
+      "slots": ["delivery_context", "delivery_target"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我订的相机这个周末之前能不能收到",
+        "这副耳机已经发货了，明天能不能送到",
+        "我买的显示器下周一之前能不能到手",
+        "这台电脑现在在配送中，月底前能不能收到",
+        "我网购的键盘今天晚上能不能送到家",
+        "这个包裹已经到转运仓了，三天内能不能到",
+        "我订的镜头什么时候能收到",
+        "这件快递明天下午能不能送到",
+        "我买的平板本周能不能拿到",
+        "这单商品已经寄出，周五前能不能到手",
+        "我的订单现在发货了，月底前能不能收货",
+        "新买的路由器这两天能不能送到",
+        "这件货已经出库了，什么时候能到我这里",
+        "我订的手表下周能不能收到",
+        "这台设备从海外寄出，本月能不能到手",
+        "我买的书已经发货，明天能收到吗",
+        "这个相机包裹今天会不会送达",
+        "我等的那台显示器什么时候能拿到",
+        "这件商品物流一直没更新，周末前能到吗",
+        "我订的机械键盘月底前能不能收到",
+        "我的耳机包裹现在正在派送，今天能到吗",
+        {"text":"我买的镜头已经寄出来了","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"},
+        {"text":"这个什么时候能收到","slots":["delivery_context"],"expectedSufficiencyStatus":"semantic_insufficient"},
+        "新手机已经发货，后天能不能到手",
+        "我订的咖啡机本周内能不能送到"
+      ]
+    },
+    "item_purchase": {
+      "goalType": "choice",
+      "slots": ["purchase_context", "purchase_object"],
+      "ruleAvailability": "no_confirmed_rule",
+      "samples": [
+        "这台投影仪现在值不值得我买",
+        "我最近看中的这款相机适不适合买",
+        "这副降噪耳机现在入手合适吗",
+        "这台笔记本电脑我现在买会不会后悔",
+        "这个机械键盘值得买吗",
+        "我现在要不要买这款智能手表",
+        "这台显示器适不适合现在入手",
+        "这款镜头我现在购买合不合适",
+        "这部手机现在买是不是好选择",
+        "我该不该买这台咖啡机",
+        "这个路由器现在值得入手吗",
+        "这套音箱我现在买合适不合适",
+        "我看中的这台平板值得买吗",
+        "这个游戏掌机现在适合买回来吗",
+        "这台空气净化器我该不该买",
+        "这款电饭煲现在购买值不值",
+        "我想买这台扫描仪，现在合适吗",
+        "这个办公椅值得我花钱买吗",
+        "这款打印机现在入手会不会后悔",
+        {"text":"我正在考虑买一台新的显示器","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"},
+        {"text":"这个值不值得买","slots":["purchase_context"],"expectedSufficiencyStatus":"semantic_insufficient"},
+        "这台NAS现在买合适吗",
+        "这款无线麦克风现在值得入手吗",
+        "这台小型投影机我该不该购买",
+        "这部二手相机现在买合适吗"
+      ]
+    },
+    "relationship_development": {
+      "goalType": "outcome",
+      "slots": ["specific_counterpart"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我和这个女生现在还只是朋友，以后能不能发展成恋人",
+        "我最近认识的这个男生和我以后有没有恋爱可能",
+        "我喜欢的这个女生之后会不会愿意和我在一起",
+        "我和这个男生目前还没确定关系，后面能不能成为情侣",
+        "我对这个女生有好感，我们以后能不能发展成恋爱关系",
+        "这个男生现在把我当朋友，我们后面有可能谈恋爱吗",
+        "我和这个女生接下来有没有机会确认恋爱关系",
+        "我喜欢的男生以后会不会接受和我交往",
+        "我和这个女生还在暧昧阶段，后面能不能正式在一起",
+        "这个男生和我以后会不会从朋友变成恋人",
+        "我跟这个女生有没有继续发展成情侣的可能",
+        "我和这个男生现在关系不错，以后能不能谈恋爱",
+        "我喜欢这个女生，之后有没有机会和她在一起",
+        "这个男生目前是我的朋友，我们会不会发展成恋人",
+        "我和这个女生的暧昧最后能不能确定关系",
+        {"text":"我想和这个女生发展成恋人","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"},
+        {"text":"我们以后能不能变成恋人","slots":[],"expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "marriage_match": {
+      "goalType": "outcome",
+      "slots": ["marriage_proposal_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我和现在的男朋友明年能不能顺利结婚",
+        "我和这个女生以后有没有机会领证",
+        "我们这段恋爱最后能不能走到结婚",
+        "我和女朋友今年谈婚事能不能成",
+        "这门亲事今年能不能顺利定下来",
+        "我和对象明年能不能成为夫妻",
+        "我和这个男生最后有没有结婚的可能",
+        "我们已经谈到结婚了，这桩婚事能不能成",
+        "我和女朋友年底前能不能领证",
+        "这段恋爱关系最后会不会进入婚姻",
+        "我和对象的婚事今年能不能落实",
+        "我跟这个女生以后适不适合结婚",
+        "双方家里都知道了，这门婚事能不能定下来",
+        "我和男朋友谈结婚这件事能不能顺利",
+        "我们明年有没有可能正式登记结婚",
+        "这桩婚事现在推进下去能不能成",
+        {"text":"我们已经在准备明年领证","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    },
+    "marital_relationship": {
+      "goalType": "state",
+      "slots": ["existing_marriage_context"],
+      "ruleAvailability": "confirmed",
+      "samples": [
+        "我和丈夫最近关系很僵，后面能不能缓和",
+        "我和老婆这段婚姻接下来会不会稳定一些",
+        "我们夫妻最近一直冷战，之后能不能和好",
+        "我和妻子未来一年婚姻关系会怎么样",
+        "我和老公现在矛盾很多，后面能不能继续过下去",
+        "我们已经结婚多年，最近这段关系能不能改善",
+        "我和丈夫年底前能不能把关系修复好",
+        "我和妻子这段婚姻以后还会不会稳定",
+        "我们夫妻之间的冲突后面能不能减轻",
+        "我和老婆最近总吵架，接下来关系会不会好转",
+        "我和丈夫现在分居，之后还有没有和好的可能",
+        "我们已经是夫妻了，明年关系会不会更顺",
+        "我和妻子的婚姻接下来会走向什么状态",
+        "我和老公最近很疏远，以后能不能重新亲近",
+        "我们夫妻今年后面的相处会不会改善",
+        {"text":"我和丈夫最近一直在冷战","goalType":"unknown","expectedSufficiencyStatus":"semantic_insufficient"}
+      ]
+    }
+  },
+  "rejection": {
+    "out_of_scope": [
+      "这次技术面试我能不能顺利拿到录用通知",
+      "今年年底前我有没有机会升到主管岗位",
+      "我换去那家外企以后发展会不会更好",
+      "这次内部竞聘我能不能选上",
+      "新公司的试用期我能不能顺利通过",
+      "我现在辞职去另一家公司合适吗",
+      "明年我的职业发展会不会出现新的机会",
+      "这次部门调整我会不会被调到想去的岗位",
+      "我申请的那个职位最后能不能拿到offer",
+      "今年工作上会不会遇到明显的晋升机会",
+      "这次法语考试我能不能及格",
+      "下个月的资格考试能不能一次通过",
+      "我今年申请研究生能不能录取",
+      "这篇论文投稿能不能被期刊接受",
+      "这次课程结业考试结果会不会理想",
+      "我准备的证书考试年底前能不能拿下",
+      "这次面试型考试我能不能进入下一轮",
+      "明年的学校申请能不能拿到录取",
+      "下周去大阪的行程能不能按计划成行",
+      "明天坐飞机会不会顺利到达",
+      "这次出差途中会不会遇到大的耽搁",
+      "周末去箱根的旅行能不能顺利完成",
+      "我明天开车去长野一路会不会顺",
+      "这次回国行程会不会临时取消",
+      "下个月去欧洲的旅行能不能按计划出发",
+      "这次坐新干线去京都会不会误点",
+      "我丢的钥匙还能不能找回来",
+      "昨天不见的钱包最后能不能找到",
+      "我的耳机不知道放哪了还能找回吗",
+      "丢失的门禁卡这两天能不能找到",
+      "我找不到的U盘是不是还能寻回",
+      "昨晚落下的雨伞还有机会找回来吗",
+      "我不见的相机电池能不能找回",
+      "这本遗失的笔记本还能不能找到",
+      "这场劳动纠纷最后能不能解决",
+      "我和房东的争议最后谁更占理",
+      "这次合同纠纷能不能顺利和解",
+      "对方起诉以后这件事能不能平息",
+      "这场仲裁最后结果会不会对我有利",
+      "我提交的投诉能不能得到处理",
+      "这次赔偿争议能不能谈妥",
+      "和邻居的纠纷近期能不能结束",
+      "我申请的公租房今年能不能排到",
+      "这套房子的租约能不能顺利续签",
+      "我准备搬去这个新住处合不合适",
+      "这次签证续签能不能顺利下来",
+      "我的在留资格更新能不能通过",
+      "这个房屋申请能不能审核通过",
+      "我今年能不能顺利搬家",
+      "这次租房审查能不能过",
+      "我和这个同事以后能不能一直相处融洽",
+      "我和朋友最近闹别扭以后能不能和好",
+      "我跟室友之后的关系会不会改善",
+      "我和老同学以后还会不会保持联系",
+      "我和上司以后沟通会不会更顺",
+      "护照换发申请这次能不能批准",
+      "驾照更新申请能不能审核通过",
+      "我提交的休假申请会不会被批准",
+      "这个项目立项申请能不能通过审批",
+      "我申请的停车证这次能不能批下来"
+    ],
+    "underspecified": [
+      "这件事最后能不能成",
+      "我们以后还有没有可能",
+      "最近这个情况会不会变好",
+      "对方最后会不会答应",
+      "下个月之前能不能解决",
+      "我现在继续下去合适吗",
+      "这个选择到底对不对",
+      "今年后面会不会顺一点",
+      "这次结果会不会让我满意",
+      "他后面还会不会联系我",
+      "现在是不是该停下来",
+      "这件事情月底前有没有结果",
+      "我们之间还能不能继续",
+      "这个计划最后能不能落地",
+      "对方会不会改变主意",
+      "这次机会我能不能抓住",
+      "以后还有没有转机",
+      "明天会不会有消息",
+      "现在这样做是不是合适",
+      "这一步走下去会不会顺利"
+    ]
+  }
+}
