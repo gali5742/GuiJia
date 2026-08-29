@@ -17,6 +17,9 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashPreconditions) {
         document.write('<script src="./js/bazi-clash-preconditions.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashSeasonalPosition) {
+        document.write('<script src="./js/bazi-clash-seasonal-position.js?v=13.44.0"><\/script>');
+    }
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
@@ -170,7 +173,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约及六冲非补偿比较合同；六冲必要语义维度、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约、六冲非补偿比较合同及“月支提纲”季节地位窄规则；六冲其余必要语义维度、四库冲季节处理、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
