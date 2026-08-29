@@ -1,8 +1,10 @@
 import { semanticRouterPocV081 as router } from './liuyao-semantic-router-poc-v081.js?v=poc0.8.1';
 
 const DATA_URL = new URL('../data/liuyao-semantic-router-decision-v0.9-development.json', import.meta.url);
+const PATCH_URL = new URL('../data/liuyao-semantic-router-decision-v0.9-development-patch.json', import.meta.url);
 const VERSION = '0.9-dev';
 let data = null;
+let developmentPatch = null;
 let trained = false;
 let globalGate = null;
 let lowThreshold = 0.5;
@@ -19,14 +21,16 @@ const mean = (xs) => xs.length ? xs.reduce((a,b)=>a+b,0)/xs.length : 0;
 const safeRatio = (n,d) => d ? n/d : NaN;
 const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
 const arbitrationApi = () => globalThis.GuiJia?.liuyaoSemanticRouteArbitrationV09;
+const applyDevelopmentPatch = (text) => developmentPatch?.replacements?.[text] || text;
 
 const ensureData = async () => {
-  if (!data) {
-    data = await fetchJson(DATA_URL);
+  if (!data || !developmentPatch) {
+    [data, developmentPatch] = await Promise.all([fetchJson(DATA_URL), fetchJson(PATCH_URL)]);
     if (data.version !== '0.9-dev-routeability-0.1' || data.status !== 'development') throw new Error('Router Decision v0.9 development data mismatch');
     if (data.policy?.reuseSealedCandidateEvalV01 !== false) throw new Error('v0.9 must not reuse sealed Candidate Eval v0.1');
+    if (developmentPatch.version !== '0.9-dev-wording-patch-0.1' || developmentPatch.status !== 'development_preuse_patch' || developmentPatch.base !== 'liuyao-semantic-router-decision-v0.9-development.json') throw new Error('Router Decision v0.9 wording patch mismatch');
   }
-  return data;
+  return { data, developmentPatch };
 };
 
 const flattenSplit = async (split) => {
@@ -36,20 +40,20 @@ const flattenSplit = async (split) => {
   for (const [routeId,spec] of Object.entries(data.routes || {})) {
     for (const row of spec[split] || []) rows.push({
       id:`V09-${split}-${String(index++).padStart(3,'0')}`,
-      text:row.text,
+      text:applyDevelopmentPatch(row.text),
       kind:'known',
       routeable:true,
       expectedRoute:routeId,
       form:row.form || 'question'
     });
   }
-  for (const text of data.rejection?.[split]?.out_of_scope || []) rows.push({
+  for (const rawText of data.rejection?.[split]?.out_of_scope || []) rows.push({
     id:`V09-${split}-${String(index++).padStart(3,'0')}`,
-    text, kind:'out_of_scope', routeable:false, expectedRoute:'__other__', form:'reject'
+    text:applyDevelopmentPatch(rawText), kind:'out_of_scope', routeable:false, expectedRoute:'__other__', form:'reject'
   });
-  for (const text of data.rejection?.[split]?.underspecified || []) rows.push({
+  for (const rawText of data.rejection?.[split]?.underspecified || []) rows.push({
     id:`V09-${split}-${String(index++).padStart(3,'0')}`,
-    text, kind:'underspecified', routeable:false, expectedRoute:'__unresolved__', form:'reject'
+    text:applyDevelopmentPatch(rawText), kind:'underspecified', routeable:false, expectedRoute:'__unresolved__', form:'reject'
   });
   return rows;
 };
