@@ -15,6 +15,7 @@ assert(ident.includes('route_identifiable')&&ident.includes('route_unresolved'),
 assert(!ident.includes('outside_current_22'),'Route Identifiability runtime must not train on outside-current-22');
 assert(!ident.includes('routeMargin')&&!ident.includes('gateScore')&&!ident.includes('normalizedEntropy'),'Route Identifiability must not be confidence-feature gate');
 assert(ident.includes("flattenSplit('train')")&&ident.includes("flattenSplit('calibration')")&&ident.includes("flattenSplit('validation')"),'Route Identifiability split separation missing');
+assert(ident.includes('liuyao-semantic-decision-stack-v0.10-preuse-patch.json')&&ident.includes('effectiveText(sample.text)'),'Route Identifiability must apply the verified v0.10 pre-use wording patch');
 
 assert(stack.includes("semanticRouterPocV081 as router"),'v0.10 must reuse v0.8.1 Router');
 assert(stack.includes("semanticScopeGateV01 as scopeGate"),'v0.10 must reuse Scope Gate v0.1');
@@ -28,8 +29,8 @@ assert(!stack.includes('routerResult.gate.accepted')&&!stack.includes('gate.pred
 assert(!stack.includes('liuyao-semantic-router-candidate-eval-v0.1.json'),'sealed Candidate v0.1 must not be runtime dependency');
 assert(stack.includes('decision-stack-v0.10-oracle-fixture'),'Sufficiency oracle-fixture boundary must be explicit');
 assert(stack.includes("finalDisposition = 'outside_current_22'")&&stack.includes("finalDisposition = 'route_unresolved'")&&stack.includes("finalDisposition = 'route_known'"),'v0.10 three-way disposition missing');
+assert(stack.includes('liuyao-semantic-decision-stack-v0.10-preuse-patch.json')&&stack.includes("identifiabilityGate.flattenSplit('calibration')"),'Stack Scope calibration must consume the effective wording-isolated v0.10 calibration rows');
 
-assert(page.includes('一个')===false || true,'noop');
 assert(page.includes('Scope Gate v0.1')&&page.includes('Route Identifiability v0.10')&&page.includes('Semantic Sufficiency v0.2'),'v0.10 page missing layer description');
 assert(page.includes('不会重新调 Scope Gate v0.1'),'page must state Scope Gate v0.1 is not retuned');
 assert(page.includes('44 条 Validation / 30 条 Diagnostic'),'page must state previous Scope score set is not reused');
@@ -38,6 +39,7 @@ assert(page.includes('legacy local Gate 仅保留作诊断'),'page must state le
 console.log('LiuYao Semantic Decision Stack v0.10 runtime contract verified.');
 console.log('- Scope Gate v0.1 and v0.8.1 Router reused without retraining-rule changes');
 console.log('- direct-BGE Route Identifiability separated from Scope and Sufficiency');
+console.log('- verified v0.10 pre-use wording isolation is applied at runtime');
 console.log('- v0.9.1 modern semantic arbitration precedes final route selection');
 console.log('- legacy local gate is diagnostic only in v0.10 final decision');
 console.log('- three-way outside / unresolved / route-known disposition is explicit');
