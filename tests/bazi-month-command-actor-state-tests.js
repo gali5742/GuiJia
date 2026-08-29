@@ -99,6 +99,40 @@ test('Month Command Actor State v0.1 建立“司令 actor 可成为 interaction
     assert(api.SOURCE_PATTERNS.length === 2, '应只收辰戌／丑未两条直证模式');
 });
 
+test('DTS 辰乙／未丁只登记“司令状态有直证、具体日界未解析”，不得伪造 resolver', () => {
+    const chen = api.COMMAND_WINDOW_EVIDENCE.CHEN_YI;
+    const wei = api.COMMAND_WINDOW_EVIDENCE.WEI_DING;
+    [chen, wei].forEach((item) => {
+        assert(item.attestationStatus === 'attested-command-state', `${item.id} 应保留司令状态直证`);
+        assert(item.exactWindowStatus === 'unresolved-in-source', `${item.id} 具体日界必须 unresolved`);
+        assert(item.resolverPolicy === 'disabled-no-dts-window', `${item.id} resolver 必须 disabled`);
+        assert(item.externalComparisons.every((entry) => entry.compatibility === 'not-established' && entry.use === 'comparison-only'), `${item.id} 外部日界只能 comparison-only`);
+    });
+    assert(api.CONTRACT.dtsChenYiWindowResolver === 'disabled-no-dts-window', '辰乙 resolver 合同异常');
+    assert(api.CONTRACT.dtsWeiDingWindowResolver === 'disabled-no-dts-window', '未丁 resolver 合同异常');
+    assert(api.CONTRACT.crossSourceWindowCompatibility === 'not-established', '不得默认建立跨来源兼容');
+    assert(chen.externalComparisons.some((entry) => entry.sourceWindow.includes('乙木九日')), '应保存徐乐吾辰月九日版本作为比较');
+    assert(chen.externalComparisons.some((entry) => entry.sourceWindow.includes('清明七日乙木能')), '应保存七日歌诀版本作为比较');
+    assert(wei.externalComparisons.some((entry) => entry.sourceWindow.includes('丁火九日')), '应保存徐乐吾未月九日版本作为比较');
+    assert(wei.externalComparisons.some((entry) => entry.sourceWindow.includes('小暑丁火七朝明')), '应保存七日歌诀版本作为比较');
+});
+
+test('只有 attested-command-state 而没有 DTS 明确日界时，不能通过司令输入 gate', () => {
+    const result = makeResult(['甲','戊','丁','庚'], ['子','辰','卯','戌']);
+    const chen = api.COMMAND_WINDOW_EVIDENCE.CHEN_YI;
+    const attestedOnly = {
+        sourceId:chen.id,
+        sourceCommandGan:'乙',
+        resolutionStatus:'attested-command-state'
+    };
+    assert(api.isResolvedDtsCommandObservation(attestedOnly, '乙') === false, '仅有司令状态直证不得冒充已解析日界');
+    const record = api.buildMonthCommandActorState(result, semanticFor(result, [attestedOnly])).records[0];
+    assert(record.resolutionStatus === 'unresolved-command-input', '日界未解析时 vulnerability 仍须 unresolved');
+    assert(record.commandWindowStatus === 'unresolved-in-source', 'record 应显式携带 DTS 日界未解析状态');
+    assert(record.commandWindowEvidenceId === chen.id, 'record 应回指对应日界证据合同');
+    assert(record.sourceInteractionState === null, '日界未解析不得提前生成受伤');
+});
+
 test('辰月见辰戌冲但没有同源乙木司令 observation 时，只建立 unresolved vulnerability record', () => {
     const result = makeResult(['甲','戊','丁','庚'], ['子','辰','卯','戌']);
     const state = api.buildMonthCommandActorState(result, semanticFor(result));
