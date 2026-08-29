@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="龟甲六爻 Semantic Router PoC v0.7：冻结 BGE + linear/gate 架构，扩展到 22 个现代现实语义 route。">
+  <meta name="description" content="龟甲六爻 Semantic Router PoC v0.7.1：22-route expansion 的 contrastive hard-negative 标签语义修正。">
   <meta name="robots" content="noindex,nofollow">
-  <title>龟甲｜六爻 Semantic Router PoC v0.7</title>
+  <title>龟甲｜六爻 Semantic Router PoC v0.7.1</title>
   <style>
     :root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{margin:0;background:#f4f2ed;color:#282621}main{max-width:1240px;margin:0 auto;padding:28px 18px 54px}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 10px;font-size:18px}.sub,.small{color:#68645d;line-height:1.7}.small{font-size:12px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}.notice{border-left:4px solid #c7b989;padding-left:12px;margin:12px 0;color:#5c5130;line-height:1.7}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}button{font:inherit;border:0;border-radius:9px;padding:10px 16px;background:#38352f;color:#fff;cursor:pointer}button.secondary{background:#ece9e2;color:#38352f}button:disabled{opacity:.5;cursor:not-allowed}textarea{width:100%;min-height:92px;box-sizing:border-box;border:1px solid #cfcac0;border-radius:10px;padding:12px;font:inherit;resize:vertical}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}.metric{margin:0}.metric strong{display:block;font-size:23px;margin-top:5px}.metric span{color:#777168;font-size:12px}pre{white-space:pre-wrap;word-break:break-word;background:#f7f6f2;border-radius:10px;padding:12px;overflow:auto;font-size:12px;line-height:1.55}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid #ebe7df;padding:8px 7px;text-align:left;vertical-align:top}th{color:#666158;font-weight:600;position:sticky;top:0;background:#fff}.num{text-align:right;white-space:nowrap}.chips{display:flex;flex-wrap:wrap;gap:7px}.chips button{padding:7px 10px;font-size:12px}.new{font-weight:600}.scroll{max-height:620px;overflow:auto;border:1px solid #eeeae2;border-radius:10px}
   </style>
 </head>
 <body><main>
-  <h1>龟甲 · 六爻 Semantic Router PoC v0.7</h1>
-  <p class="sub">冻结 v0.6 模型结构：BGE-small-zh-v1.5 q8 → Multinomial Route classifier → route-conditioned Logistic Acceptance Gate。只扩展现代现实语义 route，从 15 类增加到 22 类；不改变 DivinationIntent / Rule Registry 的职责边界。</p>
+  <h1>龟甲 · 六爻 Semantic Router PoC v0.7.1</h1>
+  <p class="sub">冻结 v0.6 模型结构：BGE-small-zh-v1.5 q8 → Multinomial Route classifier → route-conditioned Logistic Acceptance Gate。22-route 类别与 v0.7 相同；本修正版只纠正 expansion contrastive hard-negative 的 expected route 语义。</p>
 
   <section class="card">
     <h2>当前实验边界</h2>
-    <div class="notice">本页只测试 Semantic Router 组件，不代表整个六爻语义系统。Validation 同时承担每 route acceptance threshold 校准，因此本页 Validation 指标只能用于开发诊断，不能作为独立 Blind 泛化成绩。旧 125 Development Benchmark 与旧 361 sealed Blind 均不用于本轮自动评分。</div>
-    <p class="small">新增 7 类：商业交易、经营进货、库存销售、我方出借、讨债、合伙经营、投资卖出/套现。感情与婚姻三类继续保留在 22-route 模型中。</p>
+    <div class="notice">本页只测试 Semantic Router 组件，不代表整个六爻语义系统。Validation 同时承担每 route acceptance threshold 校准，因此本页指标只能用于开发诊断，不能作为独立 Blind 泛化成绩。v0.7 首轮把“对 A route 是 hard negative、但本身属于 B route”的对照句错误计成 __other__；v0.7.1 修正这一数据语义，不修改模型结构、epoch、learning rate、Gate 算法，也不修改任何 frozen / sealed 数据。</div>
+    <p class="small">旧 expansion 文本保持不变。只有完整且属于已支持 route 的 contrastive 样本获得 expectedRoute；真正越界、完成态背景或未形成完整占问的样本仍保持 __other__ / underspecified。</p>
   </section>
 
   <section class="card">
@@ -27,15 +27,15 @@
   </section>
 
   <section class="card">
-    <h2>2. 训练 22-route PoC v0.7</h2>
-    <p class="small">旧 15 类继续使用既有冻结训练来源；新 7 类使用 v0.4 expansion corpus。模型结构与 v0.6 相同，不在这一轮调 epoch、learning rate 或 gate 算法。</p>
-    <div class="row"><button id="train" disabled>训练 v0.7</button><span id="trainStatus" class="status">—</span></div>
+    <h2>2. 训练 22-route PoC v0.7.1</h2>
+    <p class="small">旧 15 类继续使用既有冻结训练来源；新 7 类仍使用同一 v0.4 expansion corpus。仅应用 contrastive expected-route label patch。</p>
+    <div class="row"><button id="train" disabled>训练 v0.7.1</button><span id="trainStatus" class="status">—</span></div>
     <div class="progress"><div id="trainProgress"></div></div><pre id="trainText">—</pre>
     <div class="grid" style="margin-top:14px">
       <article class="card metric"><span>Validation Route Top-1</span><strong id="mRoute">—</strong></article>
       <article class="card metric"><span>Known coverage</span><strong id="mCoverage">—</strong></article>
       <article class="card metric"><span>Accepted known accuracy</span><strong id="mAccepted">—</strong></article>
-      <article class="card metric"><span>Hard-negative rejection</span><strong id="mOther">—</strong></article>
+      <article class="card metric"><span>Genuine-other rejection</span><strong id="mOther">—</strong></article>
       <article class="card metric"><span>False activation</span><strong id="mFalse">—</strong></article>
       <article class="card metric"><span>Validation exact</span><strong id="mExact">—</strong></article>
       <article class="card metric"><span>Route 数</span><strong id="mRoutes">22</strong></article>
@@ -45,7 +45,7 @@
 
   <section class="card">
     <h2>3. 逐 route Validation</h2>
-    <p class="small">这里比总准确率更重要。重点观察新增近邻边界：借入↔借出↔讨债↔还债、经营↔交易↔进货↔出货↔合伙，以及投资卖出↔持仓决策↔价格走势。</p>
+    <p class="small">逐类表现在同时包含 route-positive 与被正确重标的 contrastive-known 样本。重点观察借入↔借出↔讨债↔还债、经营↔交易↔进货↔出货↔合伙、投资卖出↔持仓决策↔价格走势，以及恋爱↔婚事↔既有婚姻。</p>
     <div class="scroll"><table><thead><tr><th>Route</th><th class="num">n</th><th class="num">Top-1</th><th class="num">Coverage</th><th class="num">Accepted acc.</th><th class="num">Exact</th><th>Confusions</th></tr></thead><tbody id="routeRows"><tr><td colspan="7">尚未训练。</td></tr></tbody></table></div>
   </section>
 
@@ -62,7 +62,7 @@
   </section>
 </main>
 <script type="module">
-import { semanticRouterPocV07 as poc } from './js/liuyao-semantic-router-poc-v07.js?v=poc0.7';
+import { semanticRouterPocV07 as poc } from './js/liuyao-semantic-router-poc-v07.js?v=poc0.7.1';
 const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
 const setStatus=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
 const newRoutes=new Set(['commercial_transaction','inventory_purchase','inventory_sale','lend_money','debt_collection','partnership','investment_liquidation']);
@@ -85,8 +85,8 @@ const paintMetrics=(m)=>{$('mRoute').textContent=pct(m.routeKnownTop1Accuracy);$
 const paintRoutes=(rows)=>{$('routeRows').innerHTML='';for(const row of rows){const tr=document.createElement('tr');const confusion=Object.entries(row.confusions||{}).map(([id,n])=>`${id}:${n}`).join(' · ')||'—';const values=[row.routeId,String(row.count),pct(row.top1Accuracy),pct(row.coverage),pct(row.acceptedAccuracy),pct(row.exactAccuracy),confusion];values.forEach((value,index)=>{const td=document.createElement('td');if(index===0&&newRoutes.has(row.routeId))td.className='new';if(index>=1&&index<=5)td.classList.add('num');td.textContent=value;tr.appendChild(td);});$('routeRows').appendChild(tr);}};
 const paintIssues=(rows)=>{$('issues').innerHTML='';const issues=rows.filter((r)=>r.gate.predicted!==r.label);if(!issues.length){$('issues').innerHTML='<tr><td colspan="7">没有 Validation 错误。</td></tr>';return;}for(const r of issues){const tr=document.createElement('tr');const vals=[r.text,r.label,`${r.top1.id} ${f(r.top1.score)}`,r.gate.predicted,`${f(r.gate.score)} / ${f(r.gate.threshold)}`,`${r.top2.id} ${f(r.top2.score)}`,f(r.routeMargin)];vals.forEach((value,index)=>{const td=document.createElement('td');if(index===6)td.className='num';td.textContent=value;tr.appendChild(td);});$('issues').appendChild(tr);}};
 
-$('loadModel').onclick=async()=>{$('loadModel').disabled=true;setStatus('modelStatus','加载中…','warn');try{const info=await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('modelProgress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('modelText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('modelProgress').style.width='100%';setStatus('modelStatus','BGE 已就绪','ok');$('modelText').textContent=`${info.modelId} · ${info.dtype} · routes=${info.routes} · inventory=${info.inventoryVersion}`;$('train').disabled=false;}catch(e){setStatus('modelStatus','加载失败','bad');$('modelText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
-$('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;setStatus('trainStatus','准备训练…','warn');$('trainProgress').style.width='0%';try{const result=await poc.train({onStage:(stage,text)=>{setStatus('trainStatus',text,stage==='done'?'ok':'warn');$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('trainProgress').style.width=`${total?done/total*78:0}%`;$('trainText').textContent=`embedding ${done}/${total}`;}});$('trainProgress').style.width='100%';paintMetrics(result.validationMetrics);paintRoutes(result.validationByRoute);paintIssues(result.validationResults);$('trainText').textContent=`train=${result.trainCount} (known ${result.trainPositiveCount} / hard-negative ${result.trainOtherCount}) · validation=${result.validationCount} (known ${result.validationPositiveCount} / hard-negative ${result.validationOtherCount}) · routes=${result.routeCount} · architecture unchanged from v0.6`;setStatus('trainStatus','训练完成','ok');$('classify').disabled=false;}catch(e){setStatus('trainStatus','训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;setStatus('modelStatus','加载中…','warn');try{const info=await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('modelProgress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('modelText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('modelProgress').style.width='100%';setStatus('modelStatus','BGE 已就绪','ok');$('modelText').textContent=`${info.modelId} · ${info.dtype} · routes=${info.routes} · inventory=${info.inventoryVersion} · poc=${poc.version}`;$('train').disabled=false;}catch(e){setStatus('modelStatus','加载失败','bad');$('modelText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
+$('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;setStatus('trainStatus','准备训练…','warn');$('trainProgress').style.width='0%';try{const result=await poc.train({onStage:(stage,text)=>{setStatus('trainStatus',text,stage==='done'?'ok':'warn');$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('trainProgress').style.width=`${total?done/total*78:0}%`;$('trainText').textContent=`embedding ${done}/${total}`;}});$('trainProgress').style.width='100%';paintMetrics(result.validationMetrics);paintRoutes(result.validationByRoute);paintIssues(result.validationResults);$('trainText').textContent=`train=${result.trainCount} (route-positive ${result.trainPositiveCount} / contrastive-known ${result.trainContrastiveCount} / genuine-other ${result.trainOtherCount}) · validation=${result.validationCount} (route-positive ${result.validationPositiveCount} / contrastive-known ${result.validationContrastiveCount} / genuine-other ${result.validationOtherCount}) · routes=${result.routeCount} · architecture unchanged from v0.6`;setStatus('trainStatus','训练完成','ok');$('classify').disabled=false;}catch(e){setStatus('trainStatus','训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
 $('classify').onclick=async()=>{const text=$('question').value.trim();if(!text)return;$('classify').disabled=true;setStatus('classifyStatus','计算中…','warn');try{const r=await poc.classify(text);setStatus('classifyStatus',r.gate.accepted?`接受：${r.gate.predicted}`:'未自动接受',r.gate.accepted?'ok':'warn');$('singleResult').textContent=JSON.stringify({question:text,predicted:r.gate.predicted,accepted:r.gate.accepted,routeTop1:r.top1,routeTop2:r.top2,routeMargin:r.routeMargin,gate:r.gate,top5:r.scores.slice(0,5)},null,2);}catch(e){setStatus('classifyStatus','失败','bad');$('singleResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
 </script>
 </body></html>
