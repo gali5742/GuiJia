@@ -1,0 +1,41 @@
+{
+  "version": "0.2",
+  "status": "implemented_resolution",
+  "scope": "liuyao_only",
+  "resolvesAudit": "data/liuyao-semantic-router-sufficiency-responsibility-audit-v0.1.json",
+  "implementation": {
+    "semanticSufficiency": "js/liuyao-semantic-sufficiency.js",
+    "slotProviderExtension": "js/liuyao-semantic-slot-provider-v02.js"
+  },
+  "resolutions": [
+    {
+      "findingId": "RSA-001",
+      "status": "resolved",
+      "semanticSufficiencyVersion": "0.2",
+      "routeCount": 22,
+      "remainingMissingRoutes": [],
+      "resolvedRoutes": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale",
+        "lend_money",
+        "debt_collection",
+        "partnership",
+        "investment_liquidation"
+      ]
+    },
+    {
+      "findingId": "RSA-002",
+      "status": "resolved",
+      "semanticSufficiencyVersion": "0.2",
+      "contract": "generic_divination_goal",
+      "source": "DivinationIntent.goals",
+      "intentAwareApi": "evaluateIntentSufficiency",
+      "missingOutcome": "semantic_insufficient",
+      "missingReasonCode": "missing_divination_goal",
+      "legacySlotOnlyCompatibility": true,
+      "note": "The slot-only API remains available for component compatibility, but fresh system/candidate evaluation must use the Intent-aware API when judging route-known sufficient vs insufficient."
+    }
+  ],
+  "nextGate": "Fresh 22-route candidate evaluation may be designed only after all system evaluation paths use the Intent-aware Sufficiency contract."
+}
