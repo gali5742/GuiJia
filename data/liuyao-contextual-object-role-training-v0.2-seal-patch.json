@@ -1,0 +1,12 @@
+{
+  "version": "0.2",
+  "reason": "pre-validation exact-overlap cleanup only; labels and sample counts unchanged",
+  "replacements": [
+    {"from":"Herman Miller Aeron这把椅子值得买吗","to":"Herman Miller Aeron这把椅子现在入手值不值"},
+    {"from":"Synology DS925+现在买合不合适","to":"Synology DS925+目前作为家用NAS值得买吗"},
+    {"from":"订的Herman Miller Aeron下周能送到家吗","to":"我下单的Herman Miller Aeron下星期能不能送到"},
+    {"from":"Breville Barista Express快递周末前能到吗","to":"Breville Barista Express已经寄出周末之前能收到吗"},
+    {"from":"Herman Miller Aeron的腰托应该怎么调","to":"Herman Miller Aeron腰部支撑怎么调更合适"},
+    {"from":"Synology DS925+怎么配置存储池","to":"Synology DS925+第一次建存储空间该怎么设置"}
+  ]
+}
