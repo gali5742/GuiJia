@@ -50,17 +50,17 @@ test('身强弱证据合同 v0.1 保持最终 Assessment 规则关闭', () => {
     assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('十九条全局 Guard Rule 全部只阻断越级推理', () => {
+test('二十条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 19, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 20, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 19; i += 1) {
+    for (let i = 1; i <= 20; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 19, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 20, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
@@ -111,6 +111,15 @@ test('六冲相对状态 Guard 阻止季节单轴替代整体旺衰与补偿式�
     assert(seasonal.includes('旺者／衰者') && seasonal.includes('不得直接等同'), 'GUARD-018 未阻止季节五态替代整体旺衰');
     assert(comparison.includes('分数') && comparison.includes('权重') && comparison.includes('条数多数'), 'GUARD-019 未阻止数值／多数表决');
     assert(comparison.includes('insufficient') && comparison.includes('incomparable'), 'GUARD-019 未锁定未解析与双方各有优势的处理');
+});
+
+test('六冲非季节力量 Guard 锁定原文支类匹配与五行有无 scope', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    const text = guards['BAZI-ASSESS-GUARD-020'] || '';
+    assert(text.includes('支中有') && text.includes('存在性匹配'), 'GUARD-020 未限制为原文支类存在性匹配');
+    assert(text.includes('不得多数表决'), 'GUARD-020 未阻止相反支类多数表决');
+    assert(text.includes('有木／无金') && text.includes('element-presence scope'), 'GUARD-020 未保留五行有无 scope 未决');
+    assert(text.includes('明干、地支本气或藏干'), 'GUARD-020 未明确禁止擅选五行观察范围');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
