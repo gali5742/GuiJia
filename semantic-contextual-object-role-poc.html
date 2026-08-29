@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲 Contextual Object Role PoC v0.2：复用 BGE-small-zh-v1.5，直接判断对象候选在当前问题中的投资、购买、交付角色或无支持角色。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · Contextual Object Role PoC v0.2</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2,h3{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}label{display:block;font-weight:650;margin-bottom:7px}select,textarea,input{width:100%;box-sizing:border-box;border:1px solid #cfc7b8;border-radius:10px;padding:10px;background:#fff;font:inherit}input[type="checkbox"]{width:auto;padding:0}textarea{min-height:86px;resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn.alt{background:#e9e4da;color:#29251f}.btn:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.check{display:flex;align-items:center;gap:8px;font-weight:500;margin:12px 0 0}.note{background:#f7f5f1;border-left:3px solid #bcb3a3;padding:10px 12px;border-radius:0 8px 8px 0;color:#5d574e;font-size:13px;line-height:1.65}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="card">
+    <h1>龟甲 · Contextual Object Role PoC v0.2</h1>
+    <p class="muted">v0.2 不再问“这个实体本体上是不是商品/投资资产”，而直接问：<strong>这个对象候选在当前问题中是否承担 investment_target / purchase_object / delivery_target 的事件角色？</strong> 同一个实体可以随上下文改变角色。Semantic Router v0.1、Intent、Rule Registry 与时间引擎均未改动。</p>
+  </section>
+
+  <section class="card">
+    <h2>1. 加载与训练 v0.2</h2>
+    <div class="row"><button class="btn" id="loadModel">加载 BGE</button><button class="btn" id="train" disabled>训练 Object Role v0.2</button><span id="status" class="status warn">尚未加载</span></div>
+    <div class="progress"><div id="progress"></div></div>
+    <div id="trainText" class="mono">模型：Xenova/bge-small-zh-v1.5 · q8 · encoder frozen · task=contextual_object_role</div>
+    <div class="grid" style="margin-top:14px">
+      <article class="card metric"><span>Validation Top-1 accuracy</span><strong id="mTop1">—</strong></article>
+      <article class="card metric"><span>Known role coverage</span><strong id="mCoverage">—</strong></article>
+      <article class="card metric"><span>Accepted known role accuracy</span><strong id="mAccepted">—</strong></article>
+      <article class="card metric"><span>No-role rejection</span><strong id="mNoRole">—</strong></article>
+      <article class="card metric"><span>False role activation</span><strong id="mFalse">—</strong></article>
+      <article class="card metric"><span>Accepted decision precision</span><strong id="mDecision">—</strong></article>
+    </div>
+    <div id="thresholds" class="mono">Validation-only thresholds：—</div>
+  </section>
+
+  <section class="card">
+    <h2>2. 同一实体 · 不同事件角色</h2>
+    <p class="note">这里仍把三层分开：Object Role 只判断当前对象角色；Slot Provider 负责把已接受 role 映射成 slot；Semantic Sufficiency 还会检查 purchase_context / delivery_context 等由上游 Intent 独立建立的 required slot。购买和收货快捷样例会自动勾选“模拟上游 Structured Intent”。</p>
+    <div class="grid">
+      <div><label for="route">Candidate route</label><select id="route"><option>investment_price_trend</option><option>investment_profit</option><option>investment_suitability</option><option>investment_position_decision</option><option>item_purchase</option><option>receive_item</option></select></div>
+      <div><label for="entity">Object candidate</label><input id="entity" value="MacBook Pro"></div>
+    </div>
+    <div style="margin-top:14px"><label for="context">完整当前问题 / 局部上下文</label><textarea id="context">MacBook Pro现在这个价格值不值得买</textarea></div>
+    <label class="check"><input type="checkbox" id="simulateUpstream" checked> 模拟上游 Structured Intent（只提供购买/交付 event context，不生成对象 slot）</label>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" id="extract">用 Object Resolver 抽候选</button>
+      <button class="btn" id="classify" disabled>Object Role → Sufficiency</button>
+      <button class="btn alt" data-sample="macPurchase">MacBook · 购买</button>
+      <button class="btn alt" data-sample="macDelivery">MacBook · 收货</button>
+      <button class="btn alt" data-sample="macTech">MacBook · 技术</button>
+      <button class="btn alt" data-sample="nvInvest">英伟达 · 投资</button>
+      <button class="btn alt" data-sample="nvInfo">英伟达 · 公司信息</button>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div><h3>Contextual Object Role</h3><div id="roleResult" class="mono">—</div></div>
+      <div><h3>Object / Slot Providers</h3><div id="slotProviderResult" class="mono">—</div></div>
+      <div><h3>Semantic Sufficiency</h3><div id="sufficiencyResult" class="mono">—</div></div>
+    </div>
+  </section>
+</div>
+<script src="js/liuyao-intent.js"></script>
+<script src="js/liuyao-participant-resolver.js"></script>
+<script src="js/liuyao-semantic-sufficiency.js"></script>
+<script src="js/liuyao-semantic-slot-provider.js"></script>
+<script src="js/liuyao-object-entity-resolver.js"></script>
+<script src="js/liuyao-contextual-object-role-adapter.js?v=0.2"></script>
+<script type="module">
+import { contextualObjectRolePocV02 as poc } from './js/liuyao-contextual-object-role-poc.js?v=0.2';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';
+const provider=window.GuiJia?.liuyaoSemanticSlotProvider;const objectResolver=window.GuiJia?.liuyaoObjectEntityResolver;
+const status=(text,kind='')=>{$('status').textContent=text;$('status').className=`status ${kind}`;};
+const simulatedIntent=(route,context,enabled)=>{
+  if(!enabled)return null;
+  if(route!=='item_purchase'&&route!=='receive_item')return null;
+  return {version:'0.1',rawQuestion:context,status:'resolved',goals:[],event:{type:route},participants:[],confidence:0.99,ambiguities:[],semantics:{}};
+};
+
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;status('加载 BGE…','warn');try{await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('progress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('trainText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('progress').style.width='100%';status('BGE 已就绪','');$('train').disabled=false;$('trainText').textContent=`${poc.modelId} · ${poc.modelDtype} · encoder frozen · task=${poc.task}`;}catch(e){status('模型加载失败','bad');$('trainText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
+
+$('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;status('训练中…','warn');try{const r=await poc.train({onStage:(stage,text)=>{$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('progress').style.width=`${total?done/total*100:0}%`;}});const m=r.validationMetrics;$('mTop1').textContent=pct(m.top1Accuracy);$('mCoverage').textContent=pct(m.knownRoleCoverage);$('mAccepted').textContent=pct(m.acceptedKnownRoleAccuracy);$('mNoRole').textContent=pct(m.noRoleRejection);$('mFalse').textContent=pct(m.falseRoleActivation);$('mDecision').textContent=pct(m.acceptedDecisionPrecision);$('thresholds').textContent=`Validation-only thresholds\n${JSON.stringify(r.thresholds,null,2)}\ntrain=${r.trainCount} · validation=${r.validationCount} · min margin=${poc.minMargin}`;status('训练完成','');$('classify').disabled=false;}catch(e){status('训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
+
+$('extract').onclick=()=>{const candidates=objectResolver.extractReferentCandidates($('context').value.trim());$('slotProviderResult').textContent=`Object Resolver candidates\n${JSON.stringify(candidates,null,2)}`;if(candidates[0])$('entity').value=candidates[0].text;};
+
+$('classify').onclick=async()=>{$('classify').disabled=true;try{const entity=$('entity').value.trim();const context=$('context').value.trim();const route=$('route').value;const r=await poc.classify(entity,context);$('roleResult').textContent=JSON.stringify({entity:r.entity,top1:r.top1,top2:r.top2,margin:r.margin,threshold:r.threshold,accepted:r.accepted,prediction:r.prediction,top4:r.scores},null,2);const intent=simulatedIntent(route,context,$('simulateUpstream').checked);const evalResult=provider.evaluateWithProviders({routeId:route,question:context,intent,objectRolePredictions:[r.prediction]});$('slotProviderResult').textContent=JSON.stringify({simulatedStructuredIntent:intent?{event:intent.event}:null,resolvedSlots:evalResult.slotResolution.resolvedSlots,ignoredClaims:evalResult.slotResolution.ignoredClaims.filter(x=>x.providerId==='object_or_entity_resolver'||x.providerId==='contextual_object_role'||x.providerId==='structured_intent'),conflicts:evalResult.slotResolution.conflicts},null,2);$('sufficiencyResult').textContent=JSON.stringify({status:evalResult.status,missing:evalResult.missing,objectRoleAccepted:r.accepted,role:r.prediction.role,upstreamContextSimulated:Boolean(intent)},null,2);}catch(e){$('roleResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
+
+const samples={
+ macPurchase:{route:'item_purchase',entity:'MacBook Pro',context:'MacBook Pro现在这个价格值不值得买',simulate:true},
+ macDelivery:{route:'receive_item',entity:'MacBook Pro',context:'我订的MacBook Pro这周五之前能收到吗',simulate:true},
+ macTech:{route:'item_purchase',entity:'MacBook Pro',context:'MacBook Pro怎么重装macOS',simulate:false},
+ nvInvest:{route:'investment_price_trend',entity:'英伟达',context:'英伟达这轮回调后还有机会重新走强吗',simulate:false},
+ nvInfo:{route:'investment_price_trend',entity:'英伟达',context:'英伟达下一季度财报公布时间是什么时候',simulate:false}
+};
+document.querySelectorAll('[data-sample]').forEach((button)=>button.onclick=()=>{const s=samples[button.dataset.sample];$('route').value=s.route;$('entity').value=s.entity;$('context').value=s.context;$('simulateUpstream').checked=s.simulate;});
+</script>
+</body>
+</html>
