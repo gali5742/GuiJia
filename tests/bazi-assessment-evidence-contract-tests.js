@@ -50,17 +50,17 @@ test('身强弱证据合同 v0.1 保持最终 Assessment 规则关闭', () => {
     assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('十五条全局 Guard Rule 全部只阻断越级推理', () => {
+test('十七条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 15, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 17, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 15; i += 1) {
+    for (let i = 1; i <= 17; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 15, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 17, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
@@ -90,6 +90,17 @@ test('根交互 Guard 阻止结构命中直接升级为根效力变化', () => {
     assert(text.includes('冲、合、刑、害、破') && text.includes('组合结构'), 'GUARD-015 未覆盖根所在支的主要结构关系');
     assert(text.includes('进入交互观察'), 'GUARD-015 未把结构命中限制在观察层');
     assert(text.includes('不得自动写成根受扰、削弱、失效或根拔'), 'GUARD-015 未阻止结构命中越级为根效力结论');
+});
+
+test('六冲与六合专项 Guard 锁定条件规则边界', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    const clash = guards['BAZI-ASSESS-GUARD-016'] || '';
+    const harmony = guards['BAZI-ASSESS-GUARD-017'] || '';
+    assert(clash.includes('相对旺衰') && clash.includes('有力程度'), 'GUARD-016 未要求六冲双方强弱／有力比较');
+    assert(clash.includes('扶助、制化、解救'), 'GUARD-016 未保留六冲外围条件');
+    assert(clash.includes('不得仅凭“冲”'), 'GUARD-016 未阻止逢冲即断');
+    assert(harmony.includes('只证明相合'), 'GUARD-017 未把六合限制在关系事实层');
+    assert(harmony.includes('根被合住') && harmony.includes('根更有效') && harmony.includes('根失效'), 'GUARD-017 未阻止六合越级为根状态');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
