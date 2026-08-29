@@ -135,6 +135,7 @@ if (mode === 'deployed') {
     'js/liuyao-semantic-route-identity-v01.js',
     'js/liuyao-semantic-route-arbitration-v092.js',
     'data/liuyao-semantic-decision-stack-v0.11-development.json',
+    'data/liuyao-semantic-decision-stack-v0.11-preuse-patch.json',
     'js/liuyao-semantic-scope-gate-v01.js',
     'js/liuyao-semantic-router-poc-v081.js',
     'js/liuyao-semantic-sufficiency.js',
