@@ -1,0 +1,414 @@
+{
+  "version": "0.9-dev-routeability-0.1",
+  "status": "development",
+  "scope": "liuyao_only",
+  "purpose": "Fresh development corpus for Semantic Router Decision v0.9 experiments. Train/calibration/validation are isolated from v0.8.1 training/validation, legacy dev/blind, and sealed Candidate Eval v0.1.",
+  "policy": {
+    "reuseSealedCandidateEvalV01": false,
+    "modifyV081": false,
+    "modifySufficiencyV02": false,
+    "modifyRuleRegistry": false,
+    "routeabilityDefinition": "routeable means the modern-language route itself is identifiable, even when the divination goal or downstream sufficiency is incomplete"
+  },
+  "splitCounts": {
+    "train": {
+      "routeable": 66,
+      "out_of_scope": 33,
+      "underspecified": 33,
+      "total": 132
+    },
+    "calibration": {
+      "routeable": 44,
+      "out_of_scope": 22,
+      "underspecified": 22,
+      "total": 88
+    },
+    "validation": {
+      "routeable": 66,
+      "out_of_scope": 33,
+      "underspecified": 33,
+      "total": 132
+    },
+    "total": 352
+  },
+  "routes": {
+    "financial_fortune": {
+      "train": [
+        {"text": "最近手头总是紧，接下来半年财务会不会松一点"},
+        {"text": "我这一年的总体钱财状况会往好处走吗"},
+        {"text": "最近几个月综合进账会不会比前一阵稳定"}
+      ],
+      "calibration": [
+        {"text": "今年后半段整体财务起伏大不大"},
+        {"text": "我最近的整体收支一直比较吃紧", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "明年整体财务状态能不能比今年宽裕"},
+        {"text": "接下来一季手里的钱会不会更充裕"},
+        {"text": "这段时间我的总体财务状况比较反复", "form": "route_known_statement"}
+      ]
+    },
+    "business_operation": {
+      "train": [
+        {"text": "我开的面包店秋天能不能扭亏为盈"},
+        {"text": "这个工作室接下来半年经营利润会不会改善"},
+        {"text": "我现在这门长期生意还有没有盈利空间"}
+      ],
+      "calibration": [
+        {"text": "门店明年经营状况能不能稳定下来"},
+        {"text": "这家小店最近一直不赚钱", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这个网店年底前能不能实现盈利"},
+        {"text": "我经营的摄影工作室下半年收益会怎样"},
+        {"text": "现在这家店的经营一直在亏", "form": "route_known_statement"}
+      ]
+    },
+    "commercial_transaction": {
+      "train": [
+        {"text": "和这个客户的这笔批发单能不能谈成"},
+        {"text": "这份采购合同最后能不能顺利成交"},
+        {"text": "这单商业合作的交易能不能落地"}
+      ],
+      "calibration": [
+        {"text": "供应商这笔订单能不能按谈好的条件成交"},
+        {"text": "我们和客户的这单还在谈价格", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这笔批发生意月底前能不能签下来"},
+        {"text": "当前这份商业订单最后能不能做成"},
+        {"text": "我和买家的这单交易还没有定下来", "form": "route_known_statement"}
+      ]
+    },
+    "inventory_purchase": {
+      "train": [
+        {"text": "下周给店里补这批货能不能顺利进到"},
+        {"text": "这次门店采购库存会不会遇到阻碍"},
+        {"text": "我准备给仓库再进一批货，过程顺不顺"}
+      ],
+      "calibration": [
+        {"text": "下个月这次补库存能不能按时完成"},
+        {"text": "店里准备再采购一批原料", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这批经营用货能不能顺利进库"},
+        {"text": "这次给网店补货会不会耽误"},
+        {"text": "我正在安排门店下一轮进货", "form": "route_known_statement"}
+      ]
+    },
+    "inventory_sale": {
+      "train": [
+        {"text": "这批库存月底前能不能全部清掉"},
+        {"text": "仓库里的尾货接下来能不能顺利卖完"},
+        {"text": "门店现有存货这个月能不能出得去"}
+      ],
+      "calibration": [
+        {"text": "这批经营库存能不能尽快出清"},
+        {"text": "仓库还有一批尾货压着没卖", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "我这批店铺存货年底前能不能卖掉"},
+        {"text": "现有库存接下来出货会不会顺"},
+        {"text": "门店里还有不少旧库存没清", "form": "route_known_statement"}
+      ]
+    },
+    "borrow_money": {
+      "train": [
+        {"text": "我向哥哥借这笔钱能不能借到"},
+        {"text": "这次找朋友周转资金会不会成功"},
+        {"text": "我申请一笔经营贷款能不能批下来"}
+      ],
+      "calibration": [
+        {"text": "跟同事借点钱应急能不能顺利借到"},
+        {"text": "我正在申请银行的装修贷款", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这次向家里借钱能不能拿到"},
+        {"text": "我的信用贷款申请这次能否获批"},
+        {"text": "我最近在想办法从朋友那里借一笔钱", "form": "route_known_statement"}
+      ]
+    },
+    "lend_money": {
+      "train": [
+        {"text": "同事向我借钱，我借出去合不合适"},
+        {"text": "朋友想从我这里借一笔，我借给他会怎样"},
+        {"text": "我把这笔钱借给亲戚会不会顺利收尾"}
+      ],
+      "calibration": [
+        {"text": "对方来找我借钱，这次要不要借给他"},
+        {"text": "我准备借一笔钱给朋友周转", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "有人向我借钱，这次出借合不合适"},
+        {"text": "我把资金借给这个合作伙伴会不会有麻烦"},
+        {"text": "我已经答应准备把钱借给同事", "form": "route_known_statement"}
+      ]
+    },
+    "debt_collection": {
+      "train": [
+        {"text": "客户欠我的尾款这次能不能追回来"},
+        {"text": "以前借给朋友的钱还能不能收回"},
+        {"text": "这笔应收款月底前能不能到账"}
+      ],
+      "calibration": [
+        {"text": "对方拖欠我的货款能不能要回来"},
+        {"text": "有一笔客户欠款一直没有收回", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这笔旧债我今年能不能追回"},
+        {"text": "同事欠我的钱这次催款能不能成功"},
+        {"text": "我手里还有一笔应收账款没有结清", "form": "route_known_statement"}
+      ]
+    },
+    "debt_repayment": {
+      "train": [
+        {"text": "我今年能不能把信用卡欠款还清"},
+        {"text": "这笔房贷明年之前能不能结清"},
+        {"text": "我欠朋友的钱这个月能不能还完"}
+      ],
+      "calibration": [
+        {"text": "现有贷款年底前能不能全部偿还"},
+        {"text": "我现在还有一笔消费贷没还完", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这笔债务接下来能不能顺利清掉"},
+        {"text": "我能不能在明年春天前把欠款结清"},
+        {"text": "目前房贷还剩一部分没有还清", "form": "route_known_statement"}
+      ]
+    },
+    "partnership": {
+      "train": [
+        {"text": "我和朋友一起开的店今年能不能赚钱"},
+        {"text": "这个合伙项目接下来经营会不会顺"},
+        {"text": "我和搭档共同做这门生意能不能盈利"}
+      ],
+      "calibration": [
+        {"text": "这次和同事合伙创业结果会怎样"},
+        {"text": "我和朋友正在一起经营一家小店", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "我和合伙人做这个项目能不能长期赚钱"},
+        {"text": "共同经营的工作室下半年能不能稳定"},
+        {"text": "我们几个准备合伙开一家店", "form": "route_known_statement"}
+      ]
+    },
+    "investment_profit": {
+      "train": [
+        {"text": "这笔债券投资到年底能不能赚到钱"},
+        {"text": "我买的这只指数基金一年后有没有收益"},
+        {"text": "这个投资项目最终能不能给我带来利润"}
+      ],
+      "calibration": [
+        {"text": "这次买入黄金基金能不能盈利"},
+        {"text": "我已经投了这只基金，想看最后有没有收益", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这笔股票投资明年能不能回本赚钱"},
+        {"text": "我投进去的这笔资金最终收益会怎样"},
+        {"text": "这个项目我已经投入资金，现在主要担心能不能赚钱", "form": "route_known_statement"}
+      ]
+    },
+    "investment_liquidation": {
+      "train": [
+        {"text": "我现在把这只基金全部赎回能不能顺利完成"},
+        {"text": "这笔股票仓位月底前卖掉套现会不会卡住"},
+        {"text": "我准备退出这个投资项目，资金能不能顺利回收"}
+      ],
+      "calibration": [
+        {"text": "这只ETF现在清仓会不会顺利"},
+        {"text": "我已经决定把这笔持仓全部卖掉", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这份基金仓位明天全部赎回能不能正常到账"},
+        {"text": "我现在把这笔投资退出变现是否顺利"},
+        {"text": "我计划这周把股票仓位全部清掉", "form": "route_known_statement"}
+      ]
+    },
+    "investment_suitability": {
+      "train": [
+        {"text": "我现在买这只债券基金适不适合"},
+        {"text": "这个黄金ETF适不适合我现在进场"},
+        {"text": "我把钱投到这个项目里合不合适"}
+      ],
+      "calibration": [
+        {"text": "这只行业基金现在值不值得投资"},
+        {"text": "我正在考虑要不要投资这只ETF", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "现在参与这个投资机会合适吗"},
+        {"text": "这只股票作为投资对象适不适合我"},
+        {"text": "我最近一直在考虑是否要投这个基金", "form": "route_known_statement"}
+      ]
+    },
+    "investment_position_decision": {
+      "train": [
+        {"text": "这只股票我该继续拿着还是现在卖"},
+        {"text": "现有基金仓位要不要先减掉一部分"},
+        {"text": "我持有的ETF现在是继续持有还是退出"}
+      ],
+      "calibration": [
+        {"text": "这笔仓位目前该加仓还是减仓"},
+        {"text": "我现在还持有这只股票，正在考虑是否卖掉", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这只基金的持仓现在要不要继续留着"},
+        {"text": "我已有的黄金ETF仓位该不该减仓"},
+        {"text": "这笔投资我还在持有，正在犹豫要不要退出", "form": "route_known_statement"}
+      ]
+    },
+    "investment_price_trend": {
+      "train": [
+        {"text": "这只债券基金接下来一个月净值会怎么走"},
+        {"text": "黄金ETF下周价格是偏涨还是偏跌"},
+        {"text": "我关注的这只股票年底前走势怎样"}
+      ],
+      "calibration": [
+        {"text": "这只指数基金未来两周还会不会上涨"},
+        {"text": "我最近一直在观察这只股票的价格变化", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这个ETF明天以后会不会继续跌"},
+        {"text": "这只基金接下来走势会偏强还是偏弱"},
+        {"text": "最近这只股票的价格一直在震荡", "form": "route_known_statement"}
+      ]
+    },
+    "income_salary": {
+      "train": [
+        {"text": "我明年的基本工资有没有机会提高"},
+        {"text": "下一次调薪我能不能涨工资"},
+        {"text": "这份工作的固定月薪年底前会不会增加"}
+      ],
+      "calibration": [
+        {"text": "公司下一轮薪资调整我能不能受益"},
+        {"text": "最近公司正在讨论基本工资调整", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "我现在的月薪明年能不能再涨"},
+        {"text": "续约后固定薪资会不会比现在高"},
+        {"text": "我的工资这半年一直没有变化", "form": "route_known_statement"}
+      ]
+    },
+    "income_bonus": {
+      "train": [
+        {"text": "今年年终奖我能不能拿到"},
+        {"text": "这个项目结束后会不会发项目奖金"},
+        {"text": "下一次绩效奖金金额会不会增加"}
+      ],
+      "calibration": [
+        {"text": "年底这笔奖金能不能顺利发下来"},
+        {"text": "部门正在讨论今年的绩效奖方案", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "我这次有没有机会拿到季度奖励"},
+        {"text": "明年春节前的年终奖会不会比今年多"},
+        {"text": "公司还没确定今年奖金怎么发", "form": "route_known_statement"}
+      ]
+    },
+    "receive_item": {
+      "train": [
+        {"text": "我买的键盘周五之前能不能送到"},
+        {"text": "这台相机已经发货了，什么时候能收到"},
+        {"text": "我的订单明天能不能到手"}
+      ],
+      "calibration": [
+        {"text": "这个包裹本周内能不能送达"},
+        {"text": "我买的耳机已经寄出来了", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "那台显示器下周能不能拿到"},
+        {"text": "我的快递月底前什么时候会到"},
+        {"text": "新买的镜头现在还在运输途中", "form": "route_known_statement"}
+      ]
+    },
+    "item_purchase": {
+      "train": [
+        {"text": "这台投影仪现在值不值得买"},
+        {"text": "我买这款空气净化器合不合适"},
+        {"text": "这副耳机现在入手好不好"}
+      ],
+      "calibration": [
+        {"text": "这个路由器我该不该买"},
+        {"text": "我正在考虑买一台新的显示器", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这款相机现在买会不会后悔"},
+        {"text": "这台平板作为自用设备值得入手吗"},
+        {"text": "我最近想换一副新的耳机", "form": "route_known_statement"}
+      ]
+    },
+    "relationship_development": {
+      "train": [
+        {"text": "我和这个男生以后能不能发展成恋人"},
+        {"text": "我向这个女生表白她会不会接受"},
+        {"text": "我和这个人现在有点暧昧，以后能不能在一起"}
+      ],
+      "calibration": [
+        {"text": "我跟这个女生后面有没有机会成为情侣"},
+        {"text": "我和这个男生最近越来越亲近", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这个女生对我有没有恋爱方面的意思"},
+        {"text": "我和这个对象以后恋爱关系能不能稳定发展"},
+        {"text": "我和这个人目前还没有正式在一起", "form": "route_known_statement"}
+      ]
+    },
+    "marriage_match": {
+      "train": [
+        {"text": "我和这个女生明年有没有机会结婚"},
+        {"text": "这门婚事最后能不能定下来"},
+        {"text": "我和对象今年能不能顺利领证"}
+      ],
+      "calibration": [
+        {"text": "我们的结婚计划年底前能不能落实"},
+        {"text": "我和这个人已经谈到结婚的事情了", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "这桩婚事双方最终能不能谈成"},
+        {"text": "我和这个男生以后能不能成为夫妻"},
+        {"text": "我们最近开始准备结婚的事情", "form": "route_known_statement"}
+      ]
+    },
+    "marital_relationship": {
+      "train": [
+        {"text": "我和妻子接下来关系能不能缓和"},
+        {"text": "我和老公这段婚姻以后会不会稳定"},
+        {"text": "我跟丈夫最近总吵架，之后能不能好转"}
+      ],
+      "calibration": [
+        {"text": "我和老婆年底前能不能重新亲近"},
+        {"text": "我和丈夫最近一直在冷战", "form": "route_known_statement"}
+      ],
+      "validation": [
+        {"text": "我和妻子的婚姻关系接下来会怎样"},
+        {"text": "我和老公最近关系很疏远，以后会不会修复"},
+        {"text": "我们夫妻最近相处一直很紧张", "form": "route_known_statement"}
+      ]
+    }
+  },
+  "rejection": {
+    "train": {
+      "out_of_scope": [
+        "护照续签这次能不能顺利通过","我的签证申请会不会被批准","这个租房申请房东会不会同意","这次面试能不能拿到offer","明年的升职机会大不大","这次资格考试能不能通过","我申请的学校会不会录取我","下周出差路上会不会顺利","这趟旅行能不能按计划完成","丢掉的钥匙还能不能找回来","我的钱包是不是还能找到","这场官司最后能不能赢","这次劳动仲裁结果会不会对我有利","赔偿谈判最后能不能达成一致","房屋租约今年能不能续上","这次项目立项会不会获批","我的休假申请主管会不会批准","这份研究经费申请能不能通过","新办的营业执照能不能顺利下来","这个专利申请会不会获批","我和普通朋友以后会不会更熟","我和同事关系以后能不能改善","我跟家里人最近的矛盾能不能缓和","孩子今年学习状态会不会变好","这次搬家能不能顺利完成","我申请换部门能不能成功","新工作面试后会不会录用","明天开车出门会不会顺利","这次比赛能不能拿到名次","我的论文答辩能不能通过","这个维修申请能不能及时处理","物业投诉最后能不能解决","这台电脑维修后能不能恢复正常"
+      ],
+      "underspecified": [
+        "这件事最后能不能成","对方会不会答应","现在这样做合适吗","接下来会不会顺一点","这个结果会不会好","我到底该不该继续","这次有没有机会","后面能不能有进展","对方最后会怎么决定","这件事情什么时候能定","今年会不会比去年好","我现在要不要放弃","这个选择是不是对的","之后会不会有变化","这次能不能顺利通过","最后能不能拿到","能不能按时到账","什么时候能收到","还能不能继续下去","我们以后会怎么样","他会不会同意","她到底怎么想","这次能不能批下来","这个月底前能不能解决","接下来是不是会好转","这件事我还能不能争取","现在是不是应该等一等","我该继续还是停下来","会不会越来越差","之后还有没有可能","这次是不是能成功","未来几个月有没有改善","这一步走得对不对"
+      ]
+    },
+    "calibration": {
+      "out_of_scope": [
+        "护照补发能不能按时办好","居留资格更新这次会不会通过","这次房屋租赁审核能不能过","我投的职位简历会不会进下一轮","年底能不能升到新的职级","驾照考试这次能不能通过","申请转学会不会被学校接受","下个月旅行会不会遇到麻烦","这次航班行程能不能顺利","丢的耳机还能不能找回来","这场合同纠纷能不能解决","交通事故赔偿能不能谈妥","店铺租约能不能成功续签","项目审批能不能在月底前通过","我请假的申请会不会批","这个科研项目申请能不能拿到批准","商标注册能不能顺利通过","我和室友以后相处会不会好一点","我和同事能不能恢复正常关系","这次搬办公室会不会顺利","转岗申请能不能成功","这台相机送修后能不能修好"
+      ],
+      "underspecified": [
+        "这个事情还有没有戏","最后能不能定下来","现在继续做是不是合适","下个月会不会顺利一点","这个决定会不会后悔","对方最后会不会接受","这次审批能不能过","到年底能不能拿回来","什么时候可以到手","这段时间会不会稳定下来","我们还能不能继续","对方现在是什么态度","他最后会不会答应我","这个申请什么时候有结果","这笔事情能不能处理完","以后是不是会改善","我现在要不要继续投入","是继续留着还是处理掉","最近会不会开始上涨","这个月能不能增加一些","最后有没有收益","之后关系会不会好一点"
+      ]
+    },
+    "validation": {
+      "out_of_scope": [
+        "签证延期申请会不会被拒","护照申请什么时候能批下来","这套公寓的租房审核能不能通过","这次面试结果会不会录取我","我明年有没有升职机会","这次职业资格认证能不能过","学校的奖学金申请能不能批准","下周去大阪的行程会不会顺","这次搬迁途中会不会出问题","我丢的证件还能不能找到","那只走失的猫能不能找回来","这场诉讼最终会不会判我胜","赔偿争议月底前能不能谈妥","房东会不会同意续租","这个项目立项能不能通过审批","休假申请最后会不会被批准","研究计划申请这次能不能获批","营业许可什么时候能办下来","这个软件著作权申请会不会通过","我和普通朋友以后关系会不会更亲近","我和老板的人际关系能不能改善","我和父母最近的关系会不会缓和","孩子这学期考试成绩会不会提高","这次搬家月底前能不能完成","我申请调到另一个部门能不能成功","这次招聘面试后能不能入职","开车去外地这一路会不会平安","这场比赛最后能不能进前三","我的毕业答辩能不能顺利通过","售后维修这次能不能处理好","物业报修什么时候能解决","这台手机修完以后还能不能正常用","这次退货申请商家会不会同意"
+      ],
+      "underspecified": [
+        "这件事最终能不能办成","对方这次会不会点头","现在这么选是不是合适","今年后面会不会好一些","最后的结果会不会理想","我是不是应该继续下去","这次到底有没有希望","接下来还有没有进展","对方最终会做什么决定","什么时候才能确定下来","明年是不是会比今年顺","现在放弃是不是更好","这个决定到底对不对","后面会不会出现转机","这次能不能顺利批准","最后能不能拿回来","这周能不能到账","到底什么时候能收到","后面还能不能维持","我们接下来会是什么状态","他这次会不会接受","她以后会怎么想","这个月底能不能批下来","这件问题什么时候能解决","接下来会不会慢慢变好","我还有没有必要继续争取","现在是不是先等等更好","到底该继续还是退出","后面会不会继续下跌","这段时间有没有机会增加","最终能不能赚钱","我们的关系以后会不会改善","这次最后能不能顺利完成"
+      ]
+    }
+  }
+}
