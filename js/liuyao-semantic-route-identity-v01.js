@@ -26,8 +26,7 @@
       }
       case 'commercial_transaction': {
         const bounded = has(text, /(?:批发(?:单|订单|交易)|商业(?:订单|交易)|采购(?:单|合同)|这笔[^，。？！?]{0,8}(?:交易|订单)|这单[^，。？！?]{0,8}(?:订单|交易)|(?:客户|买家|供应商)[^，。？！?]{0,10}(?:订单|交易|批发))/);
-        const event = has(text, /(?:成交|签成|签下|签订|做成|谈成|落地|完成)/);
-        return bounded && event ? pass(routeId,['bounded-commercial-trade','transaction-outcome']) : fail(routeId,!bounded?'missing_bounded_trade':'missing_transaction_outcome');
+        return bounded ? pass(routeId,['bounded-commercial-trade']) : fail(routeId,'missing_bounded_trade');
       }
       case 'inventory_purchase': {
         const anchor = has(text, /(?:进货|补货|补库存|采购库存|补齐库存|经营用货[^，。？！?]{0,8}(?:采购|进仓)|门店[^，。？！?]{0,10}(?:进|补)[^，。？！?]{0,4}货)/);
