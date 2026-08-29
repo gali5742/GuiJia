@@ -114,9 +114,12 @@ test('六冲命中 root actor 后只建立条件记录，不直接输出根拔�
     const model = outputFor(['甲','壬','丁','己'], ['午','子','亥','酉']).semanticModel;
     const clash = model.structures.find((item) => item.code === 'BRANCH_SIX_CLASH');
     assert(clash, '测试盘缺六冲 Structure');
+    const rootState = model.strengthSynthesis.rootActorStates.find((item) => item.zhi === '午' && item.gan === '丁');
     const record = model.strengthSynthesis.rootSixRelationRecords.find((item) => item.relationKind === 'six-clash' && item.zhi === '午');
+    assert(rootState, '午中丁 root actor state 缺失');
     assert(record, '午中丁 root actor 应生成 six-clash 条件记录');
     assert(record.structureRef === clash.id, '六冲条件记录未引用真实 Structure ID');
+    assert(record.sourceEffectIds.join(',') === rootState.sourceEffectIds.join(','), '六冲条件记录未保留 Root Effect provenance');
     assert(record.resolutionStatus === 'unresolved', '六冲前提未解析时必须 unresolved');
     assert(record.effectiveState === null, '六冲关系不得直接输出 effectiveState');
     assert(record.prerequisiteKeys.includes('root-branch-relative-strength'), '缺 root branch 相对旺衰前提');
@@ -124,6 +127,7 @@ test('六冲命中 root actor 后只建立条件记录，不直接输出根拔�
     assert(record.prerequisiteKeys.includes('support-restraint-rescue-context'), '缺扶助／制化／解救前提');
     const dep = dependencyMap(model.strengthSynthesis)['SD-ROOT-SIX-CLASH-EFFECTIVENESS'];
     assert(dep.status === 'unresolved', '六冲 root effect dependency 不应提前 resolved');
+    assert(dep.sourceEffectIds.join(',') === rootState.sourceEffectIds.join(','), '六冲 dependency 未保留 Root Effect provenance');
 });
 
 test('六冲原典术语保留为 source outcome terms，但不映射为内部有效状态词汇', () => {
