@@ -14,6 +14,59 @@
         INJURED:'source-injured'
     });
 
+    const COMMAND_WINDOW_EVIDENCE = Object.freeze({
+        CHEN_YI: Object.freeze({
+            id:'DTS-CHEN-YI-COMMAND-WINDOW-UNRESOLVED-001',
+            source:'《滴天髓阐微·月令／地支》',
+            monthZhi:'辰',
+            commandGan:'乙',
+            attestationStatus:'attested-command-state',
+            exactWindowStatus:'unresolved-in-source',
+            sourceAttestation:'地支篇明确举“三月之辰，乙木司令”为条件状态；月令篇只明确给出寅月七日前、八至十四日前、十五日后的分界，并以“余月依此而论”收束，未给辰月乙木的具体日界。',
+            resolverPolicy:'disabled-no-dts-window',
+            externalComparisons:Object.freeze([
+                Object.freeze({
+                    source:'徐乐吾《子平真诠评注》',
+                    sourceWindow:'辰月清明后乙木九日、癸水三日、戊土十八日；另文称清明后十二日内乙木司令。',
+                    compatibility:'not-established',
+                    use:'comparison-only'
+                }),
+                Object.freeze({
+                    source:'后世通行《四时八节用事歌诀》',
+                    sourceWindow:'清明七日乙木能，八日癸水归辰库，谷雨前三戊土盛。',
+                    compatibility:'not-established',
+                    use:'comparison-only'
+                })
+            ]),
+            statement:'《滴天髓阐微》足以证明辰月存在乙木司令状态，但不足以单独建立具体公历／节气序日 resolver。'
+        }),
+        WEI_DING: Object.freeze({
+            id:'DTS-WEI-DING-COMMAND-WINDOW-UNRESOLVED-001',
+            source:'《滴天髓阐微·月令／地支》',
+            monthZhi:'未',
+            commandGan:'丁',
+            attestationStatus:'attested-command-state',
+            exactWindowStatus:'unresolved-in-source',
+            sourceAttestation:'地支篇明确举“六月之未，丁火司令”为条件状态；现有《滴天髓阐微》月令篇未给小暑后丁火司令的具体日界。',
+            resolverPolicy:'disabled-no-dts-window',
+            externalComparisons:Object.freeze([
+                Object.freeze({
+                    source:'徐乐吾《子平真诠评注》',
+                    sourceWindow:'未月小暑后丁火九日、乙木三日、己土十八日。',
+                    compatibility:'not-established',
+                    use:'comparison-only'
+                }),
+                Object.freeze({
+                    source:'后世通行《四时八节用事歌诀》',
+                    sourceWindow:'小暑丁火七朝明，八日乙木归未库，大暑时来己土兴。',
+                    compatibility:'not-established',
+                    use:'comparison-only'
+                })
+            ]),
+            statement:'《滴天髓阐微》足以证明未月存在丁火司令状态，但不足以单独建立具体公历／节气序日 resolver。'
+        })
+    });
+
     const SOURCE_PATTERNS = Object.freeze([
         Object.freeze({
             id:'DTS-CHEN-XU-YI-COMMAND-VULNERABILITY-001',
@@ -22,6 +75,7 @@
             clashPair:Object.freeze(['辰','戌']),
             commandGan:'乙',
             commandElement:'木',
+            commandWindowEvidenceId:COMMAND_WINDOW_EVIDENCE.CHEN_YI.id,
             attackerZhi:'戌',
             attackerHiddenGan:'辛',
             attackerElement:'金',
@@ -36,6 +90,7 @@
             clashPair:Object.freeze(['未','丑']),
             commandGan:'丁',
             commandElement:'火',
+            commandWindowEvidenceId:COMMAND_WINDOW_EVIDENCE.WEI_DING.id,
             attackerZhi:'丑',
             attackerHiddenGan:'癸',
             attackerElement:'水',
@@ -55,13 +110,19 @@
         sourceInjuredMapsToGenericEffectiveness:false,
         sourceInsufficientForUseMapsToCanonicalCommandRemoval:false,
         genericMonthCommandClashRule:'unresolved',
+        dtsChenYiWindowResolver:'disabled-no-dts-window',
+        dtsWeiDingWindowResolver:'disabled-no-dts-window',
+        crossSourceWindowCompatibility:'not-established',
         directSourcePatterns:Object.freeze(SOURCE_PATTERNS.map((item) => item.id)),
+        commandWindowEvidenceIds:Object.freeze(Object.values(COMMAND_WINDOW_EVIDENCE).map((item) => item.id)),
         statement:'人元司令 actor 可以成为地支冲所作用的对象；司令身份本身不赋予“不可受伤”或自动有效。',
         boundary:'只有当对应司令 actor 已由同源或明确兼容的 source-specific observation 独立解析时，才可执行辰戌／丑未两条原典 vulnerability pattern；月支本身不得替代司令事实。'
     });
 
     const boundaries = Object.freeze([
         '辰月不自动等同于乙木司令，未月不自动等同于丁火司令。',
+        '《滴天髓阐微》目前只直接证明辰月存在乙木司令状态、未月存在丁火司令状态；未找到同书可安全执行的辰乙／未丁具体日界，因此两者 resolver 保持 disabled。',
+        '徐乐吾《子平真诠评注》的辰月乙九癸三戊十八、未月丁九乙三己十八，以及后世《四时八节用事歌诀》的辰乙七日、未丁七日，只作跨来源比较；不得自动补成《滴天髓阐微》日界。',
         '司令 actor 的 source-specific“受伤／不足用”不得自动映射为 generic weakened、ineffective、月令失效、司令消失或最终身强弱。',
         '四库逢冲不自动产生 vulnerability；本层只保存《滴天髓阐微》明确列出的辰戌乙木、丑未丁火条件模式。',
         '不同来源的人元司事表不得自动补齐《滴天髓阐微》模式所要求的司令输入；必须保持来源兼容边界。'
@@ -77,6 +138,9 @@
         (semanticModel.monthCommand?.sourceProfiles || []).find((profile) =>
             isResolvedDtsCommandObservation(profile, pattern.commandGan)
         ) || null;
+
+    const findCommandWindowEvidence = (pattern = {}) =>
+        Object.values(COMMAND_WINDOW_EVIDENCE).find((item) => item.id === pattern.commandWindowEvidenceId) || null;
 
     const findClashContext = (result = {}, semanticModel = {}, pattern = {}) => {
         const availableIds = new Set((semanticModel.structures || []).map((item) => item.id).filter(Boolean));
@@ -106,6 +170,7 @@
 
         const structureRef = clash._semanticRef || clash.id || '';
         const commandObservation = findCompatibleCommandObservation(semanticModel, pattern);
+        const commandWindowEvidence = findCommandWindowEvidence(pattern);
         const attackerVerified = hasSourceAttackerHiddenGan(pattern);
         const base = {
             id:`MCAS-${String(index + 1).padStart(2, '0')}`,
@@ -114,6 +179,8 @@
             monthZhi:pattern.monthZhi,
             clashPair:pattern.clashPair,
             structureRef,
+            commandWindowEvidenceId:commandWindowEvidence?.id || '',
+            commandWindowStatus:commandWindowEvidence?.exactWindowStatus || 'unresolved',
             commandActor:Object.freeze({
                 gan:pattern.commandGan,
                 element:pattern.commandElement,
@@ -139,7 +206,9 @@
                 sourceInteractionState:null,
                 sourceUsabilityOutcome:null,
                 statement:`已识别${pattern.clashPair.join('')}冲及原典 vulnerability pattern，但当前没有同源已解析的${pattern.commandGan}司令 observation。`,
-                boundary:'月份与冲关系均不能替代司令 actor 输入；不得提前生成“受伤”或“不足用”。'
+                boundary:commandWindowEvidence?.resolverPolicy === 'disabled-no-dts-window'
+                    ? '《滴天髓阐微》只证明该司令状态存在，未给出可安全执行的具体日界；月份、冲关系及跨来源分日表均不能替代司令 actor 输入。'
+                    : '月份与冲关系均不能替代司令 actor 输入；不得提前生成“受伤”或“不足用”。'
             });
         }
 
@@ -171,6 +240,7 @@
             ruleId:MONTH_COMMAND_ACTOR_STATE_RULE_ID,
             state:records.length ? 'observed' : 'not-applicable',
             contract:CONTRACT,
+            commandWindowEvidence:COMMAND_WINDOW_EVIDENCE,
             records:Object.freeze(records),
             unresolvedCount:records.filter((item) => item.resolutionStatus !== 'resolved-source-vulnerability').length,
             resolvedCount:records.filter((item) => item.resolutionStatus === 'resolved-source-vulnerability').length,
@@ -200,11 +270,13 @@
         MONTH_COMMAND_ACTOR_STATE_VERSION,
         MONTH_COMMAND_ACTOR_STATE_RULE_ID,
         sourceInteractionStates,
+        COMMAND_WINDOW_EVIDENCE,
         SOURCE_PATTERNS,
         CONTRACT,
         boundaries,
         isResolvedDtsCommandObservation,
         findCompatibleCommandObservation,
+        findCommandWindowEvidence,
         findClashContext,
         buildPatternRecord,
         buildMonthCommandActorState,
