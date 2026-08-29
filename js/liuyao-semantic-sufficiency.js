@@ -31,64 +31,21 @@
     });
 
     const ROUTE_REQUIREMENTS = Object.freeze({
-        financial_fortune:requirement(['financial_scope'], {
-            contextRecoverable:['financial_scope'],
-            note:'整体财运类不要求具体交易对象，但必须能确认是在问总体钱财状态。'
-        }),
-        business_operation:requirement(['business_context'], {
-            contextRecoverable:['business_context'],
-            note:'“赚钱/利润”本身不足以证明是经营，必须有经营对象或经营语境。'
-        }),
-        borrow_money:requirement(['borrowing_context'], {
-            contextRecoverable:['borrowing_context']
-        }),
-        debt_repayment:requirement(['debt_context'], {
-            contextRecoverable:['debt_context'],
-            note:'“还完/结清/清掉”必须能落到明确债务或负债。'
-        }),
-        investment_profit:requirement(['investment_target'], {
-            contextRecoverable:['investment_target']
-        }),
-        investment_suitability:requirement(['investment_target'], {
-            contextRecoverable:['investment_target']
-        }),
-        investment_position_decision:requirement(['position_context'], {
-            optional:['investment_target'],
-            contextRecoverable:['position_context','investment_target'],
-            note:'持仓处置语义本身可以建立投资对象；只有“要不要卖”而无持仓语境时仍不足。'
-        }),
-        investment_price_trend:requirement(['investment_target'], {
-            contextRecoverable:['investment_target'],
-            note:'“会不会涨/跌”必须知道什么在涨跌。'
-        }),
-        income_salary:requirement(['employment_income_context'], {
-            contextRecoverable:['employment_income_context'],
-            note:'“收入增加”不自动等于工资，必须有雇佣/薪酬语境。'
-        }),
-        income_bonus:requirement(['bonus_context'], {
-            contextRecoverable:['bonus_context']
-        }),
-        receive_item:requirement(['delivery_context','delivery_target'], {
-            contextRecoverable:['delivery_context','delivery_target'],
-            note:'“什么时候能收到/到手”必须能确定所收取的对象或既有交付上下文。'
-        }),
-        item_purchase:requirement(['purchase_context','purchase_object'], {
-            contextRecoverable:['purchase_context','purchase_object'],
-            note:'“值不值得买”若只有指示代词而无具体对象，当前文本不足。'
-        }),
-        relationship_development:requirement(['specific_counterpart'], {
-            contextRecoverable:['specific_counterpart'],
-            note:'“我们有机会吗/对方会同意吗”在无前文时不自动假定特定关系对象。'
-        }),
-        marriage_match:requirement([], {
-            requiredAny:[{ id:'marriage_target', slots:['specific_counterpart','marriage_proposal_context'] }],
-            contextRecoverable:['specific_counterpart','marriage_proposal_context'],
-            note:'明确婚事本身即可建立婚配目标；否则需有特定关系对象。'
-        }),
-        marital_relationship:requirement(['existing_marriage_context'], {
-            contextRecoverable:['existing_marriage_context'],
-            note:'必须明确这是已经存在的婚姻，而不是一般关系发展。'
-        })
+        financial_fortune:requirement(['financial_scope'], { contextRecoverable:['financial_scope'], note:'整体财运类不要求具体交易对象，但必须能确认是在问总体钱财状态。' }),
+        business_operation:requirement(['business_context'], { contextRecoverable:['business_context'], note:'“赚钱/利润”本身不足以证明是经营，必须有经营对象或经营语境。' }),
+        borrow_money:requirement(['borrowing_context'], { contextRecoverable:['borrowing_context'] }),
+        debt_repayment:requirement(['debt_context'], { contextRecoverable:['debt_context'], note:'“还完/结清/清掉”必须能落到明确债务或负债。' }),
+        investment_profit:requirement(['investment_target'], { contextRecoverable:['investment_target'] }),
+        investment_suitability:requirement(['investment_target'], { contextRecoverable:['investment_target'] }),
+        investment_position_decision:requirement(['position_context'], { optional:['investment_target'], contextRecoverable:['position_context','investment_target'], note:'持仓处置语义本身可以建立投资对象；只有“要不要卖”而无持仓语境时仍不足。' }),
+        investment_price_trend:requirement(['investment_target'], { contextRecoverable:['investment_target'], note:'“会不会涨/跌”必须知道什么在涨跌。' }),
+        income_salary:requirement(['employment_income_context'], { contextRecoverable:['employment_income_context'], note:'“收入增加”不自动等于工资，必须有雇佣/薪酬语境。' }),
+        income_bonus:requirement(['bonus_context'], { contextRecoverable:['bonus_context'] }),
+        receive_item:requirement(['delivery_context','delivery_target'], { contextRecoverable:['delivery_context','delivery_target'], note:'“什么时候能收到/到手”必须能确定所收取的对象或既有交付上下文。' }),
+        item_purchase:requirement(['purchase_context','purchase_object'], { contextRecoverable:['purchase_context','purchase_object'], note:'“值不值得买”若只有指示代词而无具体对象，当前文本不足。' }),
+        relationship_development:requirement(['specific_counterpart'], { contextRecoverable:['specific_counterpart'], note:'“我们有机会吗/对方会同意吗”在无前文时不自动假定特定关系对象。' }),
+        marriage_match:requirement([], { requiredAny:[{ id:'marriage_target', slots:['specific_counterpart','marriage_proposal_context'] }], contextRecoverable:['specific_counterpart','marriage_proposal_context'], note:'明确婚事本身即可建立婚配目标；否则需有特定关系对象。' }),
+        marital_relationship:requirement(['existing_marriage_context'], { contextRecoverable:['existing_marriage_context'], note:'必须明确这是已经存在的婚姻，而不是一般关系发展。' })
     });
 
     const SLOT_PATTERNS = Object.freeze({
@@ -102,7 +59,7 @@
         bonus_context:[/奖金|年终奖|绩效奖|奖励金|项目奖金|季度奖励|绩效奖金/],
         delivery_context:[/收到|拿到|到手|送到|送达|发货|寄出|寄到|快递|物流|包裹/],
         delivery_target:[/包裹|快递件|快递|订单|商品|货物|东西/,/电脑|手机|耳机|相机|显示器|键盘|平板|设备|机器/],
-        purchase_context:[/购买|购入|入手|买(?:这|那|个|一|台|部|款|件|套|副|本|只|张)/,/值不值得买|该不该买|适不适合买|买了会不会后悔|买回来/],
+        purchase_context:[/购买|购入|入手|买(?:这|那|个|一|台|部|款|件|套|副|本|只|张)/,/值不值得买|值得买吗|该不该买|适不适合买|买了会不会后悔|买回来/],
         purchase_object:[/电脑|手机|耳机|相机|显示器|键盘|平板|设备|家电|机器|商品|产品|路由器|手表|镜头/],
         specific_counterpart:[/(?:这个|那个|这位|那位|一个|某个)(?:男生|女生|男人|女人|男性|女性|朋友|人)/,/(?:我的|我和)(?:对象|恋人|男朋友|女朋友)/,/(?:对象|恋人|男朋友|女朋友)/,/(?:喜欢的|追求的)(?:这个|那个|一位|一个)?(?:男生|女生|男人|女人|人)/],
         marriage_proposal_context:[/亲事|婚事|婚约|领证|结婚|成为夫妻|步入婚姻|婚礼|登记成为夫妻|把婚(?:结|办)/],
@@ -112,12 +69,7 @@
     const normalizeSlot = (slot, fallbackSource) => {
         if (typeof slot === 'string') return { id:slot, source:fallbackSource || 'question', evidence:'' };
         if (!slot || typeof slot !== 'object') return null;
-        return {
-            id:String(slot.id || '').trim(),
-            source:slot.source || fallbackSource || 'question',
-            evidence:String(slot.evidence || ''),
-            confidence:slot.confidence || 'explicit'
-        };
+        return { id:String(slot.id || '').trim(), source:slot.source || fallbackSource || 'question', evidence:String(slot.evidence || ''), confidence:slot.confidence || 'explicit' };
     };
 
     const validateSlots = (slots) => {
@@ -158,16 +110,7 @@
     const evaluateSemanticSufficiency = (routeId, questionSlots = [], contextSlots = []) => {
         const spec = ROUTE_REQUIREMENTS[routeId];
         if (!spec) {
-            return {
-                version:VERSION,
-                routeId,
-                status:'unsupported_route',
-                sufficient:false,
-                reasonCode:'route_requirement_missing',
-                resolvedSlots:[],
-                usedContextSlots:[],
-                missing:[]
-            };
+            return { version:VERSION, routeId, status:'unsupported_route', sufficient:false, reasonCode:'route_requirement_missing', resolvedSlots:[], usedContextSlots:[], missing:[] };
         }
 
         const questionMap = indexSlots(questionSlots, 'question');
@@ -181,59 +124,24 @@
 
         const missing = [];
         for (const slotId of spec.requiredAll) {
-            if (!merged.has(slotId)) {
-                missing.push({
-                    type:'required_slot',
-                    slotId,
-                    label:SLOT_SCHEMA[slotId]?.label || slotId,
-                    contextRecoverable:spec.contextRecoverable.includes(slotId)
-                });
-            }
+            if (!merged.has(slotId)) missing.push({ type:'required_slot', slotId, label:SLOT_SCHEMA[slotId]?.label || slotId, contextRecoverable:spec.contextRecoverable.includes(slotId) });
         }
         for (const group of spec.requiredAny) {
             if (!group.slots.some((slotId) => merged.has(slotId))) {
-                missing.push({
-                    type:'required_any',
-                    groupId:group.id,
-                    slots:[...group.slots],
-                    labels:group.slots.map((slotId) => SLOT_SCHEMA[slotId]?.label || slotId),
-                    contextRecoverable:group.slots.some((slotId) => spec.contextRecoverable.includes(slotId))
-                });
+                missing.push({ type:'required_any', groupId:group.id, slots:[...group.slots], labels:group.slots.map((slotId) => SLOT_SCHEMA[slotId]?.label || slotId), contextRecoverable:group.slots.some((slotId) => spec.contextRecoverable.includes(slotId)) });
             }
         }
 
         const resolvedSlots = [...merged.values()];
         const usedContextSlots = resolvedSlots.filter((slot) => slot.source === 'context');
         const sufficient = missing.length === 0;
-        return {
-            version:VERSION,
-            routeId,
-            status:sufficient ? 'sufficient' : 'semantic_insufficient',
-            sufficient,
-            reasonCode:sufficient ? null : 'missing_required_semantics',
-            resolvedSlots,
-            usedContextSlots,
-            missing,
-            requirement:spec
-        };
+        return { version:VERSION, routeId, status:sufficient ? 'sufficient' : 'semantic_insufficient', sufficient, reasonCode:sufficient ? null : 'missing_required_semantics', resolvedSlots, usedContextSlots, missing, requirement:spec };
     };
 
     const evaluateQuestion = (routeId, question, contextSlots = []) => {
         const questionSlots = extractExplicitSlots(question);
-        return {
-            question:String(question || ''),
-            questionSlots,
-            ...evaluateSemanticSufficiency(routeId, questionSlots, contextSlots)
-        };
+        return { question:String(question || ''), questionSlots, ...evaluateSemanticSufficiency(routeId, questionSlots, contextSlots) };
     };
 
-    GuiJia.liuyaoSemanticSufficiency = Object.freeze({
-        version:VERSION,
-        slotSchema:SLOT_SCHEMA,
-        routeRequirements:ROUTE_REQUIREMENTS,
-        validateSlots,
-        extractExplicitSlots,
-        evaluateSemanticSufficiency,
-        evaluateQuestion
-    });
+    GuiJia.liuyaoSemanticSufficiency = Object.freeze({ version:VERSION, slotSchema:SLOT_SCHEMA, routeRequirements:ROUTE_REQUIREMENTS, validateSlots, extractExplicitSlots, evaluateSemanticSufficiency, evaluateQuestion });
 })(typeof window !== 'undefined' ? window : globalThis);
