@@ -10,7 +10,9 @@
         baziRelationMeta,
         baziTransitRelationCodes,
         buildMonthSeason,
-        scoreBaziRelation
+        scoreBaziRelation,
+        buildBaziStructureCatalog,
+        getRelationSemanticKey
     } = core;
 
     const completeCodes = new Set([
@@ -450,13 +452,7 @@
         return left === right;
     };
 
-    const buildOriginalStructureCatalog = (result) => [...(result?.internalRelations || [])]
-        .sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))
-        .map((relation, index) => ({
-            ...relation,
-            id: `S${String(index + 1).padStart(2, '0')}`,
-            structuralRole: baziRelationMeta?.[relation.code]?.structuralRole || 'coexistingRelation'
-        }))
+    const buildOriginalStructureCatalog = (result) => buildBaziStructureCatalog(result?.internalRelations || [])
         .filter((relation) => referencableOriginalStructureCodes.has(relation.code))
         .map((relation) => ({
             ...relation,
@@ -501,6 +497,7 @@
                     targetStructureBranches: [...structure.branches],
                     targetMembers: structure.branches.includes(sourceZhi) ? [sourceZhi] : [],
                     mode: 'retrigger',
+                    relationRef: getRelationSemanticKey(retrigger),
                     relations: []
                 });
                 return;
@@ -525,6 +522,7 @@
                     targetStructureBranches: [...structure.branches],
                     targetMembers: [...structure.branches],
                     mode: 'complete',
+                    relationRef: getRelationSemanticKey(completion),
                     relations: [],
                     completedStructure: {
                         code: completion.code,
@@ -545,7 +543,8 @@
                     code: relation.code || '',
                     label: relationLabel(relation),
                     action: relation.action || '',
-                    branches: [...(relation.branches || [])]
+                    branches: [...(relation.branches || [])],
+                    relationRef: getRelationSemanticKey(relation)
                 }));
             });
             const seen = new Set();
@@ -556,6 +555,9 @@
                 return true;
             });
             if (!uniqueDetails.length) return;
+            const memberOrder = new Map((structure.branches || []).map((zhi, index) => [zhi, index]));
+            uniqueDetails.sort((a, b) => (memberOrder.get(a.member) ?? 99) - (memberOrder.get(b.member) ?? 99));
+            const targetMembers = [...new Set(uniqueDetails.map((detail) => detail.member))];
             references.push({
                 sourceLayer: String(sourceLabel || '').toLowerCase(),
                 sourceLabel,
@@ -566,8 +568,8 @@
                 targetStructureRole: structure.structuralRole,
                 targetStructureName: structure.name,
                 targetStructureBranches: [...structure.branches],
-                targetMembers: [...new Set(uniqueDetails.map((detail) => detail.member))],
-                mode: 'touch',
+                targetMembers,
+                mode: targetMembers.length >= 2 ? 'multi-member-interaction' : 'member-interaction',
                 relations: uniqueDetails
             });
         });
@@ -584,7 +586,7 @@
         if (reference.mode === 'complete' && reference.completedStructure) {
             return `${source}加入后，在${target}基础上补齐${reference.completedStructure.name}【${(reference.completedStructure.branches || []).join('')}】`;
         }
-        if (reference.mode === 'touch') {
+        if (reference.mode === 'member-interaction' || reference.mode === 'multi-member-interaction') {
             const members = (reference.targetMembers || []).map((zhi) => `【${zhi}】`).join('、');
             const details = (reference.relations || []).map((detail) => {
                 if (detail.code === baziRelationCodes.SAN_HE_PARTIAL || detail.code === baziRelationCodes.SAN_HUI_PARTIAL) {
@@ -595,16 +597,19 @@
                 }
                 return `与【${detail.member}】见${detail.label}`;
             });
-            return `${source}触及${target}中的${members}${details.length ? `：${details.join('，')}` : ''}`;
+            if (reference.mode === 'multi-member-interaction') {
+                return `${source}同时关联${target}中的${members}${details.length ? `：${details.join('，')}` : ''}`;
+            }
+            return `${source}与${target}中的${members}发生成员关系${details.length ? `：${details.join('，')}` : ''}`;
         }
         return '';
     };
 
     const contextRowsWithStructureReferences = (analysis) => {
         const rows = [...(analysis?.rows || [])];
-        const visible = (analysis?.structureReferences || []).filter((reference) => reference.mode !== 'retrigger');
+        const visible = (analysis?.structureReferences || []).filter((reference) => reference.mode === 'multi-member-interaction');
         const texts = visible.map(formatStructureReference).filter(Boolean);
-        if (texts.length) rows.push({ label: '结构引用', text: joinNarratives(texts) });
+        if (texts.length) rows.push({ label: '主要结构成员关联', text: joinNarratives(texts) });
         return rows;
     };
 

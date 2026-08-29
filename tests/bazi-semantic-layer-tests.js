@@ -280,8 +280,9 @@ test('岁运 StructureReference 把时间层关系挂回原局 Structure ID', ()
     liuNian.yunRelations = bazi.calculatePairRelations(daYun, liuNian, '大运', '流年');
     const liuNianAnalysis = baziTransitAnalysis.buildLiuNianAnalysis(result, daYun, liuNian);
     const yearRef = liuNianAnalysis.structureReferences.find((item) => item.targetStructureId === s01.id);
-    assert(yearRef?.mode === 'touch' && yearRef.targetMembers.includes('子'), `午冲子未识别为触及 S01 成员：${JSON.stringify(liuNianAnalysis.structureReferences)}`);
+    assert(yearRef?.mode === 'multi-member-interaction' && yearRef.targetMembers.includes('子') && yearRef.targetMembers.includes('丑'), `午未识别为同时关联 S01 子丑成员：${JSON.stringify(liuNianAnalysis.structureReferences)}`);
     assert(yearRef.relations.some((item) => item.member === '子' && item.code === bazi.baziRelationCodes.BRANCH_SIX_CLASH), 'S01 子成员未保留六冲关系');
+    assert(yearRef.relations.some((item) => item.member === '子' && item.relationRef), 'S01 子成员关系缺稳定追溯引用');
 
     const liuYue = {
         ...makeTransit('丙', '申', '劫财', '流月'),
@@ -291,7 +292,7 @@ test('岁运 StructureReference 把时间层关系挂回原局 Structure ID', ()
     liuYue.yunRelations = bazi.calculatePairRelations(daYun, liuYue, '大运', '流月');
     const liuYueAnalysis = baziTransitAnalysis.buildLiuYueAnalysis(result, daYun, liuNian, liuYue);
     const monthRef = liuYueAnalysis.structureReferences.find((item) => item.targetStructureId === s01.id);
-    assert(monthRef?.mode === 'touch' && monthRef.targetMembers.includes('子') && monthRef.targetMembers.includes('亥'), `申未同时识别 S01 子亥成员：${JSON.stringify(liuYueAnalysis.structureReferences)}`);
+    assert(monthRef?.mode === 'multi-member-interaction' && monthRef.targetMembers.includes('子') && monthRef.targetMembers.includes('亥'), `申未同时识别 S01 子亥成员：${JSON.stringify(liuYueAnalysis.structureReferences)}`);
     assert(monthRef.relations.some((item) => item.member === '子' && item.code === bazi.baziRelationCodes.SAN_HE_PARTIAL), '申子半合未进入 S01 结构引用');
     assert(monthRef.relations.some((item) => item.member === '亥' && item.code === bazi.baziRelationCodes.BRANCH_SIX_HARM), '申亥害未进入 S01 结构引用');
 
@@ -299,8 +300,34 @@ test('岁运 StructureReference 把时间层关系挂回原局 Structure ID', ()
         daYun, liuNian, liuYue, daYunAnalysis, liuNianAnalysis, liuYueAnalysis
     });
     assert(context.includes(`- ${s01.id}｜[主要组合]`), '岁运上下文原局关系未携带 Structure ID');
-    assert(context.includes(`触及原局主要组合 ${s01.id}`), '岁运上下文未输出主要组合成员级结构引用');
+    const daYunSection = context.split('【当前大运】')[1]?.split('【当前流年】')[0] || '';
+    const yearSection = context.split('【当前流年】')[1]?.split('【当前流月】')[0] || '';
+    const monthSection = context.split('【当前流月】')[1]?.split('【使用要求】')[0] || '';
+    const yunMemberRef = daYunAnalysis.structureReferences.find((item) => item.targetStructureId === s01.id);
+    assert(yunMemberRef?.mode === 'member-interaction' && yunMemberRef.targetMembers.length === 1 && yunMemberRef.targetMembers[0] === '子', `单成员引用未保留机器层：${JSON.stringify(daYunAnalysis.structureReferences)}`);
+    assert(!daYunSection.includes('主要结构成员关联'), `单成员引用不应在复制上下文升格：${daYunSection}`);
+    assert(yearSection.includes(`主要结构成员关联：流年支【午】同时关联原局主要组合 ${s01.id}`), '流年多成员关联未显式归纳');
+    assert(monthSection.includes(`主要结构成员关联：流月支【申】同时关联原局主要组合 ${s01.id}`), '流月多成员关联未显式归纳');
+    assert(!context.includes('触及原局主要组合'), '复制上下文仍使用容易抬高效力感的“触及结构”措辞');
     assert(!/(冲破|受损|水势增强|得助|成化)/.test(context), `结构引用越级进入 Assessment：${context}`);
+});
+
+test('原局与岁运共享同一 Structure Catalog，不重复生成 Sxx', () => {
+    const result = makeResult();
+    result.originalGans = ['丁','壬','丁','己'];
+    result.originalZhis = ['丑','子','亥','酉'];
+    const shared = bazi.buildBaziStructureCatalog(result.internalRelations);
+    const interpretation = baziInterpretation.buildBaziInterpretation(result);
+    const semantic = interpretation.semanticModel.structures;
+    assert(shared.length === semantic.length, '共享 catalog 与原局 semanticModel 数量不一致');
+    shared.forEach((item, index) => {
+        assert(item.id === semantic[index].id && item.code === semantic[index].code, `原局 Sxx 未直接来自共享 catalog：${item.id}/${semantic[index]?.id}`);
+    });
+    const transitCatalog = baziTransitAnalysis.buildOriginalStructureCatalog(result);
+    transitCatalog.forEach((item) => {
+        const original = shared.find((entry) => entry.id === item.id);
+        assert(original && original.code === item.code, `岁运 catalog 重新编号或漂移：${item.id}`);
+    });
 });
 
 test('StructureReference 无组合时为空，只有真实补齐才标记 complete', () => {
