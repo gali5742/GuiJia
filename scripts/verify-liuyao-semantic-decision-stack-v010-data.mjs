@@ -9,6 +9,7 @@ const assert = (condition,message) => { if (!condition) fail(message); };
 const normalize = (text) => String(text||'').trim().replace(/\s+/g,'');
 
 const data = read('data/liuyao-semantic-decision-stack-v0.10-development.json');
+const dataPatch = read('data/liuyao-semantic-decision-stack-v0.10-preuse-patch.json');
 const inventory = read('data/liuyao-semantic-route-inventory-v0.2.json');
 const base = read('data/liuyao-semantic-route-training-v0.1.json');
 const augmentation = read('data/liuyao-semantic-route-training-v0.2-augmentation.json');
@@ -31,6 +32,10 @@ assert(data.policy?.modifyV081 === false && data.policy?.modifyScopeGateV01 === 
 assert(data.policy?.reuseScopeGateValidationAsScoreSet === false && data.policy?.reuseV09ValidationAsScoreSet === false,'old development validation reuse must be forbidden');
 assert(data.policy?.outsideCurrent22ExcludedFromIdentifiabilityTraining === true,'outside-current-22 must be excluded from identifiability training');
 assert(data.policy?.sufficiencyUsesOracleModernSemanticFixtures === true,'Sufficiency fixture policy must be explicit');
+assert(dataPatch.version === '0.10-preuse-wording-patch' && dataPatch.status === 'development_preuse_patch','v0.10 wording patch metadata mismatch');
+assert(dataPatch.base === 'liuyao-semantic-decision-stack-v0.10-development.json','v0.10 wording patch base mismatch');
+assert(Object.keys(dataPatch.replacements || {}).length === 3,'v0.10 wording patch must contain exactly 3 pre-use isolation corrections');
+const effectiveV10 = (text) => dataPatch.replacements?.[text] || text;
 
 const routeIds = (inventory.routes||[]).map((row)=>row.routeId);
 assert(routeIds.length===22,'inventory must contain 22 routes');
@@ -53,7 +58,7 @@ for(const routeId of routeIds){
     assert((spec?.[split]||[]).length===count,`${routeId} ${split} ident count mismatch`);
     for(const sample of spec[split]||[]){
       assert(['sufficient','semantic_insufficient'].includes(sample.downstreamSufficiency),`${routeId} ${split} invalid downstreamSufficiency`);
-      remember(sample.text,`identifiable:${split}:${routeId}`);
+      remember(effectiveV10(sample.text),`identifiable:${split}:${routeId}`);
       if(split==='train'&&sample.downstreamSufficiency==='semantic_insufficient') routeKnownInsufficientTrain+=1;
       idCounts[split]+=1;
     }
@@ -68,14 +73,14 @@ for(const category of unresolvedCats){
   const expected={train:4,calibration:2,validation:2};
   for(const [split,count] of Object.entries(expected)){
     assert((spec?.[split]||[]).length===count,`${category} ${split} unresolved count mismatch`);
-    for(const text of spec[split]||[]){remember(text,`unresolved:${split}:${category}`);idCounts[split]+=1;}
+    for(const text of spec[split]||[]){remember(effectiveV10(text),`unresolved:${split}:${category}`);idCounts[split]+=1;}
   }
 }
 assert(idCounts.train===88&&idCounts.calibration===44&&idCounts.validation===44,`identifiability split totals mismatch: ${JSON.stringify(idCounts)}`);
 
 const scopeOutside=data.scope_policy_calibration?.outside_current_22||[];
 assert(scopeOutside.length===22,'scope policy outside calibration must contain 22 rows');
-for(const text of scopeOutside) remember(text,'scope-policy:outside-calibration');
+for(const text of scopeOutside) remember(effectiveV10(text),'scope-policy:outside-calibration');
 
 const slotIds=new Set();
 let stackKnown=0;
@@ -84,12 +89,12 @@ for(const routeId of routeIds){
   assert((spec?.sufficient||[]).length===2,`${routeId} stack sufficient count != 2`);
   assert(spec?.insufficient,`${routeId} missing stack insufficient sample`);
   for(const sample of spec.sufficient||[]){
-    remember(sample.text,`stack:sufficient:${routeId}`);stackKnown+=1;
+    remember(effectiveV10(sample.text),`stack:sufficient:${routeId}`);stackKnown+=1;
     assert(sample.goalType&&sample.goalType!=='unknown',`${routeId} sufficient fixture needs explicit goal`);
     for(const slot of sample.slots||[]) slotIds.add(slot);
   }
   const ins=spec.insufficient;
-  remember(ins.text,`stack:insufficient:${routeId}`);stackKnown+=1;
+  remember(effectiveV10(ins.text),`stack:insufficient:${routeId}`);stackKnown+=1;
   assert(ins.expectedSufficiencyStatus==='semantic_insufficient',`${routeId} insufficient expected status mismatch`);
   for(const slot of ins.slots||[]) slotIds.add(slot);
 }
@@ -99,8 +104,8 @@ for(const slot of slotIds) assert(sufficiencySource.includes(`${slot}:`)||suffic
 const stackOutside=data.stack_validation?.outside_current_22||[];
 const stackUnresolved=data.stack_validation?.route_unresolved||[];
 assert(stackOutside.length===22&&stackUnresolved.length===22,'stack reject classes must be 22/22');
-for(const text of stackOutside) remember(text,'stack:outside');
-for(const text of stackUnresolved) remember(text,'stack:unresolved');
+for(const text of stackOutside) remember(effectiveV10(text),'stack:outside');
+for(const text of stackUnresolved) remember(effectiveV10(text),'stack:unresolved');
 assert(seen.size===308,`v0.10 unique total ${seen.size} != 308`);
 assert(data.counts?.total_unique_texts===308&&data.counts?.stack_validation===110,'declared v0.10 totals mismatch');
 
@@ -139,4 +144,5 @@ console.log('- 176 Route Identifiability rows: 88 train / 44 calibration / 44 va
 console.log('- 22 additional outside-current-22 rows for stack-only Scope hard-reject calibration');
 console.log('- 110 independent Stack Validation rows: 66 known / 22 outside / 22 route-unresolved');
 console.log('- 22 route-known-insufficient positives retained in Identifiability training');
+console.log('- 3 pre-use wording-only isolation correction(s) applied');
 console.log('- zero exact overlap with prior Router, Blind, sealed Candidate, v0.9, and Scope Gate v0.1 effective corpora');
