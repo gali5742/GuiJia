@@ -104,6 +104,16 @@ if (mode === 'deployed') {
   for (const expected of liuyaoRouterDecisionV09Requirements) {
     if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao router decision v0.9 file: ${expected}`);
   }
+  const liuyaoScopeGateV01Requirements = [
+    'semantic-scope-gate-v01.html',
+    'js/liuyao-semantic-scope-gate-v01.js',
+    'data/liuyao-semantic-scope-gate-v0.1-development.json',
+    'js/liuyao-semantic-route-arbitration-v091.js',
+    'data/liuyao-semantic-router-decision-v0.9-validation-responsibility-audit.json'
+  ];
+  for (const expected of liuyaoScopeGateV01Requirements) {
+    if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao Scope Gate v0.1 / arbitration v0.9.1 file: ${expected}`);
+  }
   if (!fs.existsSync(path.join(target, 'vendor-lock.json'))) fail('Deployed artifact missing vendor-lock.json');
 } else {
   const approvedRemoteScripts = new Set([
