@@ -107,6 +107,15 @@ function findYinShenRecord(model) {
     );
 }
 
+function findBranchStructureContext(model, relationCode, zhis) {
+    const wanted = [...zhis].sort().join('');
+    return (model.strengthEffects.branchStructureContexts || []).find((context) => {
+        if (context.relationCode !== relationCode) return false;
+        const actual = (context.participants || []).map((item) => item.zhi).sort().join('');
+        return actual === wanted;
+    });
+}
+
 test('生产加载路径包含 Clash Rescue Context 模块与 Guard 022', () => {
     const source = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
     assert(source.includes('./js/bazi-clash-rescue-context.js'), '生产页面没有 clash rescue context 模块加载路径');
@@ -158,8 +167,8 @@ test('原典命例同时存在申亥六害时，仍按直接“亥解申冲”�
     const model = outputFor(['壬','辛','辛','庚'], ['申','亥','酉','寅']).semanticModel;
     const record = findYinShenRecord(model);
     const rescue = rescueDimension(record);
-    const harm = model.structures.find((item) => item.code === 'BRANCH_SIX_HARM' && (item.branches || []).includes('申') && (item.branches || []).includes('亥'));
-    assert(harm, '原典同一命例应同时存在申亥六害 Structure');
+    const harm = findBranchStructureContext(model, 'BRANCH_SIX_HARM', ['申','亥']);
+    assert(harm, '原典同一命例应同时存在申亥六害 Structure provenance');
     assert(rescue.status === 'resolved', '申亥六害存在不得覆盖原典明确“亥解申冲”的直证');
     const serialized = JSON.stringify(rescue);
     ['score','weight','points','majority'].forEach((term) => assert(!serialized.includes(term), `rescue dimension 不应使用数值/多数仲裁字段：${term}`));
@@ -182,8 +191,8 @@ test('普通六合不得自动解释为解冲：寅申冲另见巳申六合仍�
     const model = outputFor(['壬','辛','辛','庚'], ['申','巳','酉','寅']).semanticModel;
     const record = findYinShenRecord(model);
     const rescue = rescueDimension(record);
-    const harmony = model.structures.find((item) => item.code === 'BRANCH_SIX_HARMONY' && (item.branches || []).includes('申') && (item.branches || []).includes('巳'));
-    assert(harmony, '测试盘应存在巳申六合');
+    const harmony = findBranchStructureContext(model, 'BRANCH_SIX_HARMONY', ['申','巳']);
+    assert(harmony, '测试盘应存在巳申六合 Structure provenance');
     assert(rescue?.status === 'unresolved', '普通六合不得自动生成 rescue');
     assert(rescue?.preference === null, '普通六合不得自动给任一方 preference');
     assert(rescue?.observations?.genericHarmonyRescue === false, '合同应明确 generic harmony rescue=false');
