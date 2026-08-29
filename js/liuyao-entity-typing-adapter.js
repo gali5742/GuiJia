@@ -23,7 +23,6 @@
         item_purchase:'purchasable_item',
         receive_item:'delivery_subject'
     });
-    const DEFAULT_MIN_CONFIDENCE = 0.65;
 
     const clean = (value) => String(value || '').trim();
     const normalize = (value) => clean(value).replace(/[\s，,。；;！？?、:：]/g, '').toLowerCase();
@@ -55,6 +54,9 @@
             type:prediction.type,
             score:Number(prediction.score ?? prediction.confidence ?? 0),
             margin:Number(prediction.margin ?? 0),
+            threshold:Number(prediction.threshold ?? 0),
+            accepted:true,
+            acceptancePolicy:'provider_calibrated',
             entity:candidate.text,
             candidateStrategy:candidate.strategy || null
         }
@@ -79,9 +81,6 @@
 
         const question = input.question || input.intent?.rawQuestion || '';
         const candidates = objectResolver.extractReferentCandidates(question);
-        const minConfidence = Number.isFinite(Number(input.minEntityTypingConfidence))
-            ? Math.max(0, Math.min(1, Number(input.minEntityTypingConfidence)))
-            : DEFAULT_MIN_CONFIDENCE;
 
         for (const candidate of candidates) {
             const matches = predictions.filter((prediction) => sameEntity(candidate, prediction));
@@ -93,11 +92,21 @@
             const prediction = ordered[0];
             const confidence = clamp01(prediction.confidence, 0);
             if (prediction.type === 'unknown') {
-                ignored.push({ providerId:'entity_typing', slotId, reason:'typed_unknown', candidate:candidate.text, confidence });
+                ignored.push({
+                    providerId:'entity_typing', slotId, reason:'typed_unknown', candidate:candidate.text, confidence,
+                    accepted:prediction.accepted === true, margin:Number(prediction.margin ?? 0), threshold:Number(prediction.threshold ?? 0)
+                });
                 continue;
             }
-            if (confidence < minConfidence) {
-                ignored.push({ providerId:'entity_typing', slotId, reason:'below_confidence_floor', candidate:candidate.text, confidence, minConfidence });
+            // Entity Typing owns its class-specific score threshold and minimum-margin calibration.
+            // The Slot Provider must not impose a second global confidence floor after the typing
+            // model has already made an explicit accepted/rejected decision.
+            if (prediction.accepted !== true) {
+                ignored.push({
+                    providerId:'entity_typing', slotId, reason:'typing_not_accepted', candidate:candidate.text, confidence,
+                    score:Number(prediction.score ?? prediction.confidence ?? 0), margin:Number(prediction.margin ?? 0),
+                    threshold:Number(prediction.threshold ?? 0), modelId:prediction.modelId || 'unbound'
+                });
                 continue;
             }
             if (prediction.type !== expectedType) {
@@ -147,16 +156,16 @@
 
     const updatedAudit = Object.freeze({
         ...baseProvider.providerAudit,
-        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；裸专名可由独立 Entity Typing 高置信判为 investment_asset 后补充。route 本身不能制造类型。' },
-        delivery_target:{ ...baseProvider.providerAudit.delivery_target, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'显式对象优先；必要时可由 Entity Typing 将候选判为 delivery_subject 后补充。' },
-        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'显式对象优先；必要时可由 Entity Typing 将候选判为 purchasable_item 后补充。' }
+        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；裸专名可由独立 Entity Typing 判为 investment_asset 且其自身校准决策 accepted=true 后补充。route 本身不能制造类型。' },
+        delivery_target:{ ...baseProvider.providerAudit.delivery_target, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'显式对象优先；必要时可由 Entity Typing 将候选判为 delivery_subject，且自身校准决策 accepted=true 后补充。' },
+        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['entity_typing','explicit_context','ml_multi_label'], note:'显式对象优先；必要时可由 Entity Typing 将候选判为 purchasable_item，且自身校准决策 accepted=true 后补充。' }
     });
 
     GuiJia.liuyaoEntityTypingAdapter = Object.freeze({
         version:VERSION,
         typeToSlot:TYPE_TO_SLOT,
         routeExpectedType:ROUTE_EXPECTED_TYPE,
-        defaultMinConfidence:DEFAULT_MIN_CONFIDENCE,
+        acceptancePolicy:'provider_calibrated',
         entityTypingClaims
     });
 
