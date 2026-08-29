@@ -1,0 +1,11 @@
+{
+  "version": "0.1-preuse-wording-patch",
+  "status": "sealed_preuse_patch",
+  "base": "liuyao-semantic-decision-stack-v0.11-sealed-blind-v0.1.json",
+  "purpose": "Wording-only exact-overlap corrections discovered by the seal verifier before the first Blind run. IDs, labels, counts, responsibilities, and fixtures are unchanged.",
+  "replacements": {
+    "BL-089": "这只基金我现在全部赎回，整个退出过程能不能顺利完成",
+    "BL-105": "手里这只股票接下来是继续持有还是先减一点仓更合适",
+    "BL-267": "这一周之内款项能不能进来"
+  }
+}
