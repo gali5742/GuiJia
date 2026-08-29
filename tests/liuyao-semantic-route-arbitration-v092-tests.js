@@ -1,0 +1,10 @@
+require('../js/liuyao-semantic-route-arbitration-v091.js');
+require('../js/liuyao-semantic-route-arbitration-v092.js');
+const api=global.GuiJia?.liuyaoSemanticRouteArbitrationV092;
+let passed=0,failed=0;const t=(name,fn)=>{try{fn();console.log(`✓ ${name}`);passed++;}catch(e){console.error(`✗ ${name}: ${e.message}`);failed++;}};const eq=(a,b,m)=>{if(a!==b)throw new Error(`${m||'mismatch'}: ${a} !== ${b}`)};
+t('AR92-1 省略“我”的找表哥借仍判借入',()=>eq(api.arbitrate('这次找表哥借的周转款能不能拿到')?.routeId,'borrow_money'));
+t('AR92-2 找朋友借周转仍判借入',()=>eq(api.arbitrate('找朋友借一笔钱周转能不能成功')?.routeId,'borrow_money'));
+t('AR92-3 朋友找我借仍保持出借方向',()=>eq(api.arbitrate('朋友找我借钱，我借给他合适吗')?.routeId,'lend_money'));
+t('AR92-4 v0.9.1 婚配语义继续兼容',()=>eq(api.arbitrate('我和这个对象明年能不能领证结婚')?.routeId,'marriage_match'));
+t('AR92-5 普通审批不制造借款',()=>eq(api.arbitrate('研究项目申请这次能不能获批'),null));
+console.log(`\nSemantic route arbitration v0.9.2: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
