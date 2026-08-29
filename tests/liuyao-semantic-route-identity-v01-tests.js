@@ -1,0 +1,16 @@
+require('../js/liuyao-semantic-route-identity-v01.js');
+const api=global.GuiJia?.liuyaoSemanticRouteIdentityV01;
+let passed=0,failed=0;const t=(name,fn)=>{try{fn();console.log(`✓ ${name}`);passed++;}catch(e){console.error(`✗ ${name}: ${e.message}`);failed++;}};const eq=(a,b,m)=>{if(a!==b)throw new Error(`${m||'mismatch'}: ${a} !== ${b}`)};
+t('RI1 泛化“合适”不得建立投资适宜性',()=>eq(api.evaluate('investment_suitability','我现在这么做是不是合适').passed,false));
+t('RI2 ETF+适宜性建立投资适宜性',()=>eq(api.evaluate('investment_suitability','我现在买这只黄金ETF适不适合').passed,true));
+t('RI3 裸价格变化不得建立投资走势',()=>eq(api.evaluate('investment_price_trend','后面价格还会不会继续下跌').passed,false));
+t('RI4 基金净值走势建立投资走势',()=>eq(api.evaluate('investment_price_trend','这只基金下周净值走势会不会转弱').passed,true));
+t('RI5 裸收到不得建立收货 route',()=>eq(api.evaluate('receive_item','大概多久才能收到').passed,false));
+t('RI6 具体商品+交付语境建立收货 route',()=>eq(api.evaluate('receive_item','我买的机械键盘下周能不能收到').passed,true));
+t('RI7 普通续租不得建立婚姻 route',()=>eq(api.evaluate('marital_relationship','现在租的房子明年还能不能续约').passed,false));
+t('RI8 丈夫/婚姻证据建立既有婚姻 route',()=>eq(api.evaluate('marital_relationship','我跟丈夫年底前能不能把婚姻关系修复好').passed,true));
+t('RI9 普通申请审批不得建立借款 route',()=>eq(api.evaluate('borrow_money','研究项目申请这次能不能获批').passed,false));
+t('RI10 明确贷款申请建立借款 route',()=>eq(api.evaluate('borrow_money','我向银行申请的经营贷这周能不能批下来').passed,true));
+t('RI11 丢失手表不得伪装成 receive_item',()=>eq(api.evaluate('receive_item','那只丢失的手表还能不能找到').passed,false));
+t('RI12 Route Identity 只返回现代 route/evidence',()=>{const r=api.evaluate('income_salary','明年基本工资能不能提高');eq(r.passed,true);if(/妻财|官鬼|世爻|应爻|用神/.test(JSON.stringify(r)))throw new Error('traditional leakage');});
+console.log(`\nRoute Identity Contract v0.1: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
