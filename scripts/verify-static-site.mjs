@@ -115,6 +115,20 @@ if (mode === 'deployed') {
   for (const expected of liuyaoScopeGateV01Requirements) {
     if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao Scope Gate v0.1 / arbitration v0.9.1 file: ${expected}`);
   }
+  const liuyaoDecisionStackV010Requirements = [
+    'semantic-decision-stack-v010.html',
+    'js/liuyao-semantic-decision-stack-v010.js',
+    'js/liuyao-semantic-route-identifiability-v010.js',
+    'data/liuyao-semantic-decision-stack-v0.10-development.json',
+    'js/liuyao-semantic-scope-gate-v01.js',
+    'js/liuyao-semantic-router-poc-v081.js',
+    'js/liuyao-semantic-route-arbitration-v091.js',
+    'js/liuyao-semantic-sufficiency.js',
+    'data/liuyao-semantic-route-inventory-v0.2.json'
+  ];
+  for (const expected of liuyaoDecisionStackV010Requirements) {
+    if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao Semantic Decision Stack v0.10 file: ${expected}`);
+  }
   if (!fs.existsSync(path.join(target, 'vendor-lock.json'))) fail('Deployed artifact missing vendor-lock.json');
 } else {
   const approvedRemoteScripts = new Set([
