@@ -148,3 +148,18 @@ route = relationship_development
 4. 如何将 `semantic_insufficient` 映射回 DivinationIntent / A-B-C-D 诊断体系。
 
 在这些问题明确前，不接传统 Rule Registry，也不修改时间引擎。
+
+## 7. Slot Provider 层
+
+上述第 6 节的来源审计已经拆成独立 `SemanticSlot Provider v0.1`。其职责不是重新做一次语言分类，而是统一接收不同上游产生的 slot claim，并处理：
+
+- `providerId / provenance / confidence`；
+- 当前问题与历史 context 的优先级；
+- 同一 slot 的多来源合并；
+- 同一 question scope 下实体值冲突；
+- route 对 context-recoverable slot 的白名单；
+- 未来 object/entity resolver 与 ML multi-label slot heads 的接口。
+
+详细合同见 `LIUYAO_SEMANTIC_SLOT_PROVIDER_v0.1.md`。
+
+重要边界：**candidate route 本身不能被直接转换成 required slot。** 例如 `route = investment_price_trend` 不足以自动制造 `investment_target`；否则 Semantic Sufficiency 会退化成循环证明。
