@@ -98,6 +98,13 @@ function collectKeys(value, keys = new Set()) {
     return keys;
 }
 
+test('静态页面存在 Strength Synthesis 的生产加载路径', () => {
+    const indexSource = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
+    const modulePath = './js/bazi-strength-synthesis.js';
+    assert(indexSource.includes(modulePath) || assessmentSource.includes(modulePath), '生产页面没有加载 bazi-strength-synthesis.js 的路径');
+});
+
 test('验证盘进入 Strength Synthesis contract，但不生成最终身强弱结论', () => {
     const output = outputFor();
     const model = output.semanticModel;
