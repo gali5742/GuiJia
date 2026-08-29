@@ -105,36 +105,68 @@ test('静态页面存在 Strength Synthesis 的生产加载路径', () => {
     assert(indexSource.includes(modulePath) || assessmentSource.includes(modulePath), '生产页面没有加载 bazi-strength-synthesis.js 的路径');
 });
 
-test('验证盘进入 Strength Synthesis contract，但不生成最终身强弱结论', () => {
+test('验证盘只启用月令层级 Synthesis Rule，不生成最终身强弱结论', () => {
     const output = outputFor();
     const model = output.semanticModel;
     const synthesis = model.strengthSynthesis;
     assert(synthesis?.version === '0.1', `synthesis version 异常：${synthesis?.version}`);
-    assert(synthesis?.state === 'contract-only', `无正向规则时应为 contract-only：${synthesis?.state}`);
-    assert(synthesis.activeRuleIds.length === 0, 'Synthesis v0.1 不应启用正向规则');
-    assert(synthesis.claims.length === 0, '没有正向规则时不应伪造 resolved/unresolved Claim');
+    assert(synthesis?.state === 'evaluated', `启用月令层级规则后应为 evaluated：${synthesis?.state}`);
+    assert(synthesis.activeRuleIds.join(',') === 'BAZI-STRENGTH-SYNTH-SEASON-001', `activeRuleIds 异常：${synthesis.activeRuleIds.join(',')}`);
+    assert(synthesis.claims.length === 1, `当前只应生成一个月令层级 Claim：${synthesis.claims.length}`);
+    assert(synthesis.claims[0].claimKey === 'seasonal.hierarchy', '月令层级 Claim key 异常');
     assert(synthesis.conflicts.length === 0, '扶、克、泄方向并存不应自动制造 Conflict');
-    assert(synthesis.sufficiency.status === 'insufficient', '关键依赖未解析时必须保持 insufficient');
+    assert(synthesis.sufficiency.status === 'insufficient', '其余关键依赖未解析时必须保持 insufficient');
     assert(model.assessmentLayer.state === 'contract-only', 'Assessment 仍应保持 contract-only');
-    assert(model.assessmentLayer.assessments.length === 0, 'Synthesis contract 不应生成 Assessment 结论');
+    assert(model.assessmentLayer.assessments.length === 0, 'Synthesis 层级规则不应生成 Assessment 结论');
     const strength = model.assessmentLayer.domains.dayMasterStrength;
-    assert(strength.status === 'not-evaluated', 'Assessment status 不得被 Synthesis insufficient 改写');
+    assert(strength.status === 'not-evaluated', 'Assessment status 不得被 Synthesis evaluated 改写');
     assert(strength.synthesisCollection === synthesis, 'Assessment 必须读取同一份 Synthesis collection');
     assert(strength.synthesisSufficiencyStatus === 'insufficient', 'Assessment 输入应看见 Synthesis 的充分性状态');
 });
 
-test('验证盘明确暴露四类关键未解析依赖，而不是把候选方向分成阵营计数', () => {
+test('月令层级依赖已解析，其余三类依赖继续阻断 Sufficiency', () => {
     const synthesis = outputFor().semanticModel.strengthSynthesis;
     const dependencies = dependencyMap(synthesis);
-    ['SD-SEASONAL-HIERARCHY','SD-VISIBLE-EFFECTIVENESS','SD-ROOT-ROLE','SD-BRANCH-QI-AGGREGATION'].forEach((id) => {
+    assert(dependencies['SD-SEASONAL-HIERARCHY']?.status === 'resolved', 'SD-SEASONAL-HIERARCHY 应已 resolved');
+    assert(dependencies['SD-SEASONAL-HIERARCHY'].resolvedByClaimIds.includes('SC-SEASONAL-HIERARCHY'), '月令依赖缺 resolved Claim');
+    assert(!synthesis.sufficiency.blockingDependencyIds.includes('SD-SEASONAL-HIERARCHY'), '已解析月令依赖仍在阻断 Sufficiency');
+    ['SD-VISIBLE-EFFECTIVENESS','SD-ROOT-ROLE','SD-BRANCH-QI-AGGREGATION'].forEach((id) => {
         assert(dependencies[id], `缺少 ${id}`);
         assert(dependencies[id].status === 'unresolved', `${id} 不应提前 resolved`);
         assert(synthesis.sufficiency.blockingDependencyIds.includes(id), `${id} 未阻断最终充分性`);
     });
     const keys = collectKeys(synthesis);
     ['supportSide','restraintSide','drainSide','distributionSide','supportScore','againstScore','score','weight','points','strengthLevel'].forEach((key) => {
-        assert(!keys.has(key), `Synthesis contract 不应出现阵营/计分字段：${key}`);
+        assert(!keys.has(key), `Synthesis 不应出现阵营/计分字段：${key}`);
     });
+});
+
+test('得令与失令都使用同一独立一级层级，不生成绝对优先级', () => {
+    const support = outputFor(['甲','丙','甲','丁'], ['寅','卯','子','午']).semanticModel;
+    const nonSupport = outputFor(['辛','丁','甲','丁'], ['亥','酉','寅','卯']).semanticModel;
+    const supportEffect = support.strengthEffects.effects.find((item) => item.id === 'FX-SEASONAL');
+    const nonSupportEffect = nonSupport.strengthEffects.effects.find((item) => item.id === 'FX-SEASONAL');
+    const supportClaim = support.strengthSynthesis.claims.find((item) => item.claimKey === 'seasonal.hierarchy');
+    const nonSupportClaim = nonSupport.strengthSynthesis.claims.find((item) => item.claimKey === 'seasonal.hierarchy');
+    assert(supportEffect.direction === 'seasonal-support', `得令测试盘季节方向异常：${supportEffect.direction}`);
+    assert(nonSupportEffect.direction === 'seasonal-non-support', `失令测试盘季节方向异常：${nonSupportEffect.direction}`);
+    [supportClaim, nonSupportClaim].forEach((claim) => {
+        assert(claim?.status === 'resolved', '得令/失令都应能解析层级');
+        assert(claim.value.role === 'independent-primary-axis', '月令未保持 independent-primary-axis');
+        assert(claim.value.conversion === 'non-convertible', '月令不应进入统一可换算分值');
+        assert(claim.value.necessaryCondition === false, '月令不应被设成一票式必要条件');
+        assert(claim.value.sufficientAlone === false, '月令不应单独生成最终强弱结论');
+    });
+});
+
+test('月令层级规则只解释层级，不复制 seasonal-support / non-support 为最终 Claim', () => {
+    const synthesis = outputFor().semanticModel.strengthSynthesis;
+    const claim = synthesis.claims.find((item) => item.claimKey === 'seasonal.hierarchy');
+    assert(claim.sourceEffectIds.join(',') === 'FX-SEASONAL', '月令层级 Claim 应只引用 FX-SEASONAL');
+    assert(claim.sourceContractId === 'qianli-basic-strength-evidence', '月令层级 Claim 缺来源合同');
+    assert(claim.sourceLocator.includes('强弱篇'), '月令层级 Claim 缺原典定位');
+    const serialized = JSON.stringify(claim.value);
+    assert(!serialized.includes('strong') && !serialized.includes('weak'), '层级 Claim 偷渡最终强弱结论');
 });
 
 test('不同 Intermediate Effect 方向共存不构成 Conflict', () => {
@@ -203,9 +235,12 @@ test('Synthesis 只引用现有 Intermediate Effect，复制上下文不泄漏�
     model.strengthSynthesis.dependencies.forEach((dependency) =>
         dependency.sourceEffectIds.forEach((id) => assert(effectIds.has(id), `${dependency.id} 引用了不存在的 Effect：${id}`))
     );
+    model.strengthSynthesis.claims.forEach((claim) =>
+        (claim.sourceEffectIds || []).forEach((id) => assert(effectIds.has(id), `${claim.id} 引用了不存在的 Effect：${id}`))
+    );
 
     const copied = interpretation.buildBaziContextText(result, output);
-    ['strengthSynthesis','SD-SEASONAL-HIERARCHY','actorOverlaps','blockingDependencyIds','synthesisSufficiencyStatus'].forEach((term) => {
+    ['strengthSynthesis','SD-SEASONAL-HIERARCHY','SC-SEASONAL-HIERARCHY','actorOverlaps','blockingDependencyIds','synthesisSufficiencyStatus','independent-primary-axis'].forEach((term) => {
         assert(!copied.includes(term), `复制上下文泄漏 Synthesis 内部字段：${term}`);
     });
 });
