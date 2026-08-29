@@ -1287,7 +1287,8 @@ test('八字解释 v2 能把月令、根气、透干与地支关系合成为命�
     assert(visible.summary.includes('正官') && visible.summary.includes('七杀') && visible.summary.includes('伤官'), '透干命题未保留具体十神');
     assert(visible.summary.includes('相冲'), '透干命题未把天干直接关系纳入同一判断');
     const branch = output.judgments.find((item) => item.id === 'branch-network');
-    assert(branch && branch.title.includes('合') && branch.title.includes('刑'), '未把地支合刑合成为整体命题');
+    assert(branch && (branch.title === '地支关系与组合交织' || (branch.title.includes('合') && branch.title.includes('刑'))), '未把地支关系与组合合成为整体命题');
+    assert(branch.summary.includes('六合') && branch.summary.includes('相刑'), '统一标题后未在正文保留具体合刑关系');
     assert(branch.evidence.length >= 4, '地支网络证据不完整');
     assert(output.judgments.some((item) => item.id === 'support-location'), '扶助落点命题缺失');
 });

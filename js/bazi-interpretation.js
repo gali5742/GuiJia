@@ -340,10 +340,19 @@
     function buildCompleteJudgment(completeRelations) {
         if (!completeRelations.length) return null;
         const labels = completeRelations.map(completeRelationLabel);
+        const structureKinds = [...new Set(completeRelations.map((relation) => {
+            if (relation.code === 'SAN_HUI_COMPLETE') return '完整三会结构';
+            if (relation.code === 'SAN_HE_COMPLETE') return '完整三合结构';
+            if (relation.code === 'PUNISHMENT_TRIAD_COMPLETE') return '完整三刑';
+            return '完整结构';
+        }))];
+        const prioritySubject = structureKinds.length === 1
+            ? structureKinds[0]
+            : `${structureKinds.join('、')}等完整组合`;
         return makeJudgment(
             'complete-structure',
             `${labels[0]}形成完整结构`,
-            `原局地支会齐${labels.join('、')}。完整方局或完整三刑作为主要组合，优先构成整体观察背景；其他已识别关系仍作为并存结构保留。`,
+            `原局地支会齐${labels.join('、')}。${prioritySubject}优先构成这一层的整体观察背景；其他已识别关系仍作为并存结构保留。`,
             completeRelations.map((item) => item.text),
             ['完整结构'],
             96,
@@ -355,6 +364,19 @@
     function branchFamily(relation) {
         const meta = baziRelationMeta[relation?.code];
         return meta?.scope === 'branch' ? (meta.family || '其他') : '其他';
+    }
+
+    function branchSummaryLabel(relation) {
+        if (!relation) return '';
+        if (relation.code === 'BRANCH_SIX_HARMONY') return '六合';
+        if (relation.code === 'BRANCH_SIX_CLASH') return '六冲';
+        if (relation.code === 'BRANCH_PUNISHMENT') return '相刑';
+        if (relation.code === 'SELF_PUNISHMENT') return '自刑';
+        if (relation.code === 'BRANCH_SIX_HARM') return '六害';
+        if (relation.code === 'BRANCH_SIX_BREAK') return '六破';
+        if (relation.code === 'SAN_HE_PARTIAL') return `${relation.pairKind || '半合'}${relation.element || ''}`;
+        if (relation.code === 'SAN_HUI_PARTIAL') return `同方${relation.element || ''}`;
+        return branchFamily(relation);
     }
 
     function shortBranchRelation(relation) {
@@ -485,13 +507,16 @@
         const nearLabels = [...new Set(near.map(shortBranchRelation))];
 
         const repeatedPattern = buildRepeatedBranchPattern(branchRelations);
+        const hasCompositeRelation = branchRelations.some((item) => item.code === 'SAN_HE_PARTIAL' || item.code === 'SAN_HUI_PARTIAL');
+        const summaryLabels = [...new Set(branchRelations.map(branchSummaryLabel).filter(Boolean))];
         let title;
         if (repeatedPattern) title = repeatedPattern.title;
+        else if (hasCompositeRelation && branchRelations.length >= 2) title = '地支关系与组合交织';
         else if (families.length >= 2) title = `地支${families.join('、')}交织`;
         else if (branchRelations.length >= 2) title = `地支多组${families[0] || '关系'}同时成立`;
         else title = '地支见一组直接关系';
 
-        let summary = repeatedPattern?.summary || `地支层面识别到${formatNaturalCount(branchRelations.length)}项关系或组合${families.length ? `，涉及${families.join('、')}` : ''}`;
+        let summary = repeatedPattern?.summary || `地支层面识别到${formatNaturalCount(branchRelations.length)}项关系或组合${summaryLabels.length ? `，包括${summaryLabels.join('、')}` : ''}`;
         if (!repeatedPattern) {
             if (positions.length) summary += `，分布于${positions.join('、')}`;
             summary += '。';
@@ -527,15 +552,19 @@
         if (visibleJudgment?.title) later.push(visibleJudgment.title);
         if (completeJudgment?.title) later.push(completeJudgment.title.replace('形成完整结构', ''));
         if (branchJudgment) {
-            const branchRelations = (result.internalRelations || [])
-                .filter((item) => BRANCH_RELATION_CODES.has(item.code) && !COMPLETE_CODES.has(item.code));
-            const families = [...new Set(branchRelations
-                .map(branchFamily)
-                .filter((item) => item !== '其他'))]
-                .sort((a, b) => familyOrder.indexOf(a) - familyOrder.indexOf(b));
-            if (families.length >= 2) later.push(`地支${families.join('')}交织`);
-            else if (families.length === 1 && branchRelations.length >= 2) later.push(`地支见多组${families[0]}`);
-            else if (families.length === 1 && branchRelations.length === 1) later.push(`地支仅见一处${families[0]}`);
+            if (branchJudgment.title === '地支关系与组合交织') {
+                later.push(branchJudgment.title);
+            } else {
+                const branchRelations = (result.internalRelations || [])
+                    .filter((item) => BRANCH_RELATION_CODES.has(item.code) && !COMPLETE_CODES.has(item.code));
+                const families = [...new Set(branchRelations
+                    .map(branchFamily)
+                    .filter((item) => item !== '其他'))]
+                    .sort((a, b) => familyOrder.indexOf(a) - familyOrder.indexOf(b));
+                if (families.length >= 2) later.push(`地支${families.join('')}交织`);
+                else if (families.length === 1 && branchRelations.length >= 2) later.push(`地支见多组${families[0]}`);
+                else if (families.length === 1 && branchRelations.length === 1) later.push(`地支仅见一处${families[0]}`);
+            }
         }
         return `${first}，${second}${later.length ? `；${later.join('，')}` : ''}。`;
     }

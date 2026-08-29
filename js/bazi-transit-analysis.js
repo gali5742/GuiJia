@@ -1152,7 +1152,7 @@
             });
         }
         if (result.internalRelations?.length) {
-            lines.push('原局关系：');
+            lines.push('', '原局关系：');
             result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));
         }
 
