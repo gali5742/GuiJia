@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="龟甲六爻 SemanticSlot Provider v0.1 独立测试页，用于审计 slot 来源、provenance、context recovery 与冲突合并。">
-  <title>龟甲 · SemanticSlot Provider v0.1</title>
+  <meta name="description" content="龟甲六爻 SemanticSlot Provider v0.2 独立测试页，用于审计 22-route slot 来源、provenance、context recovery、Intent-aware Sufficiency 与冲突合并。">
+  <title>龟甲 · SemanticSlot Provider v0.2</title>
   <style>
     :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}label{display:block;font-weight:650;margin-bottom:7px}select,textarea,input{width:100%;box-sizing:border-box;border:1px solid #cfc7b8;border-radius:10px;padding:10px;background:#fff;font:inherit}textarea{min-height:90px;resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row input[type=checkbox]{width:auto}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn.alt{background:#e9e4da;color:#29251f}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e8e2d8;padding:10px 8px}th{background:#faf8f4;position:sticky;top:0}.pill{display:inline-block;padding:3px 7px;border-radius:999px;background:#eee9df;margin:2px 4px 2px 0;font-size:12px}.good{color:#275c2d}.error{color:#9a3024}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}table{font-size:12px}}
   </style>
@@ -12,8 +12,8 @@
 <body>
 <div class="wrap">
   <section class="card">
-    <h1>龟甲 · SemanticSlot Provider v0.1</h1>
-    <p class="muted">这一页只测试现代语义 slot 的来源与合并。现在同时加载高精度 Object / Entity Resolver；它不调用 BGE Router，不判断六亲/世应，也不把当前显式 fixture extractor 当正式 NLP。</p>
+    <h1>龟甲 · SemanticSlot Provider v0.2</h1>
+    <p class="muted">覆盖当前 22-route Sufficiency。新增商业交易、进货、库存销售、出借、讨债、合伙和投资退出的结构化 Intent slot；只有显式传入 DivinationIntent 时才执行 generic divination-goal contract，旧 slot-only 调用保持兼容。</p>
   </section>
 
   <section class="card">
@@ -25,29 +25,28 @@
       </div>
       <div>
         <label>上游来源</label>
-        <div class="row"><input id="useIntent" type="checkbox" checked><span>调用现有 DivinationIntent + Participant Resolver</span></div>
+        <div class="row"><input id="useIntent" type="checkbox" checked><span>调用现有 DivinationIntent + Commercial/Participant Resolver</span></div>
       </div>
     </div>
     <div style="margin-top:14px">
       <label for="question">问题</label>
-      <textarea id="question">我和这个女生以后有机会吗</textarea>
+      <textarea id="question">朋友向我借钱我现在借给他合适吗</textarea>
     </div>
     <div class="grid" style="margin-top:14px">
       <div>
         <label for="contextSlots">Context slots（JSON 数组）</label>
         <textarea id="contextSlots">[]</textarea>
-        <div class="muted">例：[{"id":"specific_counterpart","value":"前文：新认识的男生","confidence":0.98}]</div>
       </div>
       <div>
         <label for="mlSlots">未来 ML Provider 模拟输入（JSON 数组）</label>
         <textarea id="mlSlots">[]</textarea>
-        <div class="muted">例：[{"id":"purchase_object","value":"这台电脑","confidence":0.91,"modelId":"fixture"}]</div>
       </div>
     </div>
     <div class="row" style="margin-top:14px">
       <button class="btn" id="run">解析 Provider → Sufficiency</button>
+      <button class="btn alt" data-example="lend">出借示例</button>
+      <button class="btn alt" data-example="liquidation">退出陈述示例</button>
       <button class="btn alt" data-example="relationship">关系上下文示例</button>
-      <button class="btn alt" data-example="purchase">购买对象示例</button>
       <button class="btn alt" data-example="conflict">冲突示例</button>
       <span id="summary" class="status">等待解析</span>
     </div>
@@ -66,7 +65,7 @@
 
   <section class="card">
     <h2>3. Slot Provider 审计</h2>
-    <p class="muted">对象型 slot 目前采用高精度 Object / Entity Resolver；`implemented_high_precision` 表示已经有保守 Provider，但不承诺覆盖所有公司名、商品名和复杂实体表达。ML 接口仍保留作为后续补充。</p>
+    <p class="muted">这里仍只处理现代语义事实，不产生妻财、官鬼、世应或具体观察爻。</p>
     <div style="overflow:auto;max-height:640px">
       <table>
         <thead><tr><th>Slot</th><th>主 Provider</th><th>当前</th><th>Fallback</th><th>说明</th></tr></thead>
@@ -76,9 +75,11 @@
   </section>
 </div>
 <script src="js/liuyao-intent.js"></script>
+<script src="js/liuyao-commercial-event-resolver.js"></script>
 <script src="js/liuyao-participant-resolver.js"></script>
 <script src="js/liuyao-semantic-sufficiency.js"></script>
 <script src="js/liuyao-semantic-slot-provider.js"></script>
+<script src="js/liuyao-semantic-slot-provider-v02.js"></script>
 <script src="js/liuyao-object-entity-resolver.js"></script>
 <script>
 (() => {
@@ -92,12 +93,12 @@
   Object.keys(sufficiency.routeRequirements).forEach((id) => {
     const option = document.createElement('option'); option.value = id; option.textContent = id; route.appendChild(option);
   });
-  route.value = 'relationship_development';
+  route.value = 'lend_money';
 
   const audit = $('audit');
   for (const [slotId, info] of Object.entries(provider.providerAudit)) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><code>${slotId}</code></td><td><code>${info.primary}</code></td><td>${info.current}</td><td>${info.fallback.map(v=>`<span class="pill">${v}</span>`).join('')}</td><td>${info.note}</td>`;
+    tr.innerHTML = `<td><code>${slotId}</code></td><td><code>${info.primary}</code></td><td>${info.current}</td><td>${(info.fallback || []).map(v=>`<span class="pill">${v}</span>`).join('')}</td><td>${info.note}</td>`;
     audit.appendChild(tr);
   }
 
@@ -123,7 +124,7 @@
       $('runs').textContent = JSON.stringify(sr.providerRuns, null, 2);
       $('resolved').textContent = JSON.stringify(sr.resolvedSlots, null, 2);
       $('claims').textContent = JSON.stringify({ claims:sr.claims, ignoredClaims:sr.ignoredClaims, superseded:sr.superseded, objectCandidates:sr.objectCandidates || [] }, null, 2);
-      $('missing').textContent = JSON.stringify({ status:result.status, missing:result.missing, conflicts:sr.conflicts }, null, 2);
+      $('missing').textContent = JSON.stringify({ status:result.status, reasonCode:result.reasonCode, goalCheck:result.goalCheck, missing:result.missing, conflicts:sr.conflicts, intent }, null, 2);
       const summary = $('summary');
       summary.textContent = result.status === 'sufficient' ? 'sufficient' : result.status;
       summary.className = `status ${result.status === 'sufficient' ? '' : result.status === 'semantic_insufficient' ? 'warn' : 'bad'}`;
@@ -135,12 +136,14 @@
   $('run').addEventListener('click', run);
   document.querySelectorAll('[data-example]').forEach((button) => button.addEventListener('click', () => {
     const type = button.dataset.example;
-    if (type === 'relationship') {
+    $('contextSlots').value = '[]'; $('mlSlots').value = '[]'; $('useIntent').checked = true;
+    if (type === 'lend') {
+      route.value = 'lend_money'; $('question').value = '朋友向我借钱我现在借给他合适吗';
+    } else if (type === 'liquidation') {
+      route.value = 'investment_liquidation'; $('question').value = '这只基金我准备全部赎回套现';
+    } else if (type === 'relationship') {
       route.value = 'relationship_development'; $('question').value = '我们有机会吗'; $('useIntent').checked = false;
-      $('contextSlots').value = '[{"id":"specific_counterpart","value":"前文：新认识的男生","evidence":"上一句","confidence":0.98}]'; $('mlSlots').value = '[]';
-    } else if (type === 'purchase') {
-      route.value = 'item_purchase'; $('question').value = '这台电脑值不值得买'; $('useIntent').checked = true;
-      $('contextSlots').value = '[]'; $('mlSlots').value = '[]';
+      $('contextSlots').value = '[{"id":"specific_counterpart","value":"前文：新认识的男生","evidence":"上一句","confidence":0.98}]';
     } else {
       route.value = 'investment_price_trend'; $('question').value = '后面会不会涨'; $('useIntent').checked = false;
       $('contextSlots').value = '[{"id":"investment_target","value":"股票B","confidence":0.99}]';
