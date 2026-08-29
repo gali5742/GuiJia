@@ -21,7 +21,7 @@
 
     // These are bounded grammatical / entity-type hints, not a route synonym dictionary.
     // The resolver only proves that an explicit referent exists; it does not decide the route.
-    const QUESTION_ANCHOR = /(?:今天|明天|后天|本周|这周|下周|本月|下个月|今年|明年|现在|目前|后面|以后|之后|接下来|最终|最后|什么时候|何时|几时|多久|能不能|能否|会不会|是否|值不值得|适不适合|合不合适|要不要|该不该|有没有|还能|还会|怎么样|如何)/;
+    const QUESTION_ANCHOR = /(?:今天|明天|后天|本周|这周|下周|本月|下个月|今年|明年|现在|目前|后面|以后|之后|接下来|最终|最后|什么时候|何时|几时|多久|哪个|哪一个|谁|能不能|能否|会不会|是否|值不值得|适不适合|合不合适|要不要|该不该|有没有|还能|还会|怎么样|如何)/;
     const CLAUSE_SPLIT = /[，,。；;！？?]+/;
     const FILLER_PREFIX = /^(?:请问|我想问(?:一下)?|我想知道|想问(?:一下)?|帮我看看|麻烦看看|看看)/;
     const TEMPORAL_PREFIX = /^(?:今天|明天|后天|本周|这周|下周|本月|下个月|今年|明年|现在|目前|后面|以后|之后|接下来|最终|最后)/;
