@@ -76,9 +76,9 @@ test('RA1 arbitration v0.1 只作用于现代对象 slot', () => {
 });
 
 test('RA2 accepted investment role 可把过长 resolver 边界收窄到独立候选', () => {
-    const question = 'Orion Motors股价这轮震荡后还能不能走高';
+    const question = 'Orion Motors股价值不值得继续持有';
     const result = provider.evaluateWithProviders({
-        routeId:'investment_price_trend', question,
+        routeId:'investment_position_decision', question,
         objectCandidates:objectCandidate('Orion Motors'),
         objectRolePredictions:prediction('Orion Motors', 'investment_target_role')
     });
