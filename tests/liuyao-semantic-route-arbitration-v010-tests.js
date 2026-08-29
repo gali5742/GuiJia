@@ -1,0 +1,15 @@
+require('../js/liuyao-semantic-route-evidence-v01.js');
+require('../js/liuyao-semantic-route-arbitration-v010.js');
+const api=global.GuiJia?.liuyaoSemanticRouteArbitrationV010;
+let passed=0,failed=0;const t=(name,fn)=>{try{fn();console.log(`✓ ${name}`);passed++;}catch(e){console.error(`✗ ${name}: ${e.message}`);failed++;}};const eq=(a,b,m)=>{if(a!==b)throw new Error(`${m||'mismatch'}: ${a} !== ${b}`)};
+t('AR10-1 历史借出不能压过当前收回目标',()=>eq(api.arbitrate('之前借给朋友的钱这回能不能收回来')?.routeId,'debt_collection'));
+t('AR10-2 持有是背景，当前问盈利优先',()=>eq(api.arbitrate('这只股票继续拿到年底能不能盈利')?.routeId,'investment_profit'));
+t('AR10-3 已购买只是背景，发货状态应归收货',()=>eq(api.arbitrate('我买的显示器今天已经发货了')?.routeId,'receive_item'));
+t('AR10-4 明确贷款仍判借入',()=>eq(api.arbitrate('银行这笔信用贷能不能顺利批下来')?.routeId,'borrow_money'));
+t('AR10-5 普通审批不制造借款',()=>eq(api.arbitrate('这次签证申请能不能批下来'),null));
+t('AR10-6 成为夫妻判婚配而非既有婚姻',()=>eq(api.arbitrate('我和这个女生以后有没有机会成为夫妻')?.routeId,'marriage_match'));
+t('AR10-7 既有丈夫关系判婚姻关系',()=>eq(api.arbitrate('我跟丈夫接下来关系能不能改善')?.routeId,'marital_relationship'));
+t('AR10-8 投资值不值得明确判适宜性',()=>eq(api.arbitrate('这只债券基金现在值不值得投')?.routeId,'investment_suitability'));
+t('AR10-9 泛化“这样做合适吗”不能制造投资',()=>eq(api.arbitrate('我现在这样做合适吗'),null));
+t('AR10-10 support 证据不伪装成强制 override',()=>eq(api.arbitrate('这家工作室年底前利润能不能转正')?.strength,'support'));
+console.log(`\nSemantic route arbitration v0.10: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
