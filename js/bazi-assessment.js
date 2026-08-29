@@ -5,6 +5,7 @@
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
+    const STRENGTH_EVIDENCE_SCHEMA_VERSION = '0.1';
 
     const baziAssessmentDomains = Object.freeze({ DAY_MASTER_STRENGTH: 'dayMasterStrength' });
     const baziAssessmentStatuses = Object.freeze({
@@ -12,6 +13,65 @@
     });
     const baziAssessmentConclusionValues = Object.freeze({
         [baziAssessmentDomains.DAY_MASTER_STRENGTH]: Object.freeze(['strong','weak','balanced','indeterminate'])
+    });
+
+    // Guard rules only prohibit unsupported inference shortcuts. They do not emit Assessment conclusions.
+    const assessmentGuardRegistry = Object.freeze({
+        version: '0.1',
+        rules: Object.freeze([
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-001', scope:'global', statement:'季节状态不得单独生成身强身弱结论。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-002', scope:'global', statement:'同类或相关要素数量不得直接等同于实际力量。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-003', scope:'global', statement:'十二长生支气与藏干通根必须保持为不同证据轴。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-004', scope:'global', statement:'根的存在事实与根的实际状态必须保持分层。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-005', scope:'global', statement:'根所在支见冲不得直接生成根拔结论。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-006', scope:'global', statement:'完整三合、三会等组合不得单独生成对应五行强弱或得势结论。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-007', scope:'global', statement:'天干明现不得自动等同于已获得有效承载或扶助。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-008', scope:'global', statement:'不得自行设置党众、多帮扶、多克泄等全局数字阈值。' })
+        ])
+    });
+
+    // Source-specific evidence contract for the basic teaching layer in 《千里命稿·强弱篇》.
+    // It defines what may be collected; it intentionally does not classify “多/少” or emit strength levels.
+    const qianliBasicStrengthEvidenceContract = Object.freeze({
+        id: 'qianli-basic-strength-evidence',
+        version: STRENGTH_EVIDENCE_SCHEMA_VERSION,
+        scope: 'evidence-only',
+        sourceLayer: '《千里命稿·强弱篇》教学层',
+        fields: Object.freeze({
+            seasonalState: Object.freeze({
+                sourceSystem: 'seasonalFiveStates',
+                required: true,
+                assessmentMeaning: 'baseline-only'
+            }),
+            visibleSupportActors: Object.freeze({
+                relations: Object.freeze(['生我','同我']),
+                countClassification: 'unresolved'
+            }),
+            visibleRestraintActors: Object.freeze({
+                relations: Object.freeze(['克我']),
+                countClassification: 'unresolved'
+            }),
+            visibleDrainActors: Object.freeze({
+                relations: Object.freeze(['我生']),
+                countClassification: 'unresolved'
+            }),
+            visibleDistributionActors: Object.freeze({
+                relations: Object.freeze(['我克']),
+                includedInRestraintDrain: false,
+                countClassification: 'separate'
+            }),
+            branchQi: Object.freeze({
+                sourceSystem: 'twelveGrowthStages',
+                positions: Object.freeze(['year','day','hour']),
+                aggregateClassification: 'unresolved'
+            })
+        }),
+        boundaries: Object.freeze([
+            '不从计数自行生成多帮扶、少帮扶、多克泄或少克泄。',
+            '不从年日时支十二长生自行归纳支得气或支失气。',
+            '不把我克之“被分”并入《强弱篇》的克泄计数。',
+            '不生成最强、中强、次强、次弱、中弱、最弱或其他身强弱结论。'
+        ])
     });
 
     const collectSemanticRefs = (semanticModel = {}) => new Set([
@@ -53,7 +113,10 @@
         status:baziAssessmentStatuses.NOT_EVALUATED,
         availableRefs:[...collectSemanticRefs(semanticModel)],
         activeRuleIds:assessmentRuleRegistry.rules.filter((rule) => rule.domain === baziAssessmentDomains.DAY_MASTER_STRENGTH && rule.enabled).map((rule) => rule.id),
-        note:'身强弱规则尚未启用；当前仅暴露可追溯输入接口，不生成结论。'
+        guardRuleIds:assessmentGuardRegistry.rules.map((rule) => rule.id),
+        evidenceContractVersion:STRENGTH_EVIDENCE_SCHEMA_VERSION,
+        evidenceContracts:Object.freeze({ qianliBasic:qianliBasicStrengthEvidenceContract }),
+        note:'身强弱规则尚未启用；当前只建立证据合同与推理边界，不生成结论。'
     });
 
     const evaluateBaziAssessments = (semanticModel = {}) => {
@@ -77,8 +140,9 @@
     });
 
     GuiJia.baziAssessment = {
-        ASSESSMENT_SCHEMA_VERSION, ASSESSMENT_RULESET_VERSION,
+        ASSESSMENT_SCHEMA_VERSION, ASSESSMENT_RULESET_VERSION, STRENGTH_EVIDENCE_SCHEMA_VERSION,
         baziAssessmentDomains, baziAssessmentStatuses, baziAssessmentConclusionValues,
+        assessmentGuardRegistry, qianliBasicStrengthEvidenceContract,
         assessmentRuleRegistry, collectSemanticRefs, validateAssessmentRecord, createAssessmentRecord,
         buildDayMasterStrengthAssessmentInput, evaluateBaziAssessments, buildAssessmentLayer
     };
