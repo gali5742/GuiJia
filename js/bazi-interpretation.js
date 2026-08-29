@@ -638,6 +638,8 @@
             assessments: [],
             assessmentBoundary: '当前模块停在结构层：不生成身强身弱终判、格局、用神、喜忌、吉凶或具体事件结论；存在性事实与结构关系不得自动升级为实际效力判断；尚未纳入的规则不自动补齐。'
         };
+        const strengthEvidence = GuiJia.baziStrengthEvidence?.buildStrengthEvidence?.(result, semanticModel) || null;
+        semanticModel.strengthEvidence = strengthEvidence;
         const assessmentLayer = GuiJia.baziAssessment?.buildAssessmentLayer?.(semanticModel) || null;
         semanticModel.assessmentLayer = assessmentLayer;
         semanticModel.assessments = assessmentLayer?.assessments || [];

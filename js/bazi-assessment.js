@@ -108,16 +108,21 @@
 
     const assessmentRuleRegistry = Object.freeze({ version:ASSESSMENT_RULESET_VERSION, rules:Object.freeze([]) });
 
-    const buildDayMasterStrengthAssessmentInput = (semanticModel = {}) => ({
-        domain:baziAssessmentDomains.DAY_MASTER_STRENGTH,
-        status:baziAssessmentStatuses.NOT_EVALUATED,
-        availableRefs:[...collectSemanticRefs(semanticModel)],
-        activeRuleIds:assessmentRuleRegistry.rules.filter((rule) => rule.domain === baziAssessmentDomains.DAY_MASTER_STRENGTH && rule.enabled).map((rule) => rule.id),
-        guardRuleIds:assessmentGuardRegistry.rules.map((rule) => rule.id),
-        evidenceContractVersion:STRENGTH_EVIDENCE_SCHEMA_VERSION,
-        evidenceContracts:Object.freeze({ qianliBasic:qianliBasicStrengthEvidenceContract }),
-        note:'身强弱规则尚未启用；当前只建立证据合同与推理边界，不生成结论。'
-    });
+    const buildDayMasterStrengthAssessmentInput = (semanticModel = {}) => {
+        const evidenceCollection = semanticModel?.strengthEvidence || null;
+        return {
+            domain:baziAssessmentDomains.DAY_MASTER_STRENGTH,
+            status:baziAssessmentStatuses.NOT_EVALUATED,
+            availableRefs:[...collectSemanticRefs(semanticModel)],
+            activeRuleIds:assessmentRuleRegistry.rules.filter((rule) => rule.domain === baziAssessmentDomains.DAY_MASTER_STRENGTH && rule.enabled).map((rule) => rule.id),
+            guardRuleIds:assessmentGuardRegistry.rules.map((rule) => rule.id),
+            evidenceContractVersion:STRENGTH_EVIDENCE_SCHEMA_VERSION,
+            evidenceContracts:Object.freeze({ qianliBasic:qianliBasicStrengthEvidenceContract }),
+            evidenceCollection,
+            evidenceCollectionStatus:evidenceCollection?.state || 'not-collected',
+            note:'身强弱规则尚未启用；当前只建立证据合同、证据抽取与推理边界，不生成结论。'
+        };
+    };
 
     const evaluateBaziAssessments = (semanticModel = {}) => {
         const activeRules = assessmentRuleRegistry.rules.filter((rule) => rule.enabled);
