@@ -154,19 +154,20 @@
     // 原局关系的统一元数据。排序、解释与后续 matcher 应尽量读取这里，
     // 避免不同模块各自维护优先级或关系族而逐渐漂移。
     const baziRelationMeta = Object.freeze({
-        [baziRelationCodes.SAN_HUI_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 120, complete: true }),
-        [baziRelationCodes.SAN_HE_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 115, complete: true }),
-        [baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 110, complete: true }),
-        [baziRelationCodes.SELF_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 86, complete: false }),
-        [baziRelationCodes.BRANCH_SIX_CLASH]: Object.freeze({ scope: 'branch', family: '冲', baseScore: 82, complete: false }),
-        [baziRelationCodes.STEM_FIVE_HARMONY]: Object.freeze({ scope: 'stem', family: '合', baseScore: 78, complete: false }),
-        [baziRelationCodes.BRANCH_SIX_HARMONY]: Object.freeze({ scope: 'branch', family: '合', baseScore: 72, complete: false }),
-        [baziRelationCodes.BRANCH_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 70, complete: false }),
-        [baziRelationCodes.BRANCH_SIX_HARM]: Object.freeze({ scope: 'branch', family: '害', baseScore: 66, complete: false }),
-        [baziRelationCodes.BRANCH_SIX_BREAK]: Object.freeze({ scope: 'branch', family: '破', baseScore: 62, complete: false }),
-        [baziRelationCodes.SAN_HE_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false }),
-        [baziRelationCodes.SAN_HUI_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false }),
-        [baziRelationCodes.STEM_CLASH]: Object.freeze({ scope: 'stem', family: '冲', baseScore: 48, complete: false })
+        // structuralRole 只表示解释顺序，不表示其他关系失效、被取代或已经成化。
+        [baziRelationCodes.SAN_HUI_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 120, complete: true, structuralRole: 'majorCompositeStructure' }),
+        [baziRelationCodes.SAN_HE_COMPLETE]: Object.freeze({ scope: 'branch', family: '合', baseScore: 115, complete: true, structuralRole: 'majorCompositeStructure' }),
+        [baziRelationCodes.PUNISHMENT_TRIAD_COMPLETE]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 110, complete: true, structuralRole: 'majorCompositeStructure' }),
+        [baziRelationCodes.SELF_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 86, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.BRANCH_SIX_CLASH]: Object.freeze({ scope: 'branch', family: '冲', baseScore: 82, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.STEM_FIVE_HARMONY]: Object.freeze({ scope: 'stem', family: '合', baseScore: 78, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.BRANCH_SIX_HARMONY]: Object.freeze({ scope: 'branch', family: '合', baseScore: 72, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.BRANCH_PUNISHMENT]: Object.freeze({ scope: 'branch', family: '刑', baseScore: 70, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.BRANCH_SIX_HARM]: Object.freeze({ scope: 'branch', family: '害', baseScore: 66, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.BRANCH_SIX_BREAK]: Object.freeze({ scope: 'branch', family: '破', baseScore: 62, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.SAN_HE_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.SAN_HUI_PARTIAL]: Object.freeze({ scope: 'branch', family: '合', baseScore: 52, complete: false, structuralRole: 'coexistingRelation' }),
+        [baziRelationCodes.STEM_CLASH]: Object.freeze({ scope: 'stem', family: '冲', baseScore: 48, complete: false, structuralRole: 'coexistingRelation' })
     });
 
 
@@ -509,6 +510,17 @@
         return uniqueRelations(relations);
     };
 
+    const baziStateSystems = Object.freeze({
+        SEASONAL_FIVE_STATES: Object.freeze({ id: 'seasonalFiveStates', label: '旺相休囚死' }),
+        TWELVE_GROWTH_STAGES: Object.freeze({ id: 'twelveGrowthStages', label: '十二长生' })
+    });
+
+    const getDiShiRecord = (dayGan, zhi) => ({
+        system: baziStateSystems.TWELVE_GROWTH_STAGES.id,
+        systemLabel: baziStateSystems.TWELVE_GROWTH_STAGES.label,
+        state: getDiShi(dayGan, zhi)
+    });
+
     const buildMonthSeason = (monthZhi, dayElement) => {
         const tables = {
             '春': {'木':'旺','火':'相','水':'休','金':'囚','土':'死'},
@@ -524,7 +536,13 @@
         return {
             monthZhi,
             season,
-            states: wuXingOrder.map((wuxing) => ({ wuxing, status: tables[season][wuxing], isDayMaster: wuxing === dayElement }))
+            states: wuXingOrder.map((wuxing) => ({
+                wuxing,
+                status: tables[season][wuxing],
+                isDayMaster: wuxing === dayElement,
+                system: baziStateSystems.SEASONAL_FIVE_STATES.id,
+                systemLabel: baziStateSystems.SEASONAL_FIVE_STATES.label
+            }))
         };
     };
 
@@ -666,6 +684,8 @@
         getRelationTagClass,
         getNaYin,
         getDiShi,
+        getDiShiRecord,
+        baziStateSystems,
         getXunInfo,
         chongMap,
         heMap,

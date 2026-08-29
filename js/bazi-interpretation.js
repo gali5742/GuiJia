@@ -50,8 +50,17 @@
         };
     }
 
-    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50) {
-        return { id, title, summary, evidence: evidence.filter(Boolean), tags, priority };
+    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50, evidenceRefs = []) {
+        return {
+            id,
+            semanticLayer: 'structure',
+            title,
+            summary,
+            evidence: evidence.filter(Boolean),
+            evidenceRefs: [...new Set(evidenceRefs.filter(Boolean))],
+            tags,
+            priority
+        };
     }
 
     function monthMainQi(result) {
@@ -93,11 +102,11 @@
             ? '地支仍见日主本干通根'
             : support.sameElementRoots.length
                 ? '地支虽未见本干通根，但见同类得地'
-                : '地支未见本干通根或同类扶助';
+                : '地支未见本干通根或同类得地';
         const mainSentence = main?.god
             ? `${monthSeason.monthZhi}月本气${main.gan}${main.wuxing}，对${result.dayGan}${result.dayGanWuXing}日主为${main.god}`
             : `${monthSeason.monthZhi}月属${monthSeason.season}`;
-        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态与根气、印比扶助共同构成这一层的强弱线索。`;
+        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态、根气与印比要素共同构成这一层的强弱线索；这些要素的实际效力仍属于后续 Assessment 层。`;
         const evidence = [
             main ? `月支${monthSeason.monthZhi}；本气${main.gan}${main.wuxing}；对应十神${main.god || '—'}` : `月支${monthSeason.monthZhi}；季节${monthSeason.season}`,
             `日主${result.dayGan}${result.dayGanWuXing}；旺相休囚死状态：${dayState}`,
@@ -110,18 +119,19 @@
             summary,
             evidence,
             ['月令', main?.god || '季节'],
-            100
+            100,
+            ['D01', 'D02', 'D03', 'D04']
         );
     }
 
     function buildSupportJudgment(result, support) {
         const hasVisible = support.visibleSupport.length > 0;
         const hasHidden = support.hiddenSupport.length > 0;
-        let title = '根气与扶助分布在不同层面';
-        if (!hasVisible && hasHidden) title = '扶身力量主要藏于地支';
-        else if (hasVisible && hasHidden) title = '扶身力量既有明透，也有藏支';
-        else if (hasVisible && !hasHidden) title = '扶身力量主要见于天干';
-        else if (!hasVisible && !hasHidden) title = '原局未见明显印比扶身线索';
+        let title = '根气与扶身要素分布在不同层面';
+        if (!hasVisible && hasHidden) title = '扶身要素主要见于藏支';
+        else if (hasVisible && hasHidden) title = '扶身要素在天干与藏支均有出现';
+        else if (hasVisible && !hasHidden) title = '扶身要素主要见于天干';
+        else if (!hasVisible && !hasHidden) title = '原局未见印比扶身要素';
 
         let rootSentence;
         if (support.exactRoots.length) {
@@ -134,18 +144,17 @@
             rootSentence = `四支藏干未见${result.dayGan}本干通根或同类得地。`;
         }
 
+        const visibleText = support.visibleSupport.map((item) => `${item.title}${item.gan}为${godOf(item)}`).join('、');
+        const hiddenText = support.hiddenSupport.map((item) => `${item.title}${item.zhi}藏${item.gan}为${godOf(item)}`).join('、');
         let supportSentence;
         if (!hasVisible && hasHidden) {
-            const pieces = [];
-            if (support.hiddenPeers.length) pieces.push(`比劫${formatNaturalCount(support.hiddenPeers.length)}处`);
-            if (support.hiddenSeals.length) pieces.push(`印星${formatNaturalCount(support.hiddenSeals.length)}处`);
-            supportSentence = `比劫或印星没有在天干明透，但地支藏干仍见${pieces.join('、') || `${formatNaturalCount(support.hiddenSupport.length)}处扶助线索`}；扶身力量因此主要处在藏支层面。`;
+            supportSentence = `天干未见比劫或印星；地支藏干见${hiddenText}。这里只确认扶身要素存在于藏支，不据此直接判断其实际扶身效力。`;
         } else if (hasVisible && hasHidden) {
-            supportSentence = `天干见${formatNaturalCount(support.visibleSupport.length)}处比劫或印星，地支藏干另见${formatNaturalCount(support.hiddenSupport.length)}处，明暗两层都存在扶助线索。`;
+            supportSentence = `天干见${visibleText}；地支藏干另见${hiddenText}。明暗两层均有扶身要素，但“出现”不自动等于“实际有效”。`;
         } else if (hasVisible) {
-            supportSentence = `天干见${formatNaturalCount(support.visibleSupport.length)}处比劫或印星明透，地支藏干未另见同类扶助。`;
+            supportSentence = `天干见${visibleText}；地支藏干未另见比劫或印星。这里只确认扶身要素出现于天干层。`;
         } else {
-            supportSentence = '天干与藏干均未见比劫或印星扶助，印比扶助在两层均为空。';
+            supportSentence = '天干与藏干均未见比劫或印星这一类扶身要素；这里仍不据单项缺失直接作身强身弱终判。';
         }
 
         return makeJudgment(
@@ -155,11 +164,12 @@
             [
                 support.exactRoots.length ? `本干通根：${support.exactRoots.map(rootEvidenceText).join('、')}` : '本干通根：未见',
                 support.sameElementRoots.length ? `同类得地：${support.sameElementRoots.map(rootEvidenceText).join('、')}` : '同类得地：未见',
-                hasVisible ? `天干扶助：${support.visibleSupport.map((item) => `${item.title}${item.gan}为${godOf(item)}`).join('、')}` : '天干扶助：未见比劫或印星',
-                hasHidden ? `藏干扶助：${support.hiddenSupport.map((item) => `${item.title}${item.zhi}藏${item.gan}为${godOf(item)}`).join('、')}` : '藏干扶助：未见比劫或印星'
+                hasVisible ? `天干扶身要素：${visibleText}` : '天干扶身要素：未见比劫或印星',
+                hasHidden ? `藏干扶身要素：${hiddenText}` : '藏干扶身要素：未见比劫或印星'
             ],
             ['通根', '扶助'],
-            94
+            94,
+            ['D03', 'D04', 'D05', 'D06']
         );
     }
 
@@ -197,13 +207,17 @@
             const others = distinctGods.filter((item) => item !== god);
             return `${god}${countText}${others.length ? `，并见${others.join('、')}` : ''}`;
         }
+        const officerGods = distinctGods.filter((god) => OFFICER_GODS.has(god));
+        const outputGods = distinctGods.filter((god) => OUTPUT_GODS.has(god));
+        const wealthGods = distinctGods.filter((god) => WEALTH_GODS.has(god));
+        const supportGods = distinctGods.filter((god) => SUPPORT_GODS.has(god));
         if (hasOfficerPair && gods.has('伤官')) return '官杀与伤官同时明透';
         if (hasOfficerPair && gods.has('食神')) return '官杀并透，食神同时出现';
         if (hasOfficerPair) return '正官、七杀同时明透';
-        if (hasOfficer && hasOutput) return '食伤与官杀同见天干';
-        if (hasWealth && hasOfficer) return '财星与官杀同见天干';
-        if (hasSupport && hasOfficer) return '印比与官杀同见天干';
-        if (hasWealth && hasOutput) return '财星与食伤同见天干';
+        if (hasOfficer && hasOutput) return `${outputGods.join('、')}与${officerGods.join('、')}同见天干`;
+        if (hasWealth && hasOfficer) return `${wealthGods.join('、')}与${officerGods.join('、')}同见天干`;
+        if (hasSupport && hasOfficer) return `${supportGods.join('、')}与${officerGods.join('、')}同见天干`;
+        if (hasWealth && hasOutput) return `${wealthGods.join('、')}与${outputGods.join('、')}同见天干`;
         if (distinctGods.length >= 2) return '天干有多类十神同时明透';
         return visible.length ? `${visible[0].god}明透于${visible[0].title}` : '';
     }
@@ -307,7 +321,8 @@
                 ...stemRelations.slice(0, 3).map((item) => item.text)
             ],
             ['十神', '透干'],
-            92
+            92,
+            ['D07', ...stemRelations.slice(0, 3).map((item) => item._semanticRef)]
         );
     }
 
@@ -325,10 +340,11 @@
         return makeJudgment(
             'complete-structure',
             `${labels[0]}形成完整结构`,
-            `原局地支会齐${labels.join('、')}。完整方局或完整三刑会重新组织局部干支之间的关系，因此在比较单个藏干或零散合冲刑害之前，应先把它作为整体背景。`,
+            `原局地支会齐${labels.join('、')}。完整方局或完整三刑在结构层标记为主要组合，应优先作为整体背景观察；其他已识别关系仍作为并存结构保留，不自动判定失效、被取代或已经成化。`,
             completeRelations.map((item) => item.text),
             ['完整结构'],
-            96
+            96,
+            completeRelations.map((item) => item._semanticRef)
         );
     }
 
@@ -489,7 +505,8 @@
             summary,
             branchRelations.map((item) => item.text),
             ['地支关系'],
-            branchRelations.length >= 2 ? 90 : 76
+            branchRelations.length >= 2 ? 90 : 76,
+            branchRelations.map((item) => item._semanticRef)
         );
     }
 
@@ -503,7 +520,7 @@
                 : '且地支未见本干通根';
         const second = `${result.dayGan}${result.dayGanWuXing}${stateHeadline(dayState)}${rootPhrase}`;
         const later = [];
-        if (visibleJudgment?.title) later.push(visibleJudgment.title.replace('同时明透', '并透').replace('同见天干', '同透'));
+        if (visibleJudgment?.title) later.push(visibleJudgment.title);
         if (completeJudgment?.title) later.push(completeJudgment.title.replace('形成完整结构', ''));
         if (branchJudgment) {
             const branchRelations = (result.internalRelations || [])
@@ -519,16 +536,89 @@
         return `${first}，${second}${later.length ? `；${later.join('，')}` : ''}。`;
     }
 
+    function buildSemanticModel(result, monthSeason, dayState, support, relations) {
+        const chart = (result.pillars || []).map((item) => item.ganZhi || `${item.gan}${item.zhi}`).join(' ');
+        const month = result.pillars?.[1];
+        const monthMain = monthMainQi(result);
+        const visible = visibleTenGodItems(result);
+        const hidden = support.hidden || [];
+        const visibleStems = (result.pillars || []).map((item) => `${item.title || ''}${item.gan}`).join('、');
+        const hiddenStems = hidden.map((item) => `${item.title}${item.zhi}藏${item.gan}${item.level ? `（${item.level}）` : ''}`).join('、');
+        const monthHidden = (month?.cangGan || []).map((item) => `${item.gan}${item.level ? `（${item.level}）` : ''}`).join('、') || '未见';
+        const visibleSupportText = support.visibleSupport.length
+            ? support.visibleSupport.map((item) => `${item.title}${item.gan}为${godOf(item)}`).join('、')
+            : '未见比劫或印星';
+        const hiddenSupportText = support.hiddenSupport.length
+            ? support.hiddenSupport.map((item) => `${item.title}${item.zhi}藏${item.gan}为${godOf(item)}`).join('、')
+            : '未见比劫或印星';
+        const visibleTenGodText = visible.length
+            ? visible.map((item) => `${item.title.replace('柱', '干')}${item.gan}为${item.god}`).join('、')
+            : '未见';
+
+        const facts = [
+            { id:'F01', kind:'chart', text:`四柱为${chart}` },
+            { id:'F02', kind:'month-hidden-stems', text:`月支${monthSeason.monthZhi}藏干：${monthHidden}` },
+            { id:'F03', kind:'visible-stems', text:`天干原始位置：${visibleStems}` },
+            { id:'F04', kind:'hidden-stems', text:`地支藏干原始位置：${hiddenStems || '未见'}` }
+        ];
+
+        const derivedFacts = [
+            {
+                id:'D01', system:'tenGod', systemLabel:'十神', sourceRefs:['F01','F02'],
+                text: monthMain ? `月支${monthSeason.monthZhi}本气${monthMain.gan}，相对日主${result.dayGan}为${monthMain.god || '—'}` : `月支${monthSeason.monthZhi}本气未取得`
+            },
+            {
+                id:'D02', system:'seasonalFiveStates', systemLabel:'旺相休囚死', sourceRefs:['F01'],
+                text:`日主${result.dayGanWuXing}在${monthSeason.season}令的季节状态为“${dayState}”`
+            },
+            {
+                id:'D03', system:'rooting', systemLabel:'通根', sourceRefs:['F04'],
+                text: support.exactRoots.length ? `本干通根：${support.exactRoots.map(rootEvidenceText).join('、')}` : '本干通根：未见'
+            },
+            {
+                id:'D04', system:'rooting', systemLabel:'同类得地', sourceRefs:['F04'],
+                text: support.sameElementRoots.length ? `同类得地：${support.sameElementRoots.map(rootEvidenceText).join('、')}` : '同类得地：未见'
+            },
+            { id:'D05', system:'supportPresence', systemLabel:'扶身要素·天干', sourceRefs:['F03'], text:`天干扶身要素：${visibleSupportText}` },
+            { id:'D06', system:'supportPresence', systemLabel:'扶身要素·藏干', sourceRefs:['F04'], text:`藏干扶身要素：${hiddenSupportText}` },
+            { id:'D07', system:'tenGod', systemLabel:'十神·透干', sourceRefs:['F03'], text:`天干十神：${visibleTenGodText}` }
+        ];
+
+        const structures = relations.map((relation, index) => {
+            const meta = baziRelationMeta[relation.code] || {};
+            return {
+                id: relation._semanticRef || `S${String(index + 1).padStart(2, '0')}`,
+                code: relation.code || '',
+                system: 'stemBranchRelation',
+                structuralRole: meta.structuralRole || 'coexistingRelation',
+                structuralRoleLabel: meta.structuralRole === 'majorCompositeStructure' ? '主要组合' : '并存关系',
+                text: relation.text
+            };
+        });
+
+        return {
+            version: '1.0',
+            facts,
+            derivedFacts,
+            structures,
+            assessments: [],
+            assessmentBoundary: '当前模块不生成身强身弱终判、格局、用神、喜忌、吉凶或具体事件结论。存在性事实与结构关系不得自动升级为实际效力判断。'
+        };
+    }
+
     function buildBaziInterpretation(result) {
         if (!result || !Array.isArray(result.pillars) || result.pillars.length !== 4) {
-            return { version: '2.0', headline: '暂无可用命盘结构。', judgments: [], limitations: [] };
+            return { version: '2.0', headline: '暂无可用命盘结构。', judgments: [], semanticModel: null, limitations: [] };
         }
 
         const monthSeason = result.monthSeason || { monthZhi: '—', season: '—', states: [] };
         const dayState = monthSeason.states?.find((item) => item.isDayMaster)?.status || '—';
         const support = rootsAndSupport(result);
-        const relations = [...(result.internalRelations || [])].sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a));
+        const relations = [...(result.internalRelations || [])]
+            .sort((a, b) => scoreBaziRelation(b) - scoreBaziRelation(a))
+            .map((relation, index) => ({ ...relation, _semanticRef: `S${String(index + 1).padStart(2, '0')}` }));
         const completeRelations = relations.filter((item) => COMPLETE_CODES.has(item.code));
+        const semanticModel = buildSemanticModel(result, monthSeason, dayState, support, relations);
 
         const monthJudgment = buildMonthJudgment(result, monthSeason, dayState, support);
         const supportJudgment = buildSupportJudgment(result, support);
@@ -558,11 +648,12 @@
             version: '2.0',
             headline: buildHeadline(result, monthSeason, dayState, support, visibleJudgment, completeJudgment, branchJudgment),
             judgments: finalJudgments,
+            semanticModel,
             limitations: [
                 '本模块只做原局结构综合，不直接给出吉凶、格局、用神、婚姻、事业或具体事件断语。',
                 '旺相休囚死、通根、透干与干支关系需要互相参照；任何单项标签都不单独等于强弱或成败结论。',
-                '判断来源于当前程序已识别的结构；未编码的流派规则不会被自动补齐。',
-                '古籍条目与现代结构判断分开呈现，条目定位不等于原文结论。'
+                '结构解释来源于当前程序已识别的事实、派生事实与关系；尚未纳入的流派规则不会被自动补齐。',
+                '古籍条目与现代结构判断分开呈现；古籍匹配只表示索引或参考层级，不自动进入 Assessment 结论。'
             ]
         };
     }
@@ -570,6 +661,7 @@
     function buildBaziContextText(result, interpretation) {
         if (!result) return '';
         const chart = (result.pillars || []).map((item) => item.ganZhi || `${item.gan}${item.zhi}`).join(' ');
+        const semanticModel = interpretation?.semanticModel;
         const lines = [
             '【龟甲 · 八字分析上下文】',
             `四柱：${chart}`,
@@ -584,27 +676,45 @@
 
         (interpretation?.judgments || []).forEach((item, index) => {
             lines.push(`${index + 1}. ${item.title}`);
-            lines.push(`判断：${item.summary}`);
-            item.evidence.forEach((evidence, evidenceIndex) => lines.push(`  ${evidenceIndex + 1}. ${evidence}`));
+            lines.push(`解释：${item.summary}`);
+            if (item.evidenceRefs?.length) lines.push(`  依据：${item.evidenceRefs.join('、')}`);
+            else item.evidence.forEach((evidence, evidenceIndex) => lines.push(`  ${evidenceIndex + 1}. ${evidence}`));
         });
+
+        if (semanticModel) {
+            lines.push('', '【Fact｜原始事实】');
+            semanticModel.facts.forEach((item) => lines.push(`- ${item.id}｜${item.text}`));
+
+            lines.push('', '【Derived Fact｜派生事实】');
+            semanticModel.derivedFacts.forEach((item) => {
+                const source = item.sourceRefs?.length ? `｜来源 ${item.sourceRefs.join('、')}` : '';
+                lines.push(`- ${item.id}｜[${item.systemLabel || item.system}] ${item.text}${source}`);
+            });
+
+            lines.push('', '【Structure｜结构关系】');
+            if (semanticModel.structures.length) {
+                semanticModel.structures.forEach((item) => lines.push(`- ${item.id}｜[${item.structuralRoleLabel}] ${item.text}`));
+            } else {
+                lines.push('- 未检测到直接结构关系');
+            }
+
+            lines.push('', '【Assessment｜作用与结论层】');
+            lines.push(`- ${semanticModel.assessmentBoundary}`);
+        } else {
+            lines.push('', '【强弱相关证据】');
+            (result.dayMasterEvidence || []).forEach((item) => lines.push(`- ${item.key}：${item.value}`));
+            lines.push('', '【原局干支关系】');
+            if (result.internalRelations?.length) result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));
+            else lines.push('- 未检测到直接关系');
+        }
 
         lines.push('', '【使用边界】');
         (interpretation?.limitations || []).forEach((item) => lines.push(`- ${item}`));
 
-        lines.push('', '【强弱相关证据】');
-        (result.dayMasterEvidence || []).forEach((item) => lines.push(`- ${item.key}：${item.value}`));
-
-        lines.push('', '【原局干支关系】');
-        if (result.internalRelations?.length) {
-            result.internalRelations.forEach((item) => lines.push(`- ${item.text}`));
-        } else {
-            lines.push('- 未检测到直接关系');
-        }
-
         lines.push('', '【古籍参考】');
         lines.push(...buildLiteratureContextLines(result.matchedLiterature, '暂无匹配条目'));
 
-        lines.push('', '【使用要求】', '请只基于以上已列结构进行综合解释；不要自行重排四柱，不要虚构盘中不存在的关系或古籍原文。');
+        lines.push('', '【使用要求】', '请只基于以上已列 Fact、Derived Fact 与 Structure 进行综合解释；不要把“出现”自动升级为“有效”，不要自行重排四柱，不要虚构盘中不存在的关系或古籍原文。');
         return lines.join('\n');
     }
 

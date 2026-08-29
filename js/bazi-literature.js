@@ -70,16 +70,22 @@
         return hits;
     };
 
-    const buildQiongContextAudit = (quote, originalGans, dayGan) => {
+    const buildQiongContextAudit = (quote, originalGans, hidden, dayGan) => {
         const stems = [...new Set((String(quote || '').match(/[甲乙丙丁戊己庚辛壬癸]/g) || []))]
             .filter((stem) => stem !== dayGan)
             .slice(0, 4);
         if (!stems.length) return '';
         const checks = stems.map((stem) => {
-            const hits = visibleStemPositionText(originalGans, stem);
-            return hits.length ? `${stem}已见（${hits.join('、')}）` : `${stem}未见`;
+            const visibleHits = visibleStemPositionText(originalGans, stem);
+            const hiddenHits = (hidden || []).filter((item) => item.gan === stem)
+                .map((item) => `${item.pillar}${item.zhi}`);
+            if (visibleHits.length) {
+                return `${stem}已见于天干（已透：${visibleHits.join('、')}）${hiddenHits.length ? `；藏干另见于${hiddenHits.join('、')}` : ''}`;
+            }
+            if (hiddenHits.length) return `${stem}未见于天干（未透）；藏干见于${hiddenHits.join('、')}`;
+            return `${stem}未见于天干（未透），藏干亦未见`;
         });
-        return `原文点名天干核对：${checks.join('；')}。这里只核对原文点名天干在原局天干层面的出现情况；同五行异干不能自动替代原文指定天干，也不据此直接确定调候喜用。`;
+        return `原文点名天干核对：${checks.join('；')}。这里明确区分“透干”与“藏干”；同五行异干不能自动替代原文指定天干，也不据此直接确定调候喜用。`;
     };
 
     const buildZipingZhengGuanAudit = (internalRelations, hasGod, relationHitsByCode) => {
@@ -239,9 +245,24 @@
         const add = (levelKey, item) => {
             if (!item?.id || seenIds.has(item.id)) return;
             seenIds.add(item.id);
+            const defaultMatchType = ({
+                exact: 'exactPattern',
+                structure: 'structuralReference',
+                method: 'methodologicalReference'
+            })[levelKey] || 'structuralReference';
+            const matchType = item.matchType || defaultMatchType;
+            const applicability = item.applicability || (
+                matchType === 'methodologicalReference' ? 'method-only'
+                    : matchType === 'structuralReference' ? 'reference-only'
+                        : 'matched-entry'
+            );
             entries.push({
                 excerptType: 'quote',
                 ...item,
+                matchType,
+                matchedConditions: Array.isArray(item.matchedConditions) ? item.matchedConditions : [],
+                unverifiedConditions: Array.isArray(item.unverifiedConditions) ? item.unverifiedConditions : [],
+                applicability,
                 contextMatch: appendContextNote(item.match, item.contextNote),
                 levelKey,
                 level: ({ exact: '精确匹配', structure: '结构匹配', method: '方法参考' })[levelKey],
@@ -307,9 +328,13 @@
                     chapter,
                     quote: qiongQuote,
                     match: `日干为【${dayGan}】，月令为【${monthZhi}】（${monthLabel}），与当前已核对的“${chapter}”条目范围对应。`,
-                    contextNote: `这里确认的是月令条目的对应关系；原文中的调候取法仍须结合透藏、根气、寒暖与制化逐项判断，不能直接视为全局喜用结论。${buildQiongContextAudit(qiongQuote, originalGans, dayGan)}`,
+                    contextNote: `这里确认的是月令条目的对应关系；原文中的调候取法仍须结合透藏、根气、寒暖与制化逐项判断，不能直接视为全局喜用结论。${buildQiongContextAudit(qiongQuote, originalGans, hidden, dayGan)}`,
                     hint: `本条用于建立${dayGan}日主在【${monthZhi}】月的调候背景，再与原局透藏、根气和制化合看。`,
                     boundary: '月令条只是调候入口，不能把摘录中的某一干直接指定为全局喜用；具体仍须核对当月、透藏、根气与制化。',
+                    matchType: 'conditionalPattern',
+                    matchedConditions: [`日干=${dayGan}`, `月令=${monthZhi}`],
+                    unverifiedConditions: ['原文所述调候条件的实际成立程度'],
+                    applicability: 'needs-review',
                     sourceUrl: CLASSIC_SOURCE_URLS.qiongtong
                 });
             } else {
@@ -324,6 +349,10 @@
                     contextNote: '当前本地语料尚未逐字核对该月原文，因此只提供条目定位，不引用同季其他月份的原文代替。',
                     hint: '同一季节内部各月取法并不完全相同；未核对到本月正文时只给定位。',
                     boundary: '条目定位不等于原文摘录，也不据同季其他月份的文字推断本月结论。',
+                    matchType: 'conditionalPattern',
+                    matchedConditions: [`日干=${dayGan}`, `月令=${monthZhi}`],
+                    unverifiedConditions: ['本月原文尚未逐字核对'],
+                    applicability: 'locator-only',
                     sourceUrl: CLASSIC_SOURCE_URLS.qiongtong
                 });
             }
@@ -340,6 +369,10 @@
             match: `本局日干【${dayGan}】、时柱【${timeGan}${timeZhi}】，可按卷八“六${dayGan}日${timeGan}${timeZhi}时断”直接定位。`,
             hint: '日时条是原书的明确检索入口，进入该条后还要继续看其对六个日支及年月条件的细分。',
             boundary: '条目定位不等于已经接受该条中的古代短断；未逐字核对的正文不会由程序自动补写。',
+            matchType: 'conditionalPattern',
+            matchedConditions: [`日干=${dayGan}`, `时柱=${timeGan}${timeZhi}`],
+            unverifiedConditions: ['日支、年月及原条内部附加条件'],
+            applicability: 'locator-only',
             sourceUrl: CLASSIC_SOURCE_URLS.sanming8
         });
         if (dayGan === '丁' && timeGan === '己' && timeZhi === '酉') {
@@ -375,6 +408,10 @@
             match: `本局日干【${dayGan}】、月支【${monthZhi}】、时柱【${timeGan}${timeZhi}】，按该书日干—月支—时辰的编排方式定位。`,
             hint: '这个定位用于提醒查看三项条件同见时的原书条目，而不是把少数测试命盘的摘录当作全书检索。',
             boundary: '扫描本尚未逐条转录全部正文；未核对到具体短摘录时只显示定位，不生成拟似原文。',
+            matchType: 'conditionalPattern',
+            matchedConditions: [`日干=${dayGan}`, `月支=${monthZhi}`, `时柱=${timeGan}${timeZhi}`],
+            unverifiedConditions: ['该定位条目的正文及附加条件'],
+            applicability: 'locator-only',
             sourceUrl: CLASSIC_SOURCE_URLS.bazitiyao
         });
         if (dayGan === '丁' && monthZhi === '子' && timeGan === '己' && timeZhi === '酉') {
@@ -408,13 +445,18 @@
             });
         }
         if (hasRelationCode(baziRelationCodes.SAN_HUI_COMPLETE, baziRelationCodes.SAN_HE_COMPLETE)) {
+            const completeGroupHits = relationHitsByCode(baziRelationCodes.SAN_HUI_COMPLETE, baziRelationCodes.SAN_HE_COMPLETE);
             add('structure', {
                 id: 'ziping-hui-change', book: '子平真诠', chapter: '论用神变化',
                 quote: '用神既主月令矣，然月令所藏不一，而用神遂有变化',
-                match: `原局检测到：${relationHitsByCode(baziRelationCodes.SAN_HUI_COMPLETE, baziRelationCodes.SAN_HE_COMPLETE).join('；')}。月令【${monthZhi}】不能只按单支孤立阅读。`,
-                contextNote: '这里只确认会合结构存在，因此列入《真诠》“用神变化”相关论述；是否发生原文意义上的用神变化，仍需结合透干、冲破与实际成化条件判断。',
-                hint: '《真诠》把透干与会支视为月令结构发生变化的重要路径。',
-                boundary: '会齐不等于一定化成，也不自动决定格局优劣；仍须看月令、透干、冲破与救应。',
+                match: `原局见完整会合结构：${completeGroupHits.join('；')}。本条仅作为“月令取用存在变化讨论”的延伸索引；当前摘录本身并未直接规定“完整三会／三合”就是该句成立条件。`,
+                contextNote: '因此这里不把会局存在当作《真诠》该句的直接证据，也不据此判断已经发生原文意义上的用神变化。',
+                hint: '若后续要把会支正式纳入“用神变化”规则，须补充能够直接支持该触发条件的原文与完整上下文。',
+                boundary: '完整会局是本局已识别的 Structure；《真诠》此条在当前证据强度下只作为相关章节索引，不承担结构成立或用神变化的证明责任。',
+                matchType: 'structuralReference',
+                matchedConditions: completeGroupHits,
+                unverifiedConditions: ['完整会局是否构成该原文所述“用神变化”的直接条件', '是否发生原文意义上的用神变化'],
+                applicability: 'reference-only',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
             });
         }
@@ -426,6 +468,10 @@
                 contextNote: '这里只确认“七杀月令 + 食神出现”的入口条件；是否形成有效食神制杀，尚需比较旺衰、透藏、位置与制化。',
                 hint: '这使“七杀—食神”成为需要继续核对力量与位置的明确结构线索。',
                 boundary: '是否真正形成食神制杀，要比较旺衰、透藏、位置、根气和官杀混杂。',
+                matchType: 'structuralReference',
+                matchedConditions: ['月令本气为七杀', '原局见食神'],
+                unverifiedConditions: ['食神是否形成有效制杀', '旺衰、透藏、位置与制化条件'],
+                applicability: 'reference-only',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
             });
         }
