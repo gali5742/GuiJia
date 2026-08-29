@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write
 
+# retry after aligning the legacy BaZi detail regression
 jobs:
   fix:
     runs-on: ubuntu-latest
