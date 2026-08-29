@@ -23,6 +23,9 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashNonseasonalForce) {
         document.write('<script src="./js/bazi-clash-nonseasonal-force.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziElementPresenceScope) {
+        document.write('<script src="./js/bazi-element-presence-scope.js?v=13.44.0"><\/script>');
+    }
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
@@ -61,7 +64,8 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-017', scope:'global', statement:'根所在支参与六合时，六合关系本身只证明相合；不得直接等同于根被合住、根更有效、根失效或成化。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-018', scope:'global', statement:'六冲双方的旺相休囚死等单一季节状态只可作为条件输入，不得直接等同于《滴天髓》所谓旺者／衰者，也不得单独生成冲双方的相对占优结论。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-019', scope:'global', statement:'六冲相对状态比较不得采用分数、权重、条数多数或补偿式累加；必要语义维度未解析时必须 insufficient，双方分别存在已解析优势且无独立优先规则时必须 incomparable。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-020', scope:'global', statement:'任氏“支中有……”的六冲上下文只可按原文明确列出的支类作存在性匹配；相反组同时出现时不得多数表决。同段“四柱有木／无金”等五行有无条件在 element-presence scope 未独立定稿前，不得擅自选择明干、地支本气或藏干口径生成 preference。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-020', scope:'global', statement:'任氏“支中有……”的六冲上下文只可按原文明确列出的支类作存在性匹配；相反组同时出现时不得多数表决。同段“四柱有木／无金”等五行有无条件必须服从独立 element-presence scope contract，不得自行改换观察口径。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-021', scope:'global', statement:'《滴天髓阐微》六冲“四柱有／无某五行”例式按四柱表层干支观察：明干与地支本五行可满足字面有无，藏干单独出现及合化等派生结果不得改写该字面条件；例式条件未满足也不得反推对方占优。' })
         ])
     });
 
@@ -177,7 +181,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约、六冲非补偿比较合同、“月支提纲”季节地位窄规则及子午冲支类上下文的非季节力量窄规则；其他冲组的五行有无 scope、扶助／抑冲／助泄／解救、四库冲、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令层级、根角色、根有效状态合同、六冲／六合条件契约、六冲非补偿比较合同、“月支提纲”季节地位窄规则、子午冲支类上下文及《滴天髓阐微》六冲元素有无的表层干支 scope；部分原典元素例式现可生成 non-seasonal-relative-force signal。扶助／抑冲／助泄／解救、四库冲、六合实际效力、明干实际效力、藏支扶身 actor 效力及支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
