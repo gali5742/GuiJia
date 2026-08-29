@@ -75,13 +75,24 @@
             })));
     };
 
-    const makeDependency = ({ id, kind, scope, sourceEffectIds = [], sourceRefs = [], statement, boundary }) => Object.freeze({
+    const makeDependency = ({
         id,
         kind,
         scope,
-        status:synthesisDependencyStatuses.UNRESOLVED,
+        status = synthesisDependencyStatuses.UNRESOLVED,
+        sourceEffectIds = [],
+        sourceRefs = [],
+        resolvedByClaimIds = [],
+        statement,
+        boundary
+    }) => Object.freeze({
+        id,
+        kind,
+        scope,
+        status,
         sourceEffectIds:Object.freeze([...new Set(sourceEffectIds.filter(Boolean))]),
         sourceRefs:Object.freeze([...new Set(sourceRefs.filter(Boolean))]),
+        resolvedByClaimIds:Object.freeze([...new Set(resolvedByClaimIds.filter(Boolean))]),
         statement,
         boundary
     });
@@ -90,22 +101,32 @@
         ...new Set(effects.flatMap((item) => item?.sourceRefs || []).filter(Boolean))
     ]);
 
-    const buildDefaultDependencies = (strengthEffects = {}) => {
+    const resolvedClaimsFor = (claims = [], claimKey) => claims.filter((claim) =>
+        claim?.claimKey === claimKey && claim?.status === synthesisClaimStatuses.RESOLVED
+    );
+
+    const buildDefaultDependencies = (strengthEffects = {}, claims = []) => {
         const effects = strengthEffects.effects || [];
         const seasonal = effects.filter((item) => item.category === 'seasonalContext');
         const visible = effects.filter((item) => item.category === 'visibleStemRelation');
         const roots = effects.filter((item) => ['exactRootPresence','sameElementRootPresence','hiddenSupportPresence'].includes(item.category));
         const branchQi = effects.filter((item) => item.category === 'branchQiContext');
+        const seasonalHierarchyClaims = resolvedClaimsFor(claims, 'seasonal.hierarchy');
+        const seasonalHierarchyResolved = seasonalHierarchyClaims.length > 0;
 
         return Object.freeze([
             makeDependency({
                 id:'SD-SEASONAL-HIERARCHY',
                 kind:synthesisDependencyKinds.HIERARCHY,
                 scope:'seasonal-context',
+                status:seasonalHierarchyResolved ? synthesisDependencyStatuses.RESOLVED : synthesisDependencyStatuses.UNRESOLVED,
                 sourceEffectIds:seasonal.map((item) => item.id),
                 sourceRefs:collectRefsFromEffects(seasonal),
-                statement:'月令季节方向已经识别，但季节在最终身强弱综合中属于优先条件、背景条件、必要条件还是独立不可换算维度，当前尚未定义。',
-                boundary:'不得用固定分值或证据数量替代月令层级规则。'
+                resolvedByClaimIds:seasonalHierarchyClaims.map((item) => item.id),
+                statement:seasonalHierarchyResolved
+                    ? '月令季节已定义为独立一级判断轴：必须单独保留，不能与一般明干、根气或支气按同一单位换算；它参与后续组合分支，但不是一票式必要条件，也不能单独生成最终强弱结论。'
+                    : '月令季节方向已经识别，但季节在最终身强弱综合中属于优先条件、背景条件、必要条件还是独立不可换算维度，当前尚未定义。',
+                boundary:'不得用固定分值、证据数量、一票否决或绝对优先级替代月令层级规则。'
             }),
             makeDependency({
                 id:'SD-VISIBLE-EFFECTIVENESS',
@@ -170,7 +191,7 @@
         const reasons = [];
 
         if (!activeRuleIds.length) reasons.push('尚未建立将中间作用候选转化为可用于最终身强弱判断的正向 Synthesis 规则。');
-        if (blockingDependencyIds.length) reasons.push('月令、明干实际效力、根气层级或支气汇总仍存在未解析依赖。');
+        if (blockingDependencyIds.length) reasons.push('明干实际效力、根气层级或支气汇总仍存在未解析依赖。');
         if (blockingConflictIds.length) reasons.push('同一待决命题仍存在未解决的互斥规则结果。');
 
         const sufficient = activeRuleIds.length > 0 && !blockingDependencyIds.length && !blockingConflictIds.length;
@@ -183,7 +204,41 @@
         });
     };
 
-    const synthesisRuleRegistry = Object.freeze({ version:'0.1-draft', rules:Object.freeze([]) });
+    const qianliSeasonalHierarchyRule = Object.freeze({
+        id:'BAZI-STRENGTH-SYNTH-SEASON-001',
+        enabled:true,
+        domain:'dayMasterStrength',
+        scope:'seasonal-context',
+        sourceContractId:'qianli-basic-strength-evidence',
+        sourceLocator:'《千里命稿·强弱篇》“身强之构成”“身强之区别”',
+        evaluate(semanticModel = {}) {
+            const seasonal = (semanticModel?.strengthEffects?.effects || []).find((item) => item.category === 'seasonalContext');
+            if (!seasonal || seasonal.status !== 'recognized') return null;
+            if (!['seasonal-support','seasonal-non-support'].includes(seasonal.direction)) return null;
+            return Object.freeze({
+                id:'SC-SEASONAL-HIERARCHY',
+                claimKey:'seasonal.hierarchy',
+                status:synthesisClaimStatuses.RESOLVED,
+                value:Object.freeze({
+                    role:'independent-primary-axis',
+                    conversion:'non-convertible',
+                    necessaryCondition:false,
+                    sufficientAlone:false
+                }),
+                sourceEffectIds:Object.freeze([seasonal.id].filter(Boolean)),
+                sourceRefs:Object.freeze([...(seasonal.sourceRefs || [])]),
+                sourceContractId:'qianli-basic-strength-evidence',
+                sourceLocator:'《千里命稿·强弱篇》“身强之构成”“身强之区别”',
+                rationale:'《千里命稿·强弱篇》把月令旺相、多帮扶、支得气分别列为身强构成条件；其强弱区别又同时列出“失令而多帮扶”与“得令而少帮扶”的组合，因此月令应作为独立一级判断轴保留，但不能解释成一票式必要条件或单独最终结论。',
+                boundary:'本规则只解析月令在 Synthesis 中的层级；不判断多帮扶、少帮扶、支得气，也不生成最强、中强、次强、强、弱或其他最终等级。'
+            });
+        }
+    });
+
+    const synthesisRuleRegistry = Object.freeze({
+        version:'0.1-draft',
+        rules:Object.freeze([qianliSeasonalHierarchyRule])
+    });
 
     const buildStrengthSynthesis = (semanticModel = {}) => {
         const strengthEffects = semanticModel?.strengthEffects || null;
@@ -217,7 +272,7 @@
             const records = Array.isArray(output) ? output : [output];
             return records.map((record) => Object.freeze({ ...record, ruleId:rule.id }));
         }));
-        const dependencies = buildDefaultDependencies(strengthEffects);
+        const dependencies = buildDefaultDependencies(strengthEffects, claims);
         const conflicts = detectConflicts(claims);
         const activeRuleIds = Object.freeze(activeRules.map((rule) => rule.id));
 
@@ -234,6 +289,7 @@
             activeRuleIds,
             boundaries:Object.freeze([
                 'Synthesis 组织 Intermediate Effect，不复制或改写其方向事实。',
+                '月令季节作为独立一级判断轴，不与其他证据按统一分值、权重或条数换算。',
                 '不同作用方向候选同时存在不构成 Conflict；Conflict 只针对同一 claimKey 的互斥已解析结果。',
                 'Sufficiency 依据规则覆盖与必要依赖，不依据证据、方向或 actor 数量。',
                 'insufficient 只表示尚不足以执行最终 Assessment，不等同于 indeterminate，更不生成 strong、weak 或 balanced。'
@@ -249,6 +305,7 @@
         synthesisDependencyStatuses,
         synthesisSufficiencyStatuses,
         synthesisRuleRegistry,
+        qianliSeasonalHierarchyRule,
         collectEffectIds,
         collectActorOverlaps,
         buildDefaultDependencies,
