@@ -113,9 +113,9 @@ path='index.html'; text=read(path)
 text=replace_once(text,'<script src="./js/bazi-literature.js?v=13.44.0"></script>\n<script src="./js/bazi-interpretation.js?v=13.44.0"></script>','<script src="./js/bazi-literature.js?v=13.44.0"></script>\n<script src="./js/bazi-assessment.js?v=13.44.0"></script>\n<script src="./js/bazi-interpretation.js?v=13.44.0"></script>','index assessment script'); write(path,text)
 
 path='tests/bazi-semantic-layer-tests.js'; text=read(path)
-marker="loadScript('js/bazi-core.js');\n"
-if marker not in text: raise SystemExit('missing bazi core load marker')
-text=text.replace(marker,marker+"loadScript('js/bazi-assessment.js');\n",1)
+marker="""    'js/bazi-core.js',\n    'js/bazi-timing.js',\n"""
+if marker not in text: raise SystemExit('missing bazi semantic load array marker')
+text=text.replace(marker,"""    'js/bazi-core.js',\n    'js/bazi-assessment.js',\n    'js/bazi-timing.js',\n""",1)
 insert="console.log(`\\n${passed} passed, ${failed} failed`);\n"
 newtests=r'''
 test('Assessment v0.1 只建立合同，未启用规则时不得生成身强弱结论', () => {
@@ -135,7 +135,7 @@ test('Assessment record 必须带 ruleId 且 sourceRefs 只能引用既有 F/D/S
     const result = makeResult();
     const output = baziInterpretation.buildBaziInterpretation(result);
     const semanticModel = output.semanticModel;
-    const assessment = context.GuiJia.baziAssessment;
+    const assessment = GuiJia.baziAssessment;
     const valid = assessment.createAssessmentRecord({ id:'A01', ruleId:'TEST-ONLY', domain:'dayMasterStrength', status:'supported', conclusion:'indeterminate', sourceRefs:['D02','D03','S01'], rationale:'测试记录' }, semanticModel);
     assert(valid.sourceRefs.join(',') === 'D02,D03,S01', '合法 Assessment 未保留来源引用');
     let failedAsExpected = false;
