@@ -1,0 +1,16 @@
+require('../js/liuyao-semantic-route-evidence-v01.js');
+const api=global.GuiJia?.liuyaoSemanticRouteEvidenceV01;
+let passed=0,failed=0;const t=(name,fn)=>{try{fn();console.log(`✓ ${name}`);passed++;}catch(e){console.error(`✗ ${name}: ${e.message}`);failed++;}};const ok=(x,m)=>{if(!x)throw new Error(m||'expected truthy')};const has=(e,g,v)=>e[g]?.includes(v);
+t('EV1 现金流属于总体财务语义',()=>ok(has(api.extract('入秋以后现金流能不能宽松一点'),'domains','finance')));
+t('EV2 小餐馆利润属于经营结果语义',()=>ok(has(api.extract('这间小餐馆年底前利润能不能回正'),'events','business_operation')));
+t('EV3 门店补货属于经营库存取得',()=>ok(has(api.extract('门店下周补货后能不能及时入库'),'events','inventory_acquisition')));
+t('EV4 存货出清属于经营库存处置',()=>ok(has(api.extract('仓库这批存货月底前能不能出清'),'events','inventory_disposal')));
+t('EV5 历史借出+当前收回应识别债权回收焦点',()=>{const e=api.extract('之前借出去的钱月底前能不能收回来');ok(has(e,'directions','creditor_inward'));ok(has(e,'currentTargets','debt_collection'));});
+t('EV6 找亲属借款识别资金流入',()=>ok(has(api.extract('这次找叔叔借一笔周转金能不能拿到'),'directions','funds_inward')));
+t('EV7 朋友向我借识别资金流出',()=>ok(has(api.extract('朋友向我借一笔钱，我要不要借给他'),'directions','funds_outward')));
+t('EV8 持有背景下问盈利，当前目标是盈利',()=>{const e=api.extract('这只基金继续持有到年底能不能盈利');ok(has(e,'background','position_context'));ok(has(e,'currentTargets','profit'));});
+t('EV9 已购买商品发货，当前事件仍是交付',()=>{const e=api.extract('我买的键盘今天已经发出了');ok(has(e,'background','past_purchase'));ok(has(e,'events','delivery'));});
+t('EV10 成为夫妻是婚配目标而非既有婚姻',()=>{const e=api.extract('我和这个对象以后能不能成为夫妻');ok(has(e,'relations','marriage_target'));ok(!has(e,'relations','existing_marriage'));});
+t('EV11 丈夫属于既有婚姻',()=>ok(has(api.extract('我和丈夫最近的关系能不能缓和'),'relations','existing_marriage')));
+t('EV12 泛化“申请获批”不制造借款方向',()=>{const e=api.extract('这个研究申请月底能不能获批');ok(!has(e,'directions','funds_inward'));});
+console.log(`\nRoute Semantic Evidence v0.1: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
