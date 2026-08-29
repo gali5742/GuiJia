@@ -43,7 +43,7 @@ jobs:
 
       - name: Commit frozen artifact when changed
         run: |
-          if git diff --quiet -- data/semantic-router-weights-v0.1.json; then
+          if [ -z "$(git status --porcelain -- data/semantic-router-weights-v0.1.json)" ]; then
             echo "Frozen weights already match the current training sources."
             exit 0
           fi
