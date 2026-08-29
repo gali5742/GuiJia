@@ -7,10 +7,12 @@ const MODEL_ID = 'Xenova/bge-small-zh-v1.5';
 const MODEL_DTYPE = 'q8';
 const VECTOR_SIZE = 512;
 const DATA_URL = new URL('../data/liuyao-semantic-decision-stack-v0.10-development.json', import.meta.url);
+const PATCH_URL = new URL('../data/liuyao-semantic-decision-stack-v0.10-preuse-patch.json', import.meta.url);
 const VERSION = '0.10-dev';
 
 let extractor = null;
 let data = null;
+let dataPatch = null;
 let gate = null;
 let threshold = 0.5;
 const embeddingCache = new Map();
@@ -52,13 +54,15 @@ const tensorToVectors = (tensor, count) => {
 
 const ensureData = async () => {
   if (!data) {
-    data = await fetchJson(DATA_URL);
+    [data, dataPatch] = await Promise.all([fetchJson(DATA_URL), fetchJson(PATCH_URL)]);
     if (data.version !== '0.10-development' || data.status !== 'development_preuse') throw new Error('Route Identifiability v0.10 development data mismatch');
     if (data.scope !== 'liuyao_current_22_semantic_decision_stack') throw new Error('Route Identifiability scope mismatch');
     if (data.policy?.outsideCurrent22ExcludedFromIdentifiabilityTraining !== true) throw new Error('Route Identifiability responsibility contract mismatch');
+    if (dataPatch.version !== '0.10-preuse-wording-patch' || dataPatch.status !== 'development_preuse_patch' || dataPatch.base !== 'liuyao-semantic-decision-stack-v0.10-development.json') throw new Error('Route Identifiability v0.10 wording patch mismatch');
   }
   return data;
 };
+const effectiveText = (text) => dataPatch?.replacements?.[text] || text;
 
 const embedTexts = async (texts, { chunkSize=24, onProgress } = {}) => {
   if (!extractor) throw new Error('BGE 尚未加载');
@@ -82,7 +86,7 @@ const flattenSplit = async (split) => {
   for (const [routeId, spec] of Object.entries(data.identifiability?.route_identifiable || {})) {
     for (const sample of spec[split] || []) rows.push({
       id:`RI-${split}-${String(index++).padStart(3,'0')}`,
-      text:sample.text,
+      text:effectiveText(sample.text),
       identifiable:true,
       routeId,
       downstreamSufficiency:sample.downstreamSufficiency || 'unknown',
@@ -93,7 +97,7 @@ const flattenSplit = async (split) => {
   for (const [category, spec] of Object.entries(data.identifiability?.route_unresolved || {})) {
     for (const text of spec[split] || []) rows.push({
       id:`RI-${split}-${String(index++).padStart(3,'0')}`,
-      text,
+      text:effectiveText(text),
       identifiable:false,
       routeId:'__unresolved__',
       downstreamSufficiency:'not_applicable',
