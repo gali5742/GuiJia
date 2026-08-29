@@ -108,6 +108,7 @@ if (mode === 'deployed') {
     'semantic-scope-gate-v01.html',
     'js/liuyao-semantic-scope-gate-v01.js',
     'data/liuyao-semantic-scope-gate-v0.1-development.json',
+    'data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json',
     'js/liuyao-semantic-route-arbitration-v091.js',
     'data/liuyao-semantic-router-decision-v0.9-validation-responsibility-audit.json'
   ];
