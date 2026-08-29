@@ -39,6 +39,7 @@ const assessment = loadAssessment();
 
 test('身强弱证据合同 v0.1 只建立输入结构，不启用正向判定规则', () => {
     assert(assessment.STRENGTH_EVIDENCE_SCHEMA_VERSION === '0.1', '证据合同版本异常');
+    assert(assessment.STRENGTH_SYNTHESIS_SCHEMA_VERSION === '0.1', 'Synthesis contract 版本异常');
     assert(assessment.assessmentRuleRegistry.rules.length === 0, '证据合同阶段不应启用正向 Assessment 规则');
     const layer = assessment.buildAssessmentLayer({ facts:[], derivedFacts:[], structures:[] });
     const strength = layer.domains.dayMasterStrength;
@@ -46,26 +47,34 @@ test('身强弱证据合同 v0.1 只建立输入结构，不启用正向判定�
     assert(layer.assessments.length === 0, '证据合同阶段不应产生 Assessment 结论');
     assert(strength.status === 'not-evaluated', '身强弱不应提前进入已评估状态');
     assert(strength.evidenceContractVersion === '0.1', '身强弱接口未暴露证据合同版本');
+    assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('十条全局 Guard Rule 全部只阻断越级推理', () => {
+test('十三条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 10, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 13, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 10; i += 1) {
+    for (let i = 1; i <= 13; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 10, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 13, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
-test('新增中间作用 Guard 阻止计分聚合与同一藏干重复计力', () => {
+test('中间作用 Guard 阻止计分聚合与同一藏干重复计力', () => {
     const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
     assert(guards['BAZI-ASSESS-GUARD-009']?.includes('数量、分值或权重'), 'GUARD-009 未阻止中间作用直接数值聚合');
     assert(guards['BAZI-ASSESS-GUARD-010']?.includes('同一藏干') && guards['BAZI-ASSESS-GUARD-010']?.includes('不得'), 'GUARD-010 未阻止同一藏干重复计力');
+});
+
+test('Synthesis Guard 阻止方向共存伪冲突、数量充分性与 insufficient 越级结论', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    assert(guards['BAZI-ASSESS-GUARD-011']?.includes('同一待决命题'), 'GUARD-011 未把 Conflict 限定到同一待决命题');
+    assert(guards['BAZI-ASSESS-GUARD-012']?.includes('规则覆盖') && guards['BAZI-ASSESS-GUARD-012']?.includes('必要依赖'), 'GUARD-012 未把 Sufficiency 建立在规则覆盖与必要依赖上');
+    assert(guards['BAZI-ASSESS-GUARD-013']?.includes('insufficient') && guards['BAZI-ASSESS-GUARD-013']?.includes('indeterminate'), 'GUARD-013 未阻止 insufficient 越级为最终结论');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
