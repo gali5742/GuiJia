@@ -50,7 +50,7 @@
     add(directions, 'creditor_inward', creditor);
     add(currentTargets, 'debt_collection', collectionFocus);
 
-    const debtor = test(text, /(?:(?:我|本人)[^，。？！?]{0,10}(?:欠|还|偿还|清偿)[^，。？！?]{0,12}(?:贷款|房贷|消费贷|欠款|债务|信用卡|钱)|(?:房贷|贷款|消费贷|欠款|债务|信用卡欠款)[^，。？！?]{0,14}(?:还清|还完|结清|偿还|清掉|处理))/);
+    const debtor = test(text, /(?:(?:我|本人)[^，。？！?]{0,10}(?:欠|还|偿还|清偿)[^，。？！?]{0,12}(?:贷款|房贷|消费贷|欠款|债务|信用卡|钱)|(?:房贷|贷款|消费贷|欠款|债务|信用卡欠款)[^，。？！?]{0,14}(?:还清|还完|结清|偿还|清掉|处理)|(?:处理|偿还|还清|还完|结清|清掉)[^，。？！?]{0,10}(?:房贷|贷款|消费贷|欠款|债务|信用卡欠款))/);
     add(directions, 'debtor_outward', debtor);
 
     const lendBackground = test(text, /(?:向我借|找我借|从我这里借|我[^，。？！?]{0,10}(?:借给|贷给|出借)|借出去)/);
@@ -68,7 +68,7 @@
     add(relations, 'marriage_target', marriageTarget && !existingMarriage);
     add(relations, 'romantic_development', romance && !existingMarriage && !marriageTarget);
 
-    const profit = test(text, /(?:盈利|利润|赚钱|回本|正收益|赚到钱|有收益)/);
+    const profit = test(text, /(?:盈利|利润|赚钱|回本|正收益|赚到钱|有收益|收益)/);
     const profitQuestion = test(text, /(?:(?:能不能|会不会|有没有|是否|能否)[^，。？！?]{0,10}(?:盈利|赚钱|回本|有利润|有收益)|(?:盈利|利润|收益)[^，。？！?]{0,8}(?:吗|怎样|如何|怎么样))/);
     add(goals, 'profit', profit);
     add(currentTargets, 'profit', profitQuestion);
@@ -77,7 +77,7 @@
     add(events, 'investment_liquidation', investment && liquidation);
     add(currentTargets, 'liquidation', investment && liquidation && test(text, /(?:能不能|会不会|是否|顺利|卡住|阻碍|完成|到账)/));
 
-    const position = test(text, /(?:继续持有|继续拿|继续留|减仓|加仓|调整仓位|调整持仓|仓位调整|持仓调整|要不要[^，。？！?]{0,8}(?:卖|减|加|继续)|应该[^，。？！?]{0,8}(?:持有|减仓|加仓|继续)|犹豫[^，。？！?]{0,10}(?:调整|减仓|加仓|卖|继续)|持仓[^，。？！?]{0,10}(?:减掉|减少|调整))/);
+    const position = test(text, /(?:继续持有|继续拿|继续留|减仓|加仓|调整仓位|调整持仓|仓位调整|持仓调整|要不要[^，。？！?]{0,8}(?:卖|减|加|继续)|应该[^，。？！?]{0,8}(?:持有|减仓|加仓|继续)|犹豫[^，。？！?]{0,10}(?:调整|减仓|加仓|卖|继续)|(?:仓位|持仓)[^，。？！?]{0,14}(?:调整|减掉|减少|加仓|减仓)|(?:调整|减掉|减少)[^，。？！?]{0,10}(?:仓位|持仓))/);
     add(events, 'investment_position', investment && position);
     add(background, 'position_context', investment && test(text, /(?:继续持有[^，。？！?]{0,10}(?:几天|几周|几个月|一段时间)|手上的[^，。？！?]{0,10}(?:股票|基金|ETF))/));
 
