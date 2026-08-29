@@ -1,0 +1,21 @@
+{
+  "version": "0.1-post-run-adjudication",
+  "status": "audit_only",
+  "scope": "liuyao_only",
+  "base": "liuyao-semantic-router-candidate-eval-v0.1.json",
+  "policy": {
+    "modifySealedBase": false,
+    "recomputePublishedMetrics": false,
+    "useAsTrainingLabel": false
+  },
+  "items": [
+    {
+      "id": "FC-058",
+      "text": "我已经把钱投进这个项目了",
+      "sealedExpectedRoute": "investment_profit",
+      "adjudicatedRouterDisposition": "route_unresolved_underspecified",
+      "adjudicatedRoute": "__unresolved__",
+      "reason": "句子只能确认 investment domain 与 already-invested state，不能从纯陈述推断 profit / suitability / position_decision / price_trend / liquidation 中的任一具体 route。"
+    }
+  ]
+}
