@@ -12,6 +12,7 @@ const assert = (condition, message) => {
 const sameSet = (a, b) => a.length === b.length && [...a].sort().every((value, index) => value === [...b].sort()[index]);
 
 const audit = readJson('data/liuyao-semantic-router-sufficiency-responsibility-audit-v0.1.json');
+const resolution = readJson('data/liuyao-semantic-responsibility-resolution-v0.2.json');
 const inventory = readJson('data/liuyao-semantic-route-inventory-v0.2.json');
 const base = readJson('data/liuyao-semantic-route-training-v0.1.json');
 const augmentation = readJson('data/liuyao-semantic-route-training-v0.2-augmentation.json');
@@ -24,11 +25,14 @@ assert(audit.version === '0.1', `audit version ${audit.version} != 0.1`);
 assert(audit.status === 'development_audit', `unexpected audit status ${audit.status}`);
 assert(audit.scope === 'liuyao_only', 'responsibility audit must remain LiuYao-only');
 assert(audit.freshCandidateEvalPolicy?.reuseCurrent301 === false, 'current 301-row Validation must not be reused as fresh candidate eval');
+assert(resolution.version === '0.2', `resolution version ${resolution.version} != 0.2`);
+assert(resolution.status === 'implemented_resolution', `unexpected resolution status ${resolution.status}`);
+assert(resolution.scope === 'liuyao_only', 'responsibility resolution must remain LiuYao-only');
 
 const routeIds = (inventory.routes || []).map((row) => row.routeId);
 assert(routeIds.length === 22, `route inventory count ${routeIds.length} != 22`);
 
-// Load the current deterministic Sufficiency contract and verify the documented coverage gap.
+// Load the current deterministic Sufficiency contract and verify RSA-001/002 are now resolved.
 const context = { console, Date, Math, JSON, Intl };
 context.window = context;
 context.globalThis = context;
@@ -40,12 +44,35 @@ vm.runInContext(
 );
 const sufficiency = context.GuiJia?.liuyaoSemanticSufficiency;
 assert(sufficiency, 'failed to load LiuYao Semantic Sufficiency');
+assert(sufficiency.version === '0.2', `Semantic Sufficiency version ${sufficiency.version} != 0.2`);
 const sufficiencyRoutes = Object.keys(sufficiency.routeRequirements || {});
 const missingSufficiencyRoutes = routeIds.filter((routeId) => !sufficiencyRoutes.includes(routeId));
-const finding001 = (audit.findings || []).find((row) => row.id === 'RSA-001');
-assert(finding001, 'audit must include RSA-001 sufficiency coverage finding');
-assert(sameSet(missingSufficiencyRoutes, finding001.missingSufficiencyRoutes || []), `RSA-001 missing routes drifted: actual=${missingSufficiencyRoutes.join(',')}`);
-assert(sufficiencyRoutes.length === 15, `current Sufficiency route count changed to ${sufficiencyRoutes.length}; update the responsibility audit before proceeding`);
+assert(sufficiencyRoutes.length === 22, `current Sufficiency route count ${sufficiencyRoutes.length} != 22`);
+assert(missingSufficiencyRoutes.length === 0, `current Sufficiency still misses: ${missingSufficiencyRoutes.join(',')}`);
+assert(sameSet(sufficiencyRoutes, routeIds), 'Sufficiency route set must exactly match the 22-route inventory');
+
+const historical001 = (audit.findings || []).find((row) => row.id === 'RSA-001');
+const historical002 = (audit.findings || []).find((row) => row.id === 'RSA-002');
+assert(historical001 && historical002, 'historical audit must retain RSA-001 and RSA-002');
+const resolved001 = (resolution.resolutions || []).find((row) => row.findingId === 'RSA-001');
+const resolved002 = (resolution.resolutions || []).find((row) => row.findingId === 'RSA-002');
+assert(resolved001?.status === 'resolved', 'RSA-001 must be marked resolved in v0.2 resolution');
+assert(resolved002?.status === 'resolved', 'RSA-002 must be marked resolved in v0.2 resolution');
+assert((resolved001.remainingMissingRoutes || []).length === 0, 'RSA-001 resolution must have zero remaining routes');
+assert(sameSet(resolved001.resolvedRoutes || [], historical001.missingSufficiencyRoutes || []), 'RSA-001 resolved route list must match the historical seven-route gap');
+assert(resolved002.source === 'DivinationIntent.goals', 'RSA-002 generic goal must source from DivinationIntent.goals');
+assert(resolved002.intentAwareApi === 'evaluateIntentSufficiency', 'RSA-002 must name the Intent-aware Sufficiency API');
+assert(typeof sufficiency.evaluateIntentSufficiency === 'function', 'Semantic Sufficiency v0.2 must expose evaluateIntentSufficiency');
+
+const liquidationSlots = sufficiency.extractExplicitSlots('这只基金我准备全部赎回套现');
+const declarative = sufficiency.evaluateIntentSufficiency(
+  'investment_liquidation',
+  { version:'0.1', status:'resolved', goals:[{ type:'unknown' }], event:{ type:'investment' }, semantics:{ investmentGoal:'liquidation' } },
+  liquidationSlots,
+  []
+);
+assert(declarative.status === 'semantic_insufficient', `declarative liquidation should be semantic_insufficient, got ${declarative.status}`);
+assert(declarative.reasonCode === 'missing_divination_goal', `declarative liquidation reason ${declarative.reasonCode} != missing_divination_goal`);
 
 const validationRows = [];
 const addRouteValidation = (sourceName, source) => {
@@ -121,6 +148,7 @@ for (const label of ['expectedRoute','expectedRouterDisposition','expectedSuffic
 console.log('LiuYao Semantic Router / Sufficiency responsibility audit verified.');
 console.log(`- route inventory: ${routeIds.length}`);
 console.log(`- current sufficiency routes: ${sufficiencyRoutes.length}`);
-console.log(`- documented sufficiency gaps: ${missingSufficiencyRoutes.join(', ')}`);
+console.log('- RSA-001: resolved (22/22 route requirements)');
+console.log('- RSA-002: resolved (Intent-aware generic divination-goal contract)');
 console.log(`- current Validation snapshot: ${snapshot.total} (${snapshot.routePositive} route-positive / ${snapshot.contrastiveKnown} contrastive-known / ${snapshot.genuineOther} genuine-other)`);
 console.log(`- adjudicated boundary rows: ${(audit.adjudications || []).length}`);
