@@ -149,10 +149,36 @@
     const baseResolveSemanticSlots = baseProvider.resolveSemanticSlots.bind(baseProvider);
     const mergeClaims = baseProvider.mergeClaims.bind(baseProvider);
 
+    const filterBaseObjectConflicts = (baseClaims, roleRun) => {
+        const acceptedBySlot = new Map();
+        for (const claim of roleRun.claims || []) {
+            if (!acceptedBySlot.has(claim.id)) acceptedBySlot.set(claim.id, new Set());
+            acceptedBySlot.get(claim.id).add(normalize(claim.value));
+        }
+
+        return (baseClaims || []).filter((claim) => {
+            if (claim.providerId !== 'object_or_entity_resolver') return true;
+            const acceptedValues = acceptedBySlot.get(claim.id);
+            if (!acceptedValues || acceptedValues.size !== 1) return true;
+            const selected = [...acceptedValues][0];
+            if (normalize(claim.value) === selected) return true;
+            roleRun.ignored.push({
+                providerId:'contextual_object_role',
+                slotId:claim.id,
+                reason:'object_candidate_superseded_by_contextual_role',
+                candidate:claim.value,
+                selected:[...(roleRun.claims || [])].find((item) => item.id === claim.id)?.value || '',
+                supersededProvider:'object_or_entity_resolver'
+            });
+            return false;
+        });
+    };
+
     const resolveSemanticSlots = (input = {}) => {
         const base = baseResolveSemanticSlots(input);
         const roleRun = contextualObjectRoleClaims(input, base);
-        const allClaims = [...base.claims, ...roleRun.claims];
+        const filteredBaseClaims = filterBaseObjectConflicts(base.claims, roleRun);
+        const allClaims = [...filteredBaseClaims, ...roleRun.claims];
         const merged = mergeClaims(allClaims);
         const questionSlots = merged.resolvedSlots.filter((slot) => slot.sourceScope === 'question').map((slot) => ({ ...slot, source:'question' }));
         const contextSlots = merged.resolvedSlots.filter((slot) => slot.sourceScope === 'context').map((slot) => ({ ...slot, source:'context' }));
@@ -184,9 +210,9 @@
 
     const updatedAudit = Object.freeze({
         ...baseProvider.providerAudit,
-        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；Contextual Object Role 消费独立上游 object candidate + role prediction，不允许 prediction 或 route 自己制造对象。' },
+        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；Contextual Object Role 消费独立上游 object candidate + role prediction；若高精度 resolver 自身因多个候选冲突而未能解析，accepted role 可消歧同 slot 的候选。' },
         delivery_target:{ ...baseProvider.providerAudit.delivery_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；Contextual Object Role 只绑定已经由上游候选抽取确认的实体。' },
-        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；商品身份本身不够，只有上游对象候选在当前问题中被判为 purchase_target_role 才能补 purchase_object。' }
+        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；商品身份本身不够；若 resolver 同时抽到“价格”等非目标候选，accepted purchase role 可为当前 slot 做消歧。' }
     });
 
     GuiJia.liuyaoContextualObjectRoleAdapter = Object.freeze({
