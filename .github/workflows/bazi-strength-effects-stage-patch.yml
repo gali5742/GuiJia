@@ -1,0 +1,48 @@
+name: Stage BaZi strength effects loader
+
+on:
+  push:
+    branches:
+      - bazi-strength-effects-stage
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: bazi-strength-effects-stage
+          fetch-depth: 0
+      - name: Wire strength effects layer
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          index = Path('index.html')
+          text = index.read_text(encoding='utf-8')
+          old = '<script src="./js/bazi-strength-evidence.js?v=13.44.0"></script>\n<script src="./js/bazi-assessment.js?v=13.44.0"></script>'
+          new = '<script src="./js/bazi-strength-evidence.js?v=13.44.0"></script>\n<script src="./js/bazi-strength-effects.js?v=13.44.0"></script>\n<script src="./js/bazi-assessment.js?v=13.44.0"></script>'
+          if old not in text:
+              raise SystemExit('index loader anchor not found')
+          index.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          path = Path('js/bazi-interpretation.js')
+          text = path.read_text(encoding='utf-8')
+          old = """        const strengthEvidence = GuiJia.baziStrengthEvidence?.buildStrengthEvidence?.(result, semanticModel) || null;\n        semanticModel.strengthEvidence = strengthEvidence;\n        const assessmentLayer = GuiJia.baziAssessment?.buildAssessmentLayer?.(semanticModel) || null;"""
+          new = """        const strengthEvidence = GuiJia.baziStrengthEvidence?.buildStrengthEvidence?.(result, semanticModel) || null;\n        semanticModel.strengthEvidence = strengthEvidence;\n        const strengthEffects = GuiJia.baziStrengthEffects?.buildStrengthEffects?.(result, semanticModel) || null;\n        semanticModel.strengthEffects = strengthEffects;\n        const assessmentLayer = GuiJia.baziAssessment?.buildAssessmentLayer?.(semanticModel) || null;"""
+          if old not in text:
+              raise SystemExit('interpretation integration anchor not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit staged patch and remove helper workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/bazi-strength-effects-stage-patch.yml
+          git add index.html js/bazi-interpretation.js
+          git commit -m "chore: wire BaZi strength effects layer"
+          git push origin HEAD:bazi-strength-effects-stage
