@@ -1,0 +1,54 @@
+name: Freeze semantic router weights
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/liuyao-semantic-route-training-v0.1.json"
+      - "data/liuyao-semantic-route-training-v0.2-augmentation.json"
+      - "data/liuyao-semantic-route-training-v0.3-targeted.json"
+      - "scripts/export-semantic-router-weights.mjs"
+      - "scripts/verify-semantic-router-weights.mjs"
+      - ".github/workflows/semantic-router-weights.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: semantic-router-weights
+  cancel-in-progress: false
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Install Transformers runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Export frozen weights
+        run: node scripts/export-semantic-router-weights.mjs
+
+      - name: Verify frozen weights
+        run: node scripts/verify-semantic-router-weights.mjs
+
+      - name: Commit frozen artifact when changed
+        run: |
+          if git diff --quiet -- data/semantic-router-weights-v0.1.json; then
+            echo "Frozen weights already match the current training sources."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/semantic-router-weights-v0.1.json
+          git commit -m "build: freeze semantic router weights v0.1"
+          git push
