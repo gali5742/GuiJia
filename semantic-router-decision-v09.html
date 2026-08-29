@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲六爻 Semantic Router Decision v0.9 Development Experiment：Global Routeability Gate、旧 local Gate 与现代语义仲裁 A/B 对照。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · 六爻 Router Decision v0.9</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#282621;background:#f4f2ed}body{margin:0}main{max-width:1260px;margin:0 auto;padding:28px 18px 56px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 12px;font-size:18px}.sub,.small{color:#6b675f;line-height:1.7}.small{font-size:12px}.notice{border-left:4px solid #bfae78;background:#faf7ee;padding:10px 12px;line-height:1.7}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}@media(max-width:760px){.flow{grid-template-columns:1fr}.arrow{display:none}}button{font:inherit;border:0;border-radius:9px;padding:11px 17px;background:#37342f;color:#fff;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{height:8px;background:#ece9e2;border-radius:999px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#69655d;transition:width .15s}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}@media(max-width:900px){.metrics{grid-template-columns:1fr 1fr}}@media(max-width:520px){.metrics{grid-template-columns:1fr}}.metric{border:1px solid #ebe7df;border-radius:12px;padding:14px}.metric span{display:block;color:#777168;font-size:12px}.metric strong{display:block;font-size:22px;margin-top:5px}.scroll{max-height:680px;overflow:auto;border:1px solid #eeeae2;border-radius:10px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ebe7df;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#fff;color:#666158}.num{text-align:right;white-space:nowrap}.best{font-weight:700;background:#f1f6ee}.badrow{background:#fff8f7}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  </style>
+</head>
+<body><main>
+  <h1>六爻 Semantic Router Decision v0.9 · Development Experiment</h1>
+  <p class="sub">比较原 v0.8.1 local Gate、Global Routeability Gate、边界二次确认，以及独立现代语义仲裁。此页只做开发实验，不修改 v0.8.1，也不使用已运行的 sealed Candidate Eval v0.1 调参。</p>
+
+  <section class="card">
+    <h2>实验边界</h2>
+    <div class="notice">v0.9 使用独立的 train / calibration / validation：132 / 88 / 132。Global Routeability 的正例包含“route 已经明确、但只是在陈述”的句子，因此不会把 Semantic Sufficiency 的职责抢到 Router。D 方案的语义仲裁只处理现代现实语义，例如借入/出借方向、恋爱/婚配/既婚、投资标的与普通购买，不涉及六亲、世应或用神。</div>
+  </section>
+
+  <section class="card">
+    <h2>运行</h2>
+    <div class="flow">
+      <div>
+        <strong>1. 加载 BGE</strong>
+        <div class="row" style="margin-top:10px"><button id="load">加载 BGE</button><span id="modelStatus" class="status warn">尚未加载</span></div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <strong>2. 自动运行完整 v0.9 对照实验</strong>
+        <div class="row" style="margin-top:10px"><button id="run" disabled>运行 v0.9 A/B/C/D</button><span id="runStatus" class="status">—</span></div>
+      </div>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <p id="progress" class="small">—</p>
+  </section>
+
+  <section class="card">
+    <h2>Calibration 结果</h2>
+    <div class="metrics">
+      <div class="metric"><span>Global routeability threshold</span><strong id="low">—</strong></div>
+      <div class="metric"><span>High-confidence bypass threshold</span><strong id="high">—</strong></div>
+      <div class="metric"><span>Calibration routeability balanced acc.</span><strong id="calBal">—</strong></div>
+      <div class="metric"><span>Semantic arbitration hits / correct</span><strong id="arb">—</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Validation · 四方案对照</h2>
+    <p class="small">Validation 共 132 条：66 route-known + 33 out-of-scope + 33 underspecified。A 是旧 v0.8.1；B 由 Global Gate 决定是否可路由；C 只在 Global Gate 的边界区要求旧 local Gate 二次确认；D 在 C 上叠加高置信现代语义仲裁。</p>
+    <div class="scroll"><table><thead><tr><th>方案</th><th class="num">Overall exact</th><th class="num">Known exact</th><th class="num">Known coverage</th><th class="num">Accepted known acc.</th><th class="num">Out-of-scope reject</th><th class="num">Underspecified reject</th><th class="num">False activation</th></tr></thead><tbody id="strategyRows"><tr><td colspan="8">尚未运行。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>D 方案剩余异常</h2>
+    <p class="small">只显示 D 方案仍然失败的 validation。用于判断 Global Routeability 与现代语义仲裁之后还剩下哪些结构问题。</p>
+    <div class="scroll"><table><thead><tr><th>ID / 问题</th><th>Expected</th><th>Top-1</th><th>Global p</th><th>Arbitration</th><th>A / B / C / D</th></tr></thead><tbody id="issues"><tr><td colspan="6">尚未运行。</td></tr></tbody></table></div>
+  </section>
+</main>
+<script src="./js/liuyao-semantic-route-arbitration-v09.js?v=0.9-dev"></script>
+<script type="module">
+import { semanticRouterDecisionV09 as api } from './js/liuyao-semantic-router-decision-v09.js?v=0.9-dev';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const status=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const progress=(value,text)=>{$('bar').style.width=`${Math.max(0,Math.min(100,value))}%`;$('progress').textContent=text;};
+function paintStrategies(rows){$('strategyRows').innerHTML='';let best=Math.max(...rows.map(r=>r.exact));for(const r of rows){const tr=document.createElement('tr');if(Math.abs(r.exact-best)<1e-12)tr.className='best';[r.id,pct(r.exact),pct(r.knownExact),pct(r.knownCoverage),pct(r.acceptedKnownAccuracy),pct(r.outOfScopeRejection),pct(r.underspecifiedRejection),pct(r.falseActivation)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$('strategyRows').appendChild(tr);}}
+function paintIssues(result){const D=result.detail.D;const byId={A:new Map(result.detail.A.map(r=>[r.id,r])),B:new Map(result.detail.B.map(r=>[r.id,r])),C:new Map(result.detail.C.map(r=>[r.id,r])),D:new Map(D.map(r=>[r.id,r]))};const bad=D.filter(r=>!r.correct);$('issues').innerHTML='';if(!bad.length){$('issues').innerHTML='<tr><td colspan="6">D 方案没有 validation 异常。</td></tr>';return;}for(const r of bad){const tr=document.createElement('tr');tr.className='badrow';const expected=r.kind==='known'?r.expectedRoute:r.kind;const arb=r.arbitration?`${r.arbitration.routeId}\n${r.arbitration.evidence}`:'—';const decisions=['A','B','C','D'].map(k=>{const x=byId[k].get(r.id);return `${k}:${x.decision.accepted?x.decision.routeId:'reject'}`}).join('\n');const cells=[`${r.id}\n${r.text}`,expected,`${r.prediction.top1?.id||'—'}\n${f(r.prediction.top1?.score)}`,f(r.globalProbability),arb,decisions];cells.forEach(v=>{const td=document.createElement('td');td.textContent=v;td.style.whiteSpace='pre-wrap';tr.appendChild(td)});$('issues').appendChild(tr);}}
+$('load').onclick=async()=>{$('load').disabled=true;status('modelStatus','加载中…','warn');try{await api.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))progress(n*0.2,[p?.status,p?.file].filter(Boolean).join(' · '));});status('modelStatus','BGE 已就绪','ok');progress(20,'BGE 已加载。');$('run').disabled=false;}catch(e){status('modelStatus','加载失败','bad');progress(0,e?.message||String(e));$('load').disabled=false;}};
+$('run').onclick=async()=>{$('run').disabled=true;status('runStatus','训练冻结 v0.8.1…','warn');try{await api.trainRouter({onStage:(stage,text)=>status('runStatus',text,stage==='done'?'ok':'warn'),onEmbeddingProgress:(done,total)=>progress(20+(total?done/total*25:0),`v0.8.1 embedding ${done}/${total}`)});status('runStatus','训练 Global Routeability / calibration…','warn');const cal=await api.trainDecisionLayer({onProgress:(done,total,label)=>progress(45+done/total*30,label)});$('low').textContent=f(cal.lowThreshold);$('high').textContent=f(cal.highThreshold);$('calBal').textContent=pct(cal.routeabilityCalibration.balanced);status('runStatus','运行独立 validation…','warn');const result=await api.runValidation({onProgress:(done,total,label)=>progress(75+done/total*25,label)});$('arb').textContent=`${result.arbitration.count} / ${result.arbitration.correct}`;paintStrategies(result.strategies);paintIssues(result);progress(100,'v0.9 Development Validation 完成。');status('runStatus','实验完成','ok');}catch(e){status('runStatus','实验失败','bad');progress(0,e?.stack||e?.message||String(e));}finally{$('run').disabled=false;}};
+</script>
+</body></html>
