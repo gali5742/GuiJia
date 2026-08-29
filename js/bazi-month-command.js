@@ -21,9 +21,6 @@
         boundary:'civilOrdinalDayAfterJie 是中性 calendar-position 规范化字段；它本身不证明任何古籍分日表应被采用，也不把古籍“日”一律解释为完整24小时 duration。'
     });
 
-    // 《三命通会》卷二《论人元司事》开头先列出的一套逐月分日。
-    // 同一章节随后又“再考玉井”列另一套，并引醉醒子批评固定三五七日界限；
-    // 因此这里只命名为 opening recorded schedule，不代表《三命通会》的唯一最终算法。
     const sanMingTongHuiOpeningSchedule = Object.freeze({
         '寅': Object.freeze([
             Object.freeze({ sourceToken:'艮土', gan:null, days:5, role:'用事' }),
@@ -83,8 +80,6 @@
         ])
     });
 
-    // 《三命通会》同节“再考玉井”所录另一套分配。
-    // 酉月末项在现存数字转录中见“三日／五日”差异，因此不伪造单一数字。
     const sanMingTongHuiYuJingSchedule = Object.freeze({
         '寅': Object.freeze([
             Object.freeze({ sourceToken:'己土', gan:'己', days:7 }),
@@ -213,12 +208,15 @@
             monthZhi:'巳',
             anchorJie:'立夏',
             offsetText:'立夏后十天',
+            expectedCivilOrdinalDayAfterJie:10,
+            calendarNormalization:'jie-civil-date-inclusive-case-offset',
+            normalizationStatus:'project-case-normalization-from-explicit-source-offset-text',
             assertedCommandGan:'戊',
             assertedCommandElement:'土',
             assertedOutcome:'亥水受制而巳火不伤',
             genericWindow:null,
             generalizationStatus:'case-only',
-            statement:'原文在该命例中明确称“立夏后十天，戊土司令”。本合同不把个案中的“后十天”改写为“立夏后前十天均戊土司令”。'
+            statement:'原文在该命例中明确称“立夏后十天，戊土司令”。本合同把该个案的“后十天”规范化为交节民用日期含首日计数的第10日，只用于核对此命例，不把它改写为立夏后前十天均戊土司令。'
         })
     });
 
@@ -228,7 +226,7 @@
         '《三命通会》首列分日表只是该节记录的一套说法；同节另录《玉井》异表，并引醉醒子反对把三五七日当刚性界限，因此当前不得设置默认《三命通会》fixed-day resolver。',
         'civilOrdinalDayAfterJie 只把交节所在民用日期规范化为第1日；它不等于证明所有传统“日”都采用这一现代映射。',
         '《滴天髓阐微·月令》寅月原注因明确给出七日前、八至十四日前、十五日后的序日边界，可做 source-specific ordinal resolver，但不得推广成其他月份的完整分野表。',
-        '《滴天髓阐微》“立夏后十天，戊土司令”当前只作为该命例的 source assertion，不得改写为立夏后前十天的通用时间窗。',
+        '《滴天髓阐微》“立夏后十天，戊土司令”只在四柱、巳月／立夏锚点与该个案第10日规范化条件同时匹配时标记 case-assertion-observed；不得改写为立夏后前十天的通用时间窗。',
         '月令司事事实即使按某一来源解析，也只是一项来源明确的条件事实，不直接生成身强身弱或六冲实际效力结论。'
     ]);
 
@@ -345,6 +343,17 @@
         const dtsCase = sourceProfiles.DI_TIAN_SUI_CHAN_WEI_WAR_CASE;
         const caseChartMatches = chart === dtsCase.chart;
         const caseAnchorMatches = timeContext?.monthJieName === dtsCase.anchorJie && monthZhi === dtsCase.monthZhi;
+        const caseCalendarPositionAvailable = Number.isInteger(timeContext?.civilOrdinalDayAfterJie);
+        const caseOffsetMatches = caseCalendarPositionAvailable && timeContext.civilOrdinalDayAfterJie === dtsCase.expectedCivilOrdinalDayAfterJie;
+        const caseResolutionStatus = !caseChartMatches
+            ? 'not-applicable-to-current-chart'
+            : !caseAnchorMatches
+                ? 'case-anchor-not-matched'
+                : !caseCalendarPositionAvailable
+                    ? 'case-calendar-position-unavailable'
+                    : !caseOffsetMatches
+                        ? 'case-offset-not-matched'
+                        : 'case-assertion-observed';
         return Object.freeze({
             version:MONTH_COMMAND_SCHEMA_VERSION,
             scope:MONTH_COMMAND_SOURCE_SCOPE,
@@ -393,10 +402,15 @@
                     type:dtsCase.type,
                     chartMatches:caseChartMatches,
                     anchorMatches:Boolean(caseAnchorMatches),
+                    offsetMatches:Boolean(caseOffsetMatches),
                     offsetText:dtsCase.offsetText,
+                    expectedCivilOrdinalDayAfterJie:dtsCase.expectedCivilOrdinalDayAfterJie,
+                    observedCivilOrdinalDayAfterJie:caseCalendarPositionAvailable ? timeContext.civilOrdinalDayAfterJie : null,
+                    calendarNormalization:dtsCase.calendarNormalization,
                     assertedCommandGan:dtsCase.assertedCommandGan,
+                    assertedOutcome:dtsCase.assertedOutcome,
                     genericWindow:dtsCase.genericWindow,
-                    resolutionStatus:caseChartMatches && caseAnchorMatches ? 'case-assertion-observed' : 'not-applicable-to-current-chart'
+                    resolutionStatus:caseResolutionStatus
                 })
             ]),
             boundaries
