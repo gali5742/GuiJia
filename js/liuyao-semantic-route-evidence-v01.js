@@ -7,7 +7,7 @@
   const add = (set, name, condition) => { if (condition) set.add(name); };
 
   const INVESTMENT_ASSET = /(?:投资|股票|个股|基金|ETF|etf|债券|期货|外汇|黄金ETF|指数基金|债券基金|科技股|新能源项目|投资项目|投资标的|仓位|持仓|入股)/;
-  const BUSINESS_ENTITY = /(?:经营|营业|生意|业务|门店|店铺|网店|餐馆|饭店|咖啡店|摊位|摊子|工作室|公司业务|创业项目)/;
+  const BUSINESS_ENTITY = /(?:经营|营业|生意|业务|门店|店铺|网店|便利店|商铺|餐馆|饭店|咖啡店|摊位|摊子|工作室|公司业务|创业项目)/;
   const INVENTORY = /(?:库存|存货|尾货|积压货|经营库存|仓库里的货|仓库里[^，。？！?]{0,8}(?:货|商品)|这批货|一批货|货品)/;
   const PRODUCT = /(?:电脑|手机|耳机|相机|显示器|键盘|平板|路由器|手表|镜头|投影仪|空气净化器|扫地机器人|家电|设备|机器|产品|商品)/;
   const DELIVERY_OBJECT = /(?:订单|包裹|快递件|货物|商品|电脑|手机|耳机|相机|显示器|键盘|平板|路由器|手表|镜头|投影仪|设备|机器)/;
@@ -45,8 +45,10 @@
     add(events, 'inventory_acquisition', test(text, /(?:进货|补货|备货|补库存|增加库存|采购[^，。？！?]{0,8}(?:货|库存|商品)|(?:货|商品|库存)[^，。？！?]{0,8}(?:入库|进仓|到齐|到位)|入库|进仓)/));
     add(events, 'inventory_disposal', inventory && test(text, /(?:卖完|卖掉|售出|出掉|出清|出货|清掉|清库存|清仓库|消化[^，。？！?]{0,6}(?:库存|存货|尾货)|处理[^，。？！?]{0,6}(?:积压|尾货|存货))/));
 
-    const collectionFocus = test(text, /(?:收回|追回|要回|讨回|催回|催款|讨债|追债)[^，。？！?]{0,14}(?:能不能|会不会|是否|顺利|到账|回来)?|(?:能不能|会不会|是否)[^，。？！?]{0,12}(?:收回|追回|要回|讨回)/);
-    const creditor = test(text, /(?:欠我|欠我的|应收(?:账)?款|应收货款|拖欠我的|借给[^，。？！?]{0,10}的钱|借出去的[^，。？！?]{0,8}(?:钱|款)|债权|催款|讨债|追债)/) || collectionFocus;
+    const creditorAnchor = test(text, /(?:欠我|欠我的|应收(?:账)?款|应收货款|拖欠我的|借给[^，。？！?]{0,10}的钱|借出去的[^，。？！?]{0,8}(?:钱|款)|债权|催款|讨债|追债)/);
+    const collectionAction = test(text, /(?:收回|追回|要回|讨回|催回)/);
+    const collectionFocus = creditorAnchor && collectionAction;
+    const creditor = creditorAnchor;
     add(directions, 'creditor_inward', creditor);
     add(currentTargets, 'debt_collection', collectionFocus);
 
