@@ -1,0 +1,371 @@
+{
+  "version": "0.1",
+  "status": "development_audit",
+  "scope": "liuyao_only",
+  "purpose": "Freeze the responsibility boundary between the LiuYao Semantic Router, Semantic Sufficiency, Rule Registry and later ObservationPlan evaluation before creating a fresh 22-route candidate evaluation. This file is an audit/contract artifact, not training, validation, calibration or blind-eval data.",
+  "basis": {
+    "routerInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "sufficiencyImplementation": "js/liuyao-semantic-sufficiency.js",
+    "ruleRegistry": "js/liuyao-rule-registry.js",
+    "intent": [
+      "js/liuyao-intent.js",
+      "js/liuyao-commercial-event-resolver.js"
+    ],
+    "validationSources": [
+      "data/liuyao-semantic-route-training-v0.1.json",
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json"
+    ]
+  },
+  "currentValidationSnapshot": {
+    "total": 301,
+    "routePositive": 231,
+    "contrastiveKnown": 12,
+    "genuineOther": 58,
+    "note": "This is the v0.8/v0.8.1 development Validation snapshot. It has already been inspected repeatedly and must not be reused as the future independent candidate evaluation."
+  },
+  "responsibilityContract": {
+    "semanticRouter": {
+      "owns": [
+        "Identify the best supported modern real-world route when the event/question topic itself is semantically identifiable.",
+        "Distinguish nearby route meanings such as borrow vs lend, business profit vs bounded transaction completion, and romantic development vs marriage vs existing marriage.",
+        "Reject when the route itself is genuinely ambiguous/underspecified or outside the current 22-route inventory."
+      ],
+      "doesNotOwn": [
+        "Whether all participants, objects, context slots or other required semantics are present.",
+        "Whether a confirmed traditional/modern LiuYao rule exists for that route.",
+        "Whether a provisional rule is enabled in normal mode.",
+        "Selection of six relatives, Shi/Ying, use-god or observation yao."
+      ]
+    },
+    "semanticSufficiency": {
+      "owns": [
+        "Given a known route, determine whether the semantic information required to proceed is complete.",
+        "Reject a semantically identifiable but incomplete divination statement without converting it into out-of-scope.",
+        "Check route-specific required semantics and a generic non-unknown divination goal/question target."
+      ],
+      "doesNotOwn": [
+        "Choosing between competing routes when the event meaning itself is ambiguous.",
+        "Rule availability or provisional-rule policy."
+      ]
+    },
+    "ruleRegistry": {
+      "owns": [
+        "Map resolved modern semantics to confirmed/provisional LiuYao rules.",
+        "Return no_confirmed_rule / no_enabled_confirmed_rule / rule_conflict where applicable."
+      ]
+    },
+    "observationPlan": {
+      "owns": [
+        "Resolve the selected rule into primary/role/domain/auxiliary observation structure without changing the modern semantic interpretation."
+      ]
+    }
+  },
+  "evaluationOutcomeTaxonomy": [
+    {
+      "id": "route_known_sufficient",
+      "meaning": "Router identifies a supported route and Sufficiency finds the required semantics complete."
+    },
+    {
+      "id": "route_known_insufficient",
+      "meaning": "Router identifies a supported route but Sufficiency must stop because required semantic information or a non-unknown divination goal is missing."
+    },
+    {
+      "id": "route_unresolved_underspecified",
+      "meaning": "The text itself does not determine which supported route is intended; Router must not guess."
+    },
+    {
+      "id": "route_out_of_scope",
+      "meaning": "The text is semantically clear but belongs to a real-world question type outside the current 22-route inventory."
+    },
+    {
+      "id": "route_known_no_confirmed_rule",
+      "meaning": "Modern route is understood, but Rule Registry has no confirmed rule. This is not a Router error."
+    },
+    {
+      "id": "route_known_provisional_only",
+      "meaning": "Modern route is understood, but only a provisional rule is available. This is not a Router error."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RSA-001",
+      "severity": "blocking_before_fresh_eval",
+      "finding": "Semantic Router inventory has 22 routes, but Semantic Sufficiency currently has requirements for only the original 15 routes.",
+      "missingSufficiencyRoutes": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale",
+        "lend_money",
+        "debt_collection",
+        "partnership",
+        "investment_liquidation"
+      ],
+      "requiredAction": "Add explicit Sufficiency contracts for all seven routes before system/candidate evaluation uses route-known vs insufficient outcomes."
+    },
+    {
+      "id": "RSA-002",
+      "severity": "blocking_before_fresh_eval",
+      "finding": "Current Semantic Sufficiency has no generic contract for whether the text actually states a divination goal/question target. Therefore a declarative statement can only be treated as __other__ or accidentally sufficient once route-specific slots are present.",
+      "requiredAction": "Add a generic non-unknown divination-goal requirement sourced from DivinationIntent rather than making Router reject semantically identifiable declaratives."
+    },
+    {
+      "id": "RSA-003",
+      "severity": "contract_clarification",
+      "finding": "business_operation and commercial_transaction must be separated by question meaning, not by the word 买卖. Profit/state of an operating business belongs to business_operation; completion/成交 of a bounded bilateral trade belongs to commercial_transaction.",
+      "requiredAction": "Keep the route distinction outcome-driven in future datasets and remove any evaluator assumption that 买卖 alone determines either class."
+    },
+    {
+      "id": "RSA-004",
+      "severity": "validation_label_issue",
+      "finding": "Some relationship_development Validation positives contain only vague relation-development wording and do not identify a romantic route. They should not train/evaluate Router to hallucinate romance.",
+      "requiredAction": "Do not reuse these rows as positive examples in the fresh candidate evaluation; mark them route_unresolved_underspecified."
+    },
+    {
+      "id": "RSA-005",
+      "severity": "validation_label_issue",
+      "finding": "Three Validation negatives describe an unambiguous investment liquidation action but contain no actual divination question. Router should still identify investment_liquidation; Sufficiency should stop them for missing divination goal.",
+      "requiredAction": "Do not reuse them as __other__ in the fresh candidate evaluation."
+    },
+    {
+      "id": "RSA-006",
+      "severity": "route_semantics",
+      "finding": "Borrow/lend/debt-collection/debt-repayment direction is core route semantics and must remain a Router/semantic-argument responsibility, not be deferred to Sufficiency.",
+      "requiredAction": "Fresh evaluation must include matched directional contrast sets with shared nouns and actors."
+    },
+    {
+      "id": "RSA-007",
+      "severity": "route_semantics",
+      "finding": "Completed background actions do not override the active question proposition. Example: after selling a stock, asking whether price will rise is investment_price_trend, not liquidation.",
+      "requiredAction": "Fresh evaluation must include background-action/current-question contrast cases."
+    }
+  ],
+  "adjudications": [
+    {
+      "text": "做这项买卖最后有无利润",
+      "currentExpected": "business_operation",
+      "auditRoute": "business_operation",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "The asked dimension is profit/result of the business activity, not whether a bounded bilateral transaction reaches 成交."
+    },
+    {
+      "text": "做这项买卖以后到底能不能赚钱",
+      "currentExpected": "business_operation",
+      "auditRoute": "business_operation",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Profitability question; 买卖 alone must not force commercial_transaction."
+    },
+    {
+      "text": "我做的这门买卖最终收益怎样",
+      "currentExpected": "business_operation",
+      "auditRoute": "business_operation",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Profit/state question rather than transaction-completion question."
+    },
+    {
+      "text": "当前这单生意能不能最终做成",
+      "currentExpected": "commercial_transaction",
+      "auditRoute": "commercial_transaction",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Bounded single deal + completion outcome."
+    },
+    {
+      "text": "我们之间后面还有没有继续发展的空间",
+      "currentExpected": "relationship_development",
+      "auditRoute": "__unresolved__",
+      "auditOutcome": "route_unresolved_underspecified",
+      "decision": "do_not_reuse_as_positive",
+      "reason": "No romantic/marriage/current-marriage signal; ordinary friendship/cooperation/romance are all possible."
+    },
+    {
+      "text": "我跟这个人接下来还有进一步的可能吗",
+      "currentExpected": "relationship_development",
+      "auditRoute": "__unresolved__",
+      "auditOutcome": "route_unresolved_underspecified",
+      "decision": "do_not_reuse_as_positive",
+      "reason": "Specific person is present, but the relation type itself is not identified."
+    },
+    {
+      "text": "我和这个朋友以后能不能发展成恋人",
+      "currentExpected": "relationship_development",
+      "auditRoute": "relationship_development",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Explicit romantic target and a specific counterpart."
+    },
+    {
+      "text": "这段关系还没确定，我们以后能不能在一起",
+      "currentExpected": "relationship_development",
+      "auditRoute": "relationship_development",
+      "auditOutcome": "route_known_insufficient",
+      "decision": "keep_route_but_defer_completeness",
+      "reason": "在一起 identifies a romantic-development route, but naked 我们 does not by itself satisfy the existing specific-counterpart contract without context."
+    },
+    {
+      "text": "这只基金我准备全部赎回套现",
+      "currentExpected": "__other__",
+      "auditRoute": "investment_liquidation",
+      "auditOutcome": "route_known_insufficient",
+      "decision": "future_eval_relabel",
+      "reason": "Liquidation semantics are explicit; the missing piece is an actual divination goal/question, which belongs to Sufficiency."
+    },
+    {
+      "text": "这只基金我已经决定明天赎回",
+      "currentExpected": "__other__",
+      "auditRoute": "investment_liquidation",
+      "auditOutcome": "route_known_insufficient",
+      "decision": "future_eval_relabel",
+      "reason": "Known liquidation route, but declarative only."
+    },
+    {
+      "text": "我准备把这笔股票仓位全部清掉",
+      "currentExpected": "__other__",
+      "auditRoute": "investment_liquidation",
+      "auditOutcome": "route_known_insufficient",
+      "decision": "future_eval_relabel",
+      "reason": "Known liquidation route, but declarative only."
+    },
+    {
+      "text": "我和普通朋友以后还能不能一直关系很好",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Explicit ordinary friendship is outside the current romantic/marriage route inventory."
+    },
+    {
+      "text": "我跟同事以后会不会变得更亲近",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Explicit colleague relation is not a supported romantic/marriage route."
+    },
+    {
+      "text": "我自用的旧平板挂二手能不能卖出去",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Personal second-hand sale is not inventory_sale or commercial_transaction in the current inventory."
+    },
+    {
+      "text": "家里闲置的旧家具能不能转手卖掉",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Personal disposal is outside current commercial inventory-sale semantics."
+    },
+    {
+      "text": "护照申请这次能不能批准",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Approval wording without borrowing/loan semantics must not activate borrow_money."
+    },
+    {
+      "text": "我向同事借钱这次能不能借到",
+      "currentExpected": "borrow_money",
+      "auditRoute": "borrow_money",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Funds move from counterparty to querent."
+    },
+    {
+      "text": "朋友向我借钱我现在借给他合适吗",
+      "currentExpected": "lend_money",
+      "auditRoute": "lend_money",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Funds move from querent to counterparty."
+    },
+    {
+      "text": "以前借给同事的钱现在能不能收回来",
+      "currentExpected": "debt_collection",
+      "auditRoute": "debt_collection",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Existing receivable owed to querent."
+    },
+    {
+      "text": "我欠银行的贷款年底前能不能结清",
+      "currentExpected": "debt_repayment",
+      "auditRoute": "debt_repayment",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Querent owes the debt and asks about repayment/settlement."
+    },
+    {
+      "text": "我已经卖完股票了，接下来价格会不会涨",
+      "currentExpected": "investment_price_trend",
+      "auditRoute": "investment_price_trend",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "The completed sale is background; the active proposition asks future price trend."
+    },
+    {
+      "text": "我独自经营这个工作室今年能盈利吗",
+      "currentExpected": "business_operation",
+      "auditRoute": "business_operation",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Explicit sole operation rules out partnership and asks operating profit."
+    },
+    {
+      "text": "这段关系最终能不能走进婚姻",
+      "currentExpected": "marriage_match",
+      "auditRoute": "marriage_match",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "The marriage goal itself identifies the route even if participant details are handled later."
+    },
+    {
+      "text": "已经结婚的我们后面还能不能和好",
+      "currentExpected": "marital_relationship",
+      "auditRoute": "marital_relationship",
+      "auditOutcome": "route_known_sufficient",
+      "decision": "keep_route_label",
+      "reason": "Existing-marriage status is explicit."
+    },
+    {
+      "text": "今年我会遇到对象吗",
+      "currentExpected": "__other__",
+      "auditRoute": "__other__",
+      "auditOutcome": "route_out_of_scope",
+      "decision": "keep_reject",
+      "reason": "Generic future-romance search has no specific counterpart and is outside the current relationship_development route definition."
+    }
+  ],
+  "freshCandidateEvalPolicy": {
+    "reuseCurrent301": false,
+    "requiredIndependentLabels": [
+      "expectedRoute",
+      "expectedRouterDisposition",
+      "expectedSufficiencyStatus",
+      "expectedRuleAvailabilityStatus"
+    ],
+    "routerRejectMetadata": [
+      "underspecified",
+      "out_of_scope"
+    ],
+    "requiredBoundaryFamilies": [
+      "business_operation_vs_commercial_transaction",
+      "borrow_vs_lend_vs_debt_collection_vs_debt_repayment",
+      "investment_five_route_shared_entity",
+      "relationship_development_vs_marriage_match_vs_marital_relationship",
+      "ordinary_relationship_vs_romantic_relationship",
+      "declarative_known_route_vs_actual_divination_question",
+      "completed_background_action_vs_active_question",
+      "cross_domain_lexical_traps"
+    ]
+  }
+}
