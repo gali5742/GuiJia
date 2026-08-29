@@ -10,6 +10,7 @@ const TRAIN_BASE_URL = new URL('../data/liuyao-semantic-route-training-v0.1.json
 const TRAIN_AUG_URL = new URL('../data/liuyao-semantic-route-training-v0.2-augmentation.json', import.meta.url);
 const TRAIN_TARGETED_URL = new URL('../data/liuyao-semantic-route-training-v0.3-targeted.json', import.meta.url);
 const TRAIN_EXPANSION_URL = new URL('../data/liuyao-semantic-route-training-v0.4-expansion.json', import.meta.url);
+const TRAIN_EXPANSION_LABEL_PATCH_URL = new URL('../data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json', import.meta.url);
 const INVENTORY_URL = new URL('../data/liuyao-semantic-route-inventory-v0.2.json', import.meta.url);
 
 const ROUTE_TITLES = Object.freeze({
@@ -94,9 +95,17 @@ const fetchJson = async (url) => {
   return response.json();
 };
 
-const mergeTraining = (base, augmentation, targeted, expansion, inventory) => {
+const patchExpansionNegatives = (samples, labelMap) => (samples || []).map((sample) => ({
+  ...sample,
+  expectedRoute:labelMap?.[sample.text] || null
+}));
+
+const mergeTraining = (base, augmentation, targeted, expansion, expansionLabelPatch, inventory) => {
   const ids = (inventory.routes || []).map((row) => row.routeId);
   if (ids.length !== 22) throw new Error(`route inventory != 22: ${ids.length}`);
+  if (expansionLabelPatch?.version !== '0.4-expansion-label-patch' || expansionLabelPatch?.base !== 'liuyao-semantic-route-training-v0.4-expansion.json') {
+    throw new Error('v0.4 expansion label patch metadata mismatch');
+  }
   const routes = {};
   for (const id of ids) {
     if (base.routes?.[id]) {
@@ -116,22 +125,37 @@ const mergeTraining = (base, augmentation, targeted, expansion, inventory) => {
     };
   }
   return {
-    version:'0.7-combined-22-route',
+    version:'0.7.1-combined-22-route',
     routes,
     hardNegatives:{
-      train:[...(base.hardNegatives?.train || []), ...(augmentation.hardNegatives?.train || []), ...(targeted.hardNegatives?.train || []), ...(expansion.hardNegatives?.train || [])],
-      validation:[...(base.hardNegatives?.validation || []), ...(augmentation.hardNegatives?.validation || []), ...(targeted.hardNegatives?.validation || []), ...(expansion.hardNegatives?.validation || [])]
+      train:[
+        ...(base.hardNegatives?.train || []),
+        ...(augmentation.hardNegatives?.train || []),
+        ...(targeted.hardNegatives?.train || []),
+        ...patchExpansionNegatives(expansion.hardNegatives?.train, expansionLabelPatch.train)
+      ],
+      validation:[
+        ...(base.hardNegatives?.validation || []),
+        ...(augmentation.hardNegatives?.validation || []),
+        ...(targeted.hardNegatives?.validation || []),
+        ...patchExpansionNegatives(expansion.hardNegatives?.validation, expansionLabelPatch.validation)
+      ]
     }
   };
 };
 
 const ensureData = async () => {
   if (!trainingData || !inventoryData) {
-    const [base, augmentation, targeted, expansion, inventory] = await Promise.all([
-      fetchJson(TRAIN_BASE_URL), fetchJson(TRAIN_AUG_URL), fetchJson(TRAIN_TARGETED_URL), fetchJson(TRAIN_EXPANSION_URL), fetchJson(INVENTORY_URL)
+    const [base, augmentation, targeted, expansion, expansionLabelPatch, inventory] = await Promise.all([
+      fetchJson(TRAIN_BASE_URL),
+      fetchJson(TRAIN_AUG_URL),
+      fetchJson(TRAIN_TARGETED_URL),
+      fetchJson(TRAIN_EXPANSION_URL),
+      fetchJson(TRAIN_EXPANSION_LABEL_PATCH_URL),
+      fetchJson(INVENTORY_URL)
     ]);
     if (inventory.version !== '0.2' || inventory.status !== 'draft_inventory') throw new Error('Semantic Router route inventory must be draft v0.2');
-    trainingData = mergeTraining(base, augmentation, targeted, expansion, inventory);
+    trainingData = mergeTraining(base, augmentation, targeted, expansion, expansionLabelPatch, inventory);
     inventoryData = inventory;
   }
   routeIds = (inventoryData.routes || []).map((row) => row.routeId);
@@ -159,13 +183,17 @@ const flattenPositives = (split) => {
   }
   return rows;
 };
-const hardNegativeRows = (split) => (trainingData.hardNegatives?.[split] || []).map((sample) => ({
-  text:sample.text,
-  label:'__other__',
-  known:false,
-  kind:'hard-negative',
-  targets:sample.targets || ['*']
-}));
+const hardNegativeRows = (split) => (trainingData.hardNegatives?.[split] || []).map((sample) => {
+  const label = sample.expectedRoute || '__other__';
+  return {
+    text:sample.text,
+    label,
+    known:label !== '__other__',
+    kind:'hard-negative',
+    contrastive:label !== '__other__',
+    targets:sample.targets || ['*']
+  };
+});
 
 const trainMultinomialRouteHead = (rows, vectors, { epochs=220, learningRate=0.82, l2=0.0005 } = {}) => {
   const classCount = routeIds.length;
@@ -299,7 +327,7 @@ const chooseThreshold = (positiveScores, negativeScores, { defaultThreshold=0.5 
 };
 
 const classifyVector = (vector) => {
-  if (!routeHead || !localGateHeads || !logisticThresholds) throw new Error('请先训练 v0.7');
+  if (!routeHead || !localGateHeads || !logisticThresholds) throw new Error('请先训练 v0.7.1');
   const scores = routeScores(vector);
   const top1 = scores[0];
   const top2 = scores[1];
@@ -409,14 +437,20 @@ const train = async ({ onStage, onEmbeddingProgress } = {}) => {
   const validationResults = evaluateRows(validationRows, validationVectors);
   const validationMetrics = summarize(validationResults);
   const validationByRoute = summarizeByRoute(validationResults);
-  onStage?.('done', '训练完成：冻结 v0.6 架构 + 22-route expansion corpus');
+  const trainContrastiveCount = trainNegatives.filter((row) => row.label !== '__other__').length;
+  const validationContrastiveCount = validationNegatives.filter((row) => row.label !== '__other__').length;
+  const trainOtherCount = trainNegatives.length - trainContrastiveCount;
+  const validationOtherCount = validationNegatives.length - validationContrastiveCount;
+  onStage?.('done', '训练完成：v0.7.1 contrastive-label semantics corrected');
   return {
     trainCount:trainRows.length,
     trainPositiveCount:trainPositives.length,
-    trainOtherCount:trainNegatives.length,
+    trainContrastiveCount,
+    trainOtherCount,
     validationCount:validationRows.length,
     validationPositiveCount:validationPositives.length,
-    validationOtherCount:validationNegatives.length,
+    validationContrastiveCount,
+    validationOtherCount,
     routeCount:routeIds.length,
     validationMetrics,
     validationByRoute,
@@ -425,7 +459,7 @@ const train = async ({ onStage, onEmbeddingProgress } = {}) => {
   };
 };
 const classify = async (text) => {
-  if (!routeHead || !localGateHeads) throw new Error('请先训练 v0.7');
+  if (!routeHead || !localGateHeads) throw new Error('请先训练 v0.7.1');
   const normalized = String(text || '').trim();
   if (!normalized) throw new Error('请输入占问文本');
   const [vector] = await embedTexts([normalized]);
@@ -435,7 +469,7 @@ const classify = async (text) => {
 export const semanticRouterPocV07 = {
   modelId:MODEL_ID,
   modelDtype:MODEL_DTYPE,
-  version:'0.7',
+  version:'0.7.1',
   get routes(){ return routeIds.map((id) => ({ id, title:ROUTE_TITLES[id] || id })); },
   loadModel,
   train,
