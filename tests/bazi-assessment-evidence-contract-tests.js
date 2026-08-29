@@ -50,17 +50,17 @@ test('身强弱证据合同 v0.1 保持最终 Assessment 规则关闭', () => {
     assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('十四条全局 Guard Rule 全部只阻断越级推理', () => {
+test('十五条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 14, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 15, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 14; i += 1) {
+    for (let i = 1; i <= 15; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 14, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 15, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
@@ -82,6 +82,14 @@ test('月令层级 Guard 阻止分值、一票否决与绝对优先级', () => {
     const text = guards['BAZI-ASSESS-GUARD-014'] || '';
     assert(text.includes('独立一级判断轴'), 'GUARD-014 未明确月令层级');
     assert(text.includes('分值') && text.includes('一票否决') && text.includes('绝对优先'), 'GUARD-014 未完整阻止月令数值化/绝对化');
+});
+
+test('根交互 Guard 阻止结构命中直接升级为根效力变化', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    const text = guards['BAZI-ASSESS-GUARD-015'] || '';
+    assert(text.includes('冲、合、刑、害、破') && text.includes('组合结构'), 'GUARD-015 未覆盖根所在支的主要结构关系');
+    assert(text.includes('进入交互观察'), 'GUARD-015 未把结构命中限制在观察层');
+    assert(text.includes('不得自动写成根受扰、削弱、失效或根拔'), 'GUARD-015 未阻止结构命中越级为根效力结论');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
