@@ -6,7 +6,7 @@ const out = path.join(ROOT, '.site');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 
-for (const name of ['index.html', 'rule-registry-test.html', 'README.md', 'vendor-versions.json', '.nojekyll']) {
+for (const name of ['index.html', 'rule-registry-test.html', 'semantic-router-poc.html', 'README.md', 'vendor-versions.json', '.nojekyll']) {
   fs.copyFileSync(path.join(ROOT, name), path.join(out, name));
 }
 for (const dir of ['assets', 'data', 'js']) {
