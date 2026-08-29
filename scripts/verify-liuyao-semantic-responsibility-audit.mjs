@@ -1,3 +1,8 @@
+import '../tests/liuyao-semantic-route-arbitration-v092-tests.js';
+import '../tests/liuyao-semantic-route-identity-v01-tests.js';
+import './verify-liuyao-semantic-decision-stack-v011-data.mjs';
+import './verify-liuyao-semantic-decision-stack-v011.mjs';
+import './verify-liuyao-semantic-decision-stack-v011-sealed-blind-v01.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
@@ -32,7 +37,6 @@ assert(resolution.scope === 'liuyao_only', 'responsibility resolution must remai
 const routeIds = (inventory.routes || []).map((row) => row.routeId);
 assert(routeIds.length === 22, `route inventory count ${routeIds.length} != 22`);
 
-// Load the current deterministic Sufficiency contract and verify RSA-001/002 are now resolved.
 const context = { console, Date, Math, JSON, Intl };
 context.window = context;
 context.globalThis = context;
