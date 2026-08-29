@@ -4,9 +4,9 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
-const { Solar } = require('lunar-javascript');
 
 const ROOT = path.resolve(__dirname, '..');
+const { Solar } = require(path.join(ROOT, 'vendor', 'lunar.js'));
 let passed = 0;
 let failed = 0;
 
