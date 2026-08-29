@@ -3,6 +3,12 @@
 
     const GuiJia = global.GuiJia = global.GuiJia || {};
 
+    // The static page still loads classic scripts in dependency order. Keep the new
+    // Synthesis layer independent while ensuring it is available before Assessment.
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziStrengthSynthesis) {
+        document.write('<script src="./js/bazi-strength-synthesis.js?v=13.44.0"><\/script>');
+    }
+
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
     const STRENGTH_EVIDENCE_SCHEMA_VERSION = '0.1';
