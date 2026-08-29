@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>龟甲 · Semantic Sufficiency v0.1</title>
+  <title>龟甲 · Semantic Sufficiency v0.2</title>
   <style>
     :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1f1b16;background:#f3f0e8}body{margin:0;padding:24px}main{max-width:1180px;margin:0 auto}.card{background:#fff;border:1px solid #ddd5c8;border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 4px 18px #4b403018}h1,h2{margin-top:0}p{line-height:1.65;color:#5a5148}label{font-weight:650}select,textarea,input{font:inherit;border:1px solid #cbc2b5;border-radius:10px;padding:10px;background:#fff}select,input{min-height:42px}textarea{width:100%;box-sizing:border-box;min-height:100px;resize:vertical}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:260px}button{font:inherit;border:0;border-radius:10px;padding:11px 18px;background:#35312b;color:#fff;cursor:pointer}.fixture{background:#ece7df;color:#302b25;padding:8px 10px}.status{display:inline-block;border-radius:999px;padding:6px 10px;font-weight:700}.ok{background:#e7f3e8;color:#245c2b}.warn{background:#fff0d8;color:#8a5311}.bad{background:#f8e4e4;color:#8b2d2d}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f5f2ec;padding:12px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#eee9e1;border-radius:999px;padding:6px 9px;font-size:.9rem}table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #e6dfd5;padding:9px 8px}th{background:#faf8f4}.muted{color:#7b7167;font-size:.9rem}@media(max-width:700px){body{padding:12px}.card{padding:16px}table{display:block;overflow:auto;white-space:nowrap}}
   </style>
@@ -11,8 +11,8 @@
 <body>
 <main>
   <section class="card">
-    <h1>Semantic Sufficiency v0.1</h1>
-    <p>这页只验证“候选现代语义 route 的信息是否足够”。它不判断六亲、世应或 Rule Registry，也没有训练新模型。页面里的显式 slot extractor 只用于合同与 fixture 验证，不是正式 NLP 实现。</p>
+    <h1>Semantic Sufficiency v0.2</h1>
+    <p>覆盖当前 22 个现代语义 route。Router 只判断现实语义 route；Sufficiency 再判断 route-specific slots 与 DivinationIntent 中的明确占问目标是否齐备。它不判断六亲、世应或 Rule Registry。</p>
   </section>
 
   <section class="card">
@@ -20,11 +20,13 @@
     <div class="row">
       <label for="route">候选 route</label>
       <select id="route"></select>
+      <label for="goalType">DivinationIntent goal</label>
+      <select id="goalType"><option value="outcome">outcome</option><option value="timing">timing</option><option value="choice">choice</option><option value="state">state</option><option value="unknown">unknown</option></select>
       <label for="contextSlots">上下文 slot（逗号分隔，可空）</label>
       <input id="contextSlots" class="grow" placeholder="例如 investment_target" />
     </div>
-    <p><label for="question">当前问题</label></p>
-    <textarea id="question">后面会不会涨</textarea>
+    <p><label for="question">当前问题/陈述</label></p>
+    <textarea id="question">这只基金我准备全部赎回套现</textarea>
     <div class="row" style="margin-top:12px">
       <button id="evaluate">检查 Sufficiency</button>
       <span id="status"></span>
@@ -37,24 +39,25 @@
 
   <section class="card">
     <h2>2. 固定 fixtures</h2>
-    <p>先验证合同边界，不追求覆盖所有自然语言。</p>
+    <p>重点验证 route-known / insufficient 的职责边界，不追求覆盖所有自然语言。</p>
     <div id="fixtures" class="chips"></div>
   </section>
 
   <section class="card">
     <h2>3. Route Requirement Matrix</h2>
-    <div class="muted">requiredAll 必须全部存在；requiredAny 的每个组至少满足其中一个；contextRecoverable 只能由上游明确提供，当前层不猜。</div>
+    <div class="muted">所有 route 默认还要求非 unknown 的 DivinationIntent goal；slot-only API 仅为组件兼容，不代表完整系统判断。</div>
     <table>
-      <thead><tr><th>Route</th><th>Required</th><th>Required-any</th><th>Optional</th><th>Context recoverable</th><th>说明</th></tr></thead>
+      <thead><tr><th>Route</th><th>Required</th><th>Required-any</th><th>Optional</th><th>Context recoverable</th><th>Goal</th><th>说明</th></tr></thead>
       <tbody id="matrix"></tbody>
     </table>
   </section>
 </main>
-<script src="./js/liuyao-semantic-sufficiency.js?v=0.1"></script>
+<script src="./js/liuyao-semantic-sufficiency.js?v=0.2"></script>
 <script>
 (() => {
   const api = window.GuiJia.liuyaoSemanticSufficiency;
   const route = document.getElementById('route');
+  const goalType = document.getElementById('goalType');
   const question = document.getElementById('question');
   const contextSlots = document.getElementById('contextSlots');
   const status = document.getElementById('status');
@@ -66,46 +69,50 @@
   Object.keys(api.routeRequirements).forEach((id) => {
     const option = document.createElement('option'); option.value = id; option.textContent = id; route.appendChild(option);
   });
-  route.value = 'investment_price_trend';
+  route.value = 'investment_liquidation';
+  goalType.value = 'unknown';
 
   const fixtures = [
-    ['investment_price_trend','后面会不会涨',[]],
-    ['investment_price_trend','这只股票后面会不会涨',[]],
-    ['investment_price_trend','后面会不会涨',['investment_target']],
-    ['receive_item','什么时候能收到',[]],
-    ['receive_item','我买的电脑什么时候能收到',[]],
-    ['debt_repayment','今年能还完吗',[]],
-    ['debt_repayment','房贷今年能还完吗',[]],
-    ['relationship_development','我们有机会吗',[]],
-    ['relationship_development','我和这个女生有机会吗',[]],
-    ['relationship_development','我们有机会吗',['specific_counterpart']],
-    ['marriage_match','这门亲事能不能成',[]]
+    ['investment_liquidation','这只基金我准备全部赎回套现','unknown',[]],
+    ['investment_liquidation','这只基金我准备全部赎回套现能不能完成','outcome',[]],
+    ['commercial_transaction','这笔商业交易月底前能不能成交','outcome',[]],
+    ['inventory_purchase','门店这次采购一批库存能不能顺利','outcome',[]],
+    ['inventory_sale','店里这批库存月底前能不能卖完','outcome',[]],
+    ['lend_money','朋友向我借钱我现在借给他合适吗','choice',[]],
+    ['debt_collection','以前借给同事的钱现在能不能收回来','outcome',[]],
+    ['partnership','我和朋友合伙经营这家店能不能赚钱','outcome',[]],
+    ['relationship_development','我们有机会吗','outcome',[]],
+    ['marriage_match','这门亲事能不能成','outcome',[]]
   ];
-  fixtures.forEach(([r,q,c]) => {
+  fixtures.forEach(([r,q,g,c]) => {
     const button = document.createElement('button'); button.className = 'fixture';
-    button.textContent = `${r} · ${q}${c.length ? ' · +context' : ''}`;
-    button.onclick = () => { route.value=r; question.value=q; contextSlots.value=c.join(','); evaluate(); };
+    button.textContent = `${r} · ${q} · goal=${g}${c.length ? ' · +context' : ''}`;
+    button.onclick = () => { route.value=r; question.value=q; goalType.value=g; contextSlots.value=c.join(','); evaluate(); };
     fixturesBox.appendChild(button);
   });
 
   const showList = (items) => items?.length ? items.join(', ') : '—';
   Object.entries(api.routeRequirements).forEach(([routeId, spec]) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td><code>${routeId}</code></td><td>${showList(spec.requiredAll)}</td><td>${spec.requiredAny.length ? spec.requiredAny.map(g=>`${g.id}: ${g.slots.join(' / ')}`).join('<br>') : '—'}</td><td>${showList(spec.optional)}</td><td>${showList(spec.contextRecoverable)}</td><td>${spec.note || '—'}</td>`;
+    tr.innerHTML = `<td><code>${routeId}</code></td><td>${showList(spec.requiredAll)}</td><td>${spec.requiredAny.length ? spec.requiredAny.map(g=>`${g.id}: ${g.slots.join(' / ')}`).join('<br>') : '—'}</td><td>${showList(spec.optional)}</td><td>${showList(spec.contextRecoverable)}</td><td>${spec.requiresDivinationGoal ? 'required' : '—'}</td><td>${spec.note || '—'}</td>`;
     matrix.appendChild(tr);
   });
 
   function evaluate(){
     const ctx = contextSlots.value.split(',').map(x=>x.trim()).filter(Boolean).map(id=>({id,source:'context',evidence:'测试页提供'}));
-    const res = api.evaluateQuestion(route.value, question.value, ctx);
+    const questionSlots = api.extractExplicitSlots(question.value);
+    const intent = { version:'fixture-v0.1', status:'resolved', goals:[{type:goalType.value}], event:{type:'fixture'}, semantics:{}, participants:[] };
+    const res = api.evaluateIntentSufficiency(route.value, intent, questionSlots, ctx);
     slotsBox.innerHTML = '';
-    (res.questionSlots || []).forEach((slot) => { const span=document.createElement('span'); span.className='chip'; span.textContent=`${slot.id}: ${slot.evidence}`; slotsBox.appendChild(span); });
-    if (!res.questionSlots.length) slotsBox.textContent = '未从当前句提取到显式 slot';
+    questionSlots.forEach((slot) => { const span=document.createElement('span'); span.className='chip'; span.textContent=`${slot.id}: ${slot.evidence}`; slotsBox.appendChild(span); });
+    if (!questionSlots.length) slotsBox.textContent = '未从当前句提取到显式 slot';
     status.className = `status ${res.status === 'sufficient' ? 'ok' : res.status === 'semantic_insufficient' ? 'warn' : 'bad'}`;
     status.textContent = res.status;
     resultBox.textContent = JSON.stringify({
       routeId:res.routeId,
       status:res.status,
+      reasonCode:res.reasonCode,
+      goalCheck:res.goalCheck,
       resolvedSlots:res.resolvedSlots,
       usedContextSlots:res.usedContextSlots,
       missing:res.missing,
