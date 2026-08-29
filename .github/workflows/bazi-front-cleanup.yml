@@ -1,0 +1,293 @@
+name: BaZi frontend cleanup
+
+on:
+  push:
+    branches: [bazi-front-cleanup]
+    paths:
+      - '.github/workflows/bazi-front-cleanup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bazi-front-cleanup
+      - name: Separate BaZi display and context wording
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path, old, new, label):
+              p = Path(path)
+              text = p.read_text(encoding='utf-8')
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected 1 match, got {count}')
+              p.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          path = 'js/bazi-interpretation.js'
+          replace_once(path,
+          """    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50, evidenceRefs = []) {
+              return {
+                  id,
+                  semanticLayer: 'structure',
+                  title,
+                  summary,
+                  evidence: evidence.filter(Boolean),
+                  evidenceRefs: [...new Set(evidenceRefs.filter(Boolean))],
+                  tags,
+                  priority
+              };
+          }
+          """,
+          """    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50, evidenceRefs = [], contextNote = '') {
+              return {
+                  id,
+                  semanticLayer: 'structure',
+                  title,
+                  summary,
+                  contextNote: String(contextNote || '').trim(),
+                  evidence: evidence.filter(Boolean),
+                  evidenceRefs: [...new Set(evidenceRefs.filter(Boolean))],
+                  tags,
+                  priority
+              };
+          }
+          """, 'makeJudgment contextNote')
+
+          replace_once(path,
+          """        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态、根气与印比要素共同构成这一层的强弱线索；这些要素的实际效力仍属于后续 Assessment 层。`;
+          """,
+          """        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态、根气与印比要素共同构成这一层的强弱线索。`;
+          """, 'month display summary')
+
+          replace_once(path,
+          """            100,
+              ['D01', 'D02', 'D03', 'D04']
+          );
+          """,
+          """            100,
+              ['D01', 'D02', 'D03', 'D04'],
+              '这些要素的实际效力仍属于后续 Assessment 层。'
+          );
+          """, 'month context note')
+
+          replace_once(path,
+          """        let supportSentence;
+          if (!hasVisible && hasHidden) {
+              supportSentence = `天干未见比劫或印星；地支藏干见${hiddenText}。这里只确认扶身要素存在于藏支，不据此直接判断其实际扶身效力。`;
+          } else if (hasVisible && hasHidden) {
+              supportSentence = `天干见${visibleText}；地支藏干另见${hiddenText}。明暗两层均有扶身要素，但“出现”不自动等于“实际有效”。`;
+          } else if (hasVisible) {
+              supportSentence = `天干见${visibleText}；地支藏干未另见比劫或印星。这里只确认扶身要素出现于天干层。`;
+          } else {
+              supportSentence = '天干与藏干均未见比劫或印星这一类扶身要素；这里仍不据单项缺失直接作身强身弱终判。';
+          }
+          """,
+          """        let supportSentence;
+          if (!hasVisible && hasHidden) {
+              supportSentence = `天干未见比劫或印星；地支藏干见${hiddenText}。`;
+          } else if (hasVisible && hasHidden) {
+              supportSentence = `天干见${visibleText}；地支藏干另见${hiddenText}。明暗两层均有扶身要素。`;
+          } else if (hasVisible) {
+              supportSentence = `天干见${visibleText}；地支藏干未另见比劫或印星。`;
+          } else {
+              supportSentence = '天干与藏干均未见比劫或印星这一类扶身要素。';
+          }
+          """, 'support display summary')
+
+          replace_once(path,
+          """            94,
+              ['D03', 'D04', 'D05', 'D06']
+          );
+          """,
+          """            94,
+              ['D03', 'D04', 'D05', 'D06'],
+              '这里只确认扶身要素的出现位置，不据此直接判断其实际扶身效力或完成身强身弱终判。'
+          );
+          """, 'support context note')
+
+          replace_once(path,
+          """            `原局地支会齐${labels.join('、')}。完整方局或完整三刑在结构层标记为主要组合，应优先作为整体背景观察；其他已识别关系仍作为并存结构保留，不自动判定失效、被取代或已经成化。`,
+          """,
+          """            `原局地支会齐${labels.join('、')}。完整方局或完整三刑作为主要组合，优先构成整体观察背景；其他已识别关系仍作为并存结构保留。`,
+          """, 'complete structure display summary')
+
+          replace_once(path,
+          """            96,
+              completeRelations.map((item) => item._semanticRef)
+          );
+          """,
+          """            96,
+              completeRelations.map((item) => item._semanticRef),
+              '这里只确定结构优先级与并存关系；不自动判定其他关系失效、被取代或已经成化。'
+          );
+          """, 'complete structure context note')
+
+          replace_once(path,
+          """        (interpretation?.judgments || []).forEach((item, index) => {
+              lines.push(`${index + 1}. ${item.title}`);
+              lines.push(`解释：${item.summary}`);
+              if (item.evidenceRefs?.length) lines.push(`  依据：${item.evidenceRefs.join('、')}`);
+          """,
+          """        (interpretation?.judgments || []).forEach((item, index) => {
+              lines.push(`${index + 1}. ${item.title}`);
+              const contextExplanation = [item.summary, item.contextNote].filter(Boolean).join('');
+              lines.push(`解释：${contextExplanation}`);
+              if (item.evidenceRefs?.length) lines.push(`  依据：${item.evidenceRefs.join('、')}`);
+          """, 'context uses contextNote')
+
+          path = 'js/bazi-detail.js'
+          replace_once(path,
+          """    function literatureStatus(check) {
+          const text = String(check || '');
+          const hasPositive = /(已见|符合|满足|✓)/.test(text);
+          const hasNegative = /(不满足|未见|不符合|✗)/.test(text);
+          if (hasPositive && hasNegative) return '条件部分对应';
+          if (hasNegative) return '存在未满足条件';
+          if (hasPositive) return '已有对应条件';
+          return '相关条目';
+      }
+
+      function buildLiteratureChecks(result) {
+          const entries = result.matchedLiterature || [];
+          const preferredBooks = new Set(['穷通宝鉴','子平真诠','千里命稿','三命通会']);
+          const withContext = entries.filter((item) => item.contextMatch || item.match);
+          const preferred = withContext.filter((item) => preferredBooks.has(item.book));
+          const selected = [...preferred, ...withContext.filter((item) => !preferredBooks.has(item.book))]
+              .filter((item, index, array) => array.findIndex((x) => x.id === item.id) === index)
+              .slice(0, 6);
+          return selected.map((item) => {
+              const check = userFacingText(item.contextMatch || item.match || '');
+              return {
+                  id: item.id,
+                  book: item.book,
+                  chapter: item.chapter,
+                  sourceType: (item.excerptType === 'locator' || item.verified === false || item.sourceKind === '原典定位') ? '条目定位' : '原文',
+                  sourceText: item.quote || item.chapter || '—',
+                  check,
+                  status: literatureStatus(check)
+              };
+          });
+      }
+          """,
+          """    function literatureStatus(item) {
+          const isLocator = item?.applicability === 'locator-only'
+              || item?.excerptType === 'locator'
+              || item?.verified === false
+              || item?.sourceKind === '原典定位';
+          if (isLocator) return '条目定位';
+          if (item?.applicability === 'needs-review') return '条件对应';
+          return '条目对应';
+      }
+
+      function buildLiteratureChecks(result) {
+          const entries = result.matchedLiterature || [];
+          const preferredBooks = new Set(['穷通宝鉴','子平真诠','千里命稿','三命通会']);
+          const displayEntries = entries.filter((item) => item.match && !['reference-only','method-only'].includes(item.applicability));
+          const preferred = displayEntries.filter((item) => preferredBooks.has(item.book));
+          const selected = [...preferred, ...displayEntries.filter((item) => !preferredBooks.has(item.book))]
+              .filter((item, index, array) => array.findIndex((x) => x.id === item.id) === index)
+              .slice(0, 6);
+          return selected.map((item) => ({
+              id: item.id,
+              book: item.book,
+              chapter: item.chapter,
+              sourceType: (item.excerptType === 'locator' || item.verified === false || item.sourceKind === '原典定位') ? '条目定位' : '原文',
+              sourceText: item.quote || item.chapter || '—',
+              check: userFacingText(item.match || ''),
+              status: literatureStatus(item)
+          }));
+      }
+          """, 'literature display/context separation')
+
+          path = 'tests/bazi-semantic-layer-tests.js'
+          replace_once(path,
+          """    'js/bazi-literature.js',
+      'js/bazi-interpretation.js'
+  ]);
+  const bazi = GuiJia.baziCore;
+  const baziLit = GuiJia.baziLiterature;
+  const baziInterpretation = GuiJia.baziInterpretation;
+          """,
+          """    'js/bazi-literature.js',
+      'js/bazi-interpretation.js',
+      'js/bazi-detail.js'
+  ]);
+  const bazi = GuiJia.baziCore;
+  const baziLit = GuiJia.baziLiterature;
+  const baziInterpretation = GuiJia.baziInterpretation;
+  const baziDetail = GuiJia.baziDetail;
+          """, 'load bazi detail tests')
+
+          replace_once(path,
+          """    assert(support && support.title.includes('扶身要素') && !support.title.includes('扶身力量'), '扶身存在性仍被写成实际力量');
+      assert(support.summary.includes('“出现”不自动等于“实际有效”'), '扶身解释未明确 existence/effect 边界');
+  });
+          """,
+          """    assert(support && support.title.includes('扶身要素') && !support.title.includes('扶身力量'), '扶身存在性仍被写成实际力量');
+      assert(!/(Assessment|这里只确认|不据此|不自动等于|身强身弱终判)/.test(support.summary), '前台扶身解释仍泄漏内部边界');
+      assert(support.contextNote.includes('实际扶身效力'), '内部效力边界未保留');
+  });
+
+  test('前台结构解读不泄漏内部语义层和防御说明', () => {
+      const result = makeResult();
+      const output = baziInterpretation.buildBaziInterpretation(result);
+      const displayText = output.judgments.map((item) => item.summary).join('\n');
+      assert(!/(Assessment|本程序|当前程序|这里只确认|不据此|不自动判定|实际有效)/.test(displayText), `前台结构解读仍含内部说明：${displayText}`);
+      const contextText = baziInterpretation.buildBaziContextText(result, output);
+      assert(contextText.includes('后续 Assessment 层') && contextText.includes('实际扶身效力'), '复制上下文未保留内部边界');
+  });
+          """, 'frontend interpretation regression')
+
+          marker = """test('古籍匹配元数据区分条件模式与结构参考', () => {
+  """
+          text = Path(path).read_text(encoding='utf-8')
+          idx = text.find(marker)
+          if idx < 0:
+              raise SystemExit('literature metadata test marker not found')
+          insert_after = """});
+
+  console.log(`\\n${passed} passed, ${failed} failed`);
+  """
+          if insert_after not in text:
+              raise SystemExit('test footer marker not found')
+          new_test = """
+  test('详细页古籍条件对照不回流 contextMatch 防御说明', () => {
+      const chart = makeDingChart();
+      const entries = baziLit.buildMatchedLiterature(
+          chart.dayGan, chart.gans, chart.zhis, chart.pillars, chart.internalRelations, chart.monthSeason
+      );
+      const result = makeResult();
+      result.matchedLiterature = entries;
+      const detail = baziDetail.buildBaziDetail(result);
+      assert(detail.literatureChecks.length > 0, '古籍条件对照为空');
+      assert(!detail.literatureChecks.some((item) => item.id === 'ziping-hui-change'), 'reference-only 条目仍进入条件对照');
+      assert(detail.literatureChecks.some((item) => item.id === 'qiongtong-丁-子'), '条件型月令条未保留');
+      detail.literatureChecks.forEach((item) => {
+          assert(!/(本程序|当前程序|这里只确认|不据此|不能直接|Assessment|当前证据强度)/.test(item.check), `${item.id} 前台仍含防御说明：${item.check}`);
+          assert(['条目对应','条件对应','条目定位'].includes(item.status), `${item.id} 状态仍为句子猜测：${item.status}`);
+      });
+  });
+  """
+          text = text.replace(insert_after, """});
+  """ + new_test + """
+  console.log(`\\n${passed} passed, ${failed} failed`);
+  """, 1)
+          Path(path).write_text(text, encoding='utf-8')
+          PY
+
+          npm test
+
+          rm -f .github/workflows/bazi-front-cleanup.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix: separate BaZi frontend wording from context boundaries'
+          git push origin HEAD:bazi-front-cleanup
