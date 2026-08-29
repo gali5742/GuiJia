@@ -50,12 +50,13 @@
         };
     }
 
-    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50, evidenceRefs = []) {
+    function makeJudgment(id, title, summary, evidence, tags = [], priority = 50, evidenceRefs = [], contextNote = '') {
         return {
             id,
             semanticLayer: 'structure',
             title,
             summary,
+            contextNote: String(contextNote || '').trim(),
             evidence: evidence.filter(Boolean),
             evidenceRefs: [...new Set(evidenceRefs.filter(Boolean))],
             tags,
@@ -106,7 +107,7 @@
         const mainSentence = main?.god
             ? `${monthSeason.monthZhi}月本气${main.gan}${main.wuxing}，对${result.dayGan}${result.dayGanWuXing}日主为${main.god}`
             : `${monthSeason.monthZhi}月属${monthSeason.season}`;
-        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态、根气与印比要素共同构成这一层的强弱线索；这些要素的实际效力仍属于后续 Assessment 层。`;
+        const summary = `${mainSentence}；${monthSeason.season}令中${result.dayGanWuXing}为“${dayState}”，${stateSentence(dayState)}。${rootClause}；月令状态、根气与印比要素共同构成这一层的强弱线索。`;
         const evidence = [
             main ? `月支${monthSeason.monthZhi}；本气${main.gan}${main.wuxing}；对应十神${main.god || '—'}` : `月支${monthSeason.monthZhi}；季节${monthSeason.season}`,
             `日主${result.dayGan}${result.dayGanWuXing}；旺相休囚死状态：${dayState}`,
@@ -120,7 +121,8 @@
             evidence,
             ['月令', main?.god || '季节'],
             100,
-            ['D01', 'D02', 'D03', 'D04']
+            ['D01', 'D02', 'D03', 'D04'],
+            '这些要素的实际效力仍属于后续 Assessment 层。'
         );
     }
 
@@ -148,13 +150,13 @@
         const hiddenText = support.hiddenSupport.map((item) => `${item.title}${item.zhi}藏${item.gan}为${godOf(item)}`).join('、');
         let supportSentence;
         if (!hasVisible && hasHidden) {
-            supportSentence = `天干未见比劫或印星；地支藏干见${hiddenText}。这里只确认扶身要素存在于藏支，不据此直接判断其实际扶身效力。`;
+            supportSentence = `天干未见比劫或印星；地支藏干见${hiddenText}。`;
         } else if (hasVisible && hasHidden) {
-            supportSentence = `天干见${visibleText}；地支藏干另见${hiddenText}。明暗两层均有扶身要素，但“出现”不自动等于“实际有效”。`;
+            supportSentence = `天干见${visibleText}；地支藏干另见${hiddenText}。明暗两层均有扶身要素。`;
         } else if (hasVisible) {
-            supportSentence = `天干见${visibleText}；地支藏干未另见比劫或印星。这里只确认扶身要素出现于天干层。`;
+            supportSentence = `天干见${visibleText}；地支藏干未另见比劫或印星。`;
         } else {
-            supportSentence = '天干与藏干均未见比劫或印星这一类扶身要素；这里仍不据单项缺失直接作身强身弱终判。';
+            supportSentence = '天干与藏干均未见比劫或印星这一类扶身要素。';
         }
 
         return makeJudgment(
@@ -169,7 +171,8 @@
             ],
             ['通根', '扶助'],
             94,
-            ['D03', 'D04', 'D05', 'D06']
+            ['D03', 'D04', 'D05', 'D06'],
+            '这里只确认扶身要素的出现位置，不据此直接判断其实际扶身效力或完成身强身弱终判。'
         );
     }
 
@@ -340,11 +343,12 @@
         return makeJudgment(
             'complete-structure',
             `${labels[0]}形成完整结构`,
-            `原局地支会齐${labels.join('、')}。完整方局或完整三刑在结构层标记为主要组合，应优先作为整体背景观察；其他已识别关系仍作为并存结构保留，不自动判定失效、被取代或已经成化。`,
+            `原局地支会齐${labels.join('、')}。完整方局或完整三刑作为主要组合，优先构成整体观察背景；其他已识别关系仍作为并存结构保留。`,
             completeRelations.map((item) => item.text),
             ['完整结构'],
             96,
-            completeRelations.map((item) => item._semanticRef)
+            completeRelations.map((item) => item._semanticRef),
+            '这里只确定结构优先级与并存关系；不自动判定其他关系失效、被取代或已经成化。'
         );
     }
 
@@ -676,7 +680,8 @@
 
         (interpretation?.judgments || []).forEach((item, index) => {
             lines.push(`${index + 1}. ${item.title}`);
-            lines.push(`解释：${item.summary}`);
+            const contextExplanation = [item.summary, item.contextNote].filter(Boolean).join('');
+            lines.push(`解释：${contextExplanation}`);
             if (item.evidenceRefs?.length) lines.push(`  依据：${item.evidenceRefs.join('、')}`);
             else item.evidence.forEach((evidence, evidenceIndex) => lines.push(`  ${evidenceIndex + 1}. ${evidence}`));
         });

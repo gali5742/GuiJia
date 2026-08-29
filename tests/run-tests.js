@@ -1952,8 +1952,8 @@ test('八字详细分析 builder 展开强弱、十神、月令与关系网络�
         internalRelations:bazi.calculateInternalChartRelations(gans, zhis),
         monthSeason:bazi.buildMonthSeason('申', '木'),
         matchedLiterature:[
-            {id:'qiong', book:'穷通宝鉴', chapter:'三秋乙木', quote:'三秋乙木', verified:true, contextMatch:'丙已见，癸未见。'},
-            {id:'ziping', book:'子平真诠', chapter:'论用神成败·正官', quote:'官逢财印', verified:true, contextMatch:'月令正官；相关条件需逐项核对。'}
+            {id:'qiong', book:'穷通宝鉴', chapter:'三秋乙木', quote:'三秋乙木', verified:true, match:'日干乙、月令申，对应三秋乙木条。', contextMatch:'日干乙、月令申，对应三秋乙木条。后台核对：丙已见，癸未见。'},
+            {id:'ziping', book:'子平真诠', chapter:'论用神成败·正官', quote:'官逢财印', verified:true, match:'月令本气为正官，对应正官相关条目。', contextMatch:'月令本气为正官，对应正官相关条目。后台条件仍需逐项核对。'}
         ]
     };
     const detail = baziDetail.buildBaziDetail(result);
@@ -1963,7 +1963,7 @@ test('八字详细分析 builder 展开强弱、十神、月令与关系网络�
     assert(detail.relations.branches.length >= 3, '详细分析未展开地支关系网络');
     assert(detail.relations.hubs.some((item) => item.pillar === '日柱' && item.count >= 2), '详细分析未识别关系共同节点');
     assert(detail.relations.threads.length >= 2, '详细分析未把关系整理为综合主线');
-    assert(detail.literatureChecks.some((item) => item.book === '穷通宝鉴' && item.check.includes('癸未见')), '详细分析古籍条件对照未优先使用 contextMatch');
+    assert(detail.literatureChecks.some((item) => item.book === '穷通宝鉴' && item.check.includes('对应三秋乙木条') && !item.check.includes('癸未见')), '详细分析古籍条件对照未使用 display match 或仍回流 contextMatch');
 });
 
 
