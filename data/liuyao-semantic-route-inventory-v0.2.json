@@ -1,0 +1,198 @@
+{
+  "version": "0.2",
+  "status": "draft_inventory",
+  "scope": "liuyao_only",
+  "purpose": "Define the candidate modern-language route inventory for the next LiuYao Semantic Router from the current Evaluation Coverage Manifest and Rule Registry. This file is not training, validation, calibration, or blind-eval data.",
+  "inheritsFrozenRouterVersion": "0.1",
+  "routeCount": 22,
+  "routes": [
+    {
+      "routeId": "financial_fortune",
+      "domain": "wealth_finance",
+      "eventType": "financial_fortune",
+      "branchingSemantics": ["fortuneScope"],
+      "ruleRefs": ["TR-001-I-S", "TR-001-I-L"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "business_operation",
+      "domain": "wealth_finance",
+      "eventType": "business_operation",
+      "ruleRefs": ["TR-001-A"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "commercial_transaction",
+      "domain": "wealth_finance",
+      "eventType": "transaction",
+      "requiredSemantics": { "transactionPurpose": "commercial_trade" },
+      "ruleRefs": ["TR-001-B"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "inventory_purchase",
+      "domain": "wealth_finance",
+      "eventType": "inventory_purchase",
+      "ruleRefs": ["TR-001-C"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "inventory_sale",
+      "domain": "wealth_finance",
+      "eventType": "inventory_sale",
+      "ruleRefs": ["TR-001-D"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "borrow_money",
+      "domain": "wealth_finance",
+      "eventType": "borrow_money",
+      "ruleRefs": ["TR-001-E"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "lend_money",
+      "domain": "wealth_finance",
+      "eventType": "lend_money",
+      "ruleRefs": ["TR-001-F"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "debt_collection",
+      "domain": "wealth_finance",
+      "eventType": "debt_collection",
+      "ruleRefs": ["TR-001-G"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "debt_repayment",
+      "domain": "wealth_finance",
+      "eventType": "debt_repayment",
+      "ruleRefs": [],
+      "ruleStatus": "no_confirmed_rule",
+      "currentV01Route": true
+    },
+    {
+      "routeId": "partnership",
+      "domain": "wealth_finance",
+      "eventType": "partnership",
+      "ruleRefs": ["TR-001-H"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "investment_profit",
+      "domain": "investment",
+      "eventType": "investment",
+      "requiredSemantics": { "investmentGoal": "profit" },
+      "ruleRefs": ["MR-002-A"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "investment_liquidation",
+      "domain": "investment",
+      "eventType": "investment",
+      "requiredSemantics": { "investmentGoal": "liquidation" },
+      "ruleRefs": ["MR-002-B"],
+      "currentV01Route": false
+    },
+    {
+      "routeId": "investment_suitability",
+      "domain": "investment",
+      "eventType": "investment",
+      "requiredSemantics": { "investmentGoal": "suitability" },
+      "ruleRefs": ["MR-002-C"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "investment_position_decision",
+      "domain": "investment",
+      "eventType": "investment",
+      "requiredSemantics": { "investmentGoal": "position_decision" },
+      "ruleRefs": ["MR-002-D"],
+      "ruleStatus": "provisional_only",
+      "currentV01Route": true
+    },
+    {
+      "routeId": "investment_price_trend",
+      "domain": "investment",
+      "eventType": "investment",
+      "requiredSemantics": { "investmentGoal": "price_trend" },
+      "branchingSemantics": ["investmentPosition"],
+      "ruleRefs": ["MR-002-E1", "MR-002-E3"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "income_salary",
+      "domain": "employment_income",
+      "eventType": "income",
+      "requiredSemantics": { "incomeType": "salary" },
+      "ruleRefs": ["MR-003-A"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "income_bonus",
+      "domain": "employment_income",
+      "eventType": "income",
+      "requiredSemantics": { "incomeType": "bonus" },
+      "ruleRefs": ["MR-003-B"],
+      "ruleStatus": "provisional_only",
+      "currentV01Route": true
+    },
+    {
+      "routeId": "receive_item",
+      "domain": "item_delivery",
+      "eventType": "receive_item",
+      "branchingSemantics": ["deliveryMode"],
+      "ruleRefs": ["MR-004"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "item_purchase",
+      "domain": "item_purchase",
+      "eventType": "item_purchase",
+      "branchingSemantics": ["purchaseGoal"],
+      "ruleRefs": [],
+      "ruleStatus": "no_confirmed_rule",
+      "currentV01Route": true
+    },
+    {
+      "routeId": "relationship_development",
+      "domain": "relationship_marriage",
+      "eventType": "relationship_development",
+      "branchingSemantics": ["querentSex", "counterpartSex", "counterpartSpecificity", "romanticStage"],
+      "ruleRefs": ["MR-001-A", "MR-001-B"],
+      "augmentationRuleRefs": ["MSR-001"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "marriage_match",
+      "domain": "relationship_marriage",
+      "eventType": "marriage_match",
+      "branchingSemantics": ["querentSex", "counterpartSex", "representedSubject"],
+      "ruleRefs": ["TR-002-M-MALE", "TR-002-M-FEMALE", "TR-002-M-REPRESENTED"],
+      "currentV01Route": true
+    },
+    {
+      "routeId": "marital_relationship",
+      "domain": "relationship_marriage",
+      "eventType": "marital_relationship",
+      "branchingSemantics": ["spouseSex"],
+      "ruleRefs": ["TR-002-R-WIFE", "TR-002-R-HUSBAND"],
+      "currentV01Route": true
+    }
+  ],
+  "newRoutesSinceV01": [
+    "commercial_transaction",
+    "inventory_purchase",
+    "inventory_sale",
+    "lend_money",
+    "debt_collection",
+    "partnership",
+    "investment_liquidation"
+  ],
+  "designNotes": [
+    "Route labels describe modern real-world question semantics even when downstream observation rules are traditional-family rules.",
+    "Participant, object, time, position, and other branch semantics remain separate slots/fields; the router does not directly choose LiuYao relatives or Shi/Ying.",
+    "No-rule and provisional-only routes remain visible because semantic understanding must not be collapsed into rule availability."
+  ]
+}
