@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲本地语义路由 PoC v0.2：浏览器内以 BGE-small-zh-v1.5 分离 Domain 与 Goal，再组合现代语义路由">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲｜本地语义路由 PoC v0.2</title>
+  <style>
+    :root { color-scheme:light; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#f4f2ed; color:#282621; }
+    main { max-width:1180px; margin:0 auto; padding:28px 18px 56px; }
+    h1 { margin:0 0 6px; font-size:26px; }
+    h2 { margin:0 0 10px; font-size:17px; }
+    .sub,.small { color:#68645d; line-height:1.7; }
+    .sub { margin:0 0 20px; }
+    .small { font-size:12px; }
+    .card { background:#fff; border:1px solid #dedbd3; border-radius:14px; padding:18px; margin:14px 0; box-shadow:0 5px 18px rgba(50,45,35,.05); }
+    textarea { width:100%; min-height:90px; border:1px solid #cfcac0; border-radius:10px; padding:12px; font:inherit; resize:vertical; }
+    button,input { font:inherit; }
+    button { border:0; border-radius:9px; padding:10px 16px; background:#38352f; color:#fff; cursor:pointer; }
+    button.secondary { background:#ece9e2; color:#38352f; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px; }
+    .threshold label { display:flex; align-items:center; gap:6px; font-size:13px; }
+    .threshold input { width:78px; padding:6px 7px; border:1px solid #cfcac0; border-radius:8px; }
+    .status { display:inline-flex; align-items:center; border-radius:999px; padding:5px 10px; font-size:12px; background:#eeece6; }
+    .ok { background:#e8f3e9; color:#285b31; }
+    .warn { background:#fff2d9; color:#7a5315; }
+    .bad { background:#f9e4e4; color:#7e2d2d; }
+    .progress { width:100%; height:8px; border-radius:999px; background:#ece9e2; overflow:hidden; margin-top:12px; }
+    .progress > div { height:100%; width:0; background:#6a665d; transition:width .15s linear; }
+    .metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:12px; }
+    @media(max-width:860px){ .metrics{grid-template-columns:1fr;} }
+    .metric { margin:0; }
+    .metric strong { display:block; font-size:24px; margin-top:5px; }
+    .metric span { color:#777168; font-size:12px; }
+    pre { white-space:pre-wrap; word-break:break-word; background:#f7f6f2; border-radius:10px; padding:12px; overflow:auto; font-size:12px; line-height:1.55; }
+    table { width:100%; border-collapse:collapse; font-size:12px; }
+    th,td { border-bottom:1px solid #ebe7df; padding:8px 7px; text-align:left; vertical-align:top; }
+    th { color:#666158; font-weight:600; }
+    td.num,th.num { text-align:right; white-space:nowrap; }
+    .chips { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+    .chips button { padding:7px 10px; font-size:12px; }
+    code { background:#eeeae2; padding:1px 5px; border-radius:5px; }
+    .axis-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:860px){ .axis-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<main>
+  <h1>龟甲 · 本地语义路由 PoC v0.2</h1>
+  <p class="sub">本版继续使用约 24MB 的 <code>bge-small-zh-v1.5 q8</code>，但不再直接做 15 类扁平分类。模型分别判断 <strong>Domain / Event context</strong> 与 <strong>Goal</strong>，只有两轴都可信且组合合法时才生成现代语义 route。仍不接入正式 DivinationIntent / Rule Registry。</p>
+
+  <section class="card">
+    <h2>1. 准备本地模型</h2>
+    <p class="small">首次需要下载模型。模型与占问推理均在浏览器本地完成；本页默认 WASM，不要求 WebGPU。</p>
+    <div class="row">
+      <button id="loadModel">加载本地模型</button>
+      <span id="modelStatus" class="status warn">尚未加载</span>
+    </div>
+    <div class="progress"><div id="modelProgress"></div></div>
+    <pre id="progressText">模型：Xenova/bge-small-zh-v1.5 · dtype=q8</pre>
+  </section>
+
+  <section class="card">
+    <h2>2. 单句测试</h2>
+    <textarea id="question">这只股票现在跌了，下周会不会重新涨</textarea>
+    <div class="row threshold">
+      <label>Domain 最低相似度 <input id="domainMinSimilarity" type="number" min="0" max="1" step="0.005" value="0.600"></label>
+      <label>Domain 最低 Margin <input id="domainMinMargin" type="number" min="0" max="1" step="0.005" value="0.025"></label>
+      <label>Goal 最低相似度 <input id="goalMinSimilarity" type="number" min="0" max="1" step="0.005" value="0.550"></label>
+      <label>Goal 最低 Margin <input id="goalMinMargin" type="number" min="0" max="1" step="0.005" value="0.020"></label>
+      <button id="classify" disabled>本地分类</button>
+      <span id="classifyStatus" class="status"></span>
+    </div>
+    <div class="chips" id="samples"></div>
+    <div class="axis-grid" style="margin-top:12px">
+      <div><h2>Domain</h2><pre id="domainResult">—</pre></div>
+      <div><h2>Goal</h2><pre id="goalResult">—</pre></div>
+    </div>
+    <pre id="combinedResult">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>3. 固定 Eval（同一套 125 条）</h2>
+    <p class="small">重点观察是否能同时收回 v0.1 的 6 条已知拒绝，并减少 2 条 false rule activation。Unknown 只有在 Domain、Goal 均通过阈值且组合合法时才可能被错误激活。</p>
+    <div class="row">
+      <button id="runEval" disabled>运行整套 Eval</button>
+      <span id="evalStatus" class="status"></span>
+    </div>
+    <div class="progress"><div id="evalProgress"></div></div>
+    <div class="metrics">
+      <article class="card metric"><span>总样本准确率</span><strong id="metricExact">—</strong></article>
+      <article class="card metric"><span>已知类覆盖率</span><strong id="metricCoverage">—</strong></article>
+      <article class="card metric"><span>已接受样本准确率</span><strong id="metricAccepted">—</strong></article>
+      <article class="card metric"><span>Unknown 拒绝率</span><strong id="metricUnknown">—</strong></article>
+      <article class="card metric"><span>False rule activation</span><strong id="metricFalse">—</strong></article>
+      <article class="card metric"><span>样本数</span><strong id="metricCount">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>错误 / 拒绝样本</h2>
+    <div style="overflow:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>问题</th><th>Expected</th><th>Predicted</th><th>Reason</th>
+            <th>Domain Top1</th><th>Domain Top2</th><th class="num">D Margin</th>
+            <th>Goal Top1</th><th>Goal Top2</th><th class="num">G Margin</th>
+          </tr>
+        </thead>
+        <tbody id="errorRows"><tr><td colspan="10">尚未运行 Eval。</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>当前两轴与组合规则</h2>
+    <div class="axis-grid">
+      <pre id="domainList">—</pre>
+      <pre id="goalList">—</pre>
+    </div>
+    <pre id="matrixList">—</pre>
+  </section>
+</main>
+
+<script type="module">
+  import { semanticRouterPocV02 } from './js/liuyao-semantic-router-poc-v02.js?v=poc0.2';
+
+  const $ = (id) => document.getElementById(id);
+  const pct = (value) => Number.isFinite(value) ? `${(value * 100).toFixed(1)}%` : '—';
+  const fixed = (value) => Number.isFinite(value) ? value.toFixed(4) : '—';
+  const thresholds = () => ({
+    domainMinSimilarity:Number($('domainMinSimilarity').value),
+    domainMinMargin:Number($('domainMinMargin').value),
+    goalMinSimilarity:Number($('goalMinSimilarity').value),
+    goalMinMargin:Number($('goalMinMargin').value)
+  });
+
+  const axisText = (axis) => JSON.stringify({
+    accepted:axis.accepted,
+    top1:{ id:axis.top1.id, title:axis.top1.title, score:Number(axis.top1.score.toFixed(4)) },
+    top2:{ id:axis.top2.id, title:axis.top2.title, score:Number(axis.top2.score.toFixed(4)) },
+    margin:Number(axis.margin.toFixed(4)),
+    minSimilarity:axis.minSimilarity,
+    minMargin:axis.minMargin
+  }, null, 2);
+
+  $('domainList').textContent = 'Domain\n\n' + semanticRouterPocV02.domains.map((item) => `${item.id}\n  ${item.title}`).join('\n\n');
+  $('goalList').textContent = 'Goal\n\n' + semanticRouterPocV02.goals.map((item) => `${item.id}\n  ${item.title}`).join('\n\n');
+  $('matrixList').textContent = '合法组合 → route\n\n' + Object.entries(semanticRouterPocV02.routeMatrix)
+    .flatMap(([domain, goals]) => Object.entries(goals).map(([goal, route]) => `${domain} + ${goal} → ${route}`)).join('\n');
+
+  [
+    '这只股票现在跌了，下周会不会重新涨',
+    '这只股票以后能不能让我赚钱',
+    '这个店今年生意会不会好转',
+    '我和这个女生有没有结婚可能',
+    '我和这个朋友能不能从朋友变成恋人',
+    '我上周新买了一台电脑，这周内能不能收到',
+    '明天适不适合剪头发',
+    '这本书值不值得看'
+  ].forEach((text) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'secondary';
+    button.textContent = text;
+    button.addEventListener('click', () => { $('question').value = text; });
+    $('samples').appendChild(button);
+  });
+
+  const setModelStatus = (text, kind='warn') => {
+    $('modelStatus').textContent = text;
+    $('modelStatus').className = `status ${kind}`;
+  };
+
+  $('loadModel').addEventListener('click', async () => {
+    $('loadModel').disabled = true;
+    setModelStatus('正在准备…', 'warn');
+    try {
+      await semanticRouterPocV02.loadModel((progress) => {
+        const percent = Number(progress?.progress);
+        if (Number.isFinite(percent)) $('modelProgress').style.width = `${Math.max(0, Math.min(100, percent))}%`;
+        $('progressText').textContent = [progress?.status, progress?.file || progress?.name, Number.isFinite(percent) ? `${percent.toFixed(1)}%` : ''].filter(Boolean).join(' · ');
+      }, (axis, done, total, group) => {
+        $('progressText').textContent = `构建 ${axis} centroid：${done}/${total} · ${group.title}`;
+      });
+      $('modelProgress').style.width = '100%';
+      setModelStatus('模型与两轴 centroid 已就绪', 'ok');
+      $('progressText').textContent = `${semanticRouterPocV02.modelId} · ${semanticRouterPocV02.modelDtype} · v${semanticRouterPocV02.version}`;
+      $('classify').disabled = false;
+      $('runEval').disabled = false;
+    } catch (error) {
+      setModelStatus('加载失败', 'bad');
+      $('progressText').textContent = error?.stack || String(error);
+      $('loadModel').disabled = false;
+    }
+  });
+
+  $('classify').addEventListener('click', async () => {
+    const question = $('question').value.trim();
+    if (!question) return;
+    $('classify').disabled = true;
+    $('classifyStatus').textContent = '计算中…';
+    $('classifyStatus').className = 'status warn';
+    try {
+      const result = await semanticRouterPocV02.classify(question, thresholds());
+      $('domainResult').textContent = axisText(result.domain);
+      $('goalResult').textContent = axisText(result.goal);
+      $('combinedResult').textContent = JSON.stringify({ question, predicted:result.predicted, accepted:result.accepted, reason:result.reason }, null, 2);
+      $('classifyStatus').textContent = result.accepted ? `接受：${result.predicted}` : `拒绝：${result.reason}`;
+      $('classifyStatus').className = `status ${result.accepted ? 'ok' : 'warn'}`;
+    } catch (error) {
+      $('classifyStatus').textContent = '分类失败';
+      $('classifyStatus').className = 'status bad';
+      $('combinedResult').textContent = error?.stack || String(error);
+    } finally {
+      $('classify').disabled = false;
+    }
+  });
+
+  $('runEval').addEventListener('click', async () => {
+    $('runEval').disabled = true;
+    $('evalStatus').textContent = '运行中…';
+    $('evalStatus').className = 'status warn';
+    $('evalProgress').style.width = '0%';
+    try {
+      const evaluation = await semanticRouterPocV02.runEvaluation({
+        ...thresholds(),
+        onProgress:(done, total) => {
+          $('evalProgress').style.width = `${(done / total) * 100}%`;
+          $('evalStatus').textContent = `运行中 ${done}/${total}`;
+        }
+      });
+      const m = evaluation.metrics;
+      $('metricExact').textContent = pct(m.exactAccuracy);
+      $('metricCoverage').textContent = pct(m.knownCoverage);
+      $('metricAccepted').textContent = pct(m.acceptedKnownAccuracy);
+      $('metricUnknown').textContent = pct(m.unknownRejectionRate);
+      $('metricFalse').textContent = pct(m.falseRuleActivationRate);
+      $('metricCount').textContent = String(m.total);
+      $('evalStatus').textContent = 'Eval 完成';
+      $('evalStatus').className = 'status ok';
+      $('evalProgress').style.width = '100%';
+
+      const issues = evaluation.results.filter((row) => !row.correct || !row.accepted);
+      $('errorRows').innerHTML = '';
+      if (!issues.length) {
+        $('errorRows').innerHTML = '<tr><td colspan="10">没有错误或拒绝样本。</td></tr>';
+      } else {
+        for (const row of issues) {
+          const tr = document.createElement('tr');
+          const cells = [
+            row.text, row.expected, row.predicted, row.reason,
+            `${row.domain.top1.id} ${fixed(row.domain.top1.score)}`,
+            `${row.domain.top2.id} ${fixed(row.domain.top2.score)}`,
+            fixed(row.domain.margin),
+            `${row.goal.top1.id} ${fixed(row.goal.top1.score)}`,
+            `${row.goal.top2.id} ${fixed(row.goal.top2.score)}`,
+            fixed(row.goal.margin)
+          ];
+          cells.forEach((value, index) => {
+            const td = document.createElement('td');
+            td.textContent = value;
+            if (index === 6 || index === 9) td.className = 'num';
+            tr.appendChild(td);
+          });
+          $('errorRows').appendChild(tr);
+        }
+      }
+    } catch (error) {
+      $('evalStatus').textContent = 'Eval 失败';
+      $('evalStatus').className = 'status bad';
+      $('errorRows').innerHTML = '<tr><td colspan="10"></td></tr>';
+      $('errorRows').firstElementChild.firstElementChild.textContent = error?.stack || String(error);
+    } finally {
+      $('runEval').disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
