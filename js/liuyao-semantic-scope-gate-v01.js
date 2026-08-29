@@ -7,10 +7,12 @@ const MODEL_ID = 'Xenova/bge-small-zh-v1.5';
 const MODEL_DTYPE = 'q8';
 const VECTOR_SIZE = 512;
 const DATA_URL = new URL('../data/liuyao-semantic-scope-gate-v0.1-development.json', import.meta.url);
+const PATCH_URL = new URL('../data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json', import.meta.url);
 const VERSION = '0.1-dev';
 
 let extractor = null;
 let data = null;
+let dataPatch = null;
 let gate = null;
 let threshold = 0.5;
 const embeddingCache = new Map();
@@ -52,13 +54,15 @@ const tensorToVectors = (tensor, count) => {
 
 const ensureData = async () => {
   if (!data) {
-    data = await fetchJson(DATA_URL);
+    [data, dataPatch] = await Promise.all([fetchJson(DATA_URL), fetchJson(PATCH_URL)]);
     if (data.version !== '0.1-development' || data.status !== 'development_preuse') throw new Error('Scope Gate v0.1 development data mismatch');
     if (data.scope !== 'liuyao_current_22_router_only') throw new Error('Scope Gate scope mismatch');
     if (data.policy?.useRouterConfidenceFeatures !== false || data.policy?.useUnresolvedAsNegativeTraining !== false) throw new Error('Scope Gate responsibility policy mismatch');
+    if (dataPatch.version !== '0.1-preuse-wording-patch' || dataPatch.status !== 'development_preuse_patch' || dataPatch.base !== 'liuyao-semantic-scope-gate-v0.1-development.json') throw new Error('Scope Gate v0.1 wording patch mismatch');
   }
   return data;
 };
+const effectiveText = (text) => dataPatch?.replacements?.[text] || text;
 
 const embedTexts = async (texts, { chunkSize=24, onProgress } = {}) => {
   if (!extractor) throw new Error('BGE 尚未加载');
@@ -80,18 +84,18 @@ const flattenSplit = async (split) => {
   const rows = [];
   let index = 1;
   for (const [routeId, spec] of Object.entries(data.supported || {})) {
-    for (const text of spec[split] || []) rows.push({
+    for (const raw of spec[split] || []) rows.push({
       id:`SG-${split}-${String(index++).padStart(3,'0')}`,
-      text,
+      text:effectiveText(raw),
       supported:true,
       groupType:'route',
       groupId:routeId
     });
   }
   for (const [category, spec] of Object.entries(data.outside_current_22 || {})) {
-    for (const text of spec[split] || []) rows.push({
+    for (const raw of spec[split] || []) rows.push({
       id:`SG-${split}-${String(index++).padStart(3,'0')}`,
-      text,
+      text:effectiveText(raw),
       supported:false,
       groupType:'outside_category',
       groupId:category
@@ -221,7 +225,7 @@ const runValidation = async ({ onProgress } = {}) => {
 const runUnresolvedDiagnostic = async ({ onProgress } = {}) => {
   if (!gate) throw new Error('请先训练并校准 Scope Gate');
   await ensureData();
-  const texts = data.diagnostic_unresolved || [];
+  const texts = (data.diagnostic_unresolved || []).map(effectiveText);
   const vectors = await embedTexts(texts, { onProgress:(done,total)=>onProgress?.(done,total,'unresolved diagnostic') });
   const rows = texts.map((text,index)=>{
     const probability = probabilityFromVector(vectors[index]);
