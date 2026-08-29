@@ -750,36 +750,33 @@
         };
     }
 
-    function literatureStatus(check) {
-        const text = String(check || '');
-        const hasPositive = /(已见|符合|满足|✓)/.test(text);
-        const hasNegative = /(不满足|未见|不符合|✗)/.test(text);
-        if (hasPositive && hasNegative) return '条件部分对应';
-        if (hasNegative) return '存在未满足条件';
-        if (hasPositive) return '已有对应条件';
-        return '相关条目';
+    function literatureStatus(item) {
+        const isLocator = item?.applicability === 'locator-only'
+            || item?.excerptType === 'locator'
+            || item?.verified === false
+            || item?.sourceKind === '原典定位';
+        if (isLocator) return '条目定位';
+        if (item?.applicability === 'needs-review') return '条件对应';
+        return '条目对应';
     }
 
     function buildLiteratureChecks(result) {
         const entries = result.matchedLiterature || [];
         const preferredBooks = new Set(['穷通宝鉴','子平真诠','千里命稿','三命通会']);
-        const withContext = entries.filter((item) => item.contextMatch || item.match);
-        const preferred = withContext.filter((item) => preferredBooks.has(item.book));
-        const selected = [...preferred, ...withContext.filter((item) => !preferredBooks.has(item.book))]
+        const displayEntries = entries.filter((item) => item.match && !['reference-only','method-only'].includes(item.applicability));
+        const preferred = displayEntries.filter((item) => preferredBooks.has(item.book));
+        const selected = [...preferred, ...displayEntries.filter((item) => !preferredBooks.has(item.book))]
             .filter((item, index, array) => array.findIndex((x) => x.id === item.id) === index)
             .slice(0, 6);
-        return selected.map((item) => {
-            const check = userFacingText(item.contextMatch || item.match || '');
-            return {
-                id: item.id,
-                book: item.book,
-                chapter: item.chapter,
-                sourceType: (item.excerptType === 'locator' || item.verified === false || item.sourceKind === '原典定位') ? '条目定位' : '原文',
-                sourceText: item.quote || item.chapter || '—',
-                check,
-                status: literatureStatus(check)
-            };
-        });
+        return selected.map((item) => ({
+            id: item.id,
+            book: item.book,
+            chapter: item.chapter,
+            sourceType: (item.excerptType === 'locator' || item.verified === false || item.sourceKind === '原典定位') ? '条目定位' : '原文',
+            sourceText: item.quote || item.chapter || '—',
+            check: userFacingText(item.match || ''),
+            status: literatureStatus(item)
+        }));
     }
 
     function buildBaziDetail(result) {

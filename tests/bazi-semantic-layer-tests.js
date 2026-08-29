@@ -40,11 +40,13 @@ const GuiJia = loadScripts([
     'js/bazi-core.js',
     'js/bazi-timing.js',
     'js/bazi-literature.js',
-    'js/bazi-interpretation.js'
+    'js/bazi-interpretation.js',
+    'js/bazi-detail.js'
 ]);
 const bazi = GuiJia.baziCore;
 const baziLit = GuiJia.baziLiterature;
 const baziInterpretation = GuiJia.baziInterpretation;
+const baziDetail = GuiJia.baziDetail;
 
 function makeDingChart() {
     const dayGan = '丁';
@@ -92,7 +94,17 @@ test('四层语义中间层阻断“存在=有效”', () => {
     assert(model.derivedFacts.some((item) => item.id === 'D06' && item.text.includes('亥藏甲为正印')), '藏干正印未停留在派生事实层');
     const support = output.judgments.find((item) => item.id === 'support-location');
     assert(support && support.title.includes('扶身要素') && !support.title.includes('扶身力量'), '扶身存在性仍被写成实际力量');
-    assert(support.summary.includes('“出现”不自动等于“实际有效”'), '扶身解释未明确 existence/effect 边界');
+    assert(!/(Assessment|这里只确认|不据此|不自动等于|身强身弱终判)/.test(support.summary), '前台扶身解释仍泄漏内部边界');
+    assert(support.contextNote.includes('实际扶身效力'), '内部效力边界未保留');
+});
+
+test('前台结构解读不泄漏内部语义层和防御说明', () => {
+    const result = makeResult();
+    const output = baziInterpretation.buildBaziInterpretation(result);
+    const displayText = output.judgments.map((item) => item.summary).join('');
+    assert(!/(Assessment|本程序|当前程序|这里只确认|不据此|不自动判定|实际有效)/.test(displayText), `前台结构解读仍含内部说明：${displayText}`);
+    const contextText = baziInterpretation.buildBaziContextText(result, output);
+    assert(contextText.includes('后续 Assessment 层') && contextText.includes('实际扶身效力'), '复制上下文未保留内部边界');
 });
 
 test('完整组合与并存关系具有不同 structuralRole', () => {
@@ -140,6 +152,23 @@ test('古籍匹配元数据区分条件模式与结构参考', () => {
     assert(huiRef?.matchType === 'structuralReference' && huiRef.applicability === 'reference-only', '《论用神变化》未降级为结构参考');
     assert(huiRef?.unverifiedConditions?.some((item) => item.includes('直接条件')), '《论用神变化》未记录待核证触发条件');
     assert(!huiRef?.contextMatch.includes('月令【子】不能只按单支孤立阅读'), '仍把程序结构观点写成当前原文直接结论');
+});
+
+test('详细页古籍条件对照不回流 contextMatch 防御说明', () => {
+    const chart = makeDingChart();
+    const entries = baziLit.buildMatchedLiterature(
+        chart.dayGan, chart.gans, chart.zhis, chart.pillars, chart.internalRelations, chart.monthSeason
+    );
+    const result = makeResult();
+    result.matchedLiterature = entries;
+    const detail = baziDetail.buildBaziDetail(result);
+    assert(detail.literatureChecks.length > 0, '古籍条件对照为空');
+    assert(!detail.literatureChecks.some((item) => item.id === 'ziping-hui-change'), 'reference-only 条目仍进入条件对照');
+    assert(detail.literatureChecks.some((item) => item.id === 'qiongtong-丁-子'), '条件型月令条未保留');
+    detail.literatureChecks.forEach((item) => {
+        assert(!/(本程序|当前程序|这里只确认|不据此|不能直接|Assessment|当前证据强度)/.test(item.check), `${item.id} 前台仍含防御说明：${item.check}`);
+        assert(['条目对应','条件对应','条目定位'].includes(item.status), `${item.id} 状态仍为句子猜测：${item.status}`);
+    });
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
