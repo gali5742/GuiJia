@@ -1,0 +1,157 @@
+{
+  "version": "0.5-targeted-22",
+  "status": "development",
+  "purpose": "Targeted boundary refinement for the 22-route LiuYao Semantic Router after v0.7.1 validation diagnostics. Keeps the v0.6 model architecture unchanged and adds only focused route positives plus genuine out-of-scope/underspecified negatives. No sealed Blind samples may be copied here.",
+  "base": [
+    "liuyao-semantic-route-training-v0.1.json",
+    "liuyao-semantic-route-training-v0.2-augmentation.json",
+    "liuyao-semantic-route-training-v0.3-targeted.json",
+    "liuyao-semantic-route-training-v0.4-expansion.json",
+    "liuyao-semantic-route-training-v0.4-expansion-label-patch.json"
+  ],
+  "routes": {
+    "business_operation": {
+      "train": [
+        "我这家店继续经营下去整体利润会不会改善",
+        "这个工作室未来半年经营收入能不能覆盖成本",
+        "我自己经营这项业务后面的盈利情况怎么样",
+        "这门生意不是问某一单，整体做下去能不能赚钱",
+        "当前店铺的持续经营后面有没有利润空间",
+        "这个业务长期经营下来收益会不会变好"
+      ],
+      "validation": [
+        "这家门店接下来整体经营还能不能盈利",
+        "我做这项生意未来几个月利润会怎样",
+        "不看单笔订单，这个业务继续经营能赚钱吗"
+      ]
+    },
+    "commercial_transaction": {
+      "train": [
+        "我和客户谈的这一笔订单最终能不能签成",
+        "这次与供货商谈的单笔交易月底前能否成交",
+        "眼前这个买卖合同双方最后会不会签下来",
+        "当前这单货品买卖能不能真正完成成交",
+        "我跟买家正在谈的这一单最后能否敲定",
+        "这笔具体商业交易这周能不能落地"
+      ],
+      "validation": [
+        "这个客户正在谈的订单最后能成交吗",
+        "我和供应商这一次具体买卖能不能谈成",
+        "当前这笔交易合同月底前能不能签下来"
+      ]
+    },
+    "partnership": {
+      "train": [
+        "我和朋友作为合伙人一起经营这个店能不能赚钱",
+        "这项业务由我和合伙人共同经营会不会顺利",
+        "我们两个人合伙做这个项目后面有没有利润",
+        "这个生意如果继续和现在的合伙人共同做结果怎样",
+        "我和搭档共同经营这家公司以后能不能做起来",
+        "这次问的是合伙经营关系，这个项目能不能持续盈利"
+      ],
+      "validation": [
+        "我和合伙人共同经营这项业务以后能赚钱吗",
+        "这个项目由我们两个人合伙做会不会顺利",
+        "继续和这个搭档一起经营店铺结果会怎样"
+      ]
+    },
+    "investment_liquidation": {
+      "train": [
+        "我已经决定退出这只基金，赎回后资金能否顺利到账",
+        "这笔股票仓位已经决定清掉，卖出能不能顺利成交",
+        "我准备执行全部卖出，这次变现过程会不会卡住",
+        "这项投资确定不再持有，现在退出资金能拿回来吗",
+        "已经决定赎回基金，现金什么时候能顺利回到账户",
+        "这只股票不再考虑持有，直接卖掉能不能卖成",
+        "这笔投资已经决定结束，退出时能不能顺利回款",
+        "我现在执行清仓，卖出和资金到账能否顺利完成"
+      ],
+      "validation": [
+        "我已经决定卖掉这个持仓，这次套现能不能顺利完成",
+        "这只基金确定要赎回，资金能不能正常到账",
+        "这项投资已经决定退出，变现过程会顺利吗",
+        "我现在直接执行清仓，股票能否顺利卖掉"
+      ]
+    },
+    "investment_position_decision": {
+      "train": [
+        "这只基金现在到底该继续持有还是赎回",
+        "我还没决定卖不卖，这个仓位应该怎么处理",
+        "现在是继续拿着这只股票好还是先退出",
+        "这项投资目前要不要减仓或全部卖掉",
+        "我在犹豫是否卖出，这只股票还值得继续持有吗",
+        "手上的基金现在该留还是该赎回"
+      ],
+      "validation": [
+        "这笔持仓我还没决定，要继续拿还是卖掉",
+        "现在到底该保留这只股票还是退出",
+        "这只基金目前适合继续持有还是赎回"
+      ]
+    },
+    "relationship_development": {
+      "train": [
+        "我和这个女生还没有交往，后面能不能发展成恋人",
+        "我和这个男生现在只是朋友，以后有没有恋爱可能",
+        "我们还没确定关系，之后有机会正式在一起吗",
+        "我和这个具体对象目前暧昧，后面能不能成为情侣",
+        "现在不是夫妻也没结婚，我和他会不会开始恋爱",
+        "我和这个朋友彼此有好感，关系能不能往恋爱发展",
+        "我跟她现在还只是认识阶段，以后能不能交往",
+        "我们目前没有确定恋爱关系，之后能否成为恋人"
+      ],
+      "validation": [
+        "我和这个人现在还没交往，以后能发展成情侣吗",
+        "我跟他目前只是朋友，之后有没有恋爱发展的可能",
+        "这段关系还没有确定，后面能不能正式谈恋爱",
+        "我和这个具体对象现在暧昧，以后会不会在一起"
+      ]
+    },
+    "marriage_match": {
+      "train": [
+        "我和对象已经在交往，这段关系最终能不能结婚",
+        "我们现在是恋人，后面有没有机会正式成为夫妻",
+        "这段恋爱如果继续发展最后能不能进入婚姻",
+        "我和伴侣谈婚论嫁，这门婚事最终能不能办成",
+        "我们已经确定恋爱关系，今后能不能领证结婚",
+        "我跟对象的感情最后会不会发展到婚姻"
+      ],
+      "validation": [
+        "我和现任对象以后能不能正式结婚",
+        "我们已经是恋人，这段关系最后会走进婚姻吗",
+        "我和伴侣这门婚事最终能不能成"
+      ]
+    }
+  },
+  "hardNegatives": {
+    "train": [
+      { "text": "我和同事以后关系会不会更熟", "targets": ["relationship_development"] },
+      { "text": "我和老同学以后还能不能保持亲近", "targets": ["relationship_development"] },
+      { "text": "我跟室友之后能不能相处得更融洽", "targets": ["relationship_development", "marital_relationship"] },
+      { "text": "我和合作伙伴私下关系会不会改善", "targets": ["relationship_development", "marital_relationship"] },
+      { "text": "我和朋友以后还能不能继续互相信任", "targets": ["relationship_development"] },
+      { "text": "我和兄弟最近闹别扭以后能不能和好", "targets": ["relationship_development", "marital_relationship"] },
+
+      { "text": "我自己的旧相机挂二手平台能不能卖掉", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "我不用的游戏机二手转卖会不会有人买", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "我的旧书放二手平台能不能顺利卖出去", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "我想把自用的旧耳机卖掉能卖成吗", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "家里的旧桌子二手处理能不能卖掉", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "我自己的旧手机转手会不会有人接", "targets": ["inventory_sale", "commercial_transaction"] },
+
+      { "text": "我准备明天把这只基金全部赎回", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "这只股票我已经决定全部卖掉", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "我打算结束这笔投资把资金取出来", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "这个仓位我准备今天清掉", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "这项投资我已经确定退出", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "我准备把持有的基金全部变现", "targets": ["investment_liquidation", "investment_position_decision"] }
+    ],
+    "validation": [
+      { "text": "我和普通朋友以后还能不能一直关系很好", "targets": ["relationship_development"] },
+      { "text": "我跟同事以后会不会变得更亲近", "targets": ["relationship_development"] },
+      { "text": "我自用的旧平板挂二手能不能卖出去", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "家里闲置的旧家具能不能转手卖掉", "targets": ["inventory_sale", "commercial_transaction"] },
+      { "text": "这只基金我已经决定明天赎回", "targets": ["investment_liquidation", "investment_position_decision"] },
+      { "text": "我准备把这笔股票仓位全部清掉", "targets": ["investment_liquidation", "investment_position_decision"] }
+    ]
+  }
+}
