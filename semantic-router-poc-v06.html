@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="龟甲本地语义路由 PoC v0.6：冻结 v0.5 架构，仅针对已暴露边界做训练数据精修。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲｜本地语义路由 PoC v0.6</title>
+  <style>
+    :root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}body{margin:0;background:#f4f2ed;color:#282621}main{max-width:1200px;margin:0 auto;padding:28px 18px 54px}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 10px;font-size:18px}.sub,.small{color:#68645d;line-height:1.7}.small{font-size:12px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}button{font:inherit;border:0;border-radius:9px;padding:10px 16px;background:#38352f;color:#fff;cursor:pointer}button.secondary{background:#ece9e2;color:#38352f}button:disabled{opacity:.5;cursor:not-allowed}textarea{width:100%;min-height:88px;box-sizing:border-box;border:1px solid #cfcac0;border-radius:10px;padding:12px;font:inherit;resize:vertical}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{width:100%;height:8px;border-radius:999px;background:#ece9e2;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#6a665d;transition:width .15s linear}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media(max-width:860px){.grid{grid-template-columns:1fr}}.metric strong{display:block;font-size:24px;margin-top:5px}.metric span{color:#777168;font-size:12px}pre{white-space:pre-wrap;word-break:break-word;background:#f7f6f2;border-radius:10px;padding:12px;overflow:auto;font-size:12px;line-height:1.55}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid #ebe7df;padding:8px 7px;text-align:left;vertical-align:top}th{color:#666158;font-weight:600}td.num,th.num{text-align:right;white-space:nowrap}.chips{display:flex;flex-wrap:wrap;gap:7px}.chips button{padding:7px 10px;font-size:12px}.baseline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}.baseline div{background:#f7f6f2;border-radius:9px;padding:10px;font-size:12px}.baseline strong{display:block;font-size:18px;margin-top:3px}@media(max-width:760px){.baseline{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body><main>
+  <h1>龟甲 · 本地语义路由 PoC v0.6</h1>
+  <p class="sub">v0.5 架构冻结：BGE-small-zh-v1.5 q8 → 15 类 Multinomial Route classifier → route-conditioned Logistic Acceptance Gate。本轮只做 targeted data refinement，不再改模型结构。原 125 条现在明确作为 Development Benchmark v0.1，不再视为最终盲测。</p>
+
+  <section class="card">
+    <h2>v0.5 Development Benchmark 基线</h2>
+    <div class="baseline">
+      <div>Route Top-1<strong>97.2%</strong></div><div>Known coverage<strong>95.4%</strong></div><div>Accepted accuracy<strong>98.1%</strong></div><div>False activation<strong>0.0%</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>1. 加载 BGE</h2>
+    <div class="row"><button id="loadModel">加载本地模型</button><span id="modelStatus" class="status warn">尚未加载</span></div>
+    <div class="progress"><div id="modelProgress"></div></div><pre id="modelText">模型：Xenova/bge-small-zh-v1.5 · q8</pre>
+  </section>
+
+  <section class="card">
+    <h2>2. 训练 v0.6</h2>
+    <p class="small">在 v0.5 的 25 positive / route 基础上，只对 8 个暴露边界的 route 增加 6 条 train + 4 条 validation：阶段财运、工资、经营盈利、投资盈利、借款、恋爱发展、既有婚姻、婚事。Hard negatives 保持 v0.5 不变。</p>
+    <div class="row"><button id="train" disabled>训练 v0.6</button><span id="trainStatus" class="status">—</span></div>
+    <div class="progress"><div id="trainProgress"></div></div><pre id="trainText">—</pre>
+    <div class="grid">
+      <article class="card metric"><span>Validation Route Top-1 accuracy</span><strong id="valRoute">—</strong></article>
+      <article class="card metric"><span>Validation Known coverage</span><strong id="valCoverage">—</strong></article>
+      <article class="card metric"><span>Validation Accepted accuracy</span><strong id="valAccepted">—</strong></article>
+      <article class="card metric"><span>Validation Other rejection</span><strong id="valOther">—</strong></article>
+      <article class="card metric"><span>Validation False activation</span><strong id="valFalse">—</strong></article>
+      <article class="card metric"><span>Validation 总样本准确率</span><strong id="valExact">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. 单句测试</h2>
+    <textarea id="question">今年总体收入会不会提高</textarea>
+    <div class="row"><button id="classify" disabled>本地分类</button><span id="classifyStatus" class="status">—</span></div>
+    <div class="chips" id="samples" style="margin-top:12px"></div><pre id="singleResult">—</pre>
+  </section>
+
+  <section class="card">
+    <h2>4. Development Benchmark v0.1（125 条）</h2>
+    <p class="small">本轮允许最后一次用这 125 条确认 targeted refinement 是否收敛；之后不再据此继续设计/调参。下一阶段应冻结训练流程并建立新的 Blind Eval。</p>
+    <div class="row"><button id="runBenchmark" disabled>运行 Development Benchmark</button><span id="benchmarkStatus" class="status">—</span></div>
+    <div class="progress"><div id="benchmarkProgress"></div></div>
+    <div class="grid">
+      <article class="card metric"><span>Route Top-1 accuracy</span><strong id="benchRoute">—</strong></article>
+      <article class="card metric"><span>Known coverage</span><strong id="benchCoverage">—</strong></article>
+      <article class="card metric"><span>Accepted accuracy</span><strong id="benchAccepted">—</strong></article>
+      <article class="card metric"><span>Other rejection</span><strong id="benchOther">—</strong></article>
+      <article class="card metric"><span>False activation</span><strong id="benchFalse">—</strong></article>
+      <article class="card metric"><span>总样本准确率</span><strong id="benchExact">—</strong></article>
+    </div>
+  </section>
+
+  <section class="card"><h2>错误 / 拒绝样本</h2><div style="overflow:auto"><table><thead><tr><th>问题</th><th>Expected</th><th>Route Top1</th><th>Final</th><th>Gate score / th</th><th>Top2</th><th class="num">Route margin</th></tr></thead><tbody id="errorRows"><tr><td colspan="7">尚未运行 Development Benchmark。</td></tr></tbody></table></div></section>
+</main>
+<script type="module">
+import { semanticRouterPocV06 as poc } from './js/liuyao-semantic-router-poc-v06.js?v=poc0.6';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const setStatus=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const paint=(prefix,m)=>{$(`${prefix}Route`).textContent=pct(m.routeKnownTop1Accuracy);$(`${prefix}Coverage`).textContent=pct(m.knownCoverage);$(`${prefix}Accepted`).textContent=pct(m.acceptedKnownAccuracy);$(`${prefix}Other`).textContent=pct(m.otherRejectionRate);$(`${prefix}False`).textContent=pct(m.falseActivationRate);$(`${prefix}Exact`).textContent=pct(m.exactAccuracy);};
+[
+ '今年总体收入会不会提高','公司今年会不会提高我的工资收入','做这门买卖最后能不能赚钱','投这个项目最终能不能盈利','银行愿不愿意给我放贷','我和这个人还能不能进一步发展','这桩亲事最后能不能成','我们已经是夫妻了，后面还能不能和好'
+].forEach((text)=>{const b=document.createElement('button');b.className='secondary';b.textContent=text;b.onclick=()=>{$('question').value=text;};$('samples').appendChild(b);});
+
+$('loadModel').onclick=async()=>{$('loadModel').disabled=true;setStatus('modelStatus','加载中…','warn');try{await poc.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))$('modelProgress').style.width=`${Math.max(0,Math.min(100,n))}%`;$('modelText').textContent=[p?.status,p?.file,Number.isFinite(n)?`${n.toFixed(1)}%`:null].filter(Boolean).join(' · ');});$('modelProgress').style.width='100%';setStatus('modelStatus','BGE 已就绪','ok');$('modelText').textContent=`${poc.modelId} · ${poc.modelDtype} · encoder frozen`;$('train').disabled=false;}catch(e){setStatus('modelStatus','加载失败','bad');$('modelText').textContent=e?.stack||String(e);$('loadModel').disabled=false;}};
+
+$('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=true;$('runBenchmark').disabled=true;setStatus('trainStatus','准备训练…','warn');$('trainProgress').style.width='0%';try{const result=await poc.train({onStage:(stage,text)=>{setStatus('trainStatus',text,stage==='done'?'ok':'warn');$('trainText').textContent=`${stage}: ${text}`;},onEmbeddingProgress:(done,total)=>{$('trainProgress').style.width=`${total?done/total*75:0}%`;$('trainText').textContent=`embedding ${done}/${total}`;}});$('trainProgress').style.width='100%';paint('val',result.validationMetrics);$('trainText').textContent=`train=${result.trainCount} (known ${result.trainPositiveCount} / other ${result.trainOtherCount}) · validation=${result.validationCount} (known ${result.validationPositiveCount} / other ${result.validationOtherCount}) · routes=${result.routeCount} · architecture frozen from v0.5`;setStatus('trainStatus','训练完成','ok');$('classify').disabled=false;$('runBenchmark').disabled=false;}catch(e){setStatus('trainStatus','训练失败','bad');$('trainText').textContent=e?.stack||String(e);}finally{$('train').disabled=false;}};
+
+$('classify').onclick=async()=>{const text=$('question').value.trim();if(!text)return;$('classify').disabled=true;setStatus('classifyStatus','计算中…','warn');try{const r=await poc.classify(text);setStatus('classifyStatus',r.gate.accepted?`接受：${r.top1.id}`:'拒绝','ok');$('singleResult').textContent=JSON.stringify({question:text,routeTop1:r.top1,routeTop2:r.top2,routeMargin:r.routeMargin,gate:r.gate,top5:r.scores.slice(0,5)},null,2);}catch(e){setStatus('classifyStatus','失败','bad');$('singleResult').textContent=e?.stack||String(e);}finally{$('classify').disabled=false;}};
+
+$('runBenchmark').onclick=async()=>{$('runBenchmark').disabled=true;setStatus('benchmarkStatus','运行中…','warn');$('benchmarkProgress').style.width='0%';try{const ev=await poc.runDevelopmentBenchmark({onProgress:(done,total)=>{$('benchmarkProgress').style.width=`${done/total*100}%`;setStatus('benchmarkStatus',`运行中 ${done}/${total}`,'warn');}});paint('bench',ev.metrics);setStatus('benchmarkStatus','Benchmark 完成','ok');$('benchmarkProgress').style.width='100%';const issues=ev.results.filter((r)=>!r.correct||(!r.gate.accepted&&r.label!=='__other__'));$('errorRows').innerHTML='';if(!issues.length){$('errorRows').innerHTML='<tr><td colspan="7">没有错误或拒绝样本。</td></tr>';}else{for(const r of issues){const tr=document.createElement('tr');const vals=[r.text,r.label,`${r.top1.id} ${f(r.top1.score)}`,r.gate.predicted,`${f(r.gate.score)} / ${f(r.gate.threshold)}`,`${r.top2.id} ${f(r.top2.score)}`];for(const value of vals){const td=document.createElement('td');td.textContent=value;tr.appendChild(td);}const td=document.createElement('td');td.className='num';td.textContent=f(r.routeMargin);tr.appendChild(td);$('errorRows').appendChild(tr);}}}catch(e){setStatus('benchmarkStatus','Benchmark 失败','bad');$('errorRows').innerHTML=`<tr><td colspan="7">${String(e)}</td></tr>`;}finally{$('runBenchmark').disabled=false;}};
+</script>
+</body></html>
