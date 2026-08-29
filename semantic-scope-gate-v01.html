@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲六爻 current-22 Semantic Scope Gate v0.1 Development Experiment：使用冻结 BGE embedding 判断是否属于当前 22-route 现代语义 Router 的明确支持域。">
+  <meta name="robots" content="noindex,nofollow">
+  <title>龟甲 · 六爻 Scope Gate v0.1</title>
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:#282621;background:#f4f2ed}body{margin:0}main{max-width:1240px;margin:0 auto;padding:28px 18px 56px}.card{background:#fff;border:1px solid #dedbd3;border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 5px 18px rgba(50,45,35,.05)}h1{margin:0 0 6px;font-size:26px}h2{margin:0 0 12px;font-size:18px}.sub,.small{color:#6b675f;line-height:1.7}.small{font-size:12px}.notice{border-left:4px solid #bfae78;background:#faf7ee;padding:10px 12px;line-height:1.75}.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}@media(max-width:760px){.flow{grid-template-columns:1fr}.arrow{display:none}}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}button{font:inherit;border:0;border-radius:9px;padding:11px 17px;background:#37342f;color:#fff;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.status{display:inline-flex;border-radius:999px;padding:5px 10px;font-size:12px;background:#eeece6}.ok{background:#e8f3e9;color:#285b31}.warn{background:#fff2d9;color:#7a5315}.bad{background:#f9e4e4;color:#7e2d2d}.progress{height:8px;background:#ece9e2;border-radius:999px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:#69655d;transition:width .15s}.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}@media(max-width:980px){.metrics{grid-template-columns:1fr 1fr}}@media(max-width:520px){.metrics{grid-template-columns:1fr}}.metric{border:1px solid #ebe7df;border-radius:12px;padding:14px}.metric span{display:block;color:#777168;font-size:12px}.metric strong{display:block;font-size:22px;margin-top:5px}.scroll{max-height:620px;overflow:auto;border:1px solid #eeeae2;border-radius:10px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:8px 7px;border-bottom:1px solid #ebe7df;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#fff;color:#666158}.num{text-align:right;white-space:nowrap}.badrow{background:#fff8f7}.diag{background:#f7f5ef}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  </style>
+</head>
+<body><main>
+  <h1>六爻 Semantic Scope Gate v0.1 · Development Experiment</h1>
+  <p class="sub">只判断一句话是否明确落在<strong>当前 22-route 现代 Semantic Router</strong> 的语义域内。它不是“六爻能不能占”的总开关，也不负责对象、参与者或占问目标是否充分。</p>
+
+  <section class="card">
+    <h2>职责边界</h2>
+    <div class="notice">训练与正式指标只使用两类：110 条明确 current-22 域内语句，110 条明确 current-22 域外语句。另有 30 条 route 本身不明确的省略问句，只作为 diagnostic probe，不作为负例、不参与 threshold calibration，也不计入 Scope Gate 准确率。域外 current-22 仍可能属于龟甲其他六爻语义/规则能力。</div>
+  </section>
+
+  <section class="card">
+    <h2>运行</h2>
+    <div class="flow">
+      <div>
+        <strong>1. 加载 BGE</strong>
+        <div class="row" style="margin-top:10px"><button id="load">加载 BGE</button><span id="modelStatus" class="status warn">尚未加载</span></div>
+      </div>
+      <div class="arrow">→</div>
+      <div>
+        <strong>2. 自动训练、校准并验证 Scope Gate</strong>
+        <div class="row" style="margin-top:10px"><button id="run" disabled>运行 Scope Gate v0.1</button><span id="runStatus" class="status">—</span></div>
+      </div>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <p id="progress" class="small">—</p>
+  </section>
+
+  <section class="card">
+    <h2>Calibration / Validation</h2>
+    <div class="metrics">
+      <div class="metric"><span>Threshold</span><strong id="threshold">—</strong></div>
+      <div class="metric"><span>Calibration balanced acc.</span><strong id="calBal">—</strong></div>
+      <div class="metric"><span>Validation supported recall</span><strong id="supportedRecall">—</strong></div>
+      <div class="metric"><span>Validation outside-current-22 reject</span><strong id="outsideReject">—</strong></div>
+      <div class="metric"><span>Validation balanced acc.</span><strong id="valBal">—</strong></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Validation 异常</h2>
+    <p class="small">这里只显示 44 条正式 Validation 中 Scope Gate 判错的样本：22 条 current-22 域内 + 22 条明确 current-22 域外。</p>
+    <div class="scroll"><table><thead><tr><th>ID / 问题</th><th>Expected</th><th class="num">p(supported)</th><th>Decision</th><th>Group</th></tr></thead><tbody id="issues"><tr><td colspan="5">尚未运行。</td></tr></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>分组结果</h2>
+    <div class="flow">
+      <div><strong>current-22 · 按 route</strong><div class="scroll" style="margin-top:9px"><table><thead><tr><th>Route</th><th class="num">n</th><th class="num">Recall</th><th class="num">Mean p</th></tr></thead><tbody id="routeRows"><tr><td colspan="4">尚未运行。</td></tr></tbody></table></div></div>
+      <div class="arrow">·</div>
+      <div><strong>outside-current-22 · 按类别</strong><div class="scroll" style="margin-top:9px"><table><thead><tr><th>Category</th><th class="num">n</th><th class="num">Reject</th><th class="num">Mean p</th></tr></thead><tbody id="outsideRows"><tr><td colspan="4">尚未运行。</td></tr></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section class="card diag">
+    <h2>Unresolved Diagnostic · 不计成绩</h2>
+    <p class="small">这些句子故意缺少 route 级语境。Scope Gate 不负责把它们判成“错误”；这里仅观察二分类头对这类句子的倾向，供后续单独设计 Route Identifiability 层。</p>
+    <div class="metrics" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:12px">
+      <div class="metric"><span>Scope accepted / 30</span><strong id="diagAccepted">—</strong></div>
+      <div class="metric"><span>Mean p(supported)</span><strong id="diagMean">—</strong></div>
+    </div>
+    <div class="scroll"><table><thead><tr><th>ID / 问题</th><th class="num">p(supported)</th><th>Scope-only decision</th></tr></thead><tbody id="diagRows"><tr><td colspan="3">尚未运行。</td></tr></tbody></table></div>
+  </section>
+</main>
+<script type="module">
+import { semanticScopeGateV01 as api } from './js/liuyao-semantic-scope-gate-v01.js?v=0.1-dev';
+const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';const f=(v)=>Number.isFinite(v)?v.toFixed(4):'—';
+const status=(id,text,kind='')=>{$(id).textContent=text;$(id).className=`status ${kind}`;};
+const progress=(value,text)=>{$('bar').style.width=`${Math.max(0,Math.min(100,value))}%`;$('progress').textContent=text;};
+function paintIssues(result){const bad=result.rows.filter(r=>!r.correct);$('issues').innerHTML='';if(!bad.length){$('issues').innerHTML='<tr><td colspan="5">Validation 无 Scope Gate 异常。</td></tr>';return;}for(const r of bad){const tr=document.createElement('tr');tr.className='badrow';const cells=[`${r.id}\n${r.text}`,r.supported?'current-22 supported':'outside-current-22',f(r.probability),r.accepted?'accept current-22':'route elsewhere',r.groupId];cells.forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;td.style.whiteSpace='pre-wrap';if(i===2)td.className='num';tr.appendChild(td)});$('issues').appendChild(tr);}}
+function paintGroups(id,rows,label){$(id).innerHTML='';for(const r of rows){const tr=document.createElement('tr');[r.groupId,String(r.n),pct(r.accuracy),f(r.meanProbability)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;if(i>0)td.className='num';tr.appendChild(td)});$(id).appendChild(tr);}if(!rows.length)$(id).innerHTML=`<tr><td colspan="4">无 ${label} 数据。</td></tr>`;}
+function paintDiagnostic(result){$('diagAccepted').textContent=`${result.scopeAcceptedCount} / ${result.count}`;$('diagMean').textContent=f(result.meanProbability);$('diagRows').innerHTML='';for(const r of result.rows){const tr=document.createElement('tr');[`${r.id}\n${r.text}`,f(r.probability),r.scopeAccepted?'current-22 side':'elsewhere side'].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;td.style.whiteSpace='pre-wrap';if(i===1)td.className='num';tr.appendChild(td)});$('diagRows').appendChild(tr);}}
+$('load').onclick=async()=>{$('load').disabled=true;status('modelStatus','加载中…','warn');try{await api.loadModel((p)=>{const n=Number(p?.progress);if(Number.isFinite(n))progress(n*0.25,[p?.status,p?.file].filter(Boolean).join(' · '));});status('modelStatus','BGE 已就绪','ok');progress(25,'BGE 已加载。');$('run').disabled=false;}catch(e){status('modelStatus','加载失败','bad');progress(0,e?.message||String(e));$('load').disabled=false;}};
+$('run').onclick=async()=>{$('run').disabled=true;status('runStatus','训练与 calibration…','warn');try{const cal=await api.train({onProgress:(done,total,label)=>progress(25+(total?done/total*35:0),`${label} ${done}/${total}`)});$('threshold').textContent=f(cal.threshold);$('calBal').textContent=pct(cal.calibration.balancedAccuracy);status('runStatus','运行独立 Validation…','warn');const val=await api.runValidation({onProgress:(done,total,label)=>progress(60+(total?done/total*25:0),`${label} ${done}/${total}`)});$('supportedRecall').textContent=pct(val.supportedRecall);$('outsideReject').textContent=pct(val.outsideRejection);$('valBal').textContent=pct(val.balancedAccuracy);paintIssues(val);paintGroups('routeRows',val.supportedByRoute,'route');paintGroups('outsideRows',val.outsideByCategory,'outside category');status('runStatus','运行 unresolved diagnostic…','warn');const diag=await api.runUnresolvedDiagnostic({onProgress:(done,total,label)=>progress(85+(total?done/total*15:0),`${label} ${done}/${total}`)});paintDiagnostic(diag);progress(100,'Scope Gate v0.1 Development Experiment 完成。');status('runStatus','实验完成','ok');}catch(e){status('runStatus','实验失败','bad');progress(0,e?.stack||e?.message||String(e));}finally{$('run').disabled=false;}};
+</script>
+</body></html>
