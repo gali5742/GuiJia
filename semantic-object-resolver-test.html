@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="龟甲六爻 Object / Entity Resolver v0.1 独立测试页，用于验证显式对象抽取、三类对象型 SemanticSlot 绑定与保守拒绝边界。">
+  <title>龟甲 · Object / Entity Resolver v0.1</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;color:#201d18;background:#f4f1ea}body{margin:0}.wrap{max-width:1180px;margin:0 auto;padding:24px}.card{background:#fff;border:1px solid #d9d3c7;border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 8px 24px rgba(55,45,30,.04)}h1,h2,h3{margin:0 0 14px}p{line-height:1.7}.muted{color:#6d675e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}label{display:block;font-weight:650;margin-bottom:7px}select,textarea{width:100%;box-sizing:border-box;border:1px solid #cfc7b8;border-radius:10px;padding:10px;background:#fff;font:inherit}textarea{min-height:90px;resize:vertical}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:10px;background:#34312b;color:#fff;padding:10px 16px;font-weight:700;cursor:pointer}.btn.alt{background:#e9e4da;color:#29251f}.status{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef4e9;color:#355d31;font-size:13px}.warn{background:#fff0d8;color:#8a5700}.bad{background:#fde8e4;color:#8a2e22}.mono{white-space:pre-wrap;word-break:break-word;background:#f7f5f1;border-radius:10px;padding:12px;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.pill{display:inline-block;padding:5px 8px;border-radius:999px;background:#eee9df;margin:2px 4px 2px 0;font-size:12px}@media(max-width:720px){.wrap{padding:12px}.card{padding:14px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="card">
+    <h1>龟甲 · Object / Entity Resolver v0.1</h1>
+    <p class="muted">只测试 `investment_target / delivery_target / purchase_object` 三个对象型 slot。Resolver 不决定 route，也不会因为 route 已知就制造对象。</p>
+  </section>
+
+  <section class="card">
+    <h2>1. 手工测试</h2>
+    <div class="grid">
+      <div>
+        <label for="route">Candidate route</label>
+        <select id="route">
+          <option value="investment_price_trend">investment_price_trend</option>
+          <option value="investment_profit">investment_profit</option>
+          <option value="investment_suitability">investment_suitability</option>
+          <option value="investment_position_decision">investment_position_decision</option>
+          <option value="receive_item">receive_item</option>
+          <option value="item_purchase">item_purchase</option>
+        </select>
+      </div>
+      <div>
+        <label for="question">问题</label>
+        <textarea id="question">这只股票后面会不会涨</textarea>
+      </div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn" id="run">解析对象 → Slot → Sufficiency</button>
+      <button class="btn alt" data-sample="stock">股票</button>
+      <button class="btn alt" data-sample="baretrend">裸走势</button>
+      <button class="btn alt" data-sample="delivery">收货</button>
+      <button class="btn alt" data-sample="purchase">购买</button>
+      <button class="btn alt" data-sample="company">公司名</button>
+      <button class="btn alt" data-sample="multi">多对象</button>
+      <span id="summary" class="status">等待解析</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. 结果</h2>
+    <div class="grid">
+      <div><h3>Referent candidates</h3><div id="candidates" class="mono">—</div></div>
+      <div><h3>Resolved slots</h3><div id="resolved" class="mono">—</div></div>
+      <div><h3>Sufficiency / conflicts</h3><div id="sufficiency" class="mono">—</div></div>
+    </div>
+    <h3 style="margin-top:16px">Ignored / provenance</h3>
+    <div id="details" class="mono">—</div>
+  </section>
+
+  <section class="card">
+    <h2>3. v0.1 边界</h2>
+    <p><span class="pill">高精度</span><span class="pill">不追求全覆盖</span><span class="pill">不使用 route 反推对象</span><span class="pill">多对象不静默选择</span></p>
+    <p class="muted">例如“英伟达下周还会涨吗”虽然有显式主语，但当前 v0.1 不把纯公司名自动证明为 investment_target；“买入英伟达最后能不能赚钱”则因投资动作明确，可以通过。后续若需要扩展，应接 entity typing / ML provider，而不是继续扩大 route 关键词。</p>
+  </section>
+</div>
+<script src="js/liuyao-intent.js"></script>
+<script src="js/liuyao-participant-resolver.js"></script>
+<script src="js/liuyao-semantic-sufficiency.js"></script>
+<script src="js/liuyao-semantic-slot-provider.js"></script>
+<script src="js/liuyao-object-entity-resolver.js"></script>
+<script>
+(() => {
+  const resolver = window.GuiJia?.liuyaoObjectEntityResolver;
+  const provider = window.GuiJia?.liuyaoSemanticSlotProvider;
+  if (!resolver || !provider) throw new Error('Object/entity resolver dependencies failed to load');
+  const $ = (id) => document.getElementById(id);
+
+  function run() {
+    const routeId = $('route').value;
+    const question = $('question').value.trim();
+    const candidates = resolver.extractReferentCandidates(question);
+    const result = provider.evaluateWithProviders({ routeId, question });
+    $('candidates').textContent = JSON.stringify(candidates, null, 2);
+    $('resolved').textContent = JSON.stringify(result.slotResolution.resolvedSlots, null, 2);
+    $('sufficiency').textContent = JSON.stringify({ status:result.status, missing:result.missing, conflicts:result.slotResolution.conflicts }, null, 2);
+    $('details').textContent = JSON.stringify({ providerRuns:result.slotResolution.providerRuns, ignoredClaims:result.slotResolution.ignoredClaims, claims:result.slotResolution.claims }, null, 2);
+    const summary = $('summary');
+    summary.textContent = result.status;
+    summary.className = `status ${result.status === 'sufficient' ? '' : result.status === 'semantic_insufficient' ? 'warn' : 'bad'}`;
+  }
+
+  const samples = {
+    stock:['investment_price_trend','这只股票后面会不会涨'],
+    baretrend:['investment_price_trend','后面会不会涨'],
+    delivery:['receive_item','我买的电脑什么时候能收到'],
+    purchase:['item_purchase','这台电脑值不值得买'],
+    company:['investment_price_trend','英伟达下周还会涨吗'],
+    multi:['investment_price_trend','这只股票和那只基金哪个会涨得更好']
+  };
+  $('run').addEventListener('click', run);
+  document.querySelectorAll('[data-sample]').forEach((button) => button.addEventListener('click', () => {
+    const [routeId, question] = samples[button.dataset.sample];
+    $('route').value = routeId;
+    $('question').value = question;
+    run();
+  }));
+  run();
+})();
+</script>
+</body>
+</html>
