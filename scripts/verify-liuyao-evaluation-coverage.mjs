@@ -27,10 +27,12 @@ const context = { console, Date, Math, JSON, Intl };
 context.window = context;
 context.globalThis = context;
 vm.createContext(context);
-for (const relative of ['js/liuyao-intent.js', 'js/liuyao-rule-registry.js']) {
+for (const relative of ['js/liuyao-intent.js', 'js/liuyao-commercial-event-resolver.js', 'js/liuyao-rule-registry.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, relative), 'utf8'), context, { filename:relative });
 }
 const registry = context.GuiJia?.liuyaoRuleRegistry;
+const commercialResolver = context.GuiJia?.liuyaoCommercialEventResolver;
+if (!commercialResolver?.detectCommercialEvent) fail('Unable to load LiuYao commercial event resolver');
 if (!registry?.observationRules || !registry?.augmentationRules) fail('Unable to load LiuYao Rule Registry');
 
 const manifestRules = manifest.registryRules || [];
