@@ -10,6 +10,7 @@ const sameSet = (left, right) => JSON.stringify([...new Set(left)].sort()) === J
 
 const inventory = readJson('liuyao-semantic-route-inventory-v0.2.json');
 const expansion = readJson('liuyao-semantic-route-training-v0.4-expansion.json');
+const labelPatch = readJson('liuyao-semantic-route-training-v0.4-expansion-label-patch.json');
 const base = readJson('liuyao-semantic-route-training-v0.1.json');
 const augmentation = readJson('liuyao-semantic-route-training-v0.2-augmentation.json');
 const targeted = readJson('liuyao-semantic-route-training-v0.3-targeted.json');
@@ -19,6 +20,8 @@ const blindPatch = readJson('liuyao-semantic-route-blind-eval-v0.2-seal-patch.js
 
 if (expansion.version !== '0.4-expansion' || expansion.status !== 'development') fail('Expansion corpus metadata mismatch');
 if (expansion.inventory !== 'liuyao-semantic-route-inventory-v0.2.json') fail('Expansion corpus inventory reference mismatch');
+if (labelPatch.version !== '0.4-expansion-label-patch' || labelPatch.status !== 'development') fail('Expansion label patch metadata mismatch');
+if (labelPatch.base !== 'liuyao-semantic-route-training-v0.4-expansion.json') fail('Expansion label patch base mismatch');
 const expectedBase = [
   'liuyao-semantic-route-training-v0.1.json',
   'liuyao-semantic-route-training-v0.2-augmentation.json',
@@ -73,6 +76,22 @@ for (const routeId of expectedNewRoutes) {
   if (targetedCount < 5) fail(`${routeId} needs at least 5 targeted hard negatives across train/validation, got ${targetedCount}`);
 }
 
+const validateLabelPatchSplit = (split, sourceRows, expectedCount) => {
+  const mapping = labelPatch?.[split] || {};
+  const entries = Object.entries(mapping);
+  if (entries.length !== expectedCount) fail(`Expansion label patch ${split} must contain exactly ${expectedCount} rows, got ${entries.length}`);
+  const sourceByText = new Map(sourceRows.map((row) => [row.text, row]));
+  for (const [text, expectedRoute] of entries) {
+    const source = sourceByText.get(text);
+    if (!source) fail(`Expansion label patch ${split} source not found: ${text}`);
+    if (!inventoryRouteIds.includes(expectedRoute)) fail(`Expansion label patch ${split} has unknown expected route ${expectedRoute}: ${text}`);
+    if (source.targets.includes(expectedRoute)) fail(`Contrastive expected route must differ from targeted negative routes: ${text} => ${expectedRoute}`);
+  }
+  return entries.length;
+};
+const patchedTrainContrastives = validateLabelPatchSplit('train', trainNegatives, 29);
+const patchedValidationContrastives = validateLabelPatchSplit('validation', validationNegatives, 12);
+
 const legacySeen = new Map();
 const rememberLegacy = (text, bucket) => {
   const key = normalize(text);
@@ -113,4 +132,6 @@ console.log('LiuYao Semantic Router v0.4 expansion corpus verification passed');
 console.log(`- ${expectedNewRoutes.length} new routes`);
 console.log(`- ${trainPositive} train positives / ${validationPositive} validation positives`);
 console.log(`- ${trainNegatives.length} train hard negatives / ${validationNegatives.length} validation hard negatives`);
+console.log(`- ${patchedTrainContrastives} train / ${patchedValidationContrastives} validation contrastive hard negatives relabeled to their supported expected route`);
+console.log(`- ${trainNegatives.length - patchedTrainContrastives} train / ${validationNegatives.length - patchedValidationContrastives} validation genuine __other__/underspecified expansion negatives retained`);
 console.log('- zero exact overlap with legacy train/validation/development/sealed Blind corpora');
