@@ -39,7 +39,8 @@
             Object.freeze({ id:'BAZI-ASSESS-GUARD-010', scope:'global', statement:'同一藏干可同时具有通根与印比等多重语义，但不得在未设规则时重复计作多份力量。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-011', scope:'global', statement:'不同作用方向候选同时存在不得仅因此判定为 Conflict；Conflict 必须针对同一待决命题的互斥规则结果。' }),
             Object.freeze({ id:'BAZI-ASSESS-GUARD-012', scope:'global', statement:'Sufficiency 不得依据证据数量、方向数量或 actor 数量决定，必须依据明确规则覆盖与必要依赖是否满足。' }),
-            Object.freeze({ id:'BAZI-ASSESS-GUARD-013', scope:'global', statement:'Synthesis 的 insufficient 只表示尚不足以执行最终判断，不得直接转换为 strong、weak、balanced 或 indeterminate。' })
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-013', scope:'global', statement:'Synthesis 的 insufficient 只表示尚不足以执行最终判断，不得直接转换为 strong、weak、balanced 或 indeterminate。' }),
+            Object.freeze({ id:'BAZI-ASSESS-GUARD-014', scope:'global', statement:'月令季节作为独立一级判断轴，不得被改写为固定倍数、分值、一票否决或绝对优先于其他判断轴的规则。' })
         ])
     });
 
@@ -54,7 +55,11 @@
             seasonalState: Object.freeze({
                 sourceSystem: 'seasonalFiveStates',
                 required: true,
-                assessmentMeaning: 'baseline-only'
+                assessmentMeaning: 'independent-primary-axis',
+                hierarchyStatus: 'resolved',
+                conversion: 'non-convertible',
+                necessaryCondition: false,
+                sufficientAlone: false
             }),
             visibleSupportActors: Object.freeze({
                 relations: Object.freeze(['生我','同我']),
@@ -80,6 +85,8 @@
             })
         }),
         boundaries: Object.freeze([
+            '月令季节必须作为独立一级判断轴保留，不与明干、根气或支气按统一分值、权重或条数换算。',
+            '月令得令或失令都不得单独生成最终身强身弱结论，也不得解释为一票式必要条件。',
             '不从计数自行生成多帮扶、少帮扶、多克泄或少克泄。',
             '不从年日时支十二长生自行归纳支得气或支失气。',
             '不把我克之“被分”并入《强弱篇》的克泄计数。',
@@ -149,7 +156,7 @@
             synthesisCollection,
             synthesisCollectionStatus:synthesisCollection?.state || 'not-synthesized',
             synthesisSufficiencyStatus:synthesisCollection?.sufficiency?.status || 'not-evaluated',
-            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释与 Synthesis contract，但关键依赖尚未解析，因此不执行最终强弱结论。'
+            note:'身强弱最终规则尚未启用；当前已完成证据抽取、中间作用解释，并已解析月令在 Synthesis 中的独立一级层级；明干实际效力、根气层级与支气汇总仍未解析，因此不执行最终强弱结论。'
         };
     };
 
