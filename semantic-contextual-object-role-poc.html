@@ -70,7 +70,7 @@
 
   <section class="card">
     <h2>2. 同一实体 · 不同事件角色</h2>
-    <p class="note">快捷样例训练完成后会直接运行，并优先显示可读判定。JSON 只保留在“调试详情”里，只有结果异常时才需要展开。</p>
+    <p class="note">快捷样例训练完成后会直接运行，并优先显示可读判定。Object candidate 作为独立上游候选证据传给 Role Provider；模型预测本身仍不能制造对象。JSON 只在异常时展开。</p>
     <div class="grid">
       <div><label for="route">Candidate route</label><select id="route"><option>investment_price_trend</option><option>investment_profit</option><option>investment_suitability</option><option>investment_position_decision</option><option>item_purchase</option><option>receive_item</option></select></div>
       <div><label for="entity">Object candidate</label><input id="entity" value="MacBook Pro"></div>
@@ -111,7 +111,7 @@
 <script src="js/liuyao-semantic-sufficiency.js"></script>
 <script src="js/liuyao-semantic-slot-provider.js"></script>
 <script src="js/liuyao-object-entity-resolver.js"></script>
-<script src="js/liuyao-contextual-object-role-adapter.js?v=0.2"></script>
+<script src="js/liuyao-contextual-object-role-adapter.js?v=0.2.1"></script>
 <script type="module">
 import { contextualObjectRolePocV02 as poc } from './js/liuyao-contextual-object-role-poc.js?v=0.2';
 const $=(id)=>document.getElementById(id);const pct=(v)=>Number.isFinite(v)?`${(v*100).toFixed(1)}%`:'—';
@@ -154,7 +154,7 @@ $('train').onclick=async()=>{$('train').disabled=true;$('classify').disabled=tru
 
 $('extract').onclick=()=>{const candidates=objectResolver.extractReferentCandidates($('context').value.trim());$('slotProviderResult').textContent=`Object Resolver candidates\n${JSON.stringify(candidates,null,2)}`;if(candidates[0])$('entity').value=candidates[0].text;};
 
-const runClassification=async()=>{if(!classifierReady)return;$('classify').disabled=true;try{const entity=$('entity').value.trim();const context=$('context').value.trim();const route=$('route').value;const r=await poc.classify(entity,context);$('roleResult').textContent=JSON.stringify({entity:r.entity,top1:r.top1,top2:r.top2,margin:r.margin,threshold:r.threshold,accepted:r.accepted,prediction:r.prediction,top4:r.scores},null,2);const intent=simulatedIntent(route,context,$('simulateUpstream').checked);const evalResult=provider.evaluateWithProviders({routeId:route,question:context,intent,objectRolePredictions:[r.prediction]});$('slotProviderResult').textContent=JSON.stringify({simulatedStructuredIntent:intent?{event:intent.event}:null,resolvedSlots:evalResult.slotResolution.resolvedSlots,ignoredClaims:evalResult.slotResolution.ignoredClaims.filter(x=>x.providerId==='object_or_entity_resolver'||x.providerId==='contextual_object_role'||x.providerId==='structured_intent'),conflicts:evalResult.slotResolution.conflicts},null,2);$('sufficiencyResult').textContent=JSON.stringify({status:evalResult.status,missing:evalResult.missing,objectRoleAccepted:r.accepted,role:r.prediction.role,upstreamContextSimulated:Boolean(intent)},null,2);renderDecision(entity,r,evalResult);}catch(e){$('roleResult').textContent=e?.stack||String(e);$('decisionVerdict').textContent='运行失败';setDecisionState('warnbox');$('decisionNote').textContent=e?.message||String(e);}finally{$('classify').disabled=false;}};
+const runClassification=async()=>{if(!classifierReady)return;$('classify').disabled=true;try{const entity=$('entity').value.trim();const context=$('context').value.trim();const route=$('route').value;const r=await poc.classify(entity,context);$('roleResult').textContent=JSON.stringify({entity:r.entity,top1:r.top1,top2:r.top2,margin:r.margin,threshold:r.threshold,accepted:r.accepted,prediction:r.prediction,top4:r.scores},null,2);const intent=simulatedIntent(route,context,$('simulateUpstream').checked);const objectCandidates=entity?[{text:entity,evidence:entity,strategy:'poc_object_candidate',confidence:0.99}]:[];const evalResult=provider.evaluateWithProviders({routeId:route,question:context,intent,objectCandidates,objectRolePredictions:[r.prediction]});$('slotProviderResult').textContent=JSON.stringify({simulatedStructuredIntent:intent?{event:intent.event}:null,upstreamObjectCandidates:objectCandidates,resolvedSlots:evalResult.slotResolution.resolvedSlots,ignoredClaims:evalResult.slotResolution.ignoredClaims.filter(x=>x.providerId==='object_or_entity_resolver'||x.providerId==='contextual_object_role'||x.providerId==='structured_intent'),conflicts:evalResult.slotResolution.conflicts},null,2);$('sufficiencyResult').textContent=JSON.stringify({status:evalResult.status,missing:evalResult.missing,objectRoleAccepted:r.accepted,role:r.prediction.role,upstreamContextSimulated:Boolean(intent)},null,2);renderDecision(entity,r,evalResult);}catch(e){$('roleResult').textContent=e?.stack||String(e);$('decisionVerdict').textContent='运行失败';setDecisionState('warnbox');$('decisionNote').textContent=e?.message||String(e);}finally{$('classify').disabled=false;}};
 $('classify').onclick=runClassification;
 
 const samples={
