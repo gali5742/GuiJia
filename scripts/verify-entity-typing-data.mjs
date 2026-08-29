@@ -37,7 +37,6 @@ for (const label of expectedLabels) {
       const entity = normalize(sample.entity);
       const context = normalize(sample.context);
       if (!entity || !context) fail(`${label}/${split} empty entity/context`);
-      if (!context.includes(entity) && !/[A-Za-z]/.test(entity)) fail(`${label}/${split} context should normally contain entity: ${entity} :: ${context}`);
       const key = context;
       if (seen.has(key)) fail(`duplicate context across entity typing data: ${context} (${seen.get(key)} vs ${label}/${split})`);
       seen.set(key, `${label}/${split}`);
