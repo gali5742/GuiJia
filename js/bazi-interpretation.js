@@ -606,7 +606,7 @@
             derivedFacts,
             structures,
             assessments: [],
-            assessmentBoundary: '当前模块不生成身强身弱终判、格局、用神、喜忌、吉凶或具体事件结论。存在性事实与结构关系不得自动升级为实际效力判断。'
+            assessmentBoundary: '当前模块停在结构层：不生成身强身弱终判、格局、用神、喜忌、吉凶或具体事件结论；存在性事实与结构关系不得自动升级为实际效力判断；尚未纳入的规则不自动补齐。'
         };
     }
 
@@ -662,6 +662,24 @@
         };
     }
 
+    function compactBaziLiteratureItems(entries = []) {
+        const keyOf = (item) => `${item?.book || ''}|${item?.chapter || ''}`;
+        const quotedKeys = new Set(entries
+            .filter((item) => item?.excerptType !== 'locator' && item?.quote)
+            .map(keyOf));
+        const punctuate = (value) => {
+            const text = String(value || '').trim();
+            if (!text) return '';
+            return /[。！？]$/.test(text) ? text : `${text}。`;
+        };
+        return entries
+            .filter((item) => !(item?.excerptType === 'locator' && quotedKeys.has(keyOf(item))))
+            .map((item) => ({
+                ...item,
+                contextMatch: `${punctuate(item.match)}${punctuate(item.contextDetail)}`
+            }));
+    }
+
     function buildBaziContextText(result, interpretation) {
         if (!result) return '';
         const chart = (result.pillars || []).map((item) => item.ganZhi || `${item.gan}${item.zhi}`).join(' ');
@@ -680,8 +698,7 @@
 
         (interpretation?.judgments || []).forEach((item, index) => {
             lines.push(`${index + 1}. ${item.title}`);
-            const contextExplanation = [item.summary, item.contextNote].filter(Boolean).join('');
-            lines.push(`解释：${contextExplanation}`);
+            lines.push(`解释：${item.summary || '—'}`);
             if (item.evidenceRefs?.length) lines.push(`  依据：${item.evidenceRefs.join('、')}`);
             else item.evidence.forEach((evidence, evidenceIndex) => lines.push(`  ${evidenceIndex + 1}. ${evidence}`));
         });
@@ -713,13 +730,11 @@
             else lines.push('- 未检测到直接关系');
         }
 
-        lines.push('', '【使用边界】');
-        (interpretation?.limitations || []).forEach((item) => lines.push(`- ${item}`));
-
         lines.push('', '【古籍参考】');
-        lines.push(...buildLiteratureContextLines(result.matchedLiterature, '暂无匹配条目'));
+        lines.push('说明：古籍条目仅作原文对照；条目命中、条件出现与原文结论成立属于不同层次，不得据条目命中反向补造盘中未列出的事实或关系。');
+        lines.push(...buildLiteratureContextLines(compactBaziLiteratureItems(result.matchedLiterature || []), '暂无匹配条目'));
 
-        lines.push('', '【使用要求】', '请只基于以上已列 Fact、Derived Fact 与 Structure 进行综合解释；不要把“出现”自动升级为“有效”，不要自行重排四柱，不要虚构盘中不存在的关系或古籍原文。');
+        lines.push('', '【使用要求】', '命盘事实与结构判断仅以以上 Fact、Derived Fact 与 Structure 为依据；古籍参考仅作解释与对照，不得据古籍原文反向补造盘中未列出的事实、关系或条件；不要自行重排四柱。');
         return lines.join('\n');
     }
 

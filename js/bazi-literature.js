@@ -264,6 +264,7 @@
                 unverifiedConditions: Array.isArray(item.unverifiedConditions) ? item.unverifiedConditions : [],
                 applicability,
                 contextMatch: appendContextNote(item.match, item.contextNote),
+                contextDetail: String(item.contextDetail || '').trim(),
                 levelKey,
                 level: ({ exact: '精确匹配', structure: '结构匹配', method: '方法参考' })[levelKey],
                 specific: levelKey !== 'method'
@@ -329,6 +330,7 @@
                     quote: qiongQuote,
                     match: `日干为【${dayGan}】，月令为【${monthZhi}】（${monthLabel}），与当前已核对的“${chapter}”条目范围对应。`,
                     contextNote: `这里确认的是月令条目的对应关系；原文中的调候取法仍须结合透藏、根气、寒暖与制化逐项判断，不能直接视为全局喜用结论。${buildQiongContextAudit(qiongQuote, originalGans, hidden, dayGan)}`,
+                    contextDetail: buildQiongContextAudit(qiongQuote, originalGans, hidden, dayGan).split('这里明确区分')[0].trim(),
                     hint: `本条用于建立${dayGan}日主在【${monthZhi}】月的调候背景，再与原局透藏、根气和制化合看。`,
                     boundary: '月令条只是调候入口，不能把摘录中的某一干直接指定为全局喜用；具体仍须核对当月、透藏、根气与制化。',
                     matchType: 'conditionalPattern',
@@ -347,6 +349,7 @@
                     excerptType: 'locator',
                     match: `日干为【${dayGan}】，月令为【${monthZhi}】（${monthLabel}），应按该书日干—月令条目定位到“${locator}”。`,
                     contextNote: '当前本地语料尚未逐字核对该月原文，因此只提供条目定位，不引用同季其他月份的原文代替。',
+                    contextDetail: '本月原文尚未逐字核对。',
                     hint: '同一季节内部各月取法并不完全相同；未核对到本月正文时只给定位。',
                     boundary: '条目定位不等于原文摘录，也不据同季其他月份的文字推断本月结论。',
                     matchType: 'conditionalPattern',
@@ -391,6 +394,7 @@
                     quote: '丁亥日己酉时，蹇滞。如戊己丙丁年月，居近侍有权',
                     match: '日柱为丁亥、时柱为己酉，与原书日时细分条完全相同。',
                     contextNote: '这里确认的是日时细分条目对应；原文同时附带年月条件，不能把其中短断直接视为无条件结论。',
+                    contextDetail: '原文附带年月条件：戊己丙丁年月。',
                     hint: '原文同时列出不同年月条件，表明同一日时并不是单一固定结论。',
                     boundary: '古代命例式短断不能直接翻译成现代人生结论，应逐项核对后列年月与行运条件。',
                     sourceUrl: CLASSIC_SOURCE_URLS.sanming8
@@ -439,6 +443,9 @@
                 contextNote: monthMainGod === '正官'
                     ? `本程序确认月令本气为正官，并进一步对照原文可机器核对的条件。${buildZipingZhengGuanAudit(internalRelations, hasGod, relationHitsByCode)}`
                     : '本程序只确认月令十神及相关十神已经出现，因此将此条列作进一步核对；是否符合原文所述成格、破格或救应条件，尚未由此匹配判定。',
+                contextDetail: monthMainGod === '正官'
+                    ? buildZipingZhengGuanAudit(internalRelations, hasGod, relationHitsByCode).split('这里仅做')[0].trim()
+                    : '待核对：原文所述成格、破格或救应条件。',
                 hint: zipingRule.hint,
                 boundary: '这里仅按月令本气确定应优先核对的格局章节；成格、破格与救应仍要继续比较透干、会合、刑冲和全局轻重。',
                 sourceUrl: CLASSIC_SOURCE_URLS.ziping
@@ -449,7 +456,7 @@
             add('structure', {
                 id: 'ziping-hui-change', book: '子平真诠', chapter: '论用神变化',
                 quote: '用神既主月令矣，然月令所藏不一，而用神遂有变化',
-                match: `原局见完整会合结构：${completeGroupHits.join('；')}。本条仅作为“月令取用存在变化讨论”的延伸索引；当前摘录本身并未直接规定“完整三会／三合”就是该句成立条件。`,
+                match: `原局见完整会合结构：${completeGroupHits.join('；')}；本条作为“月令取用变化”相关章节索引。`,
                 contextNote: '因此这里不把会局存在当作《真诠》该句的直接证据，也不据此判断已经发生原文意义上的用神变化。',
                 hint: '若后续要把会支正式纳入“用神变化”规则，须补充能够直接支持该触发条件的原文与完整上下文。',
                 boundary: '完整会局是本局已识别的 Structure；《真诠》此条在当前证据强度下只作为相关章节索引，不承担结构成立或用神变化的证明责任。',
@@ -466,6 +473,7 @@
                 quote: '七煞喜食神以制伏，忌财印以资扶',
                 match: `月令本气为七杀；原局同时见食神：${godPositions('食神').join('、')}。`,
                 contextNote: '这里只确认“七杀月令 + 食神出现”的入口条件；是否形成有效食神制杀，尚需比较旺衰、透藏、位置与制化。',
+                contextDetail: '待核对：食神制杀的旺衰、透藏、位置与制化。',
                 hint: '这使“七杀—食神”成为需要继续核对力量与位置的明确结构线索。',
                 boundary: '是否真正形成食神制杀，要比较旺衰、透藏、位置、根气和官杀混杂。',
                 matchType: 'structuralReference',
@@ -483,6 +491,7 @@
                 quote: '官煞混杂，身弱则贫，官煞两停，合煞为贵',
                 match: `原局同时见正官（${godPositions('正官').join('、')}）与七杀（${godPositions('七杀').join('、')}）。`,
                 contextNote: '这里只确认正官、七杀同时出现；原文所说的身弱、两停、合煞等条件并未由此自动成立。',
+                contextDetail: '原文另含“身弱、两停、合煞”等条件，当前未在本层判定。',
                 hint: '原文把“官杀并见”放入强弱、去留与合制条件中讨论，不能只凭“混杂”二字下结论。',
                 boundary: '“身弱”“两停”“合煞”都需要另行判断；这里只确认官杀两类同时出现。',
                 sourceUrl: CLASSIC_SOURCE_URLS.yuanhai
@@ -505,6 +514,7 @@
                 quote: '日主喜克，官杀并见，吉力加增；日主忌克，官杀并见，凶力更显',
                 match: `命局同时出现正官与七杀；正官位置：${godPositions('正官').join('、')}；七杀位置：${godPositions('七杀').join('、')}。`,
                 contextNote: '这里只确认官杀并见；原文关于“喜克”或“忌克”的分岔仍须先完成日主强弱与喜忌判断。',
+                contextDetail: '原文另分“日主喜克／忌克”两路，当前未在本层判定。',
                 hint: '该书把官杀并见的影响建立在“日主究竟喜克还是忌克”的前提上，而非固定视为吉或凶。',
                 boundary: '身强弱、喜忌与去留仍需综合判断，此处只提示继续核对的分岔。',
                 sourceUrl: CLASSIC_SOURCE_URLS.qianli

@@ -104,7 +104,8 @@ test('前台结构解读不泄漏内部语义层和防御说明', () => {
     const displayText = output.judgments.map((item) => item.summary).join('');
     assert(!/(Assessment|本程序|当前程序|这里只确认|不据此|不自动判定|实际有效)/.test(displayText), `前台结构解读仍含内部说明：${displayText}`);
     const contextText = baziInterpretation.buildBaziContextText(result, output);
-    assert(contextText.includes('后续 Assessment 层') && contextText.includes('实际扶身效力'), '复制上下文未保留内部边界');
+    assert(!contextText.includes('后续 Assessment 层') && !contextText.includes('实际扶身效力'), '复制上下文仍逐条重复内部边界');
+    assert((contextText.match(/不得自动升级为实际效力判断/g) || []).length === 1, 'Assessment 全局边界未收束为一次');
 });
 
 test('完整组合与并存关系具有不同 structuralRole', () => {
@@ -131,7 +132,9 @@ test('复制上下文使用证据 ID 去重并保留 Assessment 空层', () => {
     assert(text.includes('依据：D01、D02、D03、D04'), '结构解释未引用证据 ID');
     assert(text.includes('- S01｜[主要组合] 原局构成三会水方【亥子丑】'), '主要组合未在 Structure 层优先呈现');
     assert(!text.includes('【强弱相关证据】') && !text.includes('【原局干支关系】'), '新上下文仍重复输出旧证据区');
-    assert(text.includes('不要把“出现”自动升级为“有效”'), '使用要求未阻断存在到效力的越级');
+    assert(!text.includes('【使用边界】'), 'Assessment 之外仍重复输出独立使用边界区');
+    assert(text.includes('命盘事实与结构判断仅以以上 Fact、Derived Fact 与 Structure 为依据'), '使用要求未明确事实来源权限');
+    assert(text.includes('古籍参考仅作解释与对照'), '使用要求未明确古籍权限边界');
 });
 
 test('透干总括保留具体十神，不把上位类别误写成同透', () => {
@@ -152,6 +155,23 @@ test('古籍匹配元数据区分条件模式与结构参考', () => {
     assert(huiRef?.matchType === 'structuralReference' && huiRef.applicability === 'reference-only', '《论用神变化》未降级为结构参考');
     assert(huiRef?.unverifiedConditions?.some((item) => item.includes('直接条件')), '《论用神变化》未记录待核证触发条件');
     assert(!huiRef?.contextMatch.includes('月令【子】不能只按单支孤立阅读'), '仍把程序结构观点写成当前原文直接结论');
+});
+
+test('复制上下文古籍去重并只保留具体核对条件', () => {
+    const chart = makeDingChart();
+    const entries = baziLit.buildMatchedLiterature(
+        chart.dayGan, chart.gans, chart.zhis, chart.pillars, chart.internalRelations, chart.monthSeason
+    );
+    const result = makeResult();
+    result.matchedLiterature = entries;
+    const output = baziInterpretation.buildBaziInterpretation(result);
+    const text = baziInterpretation.buildBaziContextText(result, output);
+    const literatureText = text.split('【古籍参考】')[1]?.split('【使用要求】')[0] || '';
+    const count = (needle) => literatureText.split(needle).length - 1;
+    assert(count('《三命通会》·卷八·六丁日己酉时断') === 1, '已有原文时仍重复输出《三命通会》定位条');
+    assert(count('《八字提要》·丁日子月·己酉时') === 1, '已有原文时仍重复输出《八字提要》定位条');
+    assert(literatureText.includes('原文点名天干核对') && literatureText.includes('甲未见于天干（未透）；藏干见于日柱亥'), '穷通宝鉴具体透藏核对被压缩丢失');
+    assert(!/(这里只确认|不据此|不能直接视为|本程序|当前程序)/.test(literatureText), `古籍复制区仍重复防御叙述：${literatureText}`);
 });
 
 test('详细页古籍条件对照不回流 contextMatch 防御说明', () => {

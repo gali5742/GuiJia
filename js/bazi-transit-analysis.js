@@ -1046,12 +1046,27 @@
     };
 
 
+    const transitHintLabels = new Set(['长期背景', '年度主题']);
+
+    const appendTransitRowsContext = (lines, item, rows = [], indent = '') => {
+        const hints = rows.filter((row) => transitHintLabels.has(row.label));
+        const facts = rows.filter((row) => !transitHintLabels.has(row.label));
+        if (hints.length) {
+            lines.push(`${indent}解释提示：`);
+            hints.forEach((row) => lines.push(`${indent}- ${row.label}：${buildThemeSentence(item)}。`));
+        }
+        if (facts.length) {
+            lines.push(`${indent}结构事实：`);
+            facts.forEach((row) => lines.push(`${indent}- ${row.label}：${row.text}`));
+        }
+    };
+
     const appendTransitAnalysisContext = (lines, title, item, analysis, metaLines = []) => {
         if (!item || !analysis) return;
         lines.push('', `【${title}】`);
         metaLines.filter(Boolean).forEach((line) => lines.push(line));
         if (analysis.headline) lines.push(`概述：${analysis.headline}`);
-        (analysis.rows || []).forEach((row) => lines.push(`- ${row.label}：${row.text}`));
+        appendTransitRowsContext(lines, item, analysis.rows || []);
         if (analysis.evidenceGroups?.length) {
             lines.push('结构证据：');
             analysis.evidenceGroups.forEach((group) => {
@@ -1083,7 +1098,7 @@
             }
             lines.push(`- ${range}：【${segment.daYun.gan}${segment.daYun.zhi}】大运 · ${segment.daYun.shiShen || '—'}运`);
             const analysis = buildDaYunAnalysis(result, segment.daYun);
-            (analysis?.rows || []).forEach((row) => lines.push(`  - ${row.label}：${row.text}`));
+            appendTransitRowsContext(lines, segment.daYun, analysis?.rows || [], '  ');
         });
     };
 
@@ -1152,7 +1167,7 @@
         ]);
 
         lines.push('', '【使用要求】');
-        lines.push('请基于以上原局与当前大运、流年、流月结构进行综合解释；优先说明各时间层对原局结构的延续、补齐、再次参与与新增关系，不要自行重排四柱或虚构未列出的干支关系。');
+        lines.push('请基于以上原局与当前大运、流年、流月结构进行综合解释；优先说明各时间层对原局结构的延续、再次参与与新增关系，仅在结构事实明确标记为补齐时说明结构补齐；不要自行重排四柱或虚构未列出的干支关系。');
         return lines.join('\n');
     };
 
