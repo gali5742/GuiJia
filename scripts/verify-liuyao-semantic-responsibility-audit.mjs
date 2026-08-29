@@ -1,5 +1,8 @@
 import '../tests/liuyao-semantic-route-arbitration-v092-tests.js';
 import '../tests/liuyao-semantic-route-identity-v01-tests.js';
+import '../tests/liuyao-semantic-route-evidence-v01-tests.js';
+import '../tests/liuyao-semantic-route-arbitration-v010-tests.js';
+import '../tests/liuyao-semantic-route-identity-v02-tests.js';
 import './verify-liuyao-semantic-decision-stack-v011-data.mjs';
 import './verify-liuyao-semantic-decision-stack-v011.mjs';
 import './verify-liuyao-semantic-decision-stack-v011-sealed-blind-v01.mjs';
