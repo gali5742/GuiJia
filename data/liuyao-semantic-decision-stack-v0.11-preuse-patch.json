@@ -1,0 +1,15 @@
+{
+  "version": "0.11-preuse-patch",
+  "status": "preuse_wording_only",
+  "purpose": "Wording-only isolation corrections discovered by CI before the first v0.11 experiment run. Labels, splits, route semantics, and counts are unchanged.",
+  "replacements": {
+    "这次找表哥借的周转款能不能拿到": "这回找表哥借来应急的周转钱能不能顺利拿到",
+    "之前借给朋友的钱年底前还能不能追回": "前阵子借给朋友的那笔钱今年年底前能不能要回来",
+    "今年年终奖我能不能拿得比去年多": "今年公司的年终奖我最终有没有机会比去年多一些",
+    "这个决定到底对不对": "眼下这个决定究竟是不是做对了",
+    "我正在考虑把现在的持仓减少一些": "我正在考虑把现在的持仓减掉一部分"
+  },
+  "semanticChanges": false,
+  "splitChanges": false,
+  "labelChanges": false
+}
