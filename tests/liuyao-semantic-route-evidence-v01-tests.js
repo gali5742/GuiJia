@@ -14,4 +14,5 @@ t('EV10 成为夫妻是婚配目标而非既有婚姻',()=>{const e=api.extract(
 t('EV11 丈夫属于既有婚姻',()=>ok(has(api.extract('我和丈夫最近的关系能不能缓和'),'relations','existing_marriage')));
 t('EV12 泛化“申请获批”不制造借款方向',()=>{const e=api.extract('这个研究申请月底能不能获批');ok(!has(e,'directions','funds_inward'));});
 t('EV13 泛化“收回”必须有债权锚点，房东收房不得制造讨债语义',()=>{const e=api.extract('明年租的房子会不会被房东收回');ok(!has(e,'directions','creditor_inward'));ok(!has(e,'currentTargets','debt_collection'));});
+t('EV14 借给某人的一笔款可建立债权锚点并由当前要回目标驱动回收',()=>{const e=api.extract('先前借给同学的那笔款这月能不能要回来');ok(has(e,'directions','creditor_inward'));ok(has(e,'currentTargets','debt_collection'));});
 console.log(`\nRoute Semantic Evidence v0.1: ${passed} passed, ${failed} failed`);if(failed)process.exit(1);
