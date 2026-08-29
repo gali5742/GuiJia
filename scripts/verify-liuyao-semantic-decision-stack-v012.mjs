@@ -1,3 +1,4 @@
+import './verify-liuyao-semantic-decision-stack-v012-evidence.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
