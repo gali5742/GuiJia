@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const trainBasePath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.1.json');
 const trainAugPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.2-augmentation.json');
+const trainTargetedPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.3-targeted.json');
 const evalPath = path.join(root, 'data', 'liuyao-semantic-route-eval-v0.1.json');
 
 const fail = (message) => { throw new Error(message); };
@@ -13,19 +14,28 @@ const normalize = (text) => String(text || '').trim().replace(/\s+/g, '');
 
 const base = readJson(trainBasePath);
 const augmentation = readJson(trainAugPath);
+const targeted = readJson(trainTargetedPath);
 const evaluation = readJson(evalPath);
 
 if (base.version !== '0.1') fail(`Unexpected base training version: ${base.version}`);
 if (augmentation.version !== '0.2') fail(`Unexpected augmentation version: ${augmentation.version}`);
 if (augmentation.base !== path.basename(trainBasePath)) fail(`Augmentation base mismatch: ${augmentation.base}`);
-if (evaluation.version !== '0.1' || evaluation.status !== 'frozen') fail('Eval v0.1 must remain frozen.');
+if (targeted.version !== '0.3-targeted') fail(`Unexpected targeted refinement version: ${targeted.version}`);
+if (!Array.isArray(targeted.base) || !targeted.base.includes(path.basename(trainBasePath)) || !targeted.base.includes(path.basename(trainAugPath))) fail('Targeted refinement base list mismatch.');
+if (evaluation.version !== '0.1' || evaluation.status !== 'frozen') fail('Development benchmark v0.1 file must remain content-frozen.');
 
 const routeIds = Object.keys(base.routes || {});
 const augmentationIds = Object.keys(augmentation.routes || {});
 const evalIds = Object.keys(evaluation.samples || {}).filter((id) => id !== '__other__');
+const targetedIds = Object.keys(targeted.routes || {});
+const expectedTargetedIds = [
+  'financial_fortune','income_salary','business_operation','investment_profit',
+  'borrow_money','relationship_development','marital_relationship','marriage_match'
+];
 if (routeIds.length !== 15) fail(`Expected 15 supervised routes, got ${routeIds.length}.`);
 if (routeIds.join('|') !== augmentationIds.join('|')) fail('Base and augmentation route order/IDs differ.');
-if (routeIds.join('|') !== evalIds.join('|')) fail('Training and Eval route order/IDs differ.');
+if (routeIds.join('|') !== evalIds.join('|')) fail('Training and development benchmark route order/IDs differ.');
+if (targetedIds.join('|') !== expectedTargetedIds.join('|')) fail(`Unexpected targeted route IDs/order: ${targetedIds.join('|')}`);
 
 const seen = new Map();
 const remember = (text, bucket) => {
@@ -38,9 +48,12 @@ const remember = (text, bucket) => {
 
 let trainPositive = 0;
 let validationPositive = 0;
+let targetedTrainPositive = 0;
+let targetedValidationPositive = 0;
 for (const routeId of routeIds) {
   const baseRoute = base.routes[routeId];
   const augRoute = augmentation.routes[routeId];
+  const targetedRoute = targeted.routes?.[routeId];
   if (!Array.isArray(baseRoute.train) || baseRoute.train.length !== 12) fail(`${routeId} base train must stay at 12 positives.`);
   if (!Array.isArray(baseRoute.validation) || baseRoute.validation.length !== 3) fail(`${routeId} base validation must stay at 3 positives.`);
   if (!Array.isArray(augRoute.train) || augRoute.train.length !== 13) fail(`${routeId} augmentation must add exactly 13 train positives.`);
@@ -50,6 +63,13 @@ for (const routeId of routeIds) {
   for (const text of augRoute.train) { remember(text, `aug-train:${routeId}`); trainPositive += 1; }
   for (const text of baseRoute.validation) { remember(text, `base-validation:${routeId}`); validationPositive += 1; }
   for (const text of augRoute.validation) { remember(text, `aug-validation:${routeId}`); validationPositive += 1; }
+
+  if (targetedRoute) {
+    if (!Array.isArray(targetedRoute.train) || targetedRoute.train.length !== 6) fail(`${routeId} targeted refinement must add exactly 6 train positives.`);
+    if (!Array.isArray(targetedRoute.validation) || targetedRoute.validation.length !== 4) fail(`${routeId} targeted refinement must add exactly 4 validation positives.`);
+    for (const text of targetedRoute.train) { remember(text, `targeted-train:${routeId}`); trainPositive += 1; targetedTrainPositive += 1; }
+    for (const text of targetedRoute.validation) { remember(text, `targeted-validation:${routeId}`); validationPositive += 1; targetedValidationPositive += 1; }
+  }
 }
 
 const validateNegative = (sample, bucket) => {
@@ -65,28 +85,35 @@ const baseTrainNegatives = base.hardNegatives?.train || [];
 const baseValidationNegatives = base.hardNegatives?.validation || [];
 const augTrainNegatives = augmentation.hardNegatives?.train || [];
 const augValidationNegatives = augmentation.hardNegatives?.validation || [];
+const targetedTrainNegatives = targeted.hardNegatives?.train || [];
+const targetedValidationNegatives = targeted.hardNegatives?.validation || [];
 for (const sample of baseTrainNegatives) validateNegative(sample, 'base-train:hard-negative');
 for (const sample of augTrainNegatives) validateNegative(sample, 'aug-train:hard-negative');
+for (const sample of targetedTrainNegatives) validateNegative(sample, 'targeted-train:hard-negative');
 for (const sample of baseValidationNegatives) validateNegative(sample, 'base-validation:hard-negative');
 for (const sample of augValidationNegatives) validateNegative(sample, 'aug-validation:hard-negative');
+for (const sample of targetedValidationNegatives) validateNegative(sample, 'targeted-validation:hard-negative');
 
-if (trainPositive !== 375) fail(`PoC v0.4 requires exactly 375 train positives, got ${trainPositive}.`);
-if (validationPositive !== 120) fail(`PoC v0.4 requires exactly 120 validation positives, got ${validationPositive}.`);
-if (baseTrainNegatives.length + augTrainNegatives.length < 100) fail('PoC v0.4 needs at least 100 train hard negatives.');
-if (baseValidationNegatives.length + augValidationNegatives.length < 40) fail('PoC v0.4 needs at least 40 validation hard negatives.');
+if (targetedTrainNegatives.length !== 0 || targetedValidationNegatives.length !== 0) fail('PoC v0.6 targeted refinement must not alter hard negatives.');
+if (targetedTrainPositive !== 48) fail(`PoC v0.6 must add exactly 48 targeted train positives, got ${targetedTrainPositive}.`);
+if (targetedValidationPositive !== 32) fail(`PoC v0.6 must add exactly 32 targeted validation positives, got ${targetedValidationPositive}.`);
+if (trainPositive !== 423) fail(`PoC v0.6 requires exactly 423 train positives, got ${trainPositive}.`);
+if (validationPositive !== 152) fail(`PoC v0.6 requires exactly 152 validation positives, got ${validationPositive}.`);
+if (baseTrainNegatives.length + augTrainNegatives.length !== 121) fail('PoC v0.6 must retain exactly 121 train hard negatives from v0.5.');
+if (baseValidationNegatives.length + augValidationNegatives.length !== 50) fail('PoC v0.6 must retain exactly 50 validation hard negatives from v0.5.');
 
 let evalCount = 0;
 for (const [label, texts] of Object.entries(evaluation.samples || {})) {
-  if (!Array.isArray(texts) || texts.length === 0) fail(`Eval label ${label} has no samples.`);
-  for (const text of texts) { remember(text, `eval:${label}`); evalCount += 1; }
+  if (!Array.isArray(texts) || texts.length === 0) fail(`Benchmark label ${label} has no samples.`);
+  for (const text of texts) { remember(text, `development-benchmark:${label}`); evalCount += 1; }
 }
-if (evalCount !== 125) fail(`Frozen Eval must contain exactly 125 samples, got ${evalCount}.`);
-if ((evaluation.samples.__other__ || []).length !== 16) fail('Frozen Eval must retain 16 __other__ samples.');
+if (evalCount !== 125) fail(`Development benchmark must contain exactly 125 samples, got ${evalCount}.`);
+if ((evaluation.samples.__other__ || []).length !== 16) fail('Development benchmark must retain 16 __other__ samples.');
 
-console.log('Semantic route data verification passed (PoC v0.4).');
+console.log('Semantic route data verification passed (PoC v0.6 targeted refinement).');
 console.log(`- ${routeIds.length} supervised routes`);
-console.log(`- ${trainPositive} train positives (25/route)`);
-console.log(`- ${validationPositive} validation positives (8/route)`);
-console.log(`- ${baseTrainNegatives.length + augTrainNegatives.length} train hard negatives`);
-console.log(`- ${baseValidationNegatives.length + augValidationNegatives.length} validation hard negatives`);
-console.log(`- ${evalCount} frozen Eval samples; zero exact overlap across base/augmentation/validation/Eval`);
+console.log(`- ${trainPositive} train positives (${targetedTrainPositive} targeted additions)`);
+console.log(`- ${validationPositive} validation positives (${targetedValidationPositive} targeted additions)`);
+console.log(`- ${baseTrainNegatives.length + augTrainNegatives.length} train hard negatives unchanged from v0.5`);
+console.log(`- ${baseValidationNegatives.length + augValidationNegatives.length} validation hard negatives unchanged from v0.5`);
+console.log(`- ${evalCount} development benchmark samples; zero exact overlap across all train/validation sources`);
