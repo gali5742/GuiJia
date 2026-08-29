@@ -640,6 +640,8 @@
         };
         const strengthEvidence = GuiJia.baziStrengthEvidence?.buildStrengthEvidence?.(result, semanticModel) || null;
         semanticModel.strengthEvidence = strengthEvidence;
+        const strengthEffects = GuiJia.baziStrengthEffects?.buildStrengthEffects?.(result, semanticModel) || null;
+        semanticModel.strengthEffects = strengthEffects;
         const assessmentLayer = GuiJia.baziAssessment?.buildAssessmentLayer?.(semanticModel) || null;
         semanticModel.assessmentLayer = assessmentLayer;
         semanticModel.assessments = assessmentLayer?.assessments || [];
