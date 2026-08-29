@@ -8,6 +8,7 @@ const trainAugPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.
 const trainTargetedPath = path.join(root, 'data', 'liuyao-semantic-route-training-v0.3-targeted.json');
 const evalPath = path.join(root, 'data', 'liuyao-semantic-route-eval-v0.1.json');
 const blindPath = path.join(root, 'data', 'liuyao-semantic-route-blind-eval-v0.2.json');
+const blindPatchPath = path.join(root, 'data', 'liuyao-semantic-route-blind-eval-v0.2-seal-patch.json');
 
 const fail = (message) => { throw new Error(message); };
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -18,6 +19,7 @@ const augmentation = readJson(trainAugPath);
 const targeted = readJson(trainTargetedPath);
 const evaluation = readJson(evalPath);
 const blind = readJson(blindPath);
+const blindPatch = readJson(blindPatchPath);
 
 if (base.version !== '0.1') fail(`Unexpected base training version: ${base.version}`);
 if (augmentation.version !== '0.2') fail(`Unexpected augmentation version: ${augmentation.version}`);
@@ -26,6 +28,7 @@ if (targeted.version !== '0.3-targeted') fail(`Unexpected targeted refinement ve
 if (!Array.isArray(targeted.base) || !targeted.base.includes(path.basename(trainBasePath)) || !targeted.base.includes(path.basename(trainAugPath))) fail('Targeted refinement base list mismatch.');
 if (evaluation.version !== '0.1' || evaluation.status !== 'frozen') fail('Development benchmark v0.1 file must remain content-frozen.');
 if (blind.version !== '0.2' || blind.status !== 'sealed') fail('Blind Eval v0.2 must remain sealed.');
+if (blindPatch.version !== '0.2-seal-patch' || blindPatch.status !== 'sealed') fail('Blind Eval seal patch must remain sealed.');
 
 const routeIds = Object.keys(base.routes || {});
 const augmentationIds = Object.keys(augmentation.routes || {});
@@ -41,6 +44,15 @@ if (routeIds.join('|') !== augmentationIds.join('|')) fail('Base and augmentatio
 if (routeIds.join('|') !== evalIds.join('|')) fail('Training and development benchmark route order/IDs differ.');
 if (routeIds.join('|') !== blindIds.join('|')) fail('Training and Blind Eval route order/IDs differ.');
 if (targetedIds.join('|') !== expectedTargetedIds.join('|')) fail(`Unexpected targeted route IDs/order: ${targetedIds.join('|')}`);
+
+const blindRawTexts = new Set();
+for (const texts of Object.values(blind.samples || {})) for (const text of texts || []) blindRawTexts.add(text);
+const replacements = blindPatch.replacements || {};
+for (const [from, to] of Object.entries(replacements)) {
+  if (!blindRawTexts.has(from)) fail(`Blind seal patch source not found: ${from}`);
+  if (typeof to !== 'string' || !to.trim()) fail(`Blind seal patch replacement is empty for: ${from}`);
+}
+const applyBlindPatch = (text) => replacements[text] || text;
 
 const seen = new Map();
 const remember = (text, bucket) => {
@@ -119,14 +131,14 @@ let blindKnownCount = 0;
 for (const routeId of routeIds) {
   const texts = blind.samples?.[routeId];
   if (!Array.isArray(texts) || texts.length !== 12) fail(`Blind Eval ${routeId} must contain exactly 12 known samples.`);
-  for (const text of texts) { remember(text, `blind-known:${routeId}`); blindKnownCount += 1; }
+  for (const raw of texts) { remember(applyBlindPatch(raw), `blind-known:${routeId}`); blindKnownCount += 1; }
 }
 const blindOut = blind.samples?.__out_of_scope__ || [];
 const blindUnder = blind.samples?.__underspecified__ || [];
 if (!Array.isArray(blindOut) || blindOut.length !== 121) fail(`Blind Eval must contain exactly 121 out_of_scope samples, got ${blindOut.length}.`);
 if (!Array.isArray(blindUnder) || blindUnder.length !== 60) fail(`Blind Eval must contain exactly 60 underspecified samples, got ${blindUnder.length}.`);
-for (const text of blindOut) remember(text, 'blind:out_of_scope');
-for (const text of blindUnder) remember(text, 'blind:underspecified');
+for (const raw of blindOut) remember(applyBlindPatch(raw), 'blind:out_of_scope');
+for (const raw of blindUnder) remember(applyBlindPatch(raw), 'blind:underspecified');
 const blindCount = blindKnownCount + blindOut.length + blindUnder.length;
 if (blindKnownCount !== 180 || blindCount !== 361) fail(`Blind Eval count mismatch: known=${blindKnownCount}, total=${blindCount}.`);
 
@@ -138,4 +150,5 @@ console.log(`- ${baseTrainNegatives.length + augTrainNegatives.length} train har
 console.log(`- ${baseValidationNegatives.length + augValidationNegatives.length} validation hard negatives unchanged from v0.5`);
 console.log(`- ${evalCount} development benchmark samples`);
 console.log(`- ${blindCount} sealed Blind Eval v0.2 samples (${blindKnownCount} known / ${blindOut.length} out_of_scope / ${blindUnder.length} underspecified)`);
-console.log('- zero exact overlap across train, validation, development benchmark, and Blind Eval');
+console.log(`- ${Object.keys(replacements).length} pre-run wording-only seal correction(s)`);
+console.log('- zero exact overlap across train, validation, development benchmark, and effective Blind Eval');
