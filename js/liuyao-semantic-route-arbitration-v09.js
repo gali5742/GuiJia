@@ -10,9 +10,9 @@
 
     // Money direction: modern participant/fund-flow semantics only.
     if (/(?:欠我的|欠我|应收款|催款|讨债|追债|货款[^，。？！?]{0,8}欠着我|借给[^，。？！?]{0,8}的钱[^，。？！?]{0,8}(?:收回|追回|要回))/.test(text)) return { routeId:'debt_collection', evidence:'creditor-direction' };
-    if (/(?:我|本人)[^，。？！?]{0,8}(?:欠|还|偿还|清偿)[^，。？！?]{0,10}(?:贷款|房贷|欠款|债务|钱)|(?:房贷|贷款|欠款|债务)[^，。？！?]{0,10}(?:还清|还完|结清|偿还))/.test(text)) return { routeId:'debt_repayment', evidence:'debtor-direction' };
+    if (/(?:我|本人)[^，。？！?]{0,8}(?:欠|还|偿还|清偿)[^，。？！?]{0,10}(?:贷款|房贷|欠款|债务|钱)|(?:房贷|贷款|欠款|债务)[^，。？！?]{0,10}(?:还清|还完|结清|偿还)/.test(text)) return { routeId:'debt_repayment', evidence:'debtor-direction' };
     if (/(?:向我借|找我借|从我这里借|我[^，。？！?]{0,10}(?:借给|贷给|出借)|借出去)/.test(text)) return { routeId:'lend_money', evidence:'funds-outward' };
-    if (/(?:我|本人)[^，。？！?]{0,8}(?:向|找|跟|从)[^，。？！?]{0,10}(?:借|周转)|(?:我|本人)[^，。？！?]{0,8}(?:申请|办)[^，。？！?]{0,6}(?:贷款|房贷|信贷)|(?:贷款|房贷|信贷)[^，。？！?]{0,10}(?:申请|获批|批下来))/.test(text)) return { routeId:'borrow_money', evidence:'funds-inward' };
+    if (/(?:我|本人)[^，。？！?]{0,8}(?:向|找|跟|从)[^，。？！?]{0,10}(?:借|周转)|(?:我|本人)[^，。？！?]{0,8}(?:申请|办)[^，。？！?]{0,6}(?:贷款|房贷|信贷)|(?:贷款|房贷|信贷)[^，。？！?]{0,10}(?:申请|获批|批下来)/.test(text)) return { routeId:'borrow_money', evidence:'funds-inward' };
 
     // Relationship semantics: existing marriage > marriage target > romance development.
     if (/(?:妻子|老婆|丈夫|老公|夫妻|已婚|婚后)/.test(text)) return { routeId:'marital_relationship', evidence:'existing-marriage' };
