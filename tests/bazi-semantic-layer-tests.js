@@ -39,11 +39,13 @@ const GuiJia = loadScripts([
     'js/common.js',
     'js/bazi-core.js',
     'js/bazi-timing.js',
+    'js/bazi-transit-analysis.js',
     'js/bazi-literature.js',
     'js/bazi-interpretation.js',
     'js/bazi-detail.js'
 ]);
 const bazi = GuiJia.baziCore;
+const baziTransitAnalysis = GuiJia.baziTransitAnalysis;
 const baziLit = GuiJia.baziLiterature;
 const baziInterpretation = GuiJia.baziInterpretation;
 const baziDetail = GuiJia.baziDetail;
@@ -189,6 +191,44 @@ test('详细页古籍条件对照不回流 contextMatch 防御说明', () => {
         assert(!/(本程序|当前程序|这里只确认|不据此|不能直接|Assessment|当前证据强度)/.test(item.check), `${item.id} 前台仍含防御说明：${item.check}`);
         assert(['条目对应','条件对应','条目定位'].includes(item.status), `${item.id} 状态仍为句子猜测：${item.status}`);
     });
+});
+
+
+test('岁运复制上下文分区平级，并将同干主题与结构事实分层', () => {
+    const result = makeResult();
+    result.originalGans = ['丁','壬','丁','己'];
+    result.originalZhis = ['丑','子','亥','酉'];
+    result.internalRelations = [];
+    const daYun = {
+        gan:'己', zhi:'酉', shiShen:'食神', diShi:'长生', naYin:'—', xun:'—', xunKong:'—',
+        pillarSignals:[], stemRelations:[], relations:[]
+    };
+    const liuNian = {
+        year:2026, gan:'丙', zhi:'午', shiShen:'劫财', diShi:'临官', naYin:'—', xun:'—', xunKong:'—',
+        pillarSignals:[], stemRelations:[], relations:[], yunRelations:[], layeredRelations:[]
+    };
+    const sameStem = {
+        code:bazi.baziTransitRelationCodes.STEM_SAME,
+        type:'stem', layerLabels:['流年','流月'], stems:['丙','丙'], text:'测试同干'
+    };
+    const liuYue = {
+        monthName:'七', gan:'丙', zhi:'申', shiShen:'劫财', diShi:'沐浴', naYin:'—', xun:'—', xunKong:'—',
+        pillarSignals:[], stemRelations:[], relations:[], yearRelations:[sameStem], yunRelations:[], layeredRelations:[]
+    };
+    const daYunAnalysis = baziTransitAnalysis.buildDaYunAnalysis(result, daYun);
+    const liuNianAnalysis = baziTransitAnalysis.buildLiuNianAnalysis(result, daYun, liuNian);
+    const liuYueAnalysis = baziTransitAnalysis.buildLiuYueAnalysis(result, daYun, liuNian, liuYue);
+    const layerFact = liuYueAnalysis.rows.find((row) => row.label === '层间衔接')?.text || '';
+    assert(layerFact.includes('同一天干在两个时间层重复'), `同干结构事实未收纯：${layerFact}`);
+    assert(!layerFact.includes('主题'), `主题解释仍混入结构事实：${layerFact}`);
+    assert(liuYueAnalysis.contextHints?.some((item) => item.text.includes('劫财') && item.text.includes('延续')), '流月同干主题未移入解释提示');
+
+    const text = baziTransitAnalysis.buildBaziTransitContextText(result, { headline:'测试原局', judgments:[] }, {
+        daYun, liuNian, liuYue, daYunAnalysis, liuNianAnalysis, liuYueAnalysis
+    });
+    assert(text.includes('解释提示：\n- 层间主题：'), '流月解释提示区缺层间主题');
+    assert(text.includes('\n\n结构事实：'), '结构事实标题未与上一 bullet 平级分隔');
+    assert(text.includes('\n\n结构证据：'), '结构证据标题未与上一 bullet 平级分隔');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
