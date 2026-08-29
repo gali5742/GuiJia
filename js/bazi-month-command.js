@@ -139,12 +139,7 @@
         const jieSolar = prevJie?.getSolar?.() || null;
         const jieName = prevJie?.getName?.() || '';
         if (!jieSolar) {
-            return Object.freeze({
-                status:'unavailable',
-                reason:'month-jie-unavailable',
-                monthZhi,
-                expectedJie
-            });
+            return Object.freeze({ status:'unavailable', reason:'month-jie-unavailable', monthZhi, expectedJie });
         }
         const birthWallEpoch = wallEpochFromDate(adjustedDate);
         const jieWallEpoch = wallEpochFromSolar(jieSolar);
@@ -165,9 +160,26 @@
         });
     }
 
+    function buildMonthCommandTimeContextFromResult(result = {}) {
+        if (result.monthCommandTimeContext?.status) return result.monthCommandTimeContext;
+        const text = String(result.solarStr || '').trim();
+        const match = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})\s+(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?/);
+        const SolarCtor = global.Solar;
+        if (!match || !SolarCtor?.fromYmdHms) {
+            return Object.freeze({ status:'unavailable', reason:match ? 'solar-engine-unavailable' : 'adjusted-solar-time-unavailable' });
+        }
+        const [, y, m, d, hh, mm, ss = '0'] = match;
+        const parts = [y,m,d,hh,mm,ss].map(Number);
+        const adjustedDate = new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5], 0);
+        const solar = SolarCtor.fromYmdHms(...parts);
+        const lunar = solar.getLunar();
+        const monthZhi = result.pillars?.[1]?.zhi || result.monthSeason?.monthZhi || '';
+        return buildMonthCommandTimeContext(adjustedDate, lunar, monthZhi);
+    }
+
     function buildMonthCommandObservation(result = {}) {
         const chart = (result.pillars || []).map((item) => item.ganZhi || `${item.gan || ''}${item.zhi || ''}`).join(' ');
-        const timeContext = result.monthCommandTimeContext || null;
+        const timeContext = buildMonthCommandTimeContextFromResult(result);
         const dtsCase = sourceProfiles.DI_TIAN_SUI_CHAN_WEI_WAR_CASE;
         const caseChartMatches = chart === dtsCase.chart;
         const caseAnchorMatches = timeContext?.monthJieName === dtsCase.anchorJie && result.pillars?.[1]?.zhi === dtsCase.monthZhi;
@@ -209,16 +221,8 @@
             return Object.freeze({ facts:Object.freeze([]), derivedFacts:Object.freeze([]), observation });
         }
         const facts = Object.freeze([
-            Object.freeze({
-                id:'F05',
-                kind:'adjusted-birth-time',
-                text:`排盘采用时间：${time.birthWallTime}`
-            }),
-            Object.freeze({
-                id:'F06',
-                kind:'month-jie-boundary',
-                text:`月令${time.monthZhi}月的节令起点：${time.monthJieName} ${time.monthJieWallTime}`
-            })
+            Object.freeze({ id:'F05', kind:'adjusted-birth-time', text:`排盘采用时间：${time.birthWallTime}` }),
+            Object.freeze({ id:'F06', kind:'month-jie-boundary', text:`月令${time.monthZhi}月的节令起点：${time.monthJieName} ${time.monthJieWallTime}` })
         ]);
         const derivedFacts = Object.freeze([
             Object.freeze({
@@ -232,7 +236,28 @@
         return Object.freeze({ facts, derivedFacts, observation });
     }
 
-    GuiJia.baziMonthCommand = Object.freeze({
+    function installStrengthEvidenceHook() {
+        const api = GuiJia.baziStrengthEvidence;
+        if (!api?.buildStrengthEvidence || api.__monthCommandHookInstalled) return false;
+        const originalBuild = api.buildStrengthEvidence;
+        const wrapped = function (result = {}, semanticModel = {}) {
+            const entries = buildMonthCommandSemanticEntries(result);
+            semanticModel.monthCommand = entries.observation;
+            const factIds = new Set((semanticModel.facts || []).map((item) => item.id));
+            const derivedIds = new Set((semanticModel.derivedFacts || []).map((item) => item.id));
+            entries.facts.forEach((item) => { if (!factIds.has(item.id)) semanticModel.facts.push(item); });
+            entries.derivedFacts.forEach((item) => { if (!derivedIds.has(item.id)) semanticModel.derivedFacts.push(item); });
+            return originalBuild(result, semanticModel);
+        };
+        GuiJia.baziStrengthEvidence = Object.freeze({
+            ...api,
+            buildStrengthEvidence:wrapped,
+            __monthCommandHookInstalled:true
+        });
+        return true;
+    }
+
+    const api = Object.freeze({
         installed:true,
         MONTH_COMMAND_SCHEMA_VERSION,
         MONTH_COMMAND_SOURCE_SCOPE,
@@ -241,7 +266,11 @@
         sourceProfiles,
         boundaries,
         buildMonthCommandTimeContext,
+        buildMonthCommandTimeContextFromResult,
         buildMonthCommandObservation,
-        buildMonthCommandSemanticEntries
+        buildMonthCommandSemanticEntries,
+        installStrengthEvidenceHook
     });
+    GuiJia.baziMonthCommand = api;
+    installStrengthEvidenceHook();
 })(typeof window !== 'undefined' ? window : globalThis);
