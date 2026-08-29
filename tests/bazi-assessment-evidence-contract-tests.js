@@ -50,17 +50,17 @@ test('身强弱证据合同 v0.1 保持最终 Assessment 规则关闭', () => {
     assert(strength.synthesisSchemaVersion === '0.1', '身强弱接口未暴露 Synthesis contract 版本');
 });
 
-test('二十一条全局 Guard Rule 全部只阻断越级推理', () => {
+test('二十二条全局 Guard Rule 全部只阻断越级推理', () => {
     const guards = assessment.assessmentGuardRegistry.rules;
-    assert(guards.length === 21, `Guard Rule 数量异常：${guards.length}`);
+    assert(guards.length === 22, `Guard Rule 数量异常：${guards.length}`);
     const ids = guards.map((item) => item.id);
-    for (let i = 1; i <= 21; i += 1) {
+    for (let i = 1; i <= 22; i += 1) {
         const id = `BAZI-ASSESS-GUARD-${String(i).padStart(3, '0')}`;
         assert(ids.includes(id), `缺少 ${id}`);
     }
     assert(guards.every((item) => item.scope === 'global'), 'Guard Rule 不应混入限域正向判断');
     const strength = assessment.buildDayMasterStrengthAssessmentInput({ facts:[], derivedFacts:[], structures:[] });
-    assert(strength.guardRuleIds.length === 21, '身强弱接口未挂接全部 Guard Rule');
+    assert(strength.guardRuleIds.length === 22, '身强弱接口未挂接全部 Guard Rule');
     assert(strength.activeRuleIds.length === 0, 'Guard Rule 不得伪装成 active Assessment rule');
 });
 
@@ -129,6 +129,17 @@ test('Element Presence Guard 固定表层干支 scope 并排除藏干／派生�
     assert(text.includes('明干') && text.includes('地支本五行'), 'GUARD-021 未纳入明干与明支本五行');
     assert(text.includes('藏干单独出现') && text.includes('合化等派生结果'), 'GUARD-021 未排除藏干／派生结果');
     assert(text.includes('不得反推对方占优'), 'GUARD-021 未阻止例式不成立时反推相反 preference');
+});
+
+test('Rescue Context Guard 阻止普通合会／生克自动解冲与 pattern 失败反推', () => {
+    const guards = Object.fromEntries(assessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
+    const text = guards['BAZI-ASSESS-GUARD-022'] || '';
+    assert(text.includes('解救／抑冲／助泄'), 'GUARD-022 未覆盖原典三个外围机制词');
+    assert(text.includes('普通五行生克'), 'GUARD-022 未阻止五行生克直接充当解救规则');
+    assert(text.includes('六合') && text.includes('三合') && text.includes('三会'), 'GUARD-022 未阻止普通合会自动解冲');
+    assert(text.includes('source-specific pattern'), 'GUARD-022 未要求独立核证的窄模式');
+    assert(text.includes('不等于“四柱无解救”'), 'GUARD-022 未阻止 pattern 未命中反推无救');
+    assert(text.includes('不得反推冲方占优'), 'GUARD-022 未阻止 pattern 未命中反推冲方');
 });
 
 test('《千里命稿·强弱篇》教学证据合同保持扶、克、泄、被分分轴', () => {
