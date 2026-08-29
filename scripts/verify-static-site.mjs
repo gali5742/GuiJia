@@ -98,7 +98,8 @@ if (mode === 'deployed') {
     'semantic-router-decision-v09.html',
     'js/liuyao-semantic-router-decision-v09.js',
     'js/liuyao-semantic-route-arbitration-v09.js',
-    'data/liuyao-semantic-router-decision-v0.9-development.json'
+    'data/liuyao-semantic-router-decision-v0.9-development.json',
+    'data/liuyao-semantic-router-decision-v0.9-development-patch.json'
   ];
   for (const expected of liuyaoRouterDecisionV09Requirements) {
     if (!fs.existsSync(path.join(target, expected))) fail(`Deployed artifact missing LiuYao router decision v0.9 file: ${expected}`);
