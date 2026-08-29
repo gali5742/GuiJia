@@ -39,6 +39,32 @@
         return a === b || (a.length >= 2 && b.length >= 2 && (a.includes(b) || b.includes(a)));
     };
 
+    const normalizeUpstreamCandidates = (items = []) => (Array.isArray(items) ? items : [])
+        .map((item) => {
+            if (typeof item === 'string') {
+                const text = clean(item);
+                return text ? { text, evidence:text, strategy:'upstream_object_candidate', confidence:0.99, roleHint:'upstream_candidate', clauseIndex:null } : null;
+            }
+            const text = clean(item?.text || item?.entity || item?.value);
+            if (!text) return null;
+            return {
+                text,
+                evidence:clean(item?.evidence || text),
+                strategy:item?.strategy || 'upstream_object_candidate',
+                confidence:clamp01(item?.confidence, 0.99),
+                roleHint:item?.roleHint || 'upstream_candidate',
+                clauseIndex:item?.clauseIndex ?? null
+            };
+        })
+        .filter(Boolean);
+
+    const candidateEvidence = (input = {}) => {
+        const upstream = normalizeUpstreamCandidates(input.objectCandidates);
+        if (upstream.length) return { candidates:upstream, source:'upstream_object_candidates' };
+        const question = input.question || input.intent?.rawQuestion || '';
+        return { candidates:objectResolver.extractReferentCandidates(question), source:'object_resolver_fallback' };
+    };
+
     const makeRoleClaim = (slotId, candidate, prediction) => ({
         id:slotId,
         value:candidate.text,
@@ -70,17 +96,17 @@
         const claims = [];
         const ignored = [];
         if (!expectedRole || !slotId || !sufficiency.slotSchema[slotId]) {
-            return { providerId:'contextual_object_role', claims, ignored, candidates:[] };
+            return { providerId:'contextual_object_role', claims, ignored, candidates:[], candidateSource:'none' };
         }
 
         const alreadyResolved = baseResolution?.resolvedSlots?.some((slot) => slot.id === slotId && slot.sourceScope === 'question');
         if (alreadyResolved) {
             ignored.push({ providerId:'contextual_object_role', slotId, reason:'slot_already_resolved' });
-            return { providerId:'contextual_object_role', claims, ignored, candidates:[] };
+            return { providerId:'contextual_object_role', claims, ignored, candidates:[], candidateSource:'base_resolution' };
         }
 
-        const question = input.question || input.intent?.rawQuestion || '';
-        const candidates = objectResolver.extractReferentCandidates(question);
+        const evidence = candidateEvidence(input);
+        const candidates = evidence.candidates;
         for (const candidate of candidates) {
             const matches = predictions.filter((prediction) => sameEntity(candidate, prediction));
             if (!matches.length) {
@@ -116,7 +142,8 @@
             claims.push(makeRoleClaim(slotId, candidate, prediction));
         }
 
-        return { providerId:'contextual_object_role', claims, ignored, candidates };
+        if (!candidates.length) ignored.push({ providerId:'contextual_object_role', slotId, reason:'no_object_candidate_evidence' });
+        return { providerId:'contextual_object_role', claims, ignored, candidates, candidateSource:evidence.source };
     };
 
     const baseResolveSemanticSlots = baseProvider.resolveSemanticSlots.bind(baseProvider);
@@ -139,7 +166,8 @@
             conflicts:merged.conflicts,
             superseded:merged.superseded,
             ignoredClaims:[...base.ignoredClaims, ...roleRun.ignored],
-            contextualObjectRoleCandidates:roleRun.candidates
+            contextualObjectRoleCandidates:roleRun.candidates,
+            contextualObjectRoleCandidateSource:roleRun.candidateSource
         };
     };
 
@@ -156,9 +184,9 @@
 
     const updatedAudit = Object.freeze({
         ...baseProvider.providerAudit,
-        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；裸专名只在 Contextual Object Role 独立判断其在当前问题中承担 investment_target_role 且 accepted=true 后补充。' },
-        delivery_target:{ ...baseProvider.providerAudit.delivery_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；必要时由 Contextual Object Role 判定当前实体是否真正承担 delivery_target_role。' },
-        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；商品身份本身不够，只有当前问题中的 purchase_target_role 才能补 purchase_object。' }
+        investment_target:{ ...baseProvider.providerAudit.investment_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度 Object Resolver 优先；Contextual Object Role 消费独立上游 object candidate + role prediction，不允许 prediction 或 route 自己制造对象。' },
+        delivery_target:{ ...baseProvider.providerAudit.delivery_target, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；Contextual Object Role 只绑定已经由上游候选抽取确认的实体。' },
+        purchase_object:{ ...baseProvider.providerAudit.purchase_object, fallback:['contextual_object_role','explicit_context','ml_multi_label'], note:'高精度显式对象优先；商品身份本身不够，只有上游对象候选在当前问题中被判为 purchase_target_role 才能补 purchase_object。' }
     });
 
     GuiJia.liuyaoContextualObjectRoleAdapter = Object.freeze({
@@ -166,7 +194,8 @@
         roleToSlot:ROLE_TO_SLOT,
         routeExpectedRole:ROUTE_EXPECTED_ROLE,
         acceptancePolicy:'provider_calibrated',
-        contextualObjectRoleClaims
+        contextualObjectRoleClaims,
+        normalizeUpstreamCandidates
     });
 
     GuiJia.liuyaoSemanticSlotProvider = Object.freeze({
