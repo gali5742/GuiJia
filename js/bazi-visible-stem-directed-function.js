@@ -403,4 +403,8 @@
         buildDirectedFunctionRecords,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemFunctionCoverage) {
+        document.write('<script src="./js/bazi-visible-stem-function-coverage.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
