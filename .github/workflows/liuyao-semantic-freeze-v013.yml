@@ -6,6 +6,7 @@ on:
       - liuyao-policy-freeze-v013-prep
     paths:
       - 'scripts/generate-liuyao-semantic-frozen-dependencies-v01.mjs'
+      - 'scripts/liuyao-freeze-file-fetch-bootstrap.mjs'
       - 'js/liuyao-semantic-frozen-dependencies-v01.js'
       - 'js/liuyao-semantic-router-poc-v081.js'
       - 'js/liuyao-semantic-scope-gate-v01.js'
@@ -37,7 +38,7 @@ jobs:
       - name: Install pinned Transformers.js for freeze generation
         run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
       - name: Generate exact frozen dependency artifact
-        run: node scripts/generate-liuyao-semantic-frozen-dependencies-v01.mjs
+        run: node --import ./scripts/liuyao-freeze-file-fetch-bootstrap.mjs scripts/generate-liuyao-semantic-frozen-dependencies-v01.mjs
       - name: Verify artifact contract and source hashes
         run: node scripts/verify-liuyao-semantic-frozen-dependencies-v01.mjs
       - name: Commit frozen artifact
