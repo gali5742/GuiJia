@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataDir = path.join(root, 'data');
 const target = 'data/liuyao-semantic-routeability-v0.3-calibration.json';
+const patchFile = 'liuyao-semantic-routeability-v0.3-calibration-preseal-patch.json';
 const data = JSON.parse(fs.readFileSync(path.join(root, target), 'utf8'));
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 const normalize = (value) => String(value || '').trim().replace(/\s+/g, '');
@@ -39,14 +40,14 @@ for (const row of data.rows) {
     const ok = row.candidatePath === 'support_arbitration'
       ? a?.strength === 'support' && a.routeId === row.routeId
       : row.candidatePath === 'fallback_head' ? a == null : false;
-    if (!ok) mismatches.push({ id:row.id, path:row.candidatePath, routeId:row.routeId, actual:a, text:row.text });
+    if (!ok) mismatches.push({ id:row.id, candidatePath:row.candidatePath, routeId:row.routeId, actual:a, text:row.text });
   } else {
     assert(['outside_current_22','route_unresolved','near_domain_not_current_route'].includes(row.subtype), `${row.id} bad subtype ${row.subtype}`);
   }
 }
 assert(mismatches.length === 0, `path-contract mismatches (${mismatches.length}): ${mismatches.slice(0,20).map((m) => `${m.id} ${m.candidatePath}/${m.routeId} actual=${JSON.stringify(m.actual)} text=${m.text}`).join(' | ')}`);
 
-const priorFiles = fs.readdirSync(dataDir).filter((name) => name.endsWith('.json') && name.startsWith('liuyao-') && name !== path.basename(target));
+const priorFiles = fs.readdirSync(dataDir).filter((name) => name.endsWith('.json') && name.startsWith('liuyao-') && name !== path.basename(target) && name !== patchFile);
 const priorStrings = new Map();
 const collect = (value, source) => {
   if (typeof value === 'string') {
