@@ -1,3 +1,6 @@
+import '../tests/liuyao-divination-policy-gate-v01-tests.js';
+import './verify-liuyao-divination-policy-gate-v01.mjs';
+import './verify-liuyao-semantic-frozen-dependencies-v01.mjs';
 import '../tests/liuyao-semantic-route-arbitration-v092-tests.js';
 import '../tests/liuyao-semantic-route-identity-v01-tests.js';
 import '../tests/liuyao-semantic-route-evidence-v01-tests.js';
