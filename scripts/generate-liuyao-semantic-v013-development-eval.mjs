@@ -42,7 +42,7 @@ addKnown('strong_arbitration','investment_profit',[
   '这只基金继续持有三个月能不能盈利','这项投资到年底会不会有利润'
 ]);
 addKnown('strong_arbitration','investment_liquidation',[
-  '这只基金月底前全部赎回能不能顺利完成','我把股票仓位一次性清掉会不会卡住'
+  '这只基金我准备在月底前全部赎回，执行上能不能顺利完成','我把股票仓位一次性清掉会不会卡住'
 ]);
 addKnown('strong_arbitration','investment_suitability',[
   '这项投资现在适不适合我参与','这只ETF现阶段值不值得我投'
