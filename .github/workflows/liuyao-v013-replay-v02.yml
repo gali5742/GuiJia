@@ -1,0 +1,42 @@
+name: LiuYao v0.13 Refined Development Replay
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/replay-liuyao-semantic-v013-development-v02.mjs'
+      - 'js/liuyao-semantic-route-evidence-v02.js'
+      - 'js/liuyao-semantic-route-arbitration-v012.js'
+      - 'js/liuyao-semantic-route-compatibility-v02.js'
+      - 'js/liuyao-semantic-route-selection-v02.js'
+      - 'js/liuyao-semantic-routeability-v03.js'
+      - '.github/workflows/liuyao-v013-replay-v02.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Run refined replay
+        run: node scripts/replay-liuyao-semantic-v013-development-v02.mjs
+      - name: Commit replay report
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-development-report-v0.2.json)" ]; then
+            echo 'Replay report already matches current candidate.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-development-report-v0.2.json
+          git commit -m 'test(liuyao): record refined v0.13 development replay'
+          git push origin HEAD:liuyao-semantic-v013-core
