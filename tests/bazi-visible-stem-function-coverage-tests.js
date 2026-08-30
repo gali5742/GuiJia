@@ -121,6 +121,7 @@ test('Function Coverage v0.1 只建立 actor participation inventory', () => {
     assert(api.CONTRACT.inventoryOnly === true, 'Coverage 不得做 realization');
     assert(api.CONTRACT.actorGlobalEffectiveState === false, '不得建立 actor global switch');
     assert(api.CONTRACT.bearingContextIsConditionNotFunctionResult === true, 'bearing 只能作为条件');
+    assert(api.CONTRACT.priorityAggregation === false, '不得启用 priority aggregation');
 });
 
 test('固定验证盘：peer/source/target participation role 均保持真实方向', () => {
@@ -176,7 +177,7 @@ test('Coverage 不引入数量表决、分数或全局有效性', () => {
         records:synthesis.visibleStemFunctionCoverageRecords,
         contract:synthesis.visibleStemFunctionCoverageContract
     });
-    ['score','weight','points','"strong"','"weak"','"balanced"','majority','priority'].forEach((term) => {
+    ['score','weight','points','"strong"','"weak"','"balanced"','majority','"priority":','priorityOrder','priorityRule'].forEach((term) => {
         assert(!serialized.includes(term), `不得出现 ${term}`);
     });
     assert((synthesis.visibleStemFunctionCoverageRecords || []).every((item) => item.genericVisibleEffectiveState === null && item.aggregationStatus === 'not-aggregated'), 'Coverage 不得生成 global state');
