@@ -60,6 +60,7 @@ const seenIds = new Set();
 const seenTexts = new Map();
 const pathActual = { strong_arbitration:0, support_arbitration:0, fallback_head:0 };
 const subtypeActual = { outside_current_22:0, route_unresolved:0, near_domain_not_current_route:0 };
+const pathMismatches = [];
 
 for (const row of data.rows) {
   assert(/^V013-D-\d{3}$/.test(row.id), `invalid id ${row.id}`);
@@ -78,13 +79,12 @@ for (const row of data.rows) {
     pathActual[row.expectedCandidatePath] += 1;
     const evidence = extractor.extract(row.text);
     const result = arbitration.arbitrate(row.text, evidence);
-    if (row.expectedCandidatePath === 'strong_arbitration') {
-      assert(result?.strength === 'strong' && result.routeId === row.expectedRoute, `${row.id} strong path mismatch: expected=${row.expectedRoute}, actual=${JSON.stringify(result)}`);
-    } else if (row.expectedCandidatePath === 'support_arbitration') {
-      assert(result?.strength === 'support' && result.routeId === row.expectedRoute, `${row.id} support path mismatch: expected=${row.expectedRoute}, actual=${JSON.stringify(result)}`);
-    } else {
-      assert(result == null, `${row.id} fallback path unexpectedly arbitrated: ${JSON.stringify(result)}`);
-    }
+    const matches = row.expectedCandidatePath === 'strong_arbitration'
+      ? result?.strength === 'strong' && result.routeId === row.expectedRoute
+      : row.expectedCandidatePath === 'support_arbitration'
+        ? result?.strength === 'support' && result.routeId === row.expectedRoute
+        : result == null;
+    if (!matches) pathMismatches.push({ id:row.id, path:row.expectedCandidatePath, expectedRoute:row.expectedRoute, actual:result, text:row.text });
   } else {
     assert(row.expectedDisposition === 'non_route', `${row.id} invalid disposition ${row.expectedDisposition}`);
     assert(row.expectedRoute == null && row.expectedCandidatePath == null, `${row.id} non-route must not have route/path`);
@@ -92,6 +92,7 @@ for (const row of data.rows) {
     subtypeActual[row.nonRouteSubtype] += 1;
   }
 }
+assert(pathMismatches.length === 0, `path-contract mismatches (${pathMismatches.length}): ${pathMismatches.slice(0,20).map((item) => `${item.id} ${item.path}/${item.expectedRoute} actual=${JSON.stringify(item.actual)} text=${item.text}`).join(' | ')}`);
 for (const [key, expected] of Object.entries({ strong_arbitration:44, support_arbitration:44, fallback_head:44 })) {
   assert(pathActual[key] === expected, `actual path count ${key}=${pathActual[key]}`);
 }
