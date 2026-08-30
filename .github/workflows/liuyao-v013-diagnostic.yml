@@ -1,0 +1,37 @@
+name: LiuYao v0.13 Development Diagnostic
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/analyze-liuyao-semantic-v013-development-report.mjs'
+      - '.github/workflows/liuyao-v013-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Analyze gate and fallback failures
+        run: node scripts/analyze-liuyao-semantic-v013-development-report.mjs
+      - name: Commit diagnostic report
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-development-diagnostic.json)" ]; then
+            echo 'Diagnostic report already matches current development result.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-development-diagnostic.json
+          git commit -m 'test(liuyao): record v0.13 development diagnostic'
+          git push origin HEAD:liuyao-semantic-v013-core
