@@ -1,0 +1,9 @@
+{
+  "version": "0.3-lock",
+  "status": "locked",
+  "artifactPath": "data/liuyao-semantic-routeability-v0.3.json",
+  "artifactSha256": "439be7ebaca8a08e5a7ea0bbfc0dc89e67ae38fd4a547aa09ca00434af574fdc",
+  "baseModelSha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344",
+  "calibrationDataSha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+  "threshold": 0.7675678218564946
+}
