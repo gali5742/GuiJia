@@ -113,18 +113,19 @@ function directedRecord(synthesis, actorKey) {
     return (synthesis.visibleStemDirectedFunctionRecords || []).find((item) => item.visibleActorKey === actorKey);
 }
 
-test('Directed Function v0.1 冻结五类关系的真实 source/target 方向', () => {
+test('Directed Function v0.2 冻结五类关系，并把 peer 从有向 source/target 中拆出', () => {
     assert(api?.installed === true, 'Directed Function 模块未安装');
-    assert(api.VISIBLE_STEM_DIRECTED_FUNCTION_VERSION === '0.1', '版本异常');
+    assert(api.VISIBLE_STEM_DIRECTED_FUNCTION_VERSION === '0.2', '版本异常');
     assert(api.CONTRACT.allVisibleFunctionsPointTowardDayMaster === false, '不得把所有 visible function 都写成 actor→日主');
-    assert(api.RELATION_MODELS['生我'].flow === 'inbound-to-daymaster', '生我应为 inbound');
-    assert(api.RELATION_MODELS['同我'].flow === 'peer-with-daymaster', '同我应为 peer');
-    assert(api.RELATION_MODELS['克我'].flow === 'inbound-to-daymaster', '克我应为 inbound');
-    assert(api.RELATION_MODELS['我生'].flow === 'outbound-from-daymaster', '我生应为 outbound');
-    assert(api.RELATION_MODELS['我克'].flow === 'outbound-from-daymaster', '我克应为 outbound');
+    assert(api.CONTRACT.peerUsesDirectedSourceTarget === false, 'peer 不得使用有向 source/target');
+    assert(api.RELATION_MODELS['生我'].flow === 'inbound-to-daymaster' && api.RELATION_MODELS['生我'].directed === true, '生我应为 directed inbound');
+    assert(api.RELATION_MODELS['同我'].flow === 'peer-with-daymaster' && api.RELATION_MODELS['同我'].directed === false, '同我应为 non-directed peer');
+    assert(api.RELATION_MODELS['克我'].flow === 'inbound-to-daymaster' && api.RELATION_MODELS['克我'].directed === true, '克我应为 directed inbound');
+    assert(api.RELATION_MODELS['我生'].flow === 'outbound-from-daymaster' && api.RELATION_MODELS['我生'].directed === true, '我生应为 directed outbound');
+    assert(api.RELATION_MODELS['我克'].flow === 'outbound-from-daymaster' && api.RELATION_MODELS['我克'].directed === true, '我克应为 directed outbound');
 });
 
-test('固定验证盘：比肩 peer、官星 inbound、食神 outbound 分向保存', () => {
+test('固定验证盘：比肩保存 participant pair，官星 inbound，食神 outbound', () => {
     const { output } = outputFor(['丁','壬','丁','己'], ['丑','子','亥','酉']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const peer = directedRecord(synthesis, 'visible:0:丁');
@@ -132,13 +133,17 @@ test('固定验证盘：比肩 peer、官星 inbound、食神 outbound 分向保
     const drain = directedRecord(synthesis, 'visible:3:己');
 
     assert(peer?.relationFromDayMaster === '同我' && peer.flow === 'peer-with-daymaster', '年干丁应为 peer');
-    assert(peer.reciprocal === true, '同我必须保留 reciprocal');
-    assert(peer.sourceActor.actorKey === 'visible:0:丁' && peer.targetActor.actorKey === 'daymaster:2:丁', 'peer actor provenance 异常');
+    assert(peer.directed === false && peer.reciprocal === true, '同我必须是 reciprocal non-directed peer');
+    assert(peer.sourceActor === null && peer.targetActor === null, 'peer 不得制造 sourceActor/targetActor');
+    assert(peer.peerParticipants.length === 2, 'peer 应保存两个 participants');
+    assert(peer.peerParticipants[0].actorKey === 'visible:0:丁' && peer.peerParticipants[1].actorKey === 'daymaster:2:丁', 'peer participant provenance 异常');
 
     assert(restraint?.relationFromDayMaster === '克我' && restraint.flow === 'inbound-to-daymaster', '月干壬应 inbound 克日主');
+    assert(restraint.directed === true, '克我应为 directed');
     assert(restraint.sourceActor.actorKey === 'visible:1:壬' && restraint.targetActor.actorKey === 'daymaster:2:丁', '克我 source/target 方向错误');
 
     assert(drain?.relationFromDayMaster === '我生' && drain.flow === 'outbound-from-daymaster', '时干己应 outbound 泄力');
+    assert(drain.directed === true, '我生应为 directed');
     assert(drain.sourceActor.actorKey === 'daymaster:2:丁' && drain.targetActor.actorKey === 'visible:3:己', '我生不得写成己→丁');
 });
 
@@ -148,9 +153,10 @@ test('生我明确保存为明干→日主 generation', () => {
     ['visible:0:甲','visible:1:乙'].forEach((actorKey) => {
         const record = directedRecord(synthesis, actorKey);
         assert(record?.relationFromDayMaster === '生我', `${actorKey} 应为生我`);
-        assert(record.flow === 'inbound-to-daymaster', `${actorKey} 应 inbound`);
+        assert(record.flow === 'inbound-to-daymaster' && record.directed === true, `${actorKey} 应 directed inbound`);
         assert(record.functionType === 'generation', `${actorKey} 应 generation`);
         assert(record.sourceActor.actorKey === actorKey && record.targetActor.actorKey === 'daymaster:2:丁', `${actorKey} source/target 异常`);
+        assert(record.peerParticipants.length === 0, `${actorKey} 不得伪造 peer participants`);
     });
 });
 
@@ -160,22 +166,24 @@ test('我克明确保存为日主→财星 restraint/distribution，不反向成
     ['visible:0:庚','visible:1:辛'].forEach((actorKey) => {
         const record = directedRecord(synthesis, actorKey);
         assert(record?.relationFromDayMaster === '我克', `${actorKey} 应为我克`);
-        assert(record.flow === 'outbound-from-daymaster', `${actorKey} 应 outbound`);
+        assert(record.flow === 'outbound-from-daymaster' && record.directed === true, `${actorKey} 应 directed outbound`);
         assert(record.functionType === 'restraint' && record.strengthMeaning === 'distribution', `${actorKey} 应为 restraint/distribution`);
         assert(record.sourceActor.actorKey === 'daymaster:2:丁' && record.targetActor.actorKey === actorKey, `${actorKey} 不得反向`);
     });
 });
 
-test('Direction Model 只解决方向，reachability 继续拆成 inbound/peer 与 outbound blocker', () => {
+test('Direction Model 只解决语义，inbound / peer realization / outbound 三类 blocker 独立', () => {
     const { output } = outputFor(['丁','壬','丁','己'], ['丑','子','亥','酉']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const deps = dependencyMap(synthesis);
     assert(deps['SD-VISIBLE-STEM-FUNCTION-DIRECTION-MODEL']?.status === 'resolved', 'Direction Model 应 resolved');
-    assert(deps['SD-VISIBLE-STEM-DAYMASTER-INBOUND-PEER-REACHABILITY']?.status === 'unresolved', 'inbound/peer reachability 应 unresolved');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-INBOUND-REACHABILITY']?.status === 'unresolved', 'inbound reachability 应 unresolved');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-PEER-REALIZATION']?.status === 'unresolved', 'peer realization 应 unresolved');
     assert(deps['SD-VISIBLE-STEM-DAYMASTER-OUTBOUND-REACHABILITY']?.status === 'unresolved', 'outbound reachability 应 unresolved');
+    assert(!deps['SD-VISIBLE-STEM-DAYMASTER-INBOUND-PEER-REACHABILITY'], '旧 inbound/peer 合并 blocker 应被移除');
     assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY']?.status === 'unresolved', '兼容父 dependency 仍应 unresolved');
-    assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY'].dependsOnDependencyIds.includes('SD-VISIBLE-STEM-FUNCTION-DIRECTION-MODEL'), '父 dependency 应依赖 direction model');
-    assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY'].dependsOnDependencyIds.includes('SD-VISIBLE-STEM-DAYMASTER-INBOUND-PEER-REACHABILITY'), '父 dependency 应含 inbound/peer');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY'].dependsOnDependencyIds.includes('SD-VISIBLE-STEM-DAYMASTER-INBOUND-REACHABILITY'), '父 dependency 应含 inbound');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY'].dependsOnDependencyIds.includes('SD-VISIBLE-STEM-DAYMASTER-PEER-REALIZATION'), '父 dependency 应含 peer realization');
     assert(deps['SD-VISIBLE-STEM-DAYMASTER-FUNCTION-REACHABILITY'].dependsOnDependencyIds.includes('SD-VISIBLE-STEM-DAYMASTER-OUTBOUND-REACHABILITY'), '父 dependency 应含 outbound');
     assert(deps['SD-VISIBLE-EFFECTIVENESS']?.status === 'unresolved', 'Visible Effectiveness 不得被方向模型解决');
     assert(synthesis.sufficiency.status === 'insufficient', '最终 Synthesis 仍应 insufficient');
@@ -184,20 +192,21 @@ test('Direction Model 只解决方向，reachability 继续拆成 inbound/peer �
 test('只有 inbound/peer 时 outbound blocker 为 not-applicable resolved', () => {
     const { output } = outputFor(['甲','壬','丁','丁'], ['子','丑','亥','酉']);
     const deps = dependencyMap(output.semanticModel.strengthSynthesis);
-    assert(deps['SD-VISIBLE-STEM-DAYMASTER-INBOUND-PEER-REACHABILITY']?.status === 'unresolved', '应存在 inbound/peer blocker');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-INBOUND-REACHABILITY']?.status === 'unresolved', '应存在 inbound blocker');
+    assert(deps['SD-VISIBLE-STEM-DAYMASTER-PEER-REALIZATION']?.status === 'unresolved', '应存在 peer realization blocker');
     assert(deps['SD-VISIBLE-STEM-DAYMASTER-OUTBOUND-REACHABILITY']?.status === 'resolved', '无 outbound 时应 not-applicable/resolved');
 });
 
-test('已有 Function Reachability direct source records 不因 Direction Model 被改写', () => {
+test('已有 Function Reachability direct source records 不因 Directed Function v0.2 被改写', () => {
     const { output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const sourceRecords = synthesis.visibleStemFunctionReachabilityRecords || [];
     assert(sourceRecords.length === 2, '原有 DTS target-specific reachability 两条直证必须保留');
     assert(sourceRecords.every((item) => item.reachabilityState === 'unavailable-in-source-context'), '原有 source reachability 状态不得改变');
-    assert((synthesis.visibleStemDirectedFunctionRecords || []).length === 3, '该盘三个非日主明干都应建立 directed function');
+    assert((synthesis.visibleStemDirectedFunctionRecords || []).length === 3, '该盘三个非日主明干都应建立 function semantics');
 });
 
-test('Directed Function 不把方向升级为 reachable/effective，也不引入数值聚合', () => {
+test('Directed Function 不把语义升级为 reachable/effective，也不引入数值聚合', () => {
     const { result, output } = outputFor(['丁','壬','丁','己'], ['丑','子','亥','酉']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const serialized = JSON.stringify({
@@ -207,16 +216,17 @@ test('Directed Function 不把方向升级为 reachable/effective，也不引入
     ['score','weight','points','"strong"','"weak"','"balanced"'].forEach((term) => {
         assert(!serialized.includes(term), `不得出现 ${term}`);
     });
-    assert((synthesis.visibleStemDirectedFunctionRecords || []).every((item) => item.reachabilityState === null && item.genericVisibleEffectiveState === null), '方向解析不得提前生成 reachability/effectiveness');
+    assert((synthesis.visibleStemDirectedFunctionRecords || []).every((item) => item.reachabilityState === null && item.genericVisibleEffectiveState === null), '方向/peer 解析不得提前生成 reachability/effectiveness');
     assert(output.semanticModel.assessmentLayer.domains.dayMasterStrength.status === 'not-evaluated', '最终 Strength 不得启动');
 
     const copied = interpretation.buildBaziContextText(result, output);
     [
         'visibleStemDirectedFunction',
+        'peerParticipants',
         'inbound-to-daymaster',
         'outbound-from-daymaster',
         'SD-VISIBLE-STEM-FUNCTION-DIRECTION-MODEL',
-        'SD-VISIBLE-STEM-DAYMASTER-OUTBOUND-REACHABILITY'
+        'SD-VISIBLE-STEM-DAYMASTER-PEER-REALIZATION'
     ].forEach((term) => assert(!copied.includes(term), `复制上下文泄漏内部字段：${term}`));
 });
 
