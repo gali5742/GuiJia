@@ -18,7 +18,7 @@ addKnown('strong_arbitration','commercial_transaction',[
   '这笔批发交易下周能不能最终成交','客户这单采购合同月底前能不能签下来'
 ]);
 addKnown('strong_arbitration','inventory_purchase',[
-  '门店这批补货周五前能不能全部入库','仓库下一轮进货能不能按计划到齐'
+  '门店这批补货周五前能不能全部入库','门店仓库下一轮进货能不能按计划到齐'
 ]);
 addKnown('strong_arbitration','inventory_sale',[
   '仓库这批尾货月底前能不能全部出清','门店积压库存下个月能不能卖完'
