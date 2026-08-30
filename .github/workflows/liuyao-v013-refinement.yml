@@ -1,0 +1,28 @@
+name: LiuYao v0.13 Semantic Refinement
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'js/liuyao-semantic-route-evidence-v02.js'
+      - 'js/liuyao-semantic-route-arbitration-v012.js'
+      - 'js/liuyao-semantic-route-compatibility-v02.js'
+      - 'js/liuyao-semantic-route-selection-v02.js'
+      - 'js/liuyao-semantic-routeability-v03.js'
+      - 'tests/liuyao-semantic-v013-refinement-tests.js'
+      - '.github/workflows/liuyao-v013-refinement.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Run semantic refinement contracts
+        run: node tests/liuyao-semantic-v013-refinement-tests.js
