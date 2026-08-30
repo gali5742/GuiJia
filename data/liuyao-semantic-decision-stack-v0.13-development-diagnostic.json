@@ -1,0 +1,709 @@
+{
+  "version": "0.13-development-diagnostic-v0.1",
+  "status": "development_diagnostic",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "baselineThreshold": 0.7729399679455569,
+  "gateRejects": {
+    "total": 44,
+    "byPath": {
+      "strong_arbitration": 18,
+      "support_arbitration": 7,
+      "fallback_head": 19
+    },
+    "byRoute": {
+      "partnership": 2,
+      "investment_liquidation": 2,
+      "investment_suitability": 1,
+      "investment_price_trend": 3,
+      "income_salary": 4,
+      "income_bonus": 1,
+      "receive_item": 5,
+      "item_purchase": 5,
+      "relationship_development": 4,
+      "marriage_match": 3,
+      "marital_relationship": 4,
+      "business_operation": 3,
+      "investment_position_decision": 4,
+      "financial_fortune": 1,
+      "inventory_sale": 1,
+      "debt_repayment": 1
+    },
+    "closestBelowThreshold": [
+      {
+        "id": "V013-D-044",
+        "text": "这段婚姻接下来还能不能继续",
+        "expectedRoute": "marital_relationship",
+        "path": "strong_arbitration",
+        "probability": 0.7727363133287769,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "marital_relationship",
+          "strength": "strong",
+          "evidence": [
+            "existing_marriage"
+          ],
+          "rationale": "relationship-stage"
+        }
+      },
+      {
+        "id": "V013-D-084",
+        "text": "这个ETF近来涨跌反复，我想看看这一块",
+        "expectedRoute": "investment_price_trend",
+        "path": "support_arbitration",
+        "probability": 0.7727253681272507,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "investment_price_trend",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "price-trend-semantics"
+          ],
+          "rationale": "investment-support"
+        }
+      },
+      {
+        "id": "V013-D-027",
+        "text": "这只基金未来两周还会不会继续跌",
+        "expectedRoute": "investment_price_trend",
+        "path": "strong_arbitration",
+        "probability": 0.7726707789079843,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "investment_price_trend",
+          "strength": "strong",
+          "evidence": [
+            "investment",
+            "current_target:price_trend"
+          ],
+          "rationale": "current-target"
+        }
+      },
+      {
+        "id": "V013-D-130",
+        "text": "我们这段关系最后能不能定下来成家",
+        "expectedRoute": "marriage_match",
+        "path": "fallback_head",
+        "probability": 0.7706989982316405,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-129",
+        "text": "我和他最后有没有可能办婚礼",
+        "expectedRoute": "marriage_match",
+        "path": "fallback_head",
+        "probability": 0.7698696287958248,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-026",
+        "text": "这只ETF现阶段值不值得我投",
+        "expectedRoute": "investment_suitability",
+        "path": "strong_arbitration",
+        "probability": 0.7690635461072833,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "investment_suitability",
+          "strength": "strong",
+          "evidence": [
+            "investment",
+            "current_target:suitability"
+          ],
+          "rationale": "current-target"
+        }
+      },
+      {
+        "id": "V013-D-105",
+        "text": "信用卡那一笔今年能彻底处理掉吗",
+        "expectedRoute": "debt_repayment",
+        "path": "fallback_head",
+        "probability": 0.7688268519612008,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-038",
+        "text": "这款扫地机器人现在买合不合适",
+        "expectedRoute": "item_purchase",
+        "path": "strong_arbitration",
+        "probability": 0.7688016521074993,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "item_purchase",
+          "strength": "strong",
+          "evidence": [
+            "ordinary_purchase",
+            "purchasable_item"
+          ],
+          "rationale": "ordinary-purchase"
+        }
+      },
+      {
+        "id": "V013-D-079",
+        "text": "我对这笔基金仓位调整一直拿不定主意",
+        "expectedRoute": "investment_position_decision",
+        "path": "support_arbitration",
+        "probability": 0.7683749809518217,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "investment_position_decision",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "position-event"
+          ],
+          "rationale": "event-only-support"
+        }
+      },
+      {
+        "id": "V013-D-081",
+        "text": "当前ETF持仓要不要调整，我一直在考虑",
+        "expectedRoute": "investment_position_decision",
+        "path": "support_arbitration",
+        "probability": 0.76717647553928,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "investment_position_decision",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "position-event"
+          ],
+          "rationale": "event-only-support"
+        }
+      },
+      {
+        "id": "V013-D-119",
+        "text": "明年底薪有没有机会往上调",
+        "expectedRoute": "income_salary",
+        "path": "fallback_head",
+        "probability": 0.7667692454809824,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-115",
+        "text": "手里的票继续拿还是少拿一点",
+        "expectedRoute": "investment_position_decision",
+        "path": "fallback_head",
+        "probability": 0.7658589864524623,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-091",
+        "text": "我这个小铺子往后做得下去吗",
+        "expectedRoute": "business_operation",
+        "path": "fallback_head",
+        "probability": 0.7658037554849032,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-127",
+        "text": "我和这个人能不能更进一步成为一对",
+        "expectedRoute": "relationship_development",
+        "path": "fallback_head",
+        "probability": 0.7651944424865745,
+        "arbitration": null
+      },
+      {
+        "id": "V013-D-042",
+        "text": "这门亲事今年能不能成",
+        "expectedRoute": "marriage_match",
+        "path": "strong_arbitration",
+        "probability": 0.7649394926181506,
+        "arbitration": {
+          "version": "0.11-dev",
+          "routeId": "marriage_match",
+          "strength": "strong",
+          "evidence": [
+            "marriage_target"
+          ],
+          "rationale": "relationship-stage"
+        }
+      }
+    ]
+  },
+  "strongArbitrationRescue": {
+    "rejectedRowsWithStrongArbitration": 21,
+    "knownCandidates": 18,
+    "knownRescuedExact": 18,
+    "nonRouteCandidates": 3,
+    "nonRouteFalseActivations": 3,
+    "rows": [
+      {
+        "id": "V013-D-020",
+        "text": "跟这个搭档共同经营工作室以后顺不顺",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "partnership",
+        "nonRouteSubtype": null,
+        "probability": 0.7518653597055353,
+        "arbitrationRoute": "partnership",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "partnership",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-024",
+        "text": "我把股票仓位一次性清掉会不会卡住",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "investment_liquidation",
+        "nonRouteSubtype": null,
+        "probability": 0.7558095011744731,
+        "arbitrationRoute": "investment_liquidation",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "investment_liquidation",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-026",
+        "text": "这只ETF现阶段值不值得我投",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "investment_suitability",
+        "nonRouteSubtype": null,
+        "probability": 0.7690635461072833,
+        "arbitrationRoute": "investment_suitability",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "investment_suitability",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-027",
+        "text": "这只基金未来两周还会不会继续跌",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "investment_price_trend",
+        "nonRouteSubtype": null,
+        "probability": 0.7726707789079843,
+        "arbitrationRoute": "investment_price_trend",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "investment_price_trend",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-029",
+        "text": "今年我的固定工资会不会上调",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "income_salary",
+        "nonRouteSubtype": null,
+        "probability": 0.7461063936952723,
+        "arbitrationRoute": "income_salary",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "income_salary",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-030",
+        "text": "下一次调薪月薪能不能增加",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "income_salary",
+        "nonRouteSubtype": null,
+        "probability": 0.7507911498206603,
+        "arbitrationRoute": "income_salary",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "income_salary",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-031",
+        "text": "今年的绩效奖金能不能发下来",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "income_bonus",
+        "nonRouteSubtype": null,
+        "probability": 0.76268662922744,
+        "arbitrationRoute": "income_bonus",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "income_bonus",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-033",
+        "text": "我买的显示器这个周末能不能收到",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "receive_item",
+        "nonRouteSubtype": null,
+        "probability": 0.7631582911217158,
+        "arbitrationRoute": "receive_item",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "receive_item",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-034",
+        "text": "已经寄出的相机明天能不能到手",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "receive_item",
+        "nonRouteSubtype": null,
+        "probability": 0.7426500339846266,
+        "arbitrationRoute": "receive_item",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "receive_item",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-035",
+        "text": "这个键盘包裹周五前能不能送达",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "receive_item",
+        "nonRouteSubtype": null,
+        "probability": 0.7457664490257984,
+        "arbitrationRoute": "receive_item",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "receive_item",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-036",
+        "text": "这台投影仪现在值不值得买",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "item_purchase",
+        "nonRouteSubtype": null,
+        "probability": 0.7387106807198014,
+        "arbitrationRoute": "item_purchase",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "item_purchase",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-037",
+        "text": "我现在要不要买这副耳机",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "item_purchase",
+        "nonRouteSubtype": null,
+        "probability": 0.7434937636781948,
+        "arbitrationRoute": "item_purchase",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "item_purchase",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-038",
+        "text": "这款扫地机器人现在买合不合适",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "item_purchase",
+        "nonRouteSubtype": null,
+        "probability": 0.7688016521074993,
+        "arbitrationRoute": "item_purchase",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "item_purchase",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-039",
+        "text": "我和这个女生能不能正式在一起",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "relationship_development",
+        "nonRouteSubtype": null,
+        "probability": 0.7497959130265044,
+        "arbitrationRoute": "relationship_development",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "relationship_development",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-040",
+        "text": "这段暧昧会不会发展成恋爱",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "relationship_development",
+        "nonRouteSubtype": null,
+        "probability": 0.7401994994017511,
+        "arbitrationRoute": "relationship_development",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "relationship_development",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-042",
+        "text": "这门亲事今年能不能成",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "marriage_match",
+        "nonRouteSubtype": null,
+        "probability": 0.7649394926181506,
+        "arbitrationRoute": "marriage_match",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "marriage_match",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-043",
+        "text": "我和丈夫最近夫妻关系能不能缓和",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "marital_relationship",
+        "nonRouteSubtype": null,
+        "probability": 0.7387403416209819,
+        "arbitrationRoute": "marital_relationship",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "marital_relationship",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-044",
+        "text": "这段婚姻接下来还能不能继续",
+        "expectedDisposition": "route_known",
+        "expectedRoute": "marital_relationship",
+        "nonRouteSubtype": null,
+        "probability": 0.7727363133287769,
+        "arbitrationRoute": "marital_relationship",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "marital_relationship",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": true,
+        "falseActivationIfRescued": false
+      },
+      {
+        "id": "V013-D-184",
+        "text": "这份工资单的扣税数字算对了吗",
+        "expectedDisposition": "non_route",
+        "expectedRoute": null,
+        "nonRouteSubtype": "near_domain_not_current_route",
+        "probability": 0.7644064679870258,
+        "arbitrationRoute": "income_salary",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "income_salary",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": false,
+        "falseActivationIfRescued": true
+      },
+      {
+        "id": "V013-D-185",
+        "text": "公司的奖金制度设计公平吗",
+        "expectedDisposition": "non_route",
+        "expectedRoute": null,
+        "nonRouteSubtype": "near_domain_not_current_route",
+        "probability": 0.6873837934339715,
+        "arbitrationRoute": "income_bonus",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "income_bonus",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": false,
+        "falseActivationIfRescued": true
+      },
+      {
+        "id": "V013-D-189",
+        "text": "这个商业合同的违约条款有没有问题",
+        "expectedDisposition": "non_route",
+        "expectedRoute": null,
+        "nonRouteSubtype": "near_domain_not_current_route",
+        "probability": 0.759189648719579,
+        "arbitrationRoute": "commercial_transaction",
+        "arbitrationCompatibility": "confirmed",
+        "selectionStatus": "selected",
+        "selectionRoute": "commercial_transaction",
+        "selectionReason": "strong_arbitration_confirmed",
+        "scopeHardVeto": false,
+        "rescued": true,
+        "exactIfRescued": false,
+        "falseActivationIfRescued": true
+      }
+    ]
+  },
+  "diagnosticThresholdSweep": {
+    "note": "Development-only counterfactual; not Routeability v0.2 recalibration.",
+    "bestAtMaxFivePercentFalseActivation": {
+      "threshold": 0.7649394926181506,
+      "knownRecall": 0.7803030303030303,
+      "falseActivation": 0.015151515151515152,
+      "nonRouteSafety": 0.9848484848484849
+    }
+  },
+  "wrongFallback": [
+    {
+      "id": "V013-D-092",
+      "text": "自己这个小买卖以后能不能撑起来",
+      "expectedRoute": "business_operation",
+      "finalRoute": "inventory_sale",
+      "headTop1": {
+        "id": "inventory_sale",
+        "score": 0.05369028090966773
+      },
+      "headTop2": {
+        "id": "business_operation",
+        "score": 0.053158262349850945
+      },
+      "expectedCompatibility": {
+        "version": "0.1-dev",
+        "routeId": "business_operation",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top1Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "inventory_sale",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top2Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "business_operation",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "routeabilityProbability": 0.8155351109881595
+    },
+    {
+      "id": "V013-D-094",
+      "text": "和对方这一单最后能不能敲定",
+      "expectedRoute": "commercial_transaction",
+      "finalRoute": "marriage_match",
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.06657591214766859
+      },
+      "headTop2": {
+        "id": "commercial_transaction",
+        "score": 0.05922094927750104
+      },
+      "expectedCompatibility": {
+        "version": "0.1-dev",
+        "routeId": "commercial_transaction",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top1Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "marriage_match",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top2Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "commercial_transaction",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "routeabilityProbability": 0.7740469523198058
+    },
+    {
+      "id": "V013-D-100",
+      "text": "最近有没有人愿意先给我一笔钱周转",
+      "expectedRoute": "borrow_money",
+      "finalRoute": "lend_money",
+      "headTop1": {
+        "id": "lend_money",
+        "score": 0.05977901039220114
+      },
+      "headTop2": {
+        "id": "income_bonus",
+        "score": 0.05271029910509894
+      },
+      "expectedCompatibility": {
+        "version": "0.1-dev",
+        "routeId": "borrow_money",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top1Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "lend_money",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "top2Compatibility": {
+        "version": "0.1-dev",
+        "routeId": "income_bonus",
+        "status": "compatible",
+        "positiveEvidence": [],
+        "contradictionEvidence": []
+      },
+      "routeabilityProbability": 0.8037533781557105
+    }
+  ]
+}
