@@ -1,0 +1,40 @@
+name: LiuYao Routeability v0.3 Calibration Data
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-routeability-v03-calibration.mjs'
+      - 'scripts/verify-liuyao-semantic-routeability-v03-calibration.mjs'
+      - '.github/workflows/liuyao-routeability-v03-calibration-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Generate fresh calibration corpus
+        run: node scripts/generate-liuyao-semantic-routeability-v03-calibration.mjs
+      - name: Verify path contracts and full prior-corpus isolation
+        run: node scripts/verify-liuyao-semantic-routeability-v03-calibration.mjs
+      - name: Commit verified calibration corpus
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-routeability-v0.3-calibration.json)" ]; then
+            echo 'Calibration corpus already matches generator.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-routeability-v0.3-calibration.json
+          git commit -m 'test(liuyao): seal fresh routeability v0.3 calibration corpus'
+          git push origin HEAD:liuyao-semantic-v013-core
