@@ -1,0 +1,47 @@
+name: LiuYao Routeability v0.3 Freeze
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/calibrate-liuyao-semantic-routeability-v03.mjs'
+      - 'scripts/verify-liuyao-semantic-routeability-v03.mjs'
+      - 'data/liuyao-semantic-routeability-v0.3-calibration.json'
+      - 'data/liuyao-semantic-routeability-v0.3-contract.json'
+      - 'js/liuyao-semantic-routeability-v03.js'
+      - '.github/workflows/liuyao-routeability-v03-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify fresh v0.3 calibration corpus
+        run: node scripts/verify-liuyao-semantic-routeability-v03-calibration.mjs
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Calibrate hybrid Routeability v0.3
+        run: node scripts/calibrate-liuyao-semantic-routeability-v03.mjs
+      - name: Verify frozen v0.3 artifact
+        run: node scripts/verify-liuyao-semantic-routeability-v03.mjs
+      - name: Commit frozen v0.3 artifact
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-routeability-v0.3.json data/liuyao-semantic-routeability-v0.3.lock.json)" ]; then
+            echo 'Routeability v0.3 artifact already matches calibration.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-routeability-v0.3.json data/liuyao-semantic-routeability-v0.3.lock.json
+          git commit -m 'chore(liuyao): freeze routeability v0.3 calibration policy'
+          git push origin HEAD:liuyao-semantic-v013-core
