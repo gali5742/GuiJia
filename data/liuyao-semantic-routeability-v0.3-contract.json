@@ -1,0 +1,27 @@
+{
+  "version": "0.3-contract",
+  "status": "development_contract",
+  "scope": "liuyao_semantic_routeability_v03",
+  "baseModel": "frozen Routeability v0.2 linear weights",
+  "policy": {
+    "explicitUnsupportedTarget": "non_route",
+    "modelScoreAtOrAboveThreshold": "route_known",
+    "belowThresholdConfirmedStrongArbitration": "route_known",
+    "belowThresholdSupportOrFallback": "non_route"
+  },
+  "calibration": {
+    "mustBeFreshFromAllPriorTrainingCalibrationDevelopmentAndBlindCorpora": true,
+    "knownPaths": ["support_arbitration", "fallback_head"],
+    "strongKnownExcludedFromThresholdObjective": true,
+    "nonRouteSubtypes": ["outside_current_22", "route_unresolved", "near_domain_not_current_route"],
+    "objective": "maximize_non_strong_known_recall_subject_to_safety_caps",
+    "maxFalseActivationOverall": 0.05,
+    "maxFalseActivationPerSubtype": 0.05
+  },
+  "evaluationDiscipline": {
+    "current198DevelopmentMayInformDesign": true,
+    "current198DevelopmentMustNotCalibrateV03": true,
+    "freshIndependentEvaluationRequiredAfterV03Freeze": true,
+    "futureBlindMustBeFreshAfterCandidateFreeze": true
+  }
+}
