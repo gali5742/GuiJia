@@ -1,0 +1,8 @@
+{
+  "version": "0.1",
+  "status": "locked",
+  "artifact": "data/liuyao-semantic-frozen-dependencies-v0.1.json",
+  "artifactSha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f",
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "hardVetoCutoff": 0.4196
+}
