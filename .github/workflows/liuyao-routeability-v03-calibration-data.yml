@@ -6,7 +6,9 @@ on:
       - liuyao-semantic-v013-core
     paths:
       - 'scripts/generate-liuyao-semantic-routeability-v03-calibration.mjs'
+      - 'scripts/apply-liuyao-semantic-routeability-v03-calibration-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-routeability-v03-calibration.mjs'
+      - 'data/liuyao-semantic-routeability-v0.3-calibration-preseal-patch.json'
       - '.github/workflows/liuyao-routeability-v03-calibration-data.yml'
   workflow_dispatch:
 
@@ -25,12 +27,14 @@ jobs:
           node-version: 22
       - name: Generate fresh calibration corpus
         run: node scripts/generate-liuyao-semantic-routeability-v03-calibration.mjs
+      - name: Apply pre-seal wording correction
+        run: node scripts/apply-liuyao-semantic-routeability-v03-calibration-preseal-patch.mjs
       - name: Verify path contracts and full prior-corpus isolation
         run: node scripts/verify-liuyao-semantic-routeability-v03-calibration.mjs
       - name: Commit verified calibration corpus
         run: |
           if [ -z "$(git status --porcelain -- data/liuyao-semantic-routeability-v0.3-calibration.json)" ]; then
-            echo 'Calibration corpus already matches generator.'
+            echo 'Calibration corpus already matches generator plus pre-seal patch.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
