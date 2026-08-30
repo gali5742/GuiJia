@@ -305,4 +305,8 @@
         buildFunctionalAvailabilityRecords,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemFunctionReachability) {
+        document.write('<script src="./js/bazi-visible-stem-function-reachability.js?v=13.44.0"><\\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
