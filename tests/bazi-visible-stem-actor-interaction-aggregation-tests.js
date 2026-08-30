@@ -143,21 +143,35 @@ test('固定验证盘：三个明干各自保留真实 day-master participation�
     assert(outputStem?.interactionInputs?.[0]?.participationRole === 'target', '我生明干应保持 target participation');
 });
 
-test('DTS exact source：同一辛 actor 同时保留 cross-actor resolved failure 与 day-master unresolved，互不覆盖', () => {
+test('DTS exact source：同一辛 actor 同时保留 cross-source、cross-target resolved failures 与 day-master unresolved', () => {
     const { output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const xin = (synthesis.visibleStemActorInteractionAggregationRecords || []).find((item) => item.actorKey === 'visible:3:辛');
     assert(xin, '辛 actor aggregation record 缺失');
-    assert(xin.interactionInputs.length === 2, `辛应保留两个独立 edge context：${xin.interactionInputs.length}`);
-    const cross = xin.interactionInputs.find((item) => item.relationScope === 'cross-visible-actor');
+    assert(xin.interactionInputs.length === 3, `辛应保留三个独立 edge context：${xin.interactionInputs.length}`);
+
+    const crossSource = xin.interactionInputs.find((item) =>
+        item.relationScope === 'cross-visible-actor'
+        && item.participationRole === 'source'
+        && item.counterpartyActorKeys.includes('visible:0:癸')
+    );
+    const crossTarget = xin.interactionInputs.find((item) =>
+        item.relationScope === 'cross-visible-actor'
+        && item.participationRole === 'target'
+        && item.counterpartyActorKeys.includes('visible:1:己')
+    );
     const dayMaster = xin.interactionInputs.find((item) => item.relationScope === 'daymaster-related');
-    assert(cross?.participationRole === 'source', '辛→癸 cross edge 应为 source participation');
-    assert(cross.realizationState === 'not-realized-in-source-context', '辛→癸应保留 source-specific 未兑现');
-    assert(cross.resolutionCoverageStatus === 'resolved', '辛→癸应是已解析 edge');
+
+    assert(crossSource, '辛→癸 cross-source edge 缺失');
+    assert(crossSource.realizationState === 'not-realized-in-source-context', '辛→癸应保留 source-specific 未兑现');
+    assert(crossSource.resolutionCoverageStatus === 'resolved', '辛→癸应是已解析 edge');
+    assert(crossTarget, '己→辛 cross-target edge 缺失');
+    assert(crossTarget.realizationState === 'not-realized-in-source-context', '己→辛应保留 source-specific 未兑现');
+    assert(crossTarget.resolutionCoverageStatus === 'resolved', '己→辛应是已解析 edge');
     assert(dayMaster?.participationRole === 'target', '丙克辛中辛应为 target participation');
     assert(dayMaster.realizationState === 'unresolved', '辛与日主 edge 必须继续 unresolved');
-    assert(xin.coverageStatus === 'partial', 'resolved + unresolved 应形成 partial coverage，而不是覆盖');
-    assert(xin.actorGlobalEffectiveState === null, 'cross-edge failure 不得升级成辛 ineffective');
+    assert(xin.coverageStatus === 'partial', '两个 resolved + 一个 unresolved 应形成 partial coverage，而不是覆盖');
+    assert(xin.actorGlobalEffectiveState === null, 'cross-edge failures 不得升级成辛 ineffective');
 });
 
 test('cross-visible target 同样进入自己的 actor view，不因另一个 actor 为 source 而丢失', () => {
