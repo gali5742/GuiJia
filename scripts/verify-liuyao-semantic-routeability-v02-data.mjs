@@ -42,7 +42,7 @@ const byText = new Map();
 for (const row of allRows) {
   const text = normalize(row.text);
   assert(text.length >= 4, `too-short row in ${row.group}: ${row.text}`);
-  assert(!/[妻财官鬼父母兄弟子孙世爻应爻用神]/.test(text), `traditional terminology leaked: ${row.text}`);
+  assert(!/(妻财|官鬼|父母爻|兄弟爻|子孙爻|世爻|应爻|用神)/.test(text), `traditional terminology leaked: ${row.text}`);
   assert(!/(疾病|病情|生病|健康占|手术结果|疗效|药效|治好|康复)/.test(text), `policy-disallowed health sample leaked: ${row.text}`);
   const previous = byText.get(text);
   assert(!previous, `internal exact duplicate: ${row.text} (${previous?.group} / ${row.group})`);
