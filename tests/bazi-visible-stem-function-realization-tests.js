@@ -119,6 +119,7 @@ test('Function Realization v0.1 冻结 edge-specific、target-specific 边界', 
     assert(api.CONTRACT.functionalAvailabilityAloneDoesNotResolveFunction === true, 'bearing availability 不得单独解决 function');
     assert(api.CONTRACT.peerNeedsDedicatedResolver === true, 'peer 必须保留独立 resolver');
     assert(api.CONTRACT.actorGlobalEffectiveState === false, '不得建立 actor global state');
+    assert(api.CONTRACT.priorityAggregation === false, '不得启用 priority aggregation');
 });
 
 test('固定验证盘：三个 day-master-related edge 全部保持 unresolved，peer 无 source/target', () => {
@@ -186,7 +187,7 @@ test('Function Realization 不引入 score/weight/priority/global effectiveState
         records:synthesis.visibleStemFunctionRealizationRecords,
         contract:synthesis.visibleStemFunctionRealizationContract
     });
-    ['score','weight','points','"strong"','"weak"','"balanced"','majority','priority'].forEach((term) => {
+    ['score','weight','points','"strong"','"weak"','"balanced"','majority','"priority":','priorityOrder','priorityRule'].forEach((term) => {
         assert(!serialized.includes(term), `不得出现 ${term}`);
     });
     assert((synthesis.visibleStemFunctionRealizationRecords || []).every((item) => item.actorGlobalEffectiveState === null && item.genericVisibleEffectiveState === null), 'Realization 不得生成 global visible state');
