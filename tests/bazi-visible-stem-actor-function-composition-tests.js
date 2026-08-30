@@ -153,7 +153,7 @@ test('DTS exact source：辛 profile 同时保留 source + target，多条 resol
     assert(xin.unresolvedFunctionEntries.length === 1, '丙→辛 day-master edge 必须继续 unresolved');
     assert(xin.readinessStatus === 'incomplete-realization-coverage', 'resolved + unresolved 并存不得伪装 ready');
     assert(xin.participationKinds.includes('source') && xin.participationKinds.includes('target'), '同一 actor 必须允许 source/target 并存');
-    assert(xin.actorGlobalEffectiveState === null, '两个 not-realized edge 也不得升级为辛 ineffective');
+    assert(xin.actorGlobalEffectiveState === null, '两个 not-realized edge 也不得升级成辛 ineffective');
 });
 
 test('resolved bucket 只表示已有结论，不等于 function realized', () => {
@@ -237,13 +237,17 @@ test('Composition Model/Profile Inventory 可 resolved，但 Readiness/Interpret
 test('Composition 不引入 score/weight/priority/global state，也不泄漏到复制上下文', () => {
     const { result, output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
     const synthesis = output.semanticModel.strengthSynthesis;
+    const contract = synthesis.visibleStemActorFunctionCompositionContract;
     const serialized = JSON.stringify({
         records:synthesis.visibleStemActorFunctionProfileRecords,
-        contract:synthesis.visibleStemActorFunctionCompositionContract
+        contract
     });
-    ['score','weight','points','"strong"','"weak"','"balanced"','majority','priorityOrder','priorityRule','"priority":'].forEach((term) => {
+    ['score','weight','points','"strong"','"weak"','"balanced"','priorityOrder','priorityRule','"priority":'].forEach((term) => {
         assert(!serialized.includes(term), `不得出现 ${term}`);
     });
+    assert(contract.majorityVoting === false, '合同必须显式关闭 majority voting');
+    assert(contract.priorityAggregation === false, '合同必须显式关闭 priority aggregation');
+    assert(contract.orderOverwrite === false, '合同必须显式关闭 order overwrite');
     assert((synthesis.visibleStemActorFunctionProfileRecords || []).every((item) => item.actorGlobalEffectiveState === null && item.genericVisibleEffectiveState === null), '不得生成 global visible state');
 
     const copied = interpretation.buildBaziContextText(result, output);
