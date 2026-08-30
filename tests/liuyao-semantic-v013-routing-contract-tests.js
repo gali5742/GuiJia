@@ -65,27 +65,30 @@ test('V13-5 support 正证据可以纠正错误 Head Top1', () => {
   const result = selection.decide({
     arbitration:arb,
     head:{ top1:{id:'investment_position_decision',score:0.44}, top2:{id:'investment_profit',score:0.40} },
-    evidence
+    evidence,
+    routeabilityDisposition:'route_known'
   });
   assert(result.status === 'selected' && result.routeId === 'investment_profit', JSON.stringify(result));
   assert(result.reasonCode === 'unique_confirmed_candidate', `unexpected reason ${result.reasonCode}`);
 });
 
-test('V13-6 Head Top1 缺正证据但未被冲突、Top2 被明确冲突时允许 fallback retention', () => {
+test('V13-6 Routeability 已确认 known 时，缺正证据不得成为第二道 pseudo-Scope gate', () => {
   const evidence = blank({ events:['delivery'], background:['past_purchase'] });
   const result = selection.decide({
     head:{ top1:{id:'receive_item',score:0.47}, top2:{id:'item_purchase',score:0.31} },
-    evidence
+    evidence,
+    routeabilityDisposition:'route_known'
   });
   assert(result.status === 'selected' && result.routeId === 'receive_item', JSON.stringify(result));
-  assert(result.reasonCode === 'fallback_top1_only_compatible', `unexpected reason ${result.reasonCode}`);
+  assert(result.reasonCode === 'fallback_head_top1', `unexpected reason ${result.reasonCode}`);
 });
 
 test('V13-7 Head Top1 被明确当前目标冲突时，confirmed Top2 可以纠错', () => {
   const evidence = blank({ domains:['investment'], goals:['price_trend'], currentTargets:['price_trend'] });
   const result = selection.decide({
     head:{ top1:{id:'investment_profit',score:0.46}, top2:{id:'investment_price_trend',score:0.43} },
-    evidence
+    evidence,
+    routeabilityDisposition:'route_known'
   });
   assert(result.status === 'selected' && result.routeId === 'investment_price_trend', JSON.stringify(result));
 });
@@ -94,7 +97,8 @@ test('V13-8 多个独立 confirmed 候选没有强仲裁时必须 unresolved', (
   const evidence = blank({ events:['business_operation'], relations:['partnership'] });
   const result = selection.decide({
     head:{ top1:{id:'business_operation',score:0.42}, top2:{id:'partnership',score:0.39} },
-    evidence
+    evidence,
+    routeabilityDisposition:'route_known'
   });
   assert(result.status === 'route_unresolved' && result.reasonCode === 'multiple_confirmed_candidates', JSON.stringify(result));
 });
@@ -104,7 +108,8 @@ test('V13-9 strong Arbitration 只要没有明确 contradiction 即可优先，�
   const result = selection.decide({
     arbitration:{ routeId:'debt_collection', strength:'strong' },
     head:{ top1:{id:'financial_fortune',score:0.4}, top2:{id:'debt_collection',score:0.3} },
-    evidence
+    evidence,
+    routeabilityDisposition:'route_known'
   });
   assert(result.status === 'selected' && result.routeId === 'debt_collection', JSON.stringify(result));
   assert(result.reasonCode === 'strong_arbitration_compatible', `unexpected reason ${result.reasonCode}`);
@@ -120,12 +125,32 @@ test('V13-10 Candidate Set 合并相同 route 的 support 与 Head provenance', 
   assert(profit.provenance.includes('arbitration_support') && profit.provenance.includes('head_top2'), JSON.stringify(profit));
 });
 
-test('V13-11 Compatibility inventory 固定覆盖 22 route', () => {
+test('V13-11 两个 Head 都仅 compatible 时，route_known 分支明确由 Top1 fallback', () => {
+  const evidence = blank();
+  const result = selection.decide({
+    head:{ top1:{id:'business_operation',score:0.37}, top2:{id:'financial_fortune',score:0.35} },
+    evidence,
+    routeabilityDisposition:'route_known'
+  });
+  assert(result.status === 'selected' && result.routeId === 'business_operation', JSON.stringify(result));
+  assert(result.reasonCode === 'fallback_head_top1', `unexpected reason ${result.reasonCode}`);
+});
+
+test('V13-12 Routeability 为 non_route 时 Selection 不允许 Head fallback 激活', () => {
+  const result = selection.decide({
+    head:{ top1:{id:'business_operation',score:0.37}, top2:{id:'financial_fortune',score:0.35} },
+    evidence:blank(),
+    routeabilityDisposition:'non_route'
+  });
+  assert(result.status === 'route_unresolved' && result.reasonCode === 'routeability_non_route', JSON.stringify(result));
+});
+
+test('V13-13 Compatibility inventory 固定覆盖 22 route', () => {
   assert(compatibility.routeIds.length === 22, `route count ${compatibility.routeIds.length}`);
   assert(new Set(compatibility.routeIds).size === 22, 'duplicate route id');
 });
 
-test('V13-12 新现代语义层不出现传统取用字段', () => {
+test('V13-14 新现代语义层不出现传统取用字段', () => {
   const source = [
     'js/liuyao-semantic-route-arbitration-v011.js',
     'js/liuyao-semantic-route-compatibility-v01.js',
