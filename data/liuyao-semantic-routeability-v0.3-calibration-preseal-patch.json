@@ -1,0 +1,13 @@
+{
+  "version": "0.3-calibration-preseal-patch-v0.1",
+  "status": "preseal_wording_correction",
+  "reason": "Path-contract verifier detected that the original fallback wording triggered explicit finance support evidence before the calibration corpus was sealed or used.",
+  "changes": [
+    {
+      "from": "往后这阵子手头会不会比现在松一点",
+      "to": "往后这阵子经济上会不会比现在轻松一点",
+      "expectedRoute": "financial_fortune",
+      "candidatePath": "fallback_head"
+    }
+  ]
+}
