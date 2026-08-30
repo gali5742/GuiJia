@@ -6,8 +6,10 @@ const src=fs.readFileSync(path.join(root,'js/liuyao-semantic-decision-stack-v012
 const assert=(c,m)=>{if(!c)throw new Error(m)};
 assert(src.includes("semanticDecisionStackV012 as candidate"),'runner must reuse frozen v0.12 candidate preparation');
 assert(src.includes("liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json"),'runner Blind data reference missing');
+assert(src.includes("liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1-preuse-patch.json"),'runner Blind pre-use patch reference missing');
+assert(src.includes('patch.replacements'),'runner must apply verified pre-use wording replacements');
 assert(src.includes("candidate.prepare"),'runner must derive frozen hard-veto from existing v0.12 preparation');
-const prepStart=src.indexOf('async function prepare');const prepEnd=src.indexOf('function decide',prepStart);assert(prepStart>=0&&prepEnd>prepStart,'prepare function boundary missing');const prepChunk=src.slice(prepStart,prepEnd);assert(!prepChunk.includes('flattenBlind')&&!prepChunk.includes('ensureBlind')&&!prepChunk.includes('BLIND_URL'),'candidate preparation must not read/flatten Blind rows');
+const prepStart=src.indexOf('async function prepare');const prepEnd=src.indexOf('function decide',prepStart);assert(prepStart>=0&&prepEnd>prepStart,'prepare function boundary missing');const prepChunk=src.slice(prepStart,prepEnd);assert(!prepChunk.includes('flattenBlind')&&!prepChunk.includes('ensureBlind')&&!prepChunk.includes('BLIND_URL')&&!prepChunk.includes('PATCH_URL'),'candidate preparation must not read/flatten Blind rows or patch');
 assert(src.includes('liuyaoSemanticRouteEvidenceV01'),'shared Route Semantic Evidence v0.1 missing');
 assert(src.includes('liuyaoSemanticRouteArbitrationV010'),'Semantic Arbitration v0.10 missing');
 assert(src.includes("arbitration?.strength==='strong'"),'only strong arbitration may establish route');
@@ -17,7 +19,8 @@ assert(src.includes('liuyaoSemanticSufficiency'),'Semantic Sufficiency v0.2 path
 assert(!/train[^\n]{0,120}blind|calibrat[^\n]{0,120}blind/i.test(src),'Blind must not train/calibrate candidate');
 assert(src.includes("VERSION='0.1-sealed'"),'sealed runner version missing');
 console.log('LiuYao Semantic Decision Stack v0.12 Sealed Blind runtime contract verified.');
-console.log('- v0.12 candidate preparation occurs independently of Blind evaluation rows');
+console.log('- v0.12 candidate preparation occurs independently of Blind evaluation rows and pre-use patch');
+console.log('- verified pre-use wording patch is applied only when Blind rows are flattened');
 console.log('- shared evidence v0.1 + Arbitration v0.10 + Route Identity v0.2 are frozen decision layers');
 console.log('- only strong arbitration may bypass Route Head identity; support evidence cannot override');
 console.log('- Scope hard-veto and Semantic Sufficiency v0.2 remain frozen');
