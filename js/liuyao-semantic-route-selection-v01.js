@@ -31,7 +31,7 @@
     return Object.freeze([...map.values()].map(freezeCandidate));
   }
 
-  function decide({ arbitration=null, head=null, evidence=null } = {}) {
+  function decide({ arbitration=null, head=null, evidence=null, routeabilityDisposition=null } = {}) {
     const compatibility = GuiJia.liuyaoSemanticRouteCompatibilityV01;
     if (!compatibility?.evaluate) throw new Error('Route Compatibility v0.1 未加载');
     const candidates = buildCandidateSet(arbitration, head);
@@ -56,6 +56,7 @@
     });
 
     if (!evaluated.length) return unresolved('no_candidates');
+    if (routeabilityDisposition === 'non_route') return unresolved('routeability_non_route');
 
     const strong = evaluated.find((candidate) => candidate.arbitrationStrength === 'strong');
     if (strong && strong.compatibility.status !== 'contradicted') {
@@ -71,16 +72,14 @@
       return unresolved('multiple_confirmed_candidates');
     }
 
+    // Fallback belongs to the route-known branch only. Once Routeability has established that the
+    // question belongs to the current 22-route inventory, missing positive evidence must not become
+    // a second pseudo-Scope gate. Compatibility only removes explicitly contradicted candidates.
+    if (routeabilityDisposition !== 'route_known') return unresolved('routeability_not_confirmed_for_fallback');
     const top1 = evaluated.find((candidate) => candidate.headRank === 1);
     const top2 = evaluated.find((candidate) => candidate.headRank === 2);
-    const top1Compatible = top1?.compatibility.status === 'compatible';
-    const top2Compatible = top2?.compatibility.status === 'compatible';
-    const top1Contradicted = !top1 || top1.compatibility.status === 'contradicted';
-    const top2Contradicted = !top2 || top2.compatibility.status === 'contradicted';
-
-    if (top1Compatible && top2Contradicted) return selected(top1, 'fallback_top1_only_compatible');
-    if (top2Compatible && top1Contradicted) return selected(top2, 'fallback_top2_only_compatible');
-    if (top1Compatible && top2Compatible) return unresolved('ambiguous_compatible_head');
+    if (top1 && top1.compatibility.status !== 'contradicted') return selected(top1, 'fallback_head_top1');
+    if (top2 && top2.compatibility.status !== 'contradicted') return selected(top2, 'fallback_head_top2_after_top1_contradiction');
     return unresolved('no_noncontradicted_head_candidate');
   }
 
