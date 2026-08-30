@@ -40,12 +40,14 @@ test('RT2-3 policy-disallowed 不作为 learned Routeability 类别', () => {
 test('RT2-4 校准必须先满足 false activation ≤ 5%，再最大化 known recall', () => {
   const rows = [
     ...[0.92,0.88,0.84,0.80,0.76,0.72,0.68,0.64,0.60,0.56].map((probability) => ({routeabilityLabel:'route_known',probability})),
-    ...[0.70,0.54,0.50,0.46,0.42,0.38,0.34,0.30,0.26,0.22,0.18,0.14,0.12,0.10,0.08,0.06,0.04,0.03,0.02,0.01].map((probability) => ({routeabilityLabel:'non_route',probability}))
+    // 20 negatives allow at most one false activation at a 5% cap. The two highest negatives
+    // deliberately bracket the 0.68 known row so the best feasible recall is exactly 7/10.
+    ...[0.70,0.66,0.50,0.46,0.42,0.38,0.34,0.30,0.26,0.22,0.18,0.14,0.12,0.10,0.08,0.06,0.04,0.03,0.02,0.01].map((probability) => ({routeabilityLabel:'non_route',probability}))
   ];
   const calibrated = gate.calibrate(rows);
   assert(calibrated.falseActivation <= 0.05 + 1e-12, `false activation ${calibrated.falseActivation}`);
   assert(calibrated.knownRecall === 0.7, `expected max constrained recall 0.7, got ${calibrated.knownRecall}`);
-  assert(calibrated.threshold > 0.70, `threshold ${calibrated.threshold} should exclude the 0.70 non-route row`);
+  assert(calibrated.threshold > 0.66 && calibrated.threshold <= 0.68, `threshold ${calibrated.threshold} should admit the 0.68 known row while excluding the 0.66 second negative`);
 });
 
 test('RT2-5 不能把旧 Scope Gate balanced accuracy 作为校准目标', () => {
