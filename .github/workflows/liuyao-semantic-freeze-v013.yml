@@ -1,0 +1,53 @@
+name: LiuYao Semantic Freeze v0.13 Prep
+
+on:
+  push:
+    branches:
+      - liuyao-policy-freeze-v013-prep
+    paths:
+      - 'scripts/generate-liuyao-semantic-frozen-dependencies-v01.mjs'
+      - 'js/liuyao-semantic-frozen-dependencies-v01.js'
+      - 'js/liuyao-semantic-router-poc-v081.js'
+      - 'js/liuyao-semantic-scope-gate-v01.js'
+      - 'data/liuyao-semantic-route-training-v0.1.json'
+      - 'data/liuyao-semantic-route-training-v0.2-augmentation.json'
+      - 'data/liuyao-semantic-route-training-v0.3-targeted.json'
+      - 'data/liuyao-semantic-route-training-v0.4-expansion.json'
+      - 'data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json'
+      - 'data/liuyao-semantic-route-training-v0.5-targeted-22.json'
+      - 'data/liuyao-semantic-route-inventory-v0.2.json'
+      - 'data/liuyao-semantic-scope-gate-v0.1-development.json'
+      - 'data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json'
+      - '.github/workflows/liuyao-semantic-freeze-v013.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: liuyao-policy-freeze-v013-prep
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install pinned Transformers.js for freeze generation
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Generate exact frozen dependency artifact
+        run: node scripts/generate-liuyao-semantic-frozen-dependencies-v01.mjs
+      - name: Verify artifact contract and source hashes
+        run: node scripts/verify-liuyao-semantic-frozen-dependencies-v01.mjs
+      - name: Commit frozen artifact
+        run: |
+          if git diff --quiet -- data/liuyao-semantic-frozen-dependencies-v0.1.json data/liuyao-semantic-frozen-dependencies-v0.1.lock.json; then
+            echo 'Frozen artifact already matches generated state.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-frozen-dependencies-v0.1.json data/liuyao-semantic-frozen-dependencies-v0.1.lock.json
+          git commit -m 'chore(liuyao): freeze v0.13 semantic dependencies'
+          git push origin HEAD:liuyao-policy-freeze-v013-prep
