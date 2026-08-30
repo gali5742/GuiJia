@@ -8,6 +8,7 @@ import './verify-liuyao-semantic-decision-stack-v011.mjs';
 import './verify-liuyao-semantic-decision-stack-v011-sealed-blind-v01.mjs';
 import './verify-liuyao-semantic-decision-stack-v012-data.mjs';
 import './verify-liuyao-semantic-decision-stack-v012.mjs';
+import './verify-liuyao-semantic-decision-stack-v012-sealed-blind-v01.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
