@@ -1,0 +1,9 @@
+{
+  "version": "0.2",
+  "status": "locked",
+  "artifact": "data/liuyao-semantic-routeability-v0.2.json",
+  "artifactSha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344",
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "threshold": 0.7729399679455569,
+  "maxFalseActivation": 0.05
+}
