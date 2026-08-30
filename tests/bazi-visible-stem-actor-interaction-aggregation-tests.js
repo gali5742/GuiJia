@@ -272,3 +272,4 @@ test('生产加载链在 Function Realization 后加载 Actor Interaction Aggreg
 
 console.log(`\nBaZi visible stem actor interaction aggregation: ${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);
+require('./bazi-visible-stem-actor-function-composition-tests.js');
