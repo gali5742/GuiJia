@@ -95,7 +95,11 @@ const walk = (value, source, key='') => {
   if (value && typeof value === 'object') for (const [k,v] of Object.entries(value)) walk(v, source, k);
 };
 const excluded = new Set([path.basename(blindPath), path.basename(patchPath)]);
-for (const name of fs.readdirSync(dataDir).filter((n) => n.endsWith('.json') && n.startsWith('liuyao-') && !excluded.has(n))) {
+const isPostV011StackCorpus = (name) => {
+  const match = name.match(/^liuyao-semantic-decision-stack-v0\.(\d+)/);
+  return match ? Number(match[1]) >= 12 : false;
+};
+for (const name of fs.readdirSync(dataDir).filter((n) => n.endsWith('.json') && n.startsWith('liuyao-') && !excluded.has(n) && !isPostV011StackCorpus(n))) {
   const src = JSON.parse(fs.readFileSync(path.join(dataDir, name), 'utf8'));
   walk(src, name);
 }
@@ -111,5 +115,6 @@ console.log('- sealed=true; 300 total: 176 regular known + 60 outside + 40 unres
 console.log('- 22 routes × 8 regular samples; each route 6 sufficient + 2 route-known insufficient');
 console.log('- adversarial split: 8 known + 8 outside + 8 unresolved');
 console.log('- 3 pre-use wording-only seal corrections applied');
+console.log('- overlap audit is frozen to corpora that existed before v0.12+ stack datasets');
 console.log('- no traditional LiuYao terminology or health/disease divination samples');
 console.log('- zero exact question overlap with prior LiuYao JSON corpora');
