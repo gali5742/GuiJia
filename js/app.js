@@ -107,6 +107,7 @@
                 USE_GOD_FOCUS_OPTIONS, useGodFocusOptionByTarget, useGodFocusOptionById, resolveUseGodFocus,
                 suggestUseGod, buildUseGodChoices, buildUseGodAnalysis, zhouyiSourceUrl, buildQuestionTimeFocus, buildTimingCandidates
             } = window.GuiJia.liuyaoCore;
+            const { evaluate: evaluateLiuYaoDivinationPolicy } = window.GuiJia.liuyaoDivinationPolicyGateV01;
             const { buildLiuYaoLiterature } = window.GuiJia.liuyaoLiterature;
             const { buildLiuYaoInterpretation, buildLiuYaoContextText } = window.GuiJia.liuyaoInterpretation;
             const { ichingTextRecords, ichingTextState } = window.GuiJia.createIChingLoader(ref, reactive);
@@ -683,6 +684,11 @@
             const calculateLiuYao = () => {
                 errorMsg.value = '';
                 copyLiuYaoContextStatus.value = '';
+                const policyDecision = evaluateLiuYaoDivinationPolicy(liuyaoForm.question);
+                if (!policyDecision.allowed) {
+                    errorMsg.value = '当前不提供健康或疾病相关占问分析。';
+                    return;
+                }
                 try {
                     const rawValues = liuyaoForm.lines.map((value) => Number(value));
                     if (rawValues.some((value) => ![6,7,8,9].includes(value))) throw new Error('请完整录入六爻结果（6、7、8、9）。');

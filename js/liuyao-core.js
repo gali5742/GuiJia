@@ -676,10 +676,10 @@
             reason:'占问明确涉及收入、款项或财务结果，优先参考妻财爻。'
         },
         {
-            id:'career-litigation-illness', target:'官鬼',
-            strongTerms:['求职','面试','录用','入职','升职','转正','跳槽','职位','官司','诉讼','仲裁','疾病','病情'],
+            id:'career-litigation', target:'官鬼',
+            strongTerms:['求职','面试','录用','入职','升职','转正','跳槽','职位','官司','诉讼','仲裁'],
             relatedTerms:['工作','事业','职业'],
-            reason:'占问明确涉及任职结果、诉讼或疾病，优先参考官鬼爻。'
+            reason:'占问明确涉及任职结果或诉讼，优先参考官鬼爻。'
         },
         {
             id:'peers-competition', target:'兄弟',
@@ -715,7 +715,7 @@
         { id:'children-pleasure', target:'子孙', label:'子女、生育、宠物与娱乐', description:'子女宠物，以及游乐、放松、称意等。' },
         { id:'lost-item', target:'妻财', label:'失物与寻找', description:'遗失物品、寻找东西等，先以妻财为主要观察对象。' },
         { id:'money-income', target:'妻财', label:'钱财、收入与交易', description:'款项、收益、买卖、交易等。' },
-        { id:'career-health', target:'官鬼', label:'工作、职位、诉讼与疾病', description:'任职工作、诉讼、疾病等。' },
+        { id:'career-litigation', target:'官鬼', label:'工作、职位与诉讼', description:'任职工作、职位变动、诉讼等。' },
         { id:'peers-competition', target:'兄弟', label:'同辈、朋友与竞争', description:'兄弟姐妹、朋友、同事或竞争关系。' }
     ]);
     const useGodFocusOptionByTarget = (target) => USE_GOD_FOCUS_OPTIONS.find((item) => item.target === target) || null;
