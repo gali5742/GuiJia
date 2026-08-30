@@ -1,0 +1,46 @@
+name: LiuYao v0.13 Development E2E
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/run-liuyao-semantic-v013-development-eval.mjs'
+      - 'data/liuyao-semantic-decision-stack-v0.13-development.json'
+      - 'data/liuyao-semantic-routeability-v0.2.json'
+      - 'js/liuyao-semantic-route-arbitration-v011.js'
+      - 'js/liuyao-semantic-route-compatibility-v01.js'
+      - 'js/liuyao-semantic-route-selection-v01.js'
+      - '.github/workflows/liuyao-v013-development-e2e.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify sealed development eval
+        run: node scripts/verify-liuyao-semantic-v013-development-eval.mjs
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run v0.13 development E2E
+        run: node scripts/run-liuyao-semantic-v013-development-eval.mjs
+      - name: Commit development report
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-development-report.json)" ]; then
+            echo 'Development report already matches current candidate.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-development-report.json
+          git commit -m 'test(liuyao): record v0.13 development E2E report'
+          git push origin HEAD:liuyao-semantic-v013-core
