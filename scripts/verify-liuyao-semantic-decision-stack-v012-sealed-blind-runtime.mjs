@@ -7,7 +7,7 @@ const assert=(c,m)=>{if(!c)throw new Error(m)};
 assert(src.includes("semanticDecisionStackV012 as candidate"),'runner must reuse frozen v0.12 candidate preparation');
 assert(src.includes("liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json"),'runner Blind data reference missing');
 assert(src.includes("candidate.prepare"),'runner must derive frozen hard-veto from existing v0.12 preparation');
-assert(src.indexOf('candidate.prepare')<src.indexOf('flattenBlind()'),'Blind must not be flattened before candidate preparation path');
+const prepStart=src.indexOf('async function prepare');const prepEnd=src.indexOf('function decide',prepStart);assert(prepStart>=0&&prepEnd>prepStart,'prepare function boundary missing');const prepChunk=src.slice(prepStart,prepEnd);assert(!prepChunk.includes('flattenBlind')&&!prepChunk.includes('ensureBlind')&&!prepChunk.includes('BLIND_URL'),'candidate preparation must not read/flatten Blind rows');
 assert(src.includes('liuyaoSemanticRouteEvidenceV01'),'shared Route Semantic Evidence v0.1 missing');
 assert(src.includes('liuyaoSemanticRouteArbitrationV010'),'Semantic Arbitration v0.10 missing');
 assert(src.includes("arbitration?.strength==='strong'"),'only strong arbitration may establish route');
