@@ -1,0 +1,43 @@
+name: LiuYao v0.13 Development Eval
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-development-eval.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-development-eval.mjs'
+      - 'scripts/lock-liuyao-semantic-v013-development-eval.mjs'
+      - '.github/workflows/liuyao-v013-development-eval.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Generate development eval
+        run: node scripts/generate-liuyao-semantic-v013-development-eval.mjs
+      - name: Verify path contracts and corpus isolation
+        run: node scripts/verify-liuyao-semantic-v013-development-eval.mjs
+      - name: Lock development eval
+        run: node scripts/lock-liuyao-semantic-v013-development-eval.mjs
+      - name: Commit sealed development eval
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-development.json data/liuyao-semantic-decision-stack-v0.13-development.lock.json)" ]; then
+            echo 'Development eval already matches generated state.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-development.json data/liuyao-semantic-decision-stack-v0.13-development.lock.json
+          git commit -m 'test(liuyao): seal v0.13 path-balanced development eval'
+          git push origin HEAD:liuyao-semantic-v013-core
