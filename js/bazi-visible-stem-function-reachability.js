@@ -316,4 +316,8 @@
         buildFunctionReachability,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemDirectedFunction) {
+        document.write('<script src="./js/bazi-visible-stem-directed-function.js?v=13.44.0"><\\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
