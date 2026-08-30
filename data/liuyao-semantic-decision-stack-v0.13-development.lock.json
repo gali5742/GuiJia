@@ -1,0 +1,15 @@
+{
+  "version": "0.13-development-v0.1-lock",
+  "status": "locked",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "dataFile": "data/liuyao-semantic-decision-stack-v0.13-development.json",
+  "dataSha256": "a0d3828401d2ec9a4054c1207ccc8ae600b027b935738a2b2ab56228f65dec70",
+  "generatorSha256": "1be4a8174039007bf7b0d95c4e3152c8ff5f58500cac8d94aa9aba21a5af1b09",
+  "verifierSha256": "786439f65f5fb3d78811190b10097dcecfbe678695e317f1491ab358438bfc7f",
+  "rowCount": 198,
+  "policy": {
+    "currentRouteabilityTraining": false,
+    "currentRouteabilityCalibration": false,
+    "futureBlindReuse": false
+  }
+}
