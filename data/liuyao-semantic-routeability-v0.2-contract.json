@@ -1,0 +1,73 @@
+{
+  "version": "0.2",
+  "status": "development_contract",
+  "scope": "liuyao_only",
+  "task": "routeability",
+  "labels": ["route_known", "non_route"],
+  "positivePolicy": {
+    "route_known": [
+      "known_route_sufficient",
+      "known_route_insufficient"
+    ],
+    "note": "Routeability only answers whether the question belongs to the current 22-route semantic inventory. Missing downstream slots or rule availability must not turn a known route into non_route."
+  },
+  "negativePolicy": {
+    "non_route": [
+      "outside_current_22",
+      "route_unresolved",
+      "near_domain_not_current_route"
+    ],
+    "note": "Policy-disallowed health/disease questions are handled earlier by Divination Policy Gate and are not used as a learned Routeability category."
+  },
+  "calibration": {
+    "objective": "maximize_known_recall_subject_to_false_activation_cap",
+    "maxFalseActivation": 0.05,
+    "forbiddenObjectives": [
+      "balanced_accuracy_only",
+      "reuse_scope_gate_threshold",
+      "reuse_scope_gate_calibration_policy"
+    ]
+  },
+  "freshDevelopmentEvaluation": {
+    "total": 198,
+    "known": {
+      "total": 132,
+      "byCandidatePath": {
+        "strong_arbitration": 44,
+        "support_arbitration": 44,
+        "fallback_head": 44
+      }
+    },
+    "nonRoute": {
+      "total": 66,
+      "bySubtype": {
+        "outside_current_22": 22,
+        "route_unresolved": 22,
+        "near_domain_not_current_route": 22
+      }
+    },
+    "requiredMetrics": [
+      "routeability_known_recall",
+      "routeability_false_activation",
+      "routeability_non_route_safety",
+      "head_correct_retention",
+      "head_error_correction",
+      "fallback_exact",
+      "final_route_exact"
+    ]
+  },
+  "dataIsolation": {
+    "mustNotTrainOn": [
+      "data/liuyao-semantic-decision-stack-v0.11-sealed-blind-v0.1.json",
+      "data/liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json"
+    ],
+    "freshEvaluationMustAuditExactOverlapAgainst": [
+      "all_prior_semantic_router_training_and_validation_corpora",
+      "v0.11_sealed_blind",
+      "v0.12_sealed_blind",
+      "entity_typing_corpora",
+      "contextual_object_role_corpora"
+    ],
+    "sameVersionBlindReuse": false
+  }
+}
