@@ -1,4 +1,14 @@
 import fs from 'node:fs';
+import { env } from '@huggingface/transformers';
+
+// Historical browser modules set this to true. The freeze runner uses the same
+// model/training code under Node, where browser cache is unavailable.
+Object.defineProperty(env, 'useBrowserCache', {
+  configurable:true,
+  enumerable:true,
+  get:() => false,
+  set:() => {}
+});
 
 const nativeFetch = globalThis.fetch;
 if (typeof nativeFetch !== 'function') throw new Error('global fetch is unavailable');
