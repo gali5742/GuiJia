@@ -1,0 +1,1450 @@
+{
+  "version": "0.3-calibration-v0.1",
+  "status": "fresh_calibration",
+  "scope": "liuyao_semantic_routeability_v03",
+  "purpose": "Fresh calibration for the v0.3 hybrid Routeability policy. Never training, development evaluation, or blind data.",
+  "policy": {
+    "useForTraining": false,
+    "useAsDevelopmentEval": false,
+    "reuseAsBlind": false,
+    "prior198Excluded": true
+  },
+  "counts": {
+    "total": 223,
+    "route_known": 88,
+    "non_route": 135,
+    "support_arbitration": 44,
+    "fallback_head": 44,
+    "outside_current_22": 45,
+    "route_unresolved": 45,
+    "near_domain_not_current_route": 45
+  },
+  "rows": [
+    {
+      "id": "R03-C-001",
+      "text": "这阵子总体资金松紧变化挺明显，我想单独看看这一块",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-002",
+      "text": "最近整体进账忽高忽低，我想占一下这方面",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-003",
+      "text": "这几个月现金流总有波动，我想问问这一项",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-004",
+      "text": "目前手头资金时松时紧，我想看这一块",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-005",
+      "text": "今年整体收支变化很明显，我想单独问一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-006",
+      "text": "我的咖啡店最近利润反复，我想占一下经营本身",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-007",
+      "text": "网店这阵子业绩起伏大，我想看看这门生意",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-008",
+      "text": "工作室最近现金流不稳，我想问经营这一块",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-009",
+      "text": "门店这几个月亏损和回升来回波动，我想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-010",
+      "text": "这个摊位近期经营状况变化很大，我想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-011",
+      "text": "这笔商业交易目前还在推进，我想占一下这件事",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-012",
+      "text": "客户这份订单现在还在沟通，我想看看这一块",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-013",
+      "text": "这份采购合同目前还在讨论，我想问问这件事",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-014",
+      "text": "买家那份订单现在还在往返修改，我想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-015",
+      "text": "供应商这份合同目前还没定，我想看这件事",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-016",
+      "text": "这只基金最近收益起伏很明显，我想单独看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-017",
+      "text": "这项投资目前利润波动比较大，我想问问",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-018",
+      "text": "手上的ETF最近收益反复，我想占一下这件事",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-019",
+      "text": "这个投资项目这阵子回本情况有变化，我想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-020",
+      "text": "我持有的债券基金近期收益不稳定，想单独问一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-021",
+      "text": "这只基金我已经安排全部赎回，想占一下这个动作",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-022",
+      "text": "股票仓位准备一次性清仓，我想单独看看这一步",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-023",
+      "text": "这笔投资已经决定全部变现，想问问退出这件事",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-024",
+      "text": "手上的ETF准备全部卖出，我想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-025",
+      "text": "基金持仓已经安排平仓，我想看看这个动作",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-026",
+      "text": "这只基金我正在考虑减仓，想占一下这一步",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-027",
+      "text": "手上的股票仓位准备调整，我想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-028",
+      "text": "这个ETF持仓最近在考虑加仓，我想问问",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-029",
+      "text": "基金仓位要不要调整这件事我一直拿不准",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-030",
+      "text": "这只股票继续持有还是减仓，我想单独占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-031",
+      "text": "这只ETF最近价格涨跌反复，我想占一下这一块",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-032",
+      "text": "基金最近净值波动很明显，我想单独看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-033",
+      "text": "这只股票近来涨跌幅度很大，我想问问",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-034",
+      "text": "债券基金最近价格变化频繁，我想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-035",
+      "text": "这个投资标的近期净值起伏明显，我想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-036",
+      "text": "我最近一直在关注固定工资这一块，想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-037",
+      "text": "这段时间月薪情况让我有点在意，想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-038",
+      "text": "公司现在的薪资安排我比较关注，想问问",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-039",
+      "text": "目前基本工资这一项我想单独占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-040",
+      "text": "最近薪水这件事我一直放在心上，想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-041",
+      "text": "今年年终奖这件事我一直在关注，想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-042",
+      "text": "最近绩效奖金这一块让我很在意，想看看",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-043",
+      "text": "项目奖励金目前还没消息，我想单独问一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-044",
+      "text": "季度奖励这件事我想占一下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "support_arbitration",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-045",
+      "text": "往后这阵子经济上会不会比现在轻松一点",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-046",
+      "text": "今年我能留在手里的余钱会不会多些",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "financial_fortune"
+    },
+    {
+      "id": "R03-C-047",
+      "text": "这个铺面以后还有没有做头",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-048",
+      "text": "手上这份小生计往后能不能继续",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "business_operation"
+    },
+    {
+      "id": "R03-C-049",
+      "text": "这桩买卖最后有没有戏",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-050",
+      "text": "跟对方那一单最后有没有结果",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "commercial_transaction"
+    },
+    {
+      "id": "R03-C-051",
+      "text": "店里下一批货能不能备够",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "inventory_purchase"
+    },
+    {
+      "id": "R03-C-052",
+      "text": "仓里要添的东西能不能如期齐全",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "inventory_purchase"
+    },
+    {
+      "id": "R03-C-053",
+      "text": "压在仓里的旧货能不能慢慢走掉",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "inventory_sale"
+    },
+    {
+      "id": "R03-C-054",
+      "text": "剩下那批货以后能不能逐步腾空",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "inventory_sale"
+    },
+    {
+      "id": "R03-C-055",
+      "text": "这阵子能不能弄到一笔周转用的钱",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "borrow_money"
+    },
+    {
+      "id": "R03-C-056",
+      "text": "眼下有没有办法先筹到一笔应急款",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "borrow_money"
+    },
+    {
+      "id": "R03-C-057",
+      "text": "手头这笔钱给朋友周转用合适不",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "lend_money"
+    },
+    {
+      "id": "R03-C-058",
+      "text": "朋友缺一笔钱，我先给他用会不会有麻烦",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "lend_money"
+    },
+    {
+      "id": "R03-C-059",
+      "text": "别人拖着我的那笔钱还能回到我手里吗",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "debt_collection"
+    },
+    {
+      "id": "R03-C-060",
+      "text": "之前该给我的那笔款最后还能回来不",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "debt_collection"
+    },
+    {
+      "id": "R03-C-061",
+      "text": "身上那笔债年底前能不能处理干净",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "debt_repayment"
+    },
+    {
+      "id": "R03-C-062",
+      "text": "我背着的那笔欠账以后能不能彻底了结",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "debt_repayment"
+    },
+    {
+      "id": "R03-C-063",
+      "text": "跟朋友搭伙做项目以后行不行",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "partnership"
+    },
+    {
+      "id": "R03-C-064",
+      "text": "我和他两个人一起做这件事合适吗",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "partnership"
+    },
+    {
+      "id": "R03-C-065",
+      "text": "把钱放进这个指数产品半年后能不能有赚头",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-066",
+      "text": "放进去的这份理财以后能不能有进项",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_profit"
+    },
+    {
+      "id": "R03-C-067",
+      "text": "手上这个理财我想全退出来会不会顺",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-068",
+      "text": "这份理财全部退出以后能不能很快收回来",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_liquidation"
+    },
+    {
+      "id": "R03-C-069",
+      "text": "眼下把钱放进这个理财产品合适不",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_suitability"
+    },
+    {
+      "id": "R03-C-070",
+      "text": "这个理财我现在进去是不是合适",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_suitability"
+    },
+    {
+      "id": "R03-C-071",
+      "text": "手里的票继续拿还是少拿一些好",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-072",
+      "text": "现在这份仓留着还是收一点回来更合适",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_position_decision"
+    },
+    {
+      "id": "R03-C-073",
+      "text": "这个票接下来还会往上走吗",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-074",
+      "text": "这份理财的价过一阵会不会往下",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "investment_price_trend"
+    },
+    {
+      "id": "R03-C-075",
+      "text": "明年每月固定拿的那份钱会不会更多",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-076",
+      "text": "以后每个月稳定拿到手的那部分会增加吗",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "income_salary"
+    },
+    {
+      "id": "R03-C-077",
+      "text": "年底那笔额外的钱今年还能不能拿到",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-078",
+      "text": "项目结束后那份额外奖励最终会不会有",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "income_bonus"
+    },
+    {
+      "id": "R03-C-079",
+      "text": "我订的桌椅什么时候能送来",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "receive_item"
+    },
+    {
+      "id": "R03-C-080",
+      "text": "前几天买的柜子大概哪天能到家",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "receive_item"
+    },
+    {
+      "id": "R03-C-081",
+      "text": "这个咖啡机现在入不入",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "item_purchase"
+    },
+    {
+      "id": "R03-C-082",
+      "text": "这台小烤箱眼下要不要入",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "item_purchase"
+    },
+    {
+      "id": "R03-C-083",
+      "text": "我和这个人以后能不能变成一对",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "relationship_development"
+    },
+    {
+      "id": "R03-C-084",
+      "text": "我们两个以后还有没有可能更进一步",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "relationship_development"
+    },
+    {
+      "id": "R03-C-085",
+      "text": "我俩最后有没有可能成家",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "marriage_match"
+    },
+    {
+      "id": "R03-C-086",
+      "text": "我们这段关系以后能不能真正定下来",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "marriage_match"
+    },
+    {
+      "id": "R03-C-087",
+      "text": "我跟另一半最近闹得厉害以后还能和好吗",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "marital_relationship"
+    },
+    {
+      "id": "R03-C-088",
+      "text": "成家后我们俩一直别扭以后能不能缓下来",
+      "routeabilityLabel": "route_known",
+      "candidatePath": "fallback_head",
+      "routeId": "marital_relationship"
+    },
+    {
+      "id": "R03-C-089",
+      "text": "明早坐飞机去福冈这趟行程会不会顺",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-090",
+      "text": "下个月的资格认证考试能不能通过",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-091",
+      "text": "这次公司面谈我最后会不会被录取",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-092",
+      "text": "遗失在车站的雨伞还能不能找回来",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-093",
+      "text": "这场合同纠纷官司最后对我有没有利",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-094",
+      "text": "孩子换到新班级以后适应得快不快",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-095",
+      "text": "这次在留更新能不能如期批准",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-096",
+      "text": "补办的护照月底前能不能拿到",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-097",
+      "text": "下周驾照路考我有没有机会一次通过",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-098",
+      "text": "这场业余比赛我能不能进前八",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-099",
+      "text": "明天给客户做汇报会不会顺利",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-100",
+      "text": "研究生申请最后能不能拿到录取",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-101",
+      "text": "下月搬去横滨整个过程会不会顺",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-102",
+      "text": "这趟国际航班会不会临时取消",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-103",
+      "text": "酒店抽签预订这次能不能成功",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-104",
+      "text": "今年工作上有没有机会升职",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-105",
+      "text": "新公司给我的岗位能不能顺利入职",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-106",
+      "text": "这套租房申请房东会不会同意",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-107",
+      "text": "学校转专业申请最后能不能批准",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-108",
+      "text": "论文口试这次能不能顺利过关",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-109",
+      "text": "职业资格续期能不能按时办完",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-110",
+      "text": "长期居留申请这次有没有机会批",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-111",
+      "text": "演唱会门票抽选这次能不能中",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-112",
+      "text": "跑出去的猫还能不能自己回来",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-113",
+      "text": "周末去箱根这趟旅行会不会顺",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-114",
+      "text": "明天下午会不会突然下大雨",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-115",
+      "text": "和邻居的噪音纠纷最后能不能解决",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-116",
+      "text": "这次劳动争议仲裁结果会不会有利",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-117",
+      "text": "工作项目能不能在截止日前完成",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-118",
+      "text": "部门调整以后我会不会被调岗",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-119",
+      "text": "这个学习计划坚持半年能不能完成",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-120",
+      "text": "下次日语能力考试我能不能合格",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-121",
+      "text": "申请这套公寓最后能不能通过审核",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-122",
+      "text": "停车许可这周能不能办下来",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-123",
+      "text": "这笔保险理赔最后会不会批准",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-124",
+      "text": "送修的汽车能不能按期修好",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-125",
+      "text": "家里的翻修工程会不会延期",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-126",
+      "text": "配偶签证的材料这次能不能过审",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-127",
+      "text": "校内比赛我有没有机会拿奖",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-128",
+      "text": "搬到关西以后能不能很快安顿下来",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-129",
+      "text": "这份工作合同到期后能不能续签",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-130",
+      "text": "大学转学申请会不会被接受",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-131",
+      "text": "丢掉的门禁卡还能不能找到",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-132",
+      "text": "明天去参加公开课会不会有收获",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-133",
+      "text": "这个证件申请什么时候能出结果",
+      "routeabilityLabel": "non_route",
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "R03-C-134",
+      "text": "眼前这件事最后会走到哪一步",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-135",
+      "text": "我现在这么处理是不是弄错了",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-136",
+      "text": "之后的局面还会不会继续变化",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-137",
+      "text": "现在卡在这里到底应该怎么办",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-138",
+      "text": "对方下一步究竟会怎么反应",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-139",
+      "text": "这种状态还要维持多长时间",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-140",
+      "text": "这件事情是不是还留有余地",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-141",
+      "text": "接下来往哪个方向走比较妥当",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-142",
+      "text": "我现在到底还应不应该等",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-143",
+      "text": "这回最后到底有没有下文",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-144",
+      "text": "以后是不是会逐渐轻松一点",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-145",
+      "text": "面前这个机会究竟要不要抓",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-146",
+      "text": "我此刻主动一些还是先不动",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-147",
+      "text": "对方后面会不会换一种态度",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-148",
+      "text": "这件事继续拖下去会变成什么样",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-149",
+      "text": "我现在做出的决定到底妥不妥",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-150",
+      "text": "接下来这一阵总体会不会顺一些",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-151",
+      "text": "最后的结局还有没有可能改变",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-152",
+      "text": "我是不是还应该再坚持一段",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-153",
+      "text": "什么时候事情才会真正清楚",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-154",
+      "text": "当前这条路还有没有必要继续",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-155",
+      "text": "这个选择以后会把我带到哪里",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-156",
+      "text": "我现在是不是该换一种做法",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-157",
+      "text": "接下来还有没有别的可能",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-158",
+      "text": "对方最终到底想怎样",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-159",
+      "text": "这件事情是不是已经没机会了",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-160",
+      "text": "我继续这样做会不会越来越难",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-161",
+      "text": "现在这个节点应该进还是退",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-162",
+      "text": "以后会不会出现新的变化",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-163",
+      "text": "我该不该把这件事先放下",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-164",
+      "text": "现在看到的结果会不会只是暂时的",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-165",
+      "text": "我还要不要继续投入精力",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-166",
+      "text": "这一步做下去到底值不值",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-167",
+      "text": "接下来几个月整体会朝哪边变化",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-168",
+      "text": "这件事最后能不能有个说法",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-169",
+      "text": "我现在最应该先做什么",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-170",
+      "text": "这个局面是不是还能扭转",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-171",
+      "text": "对方后面会不会主动一点",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-172",
+      "text": "我是不是应该及时停下来",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-173",
+      "text": "以后事情会不会变得明朗",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-174",
+      "text": "这个决定最后会带来好结果吗",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-175",
+      "text": "我现在继续等是不是浪费时间",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-176",
+      "text": "下一阶段到底会发生什么",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-177",
+      "text": "这件事还有没有继续推进的必要",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-178",
+      "text": "我现在的判断是不是偏了",
+      "routeabilityLabel": "non_route",
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "R03-C-179",
+      "text": "这张工资条里的个税扣得对不对",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-180",
+      "text": "月薪明细中的社保金额是不是算错了",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-181",
+      "text": "公司工资单上的扣款项目合理吗",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-182",
+      "text": "这份薪资明细应该怎么核对",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-183",
+      "text": "工资条里的补贴分类是不是填错了",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-184",
+      "text": "公司的年终奖制度对新人公平吗",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-185",
+      "text": "绩效奖金方案这样设计合理不合理",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-186",
+      "text": "部门奖励规则是不是偏向销售岗",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-187",
+      "text": "季度奖金的分配制度要不要调整",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-188",
+      "text": "项目奖励政策为什么今年改了",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-189",
+      "text": "这份采购协议的违约责任写得有没有问题",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-190",
+      "text": "商业合同里的免责条款是否合理",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-191",
+      "text": "供应协议中的赔偿条款风险大不大",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-192",
+      "text": "这份订单合同的法律责任应该怎么理解",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-193",
+      "text": "经销合同里的手续费条款是不是太高",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-194",
+      "text": "这个基金经理最近的管理能力怎么样",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-195",
+      "text": "炒股软件里的行情数据准不准",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-196",
+      "text": "理财平台收取的服务费是不是太贵",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-197",
+      "text": "券商APP最近为什么总是卡顿",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-198",
+      "text": "基金报告里的风险等级怎么看",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-199",
+      "text": "投资账户的双重验证要不要开启",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-200",
+      "text": "这个交易平台的数据延迟严重吗",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-201",
+      "text": "基金托管费这一项是怎么计算的",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-202",
+      "text": "券商客服最近处理问题快不快",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-203",
+      "text": "投资软件里的持仓报表怎么看",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-204",
+      "text": "这个供应商最近的信誉到底怎么样",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-205",
+      "text": "客户一直不回报价邮件是什么原因",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-206",
+      "text": "店铺选在这个路口客流够不够",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-207",
+      "text": "仓库盘点流程怎样改更省事",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-208",
+      "text": "这款商品应该怎么定零售价",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-209",
+      "text": "门店用哪套记账软件更方便",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-210",
+      "text": "收银系统最近总出错该怎么排查",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-211",
+      "text": "网店宣传页面应该怎样调整",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-212",
+      "text": "店里现在缺人应该怎么排班",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-213",
+      "text": "商铺续租条款里有哪些注意点",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-214",
+      "text": "这家快递公司的客服最近靠谱吗",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-215",
+      "text": "这台显示器的保修范围包括哪些",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-216",
+      "text": "耳机坏了一边应该怎么送修",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-217",
+      "text": "这款相机的参数够不够日常使用",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-218",
+      "text": "网购商品的退货期限怎么算",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-219",
+      "text": "我和同事最近沟通为什么总不顺",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-220",
+      "text": "跟室友相处时应该怎么分配家务",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-221",
+      "text": "我和姐姐最近总吵架是什么原因",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-222",
+      "text": "父母之间最近沟通方式是不是有问题",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "R03-C-223",
+      "text": "朋友突然不回消息我该怎么理解",
+      "routeabilityLabel": "non_route",
+      "subtype": "near_domain_not_current_route"
+    }
+  ]
+}
