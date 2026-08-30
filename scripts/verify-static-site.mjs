@@ -162,11 +162,14 @@ if (mode === 'deployed') {
   }
   const liuyaoDecisionStackV012Requirements = [
     'semantic-decision-stack-v012.html',
+    'semantic-decision-stack-v012-sealed-blind-v01.html',
     'js/liuyao-semantic-decision-stack-v012.js',
+    'js/liuyao-semantic-decision-stack-v012-sealed-blind-v01.js',
     'js/liuyao-semantic-route-evidence-v01.js',
     'js/liuyao-semantic-route-arbitration-v010.js',
     'js/liuyao-semantic-route-identity-v02.js',
     'data/liuyao-semantic-decision-stack-v0.12-development.json',
+    'data/liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json',
     'js/liuyao-semantic-scope-gate-v01.js',
     'js/liuyao-semantic-router-poc-v081.js',
     'js/liuyao-semantic-sufficiency.js',
