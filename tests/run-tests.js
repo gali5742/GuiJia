@@ -1034,7 +1034,7 @@ test('Vue 应用 setup 可在离线环境完成初始化，且 #liuyao 不被重
     vm.createContext(context);
     [
         'js/common.js', 'js/bazi-core.js', 'js/bazi-timing.js', 'js/bazi-transit-analysis.js', 'js/bazi-literature.js', 'js/bazi-interpretation.js', 'js/bazi-detail.js',
-        'js/liuyao-time-facts.js', 'js/liuyao-time-effects.js', 'js/liuyao-time-assessment.js', 'js/liuyao-time-evidence.js', 'js/liuyao-time-relevance.js', 'js/liuyao-time-output.js', 'js/liuyao-time-selection.js', 'js/liuyao-core.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'
+        'js/liuyao-time-facts.js', 'js/liuyao-time-effects.js', 'js/liuyao-time-assessment.js', 'js/liuyao-time-evidence.js', 'js/liuyao-time-relevance.js', 'js/liuyao-time-output.js', 'js/liuyao-time-selection.js', 'js/liuyao-core.js', 'js/liuyao-divination-policy-gate-v01.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'
     ].forEach((relative) => {
         const filename = path.join(ROOT, relative);
         vm.runInContext(fs.readFileSync(filename, 'utf8'), context, { filename });
