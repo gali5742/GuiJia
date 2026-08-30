@@ -1,0 +1,1 @@
+{"version":"0.1-preuse-wording-patch","status":"sealed_preuse_patch","base":"liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json","createdAt":"2026-08-30","reason":"Exact-overlap isolation discovered by CI before the first Blind run. Wording only; labels, quotas, candidate logic, and evaluation policy remain unchanged.","replacements":{"B12-294":"接下来还会不会再往低处走"}}
