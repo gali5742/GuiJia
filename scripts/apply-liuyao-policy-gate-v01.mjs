@@ -37,5 +37,10 @@ replaceOnce(
   '<script src="./js/liuyao-core.js?v=13.44.0"></script>\n<script src="./js/liuyao-interpretation.js?v=13.44.0"></script>',
   '<script src="./js/liuyao-core.js?v=13.44.0"></script>\n<script src="./js/liuyao-divination-policy-gate-v01.js?v=13.44.0"></script>\n<script src="./js/liuyao-interpretation.js?v=13.44.0"></script>'
 );
+replaceOnce(
+  'tests/run-tests.js',
+  "        'js/liuyao-time-facts.js', 'js/liuyao-time-effects.js', 'js/liuyao-time-assessment.js', 'js/liuyao-time-evidence.js', 'js/liuyao-time-relevance.js', 'js/liuyao-time-output.js', 'js/liuyao-time-selection.js', 'js/liuyao-core.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'",
+  "        'js/liuyao-time-facts.js', 'js/liuyao-time-effects.js', 'js/liuyao-time-assessment.js', 'js/liuyao-time-evidence.js', 'js/liuyao-time-relevance.js', 'js/liuyao-time-output.js', 'js/liuyao-time-selection.js', 'js/liuyao-core.js', 'js/liuyao-divination-policy-gate-v01.js', 'js/liuyao-interpretation.js', 'js/liuyao-literature.js', 'js/iching-loader.js', 'js/app.js'"
+);
 
-console.log('LiuYao Divination Policy Gate v0.1 production integration patch applied or already present.');
+console.log('LiuYao Divination Policy Gate v0.1 production/test integration patch applied or already present.');
