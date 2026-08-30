@@ -1,0 +1,38 @@
+name: LiuYao v0.13 Tuned Development Replay v0.3
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/replay-liuyao-semantic-v013-development-v03.mjs'
+      - 'data/liuyao-semantic-routeability-v0.3.json'
+      - '.github/workflows/liuyao-v013-replay-v03.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Replay tuned development diagnostic
+        run: node scripts/replay-liuyao-semantic-v013-development-v03.mjs
+      - name: Commit v0.3 tuning diagnostic
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-development-report-v0.3.json)" ]; then
+            echo 'v0.3 tuning report already matches current candidate.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-development-report-v0.3.json
+          git commit -m 'test(liuyao): record v0.3 tuned development diagnostic'
+          git push origin HEAD:liuyao-semantic-v013-core
