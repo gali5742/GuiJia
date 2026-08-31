@@ -192,4 +192,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantitySemanticBridge) {
         document.write('<script src="./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCaseCalibration) {
+        document.write('<script src="./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
