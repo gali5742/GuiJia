@@ -1,0 +1,42 @@
+name: LiuYao v0.13-v0.2 Responsibility Counterfactual
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/counterfactual-liuyao-semantic-v013-candidate-v02.mjs'
+      - '.github/workflows/liuyao-v013-v02-counterfactual.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify failed candidate evidence is immutable
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-lock.mjs
+          node scripts/verify-liuyao-semantic-v013-independent-eval.mjs
+          node scripts/verify-liuyao-semantic-v013-independent-report.mjs
+      - name: Run responsibility-only counterfactual
+        run: node scripts/counterfactual-liuyao-semantic-v013-candidate-v02.mjs
+      - name: Commit counterfactual record
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-v013-candidate-v02-responsibility-counterfactual.json)" ]; then
+            echo 'Counterfactual already matches immutable report.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v02-responsibility-counterfactual.json
+          git commit -m 'test(liuyao): record v0.13-v0.2 responsibility counterfactual'
+          git push origin HEAD:liuyao-semantic-v013-core
