@@ -1,0 +1,245 @@
+{
+  "version": "0.13-fallback-identity-v0.2-architecture-diagnostic-v0.1",
+  "status": "diagnostic_only_calibration_consumed_for_architecture",
+  "policy": {
+    "mayRetuneFrozenV02": false,
+    "mayClaimFreshGeneralization": false,
+    "thisCalibrationMayNotCalibrateNextCandidate": true,
+    "nextIdentityArchitectureRequiresFreshCalibration": true,
+    "candidateLockStillRequiredBeforeFreshIndependent": true
+  },
+  "counts": {
+    "known": 66,
+    "eligibleKnown": 41,
+    "nonRoute": 68,
+    "eligibleNonRoute": 4
+  },
+  "ceilings": {
+    "routeabilityEligibilityOverall": 0.6212121212121212,
+    "routerTop1WithinEligible": 0.6829268292682927,
+    "routerTop2WithinEligible": 0.8292682926829268,
+    "routerTop3WithinEligible": 0.8780487804878049,
+    "routerTop5WithinEligible": 0.926829268292683,
+    "routerTop2OverallCeiling": 0.5151515151515151,
+    "routerTop3OverallCeiling": 0.5454545454545454,
+    "routerTop5OverallCeiling": 0.5757575757575758
+  },
+  "currentExactlyOne": {
+    "threshold": 0.6173203301120582,
+    "knownExact": 22,
+    "knownRetention": 0.3333333333333333,
+    "selectedTotal": 22,
+    "acceptedRouteAccuracy": 1,
+    "rejectAll": 22,
+    "multipleAdmissions": 1
+  },
+  "scoreSeparation": {
+    "correctCandidateWhenInTop2": {
+      "n": 34,
+      "min": 0.4733360050495585,
+      "p10": 0.5181414447714602,
+      "p25": 0.579000827216093,
+      "median": 0.6559961232462166,
+      "p75": 0.691705465631914,
+      "p90": 0.7373387169491307,
+      "max": 0.7701790837044223
+    },
+    "competingCandidateWhenCorrectInTop2": {
+      "n": 34,
+      "min": 0.3741058586084139,
+      "p10": 0.3933159868779442,
+      "p25": 0.4413577633817782,
+      "median": 0.4704599175287214,
+      "p75": 0.4935396455362165,
+      "p90": 0.5733524069997608,
+      "max": 0.7033408553986875
+    },
+    "correctMinusCompetitor": {
+      "n": 34,
+      "min": -0.0026237030817008455,
+      "p10": 0.04193794626258453,
+      "p25": 0.07605516931437312,
+      "median": 0.1644863224757656,
+      "p75": 0.22296758662497235,
+      "p90": 0.2634268519862292,
+      "max": 0.3178030638834573
+    },
+    "correctCandidateHigherThanCompetitor": 0.9705882352941176
+  },
+  "diagnosticPolicySweep": {
+    "top2ArgmaxAbsoluteThreshold": {
+      "k": 2,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": false,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    },
+    "top2ArgmaxAbsolutePlusMargin": {
+      "k": 2,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": true,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    },
+    "top3ArgmaxAbsoluteThreshold": {
+      "k": 3,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": false,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    },
+    "top3ArgmaxAbsolutePlusMargin": {
+      "k": 3,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": true,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    },
+    "top5ArgmaxAbsoluteThreshold": {
+      "k": 5,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": false,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    },
+    "top5ArgmaxAbsolutePlusMargin": {
+      "k": 5,
+      "threshold": 0.5783144657983419,
+      "margin": 0,
+      "requireMargin": true,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseActivation": 0,
+          "activated": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseActivation": 0,
+          "activated": 0
+        }
+      }
+    }
+  }
+}
