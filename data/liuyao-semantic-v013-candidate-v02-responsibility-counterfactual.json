@@ -1,0 +1,616 @@
+{
+  "version": "0.13-v0.2-responsibility-counterfactual-v0.1",
+  "status": "diagnostic_only",
+  "policy": {
+    "candidateV01Mutation": false,
+    "nextIndependentEvalReuse": false
+  },
+  "candidateV01": "6503446eb9c9e606ed3de53de5a9e98c1a77362d7a491b2a113f6f31ced059a9",
+  "independentEvalSha256": "41c6536d0fdaac27b16c88cb5318644cf9ad5c234df688b1901377810c6b8fc2",
+  "strongConfirmedScopeBypass": {
+    "recoverableKnown": 2,
+    "newlyActivatedNonRoute": 0,
+    "knownRows": [
+      {
+        "id": "V013-I-009",
+        "text": "这份信用贷申请本周能不能获批",
+        "expectedRoute": "borrow_money",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7539088515465731,
+          "threshold": 0.7675678218564946,
+          "disposition": "route_known",
+          "reasonCode": "confirmed_strong_rescue"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "borrow_money",
+          "strength": "strong",
+          "evidence": [
+            "funds_inward"
+          ],
+          "rationale": "fund-direction"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "borrow_money",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "direction:funds_inward"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.4016533719091123,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": true
+        },
+        "head": {
+          "top1": {
+            "id": "borrow_money",
+            "score": 0.09369295683839805
+          },
+          "top2": {
+            "id": "lend_money",
+            "score": 0.053636858900505596
+          },
+          "routeMargin": 0.04005609793789246
+        },
+        "finalRoute": null,
+        "finalReason": "scope_hard_veto"
+      },
+      {
+        "id": "V013-I-039",
+        "text": "我和她最后能不能领证结婚",
+        "expectedRoute": "marriage_match",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.767063222111385,
+          "threshold": 0.7675678218564946,
+          "disposition": "route_known",
+          "reasonCode": "confirmed_strong_rescue"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "marriage_match",
+          "strength": "strong",
+          "evidence": [
+            "marriage_target"
+          ],
+          "rationale": "relationship-stage"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "marriage_match",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "relation:marriage_target"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.3922651020279369,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": true
+        },
+        "head": {
+          "top1": {
+            "id": "marriage_match",
+            "score": 0.09278624202266673
+          },
+          "top2": {
+            "id": "marital_relationship",
+            "score": 0.07423419535811442
+          },
+          "routeMargin": 0.01855204666455232
+        },
+        "finalRoute": null,
+        "finalReason": "scope_hard_veto"
+      }
+    ],
+    "nonRouteRows": []
+  },
+  "supportPriorityAfterRouteabilityAccept": {
+    "acceptedKnownSupportCandidates": 29,
+    "knownWrongSelectionsCorrectable": 2,
+    "knownCorrectSelectionsThatWouldBeHarmed": 0,
+    "nonRouteAcceptedSupportCandidates": 0,
+    "correctableRows": [
+      {
+        "id": "V013-I-060",
+        "text": "买家这份订单现在还没有定，我想占一下",
+        "expectedRoute": "commercial_transaction",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7829015540903385,
+          "threshold": 0.7675678218564946,
+          "disposition": "route_known",
+          "reasonCode": "frozen_v02_score_accept"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "commercial_transaction",
+          "strength": "support",
+          "evidence": [
+            "commercial_transaction",
+            "topic-only:commercial_transaction"
+          ],
+          "rationale": "transaction-topic-without-current-outcome-target"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6801784330937489,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "inventory_purchase",
+            "score": 0.05931497460238939
+          },
+          "top2": {
+            "id": "receive_item",
+            "score": 0.05838911103851839
+          },
+          "routeMargin": 0.0009258635638709975
+        },
+        "finalRoute": "receive_item",
+        "finalReason": "fallback_head_top2_after_top1_contradiction"
+      },
+      {
+        "id": "V013-I-085",
+        "text": "这份客户订单现在还在往返确认，我想问问这一单",
+        "expectedRoute": "commercial_transaction",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7759531657395902,
+          "threshold": 0.7675678218564946,
+          "disposition": "route_known",
+          "reasonCode": "frozen_v02_score_accept"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "commercial_transaction",
+          "strength": "support",
+          "evidence": [
+            "commercial_transaction",
+            "topic-only:commercial_transaction"
+          ],
+          "rationale": "transaction-topic-without-current-outcome-target"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6800047076468122,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "receive_item",
+            "score": 0.058286245223640454
+          },
+          "top2": {
+            "id": "inventory_purchase",
+            "score": 0.057250275446043844
+          },
+          "routeMargin": 0.0010359697775966098
+        },
+        "finalRoute": "receive_item",
+        "finalReason": "fallback_head_top1"
+      }
+    ],
+    "harmRows": [],
+    "nonRouteRows": []
+  },
+  "belowThresholdSupportRescue": {
+    "knownSupportRejects": 15,
+    "knownConfirmed": 8,
+    "knownCompatible": 7,
+    "nonRouteConfirmed": 0,
+    "nonRouteCompatible": 0,
+    "knownConfirmedRows": [
+      {
+        "id": "V013-I-048",
+        "text": "最近手头宽裕和吃紧来回变化，我想问问",
+        "expectedRoute": "financial_fortune",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7522286536323916,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "financial_fortune",
+          "strength": "support",
+          "evidence": [
+            "finance"
+          ],
+          "rationale": "finance-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "financial_fortune",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "domain:finance"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6432515381048906,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "financial_fortune",
+            "score": 0.061538752115481134
+          },
+          "top2": {
+            "id": "income_salary",
+            "score": 0.0526141742420143
+          },
+          "routeMargin": 0.008924577873466837
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-051",
+        "text": "我的小餐馆最近利润忽高忽低，想问经营本身",
+        "expectedRoute": "business_operation",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.766165944837422,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "business_operation",
+          "strength": "support",
+          "evidence": [
+            "business_operation"
+          ],
+          "rationale": "business-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "business_operation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:business_operation"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6808249503795051,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "business_operation",
+            "score": 0.0645779913179294
+          },
+          "top2": {
+            "id": "partnership",
+            "score": 0.060844615784280194
+          },
+          "routeMargin": 0.003733375533649212
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-055",
+        "text": "这间咖啡店目前经营状况变化很大，想占一下",
+        "expectedRoute": "business_operation",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7617085625435631,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "business_operation",
+          "strength": "support",
+          "evidence": [
+            "business_operation"
+          ],
+          "rationale": "business-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "business_operation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:business_operation"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.646124913144357,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "business_operation",
+            "score": 0.06100181413215229
+          },
+          "top2": {
+            "id": "partnership",
+            "score": 0.059682838706217246
+          },
+          "routeMargin": 0.0013189754259350442
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-066",
+        "text": "这只ETF已经安排全部卖出，我想占一下这一步",
+        "expectedRoute": "investment_liquidation",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7647226446244304,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "investment_liquidation",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "liquidation-event"
+          ],
+          "rationale": "event-only-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "investment_liquidation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:investment_liquidation"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.7037182049516376,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "investment_position_decision",
+            "score": 0.06107626249198691
+          },
+          "top2": {
+            "id": "investment_liquidation",
+            "score": 0.058571469048056185
+          },
+          "routeMargin": 0.0025047934439307237
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-068",
+        "text": "股票仓位已经决定清掉，我想单独问一下退出这件事",
+        "expectedRoute": "investment_liquidation",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7620366527601504,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "investment_liquidation",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "liquidation-event"
+          ],
+          "rationale": "event-only-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "investment_liquidation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:investment_liquidation"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.687673529013467,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "investment_position_decision",
+            "score": 0.08162809261772973
+          },
+          "top2": {
+            "id": "investment_liquidation",
+            "score": 0.07150746794572359
+          },
+          "routeMargin": 0.01012062467200614
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-071",
+        "text": "ETF仓位要不要调整一下这件事我一直拿不准",
+        "expectedRoute": "investment_position_decision",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.737553981402679,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "investment_position_decision",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "position-event"
+          ],
+          "rationale": "event-only-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "investment_position_decision",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:investment_position"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6024051794213252,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "investment_position_decision",
+            "score": 0.06369744434276627
+          },
+          "top2": {
+            "id": "inventory_purchase",
+            "score": 0.05312242336704088
+          },
+          "routeMargin": 0.010575020975725387
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-075",
+        "text": "这个ETF最近涨跌来回反复，我想单独问问",
+        "expectedRoute": "investment_price_trend",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.7582615148098579,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "investment_price_trend",
+          "strength": "support",
+          "evidence": [
+            "investment",
+            "price-trend-semantics"
+          ],
+          "rationale": "investment-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "investment_price_trend",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "goal:price_trend"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6520620390037801,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "investment_price_trend",
+            "score": 0.059688485134338255
+          },
+          "top2": {
+            "id": "income_salary",
+            "score": 0.054764550826574034
+          },
+          "routeMargin": 0.004923934307764222
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      },
+      {
+        "id": "V013-I-084",
+        "text": "这家便利店近来业绩忽上忽下，我想占一下经营",
+        "expectedRoute": "business_operation",
+        "subtype": null,
+        "routeability": {
+          "probability": 0.737797878530526,
+          "threshold": 0.7675678218564946,
+          "disposition": "non_route",
+          "reasonCode": "frozen_v02_score_reject"
+        },
+        "arbitration": {
+          "version": "0.12-dev",
+          "routeId": "business_operation",
+          "strength": "support",
+          "evidence": [
+            "business_operation"
+          ],
+          "rationale": "business-support"
+        },
+        "arbitrationCompatibility": {
+          "version": "0.2-dev",
+          "routeId": "business_operation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:business_operation"
+          ],
+          "contradictionEvidence": []
+        },
+        "scope": {
+          "probability": 0.6501714550778113,
+          "hardVetoCutoff": 0.4196,
+          "hardVeto": false
+        },
+        "head": {
+          "top1": {
+            "id": "business_operation",
+            "score": 0.06091835813153888
+          },
+          "top2": {
+            "id": "partnership",
+            "score": 0.057877457245202914
+          },
+          "routeMargin": 0.003040900886335969
+        },
+        "finalRoute": null,
+        "finalReason": "frozen_v02_score_reject"
+      }
+    ],
+    "nonRouteConfirmedRows": [],
+    "nonRouteCompatibleRows": []
+  }
+}
