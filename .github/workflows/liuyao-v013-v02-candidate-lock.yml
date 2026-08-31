@@ -1,0 +1,46 @@
+name: LiuYao v0.13-v0.2 Candidate Lock
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v02-lock.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs'
+      - '.github/workflows/liuyao-v013-v02-candidate-lock.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify responsibility contracts
+        run: node tests/liuyao-semantic-v013-candidate-v02-tests.js
+      - name: Verify next-topic inventory remains design-only
+        run: node scripts/verify-liuyao-next-topic-inventory-v01.mjs
+      - name: Confirm pre-lock development gates
+        run: node -e "const r=require('./data/liuyao-semantic-v013-candidate-v02-development-report.json'); if(!r.readyForCandidateLock) process.exit(1)"
+      - name: Generate candidate v0.2 lock
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v02-lock.mjs
+      - name: Verify candidate v0.2 lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs
+      - name: Commit locked candidate
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-candidate-v0.2.json data/liuyao-semantic-decision-stack-v0.13-candidate-v0.2.lock.json
+          if git diff --cached --quiet; then
+            echo 'Candidate v0.2 lock already current.'
+            exit 0
+          fi
+          git commit -m 'test(liuyao): lock v0.13-v0.2 semantic candidate'
+          git push origin HEAD:liuyao-semantic-v013-core
