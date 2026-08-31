@@ -1,0 +1,223 @@
+{
+  "version": "0.13-fallback-identity-v0.2-global-ranking-diagnostic-v0.1",
+  "status": "diagnostic_only_calibration_consumed_for_architecture",
+  "policy": {
+    "mayRetuneFrozenV02": false,
+    "mayClaimFreshGeneralization": false,
+    "thisCalibrationMayNotCalibrateNextCandidate": true,
+    "nextArchitectureRequiresFreshCalibration": true
+  },
+  "counts": {
+    "known": 66,
+    "semanticEligibleKnown": 66,
+    "nonRoute": 68,
+    "semanticEligibleNonRoute": 63
+  },
+  "globalIdentityCoverage": {
+    "top1": 0.8939393939393939,
+    "top2": 0.9393939393939394,
+    "top3": 0.9696969696969697,
+    "top5": 0.9848484848484849,
+    "top10": 1,
+    "meanCorrectRank": 1.2424242424242424
+  },
+  "scoreDistributions": {
+    "correctRouteScore": {
+      "n": 66,
+      "min": 0.30589970759857277,
+      "p10": 0.459658516821434,
+      "p25": 0.5210066358724491,
+      "median": 0.6243061575793818,
+      "p75": 0.6881100407222872,
+      "p90": 0.7321404505739258,
+      "max": 0.7701790837044223
+    },
+    "knownGlobalTopScore": {
+      "n": 66,
+      "min": 0.4142808878826061,
+      "p10": 0.47919562177309327,
+      "p25": 0.5210066358724491,
+      "median": 0.6243061575793818,
+      "p75": 0.6881100407222872,
+      "p90": 0.7321404505739258,
+      "max": 0.7701790837044223
+    },
+    "nonRouteGlobalTopScore": {
+      "n": 63,
+      "min": 0.36277698122382607,
+      "p10": 0.40094383701504427,
+      "p25": 0.4378422683711673,
+      "median": 0.4870496628183635,
+      "p75": 0.5208378356826043,
+      "p90": 0.5616298398522851,
+      "max": 0.6663206784436199
+    },
+    "knownTop1Margin": {
+      "n": 66,
+      "min": 0.0026237030817008455,
+      "p10": 0.012824001635251409,
+      "p25": 0.05927616737688421,
+      "median": 0.1128460116615966,
+      "p75": 0.1769277665985362,
+      "p90": 0.24800080371934638,
+      "max": 0.3138379541715108
+    },
+    "nonRouteTop1Margin": {
+      "n": 63,
+      "min": 0.0017816492190203537,
+      "p10": 0.010713706976974347,
+      "p25": 0.023289616787310785,
+      "median": 0.061673992129230804,
+      "p75": 0.09047587329414142,
+      "p90": 0.13384573543100645,
+      "max": 0.2404814284066215
+    }
+  },
+  "safetyConstrainedSweeps": {
+    "currentRouteability_globalArgmax": {
+      "identityThreshold": 0.5866206523740016,
+      "marginThreshold": 0,
+      "routeabilityThreshold": 0.7678148573595883,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "activated": 0,
+          "falseActivation": 0
+        }
+      }
+    },
+    "currentRouteability_globalArgmaxWithMargin": {
+      "identityThreshold": 0.5866206523740016,
+      "marginThreshold": 0,
+      "routeabilityThreshold": 0.7678148573595883,
+      "knownExact": 25,
+      "knownRetention": 0.3787878787878788,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 25,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "activated": 0,
+          "falseActivation": 0
+        }
+      }
+    },
+    "noRouteability_globalArgmax": {
+      "identityThreshold": 0.666469961135598,
+      "marginThreshold": 0,
+      "routeabilityThreshold": null,
+      "knownExact": 26,
+      "knownRetention": 0.3939393939393939,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 26,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "activated": 0,
+          "falseActivation": 0
+        }
+      }
+    },
+    "noRouteability_globalArgmaxWithMargin": {
+      "identityThreshold": 0.666469961135598,
+      "marginThreshold": 0,
+      "routeabilityThreshold": null,
+      "knownExact": 26,
+      "knownRetention": 0.3939393939393939,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 26,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "activated": 0,
+          "falseActivation": 0
+        }
+      }
+    },
+    "relaxedRouteability_globalArgmax": {
+      "identityThreshold": 0.5866206523740016,
+      "marginThreshold": 0,
+      "routeabilityThreshold": 0.7538630807048241,
+      "knownExact": 35,
+      "knownRetention": 0.5303030303030303,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 35,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "n": 24,
+          "activated": 0,
+          "falseActivation": 0
+        }
+      }
+    }
+  }
+}
