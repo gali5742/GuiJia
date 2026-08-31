@@ -1,0 +1,15 @@
+{
+  "version": "0.13-fallback-identity-v0.1-model-lock-v0.1",
+  "status": "locked",
+  "artifactPath": "data/liuyao-semantic-fallback-identity-v0.1.json",
+  "artifactSha256": "17db56111f09a6c209553283628594320270dd01e4d85fd89a46410cd99fc9cb",
+  "trainingContractSha256": "cd2b53986c423ed4e23feb60841673bd3a6b8540bcfa88cbdb8c063e28257843",
+  "dataLockSha256": "ddc2ca59e3d31934f48ad1b62d9e7db2dc6706e370644fca2dda2aea9a6a597d",
+  "threshold": 0.6075189786927091,
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "policy": {
+    "runtimeLoadOnly": true,
+    "routeSpecificThresholds": false,
+    "calibrationMayNotRetrainModel": true
+  }
+}
