@@ -34,22 +34,24 @@ assert(calibration.policy?.useForFallbackIdentityTraining === false && calibrati
 assert(calibration.policy?.mayChooseOnlyOneGlobalFallbackThreshold === true, 'one-global-threshold contract missing');
 assert(calibration.policy?.routeabilityThresholdMayChange === false && calibration.policy?.scopeHardVetoMayChange === false, 'upstream threshold drift allowed');
 assert(calibration.policy?.routeSpecificThresholdsForbidden === true, 'route-specific fallback thresholds must remain forbidden');
-assert(training.rows?.length === 154, `training rows ${training.rows?.length} != 154`);
-assert(calibration.rows?.length === 132, `calibration rows ${calibration.rows?.length} != 132`);
+assert(training.rows?.length === 156, `training rows ${training.rows?.length} != 156`);
+assert(calibration.rows?.length === 134, `calibration rows ${calibration.rows?.length} != 134`);
 
 const count = (rows, predicate) => rows.filter(predicate).length;
 assert(count(training.rows, (row) => row.identityLabel === 'route_identity_positive') === 88, 'training known != 88');
-assert(count(training.rows, (row) => row.identityLabel === 'non_route') === 66, 'training non-route != 66');
+assert(count(training.rows, (row) => row.identityLabel === 'non_route') === 68, 'training non-route != 68');
 assert(count(calibration.rows, (row) => row.identityLabel === 'route_identity_positive') === 66, 'calibration known != 66');
-assert(count(calibration.rows, (row) => row.identityLabel === 'non_route') === 66, 'calibration non-route != 66');
+assert(count(calibration.rows, (row) => row.identityLabel === 'non_route') === 68, 'calibration non-route != 68');
 for (const routeId of routeIds) {
   assert(count(training.rows, (row) => row.expectedRoute === routeId) === 4, `training ${routeId} != 4`);
   assert(count(calibration.rows, (row) => row.expectedRoute === routeId) === 3, `calibration ${routeId} != 3`);
 }
-for (const subtype of ['outside_current_22','route_unresolved','near_domain_not_current_route']) {
+for (const subtype of ['outside_current_22','route_unresolved']) {
   assert(count(training.rows, (row) => row.subtype === subtype) === 22, `training subtype ${subtype} != 22`);
   assert(count(calibration.rows, (row) => row.subtype === subtype) === 22, `calibration subtype ${subtype} != 22`);
 }
+assert(count(training.rows, (row) => row.subtype === 'near_domain_not_current_route') === 24, 'training near-domain != 24');
+assert(count(calibration.rows, (row) => row.subtype === 'near_domain_not_current_route') === 24, 'calibration near-domain != 24');
 
 const traditionalTerms = ['妻财','官鬼','父母爻','兄弟爻','子孙爻','世爻','应爻','用神'];
 const healthTerms = ['疾病','病情','生病','健康占','手术结果','疗效','药效','治好','康复','诊断结果','检查结果'];
@@ -128,8 +130,8 @@ if (training.sealed || calibration.sealed) {
 }
 
 console.log('LiuYao Fallback Identity v0.1 fresh data verified.');
-console.log(`- training: ${training.rows.length} (88 known / 66 non-route)`);
-console.log(`- calibration: ${calibration.rows.length} (66 known / 66 non-route)`);
+console.log(`- training: ${training.rows.length} (88 known / 68 non-route)`);
+console.log(`- calibration: ${calibration.rows.length} (66 known / 68 non-route)`);
 console.log('- known path contract: Arbitration=null, unsupportedTargets=0');
 console.log(`- prior LiuYao JSON corpora audited: ${priorFiles.length}; exact overlap: 0`);
 console.log('- health-policy and traditional-term leakage: 0');
