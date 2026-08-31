@@ -6,6 +6,7 @@ on:
       - liuyao-semantic-v013-core
     paths:
       - 'scripts/generate-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v02-independent-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
       - 'scripts/seal-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
       - '.github/workflows/liuyao-v013-v02-independent-seal.yml'
@@ -28,6 +29,8 @@ jobs:
         run: node scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs
       - name: Generate fresh post-lock independent eval
         run: node scripts/generate-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Apply pre-seal path-contract correction
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v02-independent-preseal-patch.mjs
       - name: Verify pre-seal path contracts and corpus isolation
         run: node scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
       - name: Seal and lock independent eval
