@@ -33,7 +33,7 @@ jobs:
       - name: Verify corrected semantic dependencies
         run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
       - name: Verify corrected Routeability
-        run: node scripts/verify-liuyao-semantic-routeability-v04.mjs
+        run: node scripts/verify-liuyao-semantic-routeability-v04-model.mjs
       - name: Verify corrected Fallback Identity training contract
         run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-training-contract.mjs
       - name: Install pinned encoder runtime
