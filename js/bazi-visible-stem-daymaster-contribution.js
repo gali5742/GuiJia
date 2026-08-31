@@ -334,4 +334,8 @@
         buildContributionRecords,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliStrengthComposition) {
+        document.write('<script src="./js/bazi-qianli-strength-composition.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
