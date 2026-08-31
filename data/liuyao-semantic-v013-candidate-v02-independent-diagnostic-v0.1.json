@@ -1,0 +1,1951 @@
+{
+  "version": "0.13-candidate-v0.2-independent-diagnostic-v0.1",
+  "status": "post_failure_diagnostic_only",
+  "source": {
+    "reportPath": "data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-report-v0.1.json",
+    "candidateSha256": "23368e0911f1164f6af5d7e72dd894ebfcc767524840e5bba796aaff6940f828",
+    "evaluationSha256": "3e8442bd70635cf9510378fd2f039c6eaf36a78b12ffdb7eab234afeb782d06a"
+  },
+  "policy": {
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "independentEvidence": false,
+    "candidateV02MutationAllowed": false,
+    "thresholdSelectionAllowed": false,
+    "mayInformNextVersionArchitecture": true,
+    "nextVersionRequiresFreshDevelopmentCalibrationAndPostLockIndependent": true
+  },
+  "summary": {
+    "failures": 30,
+    "knownFailures": 24,
+    "nonRouteFalseActivations": 6,
+    "failureClasses": {
+      "known_selection_unresolved": 1,
+      "known_routeability_reject": 16,
+      "known_wrong_selected_route": 7,
+      "nonroute_score_accept_head_fallback_activation": 5,
+      "nonroute_support_rescue_activation": 1
+    },
+    "knownFailureByPath": {
+      "strong_arbitration": 1,
+      "support_arbitration": 3,
+      "fallback_head": 20
+    },
+    "routeabilityRejectByRoute": {
+      "commercial_transaction": 1,
+      "income_bonus": 2,
+      "financial_fortune": 1,
+      "inventory_purchase": 1,
+      "partnership": 1,
+      "investment_liquidation": 1,
+      "investment_price_trend": 1,
+      "receive_item": 2,
+      "item_purchase": 2,
+      "relationship_development": 1,
+      "marriage_match": 2,
+      "marital_relationship": 1
+    },
+    "wrongSelectionByExpectedRoute": {
+      "business_operation": 2,
+      "commercial_transaction": 2,
+      "borrow_money": 2,
+      "income_bonus": 1
+    },
+    "wrongSelectionBySelectedRoute": {
+      "marital_relationship": 1,
+      "investment_position_decision": 1,
+      "marriage_match": 1,
+      "partnership": 1,
+      "lend_money": 2,
+      "debt_repayment": 1
+    },
+    "nonRouteFalseActivationBySubtype": {
+      "route_unresolved": 2,
+      "near_domain_not_current_route": 4
+    },
+    "nonRouteFalseActivationByMode": {
+      "nonroute_score_accept_head_fallback_activation": 5,
+      "nonroute_support_rescue_activation": 1
+    },
+    "expectedCompatibilityOnKnownFailures": {
+      "contradicted": 1,
+      "compatible": 23
+    },
+    "expectedHeadRankOnKnownFailures": {
+      "1": 13,
+      "2": 5,
+      "null": 6
+    },
+    "expectedHeadRankOnFallbackFailures": {
+      "1": 10,
+      "2": 5,
+      "null": 5
+    },
+    "headMarginOnWrongSelections": {
+      "n": 7,
+      "min": 0.0002572321999157537,
+      "max": 0.006716785764747019,
+      "mean": 0.0037566584304491893
+    },
+    "headMarginOnFalseFallbackActivations": {
+      "n": 5,
+      "min": 0.0007442820847162329,
+      "max": 0.007926503030390261,
+      "mean": 0.0031145010639004934
+    },
+    "supportFailureExpectedCompatibility": {
+      "compatible": 3
+    },
+    "strongFailureExpectedCompatibility": {
+      "contradicted": 1
+    },
+    "supportRescueFalseActivationUnsupportedTargets": {
+      "none": 1
+    }
+  },
+  "architecturalFindings": [
+    {
+      "id": "V03-DIAG-001",
+      "responsibility": "fallback_admission",
+      "finding": "Arbitration-null fallback is not safe when Routeability is barely positive; the failed independent set contains both wrong known-route selections and non-route activations through pure Head fallback.",
+      "evidenceIds": [
+        "V013-I2-091",
+        "V013-I2-092",
+        "V013-I2-093",
+        "V013-I2-094",
+        "V013-I2-099",
+        "V013-I2-100",
+        "V013-I2-121",
+        "V013-I2-156",
+        "V013-I2-161",
+        "V013-I2-180",
+        "V013-I2-188",
+        "V013-I2-197"
+      ]
+    },
+    {
+      "id": "V03-DIAG-002",
+      "responsibility": "support_rescue_boundary",
+      "finding": "Confirmed-support rescue can activate procedural or informational near-domain questions when event semantics are present but the current target is a rule, fee, tax, or administration question.",
+      "evidenceIds": [
+        "V013-I2-194"
+      ]
+    },
+    {
+      "id": "V03-DIAG-003",
+      "responsibility": "compatibility",
+      "finding": "Compatibility still has false contradiction or confirmation gaps: a strong Head-correct debt-collection case can become unresolved, while valid topic-only support cases can remain merely compatible and miss rescue.",
+      "evidenceIds": [
+        "V013-I2-017",
+        "V013-I2-065",
+        "V013-I2-087",
+        "V013-I2-088"
+      ]
+    },
+    {
+      "id": "V03-DIAG-004",
+      "responsibility": "routeability",
+      "finding": "The scalar Routeability score cannot be repaired by lowering one global threshold: it rejects many valid fallback questions while already accepting vague and near-domain non-routes.",
+      "evidenceIds": [
+        "V013-I2-089",
+        "V013-I2-095",
+        "V013-I2-108",
+        "V013-I2-112",
+        "V013-I2-117",
+        "V013-I2-123",
+        "V013-I2-124",
+        "V013-I2-125",
+        "V013-I2-126",
+        "V013-I2-128",
+        "V013-I2-129",
+        "V013-I2-130",
+        "V013-I2-132",
+        "V013-I2-156",
+        "V013-I2-161",
+        "V013-I2-180",
+        "V013-I2-188",
+        "V013-I2-194",
+        "V013-I2-197"
+      ]
+    }
+  ],
+  "nextVersionConstraints": [
+    "Do not lower the frozen Routeability threshold as the primary v0.3 fix.",
+    "Do not use this independent set to choose a fallback margin threshold or train a fallback gate.",
+    "Add an explicit modern informational/procedural target boundary before support rescue and pure Head fallback.",
+    "Separate fallback admission from Routeability so route membership and route identity confidence are not conflated.",
+    "Repair Compatibility semantics with deterministic contracts before any learned fallback calibration.",
+    "Create fresh v0.3 development and calibration corpora; after Candidate v0.3 lock, create another fresh independent set."
+  ],
+  "failures": [
+    {
+      "id": "V013-I2-017",
+      "text": "借出去的那笔钱月底前还能不能追回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration",
+      "nonRouteSubtype": null,
+      "failureClass": "known_selection_unresolved",
+      "routeability": {
+        "probability": 0.8119547470427603,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "debt_collection",
+          "score": 0.091156641765595
+        },
+        "top2": {
+          "id": "debt_repayment",
+          "score": 0.0678234099085557
+        },
+        "routeMargin": 0.023333231857039297
+      },
+      "expectedHeadRank": 1,
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "debt_collection",
+        "strength": "strong",
+        "evidence": [
+          "creditor_inward",
+          "current_target:debt_collection"
+        ],
+        "rationale": "current-target-over-background"
+      },
+      "selection": {
+        "status": "route_unresolved",
+        "routeId": null,
+        "reasonCode": "no_noncontradicted_head_candidate"
+      },
+      "finalDisposition": "route_unresolved",
+      "finalRoute": null,
+      "finalReason": "no_noncontradicted_head_candidate",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [
+          "creditor_inward",
+          "funds_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "debt_collection",
+          "status": "contradicted",
+          "positiveEvidence": [
+            "direction:creditor_inward"
+          ],
+          "contradictionEvidence": [
+            "direction:funds_outward"
+          ]
+        },
+        "arbitration": {
+          "version": "0.2-dev",
+          "routeId": "debt_collection",
+          "status": "contradicted",
+          "positiveEvidence": [
+            "direction:creditor_inward"
+          ],
+          "contradictionEvidence": [
+            "direction:funds_outward"
+          ]
+        },
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-065",
+      "text": "渠道方这张采购订单还没有定，我想问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7604808021948206,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "inventory_purchase",
+          "score": 0.06306932088854897
+        },
+        "top2": {
+          "id": "receive_item",
+          "score": 0.0570822442887802
+        },
+        "routeMargin": 0.00598707659976877
+      },
+      "expectedHeadRank": null,
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "commercial_transaction",
+        "strength": "support",
+        "evidence": [
+          "commercial_transaction",
+          "topic-only:commercial_transaction"
+        ],
+        "rationale": "transaction-topic-without-current-outcome-target"
+      },
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [
+          "commerce"
+        ],
+        "events": [
+          "commercial_transaction"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-087",
+      "text": "今年年终奖这件事我一直惦记，想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "support_arbitration",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.765978684643721,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "income_bonus",
+          "score": 0.06556259221205134
+        },
+        "top2": {
+          "id": "financial_fortune",
+          "score": 0.05690967765850283
+        },
+        "routeMargin": 0.00865291455354851
+      },
+      "expectedHeadRank": 1,
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [
+          "employment_income"
+        ],
+        "events": [
+          "bonus_income"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "income_bonus",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": {
+          "version": "0.2-dev",
+          "routeId": "income_bonus",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-088",
+      "text": "部门季度奖励目前让我比较在意，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "support_arbitration",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7473134018807375,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "income_bonus",
+          "score": 0.062137467750232
+        },
+        "top2": {
+          "id": "income_salary",
+          "score": 0.05428677137045311
+        },
+        "routeMargin": 0.007850696379778893
+      },
+      "expectedHeadRank": 1,
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [
+          "employment_income"
+        ],
+        "events": [
+          "bonus_income"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "income_bonus",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": {
+          "version": "0.2-dev",
+          "routeId": "income_bonus",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-089",
+      "text": "接下来半年日子会不会比现在宽松一点",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7424423230299491,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "financial_fortune",
+          "score": 0.06949244584473702
+        },
+        "top2": {
+          "id": "marital_relationship",
+          "score": 0.05573537183554064
+        },
+        "routeMargin": 0.013757074009196374
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "financial_fortune",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-091",
+      "text": "我这份营生往后还能不能稳稳做下去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7741158799554347,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "marital_relationship",
+          "score": 0.056345892688001865
+        },
+        "top2": {
+          "id": "business_operation",
+          "score": 0.05608866048808611
+        },
+        "routeMargin": 0.0002572321999157537
+      },
+      "expectedHeadRank": 2,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "marital_relationship",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "business_operation",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "marital_relationship",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-092",
+      "text": "手里这个铺面以后还有没有继续撑着的空间",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7689161218483308,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_position_decision",
+          "score": 0.06072777387922616
+        },
+        "top2": {
+          "id": "investment_price_trend",
+          "score": 0.054010988114479144
+        },
+        "routeMargin": 0.006716785764747019
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "investment_position_decision",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "business_operation",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "investment_position_decision",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-093",
+      "text": "和对方这桩事最后能不能谈拢",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7742692170234411,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "marriage_match",
+          "score": 0.07607805473667643
+        },
+        "top2": {
+          "id": "marital_relationship",
+          "score": 0.07063525508829525
+        },
+        "routeMargin": 0.00544279964838118
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "marriage_match",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "marriage_match",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-094",
+      "text": "手上这一宗合作最后有没有结果",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7807355623056809,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "partnership",
+          "score": 0.05928569599283997
+        },
+        "top2": {
+          "id": "marriage_match",
+          "score": 0.05746733116159161
+        },
+        "routeMargin": 0.0018183648312483577
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "partnership",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "partnership",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "commercial_transaction",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "partnership",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-095",
+      "text": "店里下一轮要添的东西能不能及时备齐",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7508176518161651,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "inventory_purchase",
+          "score": 0.06946645400496501
+        },
+        "top2": {
+          "id": "inventory_sale",
+          "score": 0.06372762963815685
+        },
+        "routeMargin": 0.005738824366808157
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "inventory_purchase",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-099",
+      "text": "眼下能不能先筹来一笔临时周转用的钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7947284380924989,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "lend_money",
+          "score": 0.05515170215525481
+        },
+        "top2": {
+          "id": "debt_collection",
+          "score": 0.0532589635317664
+        },
+        "routeMargin": 0.0018927386234884117
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "lend_money",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "borrow_money",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "lend_money",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-100",
+      "text": "最近有没有办法弄到一笔应急用的钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7899788457536205,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "lend_money",
+          "score": 0.056149586750457975
+        },
+        "top2": {
+          "id": "income_bonus",
+          "score": 0.05187739178273526
+        },
+        "routeMargin": 0.0042721949677227145
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "lend_money",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "borrow_money",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "lend_money",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-108",
+      "text": "跟他搭着把这门事继续做下去合适吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7500287357921308,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_suitability",
+          "score": 0.0584050589374858
+        },
+        "top2": {
+          "id": "partnership",
+          "score": 0.05725480494629449
+        },
+        "routeMargin": 0.0011502539911913134
+      },
+      "expectedHeadRank": 2,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "partnership",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-112",
+      "text": "这份理财我全部退掉会不会卡在中间",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7669922847940939,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_position_decision",
+          "score": 0.061949052408859485
+        },
+        "top2": {
+          "id": "investment_liquidation",
+          "score": 0.05728865277932841
+        },
+        "routeMargin": 0.004660399629531076
+      },
+      "expectedHeadRank": 2,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "investment_liquidation",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-117",
+      "text": "这个票过一阵还会往上走吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7288002265423164,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_price_trend",
+          "score": 0.07215772695944828
+        },
+        "top2": {
+          "id": "investment_position_decision",
+          "score": 0.056272709116985085
+        },
+        "routeMargin": 0.01588501784246319
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "investment_price_trend",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-121",
+      "text": "年底额外那一笔今年还能不能有",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_wrong_selected_route",
+      "routeability": {
+        "probability": 0.7973929566437779,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "debt_repayment",
+          "score": 0.06855228039080867
+        },
+        "top2": {
+          "id": "income_bonus",
+          "score": 0.06265578741316778
+        },
+        "routeMargin": 0.005896492977640888
+      },
+      "expectedHeadRank": 2,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "debt_repayment",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "debt_repayment",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "income_bonus",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "debt_repayment",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-123",
+      "text": "网购的书架大概什么时候来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7109873093996308,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "receive_item",
+          "score": 0.07736822562210587
+        },
+        "top2": {
+          "id": "inventory_sale",
+          "score": 0.05510100520053989
+        },
+        "routeMargin": 0.022267220421565974
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "receive_item",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-124",
+      "text": "前几天订的落地灯大概哪天到家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.6891903728672015,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "receive_item",
+          "score": 0.08258593102216737
+        },
+        "top2": {
+          "id": "income_bonus",
+          "score": 0.051110998633766135
+        },
+        "routeMargin": 0.03147493238840123
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "receive_item",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-125",
+      "text": "这个台灯现在入不入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.734995566489272,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "item_purchase",
+          "score": 0.07122790778938182
+        },
+        "top2": {
+          "id": "investment_suitability",
+          "score": 0.06483261821827432
+        },
+        "routeMargin": 0.006395289571107493
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "item_purchase",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-126",
+      "text": "这把办公椅眼下要不要入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7409890158148065,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "item_purchase",
+          "score": 0.06173710509276874
+        },
+        "top2": {
+          "id": "investment_suitability",
+          "score": 0.061703707734599746
+        },
+        "routeMargin": 0.000033397358168991975
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "item_purchase",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-128",
+      "text": "我们俩之后还能不能走得更近一些",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7309331760432359,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "marital_relationship",
+          "score": 0.09049418526155605
+        },
+        "top2": {
+          "id": "relationship_development",
+          "score": 0.06767493477662181
+        },
+        "routeMargin": 0.02281925048493423
+      },
+      "expectedHeadRank": 2,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "relationship_development",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-129",
+      "text": "我俩以后有没有机会办婚礼",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7630535687066837,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "marriage_match",
+          "score": 0.08304503632923882
+        },
+        "top2": {
+          "id": "relationship_development",
+          "score": 0.06858927816521965
+        },
+        "routeMargin": 0.014455758164019172
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "marriage_match",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-130",
+      "text": "我们两个人最后会不会组建一个家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.735536328738561,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "marriage_match",
+          "score": 0.07612382247670031
+        },
+        "top2": {
+          "id": "marital_relationship",
+          "score": 0.07031821404534101
+        },
+        "routeMargin": 0.005805608431359299
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "marriage_match",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-132",
+      "text": "我们共同生活这么久，往后的相处能不能改善",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "fallback_head",
+      "nonRouteSubtype": null,
+      "failureClass": "known_routeability_reject",
+      "routeability": {
+        "probability": 0.7525123302989426,
+        "threshold": 0.7675678218564946,
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "head": {
+        "top1": {
+          "id": "marital_relationship",
+          "score": 0.08954918198977578
+        },
+        "top2": {
+          "id": "relationship_development",
+          "score": 0.06816405829718479
+        },
+        "routeMargin": 0.02138512369259099
+      },
+      "expectedHeadRank": 1,
+      "arbitration": null,
+      "selection": null,
+      "finalDisposition": "non_route",
+      "finalRoute": null,
+      "finalReason": "frozen_v02_score_reject",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": {
+          "version": "0.2-dev",
+          "routeId": "marital_relationship",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        },
+        "arbitration": null,
+        "selected": null
+      }
+    },
+    {
+      "id": "V013-I2-156",
+      "text": "我现在这个选择到底好不好",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved",
+      "failureClass": "nonroute_score_accept_head_fallback_activation",
+      "routeability": {
+        "probability": 0.7693831731825085,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "item_purchase",
+          "score": 0.06629717565586885
+        },
+        "top2": {
+          "id": "investment_suitability",
+          "score": 0.0652026388172289
+        },
+        "routeMargin": 0.0010945368386399423
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "item_purchase",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "item_purchase",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "item_purchase",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-161",
+      "text": "现在这个局面以后会变好吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved",
+      "failureClass": "nonroute_score_accept_head_fallback_activation",
+      "routeability": {
+        "probability": 0.7738957209024393,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "financial_fortune",
+          "score": 0.06236921730855551
+        },
+        "top2": {
+          "id": "investment_price_trend",
+          "score": 0.06162493522383928
+        },
+        "routeMargin": 0.0007442820847162329
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "financial_fortune",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "financial_fortune",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "financial_fortune",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-180",
+      "text": "这个理财平台收的托管费是不是太高",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route",
+      "failureClass": "nonroute_score_accept_head_fallback_activation",
+      "routeability": {
+        "probability": 0.7701970549477754,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_suitability",
+          "score": 0.057190430028862704
+        },
+        "top2": {
+          "id": "lend_money",
+          "score": 0.052726020039991786
+        },
+        "routeMargin": 0.004464409988870918
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "investment_suitability",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "investment_suitability",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-188",
+      "text": "证券账户的佣金现在是多少",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route",
+      "failureClass": "nonroute_score_accept_head_fallback_activation",
+      "routeability": {
+        "probability": 0.7764964708441826,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_position_decision",
+          "score": 0.05992616904094319
+        },
+        "top2": {
+          "id": "investment_liquidation",
+          "score": 0.058583395664058076
+        },
+        "routeMargin": 0.0013427733768851119
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "investment_position_decision",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "investment_position_decision",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-194",
+      "text": "基金赎回规则规定几点前算当天申请",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route",
+      "failureClass": "nonroute_support_rescue_activation",
+      "routeability": {
+        "probability": 0.7384732496856266,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "confirmed_support_rescue"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_liquidation",
+          "score": 0.05646072787811393
+        },
+        "top2": {
+          "id": "receive_item",
+          "score": 0.0560164535074197
+        },
+        "routeMargin": 0.0004442743706942337
+      },
+      "expectedHeadRank": null,
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "investment_liquidation",
+        "strength": "support",
+        "evidence": [
+          "investment",
+          "liquidation-event"
+        ],
+        "rationale": "event-only-support"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_liquidation",
+        "reasonCode": "unique_confirmed_candidate"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "investment_liquidation",
+      "finalReason": "unique_confirmed_candidate",
+      "evidence": {
+        "domains": [
+          "investment"
+        ],
+        "events": [
+          "investment_liquidation"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": {
+          "version": "0.2-dev",
+          "routeId": "investment_liquidation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:investment_liquidation"
+          ],
+          "contradictionEvidence": []
+        },
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "investment_liquidation",
+          "status": "confirmed",
+          "positiveEvidence": [
+            "event:investment_liquidation"
+          ],
+          "contradictionEvidence": []
+        }
+      }
+    },
+    {
+      "id": "V013-I2-197",
+      "text": "股票交易的印花税现在怎么收",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route",
+      "failureClass": "nonroute_score_accept_head_fallback_activation",
+      "routeability": {
+        "probability": 0.776755172895879,
+        "threshold": 0.7675678218564946,
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "head": {
+        "top1": {
+          "id": "investment_position_decision",
+          "score": 0.06194115896293498
+        },
+        "top2": {
+          "id": "investment_liquidation",
+          "score": 0.05401465593254472
+        },
+        "routeMargin": 0.007926503030390261
+      },
+      "expectedHeadRank": null,
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_head_top1"
+      },
+      "finalDisposition": "route_known",
+      "finalRoute": "investment_position_decision",
+      "finalReason": "fallback_head_top1",
+      "evidence": {
+        "domains": [
+          "investment",
+          "commerce"
+        ],
+        "events": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "compatibility": {
+        "expected": null,
+        "arbitration": null,
+        "selected": {
+          "version": "0.2-dev",
+          "routeId": "investment_position_decision",
+          "status": "compatible",
+          "positiveEvidence": [],
+          "contradictionEvidence": []
+        }
+      }
+    }
+  ]
+}
