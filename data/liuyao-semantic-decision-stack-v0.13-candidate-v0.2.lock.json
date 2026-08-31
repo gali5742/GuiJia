@@ -1,0 +1,11 @@
+{
+  "version": "0.13-candidate-v0.2-lock",
+  "status": "locked",
+  "candidatePath": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.2.json",
+  "candidateSha256": "23368e0911f1164f6af5d7e72dd894ebfcc767524840e5bba796aaff6940f828",
+  "baseRouteabilityModelSha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344",
+  "thresholdArtifactSha256": "439be7ebaca8a08e5a7ea0bbfc0dc89e67ae38fd4a547aa09ca00434af574fdc",
+  "frozenDependencyArtifactSha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f",
+  "preLockDevelopmentReportSha256": "296b294fc4f039b454240f4dd32dba4697596704c76f7d93aef8943c1bce8676",
+  "responsibilitySafetySweepSha256": "5d9477542038f00ecc1d9c80f3507705769c0e6c2d18d59d57bbaaf25694200a"
+}

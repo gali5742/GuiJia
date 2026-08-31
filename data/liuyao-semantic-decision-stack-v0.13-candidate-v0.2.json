@@ -1,0 +1,126 @@
+{
+  "version": "0.13-candidate-v0.2",
+  "status": "frozen_candidate",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "modernSemanticOnly": true,
+  "policyGate": "v0.1",
+  "evidence": "v0.2",
+  "arbitration": "v0.12",
+  "compatibility": "v0.2",
+  "routeability": {
+    "policyVersion": "v0.4",
+    "baseModelVersion": "v0.2",
+    "baseModelSha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344",
+    "thresholdSource": "frozen_v0.3_calibration",
+    "thresholdArtifactSha256": "439be7ebaca8a08e5a7ea0bbfc0dc89e67ae38fd4a547aa09ca00434af574fdc",
+    "threshold": 0.7675678218564946,
+    "belowThresholdConfirmedStrongRescue": true,
+    "belowThresholdConfirmedSupportRescue": true,
+    "compatibleOnlySupportRescue": false,
+    "thresholdRetunedForCandidateV02": false
+  },
+  "selection": {
+    "version": "v0.3",
+    "acceptedGateSupportPriority": true,
+    "supportPriorityRequiresNonContradiction": true,
+    "supportPriorityMayOverrideOtherConfirmedCandidate": false
+  },
+  "finalization": {
+    "version": "v0.1",
+    "scopeHardVeto": 0.4196,
+    "confirmedStrongScopeBypass": true,
+    "supportScopeBypass": false
+  },
+  "router": {
+    "version": "v0.8.1-canonical-frozen",
+    "dependencyArtifactSha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f"
+  },
+  "sufficiency": "v0.2-frozen",
+  "ruleRegistryBoundary": "modern-route-to-traditional-observation-only",
+  "runtimeSources": [
+    {
+      "path": "js/liuyao-divination-policy-gate-v01.js",
+      "sha256": "a965cd0a614e688602ab5fc912885b6ba980838e6c68f4a96df64fb4d7e507fc"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v01.js",
+      "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v02.js",
+      "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v011.js",
+      "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v012.js",
+      "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60"
+    },
+    {
+      "path": "js/liuyao-semantic-route-compatibility-v01.js",
+      "sha256": "18f6b654cd3a4deede93aa2b9ce0e8776041c46dab4089684f130822a48807c9"
+    },
+    {
+      "path": "js/liuyao-semantic-route-compatibility-v02.js",
+      "sha256": "0fa2b6f77eacd26110d04290d53f89f6e0972e4a957ac6c2b6b6a88ead248a7b"
+    },
+    {
+      "path": "js/liuyao-semantic-routeability-v04.js",
+      "sha256": "fec54a6c580f84df04c9360723dde842906946be47166341f3ccb3c293361dde"
+    },
+    {
+      "path": "js/liuyao-semantic-route-selection-v03.js",
+      "sha256": "4c864bd3816baa38c94ad19c888a8607dacc5295ee44b8ca2c12fbd10159c6bb"
+    },
+    {
+      "path": "js/liuyao-semantic-finalization-v01.js",
+      "sha256": "743424fe9259acd20378aea8bdf707d62a8b9d947a875763b402696559fca7e0"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.2.json",
+      "sha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3.json",
+      "sha256": "439be7ebaca8a08e5a7ea0bbfc0dc89e67ae38fd4a547aa09ca00434af574fdc"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3.lock.json",
+      "sha256": "d25eb3238c2adfd13e16ca0d8ea9e0e9f32ff5d8d3882b0ea39f34cc6e07cfa4"
+    },
+    {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.1.json",
+      "sha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f"
+    },
+    {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.1.lock.json",
+      "sha256": "a53f22416f2dd1008759d9b53c76e4b0c618b2a3723af18c0b3d1f34df7ea77a"
+    },
+    {
+      "path": "data/liuyao-semantic-route-inventory-v0.2.json",
+      "sha256": "69b13d3316e34a67214c674a9bd43967222cfddda5a290e3a8de50aa5b66760c"
+    }
+  ],
+  "preLockEvidence": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v02-responsibility-safety-sweep.json",
+      "sha256": "5d9477542038f00ecc1d9c80f3507705769c0e6c2d18d59d57bbaaf25694200a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v02-development-report.json",
+      "sha256": "296b294fc4f039b454240f4dd32dba4697596704c76f7d93aef8943c1bce8676"
+    }
+  ],
+  "evaluationPolicy": {
+    "current198DevelopmentIsTuningOnly": true,
+    "v03CalibrationIsCalibrationOnly": true,
+    "candidateV01IndependentEvalMayInformNextVersionDiagnosisOnly": true,
+    "candidateV01IndependentEvalIsNotIndependentEvidenceForCandidateV02": true,
+    "independentEvalMustBeFreshAfterThisLock": true,
+    "independentEvalMayNotTrainCalibrateOrRetuneThisCandidate": true,
+    "futureBlindMustBeFreshAfterCandidateLock": true,
+    "noSameVersionRetuneAfterIndependentEval": true
+  }
+}
