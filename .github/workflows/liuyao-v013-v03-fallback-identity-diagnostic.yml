@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v01.mjs'
       - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v01-architecture.mjs'
+      - 'scripts/audit-liuyao-semantic-embedding-batch-invariance.mjs'
       - '.github/workflows/liuyao-v013-v03-fallback-identity-diagnostic.yml'
   workflow_dispatch:
 
@@ -31,10 +32,12 @@ jobs:
         run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v01.mjs
       - name: Diagnose fallback architecture counterfactuals
         run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v01-architecture.mjs
+      - name: Audit single-vs-batch embedding invariance
+        run: node scripts/audit-liuyao-semantic-embedding-batch-invariance.mjs
       - name: Commit aggregate diagnostics
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/liuyao-semantic-fallback-identity-v0.1-calibration-diagnostic.json data/liuyao-semantic-fallback-identity-v0.1-architecture-counterfactual.json
-          git commit -m 'test(liuyao): record fallback identity architecture diagnosis'
+          git add data/liuyao-semantic-fallback-identity-v0.1-calibration-diagnostic.json data/liuyao-semantic-fallback-identity-v0.1-architecture-counterfactual.json data/liuyao-semantic-embedding-batch-invariance-audit-v0.1.json
+          git commit -m 'test(liuyao): record fallback identity and embedding diagnostics'
           git push origin HEAD:liuyao-semantic-v013-core-train-v01
