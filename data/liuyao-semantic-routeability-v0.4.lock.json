@@ -1,0 +1,10 @@
+{
+  "version": "0.4-lock",
+  "status": "locked_representation_corrected",
+  "artifactPath": "data/liuyao-semantic-routeability-v0.4.json",
+  "artifactSha256": "3cb47c30e806605c8886d66ce20cc475be5c9c574256a76a092704cd4ec66db3",
+  "threshold": 0.7678148573595883,
+  "textsPerEncoderCall": 1,
+  "executionContractSha256": "7c9a4f2019b856da9667597e8bce6cb50f06da30865b4467421812540eb5fd2d",
+  "calibrationEvidenceStatus": "representation_correction_reprocessed_not_fresh"
+}
