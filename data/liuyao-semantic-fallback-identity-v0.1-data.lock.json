@@ -1,0 +1,17 @@
+{
+  "version": "0.13-fallback-identity-v0.1-data-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_fallback_identity_v0.1",
+  "trainingPath": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+  "trainingSha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+  "calibrationPath": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+  "calibrationSha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+  "designPath": "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+  "designSha256": "2b802c93712f510d096c2771032c362c497aba17fe98c6bc4e4933a81580c093",
+  "policy": {
+    "trainingAndCalibrationSealedBeforeFirstEncoderScoring": true,
+    "calibrationMayNotTrainModel": true,
+    "calibrationMayChooseOnlyOneGlobalFallbackThreshold": true,
+    "postSealWordingMutationAllowed": false
+  }
+}

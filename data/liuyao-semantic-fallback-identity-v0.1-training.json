@@ -1,0 +1,1119 @@
+{
+  "version": "0.13-fallback-identity-v0.1-training-v0.1",
+  "status": "sealed_training_data",
+  "sealed": true,
+  "scope": "liuyao_semantic_fallback_identity_v0.1",
+  "createdAfterDesignFreeze": true,
+  "policy": {
+    "useForFallbackIdentityTraining": true,
+    "useForThresholdCalibration": false,
+    "useAsIndependentEvaluation": false,
+    "historicalRouterTrainSplitsAddedSeparatelyAtTrainingTime": true,
+    "sealedBlindOrIndependentRowsForbidden": true,
+    "traditionalLiuYaoFeaturesForbidden": true
+  },
+  "rows": [
+    {
+      "text": "这一年手里的余钱会不会比过去更容易留下来",
+      "expectedRoute": "financial_fortune",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "接下来几个月家里的钱袋子能不能松快些",
+      "expectedRoute": "financial_fortune",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "往后这段时间我手上会不会比现在宽绰一点",
+      "expectedRoute": "financial_fortune",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "今年剩下的日子经济上能不能慢慢轻松些",
+      "expectedRoute": "financial_fortune",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个铺面往后还能不能一直撑下去",
+      "expectedRoute": "business_operation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我手里这门小生计以后还有没有做头",
+      "expectedRoute": "business_operation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这家铺子接下来能不能慢慢站稳",
+      "expectedRoute": "business_operation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "自己做的这摊事情后面还能不能持续",
+      "expectedRoute": "business_operation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "跟对方这桩买卖最后还有没有下文",
+      "expectedRoute": "commercial_transaction",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这门买卖双方最后能不能说定",
+      "expectedRoute": "commercial_transaction",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "眼前这桩生意最后会不会有结果",
+      "expectedRoute": "commercial_transaction",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "和这位客商谈的事情最后能不能落定",
+      "expectedRoute": "commercial_transaction",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "店里下一轮要添的那批东西能不能凑齐",
+      "expectedRoute": "inventory_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "后仓下一季需要的货最后能不能备全",
+      "expectedRoute": "inventory_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "铺面准备添上的那批货能不能按时齐全",
+      "expectedRoute": "inventory_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "下一轮店里需要的商品能不能及时凑够",
+      "expectedRoute": "inventory_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "库房压着的旧货以后能不能慢慢走掉",
+      "expectedRoute": "inventory_sale",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "店里剩着的那一批东西能不能逐步腾出去",
+      "expectedRoute": "inventory_sale",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "仓里占地方的旧货后面能不能消下去",
+      "expectedRoute": "inventory_sale",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手上囤着的那批东西以后能不能清出去",
+      "expectedRoute": "inventory_sale",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手头差一截，能不能先从朋友那边挪些过来",
+      "expectedRoute": "borrow_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "最近这个缺口有没有人能先帮我垫上",
+      "expectedRoute": "borrow_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "临时差一笔，我能不能从熟人那里凑过来",
+      "expectedRoute": "borrow_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "眼下差的钱能不能先从家里补上",
+      "expectedRoute": "borrow_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "朋友临时缺钱，我把一笔先给他用妥不妥",
+      "expectedRoute": "lend_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "熟人手头紧，我先拿些钱给他应急合适吗",
+      "expectedRoute": "lend_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "同事现在缺口大，我把钱先给他顶一阵行不行",
+      "expectedRoute": "lend_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "亲戚临时差钱，我先拿一笔给他用会不会麻烦",
+      "expectedRoute": "lend_money",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "早前给出去的那笔钱最后还回得来吗",
+      "expectedRoute": "debt_collection",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "之前放到别人手里的那笔款还能回到我这边吗",
+      "expectedRoute": "debt_collection",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "那笔一直在别人那里的钱以后还有没有着落",
+      "expectedRoute": "debt_collection",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "过去交到对方手上的那笔钱最终能回来吗",
+      "expectedRoute": "debt_collection",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "身上那笔账今年能不能彻底了结",
+      "expectedRoute": "debt_repayment",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "压着我的那笔账以后能不能清干净",
+      "expectedRoute": "debt_repayment",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这笔一直挂在身上的账什么时候能结束",
+      "expectedRoute": "debt_repayment",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我手上这个负担年底前能不能处理完",
+      "expectedRoute": "debt_repayment",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "跟这个人搭着把店做下去合适吗",
+      "expectedRoute": "partnership",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我们两个人一起把这门事撑起来能不能长久",
+      "expectedRoute": "partnership",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和他搭着做这个铺子以后行不行",
+      "expectedRoute": "partnership",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "两个人一块做这门生意后面能不能稳住",
+      "expectedRoute": "partnership",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金放上一阵子最后有没有赚头",
+      "expectedRoute": "investment_profit",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "钱放在这个基金里半年后能不能多出一些",
+      "expectedRoute": "investment_profit",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只股票拿一段时间最后会不会有进项",
+      "expectedRoute": "investment_profit",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个投资项目做完以后能不能多出一笔",
+      "expectedRoute": "investment_profit",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手上的这只基金全退出来能不能顺当",
+      "expectedRoute": "investment_liquidation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这份基金我全部退掉以后会不会卡住",
+      "expectedRoute": "investment_liquidation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手里这只股票一次都撤出来能不能成",
+      "expectedRoute": "investment_liquidation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这项投资我准备整个退出去会不会顺利",
+      "expectedRoute": "investment_liquidation",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个基金现在进去妥不妥",
+      "expectedRoute": "investment_suitability",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "眼下把钱放到这只基金里合不合我的情况",
+      "expectedRoute": "investment_suitability",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只股票现在参与进去是不是稳妥",
+      "expectedRoute": "investment_suitability",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个投资项目我现在进场到底合不合宜",
+      "expectedRoute": "investment_suitability",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只股票接下来是多拿一点还是收一点回来",
+      "expectedRoute": "investment_position_decision",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手里这只基金以后是多留些还是少留些",
+      "expectedRoute": "investment_position_decision",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "现在这份股票我是继续放着还是先拿回一部分",
+      "expectedRoute": "investment_position_decision",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金手上的份额接下来多一点好还是少一点好",
+      "expectedRoute": "investment_position_decision",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金过阵子会往上还是往下",
+      "expectedRoute": "investment_price_trend",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "手上这个股票后面一阵会抬高还是压低",
+      "expectedRoute": "investment_price_trend",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金接下来是往高处走还是往低处走",
+      "expectedRoute": "investment_price_trend",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个股票过几周大概会朝哪个方向走",
+      "expectedRoute": "investment_price_trend",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "以后公司每个月固定给我的那部分会不会多一点",
+      "expectedRoute": "income_salary",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "明年每月稳定到手的那一份能不能增加",
+      "expectedRoute": "income_salary",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "公司每个月固定发给我的钱以后会不会变多",
+      "expectedRoute": "income_salary",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "往后每月固定拿到的那部分能不能往上走",
+      "expectedRoute": "income_salary",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "年底公司另外给的那笔钱今年还有没有",
+      "expectedRoute": "income_bonus",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次项目做完额外那一份我能不能分到",
+      "expectedRoute": "income_bonus",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "公司年底多发的那部分今年会不会有",
+      "expectedRoute": "income_bonus",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "项目结束后另外给我的那笔钱最后能不能落下来",
+      "expectedRoute": "income_bonus",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我订的书柜大概哪天来",
+      "expectedRoute": "receive_item",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "前两天订的沙发什么时候能到家",
+      "expectedRoute": "receive_item",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "网上订的餐桌还要几天才来",
+      "expectedRoute": "receive_item",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我定的落地灯这周会不会送来",
+      "expectedRoute": "receive_item",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这台电饭煲眼下入不入",
+      "expectedRoute": "item_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个咖啡磨现在收不收",
+      "expectedRoute": "item_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这把人体工学椅现在拿下合不合适",
+      "expectedRoute": "item_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这台除湿机眼下值不值入",
+      "expectedRoute": "item_purchase",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和这个人之后能不能真正走到一起",
+      "expectedRoute": "relationship_development",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我们两个以后有没有可能变成一对",
+      "expectedRoute": "relationship_development",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我跟她之后能不能从现在这样更进一步",
+      "expectedRoute": "relationship_development",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和他往后有没有机会走成一对",
+      "expectedRoute": "relationship_development",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和对象以后有没有机会成为一家人",
+      "expectedRoute": "marriage_match",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我们两个最后能不能把日子正式过到一块",
+      "expectedRoute": "marriage_match",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我俩以后有没有可能办成终身大事",
+      "expectedRoute": "marriage_match",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和伴侣最后能不能真正组成一个家",
+      "expectedRoute": "marriage_match",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和另一半共同生活这么久，往后相处能不能缓和",
+      "expectedRoute": "marital_relationship",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我们已经一起生活多年，接下来关系会不会好些",
+      "expectedRoute": "marital_relationship",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "家里两个人现在总拧巴，往后能不能和顺一点",
+      "expectedRoute": "marital_relationship",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我和另一半这几年相处不顺，后面能不能改善",
+      "expectedRoute": "marital_relationship",
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_style_known",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次资格考试最后能不能通过",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "下周那场面试我有没有机会被录取",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "丢在出租车上的围巾还能找回来吗",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这场民事纠纷最终会怎么判",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "下个月搬到新住处顺不顺",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次出国申请能不能批下来",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我换到另一个部门以后能不能适应",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这门课程继续学下去值不值",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "周末那场比赛能不能进下一轮",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次公开演讲会不会顺利",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "准备换一座城市生活合不合适",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "新租的房子住起来会不会顺心",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次证书审核能不能按期通过",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我的行李托运会不会出岔子",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "新加入的团队以后好不好相处",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "孩子转到新学校能不能适应",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次作品投稿有没有机会入选",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "明天和领导做汇报能不能顺利",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我准备换专业这一步合不合适",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这次仲裁最后结果会偏向哪边",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "找不到的门卡还能不能找着",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "下次驾驶考试我有没有机会顺利合格",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "outside_current_22",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "眼下这件事情最后会变成什么样",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我现在这个决定到底对不对",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "后面的局面会不会慢慢好起来",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这件事我还要不要继续做",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "对方接下来究竟会是什么态度",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我是不是应该再等一阵",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "现在这个机会究竟要不要抓",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这条路往后还能不能继续走",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "事情最后还会不会再有变化",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我现在主动一点好还是不动好",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这件事情什么时候才能明朗",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "接下来我应该往哪边使劲",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "现在这个状态还会维持多久",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我目前这么选会不会后悔",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "眼前的事情是不是还有余地",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我接下来是不是应该坚持",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这件事最终到底能不能有结果",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "以后这一阵会不会比现在顺",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我现在是不是看错方向了",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个机会最后会不会变掉",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这一步现在迈出去合不合适",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "我还要不要在这件事上花时间",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "route_unresolved",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金的管理人水平到底怎么样",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "证券软件现在换哪一个更顺手",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这家店门口以后人流会不会增加",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "客户最近为什么一直不回我的消息",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "供货方最近的信誉还靠不靠谱",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "合作对象私下做事是不是可信",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "公司明年会不会缩减岗位",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "领导以后会不会把我调到别的组",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这份商业报价现在是不是偏高",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "仓库盘点方式要不要重新设计",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这家物流公司的客服会不会改善",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个商品的保修政策到底靠不靠谱",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "基金的托管费现在按什么标准计算",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "股票交易的税费具体是怎么收的",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这只基金退出时几点前提交算当天",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "公司工资条上的扣款为什么这么算",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "奖金分配制度这样设计公不公平",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个合同里的违约条款有没有问题",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "银行账户换一家机构是不是更方便",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "基金经理今年会不会离开现在的公司",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "这个股票账户的软件什么时候升级",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "店铺旁边新开商场会不会影响人流",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "伴侣换到新岗位以后工作顺不顺",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    },
+    {
+      "text": "朋友介绍的那个人性格怎么样",
+      "expectedRoute": null,
+      "identityLabel": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "split": "training_augmentation"
+    }
+  ],
+  "presealPatches": [
+    {
+      "version": "v0.2",
+      "corpus": "training",
+      "expectedRoute": null,
+      "from": "这次驾照考试能不能一次通过",
+      "to": "下次驾驶考试我有没有机会顺利合格",
+      "purpose": "remove exact overlap with prior LiuYao corpus before seal or encoder scoring"
+    }
+  ]
+}
