@@ -5,6 +5,7 @@ import '../tests/liuyao-semantic-v013-routing-contract-tests.js';
 import '../tests/liuyao-semantic-v013-candidate-v02-tests.js';
 import '../tests/liuyao-semantic-v013-candidate-v03-contract-tests.js';
 import './verify-liuyao-semantic-v013-candidate-v03-design.mjs';
+import './verify-liuyao-next-topic-literature-research-policy-v01.mjs';
 import '../tests/liuyao-semantic-route-arbitration-v092-tests.js';
 import '../tests/liuyao-semantic-route-identity-v01-tests.js';
 import '../tests/liuyao-semantic-route-evidence-v01-tests.js';
