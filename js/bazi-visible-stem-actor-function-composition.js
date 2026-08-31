@@ -6,7 +6,7 @@
 
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
-    const VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_VERSION = '0.1';
+    const VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_VERSION = '0.2';
     const VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_RULE_ID = 'BAZI-STRENGTH-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-001';
 
     const readinessStatuses = Object.freeze({
@@ -32,7 +32,11 @@
         orthogonalParticipationAndRealizationAxes:true,
         bucketViewsAreIndexesNotAdditionalEvidence:true,
         resolvedMeansConclusionAvailableNotFunctionRealized:true,
-        supportedResolvedRealizationStates:Object.freeze(['not-realized-in-source-context']),
+        supportedResolvedRealizationStates:Object.freeze([
+            'realized-in-source-context',
+            'not-realized-in-source-context'
+        ]),
+        positiveRealizationStateAcceptedFromUpstream:true,
         positiveRealizationStateInvented:false,
         unknownResolvedRealizationStateBlocks:true,
         unresolvedInputPreserved:true,
@@ -46,8 +50,8 @@
         priorityAggregation:false,
         orderOverwrite:false,
         finalStrengthMapping:false,
-        statement:'本层把 Actor Interaction Aggregation 已保留的 relation-edge inputs 整理成正交 actor profile：participation role 与 realization coverage 分轴保存；resolved 只表示该 edge 已有结论，不等于 function realized。当前上游没有正向 realized state，因此 v0.1 不发明该状态。',
-        boundary:'source / target / peer、not-realized / unresolved / inconsistent 必须可在同一 actor profile 共存；bearing 仍是独立条件；未知的未来 resolved realization state 不得被静默当作正向兑现；本层不生成 actor global effective / ineffective。'
+        statement:'本层把 Actor Interaction Aggregation 已保留的 relation-edge inputs 整理成正交 actor profile：participation role 与 realization coverage 分轴保存；resolved 只表示该 edge 已有结论，不等于 function realized。v0.2 明确接受上游 Direct Source Function Realization 已合法产生的 realized-in-source-context，但不自行发明新的正向状态。',
+        boundary:'source / target / peer、realized / not-realized / unresolved / inconsistent 必须可在同一 actor profile 共存；bearing 仍是独立条件；未知的未来 resolved realization state 不得被静默当作正向兑现；本层不生成 actor global effective / ineffective。'
     });
 
     const unique = (items = []) => [...new Set(items.filter(Boolean))];
@@ -84,6 +88,7 @@
             return 'inconsistent';
         }
         if (entry.resolutionCoverageStatus !== 'resolved') return 'unresolved';
+        if (entry.realizationState === 'realized-in-source-context') return 'realized';
         if (entry.realizationState === 'not-realized-in-source-context') return 'not-realized';
         return 'unsupported-resolved-state';
     };
@@ -97,6 +102,7 @@
         const classified = entries.map((entry) => ({ entry, classification:classifyFunctionEntry(entry) }));
         const byState = {
             resolved:entries.filter((item) => item.resolutionCoverageStatus === 'resolved'),
+            realized:classified.filter((item) => item.classification === 'realized').map((item) => item.entry),
             notRealized:classified.filter((item) => item.classification === 'not-realized').map((item) => item.entry),
             unresolved:classified.filter((item) => item.classification === 'unresolved').map((item) => item.entry),
             inconsistent:classified.filter((item) => item.classification === 'inconsistent').map((item) => item.entry),
@@ -110,6 +116,7 @@
             }),
             byState:Object.freeze({
                 resolved:freezeArray(byState.resolved),
+                realized:freezeArray(byState.realized),
                 notRealized:freezeArray(byState.notRealized),
                 unresolved:freezeArray(byState.unresolved),
                 inconsistent:freezeArray(byState.inconsistent),
@@ -152,6 +159,7 @@
             targetFunctionEntries:profileViews.byRole.target,
             peerFunctionEntries:profileViews.byRole.peer,
             resolvedFunctionEntries:profileViews.byState.resolved,
+            realizedFunctionEntries:profileViews.byState.realized,
             notRealizedFunctionEntries:profileViews.byState.notRealized,
             unresolvedFunctionEntries:profileViews.byState.unresolved,
             inconsistentFunctionEntries:profileViews.byState.inconsistent,
@@ -169,11 +177,11 @@
                 : readinessStatus === readinessStatuses.BLOCKED_INCONSISTENT_EDGE
                     ? 'actor profile 已保留全部 relation edges，但至少一个 edge context 上游状态不一致；composition interpretation 阻断。'
                     : readinessStatus === readinessStatuses.BLOCKED_UNSUPPORTED_RESOLVED_STATE
-                        ? 'actor profile 遇到 v0.1 未登记的 resolved realization state；不得把未知状态静默解释为 function realized。'
+                        ? 'actor profile 遇到 v0.2 未登记的 resolved realization state；不得把未知状态静默解释为 function realized。'
                         : readinessStatus === readinessStatuses.INCOMPLETE_REALIZATION_COVERAGE
-                            ? 'actor profile 已建立，resolved 与 unresolved relation edges 可并存；realization coverage 未完整时只能保留 profile，不能形成 actor-level interpretation。'
-                            : 'actor profile 的已知 relation edges 均已有 v0.1 支持的 realization 结论；这些结论如何形成 actor-level interpretation 仍无规则。',
-            boundary:'Profile 分桶只是同一组 edge evidence 的不同索引视图，不产生额外证据或重复计力；resolved 不等于 realized，not-realized 只属于对应 edge；不得从 participation 种类或桶内数量推导 actor global state。'
+                            ? 'actor profile 已建立，realized、not-realized 与 unresolved relation edges 可并存；realization coverage 未完整时只能保留 profile，不能形成 actor-level interpretation。'
+                            : 'actor profile 的已知 relation edges 均已有 v0.2 支持的 realization 结论；realized 与 not-realized 仍保持逐 edge 语义，这些结论如何形成 actor-level interpretation 仍无规则。',
+            boundary:'Profile 分桶只是同一组 edge evidence 的不同索引视图，不产生额外证据或重复计力；resolved 不等于 realized，realized / not-realized 都只属于对应 edge；不得从 participation 种类、状态种类或桶内数量推导 actor global state。'
         });
     };
 
@@ -190,6 +198,7 @@
             actorProfileCentric:true,
             orthogonalParticipationAndRealizationAxes:true,
             resolvedDoesNotMeanRealized:true,
+            positiveRealizationStateAcceptedFromUpstream:true,
             positiveRealizationStateInvented:false,
             unknownResolvedStateBlocks:true,
             bearingSeparate:true,
@@ -198,8 +207,8 @@
         }),
         sourceEffectIds:Object.freeze([]),
         sourceRefs:Object.freeze([]),
-        rationale:'Actor Interaction Aggregation 已经完成 edge-preserving actor view；Composition v0.1 只把这些 edge 组织成可供后续规则消费的 actor function profile，并冻结 resolved / realized 的语义边界。',
-        boundary:'该 Claim 只解决 profile schema 与安全边界，不解决 actor-level effectiveness mapping。'
+        rationale:'Actor Interaction Aggregation 已完成 edge-preserving actor view；Composition v0.2 将上游已受控的 realized / not-realized source-context states 都作为正交 profile 内容保存，同时继续冻结 resolved / realized 的语义边界。',
+        boundary:'该 Claim 只解决 profile schema 与受支持 realization vocabulary，不解决 actor-level effectiveness mapping。'
     });
 
     const makeProfileClaim = (record = {}, index = 0) => Object.freeze({
@@ -232,8 +241,8 @@
         resolvedByClaimIds:Object.freeze(['SC-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-CONTRACT']),
         ruleId:VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_RULE_ID,
         dependsOnDependencyIds:Object.freeze(['SD-VISIBLE-STEM-ACTOR-INTERACTION-MODEL']),
-        statement:'Actor Function Composition v0.1 已冻结为正交 profile schema：participation role 与 realization state 分轴索引，同一 edge 不因进入多个视图而增加证据。',
-        boundary:'Model resolved 仅表示 profile contract 已确定，不表示 edge coverage 或 actor-level interpretation 已完成。'
+        statement:'Actor Function Composition v0.2 已冻结为正交 profile schema：participation role 与 realization state 分轴索引，并显式支持上游受控的 realized-in-source-context / not-realized-in-source-context；同一 edge 不因进入多个视图而增加证据。',
+        boundary:'Model resolved 仅表示 profile contract 与已登记 vocabulary 已确定，不表示 edge coverage 或 actor-level interpretation 已完成。'
     });
 
     const buildProfileInventoryDependency = (records = [], profileClaims = []) => Object.freeze({
@@ -276,9 +285,9 @@
             statement:!records.length
                 ? '无 actor profile 需要 composition readiness，当前为 not-applicable。'
                 : blockedOrIncomplete.length
-                    ? '至少一个 actor profile 含 unresolved、inconsistent 或 v0.1 未支持的 resolved realization state，composition readiness 尚未满足。'
-                    : '所有 actor profile 的已知 function edges 均已有 v0.1 支持的 realization 结论，可进入后续 actor-level interpretation。',
-            boundary:'Readiness 只检查输入是否可解释；不得把 ready actor 数量、resolved edge 数量或 not-realized 数量换算成 global effectiveness。'
+                    ? '至少一个 actor profile 含 unresolved、inconsistent 或 v0.2 未支持的 resolved realization state，composition readiness 尚未满足。'
+                    : '所有 actor profile 的已知 function edges 均已有 v0.2 支持的 realization 结论，可进入后续 actor-level interpretation。',
+            boundary:'Readiness 只检查输入是否可解释；不得把 ready actor 数量、realized / not-realized edge 数量或状态比例换算成 global effectiveness。'
         });
     };
 
@@ -297,7 +306,7 @@
                 ? ['SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-READINESS']
                 : ['SD-VISIBLE-STEM-ACTOR-FUNCTION-PROFILE-INVENTORY']),
             statement:actorsWithFunctions.length
-                ? 'actor function profile 已建立，但目前没有把 source / target / peer 与各 edge realization 组合为 actor-level semantic state 的传统规则映射。'
+                ? 'actor function profile 已建立，但目前没有把 source / target / peer 与各 edge realized / not-realized / unresolved 组合为 actor-level semantic state 的传统规则映射。'
                 : '无 function inputs 需要 actor-level profile interpretation，当前为 not-applicable。',
             boundary:'不得用 participation 类型、bucket 数量、resolved 比例、bearing 条件、多数、优先级或写入顺序替代 actor-level interpretation rule。'
         });
@@ -332,7 +341,7 @@
                 ...(current.dependsOnDependencyIds || []),
                 interpretationDependency.id
             ])),
-            statement:'visible stem 已具 actor function profile，但 profile interpretation 与 generic Visible Effectiveness mapping 仍未解析。',
+            statement:'visible stem 已具 actor function profile，且 profile 可区分 realized / not-realized / unresolved，但 profile interpretation 与 generic Visible Effectiveness mapping 仍未解析。',
             boundary:'任何单一 role、edge realization、bearing context 或 profile completeness 均不得直接生成 generic effective / ineffective。'
         });
     };
@@ -383,8 +392,8 @@
             sufficiency,
             boundaries:Object.freeze([
                 ...(base.boundaries || []),
-                'Actor Function Composition v0.1 只建立正交 function profile；source / target / peer 与 realization state 分轴保存。',
-                'resolved edge 仅表示已有具体结论，不等于 function realized；当前没有正向 realization state，因此不得自行补出。',
+                'Actor Function Composition v0.2 只建立正交 function profile；source / target / peer 与 realization state 分轴保存。',
+                'realized-in-source-context 与 not-realized-in-source-context 均只来自上游已解析 edge；Composition 不自行制造正向 realization。',
                 'profile bucket 只是同一 edge evidence 的索引视图，不重复计力；bearing 仍与 function entries 分层。',
                 'Actor profile interpretation、Visible Effectiveness 与最终 Strength / Assessment 继续 unresolved。'
             ])
