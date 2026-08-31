@@ -1,0 +1,61 @@
+{
+  "version": "0.13-candidate-v0.1-evaluation-decision",
+  "status": "recorded",
+  "candidateSha256": "6503446eb9c9e606ed3de53de5a9e98c1a77362d7a491b2a113f6f31ced059a9",
+  "independentEval": {
+    "dataSha256": "41c6536d0fdaac27b16c88cb5318644cf9ad5c234df688b1901377810c6b8fc2",
+    "report": "data/liuyao-semantic-decision-stack-v0.13-independent-report-v0.1.json"
+  },
+  "promotionPolicy": {
+    "minimumKnownExactRoute": 0.80,
+    "preferredKnownExactRouteRange": [0.82, 0.85],
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "observed": {
+    "knownExactRoute": 0.7045454545454546,
+    "acceptedRouteAccuracy": 0.9207920792079208,
+    "overallFalseRouteActivation": 0.045454545454545456,
+    "byNonRouteSubtype": {
+      "outside_current_22": 0.09090909090909091,
+      "route_unresolved": 0,
+      "near_domain_not_current_route": 0.045454545454545456
+    },
+    "byKnownPath": {
+      "strong_arbitration": {
+        "finalExact": 0.9545454545454546,
+        "acceptedAccuracy": 1
+      },
+      "support_arbitration": {
+        "finalExact": 0.6136363636363636,
+        "acceptedAccuracy": 0.9310344827586207
+      },
+      "fallback_head": {
+        "finalExact": 0.5454545454545454,
+        "acceptedAccuracy": 0.8
+      }
+    },
+    "failureStages": {
+      "routeabilityReject": 28,
+      "scopeHardVeto": 3,
+      "selectionUnresolved": 0,
+      "wrongSelectedRoute": 8
+    }
+  },
+  "decision": {
+    "promotableToCurrent22BaselineV1": false,
+    "reasonCodes": [
+      "known_exact_below_minimum",
+      "accepted_accuracy_below_minimum",
+      "outside_current_22_false_activation_above_subtype_cap",
+      "support_path_underperforming",
+      "fallback_path_underperforming"
+    ],
+    "candidateMutationFromThisIndependentEval": false,
+    "nextCandidateRequiredForAnyArchitectureOrModelChange": true,
+    "nextCandidateId": "v0.13-v0.2",
+    "newIndependentEvalRequiredAfterNextCandidateFreeze": true
+  }
+}
