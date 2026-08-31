@@ -1,0 +1,1943 @@
+{
+  "version": "0.13-candidate-v0.2-development-report-v0.1",
+  "status": "pre_lock_development_diagnostic",
+  "policy": {
+    "usesIndependentEval": false,
+    "training": false,
+    "calibration": false,
+    "mutatesCandidateV01": false,
+    "claimsGeneralization": false
+  },
+  "candidateDraft": {
+    "evidence": "v0.2",
+    "arbitration": "v0.12",
+    "compatibility": "v0.2",
+    "routeabilityPolicy": "v0.4",
+    "selection": "v0.3",
+    "finalization": "v0.1",
+    "routeabilityBaseModel": "frozen_v0.2",
+    "threshold": 0.7675678218564946,
+    "router": "v0.8.1-canonical-frozen",
+    "scopeHardVeto": 0.4196
+  },
+  "promotionPolicy": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "byDataset": {
+    "sealed_development_198": {
+      "rows": 198,
+      "known": 132,
+      "nonRoute": 66,
+      "routeabilityKnownRecall": 0.8863636363636364,
+      "knownFinalRetention": 0.8787878787878788,
+      "knownExactRoute": 0.8787878787878788,
+      "acceptedRouteAccuracy": 1,
+      "nonRouteFalseRouteActivation": 0.015151515151515152,
+      "nonRouteNoRouteActivationSafety": 0.9848484848484849,
+      "rescueAndBypass": {
+        "confirmedStrongRescue": 14,
+        "confirmedSupportRescue": 6,
+        "supportPriority": 0,
+        "confirmedStrongScopeBypass": 0
+      },
+      "byKnownPath": {
+        "strong_arbitration": {
+          "n": 44,
+          "routeabilityRecall": 1,
+          "finalExact": 1,
+          "acceptedAccuracy": 1
+        },
+        "support_arbitration": {
+          "n": 44,
+          "routeabilityRecall": 1,
+          "finalExact": 1,
+          "acceptedAccuracy": 1
+        },
+        "fallback_head": {
+          "n": 44,
+          "routeabilityRecall": 0.6590909090909091,
+          "finalExact": 0.6363636363636364,
+          "acceptedAccuracy": 1
+        }
+      },
+      "byNonRouteSubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0.045454545454545456,
+          "noRouteActivationSafety": 0.9545454545454546
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0,
+          "noRouteActivationSafety": 1
+        },
+        "near_domain_not_current_route": {
+          "n": 22,
+          "falseRouteActivation": 0,
+          "noRouteActivationSafety": 1
+        }
+      },
+      "failures": {
+        "routeabilityReject": 15,
+        "selectionUnresolved": 0,
+        "scopeHardVeto": 1,
+        "wrongSelectedRoute": 0
+      }
+    },
+    "fresh_calibration_223": {
+      "rows": 223,
+      "known": 88,
+      "nonRoute": 135,
+      "routeabilityKnownRecall": 0.7727272727272727,
+      "knownFinalRetention": 0.7613636363636364,
+      "knownExactRoute": 0.6363636363636364,
+      "acceptedRouteAccuracy": 0.835820895522388,
+      "nonRouteFalseRouteActivation": 0.02962962962962963,
+      "nonRouteNoRouteActivationSafety": 0.9703703703703703,
+      "rescueAndBypass": {
+        "confirmedStrongRescue": 0,
+        "confirmedSupportRescue": 2,
+        "supportPriority": 6,
+        "confirmedStrongScopeBypass": 0
+      },
+      "byKnownPath": {
+        "support_arbitration": {
+          "n": 44,
+          "routeabilityRecall": 0.8181818181818182,
+          "finalExact": 0.8181818181818182,
+          "acceptedAccuracy": 1
+        },
+        "fallback_head": {
+          "n": 44,
+          "routeabilityRecall": 0.7272727272727273,
+          "finalExact": 0.45454545454545453,
+          "acceptedAccuracy": 0.6451612903225806
+        }
+      },
+      "byNonRouteSubtype": {
+        "outside_current_22": {
+          "n": 45,
+          "falseRouteActivation": 0.044444444444444446,
+          "noRouteActivationSafety": 0.9555555555555556
+        },
+        "route_unresolved": {
+          "n": 45,
+          "falseRouteActivation": 0,
+          "noRouteActivationSafety": 1
+        },
+        "near_domain_not_current_route": {
+          "n": 45,
+          "falseRouteActivation": 0.044444444444444446,
+          "noRouteActivationSafety": 0.9555555555555556
+        }
+      },
+      "failures": {
+        "routeabilityReject": 20,
+        "selectionUnresolved": 0,
+        "scopeHardVeto": 1,
+        "wrongSelectedRoute": 11
+      }
+    }
+  },
+  "developmentChecks": {
+    "knownExactRoute": true,
+    "acceptedRouteAccuracy": true,
+    "overallFalseRouteActivation": true,
+    "perSubtypeFalseActivation": true,
+    "noStructuralPathCollapse": true
+  },
+  "readyForCandidateLock": true,
+  "failures": [
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-089",
+      "text": "今年荷包能不能比前阵子松快些",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5740159064086054,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "financial_fortune",
+        "score": 0.0604563232049571
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-097",
+      "text": "压着的那批东西能不能慢慢出掉",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5302659488630375,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "inventory_sale",
+        "score": 0.06468711632202089
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-107",
+      "text": "跟朋友两个人搭着做店以后行不行",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5476252840262127,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "partnership",
+        "score": 0.08027100669346228
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-115",
+      "text": "手里的票继续拿还是少拿一点",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.6607230667131633,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "investment_position_decision",
+        "score": 0.0696757225025338
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-117",
+      "text": "这个票往后一阵还会往上吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5594530597463798,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "investment_price_trend",
+        "score": 0.07394771407611565
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-119",
+      "text": "明年底薪有没有机会往上调",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5156556565391018,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.08842524831814796
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-120",
+      "text": "我每个月固定拿的那部分以后会增加吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5442556113097218,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.06806012463353456
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-123",
+      "text": "我订的主机啥时候能到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.550670594868669,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "receive_item",
+        "score": 0.08457537483263246
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-124",
+      "text": "前两天买的桌子大概几时能送来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5661186494299001,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "receive_item",
+        "score": 0.08312948009551925
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-125",
+      "text": "这台主机现在要不要入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5884142293209013,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "item_purchase",
+        "score": 0.07716549583746563
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-126",
+      "text": "这个咖啡磨豆机值不值现在入手",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5922264694408595,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "item_purchase",
+        "score": 0.07952252272478556
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-127",
+      "text": "我和这个人能不能更进一步成为一对",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.48212497468378257,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "relationship_development",
+        "score": 0.07166524540499687
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-128",
+      "text": "我们俩以后有没有可能变成一对",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.4090787448654592,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": true
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.07919641146667422
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-129",
+      "text": "我和他最后有没有可能办婚礼",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.4164521821724232,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": true
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "scope_hard_veto",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.08606235298615256
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-131",
+      "text": "我跟另一半这阵子的关系能缓和吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.4858811203592329,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.08318834148704624
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-132",
+      "text": "成家以后我们俩一直闹别扭还能好起来吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.44780514301401964,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.07936643148519369
+      }
+    },
+    {
+      "dataset": "sealed_development_198",
+      "id": "V013-D-137",
+      "text": "这场民事诉讼最后结果对我有利吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "path": null,
+      "subtype": "outside_current_22",
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.4530692914998038,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "marriage_match",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.05512954613648402
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-014",
+      "text": "买家那份订单现在还在往返修改，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "commercial_transaction",
+        "strength": "support",
+        "evidence": [
+          "commercial_transaction",
+          "topic-only:commercial_transaction"
+        ],
+        "rationale": "transaction-topic-without-current-outcome-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6588469550847472,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "inventory_purchase",
+        "score": 0.0641515026245011
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-036",
+      "text": "我最近一直在关注固定工资这一块，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_salary",
+        "strength": "support",
+        "evidence": [
+          "salary_income",
+          "topic-only:salary"
+        ],
+        "rationale": "salary-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.7127469583392788,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.06168360224918715
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-038",
+      "text": "公司现在的薪资安排我比较关注，想问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_salary",
+        "strength": "support",
+        "evidence": [
+          "salary_income",
+          "topic-only:salary"
+        ],
+        "rationale": "salary-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6436651744245379,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.07104699633371259
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-040",
+      "text": "最近薪水这件事我一直放在心上，想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_salary",
+        "strength": "support",
+        "evidence": [
+          "salary_income",
+          "topic-only:salary"
+        ],
+        "rationale": "salary-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6511380631164647,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.06356006373469317
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-041",
+      "text": "今年年终奖这件事我一直在关注，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6779098435202466,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_bonus",
+        "score": 0.06332650659142565
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-042",
+      "text": "最近绩效奖金这一块让我很在意，想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6422107264440311,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_bonus",
+        "score": 0.06640778409047374
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-043",
+      "text": "项目奖励金目前还没消息，我想单独问一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6051675330028239,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_bonus",
+        "score": 0.06628461212182206
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-044",
+      "text": "季度奖励这件事我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "support_arbitration",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": {
+        "version": "0.12-dev",
+        "routeId": "income_bonus",
+        "strength": "support",
+        "evidence": [
+          "bonus_income",
+          "topic-only:bonus"
+        ],
+        "rationale": "bonus-topic-without-current-income-target"
+      },
+      "selection": null,
+      "scope": {
+        "probability": 0.6233155406223158,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_bonus",
+        "score": 0.06310245676331858
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-047",
+      "text": "这个铺面以后还有没有做头",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5625692241616485,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "business_operation",
+        "score": 0.053678329960477326
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-048",
+      "text": "手上这份小生计往后能不能继续",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.5210565480163615,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.055213531938852
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-050",
+      "text": "跟对方那一单最后有没有结果",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5174099267555641,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.06880604430502978
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-051",
+      "text": "店里下一批货能不能备够",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "inventory_sale",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6338318437219821,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "inventory_sale",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "inventory_sale",
+        "score": 0.08221493658172434
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-052",
+      "text": "仓里要添的东西能不能如期齐全",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "inventory_sale",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.5777326650362437,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "inventory_sale",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "inventory_sale",
+        "score": 0.06538991149300634
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-055",
+      "text": "这阵子能不能弄到一笔周转用的钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "receive_item",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6439391658970666,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "receive_item",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "receive_item",
+        "score": 0.05382443267462795
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-056",
+      "text": "眼下有没有办法先筹到一笔应急款",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6456782140974453,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "lend_money",
+        "score": 0.05406398107815217
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-063",
+      "text": "跟朋友搭伙做项目以后行不行",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5266314840858783,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "partnership",
+        "score": 0.08116482768786405
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-064",
+      "text": "我和他两个人一起做这件事合适吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5313640559691316,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "partnership",
+        "score": 0.06913065950925765
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-065",
+      "text": "把钱放进这个指数产品半年后能不能有赚头",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "financial_fortune",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6786158883178433,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "financial_fortune",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "financial_fortune",
+        "score": 0.054676134231371305
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-066",
+      "text": "放进去的这份理财以后能不能有进项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_liquidation",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.5899012652821681,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "investment_liquidation",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "investment_liquidation",
+        "score": 0.05509425331131341
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-073",
+      "text": "这个票接下来还会往上走吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5251441660126476,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "investment_price_trend",
+        "score": 0.0755170364612649
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-075",
+      "text": "明年每月固定拿的那份钱会不会更多",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "financial_fortune",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6056530972008358,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "financial_fortune",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "financial_fortune",
+        "score": 0.06497774493887122
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-076",
+      "text": "以后每个月稳定拿到手的那部分会增加吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5283304723789102,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_salary",
+        "score": 0.06265890036520967
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-077",
+      "text": "年底那笔额外的钱今年还能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "debt_repayment",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.6141016634822202,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "debt_repayment",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "debt_repayment",
+        "score": 0.06989053467194237
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-078",
+      "text": "项目结束后那份额外奖励最终会不会有",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.46624718559173634,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "income_bonus",
+        "score": 0.07565057851614708
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-079",
+      "text": "我订的桌椅什么时候能送来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.5418177592150953,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "receive_item",
+        "score": 0.0845127344286961
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-080",
+      "text": "前几天买的柜子大概哪天能到家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.6000411254361396,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "receive_item",
+        "score": 0.0899424041418189
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-081",
+      "text": "这个咖啡机现在入不入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.6044025548731828,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "item_purchase",
+        "score": 0.07347060551193033
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-082",
+      "text": "这台小烤箱眼下要不要入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.638821476851868,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "item_purchase",
+        "score": 0.06315925217599462
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-084",
+      "text": "我们两个以后还有没有可能更进一步",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.4454208065370897,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.06986836186378739
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-085",
+      "text": "我俩最后有没有可能成家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.40314841157982023,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": true
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "scope_hard_veto",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marriage_match",
+        "score": 0.0828188000692608
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-086",
+      "text": "我们这段关系以后能不能真正定下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.4391978275081112,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "marital_relationship",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.07463338095578732
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-088",
+      "text": "成家后我们俩一直别扭以后能不能缓下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "path": "fallback_head",
+      "subtype": null,
+      "routeability": {
+        "disposition": "non_route",
+        "reasonCode": "frozen_v02_score_reject"
+      },
+      "arbitration": null,
+      "selection": null,
+      "scope": {
+        "probability": 0.4444782766900296,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "non_route",
+        "routeId": null,
+        "reasonCode": "frozen_v02_score_reject",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "marital_relationship",
+        "score": 0.07768729038924255
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-093",
+      "text": "这场合同纠纷官司最后对我有没有利",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "path": null,
+      "subtype": "outside_current_22",
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "partnership",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.49138699593363716,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "partnership",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "partnership",
+        "score": 0.05935395188808904
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-129",
+      "text": "这份工作合同到期后能不能续签",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "path": null,
+      "subtype": "outside_current_22",
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "commercial_transaction",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.44408482569102414,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "commercial_transaction",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "commercial_transaction",
+        "score": 0.054965762417721456
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-203",
+      "text": "投资软件里的持仓报表怎么看",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "path": null,
+      "subtype": "near_domain_not_current_route",
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.728004148284506,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "investment_position_decision",
+        "score": 0.0691720396269107
+      }
+    },
+    {
+      "dataset": "fresh_calibration_223",
+      "id": "R03-C-204",
+      "text": "这个供应商最近的信誉到底怎么样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "path": null,
+      "subtype": "near_domain_not_current_route",
+      "routeability": {
+        "disposition": "route_known",
+        "reasonCode": "frozen_v02_score_accept"
+      },
+      "arbitration": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_head_top1"
+      },
+      "scope": {
+        "probability": 0.5805916510766819,
+        "hardVetoCutoff": 0.4196,
+        "hardVeto": false
+      },
+      "final": {
+        "version": "0.1-dev",
+        "disposition": "route_known",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_head_top1",
+        "scopeBypassed": false
+      },
+      "headTop1": {
+        "id": "business_operation",
+        "score": 0.05299154764433729
+      }
+    }
+  ]
+}
