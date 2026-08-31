@@ -1,0 +1,1500 @@
+{
+  "version": "0.13-candidate-v0.2-independent-eval-v0.1",
+  "status": "sealed_independent_eval",
+  "sealed": true,
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "purpose": "Fresh post-lock independent evaluation for Candidate v0.2. First result must be recorded without post-evaluation retuning.",
+  "createdAfterCandidateLock": true,
+  "candidate": {
+    "lockPath": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.2.lock.json",
+    "candidateSha256": "23368e0911f1164f6af5d7e72dd894ebfcc767524840e5bba796aaff6940f828"
+  },
+  "policy": {
+    "useForTraining": false,
+    "useForCalibration": false,
+    "modifyLockedCandidateFromThisEval": false,
+    "reuseAsFutureBlind": false,
+    "priorCandidateV01IndependentExcluded": true,
+    "priorDevelopmentAndCalibrationExcluded": true,
+    "healthDiseaseSamplesExcluded": true,
+    "traditionalLiuYaoFieldsForbidden": true
+  },
+  "counts": {
+    "total": 198,
+    "route_known": 132,
+    "non_route": 66,
+    "strong_arbitration": 44,
+    "support_arbitration": 44,
+    "fallback_head": 44,
+    "outside_current_22": 22,
+    "route_unresolved": 22,
+    "near_domain_not_current_route": 22
+  },
+  "rows": [
+    {
+      "id": "V013-I2-001",
+      "text": "代理商这张采购订单本周能不能谈成",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-002",
+      "text": "和渠道方的这笔交易月底前能不能落地",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-003",
+      "text": "客户这一单最终能不能正式签约",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-004",
+      "text": "店里新采购的货品周三前能不能入库",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-005",
+      "text": "仓库下一批补库存能不能在促销前到位",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-006",
+      "text": "门店这次进货能不能按数量全部进仓",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-007",
+      "text": "仓库里的这批货这个月能不能出清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-008",
+      "text": "店里积压货节前能不能全部卖掉",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-009",
+      "text": "这批经营库存年底前能不能卖完",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-010",
+      "text": "我找同事借一笔周转款这周能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-011",
+      "text": "银行经营贷申请这次能不能批下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-012",
+      "text": "最近缺一笔周转钱能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-013",
+      "text": "同学向我借钱周转，我把钱借给他妥不妥",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-014",
+      "text": "亲戚找我借一笔款，我现在出借合适吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-015",
+      "text": "朋友从我这里借钱，我答应借出去会不会有问题",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-016",
+      "text": "客户欠我的应收款下周能不能收回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-017",
+      "text": "借出去的那笔钱月底前还能不能追回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-018",
+      "text": "对方拖欠我的货款今年能不能要回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-019",
+      "text": "这笔贷款年底前能不能还清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-020",
+      "text": "这笔信用卡欠款下个月能不能结清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-021",
+      "text": "本人剩下的贷款能不能在年底前还完",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-022",
+      "text": "和朋友合伙做这家店以后顺不顺",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-023",
+      "text": "我跟这个合伙人共同经营项目是否合适",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-024",
+      "text": "跟同事一起经营工作室能不能长期合作",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-025",
+      "text": "这个新能源项目投进去半年后能不能赚钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-026",
+      "text": "这只债券基金持有一年会不会有收益",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-027",
+      "text": "我这笔投资到年底能不能回本",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-028",
+      "text": "这只基金现在全部赎回能不能顺利到账",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-029",
+      "text": "手上的ETF一次性卖出会不会卡住",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-030",
+      "text": "这个股票仓位全部清掉能不能顺利完成",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-031",
+      "text": "这个黄金ETF眼下适不适合我投资",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-032",
+      "text": "现在参与这只指数基金值不值得",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-033",
+      "text": "这只个股未来两周会不会继续走高",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-034",
+      "text": "这个基金接下来价格会不会回落",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-035",
+      "text": "下一轮调薪我的固定薪酬能不能提高",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-036",
+      "text": "明年的月薪会不会增加",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-037",
+      "text": "这次绩效奖金能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-038",
+      "text": "项目奖励金月底前会不会发下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-039",
+      "text": "我下单的相机周五能不能送到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-040",
+      "text": "已经寄出的平板什么时候能收到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-041",
+      "text": "这台投影仪现在值不值得买",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-042",
+      "text": "这个空气净化器要不要买",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-043",
+      "text": "我跟她的暧昧以后能不能发展成恋爱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-044",
+      "text": "我们两个有没有机会正式在一起",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "strong_arbitration"
+    },
+    {
+      "id": "V013-I2-045",
+      "text": "近几个月总体资金流起伏明显，我想看看这一块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-046",
+      "text": "最近手头宽裕和紧张总在变化，想单独问钱财方面",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-047",
+      "text": "今年整体收支波动不少，我想占一下财务状况",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-048",
+      "text": "这一阵现金流忽好忽坏，我想看看总体情况",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-049",
+      "text": "近期整体进账不太稳定，我想单独问这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-050",
+      "text": "最近钱财方面变化很频繁，我想专门占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-051",
+      "text": "这段时间总体资金松紧反复，我想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-052",
+      "text": "今年财务上的起伏比较大，我想问这一块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-053",
+      "text": "这家饭店最近业绩忽高忽低，我想问经营本身",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-054",
+      "text": "我的工作室近期现金流反复，想看看营业状况",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-055",
+      "text": "网店这阵利润波动很大，我想单独占经营这块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-056",
+      "text": "门店最近亏损和盈利来回变化，我想看看生意本身",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-057",
+      "text": "这间咖啡店近期业绩不稳，我想问经营情况",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-058",
+      "text": "公司业务最近利润变化明显，我想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-059",
+      "text": "这家便利店近期营业状况反复，我想占一下经营",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-060",
+      "text": "我的小餐馆最近现金流忽松忽紧，想问经营本身",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-061",
+      "text": "供应商这份采购合同目前还在讨论，我想问这一单",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-062",
+      "text": "客户这张订单仍在沟通，我想单独占一下这笔交易",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-063",
+      "text": "买家那份合同现在还在往返确认，我想看看这件事",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-064",
+      "text": "这笔批发交易目前还在磋商，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-065",
+      "text": "渠道方这张采购订单还没有定，我想问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-066",
+      "text": "客户这份商业合同仍在推进，我想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-067",
+      "text": "这只基金最近收益忽高忽低，我想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-068",
+      "text": "这个投资项目目前利润波动明显，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-069",
+      "text": "手里的ETF近期收益变化很大，我想问这一块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-070",
+      "text": "这笔投资最近回本情况反复，我想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-071",
+      "text": "指数基金这阵收益不稳定，我想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-072",
+      "text": "这只基金已经准备赎回，我想看看退出这一步",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-073",
+      "text": "ETF仓位决定全部卖出，我想单独占这个动作",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-074",
+      "text": "手里的股票准备清仓，我想问一下这件事",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-075",
+      "text": "这笔投资计划退出持仓，我想看看这个过程",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-076",
+      "text": "这只ETF我在犹豫减仓，想占一下这个调整",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-077",
+      "text": "基金持仓正在考虑加仓，我想看看这一步",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-078",
+      "text": "股票仓位要不要调整这件事我拿不准，想问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-079",
+      "text": "手里的基金准备减少持仓，我想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-080",
+      "text": "这个ETF我在考虑继续持有还是减仓，想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-081",
+      "text": "这只股票最近涨跌很频繁，我想问价格这一块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-082",
+      "text": "ETF近期净值来回波动，我想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-083",
+      "text": "债券基金最近价格变化明显，我想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-084",
+      "text": "这只基金近来涨跌反复，我想问一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-085",
+      "text": "最近固定工资这一项让我很在意，想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-086",
+      "text": "目前薪资这块我一直挂心，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-087",
+      "text": "今年年终奖这件事我一直惦记，想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-088",
+      "text": "部门季度奖励目前让我比较在意，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "support_arbitration"
+    },
+    {
+      "id": "V013-I2-089",
+      "text": "接下来半年日子会不会比现在宽松一点",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-090",
+      "text": "今年我能不能比往年更容易存下些余钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-091",
+      "text": "我这份营生往后还能不能稳稳做下去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-092",
+      "text": "手里这个铺面以后还有没有继续撑着的空间",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-093",
+      "text": "和对方这桩事最后能不能谈拢",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-094",
+      "text": "手上这一宗合作最后有没有结果",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-095",
+      "text": "店里下一轮要添的东西能不能及时备齐",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-096",
+      "text": "货架接下来要补的那些东西能不能按时齐全",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-097",
+      "text": "库房压着的旧东西以后能不能慢慢腾出去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-098",
+      "text": "店里剩下那堆旧东西能不能逐步走掉",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-099",
+      "text": "眼下能不能先筹来一笔临时周转用的钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-100",
+      "text": "最近有没有办法弄到一笔应急用的钱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-101",
+      "text": "朋友手头紧，我先给他一笔钱用妥不妥",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-102",
+      "text": "把这笔钱暂时给同事周转会不会留下麻烦",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-103",
+      "text": "之前本该回到我这里的那笔款最后还有着落吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-104",
+      "text": "早前应当给我的那笔钱以后还能回到手里吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-105",
+      "text": "身上背着的那笔账今年能不能彻底了结",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-106",
+      "text": "我现在这笔旧账以后能不能完全处理掉",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-107",
+      "text": "我和朋友两个人一起把这个项目做下去行不行",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-108",
+      "text": "跟他搭着把这门事继续做下去合适吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-109",
+      "text": "把钱放进这份理财一段时间以后有没有赚头",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-110",
+      "text": "这份理财拿久一些最后能不能有进项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-111",
+      "text": "手上这份理财整个退出来会不会顺当",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-112",
+      "text": "这份理财我全部退掉会不会卡在中间",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-113",
+      "text": "眼下把钱放进这份理财妥不妥",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-114",
+      "text": "这个理财现在进去是不是合适的选择",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-115",
+      "text": "这份理财接下来多放一点还是收一点回来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-116",
+      "text": "手里这份理财继续留这么多还是减一些",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-117",
+      "text": "这个票过一阵还会往上走吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-118",
+      "text": "这份理财的价过些天会不会往下走",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-119",
+      "text": "明年每个月固定到手的那份钱会不会更多",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-120",
+      "text": "以后每月稳定拿到的那部分能不能增加",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-121",
+      "text": "年底额外那一笔今年还能不能有",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-122",
+      "text": "项目做完以后那份额外奖励最后能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-123",
+      "text": "网购的书架大概什么时候来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-124",
+      "text": "前几天订的落地灯大概哪天到家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-125",
+      "text": "这个台灯现在入不入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-126",
+      "text": "这把办公椅眼下要不要入",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-127",
+      "text": "我和这个人以后有没有可能变成一对",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-128",
+      "text": "我们俩之后还能不能走得更近一些",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-129",
+      "text": "我俩以后有没有机会办婚礼",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-130",
+      "text": "我们两个人最后会不会组建一个家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-131",
+      "text": "我和伴侣这段长期关系以后还能不能稳住",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-132",
+      "text": "我们共同生活这么久，往后的相处能不能改善",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "fallback_head"
+    },
+    {
+      "id": "V013-I2-133",
+      "text": "这次部门面试最后能不能拿到录用通知",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-134",
+      "text": "下个月的资格考试我能不能通过",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-135",
+      "text": "这趟去大阪的行程能不能按计划走完",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-136",
+      "text": "这场仲裁最后会不会作出对我有利的裁决",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-137",
+      "text": "昨晚丢的门禁卡还能不能找回来",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-138",
+      "text": "明天下午东京会不会下雨",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-139",
+      "text": "这个周末主队能不能赢下比赛",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-140",
+      "text": "我写的这个接口为什么总返回五百错误",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-141",
+      "text": "这道炖牛肉要不要再多放一点盐",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-142",
+      "text": "这套公寓下个月续租会不会涨房租",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-143",
+      "text": "新护照的换发手续大概需要几天",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-144",
+      "text": "这个摄影项目最终能不能按期拍完",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-145",
+      "text": "我投稿的短篇小说会不会被杂志采用",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-146",
+      "text": "这门法语课期末能不能达到A2水平",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-147",
+      "text": "明天的航班会不会因为台风取消",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-148",
+      "text": "劳动纠纷调解能不能在本月结束",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-149",
+      "text": "丢掉的钥匙可能落在办公室还是车站",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-150",
+      "text": "这次升职评审我能不能进入最终名单",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-151",
+      "text": "研究生申请今年能不能收到录取",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-152",
+      "text": "这趟自驾途中会不会遇到严重堵车",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-153",
+      "text": "法院这次开庭会不会当庭宣判",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-154",
+      "text": "不见的相机电池还能不能找到",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "outside_current_22"
+    },
+    {
+      "id": "V013-I2-155",
+      "text": "这件事情最后会怎么样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-156",
+      "text": "我现在这个选择到底好不好",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-157",
+      "text": "接下来会不会有什么变化",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-158",
+      "text": "这件事还有没有转圜的余地",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-159",
+      "text": "我该不该继续等下去",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-160",
+      "text": "这一步往前走会不会顺利",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-161",
+      "text": "现在这个局面以后会变好吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-162",
+      "text": "对方后面大概会持什么态度",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-163",
+      "text": "最近这件烦心事什么时候能过去",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-164",
+      "text": "这次决定会不会让我后悔",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-165",
+      "text": "眼前的安排有没有必要改",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-166",
+      "text": "目前这个方向是不是对的",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-167",
+      "text": "以后情况会不会越来越稳定",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-168",
+      "text": "我现在坚持下去值不值",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-169",
+      "text": "这个结果最终会不会如愿",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-170",
+      "text": "接下来应该更主动还是先等等",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-171",
+      "text": "这件事的转折大概什么时候来",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-172",
+      "text": "目前这样处理会不会更合适",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-173",
+      "text": "我跟着现在的计划走有没有问题",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-174",
+      "text": "后面的发展会不会出意外",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-175",
+      "text": "现在改变主意还来得及吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-176",
+      "text": "这件事最终有没有一个好结果",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "route_unresolved"
+    },
+    {
+      "id": "V013-I2-177",
+      "text": "这份薪酬明细里的个人所得税扣款有没有算错",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-178",
+      "text": "公司的年终奖分配制度公平不公平",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-179",
+      "text": "采购合同里的违约责任条款有没有风险",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-180",
+      "text": "这个理财平台收的托管费是不是太高",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-181",
+      "text": "基金账户的管理费今年有没有调整",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-182",
+      "text": "快递保价规则里哪些情况不赔",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-183",
+      "text": "这台电脑的保修条款是否覆盖屏幕",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-184",
+      "text": "商店会员积分什么时候会过期",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-185",
+      "text": "公司报销制度里打车费能不能报",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-186",
+      "text": "银行贷款合同的提前还款手续费怎么算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-187",
+      "text": "信用卡账单里的分期费率有没有算错",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-188",
+      "text": "证券账户的佣金现在是多少",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-189",
+      "text": "这份商业合同适用哪个地区的法律",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-190",
+      "text": "网店平台今年的抽成规则有没有变化",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-191",
+      "text": "供应商发票抬头应该填哪个主体",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-192",
+      "text": "奖金方案里绩效权重设置得合理吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-193",
+      "text": "工资明细里的社保扣款为什么变多了",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-194",
+      "text": "基金赎回规则规定几点前算当天申请",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-195",
+      "text": "物流公司的赔付上限是按什么标准算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-196",
+      "text": "这款耳机的退货期限一共有多少天",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-197",
+      "text": "股票交易的印花税现在怎么收",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "V013-I2-198",
+      "text": "采购协议的自动续约条款是否有效",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "nonRouteSubtype": "near_domain_not_current_route"
+    }
+  ],
+  "presealPatches": [
+    {
+      "version": "v0.3",
+      "purpose": "path-contract and exact-overlap correction before any seal or model evaluation",
+      "rowIds": [
+        "V013-I2-001",
+        "V013-I2-012",
+        "V013-I2-019",
+        "V013-I2-162",
+        "V013-I2-177"
+      ]
+    }
+  ]
+}
