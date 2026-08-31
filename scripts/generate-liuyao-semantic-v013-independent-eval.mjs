@@ -69,6 +69,12 @@ addKnown('strong_arbitration','marriage_match',[
 addKnown('strong_arbitration','marital_relationship',[
   '我和老婆最近的夫妻关系能不能改善','我跟老公这段婚姻以后还能不能维持'
 ]);
+addKnown('strong_arbitration','borrow_money',[
+  '我向父母借的这笔周转钱月底前能不能借到'
+]);
+addKnown('strong_arbitration','item_purchase',[
+  '这台投影仪现在值不值得买'
+]);
 
 // 44 support-arbitration rows. They deliberately expose a route topic without a decisive current target.
 addKnown('support_arbitration','financial_fortune',[
@@ -97,6 +103,24 @@ addKnown('support_arbitration','income_salary',[
 ]);
 addKnown('support_arbitration','income_bonus',[
   '最近绩效奖金这件事我一直放在心上，想看看','部门季度奖励这一块我想专门占一下','今年项目奖励金目前还没消息，我想问问'
+]);
+addKnown('support_arbitration','financial_fortune',[
+  '这阵子整体钱财进出总不太稳，我想单独看看'
+]);
+addKnown('support_arbitration','business_operation',[
+  '这家便利店近来业绩忽上忽下，我想占一下经营'
+]);
+addKnown('support_arbitration','commercial_transaction',[
+  '这份客户订单现在还在往返确认，我想问问这一单'
+]);
+addKnown('support_arbitration','investment_profit',[
+  '手上的债券基金最近收益有波动，我想看一下'
+]);
+addKnown('support_arbitration','income_salary',[
+  '最近薪资这部分一直让我惦记，我想单独占一下'
+]);
+addKnown('support_arbitration','income_bonus',[
+  '这阵子年终奖这件事我一直挂心，想占一下'
 ]);
 
 // 44 fallback-head rows: two per supported route, avoiding current Evidence v0.2 arbitration anchors.
