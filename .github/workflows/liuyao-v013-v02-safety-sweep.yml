@@ -1,0 +1,43 @@
+name: LiuYao v0.13-v0.2 Cross-Data Safety Sweep
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/sweep-liuyao-semantic-v013-v02-responsibility-safety.mjs'
+      - 'scripts/verify-liuyao-next-topic-inventory-v01.mjs'
+      - 'data/liuyao-next-topic-inventory-v0.1.json'
+      - '.github/workflows/liuyao-v013-v02-safety-sweep.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify next-topic preparation stays design-only
+        run: node scripts/verify-liuyao-next-topic-inventory-v01.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Sweep responsibility changes across prior development and calibration data
+        run: node scripts/sweep-liuyao-semantic-v013-v02-responsibility-safety.mjs
+      - name: Commit diagnostic safety sweep
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-v013-candidate-v02-responsibility-safety-sweep.json)" ]; then
+            echo 'Safety sweep already matches current diagnostic sources.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v02-responsibility-safety-sweep.json
+          git commit -m 'test(liuyao): record v0.13-v0.2 cross-data responsibility safety sweep'
+          git push origin HEAD:liuyao-semantic-v013-core
