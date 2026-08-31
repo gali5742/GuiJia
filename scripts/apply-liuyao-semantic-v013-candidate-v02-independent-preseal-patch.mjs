@@ -9,7 +9,7 @@ const data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
 if (data.status !== 'presealed_independent_eval' || data.sealed !== false) throw new Error('pre-seal patch may only touch presealed data');
 const replacements = {
   'V013-I2-001':'代理商这张采购订单本周能不能谈成',
-  'V013-I2-012':'最近缺一笔周转钱，能不能拿到',
+  'V013-I2-012':'最近缺一笔周转钱能不能拿到',
   'V013-I2-019':'这笔贷款年底前能不能还清'
 };
 for (const row of data.rows || []) {
@@ -20,7 +20,7 @@ for (const id of Object.keys(replacements)) {
   if (!row || row.text !== replacements[id]) throw new Error(`failed to patch ${id}`);
 }
 data.presealPatches = Object.freeze([
-  { version:'v0.1', purpose:'path-contract correction before any seal or model evaluation', rowIds:Object.keys(replacements) }
+  { version:'v0.2', purpose:'path-contract correction before any seal or model evaluation', rowIds:Object.keys(replacements) }
 ]);
 fs.writeFileSync(fullPath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 console.log(`Applied Candidate v0.2 independent pre-seal path patch: ${Object.keys(replacements).length} rows`);
