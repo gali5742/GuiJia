@@ -1,0 +1,43 @@
+name: LiuYao Routeability v0.4 Representation Correction
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/generate-liuyao-semantic-routeability-v04-model.mjs'
+      - 'scripts/verify-liuyao-semantic-routeability-v04-model.mjs'
+      - 'js/liuyao-semantic-routeability-frozen-v04.js'
+      - '.github/workflows/liuyao-routeability-v04-correction.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify canonical embedding execution contract
+        run: node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs
+      - name: Verify corrected Router/Scope dependencies
+        run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Rebuild Routeability under canonical single-text embeddings
+        run: node scripts/generate-liuyao-semantic-routeability-v04-model.mjs
+      - name: Verify corrected Routeability artifact
+        run: node scripts/verify-liuyao-semantic-routeability-v04-model.mjs
+      - name: Commit corrected Routeability artifact
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-routeability-v0.4.json data/liuyao-semantic-routeability-v0.4.lock.json
+          git commit -m 'fix(liuyao): freeze runtime-equivalent Routeability v0.4'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
