@@ -1,5 +1,6 @@
 name: LiuYao v0.13 Sealed Independent E2E
 
+# Rerun after infrastructure-only integrity-field correction; candidate/eval remain locked.
 on:
   push:
     branches:
