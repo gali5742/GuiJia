@@ -265,9 +265,11 @@ test('Actor Aggregation 不引入 score/weight/priority/global state，也不泄
     });
 });
 
-test('生产加载链在 Function Realization 后加载 Actor Interaction Aggregation', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'js/bazi-visible-stem-function-realization.js'), 'utf8');
-    assert(source.includes('./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0'), '生产加载链缺少 Actor Interaction Aggregation');
+test('生产加载链在 Direct Source Realization 后加载 Actor Interaction Aggregation', () => {
+    const baseSource = fs.readFileSync(path.join(ROOT, 'js/bazi-visible-stem-function-realization.js'), 'utf8');
+    const directSource = fs.readFileSync(path.join(ROOT, 'js/bazi-visible-stem-function-realization-source.js'), 'utf8');
+    assert(baseSource.includes('./js/bazi-visible-stem-function-realization-source.js?v=13.44.0'), 'Function Realization 后缺少 Direct Source Realization');
+    assert(directSource.includes('./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0'), 'Direct Source Realization 后缺少 Actor Interaction Aggregation');
 });
 
 console.log(`\nBaZi visible stem actor interaction aggregation: ${passed} passed, ${failed} failed`);

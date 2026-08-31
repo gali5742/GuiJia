@@ -205,4 +205,4 @@ test('生产加载链在 Function Coverage 后加载 Function Realization', () =
 
 console.log(`\nBaZi visible stem function realization: ${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);
-require('./bazi-visible-stem-actor-interaction-aggregation-tests.js');
+require('./bazi-visible-stem-function-realization-source-tests.js');

@@ -326,7 +326,7 @@
         extendSynthesis
     });
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemActorInteractionAggregation) {
-        document.write('<script src="./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0"><\/script>');
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemFunctionRealizationSource) {
+        document.write('<script src="./js/bazi-visible-stem-function-realization-source.js?v=13.44.0"><\/script>');
     }
 })(typeof window !== 'undefined' ? window : globalThis);
