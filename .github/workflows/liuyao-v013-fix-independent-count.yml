@@ -1,0 +1,48 @@
+name: LiuYao v0.13 Fix Independent Eval Count
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - '.github/workflows/liuyao-v013-fix-independent-count.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Add missing fresh strong/support rows only
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const file = 'scripts/generate-liuyao-semantic-v013-independent-eval.mjs';
+          let source = fs.readFileSync(file, 'utf8');
+          const strongAnchor = `addKnown('strong_arbitration','marital_relationship',[\n  '我和老婆最近的夫妻关系能不能改善','我跟老公这段婚姻以后还能不能维持'\n]);`;
+          const strongAdd = `\naddKnown('strong_arbitration','borrow_money',[\n  '我向父母借的这笔周转钱月底前能不能借到'\n]);\naddKnown('strong_arbitration','item_purchase',[\n  '这台投影仪现在值不值得买'\n]);`;
+          const supportAnchor = `addKnown('support_arbitration','income_bonus',[\n  '最近绩效奖金这件事我一直放在心上，想看看','部门季度奖励这一块我想专门占一下','今年项目奖励金目前还没消息，我想问问'\n]);`;
+          const supportAdd = `\naddKnown('support_arbitration','financial_fortune',[\n  '这阵子整体钱财进出总不太稳，我想单独看看'\n]);\naddKnown('support_arbitration','business_operation',[\n  '这家便利店近来业绩忽上忽下，我想占一下经营'\n]);\naddKnown('support_arbitration','commercial_transaction',[\n  '这份客户订单现在还在往返确认，我想问问这一单'\n]);\naddKnown('support_arbitration','investment_profit',[\n  '手上的债券基金最近收益有波动，我想看一下'\n]);\naddKnown('support_arbitration','income_salary',[\n  '最近薪资这部分一直让我惦记，我想单独占一下'\n]);\naddKnown('support_arbitration','income_bonus',[\n  '这阵子年终奖这件事我一直挂心，想占一下'\n]);`;
+          if (!source.includes(strongAnchor)) throw new Error('strong insertion anchor not found');
+          if (!source.includes(supportAnchor)) throw new Error('support insertion anchor not found');
+          if (!source.includes('我向父母借的这笔周转钱')) source = source.replace(strongAnchor, strongAnchor + strongAdd);
+          if (!source.includes('这阵子整体钱财进出总不太稳')) source = source.replace(supportAnchor, supportAnchor + supportAdd);
+          fs.writeFileSync(file, source, 'utf8');
+          NODE
+      - name: Verify generator count before commit
+        run: node scripts/generate-liuyao-semantic-v013-independent-eval.mjs
+      - name: Commit generator correction only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/generate-liuyao-semantic-v013-independent-eval.mjs
+          git commit -m 'test(liuyao): complete post-lock independent eval to 198 rows'
+          git push origin HEAD:liuyao-semantic-v013-core
