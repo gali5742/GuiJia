@@ -6,6 +6,7 @@ on:
       - liuyao-semantic-v013-core-train-v01
     paths:
       - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-architecture.mjs'
+      - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-global-ranking.mjs'
       - '.github/workflows/liuyao-v013-v03-fallback-identity-v02-architecture-diagnostic.yml'
   workflow_dispatch:
 
@@ -33,12 +34,14 @@ jobs:
         run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs
       - name: Install pinned encoder runtime
         run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
-      - name: Diagnose corrected Fallback Identity architecture
+      - name: Diagnose corrected Fallback Identity candidate architecture
         run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-architecture.mjs
-      - name: Commit architecture diagnostic
+      - name: Diagnose corrected Fallback Identity global ranking
+        run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-global-ranking.mjs
+      - name: Commit architecture diagnostics
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/liuyao-semantic-fallback-identity-v0.2-architecture-diagnostic.json
-          git commit -m 'test(liuyao): record corrected fallback identity architecture diagnosis'
+          git add data/liuyao-semantic-fallback-identity-v0.2-architecture-diagnostic.json data/liuyao-semantic-fallback-identity-v0.2-global-ranking-diagnostic.json
+          git commit -m 'test(liuyao): record fallback identity ranking diagnostics'
           git push origin HEAD:liuyao-semantic-v013-core-train-v01
