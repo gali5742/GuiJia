@@ -1,0 +1,150 @@
+{
+  "version": "0.13-candidate-v0.4-design-v0.1",
+  "status": "assembly_frozen_before_scope_revalidation_and_development",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "supersedes": {
+    "design": "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+    "reason": "Pre-lock architecture diagnosis showed that corrected Fallback Identity is a strong global 22-route ranker but the v0.3 Router Top1/Top2 exactly-one admission boundary caused avoidable fallback retention loss. Candidate v0.4 separates global identity ranking from confidence acceptance.",
+    "candidateV03WasLocked": false,
+    "candidateV03PromotionClaim": false,
+    "candidateV03IndependentClaim": false,
+    "reuseV03DesignAsV04": false
+  },
+  "fixedComponents": {
+    "policyGate": {
+      "version": "v0.1",
+      "path": "js/liuyao-divination-policy-gate-v01.js",
+      "responsibility": "deterministically block health/disease divination before semantic routing"
+    },
+    "evidence": {
+      "version": "v0.3",
+      "path": "js/liuyao-semantic-route-evidence-v03.js"
+    },
+    "arbitration": {
+      "version": "v0.12",
+      "path": "js/liuyao-semantic-route-arbitration-v012.js"
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "path": "js/liuyao-semantic-route-compatibility-v03.js"
+    },
+    "embeddingRouterScope": {
+      "version": "corrected-v0.2",
+      "artifact": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "runtime": "js/liuyao-semantic-frozen-dependencies-v02.js",
+      "textsPerEncoderCall": 1
+    },
+    "routeability": {
+      "model": "data/liuyao-semantic-routeability-v0.4.json",
+      "modelRuntime": "js/liuyao-semantic-routeability-frozen-v04.js",
+      "policy": "js/liuyao-semantic-routeability-v06.js",
+      "normalThresholdSource": "corrected Routeability v0.4 artifact calibration threshold",
+      "strongSupportRescue": "Compatibility v0.3 confirmed strong/support only",
+      "pureFallbackNormalThresholdIsNotFinalAcceptanceBoundary": true
+    },
+    "fallbackIdentityRanker": {
+      "artifact": "data/liuyao-semantic-fallback-identity-v0.2.json",
+      "runtime": "js/liuyao-semantic-fallback-identity-frozen-v02.js",
+      "candidateUniverse": "all_22_routes",
+      "selection": "global_argmax_identity_probability",
+      "weightsRetunedInV04": false,
+      "routerTopKAsHardBoundary": false
+    },
+    "fallbackAcceptance": {
+      "contract": "data/liuyao-semantic-fallback-acceptance-v0.1-contract.json",
+      "artifact": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+      "runtime": "js/liuyao-semantic-fallback-acceptance-frozen-v01.js",
+      "thresholdCount": 2,
+      "features": [
+        "corrected_routeability_probability",
+        "identity_global_top1_probability"
+      ],
+      "freshCalibration": "data/liuyao-semantic-fallback-acceptance-v0.1-calibration.json",
+      "thresholdsFrozenBeforeV04Assembly": true,
+      "thresholdRetuneAllowedInV04": false,
+      "rejectDisposition": "route_unresolved"
+    },
+    "selection": {
+      "version": "v0.5",
+      "path": "js/liuyao-semantic-route-selection-v05.js",
+      "strongSupportBehavior": "inherit v0.4 semantics",
+      "pureFallbackBehavior": "consume frozen Fallback Acceptance v0.1; accepted global Identity route may lie outside Router Top1/Top2"
+    },
+    "finalization": {
+      "version": "v0.2",
+      "path": "js/liuyao-semantic-finalization-v02.js",
+      "arbitrationPath": "normal corrected Routeability membership/rescue remains required",
+      "pureFallbackPath": "frozen Fallback Acceptance v0.1 governs acceptance even when normal Routeability threshold rejects",
+      "scopeStillApplies": true,
+      "confirmedStrongScopeBypass": true
+    }
+  },
+  "scopeFinalizationStatus": {
+    "model": "corrected Scope model already frozen inside data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "legacyHardVetoCutoff": 0.4196,
+    "legacyHardVetoStatus": "provenance_only_not_validated_for_candidate_v0.4",
+    "representationCorrectedOriginalThreshold": 0.4781650996230466,
+    "representationCorrectedThresholdStatus": "development_reprocessed_not_fresh",
+    "remainingFreeParameter": "one_global_scope_hard_veto_cutoff",
+    "freshCalibrationRequired": true,
+    "modelWeightsMayChange": false,
+    "fallbackAcceptanceThresholdsMayChange": false,
+    "routeabilityThresholdMayChange": false,
+    "identityWeightsMayChange": false,
+    "routerWeightsMayChange": false
+  },
+  "scopeCalibrationContract": {
+    "mustBeCreatedAfterThisAssemblyFreeze": true,
+    "useForTraining": false,
+    "useAsIndependent": false,
+    "reuseAsBlind": false,
+    "parameterCount": 1,
+    "parameter": "scope_hard_veto_cutoff",
+    "objective": "maximize_final_known_exact_retention_subject_to_safety_constraints",
+    "constraints": {
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallNonRouteFalseActivation": 0.05,
+      "maximumFalseActivationPerNonRouteSubtype": 0.05
+    },
+    "mustExercise": [
+      "strong_arbitration",
+      "support_arbitration",
+      "pure_fallback_acceptance",
+      "outside_current_22",
+      "route_unresolved",
+      "near_domain_not_current_route",
+      "confirmed_strong_scope_bypass"
+    ],
+    "forbiddenSources": [
+      "all sealed blind corpora",
+      "all prior independent evaluation corpora",
+      "Fallback Acceptance v0.1 calibration corpus",
+      "Routeability calibration corpora"
+    ]
+  },
+  "developmentPolicy": {
+    "freshFullStackDevelopmentRequiredAfterScopeFreeze": true,
+    "developmentMayDiagnoseButNotBecomeIndependent": true,
+    "architectureChangeAfterDevelopmentRequiresCandidateV05": true,
+    "sameCandidateArchitectureMutationAfterDevelopment": false
+  },
+  "evaluationPolicy": {
+    "candidateLockBeforeIndependent": true,
+    "freshPostLockIndependentRequired": true,
+    "sameVersionRetuneAfterIndependent": false,
+    "priorIndependentMayNotBeReused": true,
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    }
+  },
+  "traditionalBoundary": {
+    "semanticLayerMayChooseTraditionalLiuYaoObservationRole": false,
+    "traditionalRuleRegistryPreserved": true,
+    "modernNlpResponsibility": "modern language route semantics only"
+  },
+  "nextStep": "fresh_scope_finalization_calibration_then_full_stack_prelock_development_then_candidate_lock_then_fresh_independent"
+}
