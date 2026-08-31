@@ -1,0 +1,51 @@
+name: LiuYao v0.13-v0.3 Fallback Identity v0.2 Correction
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-fallback-identity-v0.2-training-contract.json'
+      - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v02-training-contract.mjs'
+      - 'scripts/train-liuyao-semantic-v013-fallback-identity-v02.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs'
+      - '.github/workflows/liuyao-v013-v03-fallback-identity-v02-correction.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  correct:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify sealed Fallback Identity data
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Verify canonical embedding execution contract
+        run: node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs
+      - name: Verify corrected semantic dependencies
+        run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+      - name: Verify corrected Routeability
+        run: node scripts/verify-liuyao-semantic-routeability-v04.mjs
+      - name: Verify corrected Fallback Identity training contract
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-training-contract.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Train and calibrate corrected Fallback Identity
+        run: node scripts/train-liuyao-semantic-v013-fallback-identity-v02.mjs
+      - name: Verify corrected Fallback Identity artifact
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs
+      - name: Commit corrected Fallback Identity artifact
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-fallback-identity-v0.2.json data/liuyao-semantic-fallback-identity-v0.2.lock.json
+          git commit -m 'fix(liuyao): freeze runtime-equivalent fallback identity v0.2'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
