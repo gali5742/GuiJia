@@ -1,0 +1,66 @@
+{
+  "version": "0.13-semantic-embedding-execution-v0.1",
+  "status": "frozen_after_batch_invariance_audit",
+  "scope": "liuyao_semantic_learned_stack",
+  "reason": "BGE pooled q8 embeddings were empirically not batch-invariant under Transformers.js 4.2.0. Multi-text batches changed Router Top1/Top2, Routeability dispositions, and downstream Identity probabilities relative to runtime single-text inference.",
+  "evidence": {
+    "auditPath": "data/liuyao-semantic-embedding-batch-invariance-audit-v0.1.json",
+    "sampleCount": 24,
+    "observedBatch6": {
+      "minCosine": 0.9927660533583321,
+      "routerTop1Changes": 1,
+      "routerTop2SetChanges": 1,
+      "routeabilityDispositionChanges": 1,
+      "maxIdentityProbabilityDelta": 0.021613546501538128
+    },
+    "observedBatch24": {
+      "minCosine": 0.9938602058720537,
+      "routerTop1Changes": 0,
+      "routerTop2SetChanges": 2,
+      "routeabilityDispositionChanges": 0,
+      "maxIdentityProbabilityDelta": 0.01808263008498856
+    }
+  },
+  "encoder": {
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "canonicalInvocation": {
+    "textsPerEncoderCall": 1,
+    "inputShape": "single_string_or_single_item_array_only",
+    "purpose": "match browser runtime embedFrozenText semantics",
+    "multiTextEncoderBatchAllowed": false,
+    "outerLoopOrConcurrencyAllowed": true,
+    "embeddingCacheAllowed": true,
+    "cacheKey": "exact input text under the same frozen encoder contract"
+  },
+  "appliesTo": [
+    "Router training and scoring",
+    "Scope Gate training/calibration/scoring",
+    "Routeability training/calibration/scoring",
+    "Fallback Identity training/calibration/scoring",
+    "development evaluation",
+    "independent evaluation",
+    "browser runtime"
+  ],
+  "legacyArtifacts": {
+    "data/liuyao-semantic-frozen-dependencies-v0.1.json": "legacy_batched_training_representation",
+    "data/liuyao-semantic-routeability-v0.2.json": "legacy_batched_training_representation",
+    "data/liuyao-semantic-fallback-identity-v0.1.json": "legacy_batched_training_and_calibration_representation"
+  },
+  "migrationPolicy": {
+    "mutateLegacyArtifactInPlace": false,
+    "reuseLegacyArtifactShaAsCorrected": false,
+    "correctedArtifactsRequireNewVersion": true,
+    "oldBlindOrIndependentDataMayTrainCorrectedArtifacts": false,
+    "existingTrainingDataMayBeReembedded": true,
+    "existingCalibrationDataMayBeReembeddedForRepresentationCorrection": true,
+    "representationCorrectedCalibrationIsNotFreshGeneralizationEvidence": true,
+    "freshPostLockIndependentEvalRequired": true
+  }
+}
