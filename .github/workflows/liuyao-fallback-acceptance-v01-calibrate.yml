@@ -1,0 +1,52 @@
+name: LiuYao Fallback Acceptance v0.1 Fresh Calibration
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/calibrate-liuyao-semantic-fallback-acceptance-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-fallback-acceptance-v01-model.mjs'
+      - '.github/workflows/liuyao-fallback-acceptance-v01-calibrate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  calibrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify frozen acceptance architecture contract
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-contract.mjs
+      - name: Verify sealed fresh calibration
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-calibration.mjs
+      - name: Verify canonical embedding execution contract
+        run: node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs
+      - name: Verify corrected semantic dependencies
+        run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+      - name: Verify corrected Routeability
+        run: node scripts/verify-liuyao-semantic-routeability-v04-model.mjs
+      - name: Verify corrected Identity ranker
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Calibrate two-threshold fallback acceptance gate
+        run: node scripts/calibrate-liuyao-semantic-fallback-acceptance-v01.mjs
+      - name: Verify fresh-calibrated gate artifact
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-model.mjs
+      - name: Commit frozen gate artifact
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-fallback-acceptance-v0.1.json data/liuyao-semantic-fallback-acceptance-v0.1.lock.json
+          git commit -m 'feat(liuyao): freeze fresh-calibrated fallback acceptance v0.1'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
