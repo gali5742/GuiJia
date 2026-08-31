@@ -73,7 +73,7 @@ addKnown('strong_arbitration','borrow_money',[
   '我向父母借的这笔周转钱月底前能不能借到'
 ]);
 addKnown('strong_arbitration','item_purchase',[
-  '这台投影仪现在值不值得买'
+  '这台扫地机器人眼下值不值得买'
 ]);
 
 // 44 support-arbitration rows. They deliberately expose a route topic without a decisive current target.
