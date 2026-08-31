@@ -188,4 +188,8 @@
         buildDependencies,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantitySemanticBridge) {
+        document.write('<script src="./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
