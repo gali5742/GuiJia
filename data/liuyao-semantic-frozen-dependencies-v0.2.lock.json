@@ -1,0 +1,11 @@
+{
+  "version": "0.2",
+  "status": "locked_representation_corrected",
+  "artifact": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+  "artifactSha256": "d9ad664c23642dae914772a6a4416486f0e959d4f312838965428532134fd238",
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "textsPerEncoderCall": 1,
+  "executionContractSha256": "7c9a4f2019b856da9667597e8bce6cb50f06da30865b4467421812540eb5fd2d",
+  "legacyHardVetoCutoff": 0.4196,
+  "legacyHardVetoTransferStatus": "requires_candidate_revalidation_before_use"
+}
