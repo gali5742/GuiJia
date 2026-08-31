@@ -1,0 +1,45 @@
+name: LiuYao v0.13-v0.2 Locked Independent E2E
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/run-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
+      - '.github/workflows/liuyao-v013-v02-independent-e2e.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.2 lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs
+      - name: Verify sealed independent corpus and lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Refuse overwrite of first independent result
+        run: |
+          test ! -e data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-report-v0.1.json || {
+            echo 'First Candidate v0.2 independent report already exists; refusing rerun.' >&2
+            exit 1
+          }
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run first locked Candidate v0.2 independent E2E
+        run: node scripts/run-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Commit first result whether pass or fail
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-report-v0.1.json
+          git commit -m 'test(liuyao): record first v0.13-v0.2 independent result'
+          git push origin HEAD:liuyao-semantic-v013-core
