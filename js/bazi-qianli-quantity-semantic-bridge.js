@@ -49,7 +49,9 @@
         const contributionRecords = synthesis.visibleStemDaymasterContributionRecords || [];
         return freezeArray(visibleEvidenceItems(semanticModel).map((item) => {
             const actorKey = `visible:${item.pillarIndex}:${item.gan}`;
-            const related = contributionRecords.filter((record) => record.actorKey === actorKey || record.visibleStemActorKey === actorKey);
+            const related = contributionRecords.filter((record) =>
+                record.visibleActorKey === actorKey || record.actorKey === actorKey || record.visibleStemActorKey === actorKey
+            );
             return Object.freeze({
                 id:`QBR-STEM-${item.position || item.pillarIndex}`,
                 actorKey,
@@ -147,7 +149,7 @@
         (synthesis.visibleStemDaymasterContributionRecords || []).map((record) => Object.freeze({
             id:`QBR-PROJECT-${record.id}`,
             contributionRecordId:record.id,
-            actorKey:record.actorKey || record.visibleStemActorKey || null,
+            actorKey:record.visibleActorKey || record.actorKey || record.visibleStemActorKey || null,
             strengthMeaning:record.strengthMeaning || null,
             contributionState:record.contributionState || null,
             realizationState:record.realizationState || null,
