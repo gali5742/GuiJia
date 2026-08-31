@@ -388,4 +388,8 @@
         buildInterpretationRecords,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemDaymasterContribution) {
+        document.write('<script src="./js/bazi-visible-stem-daymaster-contribution.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
