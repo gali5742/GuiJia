@@ -30,7 +30,7 @@ if (frozen.router?.routeOrder?.length !== 22 || frozen.router?.routeHead?.weight
 if (routeabilityModel.status !== 'frozen' || routeabilityModel.model?.weights?.length !== 512) throw new Error('frozen Routeability model missing');
 if (routeabilityV03.status !== 'frozen' || !Number.isFinite(routeabilityV03.calibration?.threshold)) throw new Error('frozen Routeability v0.3 policy missing');
 if (routeabilityModel.encoder?.revision !== frozen.encoder?.revision) throw new Error('encoder revision mismatch');
-if (routeabilityV03.baseModel?.artifactSha256 !== sha256('data/liuyao-semantic-routeability-v0.2.json')) throw new Error('Routeability v0.3 base-model hash drift');
+if (routeabilityV03.baseModel?.sha256 !== sha256('data/liuyao-semantic-routeability-v0.2.json')) throw new Error('Routeability v0.3 base-model hash drift');
 
 const context = { console, Date, Math, JSON, Intl, Set, Map, Array, Object, Number };
 context.window = context;
