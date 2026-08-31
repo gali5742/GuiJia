@@ -1,0 +1,38 @@
+name: LiuYao v0.13-v0.3 Architecture Diagnostic
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/diagnose-liuyao-semantic-v013-candidate-v02-independent.mjs'
+      - '.github/workflows/liuyao-v013-v03-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify immutable Candidate v0.2 lock and independent result
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs
+          node scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+          node -e "const r=require('./data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-report-v0.1.json'); if(!r.immutable || r.promotionPassed!==false) process.exit(1)"
+      - name: Diagnose v0.2 failures without tuning Candidate v0.2
+        run: node scripts/diagnose-liuyao-semantic-v013-candidate-v02-independent.mjs
+      - name: Commit diagnostic artifact
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v02-independent-diagnostic-v0.1.json
+          git commit -m 'test(liuyao): record v0.2 independent failure diagnosis'
+          git push origin HEAD:liuyao-semantic-v013-core
