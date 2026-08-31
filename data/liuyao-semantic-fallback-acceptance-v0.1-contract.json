@@ -1,0 +1,91 @@
+{
+  "version": "0.13-fallback-acceptance-v0.1-contract-v0.1",
+  "status": "frozen_architecture_before_fresh_calibration",
+  "scope": "liuyao_semantic_pure_fallback_acceptance",
+  "purpose": "Separate pure-fallback route ranking from confidence acceptance. The frozen Identity v0.2 heads rank all 22 routes; this gate decides only whether the top-ranked route is safe enough to accept.",
+  "dependencies": {
+    "embeddingExecutionContract": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "correctedSemanticDependencies": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "correctedRouteability": "data/liuyao-semantic-routeability-v0.4.json",
+    "identityRanker": "data/liuyao-semantic-fallback-identity-v0.2.json",
+    "routeInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "evidence": "js/liuyao-semantic-route-evidence-v03.js",
+    "arbitration": "js/liuyao-semantic-route-arbitration-v012.js"
+  },
+  "applicability": {
+    "path": "pure_fallback_only",
+    "requirements": [
+      "Evidence v0.3 unsupportedTargets is empty",
+      "Arbitration v0.12 returns null"
+    ],
+    "explicitUnsupportedTarget": "handled_before_this_gate",
+    "strongOrSupportArbitration": "handled_before_this_gate"
+  },
+  "ranker": {
+    "model": "frozen Fallback Identity v0.2 heads",
+    "candidateUniverse": "all_22_routes",
+    "selection": "global_argmax_identity_probability",
+    "routerTopKAsHardCandidateBoundary": false,
+    "routerMayOverrideIdentityTop1": false,
+    "routeSpecificRankingParameters": false,
+    "weightsRetuned": false
+  },
+  "gate": {
+    "type": "two_global_threshold_conjunction",
+    "features": [
+      "corrected_routeability_probability",
+      "identity_global_top1_probability"
+    ],
+    "acceptCondition": "routeability_probability >= routeability_accept_threshold AND identity_top1_probability >= identity_accept_threshold",
+    "marginThreshold": null,
+    "routerConfidenceThreshold": null,
+    "routeSpecificThresholdsAllowed": false,
+    "onAccept": "select_identity_global_top1_route",
+    "onReject": "fallback_unresolved",
+    "rejectDoesNotAssertOutOfScope": true
+  },
+  "freshCalibration": {
+    "required": true,
+    "createdAfterContractFreeze": true,
+    "useForTraining": false,
+    "useAsDevelopmentEval": false,
+    "reuseAsIndependent": false,
+    "reuseAsBlind": false,
+    "forbiddenSources": [
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "all v0.13 development evaluation corpora",
+      "all independent evaluation corpora",
+      "all sealed blind corpora",
+      "Routeability calibration corpora"
+    ],
+    "thresholdPolicy": "jointly choose exactly one global Routeability acceptance threshold and one global Identity acceptance threshold",
+    "objective": "maximize_known_exact_retention_subject_to_safety_constraints",
+    "constraints": {
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallNonRouteFalseActivation": 0.05,
+      "maximumFalseActivationPerNonRouteSubtype": 0.05
+    },
+    "tieBreak": [
+      "higher accepted route accuracy",
+      "lower overall non-route false activation",
+      "lower maximum subtype false activation",
+      "higher identity threshold",
+      "higher routeability threshold"
+    ]
+  },
+  "representation": {
+    "textsPerEncoderCall": 1,
+    "multiTextEncoderBatchAllowed": false,
+    "encoder": "Xenova/bge-small-zh-v1.5@75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "dtype": "q8",
+    "pooling": "mean",
+    "normalize": true
+  },
+  "evidenceDiscipline": {
+    "oldFallbackCalibrationStatus": "development_architecture_evidence_only",
+    "oldFallbackCalibrationMayCalibrateThisGate": false,
+    "diagnosticThresholdsMayBecomeProductionThresholds": false,
+    "freshCalibrationRequiredBeforeGateFreeze": true,
+    "freshPostCandidateLockIndependentRequired": true
+  }
+}
