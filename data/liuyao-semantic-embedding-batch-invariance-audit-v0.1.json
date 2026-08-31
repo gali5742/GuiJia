@@ -1,0 +1,27 @@
+{
+  "version": "0.13-embedding-batch-invariance-audit-v0.1",
+  "status": "diagnostic_only",
+  "sampleCount": 24,
+  "comparisons": {
+    "single_vs_batch6": {
+      "n": 24,
+      "minCosine": 0.9927660533583321,
+      "maxVectorAbsDelta": 0.01701632607728243,
+      "routerTop1Changes": 1,
+      "routerTop2SetChanges": 1,
+      "maxRouteabilityProbabilityDelta": 0.005290251640589494,
+      "routeabilityDispositionChanges": 1,
+      "maxIdentityProbabilityDelta": 0.021613546501538128
+    },
+    "single_vs_batch24": {
+      "n": 24,
+      "minCosine": 0.9938602058720537,
+      "maxVectorAbsDelta": 0.01770099252462387,
+      "routerTop1Changes": 0,
+      "routerTop2SetChanges": 2,
+      "maxRouteabilityProbabilityDelta": 0.00567390443839122,
+      "routeabilityDispositionChanges": 0,
+      "maxIdentityProbabilityDelta": 0.01808263008498856
+    }
+  }
+}
