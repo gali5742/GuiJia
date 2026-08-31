@@ -1,0 +1,141 @@
+{
+  "version": "0.13-candidate-v0.3-design-v0.1",
+  "status": "design_frozen_before_v03_data",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "sourceDiagnosis": {
+    "path": "data/liuyao-semantic-v013-candidate-v02-independent-diagnostic-v0.1.json",
+    "allowedUse": "architecture_only",
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "thresholdSelectionEligible": false
+  },
+  "candidateV02": {
+    "sha256": "23368e0911f1164f6af5d7e72dd894ebfcc767524840e5bba796aaff6940f828",
+    "mutationAllowed": false,
+    "promotionStatus": "failed"
+  },
+  "principles": [
+    "Keep Routeability as global current-22 membership and keep its frozen v0.2 weights plus v0.3 threshold unchanged unless a separately versioned future model is justified.",
+    "Do not use one global Router margin threshold to repair fallback because wrong known-route selections and non-route false activations overlap strongly in margin.",
+    "Do not allow pure Head fallback merely because Routeability says route_known.",
+    "Separate candidate-specific route identity admission from global Routeability.",
+    "Block explicit modern informational, procedural, fee, tax, policy or administration targets before support rescue and fallback admission.",
+    "Current-target semantics outrank historical/background direction signals in Compatibility.",
+    "Do not modify traditional LiuYao observation selection in the semantic layer."
+  ],
+  "plannedModules": {
+    "evidence": {
+      "version": "v0.3",
+      "base": "v0.2",
+      "responsibility": "extract explicit informational/procedural unsupported targets using modern language only",
+      "requiredUnsupportedTargetFamilies": [
+        "rule_or_procedure_information",
+        "fee_or_tax_information",
+        "administrative_or_accounting_information"
+      ],
+      "mustNot": [
+        "infer traditional 六亲 or 用神",
+        "treat every mention of fees/tax/rules as unsupported when the actual current target is a supported outcome"
+      ]
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "base": "v0.2",
+      "responsibility": "review candidate route against explicit semantic evidence",
+      "requiredChanges": [
+        "current debt_collection target overrides historical funds_outward background",
+        "commercial_transaction topic evidence may confirm when no informational/contract-review unsupported target exists",
+        "income_bonus and income_salary topic evidence may confirm when no policy/administration unsupported target exists",
+        "generic informational/procedural unsupported target contradicts current-22 route activation"
+      ]
+    },
+    "routeability": {
+      "version": "v0.5",
+      "baseModel": "frozen_v0.2",
+      "thresholdSource": "frozen_v0.3",
+      "threshold": 0.7675678218564946,
+      "responsibility": "global current-22 membership plus confirmed strong/support rescue after Compatibility v0.3",
+      "fallbackBelowThresholdRescue": false,
+      "thresholdRetuneInV03": false
+    },
+    "fallbackIdentityGate": {
+      "version": "v0.1",
+      "appliesOnlyWhen": "Arbitration is null and Routeability is route_known",
+      "candidateSource": ["Router Top1", "Router Top2"],
+      "model": {
+        "type": "22 independent binary logistic heads over the frozen 512-dimensional encoder vector",
+        "output": "one sigmoid probability per current route",
+        "purpose": "candidate-specific route identity validation with reject-all capability",
+        "notAReplacementForRouter": true,
+        "notAReplacementForRouteability": true
+      },
+      "decisionContract": [
+        "score only Router Top1 and Top2 candidates",
+        "admit a candidate only when its validator score meets the separately calibrated fallback-admission threshold",
+        "if exactly one of Top1/Top2 is admitted, select it",
+        "if neither is admitted, return route_unresolved",
+        "if both are admitted, return route_unresolved in v0.1 rather than force a low-confidence choice"
+      ],
+      "forbidden": [
+        "threshold selection from Candidate v0.2 independent data",
+        "training from any sealed blind or independent set",
+        "using traditional LiuYao fields as features"
+      ]
+    },
+    "selection": {
+      "version": "v0.4",
+      "strongSupportPolicy": "preserve v0.3 strong/support behavior except Compatibility v0.3 outcomes",
+      "pureHeadFallbackPolicy": "must consume Fallback Identity Gate v0.1; raw Routeability acceptance is insufficient"
+    },
+    "finalization": {
+      "version": "v0.1",
+      "change": "none",
+      "scopeHardVeto": 0.4196
+    }
+  },
+  "trainingPolicy": {
+    "fallbackIdentityTrainingMayUse": [
+      "existing Semantic Router train splits only",
+      "fresh v0.3 fallback-identity training augmentation created after this design freeze"
+    ],
+    "fallbackIdentityTrainingMustExclude": [
+      "all Router validation splits",
+      "all v0.11/v0.12 sealed blind",
+      "Candidate v0.1 independent eval",
+      "Candidate v0.2 independent eval",
+      "v0.13 development evaluation",
+      "Routeability v0.3 calibration"
+    ],
+    "freshCalibrationMustBeSeparateFromTraining": true,
+    "freshCalibrationObjective": "maximize fallback known-route retention subject to accepted route accuracy >= 0.98, overall non-route false activation <= 0.05, and each non-route subtype false activation <= 0.05",
+    "calibrationMayChoose": [
+      "one global fallback-admission threshold for the 22 sigmoid validators"
+    ],
+    "calibrationMustNotChoose": [
+      "Routeability threshold",
+      "Scope hard-veto cutoff",
+      "route-specific thresholds in Fallback Identity v0.1"
+    ]
+  },
+  "evaluationPolicy": {
+    "freshV03DevelopmentRequired": true,
+    "freshV03CalibrationRequired": true,
+    "candidateLockBeforeIndependent": true,
+    "freshPostLockIndependentRequired": true,
+    "candidateV02IndependentMayNotBeReusedAsV03Independent": true,
+    "sameVersionRetuneAfterIndependent": false,
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    }
+  },
+  "nextTopicBoundary": {
+    "inventory": "data/liuyao-next-topic-inventory-v0.1.json",
+    "status": "design_only",
+    "mayEnterV03Training": false,
+    "mayBecomeCurrentRoutes": false
+  }
+}
