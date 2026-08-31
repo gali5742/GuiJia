@@ -1,0 +1,67 @@
+{
+  "version": "0.13-fallback-identity-v0.1-architecture-counterfactual-v0.1",
+  "status": "diagnostic_only",
+  "policy": {
+    "mayRetuneFrozenV01": false,
+    "thresholdsAreDiagnosticOnly": true,
+    "newVersionRequiresFreshCalibration": true
+  },
+  "results": {
+    "current_v01": {
+      "threshold": 0.6208724481326267,
+      "knownRetention": 0.3787878787878788,
+      "knownExact": 25,
+      "acceptedRouteAccuracy": 1,
+      "selectedTotal": 25,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": 0,
+        "route_unresolved": 0,
+        "near_domain_not_current_route": 0
+      }
+    },
+    "identity_only_unresolved": {
+      "threshold": 0.670279890821192,
+      "knownRetention": 0.30303030303030304,
+      "knownExact": 20,
+      "acceptedRouteAccuracy": 1,
+      "selectedTotal": 20,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": 0,
+        "route_unresolved": 0,
+        "near_domain_not_current_route": 0
+      }
+    },
+    "routeability_then_higher_identity": {
+      "threshold": 0.5654744559895336,
+      "knownRetention": 0.4393939393939394,
+      "knownExact": 29,
+      "acceptedRouteAccuracy": 1,
+      "selectedTotal": 29,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": 0,
+        "route_unresolved": 0,
+        "near_domain_not_current_route": 0
+      }
+    },
+    "identity_only_higher_identity": {
+      "threshold": 0.670279890821192,
+      "knownRetention": 0.3333333333333333,
+      "knownExact": 22,
+      "acceptedRouteAccuracy": 1,
+      "selectedTotal": 22,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "bySubtype": {
+        "outside_current_22": 0,
+        "route_unresolved": 0,
+        "near_domain_not_current_route": 0
+      }
+    }
+  }
+}
