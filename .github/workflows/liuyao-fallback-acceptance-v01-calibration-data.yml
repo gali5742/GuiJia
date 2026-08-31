@@ -1,0 +1,42 @@
+name: LiuYao Fallback Acceptance v0.1 Fresh Calibration Data
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-fallback-acceptance-v0.1-contract.json'
+      - 'scripts/verify-liuyao-semantic-fallback-acceptance-v01-contract.mjs'
+      - 'scripts/generate-liuyao-semantic-fallback-acceptance-v01-calibration.mjs'
+      - 'scripts/verify-liuyao-semantic-fallback-acceptance-v01-calibration.mjs'
+      - '.github/workflows/liuyao-fallback-acceptance-v01-calibration-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preseal:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify frozen acceptance architecture contract
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-contract.mjs
+      - name: Generate presealed fresh calibration
+        run: node scripts/generate-liuyao-semantic-fallback-acceptance-v01-calibration.mjs
+      - name: Verify presealed fresh calibration
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-calibration.mjs
+      - name: Commit verified presealed calibration
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-fallback-acceptance-v0.1-calibration.json
+          git commit -m 'test(liuyao): add verified fallback acceptance calibration'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
