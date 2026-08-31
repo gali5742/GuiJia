@@ -301,3 +301,4 @@ test('生产加载链在 Actor Interaction Aggregation 后加载 Actor Function 
 
 console.log(`\nBaZi visible stem actor function composition: ${passed} passed, ${failed} failed`);
 if (failed) process.exit(1);
+require('./bazi-visible-stem-actor-profile-interpretation-tests.js');

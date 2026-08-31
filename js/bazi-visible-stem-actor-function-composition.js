@@ -425,4 +425,8 @@
         buildActorFunctionProfileRecords,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemActorProfileInterpretation) {
+        document.write('<script src="./js/bazi-visible-stem-actor-profile-interpretation.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
