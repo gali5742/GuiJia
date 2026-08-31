@@ -1,0 +1,207 @@
+{
+  "version": "0.13-fallback-identity-v0.1-calibration-diagnostic-v0.1",
+  "status": "diagnostic_only",
+  "sourcePolicy": {
+    "calibrationUsedForTraining": false,
+    "mayRetuneFrozenV01": false,
+    "mayInformNextVersionArchitecture": true,
+    "rowTextStored": false
+  },
+  "threshold": 0.6075189786927091,
+  "counts": {
+    "known": 66,
+    "eligibleKnown": 42,
+    "nonRoute": 68,
+    "eligibleNonRoute": 6
+  },
+  "ceilings": {
+    "routeabilityKnownCeiling": 0.6363636363636364,
+    "routerTop1WithinEligible": 0.7142857142857143,
+    "routerTop2WithinEligible": 0.8095238095238095,
+    "routerTop2OverallCeiling": 0.5151515151515151
+  },
+  "identityAtFrozenThreshold": {
+    "eligibleKnownSelectedCorrect": 24,
+    "eligibleKnownRetention": 0.5714285714285714,
+    "overallKnownRetention": 0.36363636363636365,
+    "eligibleKnownRejectAll": 17,
+    "eligibleKnownMultiple": 1,
+    "eligibleKnownWrong": 0
+  },
+  "scoreDistributions": {
+    "correctCandidateWhenInTop2": {
+      "n": 34,
+      "min": 0.47379200138186783,
+      "p10": 0.5215938841758904,
+      "p25": 0.5884246331855139,
+      "median": 0.6532521495870438,
+      "p75": 0.6865424886305769,
+      "p90": 0.7337779285290217,
+      "max": 0.7755649974049141
+    },
+    "competingKnownCandidate": {
+      "n": 50,
+      "min": 0.34092391391720395,
+      "p10": 0.38215964107421446,
+      "p25": 0.4205022790907182,
+      "median": 0.4608411086754471,
+      "p75": 0.49874769120205964,
+      "p90": 0.5701868149153018,
+      "max": 0.6816399773125663
+    },
+    "eligibleNonRouteMaxCandidate": {
+      "n": 6,
+      "min": 0.38653117046869534,
+      "p10": 0.40168543279721625,
+      "p25": 0.4281324426047325,
+      "median": 0.48270099796207067,
+      "p75": 0.5338596298750192,
+      "p90": 0.5503789217328554,
+      "max": 0.556742107259826
+    },
+    "top2MissKnownMaxCandidate": {
+      "n": 8,
+      "min": 0.382286742856008,
+      "p10": 0.40740143388844513,
+      "p25": 0.42090832170087666,
+      "median": 0.445021494288776,
+      "p75": 0.47368265221346995,
+      "p90": 0.502080317675518,
+      "max": 0.5192242913122639
+    }
+  },
+  "byRoute": {
+    "financial_fortune": {
+      "total": 3,
+      "eligible": 1,
+      "top2Covered": 1,
+      "selectedExact": 1
+    },
+    "business_operation": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 1,
+      "selectedExact": 0
+    },
+    "commercial_transaction": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 3,
+      "selectedExact": 2
+    },
+    "inventory_purchase": {
+      "total": 3,
+      "eligible": 2,
+      "top2Covered": 2,
+      "selectedExact": 0
+    },
+    "inventory_sale": {
+      "total": 3,
+      "eligible": 2,
+      "top2Covered": 2,
+      "selectedExact": 2
+    },
+    "borrow_money": {
+      "total": 3,
+      "eligible": 1,
+      "top2Covered": 0,
+      "selectedExact": 0
+    },
+    "lend_money": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 3,
+      "selectedExact": 3
+    },
+    "debt_collection": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 2,
+      "selectedExact": 2
+    },
+    "debt_repayment": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 3,
+      "selectedExact": 2
+    },
+    "partnership": {
+      "total": 3,
+      "eligible": 0,
+      "top2Covered": 0,
+      "selectedExact": 0
+    },
+    "investment_profit": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 1,
+      "selectedExact": 0
+    },
+    "investment_liquidation": {
+      "total": 3,
+      "eligible": 2,
+      "top2Covered": 2,
+      "selectedExact": 1
+    },
+    "investment_suitability": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 3,
+      "selectedExact": 3
+    },
+    "investment_position_decision": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 3,
+      "selectedExact": 2
+    },
+    "investment_price_trend": {
+      "total": 3,
+      "eligible": 1,
+      "top2Covered": 1,
+      "selectedExact": 0
+    },
+    "income_salary": {
+      "total": 3,
+      "eligible": 0,
+      "top2Covered": 0,
+      "selectedExact": 0
+    },
+    "income_bonus": {
+      "total": 3,
+      "eligible": 3,
+      "top2Covered": 2,
+      "selectedExact": 1
+    },
+    "receive_item": {
+      "total": 3,
+      "eligible": 0,
+      "top2Covered": 0,
+      "selectedExact": 0
+    },
+    "item_purchase": {
+      "total": 3,
+      "eligible": 1,
+      "top2Covered": 1,
+      "selectedExact": 1
+    },
+    "relationship_development": {
+      "total": 3,
+      "eligible": 2,
+      "top2Covered": 1,
+      "selectedExact": 1
+    },
+    "marriage_match": {
+      "total": 3,
+      "eligible": 2,
+      "top2Covered": 2,
+      "selectedExact": 2
+    },
+    "marital_relationship": {
+      "total": 3,
+      "eligible": 1,
+      "top2Covered": 1,
+      "selectedExact": 1
+    }
+  }
+}
