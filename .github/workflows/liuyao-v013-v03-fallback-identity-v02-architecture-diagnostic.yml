@@ -7,6 +7,7 @@ on:
     paths:
       - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-architecture.mjs'
       - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-global-ranking.mjs'
+      - 'scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-joint-gate.mjs'
       - '.github/workflows/liuyao-v013-v03-fallback-identity-v02-architecture-diagnostic.yml'
   workflow_dispatch:
 
@@ -38,10 +39,12 @@ jobs:
         run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-architecture.mjs
       - name: Diagnose corrected Fallback Identity global ranking
         run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-global-ranking.mjs
+      - name: Diagnose joint fallback acceptance gate
+        run: node scripts/diagnose-liuyao-semantic-v013-fallback-identity-v02-joint-gate.mjs
       - name: Commit architecture diagnostics
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/liuyao-semantic-fallback-identity-v0.2-architecture-diagnostic.json data/liuyao-semantic-fallback-identity-v0.2-global-ranking-diagnostic.json
-          git commit -m 'test(liuyao): record fallback identity ranking diagnostics'
+          git add data/liuyao-semantic-fallback-identity-v0.2-architecture-diagnostic.json data/liuyao-semantic-fallback-identity-v0.2-global-ranking-diagnostic.json data/liuyao-semantic-fallback-identity-v0.2-joint-gate-diagnostic.json
+          git commit -m 'test(liuyao): record fallback identity joint gate diagnosis'
           git push origin HEAD:liuyao-semantic-v013-core-train-v01
