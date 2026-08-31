@@ -21,21 +21,16 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Apply pre-seal path-contract wording corrections
+      - name: Remove final exact-overlap fixture before seal
         run: |
           node <<'NODE'
           const fs = require('fs');
           const file = 'scripts/generate-liuyao-semantic-v013-independent-eval.mjs';
           let source = fs.readFileSync(file, 'utf8');
-          const replacements = [
-            ['仓库里这批积压货下个月能不能清完','仓库里这批积压货下个月能不能卖完'],
-            ['这单批发生意目前还在磋商，我想看看','这单批发订单目前还在磋商，我想看看'],
-            ['ETF仓位要不要动一动这件事我一直拿不准','ETF仓位要不要调整一下这件事我一直拿不准']
-          ];
-          for (const [from, to] of replacements) {
-            if (!source.includes(from) && !source.includes(to)) throw new Error(`fixture not found: ${from}`);
-            source = source.replace(from, to);
-          }
+          const from = '这台投影仪现在值不值得买';
+          const to = '这台扫地机器人眼下值不值得买';
+          if (!source.includes(from) && !source.includes(to)) throw new Error('overlap fixture not found');
+          source = source.replace(from, to);
           fs.writeFileSync(file, source, 'utf8');
           NODE
       - name: Verify generator count before commit
@@ -43,11 +38,11 @@ jobs:
       - name: Commit generator correction only
         run: |
           if [ -z "$(git status --porcelain -- scripts/generate-liuyao-semantic-v013-independent-eval.mjs)" ]; then
-            echo 'Generator already contains corrections.'
+            echo 'Generator already contains correction.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add scripts/generate-liuyao-semantic-v013-independent-eval.mjs
-          git commit -m 'test(liuyao): correct pre-seal independent path fixtures'
+          git commit -m 'test(liuyao): remove final independent exact overlap'
           git push origin HEAD:liuyao-semantic-v013-core
