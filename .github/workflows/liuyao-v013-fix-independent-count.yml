@@ -21,28 +21,26 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Remove final exact-overlap fixture before seal
+      - name: Fix E2E base-model integrity field name
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const file = 'scripts/generate-liuyao-semantic-v013-independent-eval.mjs';
+          const file = 'scripts/run-liuyao-semantic-v013-independent-eval.mjs';
           let source = fs.readFileSync(file, 'utf8');
-          const from = '这台投影仪现在值不值得买';
-          const to = '这台扫地机器人眼下值不值得买';
-          if (!source.includes(from) && !source.includes(to)) throw new Error('overlap fixture not found');
+          const from = "routeabilityV03.baseModel?.artifactSha256";
+          const to = "routeabilityV03.baseModel?.sha256";
+          if (!source.includes(from) && !source.includes(to)) throw new Error('integrity-check field not found');
           source = source.replace(from, to);
           fs.writeFileSync(file, source, 'utf8');
           NODE
-      - name: Verify generator count before commit
-        run: node scripts/generate-liuyao-semantic-v013-independent-eval.mjs
-      - name: Commit generator correction only
+      - name: Commit E2E infrastructure correction only
         run: |
-          if [ -z "$(git status --porcelain -- scripts/generate-liuyao-semantic-v013-independent-eval.mjs)" ]; then
-            echo 'Generator already contains correction.'
+          if [ -z "$(git status --porcelain -- scripts/run-liuyao-semantic-v013-independent-eval.mjs)" ]; then
+            echo 'E2E runner already contains correction.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/generate-liuyao-semantic-v013-independent-eval.mjs
-          git commit -m 'test(liuyao): remove final independent exact overlap'
+          git add scripts/run-liuyao-semantic-v013-independent-eval.mjs
+          git commit -m 'test(liuyao): fix independent E2E base-model integrity field'
           git push origin HEAD:liuyao-semantic-v013-core
