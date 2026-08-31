@@ -8,6 +8,7 @@ on:
       - 'data/liuyao-semantic-fallback-acceptance-v0.1-contract.json'
       - 'scripts/verify-liuyao-semantic-fallback-acceptance-v01-contract.mjs'
       - 'scripts/generate-liuyao-semantic-fallback-acceptance-v01-calibration.mjs'
+      - 'scripts/apply-liuyao-semantic-fallback-acceptance-v01-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-fallback-acceptance-v01-calibration.mjs'
       - '.github/workflows/liuyao-fallback-acceptance-v01-calibration-data.yml'
   workflow_dispatch:
@@ -31,6 +32,8 @@ jobs:
         run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-contract.mjs
       - name: Generate presealed fresh calibration
         run: node scripts/generate-liuyao-semantic-fallback-acceptance-v01-calibration.mjs
+      - name: Apply recorded preseal wording corrections
+        run: node scripts/apply-liuyao-semantic-fallback-acceptance-v01-preseal-patch.mjs
       - name: Verify presealed fresh calibration
         run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-calibration.mjs
       - name: Commit verified presealed calibration
