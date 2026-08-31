@@ -1,0 +1,85 @@
+{
+  "version": "0.13-fallback-identity-v0.1-training-contract-v0.1",
+  "status": "frozen_before_first_model_scoring",
+  "scope": "liuyao_semantic_fallback_identity_v0.1",
+  "designPath": "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+  "dataLockPath": "data/liuyao-semantic-fallback-identity-v0.1-data.lock.json",
+  "encoder": {
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "model": {
+    "type": "22_independent_one_vs_rest_logistic_heads",
+    "headCount": 22,
+    "initialization": "all_zero_weights_and_bias",
+    "optimizer": "deterministic_full_batch_gradient_descent",
+    "epochs": 360,
+    "baseLearningRate": 0.42,
+    "learningRateSchedule": "baseLearningRate/(1+epoch*0.01)",
+    "l2": 0.0015,
+    "classBalance": {
+      "enabled": true,
+      "positiveClassTotalWeight": 0.5,
+      "negativeClassTotalWeight": 0.5,
+      "positiveExampleWeight": "0.5/positiveCount",
+      "negativeExampleWeight": "0.5/negativeCount"
+    },
+    "randomness": "none",
+    "routeSpecificHyperparametersAllowed": false,
+    "traditionalLiuYaoFeaturesAllowed": false
+  },
+  "trainingDataPolicy": {
+    "allowed": [
+      "existing Semantic Router train splits only",
+      "fresh sealed Fallback Identity v0.1 training augmentation"
+    ],
+    "historicalHardNegativeHandling": "train hard negatives with an explicit known-route label are assigned to that route; genuine hard negatives are negative for every head",
+    "freshKnownHandling": "positive only for expectedRoute and negative for every other head",
+    "freshNonRouteHandling": "negative for every head",
+    "deduplicateByNormalizedText": true,
+    "conflictingKnownRouteLabels": "fail",
+    "forbidden": [
+      "all Router validation splits",
+      "all sealed blind corpora",
+      "Candidate v0.1 independent eval",
+      "Candidate v0.2 independent eval",
+      "v0.13 development evaluation",
+      "Routeability v0.3 calibration",
+      "Fallback Identity v0.1 calibration"
+    ]
+  },
+  "calibration": {
+    "data": "fresh sealed Fallback Identity v0.1 calibration only",
+    "thresholdPolicy": "one_global_threshold_for_all_22_heads",
+    "routeSpecificThresholdsAllowed": false,
+    "routeabilityThresholdMayChange": false,
+    "scopeHardVetoMayChange": false,
+    "candidateSource": ["Frozen Router Top1", "Frozen Router Top2"],
+    "eligibility": "Fallback Identity applies only when Evidence v0.3 has no unsupported target, Arbitration v0.12 is null, and Routeability v0.5 disposition is route_known",
+    "decision": "exactly one admitted Top1/Top2 candidate selects; zero or two admissions are unresolved",
+    "objective": "maximize_known_exact_retention_subject_to_safety_constraints",
+    "constraints": {
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallNonRouteFalseActivation": 0.05,
+      "maximumFalseActivationPerNonRouteSubtype": 0.05
+    },
+    "candidateThresholds": "0.5 plus each observed eligible Top1/Top2 identity probability, adjacent midpoints, and open-edge sentinels within (0,1)",
+    "tieBreak": [
+      "higher accepted route accuracy",
+      "lower overall non-route false activation",
+      "lower maximum subtype false activation",
+      "higher threshold"
+    ]
+  },
+  "postTrainingPolicy": {
+    "trainingHyperparameterRetuneAfterCalibration": false,
+    "sameVersionDataMutationAfterSeal": false,
+    "candidateLockBeforeIndependentEval": true,
+    "freshPostLockIndependentEvalRequired": true
+  }
+}
