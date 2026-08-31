@@ -1,0 +1,32 @@
+name: LiuYao Candidate v0.4 Assembly Contract
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json'
+      - 'js/liuyao-semantic-fallback-identity-frozen-v02.js'
+      - 'js/liuyao-semantic-fallback-acceptance-frozen-v01.js'
+      - 'js/liuyao-semantic-routeability-v06.js'
+      - 'js/liuyao-semantic-route-selection-v05.js'
+      - 'js/liuyao-semantic-finalization-v02.js'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-routing.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-design.mjs'
+      - '.github/workflows/liuyao-v013-candidate-v04-contract.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.4 assembly design
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-design.mjs
+      - name: Verify Candidate v0.4 routing boundary
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-routing.mjs
