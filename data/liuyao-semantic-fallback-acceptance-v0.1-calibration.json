@@ -1,7 +1,7 @@
 {
   "version": "0.13-fallback-acceptance-v0.1-calibration-v0.1",
-  "status": "presealed_fresh_calibration",
-  "sealed": false,
+  "status": "sealed_fresh_calibration",
+  "sealed": true,
   "scope": "liuyao_semantic_pure_fallback_acceptance",
   "createdAfterContractFreeze": true,
   "provenance": {
@@ -1289,5 +1289,13 @@
     "reason": "Initial fresh fixture wording activated deterministic Evidence/Arbitration paths; wording was corrected before sealing or threshold use. Semantic modules and verifier were not changed.",
     "replacementCount": 11,
     "appliedBeforeFirstUse": true
+  },
+  "sealing": {
+    "sealedAt": "2026-08-31T12:59:05.421Z",
+    "immutableForV01GateCalibration": true,
+    "wordingMayChangeAfterSeal": false,
+    "rowsMayBeAddedAfterSeal": false,
+    "labelsMayChangeAfterSeal": false,
+    "mayBeReusedAsIndependentOrBlind": false
   }
 }

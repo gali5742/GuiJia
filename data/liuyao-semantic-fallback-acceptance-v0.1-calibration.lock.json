@@ -1,0 +1,29 @@
+{
+  "version": "0.13-fallback-acceptance-v0.1-calibration-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_pure_fallback_acceptance",
+  "calibrationPath": "data/liuyao-semantic-fallback-acceptance-v0.1-calibration.json",
+  "calibrationSha256": "1635d7b426a2e215e73cb89a659012d5fa86cda287ed29c05b582c6cbde8e945",
+  "contractPath": "data/liuyao-semantic-fallback-acceptance-v0.1-contract.json",
+  "contractSha256": "84a9d5bc38937aee27362a70295b6577b1bec559754cbdae54a11913e6ff8d7a",
+  "contractFreezeCommit": "0209c276f99c085559e4d736322e188eac79265c",
+  "counts": {
+    "total": 178,
+    "route_known": 88,
+    "non_route": 90,
+    "perRouteKnown": 4,
+    "outside_current_22": 30,
+    "route_unresolved": 30,
+    "near_domain_not_current_route": 30
+  },
+  "policy": {
+    "useForTraining": false,
+    "useForThresholdCalibration": true,
+    "reuseAsDevelopmentEval": false,
+    "reuseAsIndependent": false,
+    "reuseAsBlind": false,
+    "exactlyTwoGlobalThresholds": true,
+    "routeSpecificThresholdsForbidden": true,
+    "multiTextEncoderBatchForbidden": true
+  }
+}
