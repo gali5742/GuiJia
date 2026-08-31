@@ -1,0 +1,20 @@
+{
+  "version": "0.13-fallback-identity-v0.2-model-lock-v0.1",
+  "status": "locked_representation_corrected",
+  "artifactPath": "data/liuyao-semantic-fallback-identity-v0.2.json",
+  "artifactSha256": "261d0222a481a599d6fd6ff0f7cf792b8562bdd495c3ba937362489c845935e7",
+  "trainingContractSha256": "bc3748f91baa594f1c5a37793f521bb23ba058ddcc19bb0c2635872d27a49bcf",
+  "dataLockSha256": "ddc2ca59e3d31934f48ad1b62d9e7db2dc6706e370644fca2dda2aea9a6a597d",
+  "correctedDependencySha256": "d9ad664c23642dae914772a6a4416486f0e959d4f312838965428532134fd238",
+  "correctedRouteabilitySha256": "3cb47c30e806605c8886d66ce20cc475be5c9c574256a76a092704cd4ec66db3",
+  "threshold": 0.6173203301120582,
+  "routeabilityThreshold": 0.7678148573595883,
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "textsPerEncoderCall": 1,
+  "calibrationEvidenceStatus": "representation_correction_reprocessed_not_fresh",
+  "policy": {
+    "runtimeLoadOnly": true,
+    "routeSpecificThresholds": false,
+    "calibrationMayNotRetrainModel": true
+  }
+}
