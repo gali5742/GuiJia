@@ -1,0 +1,46 @@
+name: LiuYao v0.13-v0.3 Fallback Identity Train
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-fallback-identity-v0.1-training-contract.json'
+      - 'js/liuyao-semantic-fallback-identity-model-v01.js'
+      - 'js/liuyao-semantic-fallback-identity-frozen-v01.js'
+      - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v01-training-contract.mjs'
+      - 'scripts/train-liuyao-semantic-v013-fallback-identity-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v01-model.mjs'
+      - '.github/workflows/liuyao-v013-v03-fallback-identity-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify sealed fresh data
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Verify frozen training contract
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-training-contract.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save @huggingface/transformers@4.2.0
+      - name: Train 22 fallback identity heads and calibrate one global threshold
+        run: node scripts/train-liuyao-semantic-v013-fallback-identity-v01.mjs
+      - name: Verify frozen fallback identity artifact
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-model.mjs
+      - name: Commit frozen model and lock
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-fallback-identity-v0.1.json data/liuyao-semantic-fallback-identity-v0.1.lock.json
+          git commit -m 'feat(liuyao): freeze fallback identity v0.1 model'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
