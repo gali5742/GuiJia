@@ -6,6 +6,7 @@ on:
       - liuyao-semantic-v013-core
     paths:
       - 'scripts/generate-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-fallback-identity-v01-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
       - 'scripts/seal-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
       - '.github/workflows/liuyao-v013-v03-fallback-identity-data.yml'
@@ -28,6 +29,8 @@ jobs:
         run: node scripts/verify-liuyao-semantic-v013-candidate-v03-design.mjs
       - name: Generate fresh training augmentation and calibration
         run: node scripts/generate-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Apply deterministic pre-seal path correction
+        run: node scripts/apply-liuyao-semantic-v013-fallback-identity-v01-preseal-patch.mjs
       - name: Verify path contracts and corpus isolation before seal
         run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs
       - name: Seal both corpora before any encoder scoring
