@@ -199,10 +199,10 @@ const calibration = {
   rows:[...knownRows(calibrationKnown,'calibration'), ...nonRouteRows(calibrationNonRoute,'calibration')]
 };
 
-if (training.rows.length !== 154) throw new Error(`training count ${training.rows.length} != 154`);
-if (calibration.rows.length !== 132) throw new Error(`calibration count ${calibration.rows.length} != 132`);
+if (training.rows.length !== 156) throw new Error(`training count ${training.rows.length} != 156`);
+if (calibration.rows.length !== 134) throw new Error(`calibration count ${calibration.rows.length} != 134`);
 fs.writeFileSync(trainingPath, `${JSON.stringify(training, null, 2)}\n`, 'utf8');
 fs.writeFileSync(calibrationPath, `${JSON.stringify(calibration, null, 2)}\n`, 'utf8');
 console.log('Generated Fallback Identity v0.1 fresh data.');
-console.log('- training augmentation: 154 (88 known / 66 non-route)');
-console.log('- calibration: 132 (66 known / 66 non-route)');
+console.log('- training augmentation: 156 (88 known / 68 non-route)');
+console.log('- calibration: 134 (66 known / 68 non-route)');
