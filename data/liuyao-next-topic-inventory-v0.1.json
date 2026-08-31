@@ -1,0 +1,228 @@
+{
+  "version": "0.1",
+  "status": "design_only",
+  "scope": "liuyao_next_topic_preparation",
+  "policy": {
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "blindEligible": false,
+    "current22MutationAllowed": false,
+    "lockedCandidateMutationAllowed": false,
+    "traditionalRuleInferenceFromLegacyHeuristics": false,
+    "healthDiseaseDivinationExcluded": true
+  },
+  "baseline": {
+    "currentRouteInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "currentRouteCount": 22,
+    "lockedCandidateSha256": "6503446eb9c9e606ed3de53de5a9e98c1a77362d7a491b2a113f6f31ced059a9",
+    "formalIntentSource": "js/liuyao-intent.js",
+    "formalRuleRegistrySource": "js/liuyao-rule-registry.js",
+    "legacyHeuristicSource": "js/liuyao-core.js",
+    "legacyRegressionSource": "tests/run-tests.js"
+  },
+  "topics": [
+    {
+      "themeId": "career_position",
+      "label": "事业职位",
+      "current22": false,
+      "formalIntentStatus": "missing_event_schema",
+      "formalRuleRegistryStatus": "no_formal_observation_rule",
+      "legacyAudit": {
+        "status": "existing_high_confidence_heuristic",
+        "ruleId": "career-litigation",
+        "strongSignals": ["求职", "面试", "录用", "入职", "升职", "转正", "跳槽", "职位"],
+        "relatedSignals": ["工作", "事业", "职业"],
+        "legacyObservationTarget": "官鬼",
+        "regressionExamples": ["这次面试能否通过？", "朋友介绍的面试，最后能不能录用？", "面试能排第几名"]
+      },
+      "modernSemanticHypotheses": [
+        {
+          "routeId": "job_application_outcome",
+          "focus": "specific application/interview/offer or onboarding outcome",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "position_advancement",
+          "focus": "promotion, regularization or position advancement outcome",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "employment_transition_decision",
+          "focus": "whether to move to or remain in a specific job/employer",
+          "status": "design_hypothesis"
+        }
+      ],
+      "collisionBoundaries": [
+        "salary or pay amount remains income_salary",
+        "bonus or performance payout remains income_bonus",
+        "an employer or colleague mentioned as background does not by itself create a career route",
+        "generic financial benefit of a job must not collapse career outcome into financial_fortune"
+      ],
+      "futureSlotHypotheses": ["employment_target", "career_goal", "application_stage"],
+      "traditionalRuleResearchNeeded": true
+    },
+    {
+      "themeId": "study_exam",
+      "label": "考试学业",
+      "current22": false,
+      "formalIntentStatus": "missing_event_schema",
+      "formalRuleRegistryStatus": "no_formal_observation_rule",
+      "legacyAudit": {
+        "status": "existing_high_confidence_heuristic",
+        "ruleId": "parents-docs-study",
+        "strongSignals": ["考试", "成绩", "学业", "考研", "论文", "志愿", "留学"],
+        "relatedSignals": ["学校", "申请", "资料"],
+        "legacyObservationTarget": "父母",
+        "regressionExamples": ["这次考试成绩怎么样？", "志愿填哪所学校更好", "出国留学申请会不会顺利"]
+      },
+      "modernSemanticHypotheses": [
+        {
+          "routeId": "exam_outcome",
+          "focus": "specific examination result, pass/fail or ranking outcome",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "academic_progress",
+          "focus": "coursework, thesis or study-process progress",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "education_application_choice",
+          "focus": "admission/application outcome or choice among study destinations",
+          "status": "design_hypothesis"
+        }
+      ],
+      "collisionBoundaries": [
+        "documents or application materials mentioned without an education goal do not create study_exam",
+        "tuition/payment questions remain financial routes when money is the current target",
+        "job qualification examinations must be adjudicated by the user's current target rather than keyword priority"
+      ],
+      "futureSlotHypotheses": ["education_target", "study_goal", "exam_or_application_stage"],
+      "traditionalRuleResearchNeeded": true
+    },
+    {
+      "themeId": "travel",
+      "label": "出行",
+      "current22": false,
+      "formalIntentStatus": "missing_event_schema",
+      "formalRuleRegistryStatus": "no_formal_observation_rule",
+      "legacyAudit": {
+        "status": "existing_high_confidence_heuristic",
+        "ruleId": "travel",
+        "strongSignals": ["出行", "出门", "远行", "旅行", "旅游", "出差", "行程", "旅途", "航班"],
+        "relatedSignals": ["启程", "目的地", "路上"],
+        "suppressedBackgroundSignals": ["天气", "下雨", "晴天", "气温", "温度", "降雨", "天气预报", "台风"],
+        "legacyObservationTarget": "世",
+        "legacySecondaryObservation": "应爻与行程结构",
+        "regressionExamples": ["明天出行路上安不安全", "这趟出差顺不顺利", "坐这趟航班会不会延误", "旅游目的地天气好不好"]
+      },
+      "modernSemanticHypotheses": [
+        {
+          "routeId": "travel_execution",
+          "focus": "whether a specific trip or itinerary proceeds as intended",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "travel_safety",
+          "focus": "safety-focused question about a specific journey",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "travel_disruption",
+          "focus": "delay, cancellation or transport disruption of a specific journey",
+          "status": "design_hypothesis"
+        }
+      ],
+      "collisionBoundaries": [
+        "destination weather remains outside the route when weather itself is the target",
+        "delivery arrival remains receive_item when an item rather than the querent's journey is the target",
+        "purchase of tickets or travel goods remains item_purchase when purchase suitability is the target"
+      ],
+      "futureSlotHypotheses": ["journey_target", "travel_goal", "transport_or_itinerary_context"],
+      "traditionalRuleResearchNeeded": true
+    },
+    {
+      "themeId": "litigation_dispute",
+      "label": "诉讼纠纷",
+      "current22": false,
+      "formalIntentStatus": "missing_event_schema",
+      "formalRuleRegistryStatus": "no_formal_observation_rule",
+      "legacyAudit": {
+        "status": "existing_high_confidence_heuristics_with_target_split",
+        "primaryRuleId": "career-litigation",
+        "primaryStrongSignals": ["官司", "诉讼", "仲裁"],
+        "primaryLegacyObservationTarget": "官鬼",
+        "counterpartyRuleId": "counterparty",
+        "counterpartySignals": ["对方", "甲方", "乙方"],
+        "counterpartyLegacyObservationTarget": "应",
+        "regressionExamples": ["这个官司有没有胜算", "仲裁能不能顺利解决", "对方会不会主动和解", "会不会被对方反咬一口"]
+      },
+      "modernSemanticHypotheses": [
+        {
+          "routeId": "litigation_outcome",
+          "focus": "outcome of a specific lawsuit, arbitration or formal proceeding",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "dispute_resolution",
+          "focus": "settlement or resolution of a bounded dispute",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "dispute_counterparty_action",
+          "focus": "specific expected action of the opposing party inside a dispute context",
+          "status": "design_hypothesis"
+        }
+      ],
+      "collisionBoundaries": [
+        "ordinary contract negotiation remains commercial_transaction when no dispute/proceeding is the target",
+        "debt recovery remains debt_collection when collection itself is the current target and litigation is only a method",
+        "counterparty mention alone must not create litigation_dispute"
+      ],
+      "futureSlotHypotheses": ["dispute_target", "proceeding_type", "dispute_goal", "counterparty_context"],
+      "traditionalRuleResearchNeeded": true
+    },
+    {
+      "themeId": "lost_property",
+      "label": "失物",
+      "current22": false,
+      "formalIntentStatus": "missing_event_schema",
+      "formalRuleRegistryStatus": "no_formal_observation_rule",
+      "legacyAudit": {
+        "status": "existing_high_confidence_heuristic_with_animate_exclusion",
+        "ruleId": "lost-item",
+        "strongSignals": ["失物", "遗失物品", "物品遗失", "物品丢失", "东西丢了", "东西丢失", "东西不见", "寻找物品", "找东西"],
+        "dynamicPattern": "loss cue + location/recovery cue",
+        "excludedAnimateOrMissingPersonContext": true,
+        "legacyObservationTarget": "妻财",
+        "regressionExamples": ["手机丢在哪里了还能找到吗", "宠物走丢了能不能自己回来"]
+      },
+      "modernSemanticHypotheses": [
+        {
+          "routeId": "lost_property_recovery",
+          "focus": "whether a specific lost inanimate property item can be recovered",
+          "status": "design_hypothesis"
+        },
+        {
+          "routeId": "lost_property_location",
+          "focus": "where a specific lost inanimate property item is located",
+          "status": "design_hypothesis"
+        }
+      ],
+      "collisionBoundaries": [
+        "a delayed shipment remains receive_item rather than lost_property unless actual loss is the target",
+        "an item purchase question remains item_purchase",
+        "lost pets, children, family, friends or missing persons are not lost_property"
+      ],
+      "futureSlotHypotheses": ["lost_object", "loss_goal", "loss_context"],
+      "traditionalRuleResearchNeeded": true
+    }
+  ],
+  "nextSteps": [
+    "Keep all routeIds above design-only until the current 22-route baseline is promotable.",
+    "Research and register traditional observation rules independently; legacy heuristic targets are not Rule Registry evidence.",
+    "Define formal Intent/Event schemas and Sufficiency slots before producing any training corpus.",
+    "Build cross-theme collision matrices before adding new Router labels.",
+    "When expansion training begins, preserve a frozen current-22 regression set and add new-theme outside/near-domain negatives."
+  ]
+}
