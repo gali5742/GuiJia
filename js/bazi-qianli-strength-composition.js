@@ -366,4 +366,8 @@
         buildDependencies,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityClassificationAudit) {
+        document.write('<script src="./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
