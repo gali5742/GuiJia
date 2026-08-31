@@ -1,0 +1,46 @@
+name: LiuYao v0.13 Sealed Independent E2E
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/run-liuyao-semantic-v013-independent-eval.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-independent-report.mjs'
+      - '.github/workflows/liuyao-v013-independent-e2e.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify locked candidate
+        run: node scripts/verify-liuyao-semantic-v013-candidate-lock.mjs
+      - name: Verify sealed independent eval
+        run: node scripts/verify-liuyao-semantic-v013-independent-eval.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run first post-lock independent E2E
+        run: node scripts/run-liuyao-semantic-v013-independent-eval.mjs
+      - name: Verify independent report contract
+        run: node scripts/verify-liuyao-semantic-v013-independent-report.mjs
+      - name: Commit immutable independent report
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-decision-stack-v0.13-independent-report-v0.1.json)" ]; then
+            echo 'Independent report already matches current locked candidate and eval.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-independent-report-v0.1.json
+          git commit -m 'test(liuyao): record first post-lock v0.13 independent E2E'
+          git push origin HEAD:liuyao-semantic-v013-core
