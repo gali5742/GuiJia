@@ -1,6 +1,6 @@
 name: LiuYao v0.13 Post-Lock Independent Eval
 
-# Explicit user-side rerun after pre-seal path-contract corrections.
+# Final explicit user-side seal run after count, path, and overlap pre-seal corrections.
 on:
   push:
     branches:
