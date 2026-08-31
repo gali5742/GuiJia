@@ -62,6 +62,7 @@ const GuiJia = loadScripts([
     'js/bazi-visible-stem-directed-function.js',
     'js/bazi-visible-stem-function-coverage.js',
     'js/bazi-visible-stem-function-realization.js',
+    'js/bazi-visible-stem-function-realization-source.js',
     'js/bazi-visible-stem-actor-interaction-aggregation.js',
     'js/bazi-visible-stem-actor-function-composition.js',
     'js/bazi-assessment.js',
@@ -113,15 +114,18 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('Actor Function Composition v0.1 冻结正交 profile contract，不发明正向 realized state', () => {
+test('Actor Function Composition v0.2 接受上游正反 source-context realization，但不自行发明状态', () => {
     assert(api?.installed === true, 'Actor Function Composition 模块未安装');
-    assert(api.VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_VERSION === '0.1', '版本异常');
+    assert(api.VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_VERSION === '0.2', '版本异常');
     assert(api.CONTRACT.actorProfileCentric === true, '必须 actor-profile-centric');
     assert(api.CONTRACT.orthogonalParticipationAndRealizationAxes === true, 'participation / realization 必须分轴');
     assert(api.CONTRACT.bucketViewsAreIndexesNotAdditionalEvidence === true, 'bucket 只能是索引视图');
     assert(api.CONTRACT.resolvedMeansConclusionAvailableNotFunctionRealized === true, 'resolved 不得等同 realized');
-    assert(api.CONTRACT.positiveRealizationStateInvented === false, '不得发明正向 realization state');
-    assert(api.CONTRACT.supportedResolvedRealizationStates.length === 1 && api.CONTRACT.supportedResolvedRealizationStates[0] === 'not-realized-in-source-context', 'v0.1 只能接受当前上游已存在的 resolved realization state');
+    assert(api.CONTRACT.positiveRealizationStateAcceptedFromUpstream === true, '必须接受上游合法正向 realization state');
+    assert(api.CONTRACT.positiveRealizationStateInvented === false, 'Composition 不得自行发明正向 realization state');
+    assert(api.CONTRACT.supportedResolvedRealizationStates.includes('realized-in-source-context'), 'v0.2 必须支持 realized-in-source-context');
+    assert(api.CONTRACT.supportedResolvedRealizationStates.includes('not-realized-in-source-context'), 'v0.2 必须支持 not-realized-in-source-context');
+    assert(api.CONTRACT.supportedResolvedRealizationStates.length === 2, 'v0.2 不得额外接受未登记 resolved state');
     assert(api.CONTRACT.actorGlobalEffectiveState === false && api.CONTRACT.scalarCollapse === false, '不得压成 actor global state');
 });
 
@@ -130,6 +134,7 @@ test('固定验证盘：三个明干都建立 profile，但 unresolved day-maste
     const records = output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || [];
     assert(records.length === 3, `应有三个 actor function profile：${records.length}`);
     assert(records.every((item) => item.functionEntries.length === 1), '固定盘每个明干当前应各有一个 day-master-related edge');
+    assert(records.every((item) => item.realizedFunctionEntries.length === 0), '固定盘不得凭空出现 realized edge');
     assert(records.every((item) => item.unresolvedFunctionEntries.length === 1), '三个 profile 都应保留 unresolved edge');
     assert(records.every((item) => item.readinessStatus === 'incomplete-realization-coverage'), 'realization coverage 未完成时 readiness 必须 incomplete');
     assert(records.every((item) => item.interpretationStatus === 'unresolved-actor-profile-interpretation'), 'profile interpretation 不得提前解析');
@@ -140,7 +145,7 @@ test('固定验证盘：三个明干都建立 profile，但 unresolved day-maste
     assert(peer.sourceFunctionEntries.length === 0 && peer.targetFunctionEntries.length === 0, 'peer 不得伪装 source/target');
 });
 
-test('DTS exact source：辛 profile 同时保留 source + target，多条 resolved not-realized 与 day-master unresolved', () => {
+test('旧 DTS reachability case：辛 profile 继续保留 source + target、两个 not-realized 与一个 unresolved', () => {
     const { output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
     const xin = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:3:辛');
     assert(xin, '辛 actor profile 缺失');
@@ -149,19 +154,49 @@ test('DTS exact source：辛 profile 同时保留 source + target，多条 resol
     assert(xin.targetFunctionEntries.length === 2, '辛应有两条 target edge（己→辛、丙→辛）');
     assert(xin.peerFunctionEntries.length === 0, '辛不应有 peer edge');
     assert(xin.resolvedFunctionEntries.length === 2, '两个 cross-visible exact-source edge 已有结论');
-    assert(xin.notRealizedFunctionEntries.length === 2, '两个 resolved edge 都只能是 source-specific not-realized');
+    assert(xin.realizedFunctionEntries.length === 0, '旧 DTS case 不应产生正向 realized edge');
+    assert(xin.notRealizedFunctionEntries.length === 2, '两个 resolved edge 都是 source-specific not-realized');
     assert(xin.unresolvedFunctionEntries.length === 1, '丙→辛 day-master edge 必须继续 unresolved');
     assert(xin.readinessStatus === 'incomplete-realization-coverage', 'resolved + unresolved 并存不得伪装 ready');
     assert(xin.participationKinds.includes('source') && xin.participationKinds.includes('target'), '同一 actor 必须允许 source/target 并存');
     assert(xin.actorGlobalEffectiveState === null, '两个 not-realized edge 也不得升级成辛 ineffective');
 });
 
-test('resolved bucket 只表示已有结论，不等于 function realized', () => {
-    const { output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
-    const xin = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:3:辛');
-    assert(xin.resolvedFunctionEntries.length === 2, '应有两个 resolved edge');
-    assert(xin.resolvedFunctionEntries.every((item) => item.realizationState === 'not-realized-in-source-context'), '当前 resolved edge 全部只是未兑现结论');
-    assert(!Object.prototype.hasOwnProperty.call(xin, 'realizedFunctionEntries'), 'v0.1 不应凭空建立正向 realized bucket');
+test('DTS direct-source case：丁 profile 同时保存两条 realized target edge，并可 ready 但不能 effective', () => {
+    const { output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
+    const synthesis = output.semanticModel.strengthSynthesis;
+    const ding = (synthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:0:丁');
+    assert(ding, '丁 actor profile 缺失');
+    assert(ding.functionEntries.length === 2, `丁应有乙→丁与癸→丁两条 edge：${ding.functionEntries.length}`);
+    assert(ding.targetFunctionEntries.length === 2, '丁在两条 edge 中都应是 target');
+    assert(ding.sourceFunctionEntries.length === 0 && ding.peerFunctionEntries.length === 0, '丁不应被改写成 source/peer');
+    assert(ding.resolvedFunctionEntries.length === 2, '两条 source-direct edge 都已有结论');
+    assert(ding.realizedFunctionEntries.length === 2, '两条 edge 都应进入 realized bucket');
+    assert(ding.notRealizedFunctionEntries.length === 0, '丁 profile 不应有 not-realized edge');
+    assert(ding.unresolvedFunctionEntries.length === 0, '丁 profile 已无 unresolved edge');
+    assert(ding.readinessStatus === 'ready-for-actor-profile-interpretation', '全部已知 edge 使用受支持状态时可进入 interpretation readiness');
+    assert(ding.interpretationStatus === 'unresolved-actor-profile-interpretation', 'ready 不等于 interpretation 已解析');
+    assert(ding.actorGlobalEffectiveState === null && ding.genericVisibleEffectiveState === null, '两条 realized edge 仍不得升级为丁 effective');
+});
+
+test('DTS direct-source case：癸 profile 可同时有 realized、not-realized、unresolved 三种 edge', () => {
+    const { output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
+    const gui = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:1:癸');
+    assert(gui, '癸 actor profile 缺失');
+    assert(gui.functionEntries.length === 3, `癸应保留三条 edge：${gui.functionEntries.length}`);
+    assert(gui.realizedFunctionEntries.length === 1, '癸→丁应进入 realized bucket');
+    assert(gui.notRealizedFunctionEntries.length === 1, '己→癸应进入 not-realized bucket');
+    assert(gui.unresolvedFunctionEntries.length === 1, '癸→乙 day-master support 仍应 unresolved');
+    assert(gui.readinessStatus === 'incomplete-realization-coverage', '三种状态并存时 unresolved edge 仍应阻断 readiness');
+    assert(gui.actorGlobalEffectiveState === null, 'realized 与 not-realized 并存不得靠数量或方向压成 global state');
+});
+
+test('resolved bucket 只是结论集合，realized / not-realized 是其正交子视图', () => {
+    const { output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
+    const ding = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:0:丁');
+    assert(ding.resolvedFunctionEntries.length === 2, '丁应有两个 resolved edge');
+    assert(ding.realizedFunctionEntries.length === 2, '丁的两个 resolved edge 均为 realized');
+    assert(ding.realizedFunctionEntries.every((item) => ding.resolvedFunctionEntries.some((resolved) => resolved.edgeContextIdentity === item.edgeContextIdentity)), 'realized bucket 必须只是 resolved evidence 的索引视图');
 });
 
 test('bearing contexts 单独挂载，不进入 function bucket，也不解决 readiness', () => {
@@ -170,11 +205,12 @@ test('bearing contexts 单独挂载，不进入 function bucket，也不解决 r
     assert(ding, '丁 actor profile 缺失');
     assert(ding.bearingContexts.some((item) => item.functionalAvailabilityState === 'bearing-supported'), '应保留 bearing-supported context');
     assert(ding.functionEntries.length === 1, 'bearing context 不得制造额外 function entry');
+    assert(ding.realizedFunctionEntries.length === 0, 'bearing-supported 不得制造 realized edge');
     assert(ding.unresolvedFunctionEntries.length === 1, 'bearing-supported 不得把 day-master function 变成 resolved');
     assert(ding.readinessStatus === 'incomplete-realization-coverage', 'bearing-supported 不得让 readiness 放行');
 });
 
-test('未来未知 resolved realization state 必须阻断，而不是默认解释为已兑现', () => {
+test('未来未知 resolved realization state 继续阻断，而不是默认解释为 realized', () => {
     const profile = api.buildActorFunctionProfileRecord({
         id:'A1',
         actorKey:'visible:0:甲',
@@ -192,9 +228,9 @@ test('未来未知 resolved realization state 必须阻断，而不是默认解�
             targetActorKey:'visible:1:丙',
             peerParticipantActorKeys:[],
             realizationRecordIds:['R1'],
-            realizationStates:['realized-in-source-context'],
-            resolutionStatuses:['resolved-source-function-realized'],
-            realizationState:'realized-in-source-context',
+            realizationStates:['partially-realized-in-source-context'],
+            resolutionStatuses:['resolved-future-state'],
+            realizationState:'partially-realized-in-source-context',
             resolutionCoverageStatus:'resolved',
             consistencyStatus:'consistent',
             sourcePatternIds:['P1'],
@@ -203,6 +239,7 @@ test('未来未知 resolved realization state 必须阻断，而不是默认解�
             contextConditionRecordIds:[]
         }]
     }, 0);
+    assert(profile.realizedFunctionEntries.length === 0, '未知 resolved state 不得进入 realized bucket');
     assert(profile.unsupportedResolvedStateEntries.length === 1, '未知 resolved state 必须进入 unsupported bucket');
     assert(profile.readinessStatus === 'blocked-unsupported-resolved-realization-state', '未知状态必须阻断 readiness');
     assert(profile.interpretationStatus === 'blocked-profile-input', '未知状态不得进入 interpretation');
@@ -210,32 +247,33 @@ test('未来未知 resolved realization state 必须阻断，而不是默认解�
 });
 
 test('profile buckets 只是同一 edge evidence 的正交索引，不复制 relation identity', () => {
-    const { output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
-    const xin = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:3:辛');
-    const entryIds = xin.functionEntries.map((item) => item.edgeContextIdentity);
-    assert(new Set(entryIds).size === xin.functionEntries.length, 'profile 主 entries 不得重复 edge context');
-    assert(xin.sourceFunctionEntries[0].edgeContextIdentity === xin.functionEntries.find((item) => item.participationRole === 'source').edgeContextIdentity, 'role bucket 必须引用同一 edge identity');
-    assert(xin.notRealizedFunctionEntries.every((item) => entryIds.includes(item.edgeContextIdentity)), 'state bucket 不得制造新 edge identity');
+    const { output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
+    const gui = (output.semanticModel.strengthSynthesis.visibleStemActorFunctionProfileRecords || []).find((item) => item.actorKey === 'visible:1:癸');
+    const entryIds = gui.functionEntries.map((item) => item.edgeContextIdentity);
+    assert(new Set(entryIds).size === gui.functionEntries.length, 'profile 主 entries 不得重复 edge context');
+    assert(gui.sourceFunctionEntries.every((item) => entryIds.includes(item.edgeContextIdentity)), 'role bucket 不得制造新 edge identity');
+    assert(gui.realizedFunctionEntries.every((item) => entryIds.includes(item.edgeContextIdentity)), 'realized bucket 不得制造新 edge identity');
+    assert(gui.notRealizedFunctionEntries.every((item) => entryIds.includes(item.edgeContextIdentity)), 'not-realized bucket 不得制造新 edge identity');
 });
 
-test('Composition Model/Profile Inventory 可 resolved，但 Readiness/Interpretation/Visible Effectiveness 继续阻断 Assessment', () => {
-    const { output } = outputFor(['丁','壬','丁','己'], ['丑','子','亥','酉']);
+test('Composition Model/Profile Inventory 可 resolved，但 Interpretation/Visible Effectiveness 继续阻断 Assessment', () => {
+    const { output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const deps = dependencyMap(synthesis);
     assert(deps['SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-MODEL']?.status === 'resolved', 'composition model contract 应 resolved');
     assert(deps['SD-VISIBLE-STEM-ACTOR-FUNCTION-PROFILE-INVENTORY']?.status === 'resolved', 'profile inventory 应可在 unresolved edge 存在时成立');
-    assert(deps['SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-READINESS']?.status === 'unresolved', 'realization 不完整时 readiness 必须 unresolved');
+    assert(deps['SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-READINESS']?.status === 'unresolved', '仍有其他 actor realization 不完整，global readiness dependency 必须 unresolved');
     assert(deps['SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-INTERPRETATION']?.status === 'unresolved', 'actor profile interpretation 必须 unresolved');
     assert(deps['SD-VISIBLE-STEM-ACTOR-INTERACTION-AGGREGATION']?.status === 'unresolved', '旧 aggregation coarse gate 必须继续 unresolved');
-    assert(deps['SD-VISIBLE-STEM-ACTOR-INTERACTION-AGGREGATION']?.dependsOnDependencyIds?.includes('SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-INTERPRETATION'), '旧 aggregation gate 应显式接入新 interpretation blocker');
+    assert(deps['SD-VISIBLE-STEM-ACTOR-INTERACTION-AGGREGATION']?.dependsOnDependencyIds?.includes('SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-INTERPRETATION'), '旧 aggregation gate 应显式接入 interpretation blocker');
     assert(deps['SD-VISIBLE-EFFECTIVENESS']?.status === 'unresolved', 'Visible Effectiveness 必须继续 unresolved');
     assert(deps['SD-VISIBLE-EFFECTIVENESS']?.dependsOnDependencyIds?.includes('SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION-INTERPRETATION'), 'Visible Effectiveness 应接入 profile interpretation');
     assert(synthesis.sufficiency.status === 'insufficient', 'Strength Synthesis 仍应 insufficient');
     assert(output.semanticModel.assessmentLayer.domains.dayMasterStrength.status === 'not-evaluated', 'Assessment 不得启动');
 });
 
-test('Composition 不引入 score/weight/priority/global state，也不泄漏到复制上下文', () => {
-    const { result, output } = outputFor(['癸','己','丙','辛'], ['丑','未','寅','卯']);
+test('Composition v0.2 不引入 score/weight/priority/global state，也不泄漏到复制上下文', () => {
+    const { result, output } = outputFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
     const synthesis = output.semanticModel.strengthSynthesis;
     const contract = synthesis.visibleStemActorFunctionCompositionContract;
     const serialized = JSON.stringify({
@@ -251,7 +289,7 @@ test('Composition 不引入 score/weight/priority/global state，也不泄漏到
     assert((synthesis.visibleStemActorFunctionProfileRecords || []).every((item) => item.actorGlobalEffectiveState === null && item.genericVisibleEffectiveState === null), '不得生成 global visible state');
 
     const copied = interpretation.buildBaziContextText(result, output);
-    ['visibleStemActorFunctionProfile','actor-function-composition','SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION'].forEach((term) => {
+    ['visibleStemActorFunctionProfile','actor-function-composition','SD-VISIBLE-STEM-ACTOR-FUNCTION-COMPOSITION','realized-in-source-context'].forEach((term) => {
         assert(!copied.includes(term), `复制上下文泄漏内部字段：${term}`);
     });
 });
