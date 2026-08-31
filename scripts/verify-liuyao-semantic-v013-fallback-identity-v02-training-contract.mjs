@@ -20,8 +20,10 @@ assert(contract.version === '0.13-fallback-identity-v0.2-training-contract-v0.1'
 assert(contract.status === 'frozen_representation_correction_before_scoring', `contract status ${contract.status}`);
 assert(contract.scope === 'liuyao_semantic_fallback_identity_v0.2', 'contract scope drift');
 assert(contract.correctionType === 'embedding_execution_representation_only', 'correction type drift');
-assert(execution.status === 'frozen_execution_contract', 'embedding execution contract must be frozen');
-assert(execution.canonical?.textsPerEncoderCall === 1, 'canonical embedding execution must be single-text');
+assert(execution.version === '0.13-semantic-embedding-execution-v0.1', 'embedding execution contract version drift');
+assert(execution.status === 'frozen_after_batch_invariance_audit', 'embedding execution contract must remain frozen after audit');
+assert(execution.canonicalInvocation?.textsPerEncoderCall === 1, 'canonical embedding execution must be single-text');
+assert(execution.canonicalInvocation?.multiTextEncoderBatchAllowed === false, 'multi-text encoder batches must remain forbidden');
 assert(corrected.status === 'frozen_representation_corrected' && corrected.encoder?.textsPerEncoderCall === 1, 'corrected semantic dependencies missing');
 assert(correctedLock.status === 'locked_representation_corrected', 'corrected dependency lock missing');
 assert(routeability.status === 'frozen_representation_corrected' && routeability.encoder?.textsPerEncoderCall === 1, 'corrected Routeability missing');
