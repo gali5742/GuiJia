@@ -1,0 +1,50 @@
+name: LiuYao v0.13-v0.2 Pre-Lock Development Evaluation
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'js/liuyao-semantic-routeability-v04.js'
+      - 'js/liuyao-semantic-route-selection-v03.js'
+      - 'js/liuyao-semantic-finalization-v01.js'
+      - 'tests/liuyao-semantic-v013-candidate-v02-tests.js'
+      - 'scripts/evaluate-liuyao-semantic-v013-candidate-v02-development.mjs'
+      - '.github/workflows/liuyao-v013-v02-development.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify v0.13-v0.2 responsibility contracts
+        run: node tests/liuyao-semantic-v013-candidate-v02-tests.js
+      - name: Verify next-topic inventory remains design-only
+        run: node scripts/verify-liuyao-next-topic-inventory-v01.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run pre-lock development evaluation
+        run: node scripts/evaluate-liuyao-semantic-v013-candidate-v02-development.mjs
+      - name: Commit immutable diagnostic report
+        run: |
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-v013-candidate-v02-development-report.json)" ]; then
+            echo 'Development report already matches current candidate draft.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add data/liuyao-semantic-v013-candidate-v02-development-report.json
+            git commit -m 'test(liuyao): record v0.13-v0.2 pre-lock development metrics'
+            git push origin HEAD:liuyao-semantic-v013-core
+          fi
+      - name: Enforce pre-lock readiness gates
+        run: |
+          node -e "const r=require('./data/liuyao-semantic-v013-candidate-v02-development-report.json'); if(!r.readyForCandidateLock){console.error(JSON.stringify(r.developmentChecks,null,2)); process.exit(1)}; console.log('v0.13-v0.2 candidate draft passes pre-lock gates')"
