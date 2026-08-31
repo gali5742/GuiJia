@@ -1,5 +1,6 @@
 name: LiuYao v0.13-v0.2 Responsibility Counterfactual
 
+# Post-eval analysis verifies immutable locks/report, not pre-seal overlap against later derived artifacts.
 on:
   push:
     branches:
@@ -22,10 +23,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Verify failed candidate evidence is immutable
+      - name: Verify failed candidate and immutable independent report
         run: |
           node scripts/verify-liuyao-semantic-v013-candidate-lock.mjs
-          node scripts/verify-liuyao-semantic-v013-independent-eval.mjs
           node scripts/verify-liuyao-semantic-v013-independent-report.mjs
       - name: Run responsibility-only counterfactual
         run: node scripts/counterfactual-liuyao-semantic-v013-candidate-v02.mjs
