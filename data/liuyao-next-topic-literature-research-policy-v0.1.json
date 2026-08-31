@@ -1,0 +1,93 @@
+{
+  "version": "0.1",
+  "status": "design_policy",
+  "scope": "liuyao_next_topic_literature_research",
+  "appliesToInventory": "data/liuyao-next-topic-inventory-v0.1.json",
+  "themes": [
+    "career_position",
+    "study_exam",
+    "travel",
+    "litigation_dispute",
+    "lost_property"
+  ],
+  "policy": {
+    "deepLiteratureResearchRequired": true,
+    "mustCompleteBeforeFormalRuleRegistration": true,
+    "mustCompleteBeforeIntentSchemaPromotion": true,
+    "mustCompleteBeforeSemanticTrainingData": true,
+    "legacyHeuristicAloneIsInsufficientEvidence": true,
+    "singleAuthorAloneIsInsufficientEvidence": true,
+    "sourceProvenanceRequired": true,
+    "conflictingViewsMustBeRecorded": true,
+    "traditionalAndModernSemanticLayersMustRemainSeparated": true,
+    "healthDiseaseDivinationExcluded": true
+  },
+  "requiredResearchLayers": [
+    {
+      "layer": "classical_primary_sources",
+      "requirement": "Locate and compare traditional source passages that directly discuss the theme,取用、世应/六亲观察、成败条件、动变关系、旺衰时效或相关断法. Record exact provenance and do not infer a formal rule from a legacy keyword heuristic alone."
+    },
+    {
+      "layer": "traditional_commentarial_sources",
+      "requirement": "Review later commentarial or systematizing works to identify stable interpretations, disputed interpretations, omitted conditions and school-specific extensions."
+    },
+    {
+      "layer": "modern_practice_sources",
+      "requirement": "Review modern LiuYao authors and worked cases, including contemporary question forms, but treat modern practice as interpretive/reference evidence rather than automatic authority over classical sources."
+    },
+    {
+      "layer": "cross_source_reconciliation",
+      "requirement": "For each proposed traditional rule, distinguish source consensus, compatible variants, real conflicts and unsupported extrapolation. Do not silently merge contradictory methods."
+    },
+    {
+      "layer": "formalization_boundary",
+      "requirement": "Translate only source-supported traditional conclusions into candidate observation rules. Keep modern-language semantic routing separate from traditional observation selection."
+    }
+  ],
+  "requiredOutputsPerTheme": [
+    "source bibliography with provenance",
+    "directly supported traditional rule candidates",
+    "rule preconditions and exclusions",
+    "main observation target plus supported secondary observations",
+    "conflicting or school-specific views",
+    "worked-case evidence where available",
+    "modern-question semantic boundary notes",
+    "collision analysis against current 22 routes and the other four new themes",
+    "open questions that remain unsupported by literature",
+    "research conclusion stating whether the theme is mature enough for Rule Registry design"
+  ],
+  "themeResearchFocus": {
+    "career_position": [
+      "求职、面试、录用、入职、升迁、转正、离职/跳槽是否应共享或拆分传统观察逻辑",
+      "官鬼、世应及相关六亲在职位/任职问题中的主次关系",
+      "职位所得、薪资所得与事业成败之间的传统层级边界"
+    ],
+    "study_exam": [
+      "考试、名次、录取、学业进展、论文/文书、择校之间是否存在不同取用层次",
+      "父母、官鬼、世爻等在考试功名类占问中的主次与条件",
+      "古代科举语境如何谨慎映射到现代考试、升学与留学申请"
+    ],
+    "travel": [
+      "出行成行、旅途顺阻、安全、交通延误是否需要不同观察结构",
+      "世应、动爻、行人/道路相关传统观察的适用条件",
+      "天气、物品运输、购票等非出行本体目标与出行占的边界"
+    ],
+    "litigation_dispute": [
+      "诉讼胜负、仲裁、和解、对方行动在传统上是否使用不同主次观察",
+      "官鬼、世应及双方强弱关系在争讼中的具体适用条件",
+      "债务追收、合同交易与正式争讼之间的边界"
+    ],
+    "lost_property": [
+      "失物能否找回与失物所在方位是否属于同一规则或不同规则",
+      "妻财及其他可能观察对象的适用条件和例外",
+      "无生命失物与走失宠物、失踪人员的严格边界"
+    ]
+  },
+  "promotionGate": {
+    "literatureResearchStatusRequired": "completed_and_reviewed",
+    "minimumSourceDiversity": "multiple independent traditional sources plus modern reference where available",
+    "formalRuleCandidateMayBeCreatedBeforeGate": false,
+    "trainingRowMayBeCreatedBeforeGate": false,
+    "routeIdMayBecomeCurrentBeforeGate": false
+  }
+}
