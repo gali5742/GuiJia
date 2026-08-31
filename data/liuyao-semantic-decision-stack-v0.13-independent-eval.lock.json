@@ -1,0 +1,19 @@
+{
+  "version": "0.13-independent-eval-v0.1-lock",
+  "status": "locked",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "candidateSha256": "6503446eb9c9e606ed3de53de5a9e98c1a77362d7a491b2a113f6f31ced059a9",
+  "dataFile": "data/liuyao-semantic-decision-stack-v0.13-independent-eval.json",
+  "dataSha256": "41c6536d0fdaac27b16c88cb5318644cf9ad5c234df688b1901377810c6b8fc2",
+  "generatorSha256": "7dac1bc03fa2e065134d95f980212f151133162fe9c164b89a4c0028edf13a38",
+  "verifierSha256": "1c9f33783082502bfbd7b9d1463863aec9e6d8ceca08ddbf8b4ae3aa64e507a2",
+  "candidateLockSha256": "57706bec178127452fc3f6582743f68295ffc756b504e7e82d339b03c05392b6",
+  "rowCount": 198,
+  "policy": {
+    "training": false,
+    "calibration": false,
+    "candidateMutation": false,
+    "postRunWordingPatch": false,
+    "futureBlindReuse": false
+  }
+}
