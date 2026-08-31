@@ -1,0 +1,328 @@
+{
+  "version": "0.13-v0.2-responsibility-safety-sweep-v0.1",
+  "status": "development_and_calibration_diagnostic_only",
+  "policy": {
+    "usesIndependentEval": false,
+    "trainsModel": false,
+    "calibratesThreshold": false,
+    "mutatesCandidateV01": false,
+    "claimsGeneralization": false
+  },
+  "threshold": 0.7675678218564946,
+  "sources": [
+    {
+      "id": "sealed_development_198",
+      "path": "data/liuyao-semantic-decision-stack-v0.13-development.json"
+    },
+    {
+      "id": "fresh_calibration_223",
+      "path": "data/liuyao-semantic-routeability-v0.3-calibration.json"
+    }
+  ],
+  "byDataset": {
+    "sealed_development_198": {
+      "rows": 198,
+      "known": 132,
+      "nonRoute": 66,
+      "strongConfirmedScopeBypass": {
+        "recoverableKnown": 0,
+        "newlyActivatedNonRoute": 0,
+        "knownRows": [],
+        "nonRouteRows": []
+      },
+      "supportPriorityAfterAcceptedGate": {
+        "eligibleKnown": 40,
+        "correctableWrongSelections": 0,
+        "currentlyCorrectSelectionsHarmed": 0,
+        "newlyActivatedNonRoute": 0,
+        "correctableRows": [],
+        "harmRows": [],
+        "nonRouteRows": []
+      },
+      "belowThresholdSupportConfirmedRescue": {
+        "eligibleKnown": 6,
+        "exactKnownRecoverableAfterScope": 6,
+        "newlyActivatedNonRouteAfterScope": 0,
+        "nonRouteBySubtype": {},
+        "knownRows": [
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-054",
+            "text": "工作室这阵子经营状况不太稳定，我想问问",
+            "label": "route_known",
+            "expectedRoute": "business_operation",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7571014789985472,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "business_operation",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "partnership",
+              "score": 0.05954903938865425
+            },
+            "scopeProbability": 0.6302814309589906,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-058",
+            "text": "网店最近业绩变化很大，我想问经营本身",
+            "label": "route_known",
+            "expectedRoute": "business_operation",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7525090265827065,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "business_operation",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "business_operation",
+              "score": 0.06864576191579366
+            },
+            "scopeProbability": 0.6496281774929571,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-073",
+            "text": "基金仓位准备清掉，我想占一下这一步",
+            "label": "route_known",
+            "expectedRoute": "investment_liquidation",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7642065961094386,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "investment_liquidation",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "investment_position_decision",
+              "score": 0.07238495219839049
+            },
+            "scopeProbability": 0.7180350138034742,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-077",
+            "text": "这只ETF我在犹豫要不要减仓，想问一下",
+            "label": "route_known",
+            "expectedRoute": "investment_position_decision",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7642385956509012,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "investment_position_decision",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "investment_position_decision",
+              "score": 0.07561804278348412
+            },
+            "scopeProbability": 0.6741460168545175,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-081",
+            "text": "当前ETF持仓要不要调整，我一直在考虑",
+            "label": "route_known",
+            "expectedRoute": "investment_position_decision",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.76717647553928,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "investment_position_decision",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "investment_position_decision",
+              "score": 0.08082291406114751
+            },
+            "scopeProbability": 0.6790760713680709,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "sealed_development_198",
+            "id": "V013-D-091",
+            "text": "我这个小铺子往后做得下去吗",
+            "label": "route_known",
+            "expectedRoute": "business_operation",
+            "path": "fallback_head",
+            "subtype": null,
+            "probability": 0.7658037554849032,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "business_operation",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "business_operation",
+              "score": 0.060304043946784
+            },
+            "scopeProbability": 0.5636476243266896,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          }
+        ],
+        "nonRouteRows": []
+      }
+    },
+    "fresh_calibration_223": {
+      "rows": 223,
+      "known": 88,
+      "nonRoute": 135,
+      "strongConfirmedScopeBypass": {
+        "recoverableKnown": 0,
+        "newlyActivatedNonRoute": 0,
+        "knownRows": [],
+        "nonRouteRows": []
+      },
+      "supportPriorityAfterAcceptedGate": {
+        "eligibleKnown": 34,
+        "correctableWrongSelections": 2,
+        "currentlyCorrectSelectionsHarmed": 0,
+        "newlyActivatedNonRoute": 0,
+        "correctableRows": [
+          {
+            "dataset": "fresh_calibration_223",
+            "id": "R03-C-011",
+            "text": "这笔商业交易目前还在推进，我想占一下这件事",
+            "label": "route_known",
+            "expectedRoute": "commercial_transaction",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7931270148451507,
+            "routeabilityReason": "frozen_v02_score_accept",
+            "arbitration": {
+              "routeId": "commercial_transaction",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "compatible",
+            "headTop1": {
+              "id": "investment_suitability",
+              "score": 0.05650173844114447
+            },
+            "scopeProbability": 0.7169663146991989,
+            "scopeHardVeto": false,
+            "currentSelection": {
+              "status": "selected",
+              "routeId": "investment_suitability",
+              "reasonCode": "fallback_head_top1"
+            }
+          },
+          {
+            "dataset": "fresh_calibration_223",
+            "id": "R03-C-013",
+            "text": "这份采购合同目前还在讨论，我想问问这件事",
+            "label": "route_known",
+            "expectedRoute": "commercial_transaction",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7816033492841545,
+            "routeabilityReason": "frozen_v02_score_accept",
+            "arbitration": {
+              "routeId": "commercial_transaction",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "compatible",
+            "headTop1": {
+              "id": "investment_suitability",
+              "score": 0.05755452245304721
+            },
+            "scopeProbability": 0.6354124852342868,
+            "scopeHardVeto": false,
+            "currentSelection": {
+              "status": "selected",
+              "routeId": "investment_suitability",
+              "reasonCode": "fallback_head_top1"
+            }
+          }
+        ],
+        "harmRows": [],
+        "nonRouteRows": []
+      },
+      "belowThresholdSupportConfirmedRescue": {
+        "eligibleKnown": 2,
+        "exactKnownRecoverableAfterScope": 2,
+        "newlyActivatedNonRouteAfterScope": 0,
+        "nonRouteBySubtype": {},
+        "knownRows": [
+          {
+            "dataset": "fresh_calibration_223",
+            "id": "R03-C-002",
+            "text": "最近整体进账忽高忽低，我想占一下这方面",
+            "label": "route_known",
+            "expectedRoute": "financial_fortune",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7543835684017858,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "financial_fortune",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "financial_fortune",
+              "score": 0.06072620925129251
+            },
+            "scopeProbability": 0.6791486088332589,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          },
+          {
+            "dataset": "fresh_calibration_223",
+            "id": "R03-C-029",
+            "text": "基金仓位要不要调整这件事我一直拿不准",
+            "label": "route_known",
+            "expectedRoute": "investment_position_decision",
+            "path": "support_arbitration",
+            "subtype": null,
+            "probability": 0.7524795432370341,
+            "routeabilityReason": "frozen_v02_score_reject",
+            "arbitration": {
+              "routeId": "investment_position_decision",
+              "strength": "support"
+            },
+            "arbitrationCompatibility": "confirmed",
+            "headTop1": {
+              "id": "investment_position_decision",
+              "score": 0.06959698560888802
+            },
+            "scopeProbability": 0.646423109672927,
+            "scopeHardVeto": false,
+            "currentSelection": null
+          }
+        ],
+        "nonRouteRows": []
+      }
+    }
+  },
+  "pooledSafety": {
+    "nonRouteRows": 201,
+    "strongConfirmedScopeBypassNewActivations": 0,
+    "supportPriorityNewActivations": 0,
+    "belowThresholdSupportConfirmedNewActivations": 0,
+    "belowThresholdSupportConfirmedBySubtype": {}
+  }
+}
