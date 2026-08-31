@@ -1,0 +1,18 @@
+{
+  "version": "0.13-fallback-acceptance-v0.1-lock-v0.1",
+  "status": "locked_fresh_calibrated",
+  "artifactPath": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+  "artifactSha256": "869b36a5b5f20889b5dd7b86f3514cdeef4c9f17d0792d1569c861fc6a34a3ae",
+  "calibrationSha256": "1635d7b426a2e215e73cb89a659012d5fa86cda287ed29c05b582c6cbde8e945",
+  "contractSha256": "84a9d5bc38937aee27362a70295b6577b1bec559754cbdae54a11913e6ff8d7a",
+  "thresholds": {
+    "routeabilityAcceptThreshold": 0.7153315637462625,
+    "identityAcceptThreshold": 0.6247873002579858
+  },
+  "safety": {
+    "acceptedRouteAccuracy": 0.9803921568627451,
+    "overallFalseActivation": 0.011111111111111112,
+    "maxSubtypeFalseActivation": 0.03333333333333333
+  },
+  "freshIndependentStillRequired": true
+}

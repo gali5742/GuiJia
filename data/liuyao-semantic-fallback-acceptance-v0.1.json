@@ -1,0 +1,222 @@
+{
+  "version": "0.13-fallback-acceptance-v0.1",
+  "status": "frozen_fresh_calibrated",
+  "scope": "liuyao_semantic_pure_fallback_acceptance",
+  "architecture": {
+    "ranker": "frozen_identity_v0.2_global_argmax_all_22_routes",
+    "gate": "routeability_probability_and_identity_top1_probability_two_global_threshold_conjunction",
+    "routerTopKHardBoundary": false,
+    "marginThreshold": null,
+    "routeSpecificThresholds": false
+  },
+  "dependencies": {
+    "contract": {
+      "path": "data/liuyao-semantic-fallback-acceptance-v0.1-contract.json",
+      "sha256": "84a9d5bc38937aee27362a70295b6577b1bec559754cbdae54a11913e6ff8d7a"
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-fallback-acceptance-v0.1-calibration.json",
+      "sha256": "1635d7b426a2e215e73cb89a659012d5fa86cda287ed29c05b582c6cbde8e945"
+    },
+    "calibrationLock": {
+      "path": "data/liuyao-semantic-fallback-acceptance-v0.1-calibration.lock.json",
+      "sha256": "e262415462e380941bbeb7b6aea7f7a8ddbf02e32f16ed3f42d76f1139867916"
+    },
+    "correctedSemanticDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "sha256": "d9ad664c23642dae914772a6a4416486f0e959d4f312838965428532134fd238"
+    },
+    "correctedRouteability": {
+      "path": "data/liuyao-semantic-routeability-v0.4.json",
+      "sha256": "3cb47c30e806605c8886d66ce20cc475be5c9c574256a76a092704cd4ec66db3"
+    },
+    "identityRanker": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.2.json",
+      "sha256": "261d0222a481a599d6fd6ff0f7cf792b8562bdd495c3ba937362489c845935e7"
+    },
+    "routeInventory": {
+      "path": "data/liuyao-semantic-route-inventory-v0.2.json",
+      "sha256": "69b13d3316e34a67214c674a9bd43967222cfddda5a290e3a8de50aa5b66760c"
+    }
+  },
+  "encoder": {
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "textsPerEncoderCall": 1
+  },
+  "thresholds": {
+    "routeabilityAcceptThreshold": 0.7153315637462625,
+    "identityAcceptThreshold": 0.6247873002579858
+  },
+  "calibration": {
+    "fresh": true,
+    "independentGeneralizationClaim": false,
+    "totalRows": 178,
+    "knownRows": 88,
+    "nonRouteRows": 90,
+    "thresholdCandidates": {
+      "routeability": 173,
+      "identity": 173,
+      "safePairs": 8491
+    },
+    "identityGlobalTop1AccuracyBeforeGate": 0.8977272727272727,
+    "metrics": {
+      "routeabilityThreshold": 0.7153315637462625,
+      "identityThreshold": 0.6247873002579858,
+      "knownExact": 50,
+      "knownTotal": 88,
+      "knownRetention": 0.5681818181818182,
+      "wrongKnownSelected": 0,
+      "selectedTotal": 51,
+      "acceptedRouteAccuracy": 0.9803921568627451,
+      "falseActivations": 1,
+      "nonRouteTotal": 90,
+      "overallFalseActivation": 0.011111111111111112,
+      "maxSubtypeFalseActivation": 0.03333333333333333,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "gateReachable": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "gateReachable": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "gateReachable": 23,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        }
+      }
+    },
+    "rejection": {
+      "knownIdentityTop1Wrong": 9,
+      "knownBelowRouteabilityThreshold": 1,
+      "knownBelowIdentityThreshold": 37,
+      "knownBelowBothThresholds": 0
+    },
+    "byRoute": {
+      "financial_fortune": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 2
+      },
+      "business_operation": {
+        "total": 4,
+        "identityTop1Correct": 3,
+        "acceptedExact": 2
+      },
+      "commercial_transaction": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 1
+      },
+      "inventory_purchase": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 4
+      },
+      "inventory_sale": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 4
+      },
+      "borrow_money": {
+        "total": 4,
+        "identityTop1Correct": 0,
+        "acceptedExact": 0
+      },
+      "lend_money": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 3
+      },
+      "debt_collection": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 4
+      },
+      "debt_repayment": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 2
+      },
+      "partnership": {
+        "total": 4,
+        "identityTop1Correct": 3,
+        "acceptedExact": 2
+      },
+      "investment_profit": {
+        "total": 4,
+        "identityTop1Correct": 3,
+        "acceptedExact": 0
+      },
+      "investment_liquidation": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 2
+      },
+      "investment_suitability": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 3
+      },
+      "investment_position_decision": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 3
+      },
+      "investment_price_trend": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 2
+      },
+      "income_salary": {
+        "total": 4,
+        "identityTop1Correct": 3,
+        "acceptedExact": 1
+      },
+      "income_bonus": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 1
+      },
+      "receive_item": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 3
+      },
+      "item_purchase": {
+        "total": 4,
+        "identityTop1Correct": 3,
+        "acceptedExact": 2
+      },
+      "relationship_development": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 3
+      },
+      "marriage_match": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 2
+      },
+      "marital_relationship": {
+        "total": 4,
+        "identityTop1Correct": 4,
+        "acceptedExact": 4
+      }
+    }
+  },
+  "nextEvidenceRequirement": "candidate_lock_then_fresh_post_lock_independent_evaluation"
+}
