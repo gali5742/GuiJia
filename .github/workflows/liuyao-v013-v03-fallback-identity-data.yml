@@ -1,0 +1,43 @@
+name: LiuYao v0.13-v0.3 Fallback Identity Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-fallback-identity-v01-data.mjs'
+      - '.github/workflows/liuyao-v013-v03-fallback-identity-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify frozen v0.3 design
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-design.mjs
+      - name: Generate fresh training augmentation and calibration
+        run: node scripts/generate-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Verify path contracts and corpus isolation before seal
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Seal both corpora before any encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Verify sealed corpora and lock
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v01-data.mjs
+      - name: Commit sealed data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-fallback-identity-v0.1-training.json data/liuyao-semantic-fallback-identity-v0.1-calibration.json data/liuyao-semantic-fallback-identity-v0.1-data.lock.json
+          git commit -m 'test(liuyao): seal fresh v0.3 fallback identity data'
+          git push origin HEAD:liuyao-semantic-v013-core
