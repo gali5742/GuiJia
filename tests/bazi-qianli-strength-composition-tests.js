@@ -67,6 +67,7 @@ const GuiJia = loadScripts([
     'js/bazi-visible-stem-actor-function-composition.js',
     'js/bazi-visible-stem-actor-profile-interpretation.js',
     'js/bazi-visible-stem-daymaster-contribution.js',
+    'js/bazi-qianli-strength-composition-source.js',
     'js/bazi-qianli-strength-composition.js',
     'js/bazi-assessment.js',
     'js/bazi-interpretation.js'
@@ -74,6 +75,7 @@ const GuiJia = loadScripts([
 
 const bazi = GuiJia.baziCore;
 const interpretation = GuiJia.baziInterpretation;
+const sourceApi = GuiJia.baziQianliStrengthCompositionSource;
 const api = GuiJia.baziQianliStrengthComposition;
 
 function makeResult(gans = ['丁','壬','丁','己'], zhis = ['丑','子','亥','酉']) {
@@ -140,9 +142,11 @@ function collectKeys(value, keys = new Set()) {
     return keys;
 }
 
-test('Qianli Strength Composition v0.1 冻结六类来源结论与八条条件分支', () => {
+test('Qianli Strength Composition v0.1 将来源模型与执行逻辑拆分，并冻结六类结论与八条分支', () => {
+    assert(sourceApi?.installed === true, 'Qianli source model 模块未安装');
     assert(api?.installed === true, 'Qianli Strength Composition 模块未安装');
     assert(api.QIANLI_STRENGTH_COMPOSITION_VERSION === '0.1', '版本异常');
+    assert(sourceApi.SOURCE_COMPOSITION_MODEL === api.SOURCE_COMPOSITION_MODEL, '执行层没有直接消费独立 source model');
     assert(api.SOURCE_COMPOSITION_MODEL.length === 6, `来源结论数异常：${api.SOURCE_COMPOSITION_MODEL.length}`);
     const branches = api.SOURCE_COMPOSITION_MODEL.reduce((sum, item) => sum + item.branches.length, 0);
     assert(branches === 8, `来源条件分支数异常：${branches}`);
@@ -252,9 +256,11 @@ test('Composition v0.1 不引入计分、多数、多寡阈值或最终强弱字
     assert(api.CONTRACT.branchQiAggregationDefined === false, '不得伪造支气 aggregation resolver');
 });
 
-test('生产加载链应在 Daymaster Contribution 后加载 Qianli Strength Composition', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'js/bazi-visible-stem-daymaster-contribution.js'), 'utf8');
-    assert(source.includes('./js/bazi-qianli-strength-composition.js'), 'Daymaster Contribution 尚未接 Qianli Strength Composition 生产 loader');
+test('生产加载链应在 Daymaster Contribution 后进入 Qianli Composition，并由执行层加载独立来源模型', () => {
+    const daymasterSource = fs.readFileSync(path.join(ROOT, 'js/bazi-visible-stem-daymaster-contribution.js'), 'utf8');
+    const compositionSource = fs.readFileSync(path.join(ROOT, 'js/bazi-qianli-strength-composition.js'), 'utf8');
+    assert(daymasterSource.includes('./js/bazi-qianli-strength-composition.js'), 'Daymaster Contribution 尚未接 Qianli Strength Composition 生产 loader');
+    assert(compositionSource.includes('./js/bazi-qianli-strength-composition-source.js'), 'Composition 执行层尚未加载独立 source model');
 });
 
 console.log(`\nQianli Strength Composition v0.1: ${passed} passed, ${failed} failed`);
