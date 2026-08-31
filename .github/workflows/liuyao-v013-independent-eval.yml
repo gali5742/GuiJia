@@ -1,6 +1,6 @@
 name: LiuYao v0.13 Post-Lock Independent Eval
 
-# Explicit user-side trigger after the 198-row generator was completed.
+# Explicit user-side rerun after pre-seal path-contract corrections.
 on:
   push:
     branches:
