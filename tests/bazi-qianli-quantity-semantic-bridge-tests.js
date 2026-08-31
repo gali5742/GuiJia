@@ -143,8 +143,8 @@ test('五行关系只映射 quantity side，不产生作用兑现或多寡', () 
     assert(api.relationToDayMaster('木','火').quantitySide === 'support', '生我应进入 support side');
     assert(api.relationToDayMaster('火','火').quantitySide === 'support', '同我应进入 support side');
     assert(api.relationToDayMaster('水','火').quantitySide === 'restraint-drain', '克我应进入 restraint-drain side');
-    assert(api.relationToDayMaster('火','土').quantitySide === 'restraint-drain', '我生应进入 restraint-drain side');
-    assert(api.relationToDayMaster('火','金').quantitySide === 'separate-distribution', '我克必须继续独立');
+    assert(api.relationToDayMaster('土','火').quantitySide === 'restraint-drain', '我生应进入 restraint-drain side');
+    assert(api.relationToDayMaster('金','火').quantitySide === 'separate-distribution', '我克必须继续独立');
     assert(sourceApi.CONTRACT.manyFewClassifierDefined === false, '关系映射不得变成 many/few classifier');
 });
 
