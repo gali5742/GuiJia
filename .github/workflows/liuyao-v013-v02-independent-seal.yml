@@ -1,0 +1,43 @@
+name: LiuYao v0.13-v0.2 Fresh Independent Eval Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v02-independent-eval.mjs'
+      - '.github/workflows/liuyao-v013-v02-independent-seal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify locked Candidate v0.2
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-lock.mjs
+      - name: Generate fresh post-lock independent eval
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Verify pre-seal path contracts and corpus isolation
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Seal and lock independent eval
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Verify sealed independent eval
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v02-independent-eval.mjs
+      - name: Commit sealed evaluation corpus
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-eval.json data/liuyao-semantic-decision-stack-v0.13-candidate-v02-independent-eval.lock.json
+          git commit -m 'test(liuyao): seal fresh v0.13-v0.2 independent eval'
+          git push origin HEAD:liuyao-semantic-v013-core
