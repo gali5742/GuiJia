@@ -1,0 +1,49 @@
+{
+  "version": "0.13-fallback-identity-v0.2-joint-gate-diagnostic-v0.1",
+  "status": "diagnostic_only_calibration_consumed_for_architecture",
+  "policy": {
+    "mayRetuneFrozenV02": false,
+    "mayClaimFreshGeneralization": false,
+    "thresholdsAreDiagnosticOnly": true,
+    "nextArchitectureRequiresFreshCalibration": true
+  },
+  "counts": {
+    "known": 66,
+    "nonRoute": 68,
+    "semanticEligible": 129
+  },
+  "searchSpace": {
+    "routeabilityThresholds": 129,
+    "identityThresholds": 129,
+    "marginThresholds": "observed_within_each_joint_subset"
+  },
+  "bestSafetyConstrainedJointGate": {
+    "routeabilityThreshold": 0.7522845764527611,
+    "identityThreshold": 0.5866206523740016,
+    "marginThreshold": 0.04057184639111178,
+    "knownExact": 35,
+    "knownRetention": 0.5303030303030303,
+    "wrongKnownSelected": 0,
+    "selectedTotal": 35,
+    "acceptedRouteAccuracy": 1,
+    "overallFalseActivation": 0,
+    "maxSubtypeFalseActivation": 0,
+    "bySubtype": {
+      "outside_current_22": {
+        "n": 22,
+        "activated": 0,
+        "falseActivation": 0
+      },
+      "route_unresolved": {
+        "n": 22,
+        "activated": 0,
+        "falseActivation": 0
+      },
+      "near_domain_not_current_route": {
+        "n": 24,
+        "activated": 0,
+        "falseActivation": 0
+      }
+    }
+  }
+}
