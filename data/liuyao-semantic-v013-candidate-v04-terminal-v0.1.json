@@ -1,0 +1,38 @@
+{
+  "version": "0.13-candidate-v0.4-terminal-v0.1",
+  "status": "failed_before_candidate_lock",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "candidateLockCreated": false,
+  "promotionAllowed": false,
+  "independentEvaluationAllowed": false,
+  "sourceFailure": {
+    "path": "data/liuyao-semantic-scope-finalization-v0.2-calibration-failure.json",
+    "status": "calibration_failed_no_safe_cutoff",
+    "safeThresholdCount": 0,
+    "thresholdCount": 224
+  },
+  "safetyFailure": {
+    "constraint": "maximumFalseRouteActivationPerNonRouteSubtype <= 0.05",
+    "bestAchievableMaxSubtypeFalseActivation": 0.06666666666666667,
+    "bestAchievableOverallFalseActivation": 0.022222222222222223,
+    "acceptedRouteAccuracyAtBestSafetyBoundary": 1,
+    "irreducibleNonRouteActivations": 2,
+    "irreducibleSubtype": "near_domain_not_current_route",
+    "irreducibleRows": ["SC2-198", "SC2-220"]
+  },
+  "diagnosis": {
+    "SC2-198": "Modern informational/documentation question about partnership duty allocation was promoted to strong partnership because Evidence v0.3 did not mark the information-seeking target unsupported; confirmed-strong Scope bypass then made the activation non-vetoable.",
+    "SC2-220": "Modern accounting-classification question about receivables aging was promoted to strong debt_collection because Evidence v0.3 did not mark the accounting-information target unsupported; confirmed-strong Scope bypass then made the activation non-vetoable.",
+    "scopeModelAloneCanRepair": false,
+    "sameCandidateThresholdRetuneAllowed": false,
+    "sealedCalibrationMayBeEdited": false
+  },
+  "nextVersionRequirement": {
+    "candidate": "v0.5",
+    "allowedDiagnosisUse": "architecture_and_regression_only",
+    "v04ScopeCalibrationMayCalibrateV05": false,
+    "freshV05ScopeCalibrationRequired": true,
+    "freshV05PrelockDevelopmentRequired": true,
+    "candidateLockBeforeFreshIndependent": true
+  }
+}
