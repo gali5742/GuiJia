@@ -1,0 +1,115 @@
+{
+  "version": "0.13-fallback-identity-v0.1-embedding-execution-audit-v0.1",
+  "status": "architecture_only_execution_audit",
+  "scope": "liuyao_semantic_current22",
+  "policy": {
+    "training": false,
+    "calibration": false,
+    "thresholdSelection": false,
+    "modelMutation": false,
+    "candidatePromotionEvidence": false,
+    "sourceCorpus": "already_consumed_sealed_fallback_identity_calibration_only"
+  },
+  "executionContractObserved": {
+    "productionRuntime": {
+      "path": "js/liuyao-semantic-router-runtime-v01.js",
+      "gitBlobSha": "0ec9762b7299bb79cce68627ff17dce5a1777105",
+      "classifyEmbeddingCall": "embedTexts([normalized])",
+      "effectiveEncoderBatchSizeForNormalClassify": 1
+    },
+    "frozenTrainingAndCalibration": {
+      "script": "scripts/train-and-calibrate-liuyao-semantic-fallback-identity-v01.mjs",
+      "embeddingChunkSize": 24
+    }
+  },
+  "frozenInputs": {
+    "calibration": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+      "rows": 134
+    },
+    "identityModel": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-model.json",
+      "sha256": "6dfbf88503c66e307b712a01bb6243296e3a5c82586a47f28b6f806b58a3c328"
+    },
+    "frozenDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.1.json",
+      "sha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f"
+    },
+    "routeabilityModel": {
+      "path": "data/liuyao-semantic-routeability-v0.2.json",
+      "sha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344"
+    }
+  },
+  "metrics": {
+    "rows": 134,
+    "cosine": {
+      "min": 0.9924455361071899,
+      "mean": 0.9949609947887571,
+      "max": 0.9967865461992568
+    },
+    "maxAbsVectorDelta": 0.021700173616409302,
+    "cosineBelow": {
+      "0.9999": 134,
+      "0.999": 134,
+      "0.995": 66
+    },
+    "routerTop1Changes": 2,
+    "routerTop2SetChanges": 11,
+    "routeabilityDispositionChanges": 4,
+    "routeabilityReasonChanges": 4,
+    "scopeHardVetoChanges": 1,
+    "maxIdentityProbabilityDelta": 0.027596921120468687,
+    "fallbackIdentityDecisionChanges": 6,
+    "finalDispositionOrRouteChanges": 5,
+    "finalReasonChanges": 6
+  },
+  "changedRowIds": {
+    "routerTop1": [
+      "FI-CAL-032",
+      "FI-CAL-089"
+    ],
+    "routerTop2Set": [
+      "FI-CAL-004",
+      "FI-CAL-017",
+      "FI-CAL-071",
+      "FI-CAL-076",
+      "FI-CAL-095",
+      "FI-CAL-100",
+      "FI-CAL-103",
+      "FI-CAL-105",
+      "FI-CAL-119",
+      "FI-CAL-128",
+      "FI-CAL-133"
+    ],
+    "routeabilityDisposition": [
+      "FI-CAL-058",
+      "FI-CAL-063",
+      "FI-CAL-095",
+      "FI-CAL-119"
+    ],
+    "scopeHardVeto": [
+      "FI-CAL-097"
+    ],
+    "fallbackIdentityDecision": [
+      "FI-CAL-057",
+      "FI-CAL-058",
+      "FI-CAL-060",
+      "FI-CAL-063",
+      "FI-CAL-095",
+      "FI-CAL-119"
+    ],
+    "finalDispositionOrRoute": [
+      "FI-CAL-057",
+      "FI-CAL-058",
+      "FI-CAL-060",
+      "FI-CAL-095",
+      "FI-CAL-119"
+    ]
+  },
+  "conclusion": {
+    "discreteDecisionDriftObserved": true,
+    "freshDevelopmentMayProceedWithoutExecutionContractReview": false,
+    "note": "This report is architecture-only. It must not be used to retune any threshold or model."
+  }
+}
