@@ -1,0 +1,52 @@
+name: LiuYao Scope Finalization v0.5 Fresh Calibration Data
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/generate-liuyao-semantic-scope-finalization-v05-calibration.mjs'
+      - 'scripts/verify-liuyao-semantic-scope-finalization-v05-calibration.mjs'
+      - 'scripts/apply-liuyao-semantic-scope-finalization-v05-calibration-preseal-patch.mjs'
+      - '.github/workflows/liuyao-scope-finalization-v05-calibration-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  preseal:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.7 design and Question Mode contract
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-design.mjs
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-semantics.mjs
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-v06-regression.mjs
+      - name: Generate presealed fresh Candidate v0.7 Scope calibration
+        run: node scripts/generate-liuyao-semantic-scope-finalization-v05-calibration.mjs
+      - name: Apply optional Candidate v0.7 preseal wording patch
+        run: |
+          if [ -f scripts/apply-liuyao-semantic-scope-finalization-v05-calibration-preseal-patch.mjs ]; then
+            node scripts/apply-liuyao-semantic-scope-finalization-v05-calibration-preseal-patch.mjs
+          fi
+      - name: Verify presealed fresh Candidate v0.7 Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v05-calibration.mjs
+      - name: Commit verified presealed Candidate v0.7 Scope calibration
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.5-calibration.json
+          if [ -f data/liuyao-semantic-scope-finalization-v0.5-calibration-preseal-patch.json ]; then
+            git add data/liuyao-semantic-scope-finalization-v0.5-calibration-preseal-patch.json
+          fi
+          git commit -m 'test(liuyao): add candidate v0.7 fresh scope calibration'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
