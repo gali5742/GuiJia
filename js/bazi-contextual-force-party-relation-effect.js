@@ -255,4 +255,8 @@
         rebuildPartyRule,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelativeDominanceAudit) {
+        document.write('<script src="./js/bazi-contextual-force-party-relative-dominance-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
