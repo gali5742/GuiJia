@@ -83,6 +83,14 @@
       "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
       "data/liuyao-semantic-route-training-v0.5-targeted-22.json"
     ],
+    "historicalSourceGitBlobShas": {
+      "data/liuyao-semantic-route-training-v0.1.json": "59afa07ae982ec16dfff25505f34ffbe9fe5355b",
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810",
+      "data/liuyao-semantic-route-training-v0.3-targeted.json": "fc41934c3f84af0c98896636c879b6210f9e7217",
+      "data/liuyao-semantic-route-training-v0.4-expansion.json": "07906ae4e725bc36988f0005f834499d9b6fb62d",
+      "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json": "b4d7dcae7458062ba02141ec022bc2bb5d2d46eb",
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json": "09e6d5b2f95e14f4f16197160155a771816db75e"
+    },
     "allowedFreshTraining": [
       "data/liuyao-semantic-fallback-identity-v0.1-training.json"
     ],

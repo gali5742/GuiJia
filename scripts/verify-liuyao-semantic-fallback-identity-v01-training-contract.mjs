@@ -6,7 +6,13 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
-const sha256File = (relative) => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex');
+const readBytes = (relative) => fs.readFileSync(path.join(root, relative));
+const sha256File = (relative) => crypto.createHash('sha256').update(readBytes(relative)).digest('hex');
+const gitBlobSha = (relative) => {
+  const bytes = readBytes(relative);
+  const header = Buffer.from(`blob ${bytes.length}\0`, 'utf8');
+  return crypto.createHash('sha1').update(header).update(bytes).digest('hex');
+};
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 
 const contractPath = 'data/liuyao-semantic-fallback-identity-v0.1-training-contract.json';
@@ -86,6 +92,12 @@ const requiredHistorical = [
   'data/liuyao-semantic-route-training-v0.5-targeted-22.json'
 ];
 assert(JSON.stringify(contract.trainingSources.allowedHistoricalRouterTrainOnly) === JSON.stringify(requiredHistorical), 'historical train-source whitelist drift');
+const historicalBlobShas = contract.trainingSources.historicalSourceGitBlobShas || {};
+assert(Object.keys(historicalBlobShas).length === requiredHistorical.length, 'historical train-source Git blob binding count drift');
+for (const relative of requiredHistorical) {
+  assert(typeof historicalBlobShas[relative] === 'string', `missing historical Git blob binding: ${relative}`);
+  assert(gitBlobSha(relative) === historicalBlobShas[relative], `historical training source drift: ${relative}`);
+}
 assert(contract.trainingSources.allowedFreshTraining.length === 1 && contract.trainingSources.allowedFreshTraining[0] === contract.sealedData.trainingPath, 'fresh training source drift');
 assert(contract.trainingSources.mustExclude.includes(contract.sealedData.calibrationPath), 'calibration file missing from training exclusion list');
 assert(contract.trainingSources.mustExclude.some((value) => /validation/i.test(value)), 'Router validation exclusion missing');
@@ -111,4 +123,5 @@ console.log(`- routes: ${contract.algorithm.routeOrder.length}`);
 console.log(`- vector size: ${contract.encoder.vectorSize}`);
 console.log(`- optimizer: epochs=${contract.algorithm.hyperparameters.epochs}, lr=${contract.algorithm.hyperparameters.learningRate}, l2=${contract.algorithm.hyperparameters.l2}`);
 console.log('- class balancing: positive total 0.5 / negative total 0.5');
+console.log(`- historical training sources pinned: ${requiredHistorical.length}`);
 console.log('- calibration: separate, one global threshold only');
