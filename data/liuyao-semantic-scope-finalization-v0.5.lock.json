@@ -1,0 +1,19 @@
+{
+  "version": "0.13-scope-finalization-v0.5-lock-v0.1",
+  "status": "locked_fresh_calibrated",
+  "artifactPath": "data/liuyao-semantic-scope-finalization-v0.5.json",
+  "artifactSha256": "262673a4cd892b111095d170063a9e03b9dd77c48d7dac4bae68e699ded458db",
+  "calibrationSha256": "3af67fbedbef74b35afc232ac8112fb6dc42abf13cc5cc9f62dbd71c15c14380",
+  "calibrationLockSha256": "9b655583033dff44e4c32fb6d6eec93f92155de28fd61b9f5d3f9150785e787f",
+  "candidateV07DesignSha256": "45f43b6a2dcd1014e337eff40ee8d2fa5fc0851e40b877d137e6a8e88b672bfb",
+  "hardVetoCutoff": 0.5838815839736823,
+  "safety": {
+    "acceptedRouteAccuracy": 1,
+    "overallFalseActivation": 0.011111111111111112,
+    "maxSubtypeFalseActivation": 0.03333333333333333
+  },
+  "weightMutation": false,
+  "otherThresholdsRetuned": false,
+  "freshPrelockDevelopmentStillRequired": true,
+  "freshPostCandidateLockIndependentStillRequired": true
+}
