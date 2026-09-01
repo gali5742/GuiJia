@@ -1,0 +1,35 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const calibrationFile = 'data/liuyao-semantic-scope-finalization-v0.4-calibration.json';
+const lockFile = 'data/liuyao-semantic-scope-finalization-v0.4-calibration.lock.json';
+const patchFile = 'data/liuyao-semantic-scope-finalization-v0.4-calibration-preseal-patch.json';
+const designFile = 'data/liuyao-semantic-v013-candidate-v06-design-v0.1.json';
+const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
+const sha256 = (relative) => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex');
+const assert = (condition, message) => { if (!condition) throw new Error(message); };
+
+execFileSync(process.execPath, ['scripts/verify-liuyao-semantic-scope-finalization-v04-calibration.mjs'], { cwd:root, stdio:'inherit' });
+const calibration = readJson(calibrationFile);
+const lock = readJson(lockFile);
+const patch = readJson(patchFile);
+assert(calibration.status === 'sealed_fresh_scope_calibration' && calibration.sealed === true, 'Candidate v0.6 Scope calibration is not sealed');
+assert(calibration.sealing?.immutableForScopeThresholdCalibration === true && calibration.sealing?.wordingMayChangeAfterSeal === false && calibration.sealing?.rowsMayBeAddedAfterSeal === false && calibration.sealing?.labelsMayChangeAfterSeal === false, 'Candidate v0.6 sealing immutability contract drift');
+assert(lock.version === '0.13-scope-finalization-v0.4-calibration-lock-v0.1' && lock.status === 'locked', 'Candidate v0.6 Scope calibration lock contract mismatch');
+assert(lock.scope === 'liuyao_semantic_candidate_v0.6_scope_finalization', 'Candidate v0.6 Scope lock scope drift');
+assert(lock.calibrationPath === calibrationFile && lock.calibrationSha256 === sha256(calibrationFile), 'Candidate v0.6 Scope calibration lock SHA drift');
+assert(lock.presealPatchPath === patchFile && lock.presealPatchSha256 === sha256(patchFile), 'Candidate v0.6 preseal patch lock SHA drift');
+assert(lock.designPath === designFile && lock.designSha256 === sha256(designFile), 'Candidate v0.6 design lock SHA drift');
+assert(lock.designFreezeCommit === calibration.provenance.designFreezeCommit, 'Candidate v0.6 design freeze commit drift');
+assert(lock.policy?.parameterCount === 1 && lock.policy?.parameter === 'scope_hard_veto_cutoff', 'Candidate v0.6 Scope lock parameter contract drift');
+assert(lock.policy?.otherModelOrGateParametersMayChange === false && lock.policy?.multiTextEncoderBatchForbidden === true, 'Candidate v0.6 Scope lock mutation/representation policy drift');
+assert(lock.policy?.candidateV05ScopeCalibrationExcluded === true && lock.policy?.candidateV04ScopeCalibrationExcluded === true && lock.policy?.fallbackAcceptanceCalibrationExcluded === true && lock.policy?.routeabilityCalibrationExcluded === true && lock.policy?.allDevelopmentIndependentBlindExcluded === true && lock.policy?.predecessorRegressionRowsExcluded === true, 'Candidate v0.6 Scope lock source-exclusion drift');
+assert(patch.status === 'recorded_before_seal_and_before_scope_scoring' && patch.modelOrThresholdScoredBeforePatch === false && patch.semanticRuntimeModified === false && patch.verifierWeakened === false, 'Candidate v0.6 Scope patch provenance is not pre-scoring');
+console.log('LiuYao Candidate v0.6 sealed Scope calibration lock verified.');
+console.log(`- calibration SHA-256: ${lock.calibrationSha256}`);
+console.log(`- patch SHA-256: ${lock.presealPatchSha256}`);
+console.log(`- design SHA-256: ${lock.designSha256}`);
