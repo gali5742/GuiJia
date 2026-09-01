@@ -8,6 +8,7 @@
     "sharedEvaluator": false,
     "sharedEnvelope": true,
     "domainOwnedEvaluators": true,
+    "choiceBinding": "optional_in_domain_assessment_required_before_choice_comparison",
     "reason": "Career and Study currently stop at ObservationPlan, while Travel and Litigation expose heterogeneous evidence vocabularies whose polarity meanings are duty-specific."
   },
   "audit": {
@@ -28,10 +29,7 @@
       "observationPlan": true,
       "evidenceBuilder": true,
       "finalAssessment": false,
-      "evidenceVocabularyExamples": [
-        "positive",
-        "negative"
-      ]
+      "evidenceVocabularyExamples": ["positive", "negative"]
     },
     "litigation_dispute": {
       "module": "js/liuyao-litigation-dispute-pretraining-v01.js",
@@ -63,7 +61,8 @@
     "Assessment output must retain evidenceRefs and contract provenance.",
     "Unresolved or partial evidence/subject resolution must remain explicit rather than being converted to adverse evidence.",
     "Time Engine facts may be consumed by a domain evidence builder but must not be recomputed inside Assessment.",
-    "No Assessment output may contain probability, scalarScore, winner or overallRecommendation."
+    "No Assessment output may contain probability, scalarScore, winner or overallRecommendation.",
+    "alternativeId is optional for standalone domain assessment and must be explicitly bound before Choice Comparator use; array position or label order must never create the binding."
   ],
   "assessmentEnvelopeSchema": {
     "required": [
@@ -79,12 +78,7 @@
       "evidenceRefs",
       "reasonRefs"
     ],
-    "resolutionStatusVocabulary": [
-      "resolved",
-      "partial",
-      "unresolved",
-      "not_applicable"
-    ],
+    "resolutionStatusVocabulary": ["resolved", "partial", "unresolved", "not_applicable"],
     "assessmentStatusVocabulary": [
       "supportive_evidence",
       "adverse_evidence",
@@ -93,16 +87,17 @@
       "not_assessed"
     ],
     "optional": [
+      "alternativeId",
       "unresolvedIssues",
       "traceRefs",
       "sourceTierRefs"
     ],
-    "forbidden": [
-      "probability",
-      "scalarScore",
-      "winner",
-      "overallRecommendation"
-    ]
+    "choiceBindingRule": {
+      "alternativeIdRequiredForComparator": true,
+      "mustBeExplicit": true,
+      "mustNotInferFrom": ["array_index", "left_right_position", "display_label_order"]
+    },
+    "forbidden": ["probability", "scalarScore", "winner", "overallRecommendation"]
   },
   "evaluatorRegistrationSchema": {
     "evaluatorRef": "string",
