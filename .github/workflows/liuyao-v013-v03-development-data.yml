@@ -6,6 +6,7 @@ on:
       - liuyao-semantic-v013-core
     paths:
       - 'scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development.mjs'
       - 'scripts/seal-liuyao-semantic-v013-candidate-v03-development.mjs'
       - '.github/workflows/liuyao-v013-v03-development-data.yml'
@@ -36,6 +37,9 @@ jobs:
 
       - name: Generate fresh Candidate v0.3 development data
         run: node scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs
+
+      - name: Apply deterministic preseal wording corrections
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs
 
       - name: Verify preseal path contracts and corpus isolation
         run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development.mjs
