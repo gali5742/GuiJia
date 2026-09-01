@@ -1,0 +1,30 @@
+name: LiuYao Candidate v0.6 Design and Semantic Contract
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v06-design-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v05-terminal-v0.1.json'
+      - 'js/liuyao-semantic-route-evidence-v05.js'
+      - 'js/liuyao-semantic-route-arbitration-v014.js'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v06-design.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v06-semantics.mjs'
+      - '.github/workflows/liuyao-v013-candidate-v06-contract.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.6 design freeze
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v06-design.mjs
+      - name: Verify Candidate v0.6 procedure-information semantics
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v06-semantics.mjs
