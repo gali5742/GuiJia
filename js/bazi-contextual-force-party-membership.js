@@ -213,4 +213,8 @@
         rebuildPartyRule,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyAffiliation) {
+        document.write('<script src="./js/bazi-contextual-force-party-affiliation.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
