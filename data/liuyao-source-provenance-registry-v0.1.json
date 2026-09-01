@@ -1,0 +1,253 @@
+{
+  "version": "0.1",
+  "status": "design_only_normalized_provenance",
+  "scope": "liuyao_only",
+  "purpose": "Normalize source identity, textual lineage, author/school grouping, and evidence independence for future LiuYao rule registration without changing current-22 runtime behavior.",
+  "runtimeMutation": false,
+  "current22MigrationStatus": "not_started",
+  "principles": [
+    "A source title is not automatically an independent evidence vote.",
+    "Textual transmission, quotation, commentary, and shared-formula relationships must be recorded at evidence scope when they affect independence.",
+    "Multiple works by the same modern author are separate witnesses but not automatically independent author/school votes.",
+    "Source independence and proposition compatibility are different concepts.",
+    "Research may finish with conflicted or insufficient evidence; provenance normalization must not force consensus.",
+    "Current frozen rules retain their existing runtime tiers until a separately reviewed migration is performed."
+  ],
+  "sourceSchema": {
+    "required": ["sourceId", "title", "era", "sourceType", "defaultIndependenceGroupId", "verification"],
+    "optional": ["author", "seriesOrParentWork", "notes", "legacyRuntimeSourceIds", "lineageRelations"]
+  },
+  "evidenceIndependenceSchema": {
+    "required": ["evidenceId", "sourceRefs", "independenceGroupRefs", "directness"],
+    "optional": ["locationRefs", "lineageScope", "classification", "notes"]
+  },
+  "independencePolicy": {
+    "sameIndependenceGroupCountsAs": "one_independent_lineage_vote_for_the_same_proposition",
+    "sameModernAuthorGroupCountsAs": "one_author_school_vote_unless_independent_methodological_basis_is_explicitly_reviewed",
+    "commentaryCanAdd": ["interpretive_support", "variant_reading", "scope_clarification"],
+    "commentaryCannotAutomaticallyAdd": ["independent_traditional_vote"],
+    "evidenceSpecificOverrideRequiredWhen": [
+      "a compilation contains both transmitted material and genuinely separate chapters",
+      "two sources share only a bounded formula or passage rather than the whole work",
+      "a modern author changes or refines a rule across different works"
+    ]
+  },
+  "independenceGroups": [
+    {
+      "groupId": "TRAD-ZSBY",
+      "kind": "traditional_source_lineage",
+      "label": "增删卜易 evidence lineage"
+    },
+    {
+      "groupId": "TRAD-HZL",
+      "kind": "traditional_source_lineage",
+      "label": "火珠林 evidence lineage"
+    },
+    {
+      "groupId": "TRAD-DYTJ",
+      "kind": "traditional_source_lineage",
+      "label": "断易天机 evidence lineage"
+    },
+    {
+      "groupId": "TRAD-YY",
+      "kind": "traditional_source_lineage",
+      "label": "易隐 evidence lineage"
+    },
+    {
+      "groupId": "TRAD-HJC-TRANSMISSION",
+      "kind": "traditional_text_transmission_cluster",
+      "label": "黄金策及其在卜筮全书/卜筮正宗相关收录注解中的传承簇",
+      "scopeNote": "Only applies to evidence demonstrably transmitted, reproduced, or commented from the same 黄金策 passage; it does not collapse every chapter of 卜筮全书 or 卜筮正宗 into one source."
+    },
+    {
+      "groupId": "TRAD-BSQS-INDEPENDENT",
+      "kind": "traditional_source_lineage",
+      "label": "卜筮全书 non-Huangjince independent chapter evidence",
+      "scopeNote": "Use only after a research note establishes that the cited material is not merely the same 黄金策/天玄赋 transmission."
+    },
+    {
+      "groupId": "TRAD-BSZZ-INDEPENDENT",
+      "kind": "traditional_source_lineage",
+      "label": "卜筮正宗 non-transmitted independent commentary/evidence",
+      "scopeNote": "Use only after a research note establishes independent evidentiary content for the proposition."
+    },
+    {
+      "groupId": "MOD-WHY",
+      "kind": "modern_author_school",
+      "label": "王虎应 author/school group"
+    },
+    {
+      "groupId": "MOD-ZCB",
+      "kind": "modern_author_school",
+      "label": "朱辰彬 author/school group"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "SRC-ZSBY",
+      "title": "增删卜易",
+      "era": "classical",
+      "sourceType": "classical_text",
+      "defaultIndependenceGroupId": "TRAD-ZSBY",
+      "verification": "primary_text_or_theme_research_verified",
+      "legacyRuntimeSourceIds": ["SRC-ZSBY"],
+      "notes": "Current runtime source; also used directly across career, study, travel and other research."
+    },
+    {
+      "sourceId": "SRC-HZL",
+      "title": "火珠林",
+      "era": "classical",
+      "sourceType": "classical_text",
+      "defaultIndependenceGroupId": "TRAD-HZL",
+      "verification": "theme_research_verified",
+      "notes": "Used as a relatively independent traditional chain in travel, litigation and lost-property research."
+    },
+    {
+      "sourceId": "SRC-DYTJ",
+      "title": "断易天机",
+      "era": "classical",
+      "sourceType": "classical_text",
+      "defaultIndependenceGroupId": "TRAD-DYTJ",
+      "verification": "theme_research_verified",
+      "notes": "Used directly in career, study, litigation, lost-property, person-return and person-contact research.",
+      "lineageRelations": [
+        {
+          "relation": "shared_or_inherited_formula_requires_evidence_scope_review",
+          "targetSourceId": "SRC-BSQS",
+          "scope": "Selected 天玄赋/盗贼-related formulas noted in lost-property research",
+          "effect": "Do not count the bounded shared formula twice without evidence-level independence review."
+        }
+      ]
+    },
+    {
+      "sourceId": "SRC-YY",
+      "title": "易隐",
+      "era": "classical",
+      "sourceType": "classical_text",
+      "defaultIndependenceGroupId": "TRAD-YY",
+      "verification": "theme_research_verified",
+      "notes": "Used as an independent systematic comparison source in career, study, travel/person-return, litigation and lost-property research."
+    },
+    {
+      "sourceId": "SRC-HJC",
+      "title": "黄金策",
+      "era": "classical",
+      "sourceType": "classical_text",
+      "defaultIndependenceGroupId": "TRAD-HJC-TRANSMISSION",
+      "verification": "primary_text_or_theme_research_verified",
+      "notes": "Directly used for career, study, travel, litigation, lost-property and education-related research."
+    },
+    {
+      "sourceId": "SRC-BSQS",
+      "title": "卜筮全书",
+      "era": "classical",
+      "sourceType": "classical_compilation",
+      "defaultIndependenceGroupId": "TRAD-BSQS-INDEPENDENT",
+      "verification": "theme_research_verified",
+      "notes": "Contains both independently cited chapters and transmitted/commented material related to 黄金策/天玄赋; evidence-level grouping is mandatory.",
+      "lineageRelations": [
+        {
+          "relation": "contains_or_transmits",
+          "targetSourceId": "SRC-HJC",
+          "scope": "黄金策-related sections used in theme research",
+          "effect": "Use TRAD-HJC-TRANSMISSION for those evidence items."
+        }
+      ]
+    },
+    {
+      "sourceId": "SRC-BSZZ",
+      "title": "卜筮正宗",
+      "era": "classical",
+      "sourceType": "classical_text_commentary",
+      "defaultIndependenceGroupId": "TRAD-BSZZ-INDEPENDENT",
+      "verification": "primary_text_or_theme_research_verified",
+      "legacyRuntimeSourceIds": ["SRC-BSZZ"],
+      "notes": "Current runtime source. Theme research explicitly warns that relevant 黄金策-derived passages must not inflate source diversity.",
+      "lineageRelations": [
+        {
+          "relation": "comments_or_transmits",
+          "targetSourceId": "SRC-HJC",
+          "scope": "黄金策-related sections used in theme research",
+          "effect": "Use TRAD-HJC-TRANSMISSION for those evidence items."
+        }
+      ]
+    },
+    {
+      "sourceId": "SRC-WHY-ZX",
+      "title": "六爻预测自修宝典",
+      "author": "王虎应",
+      "era": "modern",
+      "sourceType": "modern_monograph",
+      "defaultIndependenceGroupId": "MOD-WHY",
+      "verification": "theme_research_verified",
+      "legacyRuntimeSourceIds": ["SRC-WHY-ZX"],
+      "notes": "Major modern source used across career, study, travel and lost-property research."
+    },
+    {
+      "sourceId": "SRC-WHY-YH",
+      "title": "六爻疑惑指迷",
+      "author": "王虎应",
+      "era": "modern",
+      "sourceType": "modern_monograph",
+      "defaultIndependenceGroupId": "MOD-WHY",
+      "verification": "existing_runtime_scan_verified",
+      "legacyRuntimeSourceIds": ["SRC-WHY-YH"],
+      "notes": "Existing current Rule Registry source. This normalization records author-group dependence but does not re-audit its current rule evidence."
+    },
+    {
+      "sourceId": "SRC-WHY-YSDY",
+      "title": "六爻用神答疑",
+      "author": "王虎应",
+      "era": "modern",
+      "sourceType": "modern_qa_material",
+      "defaultIndependenceGroupId": "MOD-WHY",
+      "verification": "theme_research_verified",
+      "notes": "Used in career and study research for current-target boundary examples. Separate witness, same author/school group as other 王虎应 materials."
+    },
+    {
+      "sourceId": "SRC-ZCB-GSZZ",
+      "title": "古筮真诠",
+      "author": "朱辰彬",
+      "era": "modern",
+      "sourceType": "modern_monograph",
+      "defaultIndependenceGroupId": "MOD-ZCB",
+      "verification": "scan_verified",
+      "legacyRuntimeSourceIds": ["SRC-ZCB-GSZZ"],
+      "notes": "User-provided scan source used extensively across the completed theme research."
+    },
+    {
+      "sourceId": "SRC-ZCB-GSZZ-JJ",
+      "title": "古筮真诠·进阶篇",
+      "author": "朱辰彬",
+      "era": "modern",
+      "sourceType": "modern_monograph",
+      "defaultIndependenceGroupId": "MOD-ZCB",
+      "verification": "scan_verified",
+      "legacyRuntimeSourceIds": ["SRC-ZCB-GSZZ-JJ"],
+      "notes": "User-provided scan source; separate witness but same modern author/school group as 古筮真诠."
+    }
+  ],
+  "requiredEvidenceRecord": {
+    "example": {
+      "evidenceId": "EV-NEXT-EXAMPLE",
+      "sourceRefs": ["SRC-HJC", "SRC-BSQS"],
+      "independenceGroupRefs": ["TRAD-HJC-TRANSMISSION"],
+      "directness": "direct_plus_transmitted_commentary",
+      "locationRefs": ["chapter_or_page_required"],
+      "classification": "cross_source_compatible",
+      "notes": "Two source witnesses, one independent textual lineage for this proposition."
+    }
+  },
+  "futureConsensusRules": {
+    "stableConsensusMinimum": "Must be justified from reviewed independent evidence groups, not raw sourceRef count; no universal numeric threshold is imposed by this v0.1 registry.",
+    "modernConsensusMinimum": "Must include more than one independent modern author/school group when the proposition is claimed as modern cross-author consensus.",
+    "singleAuthorMultipleWorks": "May strengthen internal consistency or show refinement, but remains one modern author/school group for independence counting.",
+    "conflictHandling": "Conflicting independent groups must remain visible; do not average them into a synthetic consensus label."
+  },
+  "migrationNotes": [
+    "The existing js/liuyao-rule-registry.js embeds SOURCES and EVIDENCES and currently labels some evidence classical_multi_source or modern_consensus without normalized lineage metadata.",
+    "This v0.1 file does not alter those current-22 runtime labels because that would mutate frozen behavior.",
+    "All future next-topic evidence IDs should reference this normalized registry or a reviewed successor before formal Rule Registry promotion.",
+    "A future current-22 provenance migration, if desired, must be separately versioned and regression-tested."
+  ]
+}
