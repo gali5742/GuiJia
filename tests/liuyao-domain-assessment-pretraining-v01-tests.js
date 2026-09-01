@@ -4,32 +4,8 @@ require('../js/liuyao-domain-assessment-pretraining-v01.js');
 const api=global.GuiJia.liuyaoDomainAssessmentPretrainingV01;
 let n=0;
 const t=(name,fn)=>{try{fn();n++}catch(e){console.error('FAIL',name,e);process.exitCode=1}};
-const req=(overrides={})=>({
-  eventType:'travel',
-  duty:'travel_execution',
-  dimensionId:'target_outcome',
-  semanticMeaning:'journey_execution_outcome',
-  contractFamily:'travel_execution_assessment',
-  assessmentRef:'travel_execution_assessment_v0.1',
-  assessmentVersion:'0.1',
-  evidenceRefs:['EV-1'],
-  evidenceResolutionStatus:'resolved',
-  ...overrides
-});
-const env=(overrides={})=>({
-  assessmentRef:'travel_execution_assessment_v0.1',
-  assessmentVersion:'0.1',
-  contractFamily:'travel_execution_assessment',
-  eventType:'travel',
-  duty:'travel_execution',
-  dimensionId:'target_outcome',
-  semanticMeaning:'journey_execution_outcome',
-  resolutionStatus:'resolved',
-  assessmentStatus:'supportive_evidence',
-  evidenceRefs:['EV-1'],
-  reasonRefs:['AR-TV-1'],
-  ...overrides
-});
+const req=(overrides={})=>({eventType:'travel',duty:'travel_execution',dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',contractFamily:'travel_execution_assessment',assessmentRef:'travel_execution_assessment_v0.1',assessmentVersion:'0.1',evidenceRefs:['EV-1'],evidenceResolutionStatus:'resolved',...overrides});
+const env=(overrides={})=>({assessmentRef:'travel_execution_assessment_v0.1',assessmentVersion:'0.1',contractFamily:'travel_execution_assessment',eventType:'travel',duty:'travel_execution',dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',resolutionStatus:'resolved',assessmentStatus:'supportive_evidence',evidenceRefs:['EV-1'],reasonRefs:['AR-TV-1'],...overrides});
 t('DA1 design only',()=>assert.equal(api.currentRuntimeReachable,false));
 t('DA2 zero active evaluators',()=>assert.equal(api.ACTIVE_EVALUATORS.length,0));
 t('DA3 readiness rejects shared evaluator',()=>{const r=api.buildAssessmentReadiness();assert.equal(r.sharedEvaluator,false);assert.equal(r.fallbackPolarityMappingEnabled,false);assert.equal(r.evidenceCountingEnabled,false);});
@@ -57,4 +33,10 @@ t('DA24 not applicable stays not applicable',()=>{const r=api.assessWithRegister
 t('DA25 invalid request returns auditable abstention',()=>{const x=req();delete x.duty;const r=api.assessWithRegisteredEvaluator(x,{});assert.equal(r.resolutionStatus,'unresolved');assert.equal(r.reasonRefs[0],'invalid_evaluator_request');assert(r.unresolvedIssues.some(i=>i.code==='duty_required'));});
 t('DA26 malformed evidence refs rejected',()=>assert.equal(api.validateEvaluatorRequest(req({evidenceRefs:['E1','']})).status,'invalid'));
 t('DA27 resolved insufficient evidence is valid',()=>assert.equal(api.validateAssessmentEnvelope(env({assessmentStatus:'insufficient_evidence',reasonRefs:['no_directional_evidence']})).status,'valid'));
+t('DA28 optional alternative id is valid',()=>assert.equal(api.validateAssessmentEnvelope(env({alternativeId:'A'})).status,'valid'));
+t('DA29 empty alternative id is invalid when present',()=>assert.equal(api.validateAssessmentEnvelope(env({alternativeId:''})).status,'invalid'));
+t('DA30 explicit choice binding maps assessment identity',()=>{const r=api.bindAssessmentForComparison(env(),'A');assert.equal(r.status,'bound');assert.equal(r.input.alternativeId,'A');assert.equal(r.input.contractRef,'travel_execution_assessment_v0.1');assert.equal(r.input.contractVersion,'0.1');});
+t('DA31 envelope alternative id can bind directly',()=>{const r=api.bindAssessmentForComparison(env({alternativeId:'B'}));assert.equal(r.status,'bound');assert.equal(r.input.alternativeId,'B');});
+t('DA32 missing alternative binding is explicit',()=>{const r=api.bindAssessmentForComparison(env());assert.equal(r.status,'unbound');assert(r.issues.some(i=>i.code==='comparison_alternative_id_required'));});
+t('DA33 mismatched explicit binding rejected',()=>{const r=api.bindAssessmentForComparison(env({alternativeId:'A'}),'B');assert.equal(r.status,'invalid');assert(r.issues.some(i=>i.code==='comparison_alternative_id_mismatch'));});
 if(!process.exitCode)console.log(`Domain assessment envelope regression: ${n} passed, 0 failed`);
