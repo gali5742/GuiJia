@@ -5,28 +5,9 @@
     const VERSION = '0.1';
     const STATUS = 'design_only_no_active_domain_evaluators';
 
-    const RESOLUTION_STATUSES = Object.freeze([
-        'resolved',
-        'partial',
-        'unresolved',
-        'not_applicable'
-    ]);
-
-    const ASSESSMENT_STATUSES = Object.freeze([
-        'supportive_evidence',
-        'adverse_evidence',
-        'mixed_evidence',
-        'insufficient_evidence',
-        'not_assessed'
-    ]);
-
-    const FORBIDDEN_OUTPUT_FIELDS = Object.freeze([
-        'probability',
-        'scalarScore',
-        'winner',
-        'overallRecommendation'
-    ]);
-
+    const RESOLUTION_STATUSES = Object.freeze(['resolved','partial','unresolved','not_applicable']);
+    const ASSESSMENT_STATUSES = Object.freeze(['supportive_evidence','adverse_evidence','mixed_evidence','insufficient_evidence','not_assessed']);
+    const FORBIDDEN_OUTPUT_FIELDS = Object.freeze(['probability','scalarScore','winner','overallRecommendation']);
     const ACTIVE_EVALUATORS = Object.freeze([]);
     const issue = (code, extra = {}) => ({ code, ...extra });
     const hasText = (value) => typeof value === 'string' && value.trim().length > 0;
@@ -34,96 +15,73 @@
 
     const validateAssessmentEnvelope = (assessment) => {
         const issues = [];
-        if (!assessment || typeof assessment !== 'object' || Array.isArray(assessment)) {
-            return { status:'invalid', issues:[issue('assessment_envelope_object_required')] };
-        }
-
-        [
-            'assessmentRef',
-            'assessmentVersion',
-            'contractFamily',
-            'eventType',
-            'duty',
-            'dimensionId',
-            'semanticMeaning'
-        ].forEach((key) => {
+        if (!assessment || typeof assessment !== 'object' || Array.isArray(assessment)) return { status:'invalid', issues:[issue('assessment_envelope_object_required')] };
+        ['assessmentRef','assessmentVersion','contractFamily','eventType','duty','dimensionId','semanticMeaning'].forEach((key) => {
             if (!hasText(assessment[key])) issues.push(issue(`${key}_required`));
         });
-        if (Object.prototype.hasOwnProperty.call(assessment, 'alternativeId')
-            && !hasText(assessment.alternativeId)) {
-            issues.push(issue('alternativeId_invalid'));
-        }
-
-        if (!RESOLUTION_STATUSES.includes(assessment.resolutionStatus)) {
-            issues.push(issue('resolution_status_invalid', { value:assessment.resolutionStatus || null }));
-        }
-        if (!ASSESSMENT_STATUSES.includes(assessment.assessmentStatus)) {
-            issues.push(issue('assessment_status_invalid', { value:assessment.assessmentStatus || null }));
-        }
+        if (Object.prototype.hasOwnProperty.call(assessment, 'alternativeId') && !hasText(assessment.alternativeId)) issues.push(issue('alternativeId_invalid'));
+        if (!RESOLUTION_STATUSES.includes(assessment.resolutionStatus)) issues.push(issue('resolution_status_invalid', { value:assessment.resolutionStatus || null }));
+        if (!ASSESSMENT_STATUSES.includes(assessment.assessmentStatus)) issues.push(issue('assessment_status_invalid', { value:assessment.assessmentStatus || null }));
         if (!validRefArray(assessment.evidenceRefs)) issues.push(issue('evidence_refs_invalid'));
         if (!validRefArray(assessment.reasonRefs)) issues.push(issue('reason_refs_invalid'));
-
         FORBIDDEN_OUTPUT_FIELDS.forEach((field) => {
-            if (Object.prototype.hasOwnProperty.call(assessment, field)) {
-                issues.push(issue('forbidden_assessment_output_field', { field }));
-            }
+            if (Object.prototype.hasOwnProperty.call(assessment, field)) issues.push(issue('forbidden_assessment_output_field', { field }));
         });
-
-        if (assessment.resolutionStatus === 'resolved'
-            && assessment.assessmentStatus === 'not_assessed') {
-            issues.push(issue('resolved_status_incompatible_with_not_assessed'));
-        }
-        if (assessment.resolutionStatus === 'unresolved'
-            && !['not_assessed','insufficient_evidence'].includes(assessment.assessmentStatus)) {
-            issues.push(issue('unresolved_status_requires_nonfinal_assessment_state'));
-        }
-        if (assessment.resolutionStatus === 'not_applicable'
-            && assessment.assessmentStatus !== 'not_assessed') {
-            issues.push(issue('not_applicable_requires_not_assessed'));
-        }
-
+        if (assessment.resolutionStatus === 'resolved' && assessment.assessmentStatus === 'not_assessed') issues.push(issue('resolved_status_incompatible_with_not_assessed'));
+        if (assessment.resolutionStatus === 'unresolved' && !['not_assessed','insufficient_evidence'].includes(assessment.assessmentStatus)) issues.push(issue('unresolved_status_requires_nonfinal_assessment_state'));
+        if (assessment.resolutionStatus === 'not_applicable' && assessment.assessmentStatus !== 'not_assessed') issues.push(issue('not_applicable_requires_not_assessed'));
         return { status:issues.length ? 'invalid' : 'valid', issues };
     };
 
     const validateEvaluatorRequest = (request) => {
         const issues = [];
-        if (!request || typeof request !== 'object' || Array.isArray(request)) {
-            return { status:'invalid', issues:[issue('evaluator_request_object_required')] };
-        }
-
-        [
-            'eventType',
-            'duty',
-            'dimensionId',
-            'semanticMeaning',
-            'contractFamily',
-            'assessmentRef',
-            'assessmentVersion'
-        ].forEach((key) => {
+        if (!request || typeof request !== 'object' || Array.isArray(request)) return { status:'invalid', issues:[issue('evaluator_request_object_required')] };
+        ['eventType','duty','dimensionId','semanticMeaning','contractFamily','assessmentRef','assessmentVersion'].forEach((key) => {
             if (!hasText(request[key])) issues.push(issue(`${key}_required`));
         });
-        if (Object.prototype.hasOwnProperty.call(request, 'alternativeId')
-            && !hasText(request.alternativeId)) {
-            issues.push(issue('alternativeId_invalid'));
-        }
-
+        if (Object.prototype.hasOwnProperty.call(request, 'alternativeId') && !hasText(request.alternativeId)) issues.push(issue('alternativeId_invalid'));
         if (!validRefArray(request.evidenceRefs)) issues.push(issue('evidence_refs_invalid'));
-        if (request.evidenceResolutionStatus
-            && !RESOLUTION_STATUSES.includes(request.evidenceResolutionStatus)) {
-            issues.push(issue('evidence_resolution_status_invalid', { value:request.evidenceResolutionStatus }));
-        }
-
+        if (request.evidenceResolutionStatus && !RESOLUTION_STATUSES.includes(request.evidenceResolutionStatus)) issues.push(issue('evidence_resolution_status_invalid', { value:request.evidenceResolutionStatus }));
         return { status:issues.length ? 'invalid' : 'valid', issues };
     };
 
-    const evaluatorKey = (request) => [
-        request?.eventType || '',
-        request?.duty || '',
-        request?.dimensionId || '',
-        request?.semanticMeaning || '',
-        request?.contractFamily || ''
-    ].join('|');
+    const bindAssessmentForComparison = (assessment, explicitAlternativeId = null) => {
+        const checked = validateAssessmentEnvelope(assessment);
+        if (checked.status !== 'valid') return { status:'invalid', input:null, issues:checked.issues };
+        const envelopeAlternativeId = hasText(assessment.alternativeId) ? assessment.alternativeId : null;
+        const providedAlternativeId = hasText(explicitAlternativeId) ? explicitAlternativeId : null;
+        if (explicitAlternativeId !== null && !providedAlternativeId) {
+            return { status:'invalid', input:null, issues:[issue('comparison_alternative_id_invalid')] };
+        }
+        if (envelopeAlternativeId && providedAlternativeId && envelopeAlternativeId !== providedAlternativeId) {
+            return {
+                status:'invalid',
+                input:null,
+                issues:[issue('comparison_alternative_id_mismatch', { envelopeAlternativeId, providedAlternativeId })]
+            };
+        }
+        const alternativeId = providedAlternativeId || envelopeAlternativeId;
+        if (!alternativeId) {
+            return { status:'unbound', input:null, issues:[issue('comparison_alternative_id_required')] };
+        }
+        return {
+            status:'bound',
+            input:{
+                alternativeId,
+                dimensionId:assessment.dimensionId,
+                semanticMeaning:assessment.semanticMeaning,
+                resolutionStatus:assessment.resolutionStatus,
+                assessmentStatus:assessment.assessmentStatus,
+                contractFamily:assessment.contractFamily,
+                contractRef:assessment.assessmentRef,
+                contractVersion:assessment.assessmentVersion,
+                evidenceRefs:[...assessment.evidenceRefs]
+            },
+            issues:[]
+        };
+    };
 
+    const evaluatorKey = (request) => [request?.eventType || '',request?.duty || '',request?.dimensionId || '',request?.semanticMeaning || '',request?.contractFamily || ''].join('|');
     const findRegisteredEvaluator = (request) => {
         const key = evaluatorKey(request);
         return ACTIVE_EVALUATORS.find((entry) => evaluatorKey(entry) === key) || null;
@@ -148,47 +106,17 @@
 
     const assessWithRegisteredEvaluator = (request, evidencePacket = null) => {
         const validation = validateEvaluatorRequest(request);
-        if (validation.status !== 'valid') {
-            return unresolvedEnvelope(request, 'invalid_evaluator_request', validation.issues);
-        }
-
+        if (validation.status !== 'valid') return unresolvedEnvelope(request, 'invalid_evaluator_request', validation.issues);
         const evidenceResolutionStatus = request.evidenceResolutionStatus || 'resolved';
-        if (evidenceResolutionStatus === 'unresolved') {
-            return unresolvedEnvelope(request, 'evidence_unresolved', [issue('evidence_unresolved')]);
-        }
-        if (evidenceResolutionStatus === 'partial') {
-            return {
-                ...unresolvedEnvelope(request, 'evidence_partial', [issue('evidence_partial')]),
-                resolutionStatus:'partial',
-                assessmentStatus:'insufficient_evidence'
-            };
-        }
-        if (evidenceResolutionStatus === 'not_applicable') {
-            return {
-                ...unresolvedEnvelope(request, 'evidence_not_applicable', []),
-                resolutionStatus:'not_applicable',
-                assessmentStatus:'not_assessed'
-            };
-        }
-
+        if (evidenceResolutionStatus === 'unresolved') return unresolvedEnvelope(request, 'evidence_unresolved', [issue('evidence_unresolved')]);
+        if (evidenceResolutionStatus === 'partial') return { ...unresolvedEnvelope(request, 'evidence_partial', [issue('evidence_partial')]), resolutionStatus:'partial', assessmentStatus:'insufficient_evidence' };
+        if (evidenceResolutionStatus === 'not_applicable') return { ...unresolvedEnvelope(request, 'evidence_not_applicable', []), resolutionStatus:'not_applicable', assessmentStatus:'not_assessed' };
         const evaluator = findRegisteredEvaluator(request);
-        if (!evaluator) {
-            return unresolvedEnvelope(request, 'evaluator_not_registered', [
-                issue('evaluator_not_registered', { evaluatorKey:evaluatorKey(request) })
-            ]);
-        }
-
-        if (typeof evaluator.evaluate !== 'function') {
-            return unresolvedEnvelope(request, 'registered_evaluator_not_executable', [
-                issue('registered_evaluator_not_executable', { evaluatorRef:evaluator.evaluatorRef || null })
-            ]);
-        }
-
+        if (!evaluator) return unresolvedEnvelope(request, 'evaluator_not_registered', [issue('evaluator_not_registered', { evaluatorKey:evaluatorKey(request) })]);
+        if (typeof evaluator.evaluate !== 'function') return unresolvedEnvelope(request, 'registered_evaluator_not_executable', [issue('registered_evaluator_not_executable', { evaluatorRef:evaluator.evaluatorRef || null })]);
         const result = evaluator.evaluate({ request, evidencePacket });
         const checked = validateAssessmentEnvelope(result);
-        return checked.status === 'valid'
-            ? result
-            : unresolvedEnvelope(request, 'registered_evaluator_returned_invalid_envelope', checked.issues);
+        return checked.status === 'valid' ? result : unresolvedEnvelope(request, 'registered_evaluator_returned_invalid_envelope', checked.issues);
     };
 
     const buildAssessmentReadiness = () => ({
@@ -199,6 +127,7 @@
         activeEvaluatorCount:ACTIVE_EVALUATORS.length,
         activeEvaluators:[...ACTIVE_EVALUATORS],
         choiceBindingRequiredBeforeComparator:true,
+        explicitAssessmentComparatorBridge:true,
         fallbackPolarityMappingEnabled:false,
         evidenceCountingEnabled:false,
         probabilityEnabled:false,
@@ -216,6 +145,7 @@
         ACTIVE_EVALUATORS,
         validateAssessmentEnvelope,
         validateEvaluatorRequest,
+        bindAssessmentForComparison,
         evaluatorKey,
         findRegisteredEvaluator,
         assessWithRegisteredEvaluator,
