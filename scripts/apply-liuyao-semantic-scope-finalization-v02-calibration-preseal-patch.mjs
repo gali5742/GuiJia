@@ -60,9 +60,39 @@ patchRows.push({
 });
 fallbackCorrection.text = fallbackReplacement;
 
+const exactOverlapCorrections = new Map([
+  ['SC2-017','下个账期我的信用卡欠款能不能一次还完'],
+  ['SC2-034','已经发出的相机后天能不能送到我手里'],
+  ['SC2-035','这个机械键盘的包裹周六以前能不能收到'],
+  ['SC2-037','这副降噪耳机现在该不该买下来'],
+  ['SC2-038','这款扫地机器人眼下要不要入手'],
+  ['SC2-070','这笔基金持仓已经准备全部变现，我想看看这个动作'],
+  ['SC2-076','手里的基金正在考虑调整持仓，我想单独看看这一步'],
+  ['SC2-077','这只ETF我还在考虑是否减仓，想占一下这个动作'],
+  ['SC2-078','目前这只股票我在考虑加仓，想看看这件事'],
+  ['SC2-079','这笔基金的仓位要不要调整我还没想定，想占一下'],
+  ['SC2-080','这只股票是继续持有还是减仓，我想看看这个选择'],
+  ['SC2-081','现在这只ETF的持仓需不需要调整，我想单独占一下'],
+  ['SC2-088','这只债券基金最近净值一阵高一阵低，我想单独看看'],
+  ['SC2-173','这件事大概要到什么时候才见分晓'],
+  ['SC2-176','我刚做的这个决定以后会不会让我后悔'],
+  ['SC2-181','我现在对这件事的判断是不是偏了']
+]);
+for (const [id, after] of exactOverlapCorrections) {
+  const row = calibration.rows.find((item) => item.id === id);
+  if (!row) throw new Error(`missing overlap-correction row ${id}`);
+  const existing = patchRows.find((item) => item.id === id);
+  if (existing) {
+    existing.after = after;
+  } else {
+    patchRows.push({ id:row.id, before:row.text, after, expectedCandidatePath:row.expectedCandidatePath, expectedRoute:row.expectedRoute });
+  }
+  row.text = after;
+}
+
 calibration.presealWordingPatch = {
   applied:true,
-  reason:'Preseal verifier found wording that did not reliably realize the declared frozen Evidence/Arbitration path. Corrections change fixture wording only; no semantic rule, model, threshold, label, route, count or scope objective changed.',
+  reason:'Preseal verifier found wording that did not reliably realize the declared frozen Evidence/Arbitration path or exactly overlapped prior LiuYao corpora. Corrections change fixture wording only; no semantic rule, model, threshold, label, route, count or scope objective changed.',
   patchPath:'data/liuyao-semantic-scope-finalization-v0.2-calibration-preseal-patch.json',
   correctedRows:patchRows.length
 };
