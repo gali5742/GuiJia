@@ -1,0 +1,149 @@
+{
+  "version": "0.1",
+  "status": "design_ready_no_active_domain_evaluators",
+  "scope": "future_domain_evidence_to_normalized_assessment",
+  "runtimeMutation": false,
+  "purpose": "Define a shared assessment envelope and evaluator-registration contract without interpreting domain evidence in the shared layer.",
+  "architectureDecision": {
+    "sharedEvaluator": false,
+    "sharedEnvelope": true,
+    "domainOwnedEvaluators": true,
+    "reason": "Career and Study currently stop at ObservationPlan, while Travel and Litigation expose heterogeneous evidence vocabularies whose polarity meanings are duty-specific."
+  },
+  "audit": {
+    "career_position": {
+      "module": "js/liuyao-career-position-pretraining-v01.js",
+      "observationPlan": true,
+      "evidenceBuilder": false,
+      "finalAssessment": false
+    },
+    "study_exam": {
+      "module": "js/liuyao-study-exam-pretraining-v01.js",
+      "observationPlan": true,
+      "evidenceBuilder": false,
+      "finalAssessment": false
+    },
+    "travel": {
+      "module": "js/liuyao-travel-pretraining-v01.js",
+      "observationPlan": true,
+      "evidenceBuilder": true,
+      "finalAssessment": false,
+      "evidenceVocabularyExamples": [
+        "positive",
+        "negative"
+      ]
+    },
+    "litigation_dispute": {
+      "module": "js/liuyao-litigation-dispute-pretraining-v01.js",
+      "observationPlan": true,
+      "evidenceBuilder": true,
+      "finalAssessment": false,
+      "evidenceVocabularyExamples": [
+        "positive",
+        "negative",
+        "counterparty_support",
+        "counterparty_weakness",
+        "resolution_support",
+        "dispute_persistence",
+        "self_side_leverage",
+        "counterparty_leverage",
+        "negative_to_self",
+        "negative_to_counterparty",
+        "pressure_on_both",
+        "withdrawal_or_retreat_tendency",
+        "active_or_changing"
+      ]
+    }
+  },
+  "principles": [
+    "Evidence polarity is not Assessment status.",
+    "The shared layer must never count evidence items or map arbitrary polarity tokens to supportive/adverse states.",
+    "Each evaluator is owned by an eventType+duty+dimension+semanticMeaning Assessment contract family.",
+    "Missing evaluator returns not_assessed/evaluator_not_registered; it never falls back to a global heuristic.",
+    "Assessment output must retain evidenceRefs and contract provenance.",
+    "Unresolved or partial evidence/subject resolution must remain explicit rather than being converted to adverse evidence.",
+    "Time Engine facts may be consumed by a domain evidence builder but must not be recomputed inside Assessment.",
+    "No Assessment output may contain probability, scalarScore, winner or overallRecommendation."
+  ],
+  "assessmentEnvelopeSchema": {
+    "required": [
+      "assessmentRef",
+      "assessmentVersion",
+      "contractFamily",
+      "eventType",
+      "duty",
+      "dimensionId",
+      "semanticMeaning",
+      "resolutionStatus",
+      "assessmentStatus",
+      "evidenceRefs",
+      "reasonRefs"
+    ],
+    "resolutionStatusVocabulary": [
+      "resolved",
+      "partial",
+      "unresolved",
+      "not_applicable"
+    ],
+    "assessmentStatusVocabulary": [
+      "supportive_evidence",
+      "adverse_evidence",
+      "mixed_evidence",
+      "insufficient_evidence",
+      "not_assessed"
+    ],
+    "optional": [
+      "unresolvedIssues",
+      "traceRefs",
+      "sourceTierRefs"
+    ],
+    "forbidden": [
+      "probability",
+      "scalarScore",
+      "winner",
+      "overallRecommendation"
+    ]
+  },
+  "evaluatorRegistrationSchema": {
+    "evaluatorRef": "string",
+    "version": "string",
+    "eventType": "string",
+    "duty": "string",
+    "dimensionId": "string",
+    "semanticMeaning": "string",
+    "contractFamily": "string",
+    "acceptedEvidenceSchemaRefs": ["string"],
+    "outputAssessmentVersion": "string",
+    "reviewRefs": ["string"],
+    "regressionRequired": true
+  },
+  "activeEvaluators": [],
+  "defaultWithoutEvaluator": {
+    "resolutionStatus": "unresolved",
+    "assessmentStatus": "not_assessed",
+    "reason": "evaluator_not_registered"
+  },
+  "forbiddenSharedHeuristics": [
+    "positive_count_minus_negative_count",
+    "supportive_evidence_count",
+    "majority_polarity",
+    "raw_line_score_threshold",
+    "TimeEffect_reason_count",
+    "interpretation_priority",
+    "source_count",
+    "generic_positive_to_supportive_mapping",
+    "generic_negative_to_adverse_mapping"
+  ],
+  "futureActivationGate": [
+    "domain evidence schema documented",
+    "duty-specific semantic meaning documented",
+    "Assessment rule review completed",
+    "mixed and conflicting evidence behavior specified",
+    "partial and unresolved behavior specified",
+    "time facts consumed without recomputation",
+    "regression includes no-evidence, mixed, conflicting and unresolved cases",
+    "no hidden score/probability output",
+    "current-22 remains frozen unless separately migrated"
+  ],
+  "formalIntegration": "blocked_by_current_v013_gate"
+}
