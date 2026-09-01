@@ -56,6 +56,18 @@ const inventoryLedger = inspect('库存台账一般应该怎么填写');
 assert(unsupported(inventoryLedger, 'administrative_or_accounting_information'), 'inventory-ledger documentation must be unsupported');
 assert(inventoryLedger.arbitration == null, 'inventory-ledger documentation must stop before Arbitration');
 
+const accountingDefinition = inspect('应收账款周转率是什么意思');
+assert(unsupported(accountingDefinition, 'administrative_or_accounting_information'), 'accounting definition question must be unsupported');
+assert(accountingDefinition.arbitration == null, 'accounting definition question must stop before Arbitration');
+
+const governanceDefinition = inspect('合伙协议里的责任分配是什么意思');
+assert(unsupported(governanceDefinition, 'governance_or_documentation_information'), 'governance definition question must be unsupported');
+assert(governanceDefinition.arbitration == null, 'governance definition question must stop before Arbitration');
+
+const statementReading = inspect('公司的现金流量表应该怎么看');
+assert(unsupported(statementReading, 'administrative_or_accounting_information'), 'financial-statement reading question must be unsupported');
+assert(statementReading.arbitration == null, 'financial-statement reading question must stop before Arbitration');
+
 const debtOutcome = inspect('这笔应收账款月底以前能不能收回');
 assert((debtOutcome.evidence.unsupportedTargets || []).length === 0, 'actual debt-collection outcome must remain supported');
 assert(debtOutcome.arbitration?.routeId === 'debt_collection' && debtOutcome.arbitration?.strength === 'strong', 'actual debt-collection outcome route drift');
@@ -71,6 +83,10 @@ assert(feeBackgroundProfit.arbitration?.routeId === 'investment_profit' && feeBa
 const accountingBackgroundDebtOutcome = inspect('虽然这笔应收账款账龄已经很长，但月底以前还能不能收回');
 assert((accountingBackgroundDebtOutcome.evidence.unsupportedTargets || []).length === 0, 'accounting background must not override a positive debt-collection target');
 assert(accountingBackgroundDebtOutcome.arbitration?.routeId === 'debt_collection', 'debt outcome with accounting background route drift');
+
+const definitionBackgroundDebtOutcome = inspect('我知道应收账款周转率是什么意思，但只想问这笔应收款月底能不能收回');
+assert((definitionBackgroundDebtOutcome.evidence.unsupportedTargets || []).length === 0, 'definition wording in background must not override a positive debt-collection target');
+assert(definitionBackgroundDebtOutcome.arbitration?.routeId === 'debt_collection', 'debt outcome with definition background route drift');
 
 const legacyAdministrative = inspect('工资条里的社保应该怎么核算');
 assert((legacyAdministrative.evidence.unsupportedTargets || []).includes('administrative_or_accounting_information'), 'existing v0.3 administrative information coverage regressed');
@@ -88,9 +104,9 @@ for (const relative of runtimeFiles) {
 }
 
 console.log('LiuYao Candidate v0.5 unsupported-target semantics verified.');
-console.log('- partnership documentation, debt documentation and accounting classification/compilation stop before Arbitration');
+console.log('- partnership/debt documentation and accounting classification/compilation/definition/reading questions stop before Arbitration');
 console.log('- generalized governance/accounting information questions are covered without row-specific exceptions');
 console.log('- supported debt collection, partnership, investment profit and ordinary purchase outcomes remain routable');
-console.log('- supported current outcomes still outrank accounting/fee background mentions');
+console.log('- supported current outcomes still outrank accounting/fee/definition background mentions');
 console.log('- existing v0.3 administrative blocking remains intact');
 console.log('- modern runtime source contains no traditional observation-selection or calibration-row exceptions');
