@@ -31,6 +31,7 @@
 
     const matchesMotif = (edge = {}, motif = {}, inventory = {}) => {
         if (edge.relationScope !== 'cross-visible-actor' || edge.directed === false) return false;
+        if (!edge.sourcePatternId) return false;
         if (!edge.sourceActorKey || !edge.targetActorKey || edge.functionType !== motif.functionType) return false;
 
         const profiles = actorProfileMap(inventory);
