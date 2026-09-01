@@ -1,0 +1,384 @@
+{
+  "version": "0.1",
+  "status": "design_only_collision_contract",
+  "scope": "current22_plus_researched_expansion",
+  "current22MutationAllowed": false,
+  "trainingEligible": false,
+  "purpose": "Centralize current-target collision boundaries between current-22 routes and researched LiuYao expansion themes/duties before any expansion training.",
+  "decisionPrinciples": [
+    "Current target outranks background method, setting, destination, document mention, or domain keyword.",
+    "A route/theme keyword never wins by priority alone.",
+    "Downstream consequence is decisive when an exam, travel, dispute, or document is only an intermediate process.",
+    "Object lifecycle state separates issuance/existence, delivery, loss/recovery, purchase, and informational questions.",
+    "Actor-action questions are distinct from artifact-arrival questions even when both mention messages, documents, offers, notices, or calls.",
+    "If the deciding semantic field is unresolved, abstain or keep a partial design rather than force a neighboring route."
+  ],
+  "decisionFields": [
+    "currentTargetAspect",
+    "downstreamConsequence",
+    "examPurpose",
+    "documentLifecycle",
+    "transportTarget",
+    "actorActionTarget",
+    "disputeGoal",
+    "tripPurposeTarget",
+    "objectLossState",
+    "choiceDecisionGoal"
+  ],
+  "themeInventory": {
+    "current22Source": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "originalNextTopicsSource": "data/liuyao-next-topic-inventory-v0.1.json",
+    "researchedExpansionThemes": [
+      "career_position",
+      "study_exam",
+      "travel",
+      "litigation_dispute",
+      "lost_property",
+      "person_return",
+      "person_contact"
+    ],
+    "sharedDesignFamilies": [
+      "choice_suitability"
+    ]
+  },
+  "collisionCases": [
+    {
+      "caseId": "COL-CAREER-INCOME-001",
+      "candidates": ["career_position", "income_salary"],
+      "exampleA": "今年能不能升职？",
+      "winnerA": "career_position",
+      "exampleB": "今年工资能不能涨？",
+      "winnerB": "income_salary",
+      "decidingField": "currentTargetAspect",
+      "rule": "position/status outcome -> career_position; salary/pay amount or increase -> income_salary"
+    },
+    {
+      "caseId": "COL-CAREER-BONUS-001",
+      "candidates": ["career_position", "income_bonus"],
+      "exampleA": "这次晋升能不能成功？",
+      "winnerA": "career_position",
+      "exampleB": "这次绩效奖金会不会发？",
+      "winnerB": "income_bonus",
+      "decidingField": "currentTargetAspect",
+      "rule": "career event context does not absorb payout targets"
+    },
+    {
+      "caseId": "COL-CAREER-STUDY-001",
+      "candidates": ["career_position", "study_exam"],
+      "exampleA": "公务员笔试这一轮能不能通过？",
+      "winnerA": "study_exam",
+      "exampleB": "公务员考试最终能不能拿到岗位？",
+      "winnerB": "career_position",
+      "decidingField": "examPurpose",
+      "rule": "exam-stage result -> study_exam; final employment acquisition -> career_position"
+    },
+    {
+      "caseId": "COL-CAREER-LITIGATION-001",
+      "candidates": ["career_position", "litigation_dispute"],
+      "exampleA": "劳动仲裁以后我的职位能不能保住？",
+      "winnerA": "career_position",
+      "exampleB": "这次劳动仲裁裁决会不会支持我？",
+      "winnerB": "litigation_dispute",
+      "decidingField": "currentTargetAspect",
+      "rule": "employment status outranks dispute method; adjudicative outcome remains litigation"
+    },
+    {
+      "caseId": "COL-CAREER-CONTACT-001",
+      "candidates": ["career_position", "person_contact"],
+      "exampleA": "A公司最后会不会录用我？",
+      "winnerA": "career_position",
+      "exampleB": "HR今天会不会回复我的消息？",
+      "winnerB": "person_contact",
+      "decidingField": "actorActionTarget",
+      "rule": "employment acquisition -> career; specific person's communication action -> person_contact"
+    },
+    {
+      "caseId": "COL-STUDY-FINANCE-001",
+      "candidates": ["study_exam", "financial_or_income_target"],
+      "exampleA": "奖学金评选这一轮能不能入选？",
+      "winnerA": "study_exam_or_selection_duty_if_selection_itself_is_target",
+      "exampleB": "这笔奖学金的钱什么时候到账？",
+      "winnerB": "financial_target",
+      "decidingField": "currentTargetAspect",
+      "rule": "selection qualification and money receipt are separate targets; finance wins when money itself is target",
+      "note": "Exact future financial route must be resolved from the current finance inventory; do not invent a new current route in this matrix."
+    },
+    {
+      "caseId": "COL-STUDY-RECEIVE-001",
+      "candidates": ["study_exam", "receive_item"],
+      "exampleA": "学校会不会正式签发我的毕业证？",
+      "winnerA": "study_exam.academic_certificate_issuance",
+      "exampleB": "毕业证什么时候寄到我手里？",
+      "winnerB": "receive_item",
+      "decidingField": "documentLifecycle",
+      "rule": "issuance/existence -> academic certificate duty; physical delivery -> receive_item"
+    },
+    {
+      "caseId": "COL-STUDY-LOST-001",
+      "candidates": ["study_exam", "lost_property"],
+      "exampleA": "学位证能不能正常办下来？",
+      "winnerA": "study_exam.academic_certificate_issuance",
+      "exampleB": "我的学位证丢了还能找回来吗？",
+      "winnerB": "lost_property",
+      "decidingField": "documentLifecycle",
+      "rule": "document creation/issuance and lost-object recovery are separate lifecycle targets"
+    },
+    {
+      "caseId": "COL-STUDY-CONTACT-001",
+      "candidates": ["study_exam", "person_contact"],
+      "exampleA": "这个项目最后会不会录取我？",
+      "winnerA": "study_exam",
+      "exampleB": "导师今天会不会回复我的邮件？",
+      "winnerB": "person_contact",
+      "decidingField": "actorActionTarget",
+      "rule": "admission decision -> study; specific person's reply action -> contact"
+    },
+    {
+      "caseId": "COL-STUDY-DOC-001",
+      "candidates": ["study_exam.academic_document_completion", "study_exam.supervisor_review_approval"],
+      "exampleA": "论文这周能不能定稿？",
+      "winnerA": "study_exam.academic_document_completion",
+      "exampleB": "导师会不会批准我这版论文？",
+      "winnerB": "study_exam.supervisor_review_approval",
+      "decidingField": "currentTargetAspect",
+      "rule": "artifact completion and reviewer approval are distinct duties even when both may involve 父母 traditionally"
+    },
+    {
+      "caseId": "COL-STUDY-DEFENSE-001",
+      "candidates": ["study_exam.academic_document_completion", "study_exam.academic_defense_outcome", "study_exam.graduation_qualification"],
+      "exampleA": "论文能不能写完？",
+      "winnerA": "study_exam.academic_document_completion",
+      "exampleB": "答辩这一轮能不能通过？",
+      "winnerB": "study_exam.academic_defense_outcome",
+      "exampleC": "我今年能不能毕业？",
+      "winnerC": "study_exam.graduation_qualification",
+      "decidingField": "currentTargetAspect",
+      "rule": "paper artifact, formal defense, and composite graduation qualification must remain separate"
+    },
+    {
+      "caseId": "COL-TRAVEL-WEATHER-001",
+      "candidates": ["travel", "unsupported_weather_information"],
+      "exampleA": "台风会不会导致我的航班取消？",
+      "winnerA": "travel",
+      "exampleB": "旅游目的地明天天气怎么样？",
+      "winnerB": "unsupported_weather_information",
+      "decidingField": "currentTargetAspect",
+      "rule": "weather may be causal context for travel disruption but weather itself is not travel"
+    },
+    {
+      "caseId": "COL-TRAVEL-RECEIVE-001",
+      "candidates": ["travel", "receive_item"],
+      "exampleA": "我这趟航班能不能按时到？",
+      "winnerA": "travel",
+      "exampleB": "我的包裹明天能不能送到？",
+      "winnerB": "receive_item",
+      "decidingField": "transportTarget",
+      "rule": "person/journey transport and item delivery are distinct targets"
+    },
+    {
+      "caseId": "COL-TRAVEL-PURCHASE-001",
+      "candidates": ["travel", "item_purchase"],
+      "exampleA": "这趟旅行能不能顺利成行？",
+      "winnerA": "travel",
+      "exampleB": "这张机票值不值得买？",
+      "winnerB": "item_purchase",
+      "decidingField": "currentTargetAspect",
+      "rule": "trip execution and purchase suitability are separate targets"
+    },
+    {
+      "caseId": "COL-TRAVEL-CAREER-001",
+      "candidates": ["travel", "career_position"],
+      "exampleA": "去外地面试这趟路顺不顺？",
+      "winnerA": "travel",
+      "exampleB": "去外地面试最后能不能录用？",
+      "winnerB": "career_position",
+      "decidingField": "tripPurposeTarget",
+      "rule": "trip purpose is background unless journey itself is current target"
+    },
+    {
+      "caseId": "COL-TRAVEL-STUDY-001",
+      "candidates": ["travel", "study_exam"],
+      "exampleA": "去外地考试这趟能不能按时到？",
+      "winnerA": "travel",
+      "exampleB": "去外地参加的考试能不能通过？",
+      "winnerB": "study_exam",
+      "decidingField": "tripPurposeTarget",
+      "rule": "journey execution and exam outcome remain separate"
+    },
+    {
+      "caseId": "COL-TRAVEL-BUSINESS-001",
+      "candidates": ["travel", "commercial_or_business_target"],
+      "exampleA": "这趟出差路上顺不顺？",
+      "winnerA": "travel",
+      "exampleB": "这次去客户那里合同能不能谈成？",
+      "winnerB": "commercial_target",
+      "decidingField": "tripPurposeTarget",
+      "rule": "travel is context when the commercial result is the actual target"
+    },
+    {
+      "caseId": "COL-TRAVEL-RETURN-001",
+      "candidates": ["travel", "person_return"],
+      "exampleA": "我爸这趟旅行安全吗？",
+      "winnerA": "travel",
+      "exampleB": "我爸什么时候回来？",
+      "winnerB": "person_return",
+      "decidingField": "currentTargetAspect",
+      "rule": "represented travel safety and absent-person return/timing are separate events"
+    },
+    {
+      "caseId": "COL-LITIGATION-DEBT-001",
+      "candidates": ["litigation_dispute", "debt_collection"],
+      "exampleA": "这个债务官司判决会不会支持我？",
+      "winnerA": "litigation_dispute",
+      "exampleB": "起诉以后这笔欠款最终能不能收回来？",
+      "winnerB": "debt_collection",
+      "decidingField": "disputeGoal",
+      "rule": "adjudication result -> litigation; debt recovery -> debt_collection even when litigation is the method"
+    },
+    {
+      "caseId": "COL-LITIGATION-COMMERCIAL-001",
+      "candidates": ["litigation_dispute", "commercial_transaction"],
+      "exampleA": "这个合同纠纷官司我能不能赢？",
+      "winnerA": "litigation_dispute",
+      "exampleB": "对方最后会不会按合同交货？",
+      "winnerB": "commercial_target",
+      "decidingField": "currentTargetAspect",
+      "rule": "formal dispute outcome and contract performance are distinct targets"
+    },
+    {
+      "caseId": "COL-LITIGATION-RELATIONSHIP-001",
+      "candidates": ["litigation_dispute", "marital_relationship"],
+      "exampleA": "离婚诉讼判决会不会支持我的请求？",
+      "winnerA": "litigation_dispute",
+      "exampleB": "我们最后会不会离婚？",
+      "winnerB": "marital_relationship",
+      "decidingField": "currentTargetAspect",
+      "rule": "judicial result and relationship/marital status are separate targets"
+    },
+    {
+      "caseId": "COL-LITIGATION-CONTACT-001",
+      "candidates": ["litigation_dispute", "person_contact"],
+      "exampleA": "对方会不会主动提出和解？",
+      "winnerA": "litigation_dispute.dispute_counterparty_action",
+      "exampleB": "对方今天会不会回复我的消息？",
+      "winnerB": "person_contact",
+      "decidingField": "actorActionTarget",
+      "rule": "dispute-specific legal/settlement action remains litigation; generic communication response is person_contact"
+    },
+    {
+      "caseId": "COL-LOST-RECEIVE-001",
+      "candidates": ["lost_property", "receive_item"],
+      "exampleA": "快递明确丢件了还能找回来吗？",
+      "winnerA": "lost_property",
+      "exampleB": "快递怎么还没到，明天能收到吗？",
+      "winnerB": "receive_item",
+      "decidingField": "objectLossState",
+      "rule": "confirmed loss/recovery -> lost_property; delayed delivery without confirmed loss -> receive_item"
+    },
+    {
+      "caseId": "COL-LOST-PURCHASE-001",
+      "candidates": ["lost_property", "item_purchase"],
+      "exampleA": "刚买的手机丢了还能找到吗？",
+      "winnerA": "lost_property",
+      "exampleB": "这台手机值不值得买？",
+      "winnerB": "item_purchase",
+      "decidingField": "objectLossState",
+      "rule": "object identity never determines route without lifecycle/current-target context"
+    },
+    {
+      "caseId": "COL-LOST-PERSON-001",
+      "candidates": ["lost_property", "person_return", "unsupported_missing_person"],
+      "exampleA": "我的钱包丢了能找回来吗？",
+      "winnerA": "lost_property",
+      "exampleB": "我爸出差什么时候回来？",
+      "winnerB": "person_return",
+      "exampleC": "家人失踪了现在在哪里？",
+      "winnerC": "unsupported_missing_person",
+      "decidingField": "currentTargetAspect",
+      "rule": "lost_property only covers confirmed lost inanimate property; ordinary known-away return is person_return; missing-person cases are outside this theme set"
+    },
+    {
+      "caseId": "COL-RETURN-CONTACT-001",
+      "candidates": ["person_return", "person_contact"],
+      "exampleA": "他什么时候回来？",
+      "winnerA": "person_return",
+      "exampleB": "什么时候能收到他的消息？",
+      "winnerB": "person_contact.person_news_arrival_timing",
+      "decidingField": "currentTargetAspect",
+      "rule": "physical return and communication arrival are separate events"
+    },
+    {
+      "caseId": "COL-CONTACT-ARTIFACT-001",
+      "candidates": ["person_contact.person_news_arrival", "person_contact.person_contact_response"],
+      "exampleA": "这两天能不能收到他的消息？",
+      "winnerA": "person_contact.person_news_arrival",
+      "exampleB": "我发了消息，他会不会回复？",
+      "winnerB": "person_contact.person_contact_response",
+      "decidingField": "actorActionTarget",
+      "rule": "message/news arrival artifact and person's reply action are separate current targets"
+    },
+    {
+      "caseId": "COL-CHOICE-OUTCOME-001",
+      "candidates": ["single_outcome_duty", "choice_suitability"],
+      "exampleA": "A公司的工作我能不能拿到？",
+      "winnerA": "career_position.job_application_outcome",
+      "exampleB": "留现在公司还是去A公司更适合？",
+      "winnerB": "choice_suitability.career_adapter",
+      "decidingField": "choiceDecisionGoal",
+      "rule": "single outcome prediction and alternative comparison/suitability are different contracts"
+    },
+    {
+      "caseId": "COL-CHOICE-EDUCATION-001",
+      "candidates": ["study_exam.admission", "choice_suitability.education_adapter"],
+      "exampleA": "A大学能不能录取我？",
+      "winnerA": "study_exam.admission",
+      "exampleB": "A大学和B大学哪个更适合我？",
+      "winnerB": "choice_suitability.education_adapter",
+      "decidingField": "choiceDecisionGoal",
+      "rule": "bounded admission outcome and multi-alternative suitability are separate contracts"
+    },
+    {
+      "caseId": "COL-CHOICE-LITIGATION-001",
+      "candidates": ["litigation_dispute.dispute_resolution_outcome", "choice_suitability.litigation_adapter"],
+      "exampleA": "双方最后能不能和解？",
+      "winnerA": "litigation_dispute.dispute_resolution_outcome",
+      "exampleB": "我该不该接受这份和解？",
+      "winnerB": "choice_suitability.litigation_adapter",
+      "decidingField": "choiceDecisionGoal",
+      "rule": "settlement feasibility and settlement suitability/strategy are not Boolean inversions"
+    }
+  ],
+  "abstentionCases": [
+    {
+      "pattern": "generic career/study/travel/dispute state without bounded target",
+      "decision": "semantic_insufficient"
+    },
+    {
+      "pattern": "legal procedural/informational question such as how to file, jurisdiction, fees, rules",
+      "decision": "unsupported_information_or_procedure"
+    },
+    {
+      "pattern": "weather itself as target",
+      "decision": "unsupported_weather_information"
+    },
+    {
+      "pattern": "missing person, disease, life/death, emergency safety outside ordinary represented travel",
+      "decision": "outside_researched_theme_scope"
+    }
+  ],
+  "trainingImplications": {
+    "enabledNow": false,
+    "futureRequirements": [
+      "Every new-theme training family must include reciprocal near-domain negatives from collision cases.",
+      "Do not generate keyword-only label pairs; vary shared vocabulary while holding current target different.",
+      "Preserve frozen current-22 regression examples when expansion training eventually opens.",
+      "Collision decisions must be versioned and frozen before corpus generation."
+    ]
+  },
+  "integrationNotes": [
+    "This matrix is a semantic governance artifact, not a Router implementation.",
+    "Some winner labels are design duties rather than current route IDs because expansion is still design-only.",
+    "Where the current finance/commercial inventory lacks an exact future route label, the matrix states the target family rather than inventing a current route.",
+    "The matrix must be reviewed alongside future formal Event/Intent schemas before training corpus construction."
+  ]
+}
