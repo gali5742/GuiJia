@@ -1,0 +1,136 @@
+{
+  "version": "0.13-candidate-v0.7-design-v0.1",
+  "status": "design_frozen_before_v07_question_mode_implementation_and_calibration_data",
+  "scope": "liuyao_semantic_current_22",
+  "predecessor": {
+    "candidate": "v0.6",
+    "terminalPath": "data/liuyao-semantic-v013-candidate-v06-terminal-v0.1.json",
+    "failureReportPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration-failure.json",
+    "statusRequired": "failed_before_candidate_lock"
+  },
+  "problemStatement": "Fresh Candidate v0.6 Scope calibration has five irreducible near-domain false activations at cutoff=1. They span accounting analysis, partnership agreement drafting, tax calculation, delivery re-dispatch procedure, and relationship-concept interpretation. All five become confirmed strong routes and therefore bypass Scope. Continuing to add domain/family-specific unsupported-target phrases would turn Evidence into an open-ended lexical patch layer. The shared missing abstraction is the user's question mode: generic information/how-to/definition/calculation/interpretation requests are not divination outcome or decision requests.",
+  "responsibilityDecision": {
+    "earliestWrongLayer": "modern_question_mode_before_arbitration",
+    "newDeterministicModuleRequired": true,
+    "newLearnedModelRequired": false,
+    "newThresholdRequired": false,
+    "evidenceFamilyExpansionAsPrimaryRepair": false,
+    "strongScopeBypassChanged": false,
+    "scopeModelChanged": false,
+    "routeInventoryChanged": false,
+    "traditionalRuleLayerChanged": false
+  },
+  "allowedChangeSurface": {
+    "runtime": [
+      "js/liuyao-semantic-question-mode-v01.js",
+      "js/liuyao-semantic-route-arbitration-v015.js"
+    ],
+    "questionModes": [
+      "outcome_or_decision",
+      "information_request",
+      "undetermined"
+    ],
+    "mustRemainDomainGeneric": true,
+    "routeIdsForbiddenInQuestionModeRuntime": true,
+    "rowIdSpecificExceptionsForbidden": true,
+    "current22DomainKeywordListsForbiddenInQuestionModeRuntime": true
+  },
+  "questionModeContract": {
+    "purpose": "Classify the speech act of the modern natural-language question before traditional-route arbitration. It does not select a route and does not infer any traditional LiuYao field.",
+    "informationRequestFamilies": [
+      "definition_or_meaning",
+      "general_explanation_or_interpretation",
+      "procedure_or_how_to",
+      "calculation_or_analysis_method",
+      "documentation_or_writing_method",
+      "requirements_or_materials_list"
+    ],
+    "outcomeOrDecisionSignals": [
+      "future_or_current outcome yes/no modality",
+      "explicit decision modality such as should/should-not or suitable/not-suitable",
+      "timing-to-concrete-outcome modality",
+      "supported current target already extracted by Evidence v0.5"
+    ],
+    "precedence": [
+      "A concrete supported current outcome/decision target takes precedence over incidental information/procedure vocabulary.",
+      "A direct request to explain/define/list/calculate/analyze/write/perform a general method is information_request even when it contains a current22 domain noun.",
+      "If neither side is established, return undetermined; do not fabricate a route decision."
+    ],
+    "arbitrationEffect": "Arbitration v0.15 returns null for information_request before any strong/support route may be emitted. outcome_or_decision and undetermined continue through frozen Arbitration v0.14 behavior.",
+    "scopeBypassEffect": "No direct Scope-bypass code changes are allowed; informational questions are prevented from reaching confirmed strong arbitration instead."
+  },
+  "requiredRegressionContracts": {
+    "mustBlockBeforeArbitration": [
+      "应收账款在会计上通常怎么做账龄分析",
+      "合伙人的权限范围一般怎样写进协议",
+      "奖金发放的个税一般如何计算",
+      "包裹投递失败后通常怎样重新派送",
+      "恋爱关系中的沟通边界通常怎么理解",
+      "贷款申请条件一般包括什么",
+      "办理结婚登记通常需要准备哪些材料"
+    ],
+    "mustRemainRoutable": [
+      "这次银行经营贷申请九月能不能批下来",
+      "客户欠我的设计尾款九月底前能不能收回",
+      "朋友向我借两万周转，我这回要不要借给他",
+      "这只指数基金再持有四个月能不能盈利",
+      "我买的路由器星期六以前能不能收到",
+      "我和对象后年有没有机会结婚",
+      "我们之间这段暧昧会不会发展成恋爱",
+      "扣完手续费以后这笔基金还能不能盈利"
+    ]
+  },
+  "frozenDependencies": {
+    "evidence": "js/liuyao-semantic-route-evidence-v05.js",
+    "baseArbitration": "js/liuyao-semantic-route-arbitration-v014.js",
+    "correctedSemanticDependencies": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "correctedRouteability": "data/liuyao-semantic-routeability-v0.4.json",
+    "correctedIdentity": "data/liuyao-semantic-fallback-identity-v0.2.json",
+    "fallbackAcceptance": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+    "routeSelection": "js/liuyao-semantic-route-selection-v05.js",
+    "finalization": "js/liuyao-semantic-finalization-v02.js",
+    "compatibility": "js/liuyao-semantic-route-compatibility-v03.js",
+    "routeInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "currentRouteCount": 22,
+    "policyGateChanged": false,
+    "traditionalRuleLayerChanged": false
+  },
+  "calibrationPolicy": {
+    "freshScopeCalibrationRequired": true,
+    "candidateV06ScopeCalibrationRegressionOnly": true,
+    "candidateV05ScopeCalibrationForbiddenForThresholdChoice": true,
+    "candidateV04ScopeCalibrationForbiddenForThresholdChoice": true,
+    "allPriorDevelopmentIndependentBlindForbiddenForThresholdChoice": true,
+    "freeParameterCount": 1,
+    "freeParameter": "scope_hard_veto_cutoff",
+    "otherModelOrGateParametersMayChange": false,
+    "textsPerEncoderCall": 1
+  },
+  "evaluationPolicy": {
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "noStructuralPathCollapse": true
+    },
+    "sequence": [
+      "question_mode_contract_verification",
+      "fresh_scope_calibration",
+      "fresh_prelock_full_stack_development",
+      "candidate_lock",
+      "fresh_post_lock_independent"
+    ],
+    "sameVersionRetuneAfterIndependentForbidden": true
+  },
+  "complexityBudget": {
+    "encoderCount": 1,
+    "newLearnedParameters": 0,
+    "newLearnedModels": 0,
+    "newGlobalThresholds": 0,
+    "newRouteSpecificThresholds": 0,
+    "newUnsupportedTargetFamilies": 0,
+    "newDeterministicModules": 1,
+    "goal": "replace repeated domain/family lexical patching with one route-agnostic speech-act boundary before Arbitration"
+  }
+}
