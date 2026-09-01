@@ -25,22 +25,43 @@
             .map((item) => Object.freeze({
                 id:item.id,
                 actorKey:item.visibleActorKey || item.actorKey || item.visibleStemActorKey || null,
+                strengthMeaning:item.strengthMeaning || null,
                 contributionState:item.contributionState || null,
                 realizationState:item.realizationState || null,
                 sourcePatternId:item.sourcePatternId || null
             }))
     );
 
-    const sourceSurfaceBySide = (bridge = {}, side) => {
+    const sourceSurfaceRecords = (bridge = {}) => {
         const surface = bridge.sourceSurfaceInventory || {};
-        return freezeArray([
+        return [
             ...(surface.stems || []),
             ...(surface.branches || [])
-        ].filter((item) => item.quantitySide === side));
+        ];
     };
+
+    const sourceSurfaceBySide = (bridge = {}, side) => freezeArray(
+        sourceSurfaceRecords(bridge).filter((item) => item.quantitySide === side)
+    );
+
+    const relationMatchesMeaning = (item = {}, meaning) => {
+        const relation = item.relationToDayMaster || item.relation || '';
+        if (meaning === 'restraint') return relation === 'restraint' || relation === '克我';
+        if (meaning === 'drain') return relation === 'drain' || relation === '我生';
+        if (meaning === 'distribution') return relation === 'distribution' || relation === '我克';
+        return false;
+    };
+
+    const sourceSurfaceByMeaning = (bridge = {}, meaning) => freezeArray(
+        sourceSurfaceRecords(bridge).filter((item) => relationMatchesMeaning(item, meaning))
+    );
 
     const hiddenBySide = (bridge = {}, side) => freezeArray(
         (bridge.hiddenModifierInventory || []).filter((item) => item.quantitySide === side)
+    );
+
+    const hiddenByMeaning = (bridge = {}, meaning) => freezeArray(
+        (bridge.hiddenModifierInventory || []).filter((item) => relationMatchesMeaning(item, meaning))
     );
 
     const buildSeasonalStanding = (synthesis = {}) => {
@@ -92,16 +113,16 @@
         });
     };
 
-    const buildPressureAxis = (synthesis = {}, axisId, side, meaning) => {
+    const buildPressureAxis = (synthesis = {}, axisId, meaning) => {
         const bridge = synthesis.qianliQuantitySemanticBridgeInventory || {};
         return Object.freeze({
             axisId,
             status:'mapped-candidates-and-project-realization',
-            sourceSurfaceCandidates:sourceSurfaceBySide(bridge, side),
-            hiddenModifierCandidates:hiddenBySide(bridge, side),
+            sourceSurfaceCandidates:sourceSurfaceByMeaning(bridge, meaning),
+            hiddenModifierCandidates:hiddenByMeaning(bridge, meaning),
             projectContributionRecords:projectContributionRecords(synthesis, meaning),
             numericValue:null,
-            boundary:'候选关系与实际兑现分层保存，不按出现数换算压力强度。'
+            boundary:'克、泄、被分按日主关系方向分别保存；候选关系与实际兑现分层，不按出现数换算压力强度。'
         });
     };
 
@@ -144,9 +165,9 @@
         const seasonalStanding = buildSeasonalStanding(synthesis);
         const rootFoundation = buildRootFoundation(semanticModel);
         const alliedSupport = buildSupportAxis(synthesis);
-        const incomingRestraint = buildPressureAxis(synthesis, 'incomingRestraint', 'restraint-drain', 'restraint');
-        const outboundDrain = buildPressureAxis(synthesis, 'outboundDrain', 'restraint-drain', 'drain');
-        const outboundDistribution = buildPressureAxis(synthesis, 'outboundDistribution', 'separate-distribution', 'distribution');
+        const incomingRestraint = buildPressureAxis(synthesis, 'incomingRestraint', 'restraint');
+        const outboundDrain = buildPressureAxis(synthesis, 'outboundDrain', 'drain');
+        const outboundDistribution = buildPressureAxis(synthesis, 'outboundDistribution', 'distribution');
         const branchQiContext = buildBranchQiContext(synthesis);
         const hiddenModifier = buildHiddenModifier(synthesis);
         const interactionModifier = buildInteractionModifier(semanticModel);
@@ -350,6 +371,7 @@
         AXES,
         FINDINGS,
         CONTRACT,
+        relationMatchesMeaning,
         buildSeasonalStanding,
         buildRootFoundation,
         buildSupportAxis,
