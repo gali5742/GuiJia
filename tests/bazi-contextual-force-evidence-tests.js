@@ -95,7 +95,7 @@ function makeResult(gans = ['丁','壬','丁','己'], zhis = ['丑','子','亥',
         title:['年柱','月柱','日柱','时柱'][index],
         gan,
         zhi:zhis[index],
-        ganZhi:gan + zhi,
+        ganZhi:gan + zhis[index],
         shishenGan:index === 2 ? '日主' : bazi.shiShenMap[dayGan][gan],
         cangGan:bazi.cangGanMap[zhis[index]].map(([hiddenGan, level]) => ({
             gan:hiddenGan,
@@ -182,17 +182,21 @@ test('扶助轴把表层候选、藏干 modifier 与项目 contribution 分开�
     assert(Array.isArray(axis.sourceSurfaceCandidates) && axis.sourceSurfaceCandidates.length >= 1, '固定盘应有表层扶助候选');
     assert(Array.isArray(axis.hiddenModifierCandidates) && axis.hiddenModifierCandidates.length >= 1, '固定盘应有藏干扶助 modifier 候选');
     assert(Array.isArray(axis.projectContributionRecords) && axis.projectContributionRecords.length >= 1, '应回链 daymaster contribution records');
+    assert(axis.projectContributionRecords.every((item) => item.strengthMeaning === 'support'), 'alliedSupport 只能挂 support contribution');
     assert(axis.partyConfiguration === null, '三类 inventory 不得自动合成党势');
     assert(axis.numericValue === null, '扶助不得计分');
 });
 
 test('克、泄、被分继续保持三个独立 force axis', () => {
     const axes = profileFor().axes;
-    assert(axes.incomingRestraint.axisId === 'incomingRestraint', '缺 incomingRestraint');
-    assert(axes.outboundDrain.axisId === 'outboundDrain', '缺 outboundDrain');
-    assert(axes.outboundDistribution.axisId === 'outboundDistribution', '缺 outboundDistribution');
-    assert(axes.incomingRestraint.projectContributionRecords.every((item) => item.id.includes('restraint') || true), '克制 contribution 应独立保存');
-    assert(axes.outboundDistribution.projectContributionRecords.every((item) => item !== undefined), 'distribution records 结构异常');
+    assert(axes.incomingRestraint.projectContributionRecords.length === 1, '固定盘应有一条 visible restraint contribution record');
+    assert(axes.outboundDrain.projectContributionRecords.length === 1, '固定盘应有一条 visible drain contribution record');
+    assert(axes.incomingRestraint.projectContributionRecords.every((item) => item.strengthMeaning === 'restraint'), 'incomingRestraint 不得混入 drain/distribution');
+    assert(axes.outboundDrain.projectContributionRecords.every((item) => item.strengthMeaning === 'drain'), 'outboundDrain 不得混入 restraint/distribution');
+    assert(axes.outboundDistribution.projectContributionRecords.every((item) => item.strengthMeaning === 'distribution'), 'outboundDistribution 不得混入 restraint/drain');
+    assert(axes.incomingRestraint.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'restraint')), '克制 surface candidates 必须方向一致');
+    assert(axes.outboundDrain.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'drain')), '泄力 surface candidates 必须方向一致');
+    assert(axes.outboundDistribution.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'distribution')), '被分 surface candidates 必须方向一致');
     assert(sourceApi.CONTRACT.restraintDrainDistributionSeparate === true, 'contract 必须锁定克泄被分分轴');
 });
 
