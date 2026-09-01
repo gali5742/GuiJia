@@ -81,6 +81,7 @@ const GuiJia = loadScripts([
     'js/bazi-contextual-force-evidence-profile.js',
     'js/bazi-contextual-force-evidence.js',
     'js/bazi-contextual-force-interaction-adapter-contract.js',
+    'js/bazi-contextual-force-interaction-adapter-profile.js',
     'js/bazi-contextual-force-interaction-adapter.js',
     'js/bazi-assessment.js',
     'js/bazi-interpretation.js'
@@ -89,6 +90,7 @@ const GuiJia = loadScripts([
 const bazi = GuiJia.baziCore;
 const interpretation = GuiJia.baziInterpretation;
 const contractApi = GuiJia.baziContextualForceInteractionAdapterContract;
+const profileApi = GuiJia.baziContextualForceInteractionAdapterProfile;
 const api = GuiJia.baziContextualForceInteractionAdapter;
 
 function makeResult(gans = ['丁','壬','丁','己'], zhis = ['丑','子','亥','酉']) {
@@ -131,10 +133,11 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('Interaction Force Adapter v0.1 独立冻结输入白名单与执行层', () => {
+test('Interaction Force Adapter v0.1 独立冻结 contract、mapper 与 execution 三层', () => {
     assert(contractApi?.installed === true, 'adapter contract 未安装');
+    assert(profileApi?.installed === true, 'adapter profile mapper 未安装');
     assert(api?.installed === true, 'adapter execution 未安装');
-    assert(contractApi.VERSION === '0.1' && api.VERSION === '0.1', 'adapter 版本异常');
+    assert(contractApi.VERSION === '0.1' && profileApi.VERSION === '0.1' && api.VERSION === '0.1', 'adapter 版本异常');
     assert(contractApi.CONTRACT.whitelistOnly === true, '必须 whitelist-only');
     assert(contractApi.CONTRACT.structurePresenceCreatesModifier === false, 'Structure presence 不得制造 modifier');
     assert(contractApi.CONTRACT.daymasterRelatedFunctionEdgesExcludedFromInteractionAxis === true, 'daymaster edge 必须排除重复记录');
@@ -298,11 +301,12 @@ test('Adapter contract 与结果不引入数值、优先级、全局 effective �
     assert(model.assessmentLayer.domains.dayMasterStrength.status === 'not-evaluated', 'Assessment 仍须 not-evaluated');
 });
 
-test('生产 loader 链为 Contextual Force Evidence → Adapter contract/execution', () => {
+test('生产 loader 链为 Contextual Force Evidence → Adapter execution → contract/mapper', () => {
     const evidence = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-evidence.js'), 'utf8');
     const adapter = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-interaction-adapter.js'), 'utf8');
     assert(evidence.includes('bazi-contextual-force-interaction-adapter.js'), 'Contextual Force Evidence 未加载 adapter execution');
     assert(adapter.includes('bazi-contextual-force-interaction-adapter-contract.js'), 'adapter execution 未加载独立 contract');
+    assert(adapter.includes('bazi-contextual-force-interaction-adapter-profile.js'), 'adapter execution 未加载独立 profile mapper');
 });
 
 console.log(`\nContextual Force Interaction Adapter v0.1: ${passed} passed, ${failed} failed`);
