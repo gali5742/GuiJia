@@ -1,0 +1,138 @@
+{
+  "version": "0.13-scope-finalization-v0.5-calibration-preseal-patch-v0.1",
+  "status": "recorded_before_seal_and_before_scope_scoring",
+  "candidate": "v0.7",
+  "modelOrThresholdScoredBeforePatch": false,
+  "semanticRuntimeModified": false,
+  "questionModeModified": false,
+  "verifierWeakened": false,
+  "changeReasonClass": "fixture_path_and_freshness_wording_only",
+  "changes": [
+    {
+      "id": "SC5-039",
+      "from": "我和这个女生以后能不能正式谈恋爱",
+      "to": "我跟这个女生以后有没有机会正式谈恋爱",
+      "reason": "remove prior exact overlap while preserving strong romantic-development outcome"
+    },
+    {
+      "id": "SC5-056",
+      "from": "自己做的生意最近亏损和回升反复，我想占一下",
+      "to": "我自己这门生意近来亏损又回升，想单独占一下经营面",
+      "reason": "remove prior exact overlap while preserving business support anchors"
+    },
+    {
+      "id": "SC5-060",
+      "from": "公司的这项业务近来业绩波动，我想看看本身",
+      "to": "公司手上的这块业务最近业绩起落，我想单独看看经营状况",
+      "reason": "remove prior exact overlap while preserving business support anchors"
+    },
+    {
+      "id": "SC5-062",
+      "from": "这笔投资近来利润变化很大，我想看看收益这块",
+      "to": "这项投资近来的利润上下变化明显，我想单独看看收益方面",
+      "reason": "remove prior exact overlap while preserving investment-profit support anchors"
+    },
+    {
+      "id": "SC5-064",
+      "from": "这个投资项目目前收益忽高忽低，我想占这一项",
+      "to": "这个投资项目最近收益一阵高一阵低，我想单独占一下",
+      "reason": "remove prior exact overlap while preserving investment-profit support anchors"
+    },
+    {
+      "id": "SC5-067",
+      "from": "这份投资最近回本情况不稳定，我想单独占一下",
+      "to": "手上这份投资近来回本情况来回变化，我想单独看看",
+      "reason": "remove prior exact overlap while preserving investment-profit support anchors"
+    },
+    {
+      "id": "SC5-070",
+      "from": "这笔投资正在安排全部变现，我想单独占这件事",
+      "to": "这笔投资已经在安排全部套现，我想单独看看这个动作",
+      "reason": "remove prior exact overlap while preserving liquidation support anchors"
+    },
+    {
+      "id": "SC5-071",
+      "from": "这个项目已经决定退出投资，我想问问这个动作",
+      "to": "这个投资项目已经决定退出投资，我想单独占一下这一步",
+      "reason": "remove prior exact overlap while preserving liquidation support anchors"
+    },
+    {
+      "id": "SC5-073",
+      "from": "这份持仓准备清掉仓位，我想单独占一下",
+      "to": "手里的这份持仓准备清掉全部仓位，我想看看这个动作",
+      "reason": "remove prior exact overlap while preserving liquidation support anchors"
+    },
+    {
+      "id": "SC5-074",
+      "from": "我已经决定把这笔期货平仓，想问这个步骤",
+      "to": "这笔期货我已经决定全部平仓，想单独占一下这个动作",
+      "reason": "remove prior exact overlap while preserving liquidation support anchors"
+    },
+    {
+      "id": "SC5-078",
+      "from": "目前这只股票的持仓正在考虑加仓，我想单独占这一步",
+      "to": "这只股票的持仓我正在考虑继续加仓，想单独占一下这一步",
+      "reason": "remove prior exact overlap while preserving position support anchors"
+    },
+    {
+      "id": "SC5-079",
+      "from": "我对这份基金的仓位调整一直拿不定主意",
+      "to": "我一直拿不定这只基金的仓位要怎么调整，想单独占一下",
+      "reason": "remove prior exact overlap while preserving position support anchors"
+    },
+    {
+      "id": "SC5-080",
+      "from": "这只股票继续拿还是减仓这件事我想看看",
+      "to": "这只股票我是继续拿还是先减仓，一直想单独看看",
+      "reason": "remove prior exact overlap while preserving position support anchors"
+    },
+    {
+      "id": "SC5-081",
+      "from": "当前债券基金持仓要不要调整，我一直在考虑",
+      "to": "手里的债券基金持仓现在要不要调整，我想单独占一下",
+      "reason": "remove prior exact overlap while preserving position support anchors"
+    },
+    {
+      "id": "SC5-085",
+      "from": "我关注的混合基金最近净值起伏明显，想单独看看",
+      "to": "我关注的这只混合基金近来净值上下起伏，想单独占一下涨跌",
+      "reason": "remove prior exact overlap while preserving trend support anchors"
+    },
+    {
+      "id": "SC5-087",
+      "from": "这个投资标的近来的涨跌变化不少，我想占这一项",
+      "to": "这个投资标的最近涨跌来回变化，我想单独看看这一块",
+      "reason": "remove prior exact overlap without introducing the frozen current-target keyword 走势"
+    },
+    {
+      "id": "SC5-088",
+      "from": "这只短债基金最近净值变化频繁，我想看看",
+      "to": "这只短债基金近来净值频繁波动，我想单独占一下",
+      "reason": "remove prior exact overlap while preserving trend support anchors"
+    },
+    {
+      "id": "SC5-091",
+      "from": "我手上这个小买卖以后还能不能继续做下去",
+      "to": "我手上这一摊以后还能不能继续撑下去",
+      "reason": "remove frozen business-support lexical anchor while preserving the intended business_operation pure-fallback semantic label"
+    },
+    {
+      "id": "SC5-141",
+      "from": "论文答辩能不能顺利通过",
+      "to": "这次毕业论文答辩我能不能顺利通过",
+      "reason": "remove prior blind-eval exact overlap while preserving outside-current22 exam outcome"
+    },
+    {
+      "id": "SC5-164",
+      "from": "接下来会不会顺利一点",
+      "to": "接下来这段时间会不会比现在顺一点",
+      "reason": "remove prior exact overlap while preserving unresolved generic outcome"
+    },
+    {
+      "id": "SC5-165",
+      "from": "我现在这样做到底好不好",
+      "to": "我眼下这样继续做到底好不好",
+      "reason": "remove prior exact overlap while preserving unresolved generic decision"
+    }
+  ]
+}
