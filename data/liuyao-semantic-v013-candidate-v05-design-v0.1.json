@@ -1,0 +1,140 @@
+{
+  "version": "0.13-candidate-v0.5-design-v0.1",
+  "status": "design_frozen_before_v05_calibration_data",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "sourceDiagnosis": {
+    "candidateV04Terminal": "data/liuyao-semantic-v013-candidate-v04-terminal-v0.1.json",
+    "scopeCalibrationFailure": "data/liuyao-semantic-scope-finalization-v0.2-calibration-failure.json",
+    "allowedUse": "architecture_and_regression_only",
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "independentEligible": false
+  },
+  "candidateV04": {
+    "status": "failed_before_candidate_lock",
+    "mutationAllowed": false,
+    "scopeCalibrationMayBeReusedForV05": false
+  },
+  "problemStatement": "Candidate v0.4 has an irreducible near-domain false-activation floor because some explicit modern informational/documentation/accounting questions are not represented as unsupported targets. They can therefore become confirmed strong Arbitration routes and bypass Scope. A Scope cutoff cannot repair an upstream semantic-target error.",
+  "principles": [
+    "Repair the earliest incorrect semantic target representation instead of weakening Scope safety constraints.",
+    "Modern informational, documentation, procedural, administrative and accounting questions are not current supported divination outcome targets merely because they mention a current-22 domain entity.",
+    "A real supported current outcome target continues to outrank incidental mentions of fees, rules, administration or documentation.",
+    "Do not remove confirmed-strong Scope bypass merely to fit calibration data; make its precondition semantically valid instead.",
+    "Do not change Router, Routeability learned weights, Identity learned heads, Fallback Acceptance thresholds, route inventory, health Policy Gate or traditional LiuYao observation selection.",
+    "No route-specific threshold or phrase-specific exception may be introduced."
+  ],
+  "plannedModules": {
+    "evidence": {
+      "version": "v0.4",
+      "base": "v0.3",
+      "responsibility": "Generalize explicit unsupported information-seeking target extraction without changing supported route semantics.",
+      "newUnsupportedTargetFamilies": [
+        "governance_or_documentation_information",
+        "administrative_or_accounting_information_expansion"
+      ],
+      "requiredCoverage": [
+        "questions asking how duties/responsibilities/division of work/agreement wording should be written or arranged",
+        "questions asking how receivables aging/accounting categories/ledger classification should be classified, recorded or calculated",
+        "generic how-to/template/classification wording when the question target is information rather than a supported outcome"
+      ],
+      "supportedCurrentTargetPrecedence": true,
+      "mustNot": [
+        "block an actual supported outcome merely because documentation, fees, tax or accounting is mentioned as background",
+        "infer traditional 六亲, 世应 or 用神",
+        "encode SC2 row ids or exact calibration sentences as runtime exceptions"
+      ]
+    },
+    "arbitration": {
+      "version": "v0.13",
+      "base": "v0.12",
+      "responsibility": "Use Evidence v0.4 as the default extractor while preserving v0.12 routing semantics when supplied evidence is unchanged.",
+      "unsupportedTargetPolicy": "return_null_before_any_strong_or_support_route"
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "change": "none",
+      "policy": "any explicit unsupportedTargets contradict current-22 activation"
+    },
+    "routeability": {
+      "runtimePolicy": "v0.6",
+      "correctedModel": "data/liuyao-semantic-routeability-v0.4.json",
+      "change": "none"
+    },
+    "routerAndScopeModel": {
+      "artifact": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "change": "none",
+      "scopeWeightsRetuned": false
+    },
+    "fallbackIdentity": {
+      "artifact": "data/liuyao-semantic-fallback-identity-v0.2.json",
+      "change": "none"
+    },
+    "fallbackAcceptance": {
+      "artifact": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+      "change": "none",
+      "thresholdRetune": false
+    },
+    "selection": {
+      "version": "v0.5",
+      "change": "none"
+    },
+    "finalization": {
+      "version": "v0.2",
+      "change": "none",
+      "confirmedStrongScopeBypass": true
+    },
+    "scopeFinalization": {
+      "version": "v0.3",
+      "freeParameter": "one_global_scope_hard_veto_cutoff",
+      "weights": "frozen_corrected_scope_weights",
+      "v04CalibrationReusable": false,
+      "freshV05CalibrationRequired": true
+    }
+  },
+  "regressionPolicy": {
+    "candidateV04IrreducibleRowsMayBeUsedAsRegression": true,
+    "candidateV04IrreducibleRowsMayBeUsedForV05Calibration": false,
+    "candidateV04IrreducibleRowsMayBeUsedForV05Independent": false,
+    "requiredRegressionOutcomes": {
+      "SC2-198": "explicit_unsupported_target_before_arbitration",
+      "SC2-220": "explicit_unsupported_target_before_arbitration"
+    }
+  },
+  "freshCalibrationPolicy": {
+    "createdAfterThisDesignFreeze": true,
+    "useForTraining": false,
+    "reuseV04ScopeCalibration": false,
+    "reuseFallbackAcceptanceCalibration": false,
+    "reuseAnyDevelopmentIndependentOrBlind": false,
+    "parameterCount": 1,
+    "parameter": "scope_hard_veto_cutoff",
+    "otherParametersMayChange": false,
+    "objective": "maximize_final_known_exact_retention_subject_to_safety_constraints",
+    "constraints": {
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05
+    }
+  },
+  "evaluationPolicy": {
+    "freshV05PrelockDevelopmentRequired": true,
+    "candidateLockBeforeIndependent": true,
+    "freshPostLockIndependentRequired": true,
+    "sameVersionRetuneAfterIndependent": false,
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    }
+  },
+  "traditionalBoundary": {
+    "modernSemanticLayerOnly": true,
+    "traditionalObservationSelectionModified": false,
+    "timeEngineModified": false,
+    "baziModified": false,
+    "shicaoModified": false
+  }
+}
