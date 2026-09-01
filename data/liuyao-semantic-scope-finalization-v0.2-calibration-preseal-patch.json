@@ -1,0 +1,654 @@
+{
+  "version": "0.13-scope-finalization-v0.2-calibration-preseal-patch-v0.1",
+  "status": "recorded_before_seal_and_before_scope_scoring",
+  "scope": "fixture_wording_only",
+  "semanticRulesChanged": false,
+  "modelOrThresholdScoredBeforePatch": false,
+  "labelsOrRoutesChanged": false,
+  "rows": [
+    {
+      "id": "SC2-001",
+      "before": "这笔设备采购交易月底前能不能真正成交",
+      "after": "这笔办公设备采购交易下周五前能不能成交",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "commercial_transaction"
+    },
+    {
+      "id": "SC2-002",
+      "before": "和这位买家谈的订单这周能不能正式签成",
+      "after": "客户这一单批发订单月底以前能不能签成",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "commercial_transaction"
+    },
+    {
+      "id": "SC2-003",
+      "before": "店里秋季要补的那批货能不能在周末前全部进到仓里",
+      "after": "门店这批货周六以前能不能全部入库",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "inventory_purchase"
+    },
+    {
+      "id": "SC2-004",
+      "before": "门店这轮补货能不能按预定时间全部到齐",
+      "after": "门店下一轮补货能不能按时到齐",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "inventory_purchase"
+    },
+    {
+      "id": "SC2-005",
+      "before": "仓库积着的这批季末货十月前能不能全部卖掉",
+      "after": "仓库里的这批尾货月底前能不能全部出清",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "inventory_sale"
+    },
+    {
+      "id": "SC2-006",
+      "before": "店里压了几个月的库存下周能不能清完",
+      "after": "门店这批积压货下周能不能全部卖完",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "inventory_sale"
+    },
+    {
+      "id": "SC2-007",
+      "before": "我向姐姐开口借的这笔临时款这个月能不能拿到",
+      "after": "我向哥哥借的这笔周转钱周三前能不能拿到",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "borrow_money"
+    },
+    {
+      "id": "SC2-008",
+      "before": "这次向银行申请的经营贷款能不能批下来",
+      "after": "这次经营贷申请下个月能不能批下来",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "borrow_money"
+    },
+    {
+      "id": "SC2-009",
+      "before": "我找朋友借来应急的那笔钱这周能不能到手",
+      "after": "我找熟人借的一笔钱这周能不能拿到",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "borrow_money"
+    },
+    {
+      "id": "SC2-010",
+      "before": "朋友来借两万元，我这次把钱借给他合适吗",
+      "after": "朋友向我借两万元周转，我这次该不该借给他",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "lend_money"
+    },
+    {
+      "id": "SC2-011",
+      "before": "表弟找我借一笔应急钱，我答应借出去妥不妥",
+      "after": "亲戚找我借一笔钱，我现在借出去合适吗",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "lend_money"
+    },
+    {
+      "id": "SC2-012",
+      "before": "同事要从我这里借钱周转，我现在该不该借",
+      "after": "我准备借给同事一笔应急款，这样做妥不妥",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "lend_money"
+    },
+    {
+      "id": "SC2-013",
+      "before": "客户拖欠的服务尾款这个月能不能收回来",
+      "after": "客户欠我的项目尾款这个月能不能收回",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_collection"
+    },
+    {
+      "id": "SC2-014",
+      "before": "前年借给朋友的钱今年冬天以前还能不能追回",
+      "after": "我借给朋友的那笔钱年底前还能不能追回",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_collection"
+    },
+    {
+      "id": "SC2-015",
+      "before": "对方欠公司的那笔应收款这周能不能要回来",
+      "after": "公司的应收账款这周能不能要回",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_collection"
+    },
+    {
+      "id": "SC2-016",
+      "before": "我剩下的车贷今年能不能一次还清",
+      "after": "我的房贷今年年底前能不能还清",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_repayment"
+    },
+    {
+      "id": "SC2-017",
+      "before": "这笔信用卡欠款下个账期能不能全部结掉",
+      "after": "下个账期我的信用卡欠款能不能一次还完",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_repayment"
+    },
+    {
+      "id": "SC2-018",
+      "before": "手上的消费贷款年底以前能不能照计划还完",
+      "after": "手上的消费贷今年能不能全部还完",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "debt_repayment"
+    },
+    {
+      "id": "SC2-019",
+      "before": "我和朋友合伙经营这间咖啡店以后能不能稳定做下去",
+      "after": "我和朋友合伙开店以后能不能稳定做下去",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "partnership"
+    },
+    {
+      "id": "SC2-020",
+      "before": "跟这个搭档一起开工作室接下来合不合适",
+      "after": "我跟这个人共同经营工作室以后合不合适",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "partnership"
+    },
+    {
+      "id": "SC2-021",
+      "before": "这只债券基金再持有四个月能不能赚到钱",
+      "after": "这只基金继续持有五个月能不能盈利",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-022",
+      "before": "这项投资放到明年春天会不会有利润",
+      "after": "这个投资项目到明年能不能有利润",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-023",
+      "before": "我准备把这只基金在下周全部赎回，能不能顺利完成",
+      "after": "这只基金月底全部赎回能不能顺利完成",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-024",
+      "before": "手里的股票仓位这次一次全清会不会卡住",
+      "after": "手里的股票仓位一次性卖出会不会卡住",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-025",
+      "before": "这个投资计划现在适不适合我参加",
+      "after": "这只基金现在适不适合我参与",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_suitability"
+    },
+    {
+      "id": "SC2-026",
+      "before": "这只指数基金眼下值不值得我投入",
+      "after": "这个投资项目目前值不值得我投",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_suitability"
+    },
+    {
+      "id": "SC2-027",
+      "before": "这只基金接下来十天还会不会继续往下跌",
+      "after": "这只股票接下来两周价格会不会继续上涨",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-028",
+      "before": "这只股票下个月价格会不会往上走",
+      "after": "这只基金未来一个月净值会不会走低",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-029",
+      "before": "明年我的固定月薪会不会上调",
+      "after": "明年我的固定工资会不会上调",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "income_salary"
+    },
+    {
+      "id": "SC2-030",
+      "before": "公司下一轮调薪时我的基本工资能不能增加",
+      "after": "公司下一轮调薪时我的基本工资能不能增加",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "income_salary"
+    },
+    {
+      "id": "SC2-031",
+      "before": "今年年终绩效奖金能不能正常发下来",
+      "after": "今年绩效奖金能不能发下来",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "income_bonus"
+    },
+    {
+      "id": "SC2-032",
+      "before": "这个项目结束后的奖励金我能不能拿到",
+      "after": "这个项目的奖励金月底前能不能到账",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "income_bonus"
+    },
+    {
+      "id": "SC2-033",
+      "before": "已经发出的显示器周六以前能不能送到我手上",
+      "after": "我买的显示器周末以前能不能收到",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "receive_item"
+    },
+    {
+      "id": "SC2-034",
+      "before": "我买的镜头明天能不能收到",
+      "after": "已经发出的相机后天能不能送到我手里",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "receive_item"
+    },
+    {
+      "id": "SC2-035",
+      "before": "这个办公椅包裹下周一以前能不能送达",
+      "after": "这个机械键盘的包裹周六以前能不能收到",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "receive_item"
+    },
+    {
+      "id": "SC2-036",
+      "before": "这台便携投影现在值不值得买",
+      "after": "这台投影仪现在该不该买",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "item_purchase"
+    },
+    {
+      "id": "SC2-037",
+      "before": "我今天要不要买这副降噪耳机",
+      "after": "这副降噪耳机现在该不该买下来",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "item_purchase"
+    },
+    {
+      "id": "SC2-038",
+      "before": "这款洗地机现在买下来合不合适",
+      "after": "这款扫地机器人眼下要不要入手",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "item_purchase"
+    },
+    {
+      "id": "SC2-039",
+      "before": "我和这个男生之后能不能正式成为恋人",
+      "after": "我和这个人以后能不能正式成为恋人",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "relationship_development"
+    },
+    {
+      "id": "SC2-040",
+      "before": "我们现在的暧昧关系会不会发展成恋爱",
+      "after": "我们之间的暧昧会不会发展成恋爱",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "relationship_development"
+    },
+    {
+      "id": "SC2-041",
+      "before": "我和对象明年能不能结婚",
+      "after": "我和对象明年有没有机会结婚",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "marriage_match"
+    },
+    {
+      "id": "SC2-042",
+      "before": "我们这门婚事今年最后能不能成",
+      "after": "我们这门亲事年底以前能不能成",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "marriage_match"
+    },
+    {
+      "id": "SC2-043",
+      "before": "我和妻子最近的夫妻关系以后能不能缓和",
+      "after": "我和妻子这段时间关系紧张，之后能不能缓和",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "marital_relationship"
+    },
+    {
+      "id": "SC2-044",
+      "before": "这段婚姻接下来还能不能继续维持",
+      "after": "我们夫妻最近总争执，这段婚姻接下来还能不能继续",
+      "expectedCandidatePath": "strong_arbitration",
+      "expectedRoute": "marital_relationship"
+    },
+    {
+      "id": "SC2-045",
+      "before": "最近家里整体收支让我很在意，想单独占一下",
+      "after": "最近整体财务状况起伏明显，我想单独占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-046",
+      "before": "这一阵手上的财务状况变化不少，我想看看这一块",
+      "after": "这一阵钱财方面变化不少，我想看看这一块",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-047",
+      "before": "今年钱财方面起伏比较明显，想问问这个主题",
+      "after": "近几个月现金流反复得很，我想问问财务这件事",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-048",
+      "before": "近几个月现金进出反复，我想占一下财务这件事",
+      "after": "最近资金流变化明显，我想占一下这一项",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-049",
+      "before": "最近整体经济状态不太稳定，我想看看",
+      "after": "今年收支状态不太稳定，我想单独看看",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-050",
+      "before": "这一阶段手头松紧变化很大，想单独问钱财方面",
+      "after": "这段时间进账忽多忽少，我想问问钱财方面",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-051",
+      "before": "最近日常收支波动不少，我想占这一项",
+      "after": "最近手头资金松紧变化很大，我想占一下财务这一块",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-052",
+      "before": "目前整体财务让我有些挂心，想看看后面",
+      "after": "目前钱财方面让我很在意，我想单独看看",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-053",
+      "before": "我的小店最近经营状态反复，想单独占一下",
+      "after": "我的小店最近经营状况反复，我想单独占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-054",
+      "before": "工作室这段时间营运不太稳定，我想问经营这块",
+      "after": "工作室这阵子利润起伏很大，我想问经营这块",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-055",
+      "before": "这家铺子最近业绩忽高忽低，想看看经营本身",
+      "after": "这家门店最近业绩变化明显，我想看看经营本身",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-056",
+      "before": "自己做的生意近来状态反复，我想占一下",
+      "after": "自己做的生意近来亏损和回升反复，我想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-057",
+      "before": "这个网店最近经营情况变化明显，想问问",
+      "after": "这个网店最近经营状况不太稳定，我想问问",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-058",
+      "before": "餐馆这阵子营运状态不稳，我想看看这一项",
+      "after": "餐馆这阵子利润忽高忽低，我想看看这一项",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-059",
+      "before": "手里的门店最近经营压力起伏很大，想占一下",
+      "after": "手里的门店最近现金流反复，我想单独占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-060",
+      "before": "公司这项小业务最近表现反复，我想看看经营面",
+      "after": "公司业务最近业绩变化很大，我想看看经营面",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "business_operation"
+    },
+    {
+      "id": "SC2-061",
+      "before": "我最近主要在意这笔投资的收益变化，想占一下",
+      "after": "这只基金最近收益起伏明显，我想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-062",
+      "before": "这只基金这阵子的收益起伏让我很在意",
+      "after": "这笔投资近来利润变化很大，我想看看收益这块",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-063",
+      "before": "手上的投资项目最近利润反复，我想看看这一块",
+      "after": "我投的基金最近回本情况反复，想单独问一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-064",
+      "before": "这笔理财现在回报变化明显，想单独问一下",
+      "after": "这个投资项目目前收益忽高忽低，我想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-065",
+      "before": "这个基金最近收益不太稳定，我想占这件事",
+      "after": "手里的股票最近有收益波动，我想看看这一项",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-066",
+      "before": "我投的项目近来回本情况反复，想看看",
+      "after": "这份基金近来利润变化让我很在意，想问问",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-067",
+      "before": "这份投资目前的收益表现让我一直挂心",
+      "after": "我的投资最近回本情况反复，想单独占这件事",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_profit"
+    },
+    {
+      "id": "SC2-068",
+      "before": "我已经决定把手里的基金全部退出，想占一下这个动作",
+      "after": "我已经决定把这只基金全部赎回，想占一下这个动作",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-069",
+      "before": "这份股票持仓准备整个清掉，我想看看这一步",
+      "after": "手里的股票准备一次性卖出，我想看看这一步",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-070",
+      "before": "这笔投资正在安排全部变现，想问一下这个过程",
+      "after": "这笔基金持仓已经准备全部变现，我想看看这个动作",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-071",
+      "before": "我已经准备退出这项投资，想单独占这件事",
+      "after": "这项投资已经决定全部变现，我想单独占这个动作",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-072",
+      "before": "手上的ETF计划全部卖出，我想看看这一项",
+      "after": "手上的ETF计划全部卖出，我想看看这一项",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-073",
+      "before": "这份基金仓位准备整体清掉，想占一下",
+      "after": "这份基金仓位准备清掉，我想占一下这一步",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-074",
+      "before": "我已经决定把这笔持仓全部平掉，想问这一步",
+      "after": "我已经决定把这个持仓平仓，想问这件事",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_liquidation"
+    },
+    {
+      "id": "SC2-075",
+      "before": "我正在考虑手里的股票要不要继续拿着，想占一下",
+      "after": "这只股票我正在考虑继续持有，想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-076",
+      "before": "这只基金最近在考虑调整持有份额，我想看看",
+      "after": "手里的基金正在考虑调整持仓，我想单独看看这一步",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-077",
+      "before": "手上的ETF我一直犹豫要不要减一些，想问问",
+      "after": "这只ETF我还在考虑是否减仓，想占一下这个动作",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-078",
+      "before": "目前这只股票在考虑增加一点仓位，想占这一步",
+      "after": "目前这只股票我在考虑加仓，想看看这件事",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-079",
+      "before": "我对这份基金怎么调整持有量拿不定主意",
+      "after": "这笔基金的仓位要不要调整我还没想定，想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-080",
+      "before": "这只股票继续留还是减一点这件事我想看看",
+      "after": "这只股票是继续持有还是减仓，我想看看这个选择",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-081",
+      "before": "现在ETF的持有份额要不要调整，我一直在考虑",
+      "after": "现在这只ETF的持仓需不需要调整，我想单独占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_position_decision"
+    },
+    {
+      "id": "SC2-082",
+      "before": "这只基金最近净值波动明显，我想单独看看价格这一块",
+      "after": "这只基金最近净值波动很大，我想单独占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-083",
+      "before": "手里的股票最近价格起伏很大，想占一下",
+      "after": "手里的股票最近价格变化明显，我想看看这一块",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-084",
+      "before": "这个ETF最近上下变化频繁，我想看看",
+      "after": "这个ETF近来涨跌反复，我想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-085",
+      "before": "我关注的基金近来净值反复，想问问",
+      "after": "我关注的基金最近净值起伏很大，想单独看看",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-086",
+      "before": "这只个股最近价格变化让我很在意，想单独占一下",
+      "after": "这只个股最近价格波动让我很在意，想问问",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-087",
+      "before": "这个投资标的最近价格波动明显，我想看看这一项",
+      "after": "这个投资标的近来的涨跌变化明显，我想占一下",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-088",
+      "before": "手里的债券基金近来净值变化很多，想问一下",
+      "after": "这只债券基金最近净值一阵高一阵低，我想单独看看",
+      "expectedCandidatePath": "support_arbitration",
+      "expectedRoute": "investment_price_trend"
+    },
+    {
+      "id": "SC2-089",
+      "before": "明年手头能不能比今年宽裕一点",
+      "after": "明年我在钱这方面会不会比今年轻松些",
+      "expectedCandidatePath": "pure_fallback",
+      "expectedRoute": "financial_fortune"
+    },
+    {
+      "id": "SC2-173",
+      "before": "这件事情还要多久才会清楚",
+      "after": "这件事大概要到什么时候才见分晓",
+      "expectedCandidatePath": null,
+      "expectedRoute": null
+    },
+    {
+      "id": "SC2-176",
+      "before": "我现在这么决定以后会不会后悔",
+      "after": "我刚做的这个决定以后会不会让我后悔",
+      "expectedCandidatePath": null,
+      "expectedRoute": null
+    },
+    {
+      "id": "SC2-181",
+      "before": "我现在是不是判断错了方向",
+      "after": "我现在对这件事的判断是不是偏了",
+      "expectedCandidatePath": null,
+      "expectedRoute": null
+    }
+  ]
+}
