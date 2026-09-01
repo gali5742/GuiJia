@@ -32,7 +32,7 @@ const replacements = [
   '最近整体财务状况起伏明显，我想单独占一下','这一阵钱财方面变化不少，我想看看这一块','近几个月现金流反复得很，我想问问财务这件事','最近资金流变化明显，我想占一下这一项','今年收支状态不太稳定，我想单独看看','这段时间进账忽多忽少，我想问问钱财方面','最近手头资金松紧变化很大，我想占一下财务这一块','目前钱财方面让我很在意，我想单独看看',
   '我的小店最近经营状况反复，我想单独占一下','工作室这阵子利润起伏很大，我想问经营这块','这家门店最近业绩变化明显，我想看看经营本身','自己做的生意近来亏损和回升反复，我想占一下','这个网店最近经营状况不太稳定，我想问问','餐馆这阵子利润忽高忽低，我想看看这一项','手里的门店最近现金流反复，我想单独占一下','公司业务最近业绩变化很大，我想看看经营面',
   '这只基金最近收益起伏明显，我想占一下','这笔投资近来利润变化很大，我想看看收益这块','我投的基金最近回本情况反复，想单独问一下','这个投资项目目前收益忽高忽低，我想占一下','手里的股票最近有收益波动，我想看看这一项','这份基金近来利润变化让我很在意，想问问','我的投资最近回本情况反复，想单独占这件事',
-  '我已经决定把这只基金全部赎回，想占一下这个动作','手里的股票准备一次性卖出，我想看看这一步','这笔投资正在安排全部变现，我想单独占一下','我已经准备退出这项投资，想问问这个动作','手上的ETF计划全部卖出，我想看看这一项','这份基金仓位准备清掉，我想占一下这一步','我已经决定把这个持仓平仓，想问这件事',
+  '我已经决定把这只基金全部赎回，想占一下这个动作','手里的股票准备一次性卖出，我想看看这一步','这笔投资正在安排全部变现，我想单独占一下','这项投资已经决定全部变现，我想单独占这个动作','手上的ETF计划全部卖出，我想看看这一项','这份基金仓位准备清掉，我想占一下这一步','我已经决定把这个持仓平仓，想问这件事',
   '这只股票我正在考虑继续持有，想占一下','手里的基金准备调整仓位，我想看看这件事','这只ETF我在犹豫要不要减仓，想问一下','目前股票持仓正在考虑加仓，我想单独占这一步','我对这笔基金仓位调整一直拿不定主意','这只股票继续拿还是减仓这件事我想占一下','当前ETF持仓要不要调整，我一直在考虑',
   '这只基金最近净值波动很大，我想单独占一下','手里的股票最近价格变化明显，我想看看这一块','这个ETF近来涨跌反复，我想占一下','我关注的基金最近净值起伏很大，想单独看看','这只个股最近价格波动让我很在意，想问问','这个投资标的近来的涨跌变化明显，我想占一下','这只债券基金最近净值变化频繁，我想看看'
 ];
@@ -45,9 +45,24 @@ for (let i = 0; i < 88; i += 1) {
   patchRows.push({ id:row.id, before:row.text, after:replacements[i], expectedCandidatePath:row.expectedCandidatePath, expectedRoute:row.expectedRoute });
   row.text = replacements[i];
 }
+
+const fallbackCorrection = calibration.rows.find((row) => row.id === 'SC2-089');
+if (!fallbackCorrection || fallbackCorrection.expectedCandidatePath !== 'pure_fallback' || fallbackCorrection.expectedRoute !== 'financial_fortune') {
+  throw new Error('SC2-089 pure-fallback fixture contract drift');
+}
+const fallbackReplacement = '明年我在钱这方面会不会比今年轻松些';
+patchRows.push({
+  id:fallbackCorrection.id,
+  before:fallbackCorrection.text,
+  after:fallbackReplacement,
+  expectedCandidatePath:fallbackCorrection.expectedCandidatePath,
+  expectedRoute:fallbackCorrection.expectedRoute
+});
+fallbackCorrection.text = fallbackReplacement;
+
 calibration.presealWordingPatch = {
   applied:true,
-  reason:'Initial preseal verifier found wording that did not reliably realize the declared frozen Evidence/Arbitration path. Corrections change fixture wording only; no semantic rule, model, threshold, label, route, count or scope objective changed.',
+  reason:'Preseal verifier found wording that did not reliably realize the declared frozen Evidence/Arbitration path. Corrections change fixture wording only; no semantic rule, model, threshold, label, route, count or scope objective changed.',
   patchPath:'data/liuyao-semantic-scope-finalization-v0.2-calibration-preseal-patch.json',
   correctedRows:patchRows.length
 };
