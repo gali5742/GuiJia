@@ -1,0 +1,1821 @@
+{
+  "version": "0.13-scope-finalization-v0.4-calibration-v0.1",
+  "status": "presealed_fresh_scope_calibration",
+  "sealed": false,
+  "scope": "liuyao_semantic_candidate_v0.6_scope_finalization",
+  "createdAfterCandidateV06DesignFreeze": true,
+  "provenance": {
+    "designPath": "data/liuyao-semantic-v013-candidate-v06-design-v0.1.json",
+    "designSha256": "f1c3f169fdbe9a28ecdfc0afca31bb375bf5c339c7c9d6e236216821867ff969",
+    "designFreezeCommit": "e2331ec823d9d1fdf6976c6f7a45dba985431964",
+    "generatorPath": "scripts/generate-liuyao-semantic-scope-finalization-v04-calibration.mjs",
+    "generatorCommit": "1da1c0f26b0d17cc50e8e0ab4eea98f4dad09d59",
+    "generatedAt": "2026-09-01T01:50:48.925Z"
+  },
+  "policy": {
+    "useForTraining": false,
+    "useForScopeThresholdCalibration": true,
+    "useAsDevelopmentEval": false,
+    "reuseAsIndependent": false,
+    "reuseAsBlind": false,
+    "parameterToCalibrate": "scope_hard_veto_cutoff",
+    "parameterCount": 1,
+    "otherModelOrGateParametersMayChange": false,
+    "multiTextEncoderBatchForbidden": true,
+    "candidateV05ScopeCalibrationExcluded": true,
+    "candidateV04ScopeCalibrationExcluded": true,
+    "fallbackAcceptanceCalibrationExcluded": true,
+    "routeabilityCalibrationExcluded": true,
+    "allDevelopmentIndependentBlindExcluded": true,
+    "predecessorRegressionRowsExcluded": true
+  },
+  "counts": {
+    "total": 222,
+    "route_known": 132,
+    "non_route": 90,
+    "strong_arbitration": 44,
+    "support_arbitration": 44,
+    "pure_fallback": 44,
+    "outside_current_22": 30,
+    "route_unresolved": 30,
+    "near_domain_not_current_route": 30
+  },
+  "rows": [
+    {
+      "id": "SC4-001",
+      "text": "这笔摄影器材采购交易下周三前能不能成交",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-002",
+      "text": "供应商这张年度订单月底能不能顺利签成",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-003",
+      "text": "门店秋季这批货周二以前能不能全部入库",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-004",
+      "text": "仓库里的这批货下周三前能不能全部入库",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-005",
+      "text": "库房这批过季库存国庆前能不能出清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-006",
+      "text": "店里最后这批尾货这个月能不能全部卖完",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-007",
+      "text": "我向表姐借的临时周转款下周能不能拿到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-008",
+      "text": "这次小微企业贷款申请十月能不能批下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-009",
+      "text": "我找朋友借的备用金月底前能不能借到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-010",
+      "text": "邻居向我借一万元应急，我这次要不要借给他",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-011",
+      "text": "朋友找我借一笔短期周转金，我现在借出去合适吗",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-012",
+      "text": "同学想从我这里借钱过渡，我该不该答应",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-013",
+      "text": "甲方欠我的咨询尾款下月中旬前能不能收回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-014",
+      "text": "我借给同学的那笔钱春节前还能不能追回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-015",
+      "text": "公司这笔应收款周五前能不能要回",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-016",
+      "text": "我的银行贷款明年三月以前能不能还清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-017",
+      "text": "这期信用卡欠款下个账单日前能不能结清",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-018",
+      "text": "手里剩下的消费贷今年冬天能不能还完",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-019",
+      "text": "我和朋友合伙做烘焙店以后能不能长久经营下去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-020",
+      "text": "跟这个合作者共同经营设计工作室到底合不合适",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-021",
+      "text": "这只红利基金再放半年能不能盈利",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-022",
+      "text": "这个储能投资项目明年上半年会不会有利润",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-023",
+      "text": "这只黄金基金下周全部赎回能不能顺利完成",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-024",
+      "text": "手上的股票仓位下周一次性卖出会不会卡住",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-025",
+      "text": "这只海外指数ETF现在适不适合我参与",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-026",
+      "text": "这个民宿投资计划眼下值不值得我投",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-027",
+      "text": "这只半导体股票未来两周价格会不会继续上涨",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-028",
+      "text": "这只债券基金下个季度净值会不会走低",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-029",
+      "text": "明年春季我的固定工资会不会上调",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-030",
+      "text": "公司年底调薪时我的基本薪酬能不能增加",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-031",
+      "text": "今年年中奖金能不能正常发下来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-032",
+      "text": "这次专项奖励金下个月能不能到账",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-033",
+      "text": "我买的显示器星期一以前能不能收到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-034",
+      "text": "已经寄出的相机下周二以前能不能到手",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-035",
+      "text": "这个相机包裹下周末前能不能送达",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-036",
+      "text": "这台空气净化器本月该不该买",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-037",
+      "text": "我眼下要不要买这支镜头",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-038",
+      "text": "这款平板阅读器现在买下来合不合适",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-039",
+      "text": "我和这个女生以后能不能正式谈恋爱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-040",
+      "text": "我们这阵子的暧昧最后会不会发展成恋爱",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-041",
+      "text": "我和伴侣明年秋天有没有机会结婚",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-042",
+      "text": "我们两家谈的这门亲事春节前能不能成",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-043",
+      "text": "我和妻子最近一直僵着，以后关系能不能缓和",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-044",
+      "text": "我们夫妻近来争吵很多，这段婚姻还能不能继续",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "strong_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-045",
+      "text": "最近整体资金进出变化很明显，我想单独看看钱财这一块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-046",
+      "text": "这阵子手上的收支忽松忽紧，我想占一下财务方面",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-047",
+      "text": "近两个月总体进账波动不少，我想问问资金情况",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-048",
+      "text": "今年整体资金流起伏比较大，我想单独占这个主题",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-049",
+      "text": "最近整体收支不太稳定，我想看看这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-050",
+      "text": "这段时间整体收支反复，我想问一下财务这边",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-051",
+      "text": "近期资金流变化明显，我想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-052",
+      "text": "现在总体钱财状况让我比较在意，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-053",
+      "text": "我的小餐馆近期经营状况反复，想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-054",
+      "text": "这间工作室最近利润起伏很大，我想问经营本身",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-055",
+      "text": "门店这阵子业绩高低变化明显，我想看看经营这块",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-056",
+      "text": "自己做的生意近来利润反复，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-057",
+      "text": "网店最近营业情况不太稳定，我想单独问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-058",
+      "text": "咖啡店这段时间现金流起伏明显，我想看看经营面",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-059",
+      "text": "这个摊位最近营业状况变化不少，我想占这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-060",
+      "text": "公司这条业务线近期业绩波动，我想看看本身",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-061",
+      "text": "这只红利ETF最近收益上下变化明显，我想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-062",
+      "text": "这份投资近来利润起伏很大，我想看看收益方面",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-063",
+      "text": "手里的指数基金最近回本情况反复，我想单独问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-064",
+      "text": "这个投资计划目前收益变化不少，我想占这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-065",
+      "text": "这只个股近来利润波动，我想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-066",
+      "text": "我的债券基金近期收益变化让我在意，想问一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-067",
+      "text": "这份项目投资最近回本状态不稳定，我想单独占占",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-068",
+      "text": "我已经决定把这只黄金基金全部赎回，想占一下这个动作",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-069",
+      "text": "手上的股票准备月底一次性卖出，我想看看这个动作",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-070",
+      "text": "这笔投资正在安排全部变现，我想单独问这件事",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-071",
+      "text": "这个项目已经确定退出投资，我想看看这个动作",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-072",
+      "text": "手上的海外ETF计划全部卖出，我想占一下这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-073",
+      "text": "这份持仓准备全部卖出，我想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-074",
+      "text": "我已经决定把这笔期货平仓，想问一下这个步骤",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-075",
+      "text": "手上这只股票我正在考虑继续持有一阵，想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-076",
+      "text": "手里的红利基金准备调整仓位，我想看看这件事",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-077",
+      "text": "这只海外ETF我在犹豫要不要减仓，想单独问问",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-078",
+      "text": "目前这只股票正在考虑加仓，我想看看这一步",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-079",
+      "text": "我对这份基金仓位怎么调整一直拿不定主意",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-080",
+      "text": "这只股票继续拿还是减一些，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-081",
+      "text": "当前短债基金的持仓要不要调整，我一直在考虑",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-082",
+      "text": "这只红利基金最近净值起伏很大，我想单独占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-083",
+      "text": "手里的股票最近价格变化明显，我想看看涨跌方面",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-084",
+      "text": "这个海外ETF近期涨跌反复，我想占一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-085",
+      "text": "我关注的债券基金最近净值起伏明显，想单独看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-086",
+      "text": "这只个股近来的价格波动让我在意，想问一下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-087",
+      "text": "这个投资标的近期涨跌变化很多，我想占这一项",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-088",
+      "text": "这只货币基金最近净值变化频繁，我想看看",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "subtype": null
+    },
+    {
+      "id": "SC4-089",
+      "text": "接下来一年我在钱这一块会不会宽松一点",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-090",
+      "text": "往后几个月我手里的余裕会不会慢慢增加",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "financial_fortune",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-091",
+      "text": "我手里这个小铺往后还能不能继续撑下去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-092",
+      "text": "自己做的这门小生意以后有没有继续做的空间",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "business_operation",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-093",
+      "text": "现在和对方谈的这一件事最后能不能有结果",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-094",
+      "text": "眼前正在商量的这一桩事情之后有没有下文",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "commercial_transaction",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-095",
+      "text": "店里下一轮要摆出来的东西最后能不能都备齐",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-096",
+      "text": "下个月营业要用的那批东西会不会全部准备好",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_purchase",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-097",
+      "text": "仓库压着的旧商品以后能不能一点点腾出去",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-098",
+      "text": "店里剩着的那些老款往后会不会慢慢减少",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "inventory_sale",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-099",
+      "text": "眼下缺的这笔周转钱我能不能从别人那里凑到",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-100",
+      "text": "最近手头差一块，会不会有人先拿钱帮我顶上",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-101",
+      "text": "朋友最近缺钱，我先拿一部分给他顶着是否合适",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-102",
+      "text": "熟人临时手紧，我分点自己的钱给他用会不会有问题",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "lend_money",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-103",
+      "text": "那笔留在别人手里的钱以后还有没有机会回来",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-104",
+      "text": "拖了挺久一直没回来的款最后能不能有着落",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-105",
+      "text": "压在身上的那笔账以后能不能彻底处理完",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-106",
+      "text": "一直挂着的欠账明年有没有机会完全了结",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "debt_repayment",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-107",
+      "text": "我跟这个人两个人搭着做事以后行不行",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-108",
+      "text": "跟他一起把眼前这个小项目长期做下去是否合适",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "partnership",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-109",
+      "text": "放进去的这笔钱以后能不能给我带来一些回报",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-110",
+      "text": "我投进去的这一份以后会不会有正向收获",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_profit",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-111",
+      "text": "手里这一份现在全部退出来会不会顺当",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-112",
+      "text": "我想把里面剩下的都撤出来，这一步能不能顺利",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_liquidation",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-113",
+      "text": "眼前这个机会跟我到底合不合",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-114",
+      "text": "这个项目现在适不适合我把钱放进去试试",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_suitability",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-115",
+      "text": "手里的这一份我接下来还要不要继续留着",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-116",
+      "text": "眼前这份东西我是继续拿着还是少留一点更好",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_position_decision",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-117",
+      "text": "我盯着的这个东西接下来会往上还是往下",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-118",
+      "text": "眼前这个标的未来一阵子的高低变化会怎样",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-119",
+      "text": "以后每个月固定拿到手的那部分会不会变多",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-120",
+      "text": "明年我稳定进来的那份钱有没有增加的可能",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_salary",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-121",
+      "text": "今年额外那一笔钱最后会不会轮到我",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-122",
+      "text": "这次除了固定那份以外，我还能不能多拿一笔",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "income_bonus",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-123",
+      "text": "我等着的那个东西这两天能不能到我手上",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-124",
+      "text": "对方已经寄出的那件东西周末前会不会来到我这里",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "receive_item",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-125",
+      "text": "眼前这台小设备我要不要带回去用",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-126",
+      "text": "这个东西我现在花钱拿下来值不值",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "item_purchase",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-127",
+      "text": "我跟这个人以后会不会变成更亲近的两个人",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-128",
+      "text": "我们两个人接下来有没有可能真正走到一起",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "relationship_development",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-129",
+      "text": "我们两个人以后能不能真正定下来组成一个家",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-130",
+      "text": "这段关系以后有没有走到正式成家的机会",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marriage_match",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-131",
+      "text": "我们两个人已经一起生活很久了，往后还能不能好好过",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-132",
+      "text": "现在家里两个人关系很僵，以后有没有缓过来的可能",
+      "expectedDisposition": "route_known",
+      "expectedRoute": "marital_relationship",
+      "expectedCandidatePath": "pure_fallback",
+      "subtype": null
+    },
+    {
+      "id": "SC4-133",
+      "text": "明天这座城市会不会下雨",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-134",
+      "text": "下周航班通常几点开始值机",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-135",
+      "text": "这次资格考试我能不能顺利通过",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-136",
+      "text": "明年的研究生申请结果会怎样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-137",
+      "text": "这趟远途旅行会不会按原计划出发",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-138",
+      "text": "前天弄丢的钥匙还有没有机会找回来",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-139",
+      "text": "这场民事诉讼最后谁更有利",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-140",
+      "text": "新的租房合同什么时候开始生效",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-141",
+      "text": "这次驾照考试是否能一次合格",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-142",
+      "text": "我申请的学校能不能录取我",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-143",
+      "text": "后天出门坐车会不会延误",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-144",
+      "text": "昨天遗失的钱包有没有机会找回",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-145",
+      "text": "这次仲裁最终会支持哪一方",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-146",
+      "text": "我今年能不能考到目标分数",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-147",
+      "text": "下个月去大阪的行程能不能成行",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-148",
+      "text": "丢失的移动硬盘还在不在附近",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-149",
+      "text": "这起纠纷会不会进入正式诉讼",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-150",
+      "text": "我这次论文答辩能不能过",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-151",
+      "text": "年底的出差计划会不会临时取消",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-152",
+      "text": "遗失的门禁卡还能找到吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-153",
+      "text": "这次考试排名能不能进前十",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-154",
+      "text": "出国旅行的签证能不能按时下来",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-155",
+      "text": "丢在车上的雨伞还能拿回来吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-156",
+      "text": "这场合同纠纷最终能不能和解",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-157",
+      "text": "我的课程结业考试结果会怎样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-158",
+      "text": "周末这趟自驾是否会顺利",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-159",
+      "text": "失踪的行李箱还能不能寻回",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-160",
+      "text": "对方会不会正式起诉我",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-161",
+      "text": "这次留学申请有没有录取机会",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-162",
+      "text": "下月这次旅行能不能照常进行",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "outside_current_22"
+    },
+    {
+      "id": "SC4-163",
+      "text": "这件事之后会怎么样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-164",
+      "text": "我现在这样做到底好不好",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-165",
+      "text": "接下来会不会顺利一点",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-166",
+      "text": "这个情况最后能不能解决",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-167",
+      "text": "最近这件事情让我有点拿不准",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-168",
+      "text": "往后会有什么变化吗",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-169",
+      "text": "我现在应该继续还是停下",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-170",
+      "text": "眼下这桩事最后究竟会落到什么结果",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-171",
+      "text": "目前这个状态还会持续多久",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-172",
+      "text": "我想看看接下来整体会怎样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-173",
+      "text": "现在这个决定到底对不对",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-174",
+      "text": "往后这件事还有没有重新好转的可能",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-175",
+      "text": "眼下这一步走下去会怎样",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-176",
+      "text": "这个局面最后能不能变好",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-177",
+      "text": "现在我还有没有必要坚持",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-178",
+      "text": "这件事未来一阵子会怎么发展",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-179",
+      "text": "目前这样安排是否妥当",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-180",
+      "text": "接下来会不会出现新的变化",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-181",
+      "text": "眼下做出的这个选择，过些时候我会不会觉得不妥",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-182",
+      "text": "我现在到底该往哪边走",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-183",
+      "text": "这件事情能不能有一个好结局",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-184",
+      "text": "目前的状态是不是快结束了",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-185",
+      "text": "接下来有没有值得期待的变化",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-186",
+      "text": "我现在这样处理是否合适",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-187",
+      "text": "这个问题之后还有没有机会改善",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-188",
+      "text": "目前这一步是不是应该继续",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-189",
+      "text": "之后的发展会不会越来越好",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-190",
+      "text": "这件事情最后有没有办法落定",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-191",
+      "text": "现在这个方向是不是走得通",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-192",
+      "text": "往后还有没有新的可能",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "route_unresolved"
+    },
+    {
+      "id": "SC4-193",
+      "text": "银行借款的年化利率通常怎么计算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-194",
+      "text": "申请贷款时一般需要提交哪些资料",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-195",
+      "text": "贷款申请条件通常包括哪些要求",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-196",
+      "text": "欠条的标准格式一般怎么写",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-197",
+      "text": "应收账款在会计上通常怎么做账龄分析",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-198",
+      "text": "坏账准备一般按什么方法计提",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-199",
+      "text": "合伙协议中的利润分配条款通常怎么约定",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-200",
+      "text": "合伙人的权限范围一般怎样写进协议",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-201",
+      "text": "办理企业登记通常需要准备哪些材料",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-202",
+      "text": "登记手续一般需要提交哪些证明文件",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-203",
+      "text": "结婚登记的办理条件通常包括什么",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-204",
+      "text": "办理登记时一般要携带哪些证件",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-205",
+      "text": "基金赎回手续费通常按照什么规则收取",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-206",
+      "text": "股票交易佣金现在一般怎么计算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-207",
+      "text": "购买基金通常需要满足哪些开户条件",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-208",
+      "text": "投资账户的风险等级是什么意思",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-209",
+      "text": "工资条里的个税通常怎么核算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-210",
+      "text": "奖金发放的个税一般如何计算",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-211",
+      "text": "快递签收流程一般有哪些步骤",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-212",
+      "text": "包裹投递失败后通常怎样重新派送",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-213",
+      "text": "商品采购合同一般应该包含哪些条款",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-214",
+      "text": "库存台账通常按什么方式记录",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-215",
+      "text": "销售出库单一般需要填写哪些项目",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-216",
+      "text": "网店经营许可证通常怎么申请",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-217",
+      "text": "营业执照变更一般需要提供哪些材料",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-218",
+      "text": "夫妻共同财产通常怎么界定",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-219",
+      "text": "婚姻登记流程一般分几个步骤",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-220",
+      "text": "恋爱关系中的沟通边界通常怎么理解",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-221",
+      "text": "应付款账龄在财务报表里通常怎么看",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    },
+    {
+      "id": "SC4-222",
+      "text": "贷款合同中的提前还款条款是什么意思",
+      "expectedDisposition": "non_route",
+      "expectedRoute": null,
+      "expectedCandidatePath": null,
+      "subtype": "near_domain_not_current_route"
+    }
+  ]
+}

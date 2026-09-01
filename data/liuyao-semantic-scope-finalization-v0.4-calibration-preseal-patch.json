@@ -1,0 +1,167 @@
+{
+  "version": "0.13-scope-finalization-v0.4-calibration-preseal-patch-v0.1",
+  "status": "recorded_before_seal_and_before_scope_scoring",
+  "candidate": "v0.6",
+  "modelOrThresholdScoredBeforePatch": false,
+  "semanticRuntimeModified": false,
+  "verifierWeakened": false,
+  "changeReasonClass": "fixture_wording_path_contract_and_freshness_corrections_before_any_scoring",
+  "changes": [
+    {
+      "id": "SC4-004",
+      "from": "仓库新到的这批商品月底前能不能完成补货入库",
+      "to": "仓库里的这批货下周三前能不能全部入库",
+      "reason": "restore frozen inventory object + acquisition anchors"
+    },
+    {
+      "id": "SC4-006",
+      "from": "店里最后一批旧款这个月能不能全部卖完",
+      "to": "店里最后这批尾货这个月能不能全部卖完",
+      "reason": "restore frozen inventory object + disposal anchors"
+    },
+    {
+      "id": "SC4-007",
+      "from": "我向堂姐借的临时周转款下周能不能拿到",
+      "to": "我向表姐借的临时周转款下周能不能拿到",
+      "reason": "use a frozen borrower-counterparty anchor without changing semantics"
+    },
+    {
+      "id": "SC4-015",
+      "from": "公司这笔应收项目款周五前能不能要回",
+      "to": "公司这笔应收款周五前能不能要回",
+      "reason": "restore frozen creditor anchor"
+    },
+    {
+      "id": "SC4-016",
+      "from": "我的车贷明年三月以前能不能还清",
+      "to": "我的银行贷款明年三月以前能不能还清",
+      "reason": "restore frozen debtor-loan anchor"
+    },
+    {
+      "id": "SC4-018",
+      "from": "手里剩下的培训贷今年冬天能不能还完",
+      "to": "手里剩下的消费贷今年冬天能不能还完",
+      "reason": "restore frozen debtor-loan anchor"
+    },
+    {
+      "id": "SC4-024",
+      "from": "手里的医药股仓位一次卖掉会不会卡住",
+      "to": "手上的股票仓位下周一次性卖出会不会卡住",
+      "reason": "restore frozen investment-asset + liquidation anchors"
+    },
+    {
+      "id": "SC4-034",
+      "from": "已经寄出的唱片机明天能不能到手",
+      "to": "已经寄出的相机下周二以前能不能到手",
+      "reason": "restore frozen delivery-object anchor and remove prior exact overlap"
+    },
+    {
+      "id": "SC4-036",
+      "from": "这台除湿机现在该不该买",
+      "to": "这台空气净化器本月该不该买",
+      "reason": "restore frozen purchasable-item anchor"
+    },
+    {
+      "id": "SC4-038",
+      "from": "这款电纸书现在买下来合不合适",
+      "to": "这款平板阅读器现在买下来合不合适",
+      "reason": "restore frozen purchasable-item anchor"
+    },
+    {
+      "id": "SC4-040",
+      "from": "我们现在的暧昧关系会不会发展成恋爱",
+      "to": "我们这阵子的暧昧最后会不会发展成恋爱",
+      "reason": "remove prior exact overlap while preserving romantic-development strong path"
+    },
+    {
+      "id": "SC4-048",
+      "from": "今年现金余量起伏比较大，我想单独占这个主题",
+      "to": "今年整体资金流起伏比较大，我想单独占这个主题",
+      "reason": "restore frozen finance-domain support anchor"
+    },
+    {
+      "id": "SC4-049",
+      "from": "最近手里的钱进出不太稳定，我想看看这一项",
+      "to": "最近整体收支不太稳定，我想看看这一项",
+      "reason": "restore frozen finance-domain support anchor"
+    },
+    {
+      "id": "SC4-051",
+      "from": "近期资金宽紧变化明显，我想单独看看",
+      "to": "近期资金流变化明显，我想单独看看",
+      "reason": "restore frozen finance-domain support anchor"
+    },
+    {
+      "id": "SC4-056",
+      "from": "自己做的买卖近来亏赚反复，我想占一下",
+      "to": "自己做的生意近来利润反复，我想占一下",
+      "reason": "restore frozen business-domain + operation-event support anchors"
+    },
+    {
+      "id": "SC4-059",
+      "from": "这个小摊最近营业状态变化不少，我想占这一项",
+      "to": "这个摊位最近营业状况变化不少，我想占这一项",
+      "reason": "restore frozen business-domain + operation-event support anchors"
+    },
+    {
+      "id": "SC4-069",
+      "from": "手里的医药股准备一次卖掉，我想看看这一步",
+      "to": "手上的股票准备月底一次性卖出，我想看看这个动作",
+      "reason": "restore frozen investment-asset + liquidation support anchors and remove prior exact overlap"
+    },
+    {
+      "id": "SC4-073",
+      "from": "这份持仓准备全部清掉，我想单独看看",
+      "to": "这份持仓准备全部卖出，我想单独看看",
+      "reason": "restore frozen liquidation support anchor"
+    },
+    {
+      "id": "SC4-074",
+      "from": "我已经决定把这笔合约平仓，想问一下这个步骤",
+      "to": "我已经决定把这笔期货平仓，想问一下这个步骤",
+      "reason": "restore frozen investment-asset support anchor"
+    },
+    {
+      "id": "SC4-075",
+      "from": "这只蓝筹股我正在考虑继续持有，想占一下",
+      "to": "手上这只股票我正在考虑继续持有一阵，想占一下",
+      "reason": "restore frozen investment-asset + position support anchors and remove prior exact overlap"
+    },
+    {
+      "id": "SC4-083",
+      "from": "手里的医药股最近价格变化明显，我想看看涨跌方面",
+      "to": "手里的股票最近价格变化明显，我想看看涨跌方面",
+      "reason": "restore frozen investment-asset + trend support anchors"
+    },
+    {
+      "id": "SC4-086",
+      "from": "这只蓝筹股近来的价格波动让我在意，想问一下",
+      "to": "这只个股近来的价格波动让我在意，想问一下",
+      "reason": "restore frozen investment-asset + trend support anchors"
+    },
+    {
+      "id": "SC4-138",
+      "from": "我丢的钥匙还能不能找回来",
+      "to": "前天弄丢的钥匙还有没有机会找回来",
+      "reason": "remove prior exact overlap while preserving outside-current-22 lost-property label"
+    },
+    {
+      "id": "SC4-170",
+      "from": "这件事情最终有没有结果",
+      "to": "眼下这桩事最后究竟会落到什么结果",
+      "reason": "remove prior exact overlap while preserving unresolved semantics"
+    },
+    {
+      "id": "SC4-174",
+      "from": "以后还有没有转机",
+      "to": "往后这件事还有没有重新好转的可能",
+      "reason": "remove prior exact overlap while preserving unresolved semantics"
+    },
+    {
+      "id": "SC4-181",
+      "from": "这个选择以后会不会后悔",
+      "to": "眼下做出的这个选择，过些时候我会不会觉得不妥",
+      "reason": "remove prior exact overlap while preserving unresolved semantics"
+    }
+  ]
+}
