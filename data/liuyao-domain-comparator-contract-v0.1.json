@@ -54,11 +54,17 @@
     "required": [
       "alternativeId",
       "dimensionId",
+      "semanticMeaning",
       "resolutionStatus",
       "assessmentStatus",
+      "contractFamily",
       "contractRef",
       "contractVersion",
       "evidenceRefs"
+    ],
+    "notes": [
+      "contractFamily must be explicit; it must not be inferred from contractRef naming conventions.",
+      "semanticMeaning must be explicit; equal dimensionId alone is insufficient for comparability."
     ],
     "mustNotDeriveOrderFrom": [
       "evidenceRefs.length",
