@@ -1,0 +1,68 @@
+name: LiuYao Scope Finalization v0.4 Fresh Calibration
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/calibrate-liuyao-semantic-scope-finalization-v04.mjs'
+      - 'scripts/verify-liuyao-semantic-scope-finalization-v04-model.mjs'
+      - 'scripts/diagnose-liuyao-semantic-scope-finalization-v04-failure.mjs'
+      - '.github/workflows/liuyao-scope-finalization-v04-calibrate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  calibrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.6 design and semantic contracts
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v06-design.mjs
+          node scripts/verify-liuyao-semantic-v013-candidate-v06-semantics.mjs
+      - name: Verify sealed fresh Candidate v0.6 Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v04-sealed.mjs
+      - name: Verify frozen Fallback Acceptance v0.1
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-model.mjs
+      - name: Verify corrected Routeability v0.4
+        run: node scripts/verify-liuyao-semantic-routeability-v04-model.mjs
+      - name: Verify corrected Identity v0.2
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Calibrate one global Scope hard-veto cutoff on full Candidate v0.6 stack
+        id: calibrate_scope
+        continue-on-error: true
+        run: node scripts/calibrate-liuyao-semantic-scope-finalization-v04.mjs
+      - name: Verify calibrated Scope Finalization v0.4 artifact
+        if: steps.calibrate_scope.outcome == 'success'
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v04-model.mjs
+      - name: Diagnose Candidate v0.6 no-safe-cutoff result
+        if: steps.calibrate_scope.outcome == 'failure'
+        run: node scripts/diagnose-liuyao-semantic-scope-finalization-v04-failure.mjs
+      - name: Commit frozen Scope Finalization v0.4 artifact
+        if: steps.calibrate_scope.outcome == 'success'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.4.json data/liuyao-semantic-scope-finalization-v0.4.lock.json
+          git commit -m 'feat(liuyao): freeze fresh-calibrated scope finalization v0.4'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
+      - name: Commit Candidate v0.6 Scope calibration failure evidence
+        if: steps.calibrate_scope.outcome == 'failure'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.4-calibration-failure.json
+          git commit -m 'test(liuyao): record candidate v0.6 scope calibration failure'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
