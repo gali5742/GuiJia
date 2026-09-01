@@ -16,20 +16,25 @@ const changes = [
   ['SC4-016','我的车贷明年三月以前能不能还清','我的银行贷款明年三月以前能不能还清','restore frozen debtor-loan anchor'],
   ['SC4-018','手里剩下的培训贷今年冬天能不能还完','手里剩下的消费贷今年冬天能不能还完','restore frozen debtor-loan anchor'],
   ['SC4-024','手里的医药股仓位一次卖掉会不会卡住','手上的股票仓位下周一次性卖出会不会卡住','restore frozen investment-asset + liquidation anchors'],
-  ['SC4-034','已经寄出的唱片机明天能不能到手','已经寄出的相机明天能不能到手','restore frozen delivery-object anchor'],
+  ['SC4-034','已经寄出的唱片机明天能不能到手','已经寄出的相机下周二以前能不能到手','restore frozen delivery-object anchor and remove prior exact overlap'],
   ['SC4-036','这台除湿机现在该不该买','这台空气净化器本月该不该买','restore frozen purchasable-item anchor'],
   ['SC4-038','这款电纸书现在买下来合不合适','这款平板阅读器现在买下来合不合适','restore frozen purchasable-item anchor'],
+  ['SC4-040','我们现在的暧昧关系会不会发展成恋爱','我们这阵子的暧昧最后会不会发展成恋爱','remove prior exact overlap while preserving romantic-development strong path'],
   ['SC4-048','今年现金余量起伏比较大，我想单独占这个主题','今年整体资金流起伏比较大，我想单独占这个主题','restore frozen finance-domain support anchor'],
   ['SC4-049','最近手里的钱进出不太稳定，我想看看这一项','最近整体收支不太稳定，我想看看这一项','restore frozen finance-domain support anchor'],
   ['SC4-051','近期资金宽紧变化明显，我想单独看看','近期资金流变化明显，我想单独看看','restore frozen finance-domain support anchor'],
   ['SC4-056','自己做的买卖近来亏赚反复，我想占一下','自己做的生意近来利润反复，我想占一下','restore frozen business-domain + operation-event support anchors'],
   ['SC4-059','这个小摊最近营业状态变化不少，我想占这一项','这个摊位最近营业状况变化不少，我想占这一项','restore frozen business-domain + operation-event support anchors'],
-  ['SC4-069','手里的医药股准备一次卖掉，我想看看这一步','手里的股票准备一次性卖出，我想看看这一步','restore frozen investment-asset + liquidation support anchors'],
+  ['SC4-069','手里的医药股准备一次卖掉，我想看看这一步','手上的股票准备月底一次性卖出，我想看看这个动作','restore frozen investment-asset + liquidation support anchors and remove prior exact overlap'],
   ['SC4-073','这份持仓准备全部清掉，我想单独看看','这份持仓准备全部卖出，我想单独看看','restore frozen liquidation support anchor'],
   ['SC4-074','我已经决定把这笔合约平仓，想问一下这个步骤','我已经决定把这笔期货平仓，想问一下这个步骤','restore frozen investment-asset support anchor'],
-  ['SC4-075','这只蓝筹股我正在考虑继续持有，想占一下','这只股票我正在考虑继续持有，想占一下','restore frozen investment-asset + position support anchors'],
+  ['SC4-075','这只蓝筹股我正在考虑继续持有，想占一下','手上这只股票我正在考虑继续持有一阵，想占一下','restore frozen investment-asset + position support anchors and remove prior exact overlap'],
   ['SC4-083','手里的医药股最近价格变化明显，我想看看涨跌方面','手里的股票最近价格变化明显，我想看看涨跌方面','restore frozen investment-asset + trend support anchors'],
-  ['SC4-086','这只蓝筹股近来的价格波动让我在意，想问一下','这只个股近来的价格波动让我在意，想问一下','restore frozen investment-asset + trend support anchors']
+  ['SC4-086','这只蓝筹股近来的价格波动让我在意，想问一下','这只个股近来的价格波动让我在意，想问一下','restore frozen investment-asset + trend support anchors'],
+  ['SC4-138','我丢的钥匙还能不能找回来','前天弄丢的钥匙还有没有机会找回来','remove prior exact overlap while preserving outside-current-22 lost-property label'],
+  ['SC4-170','这件事情最终有没有结果','眼下这桩事最后究竟会落到什么结果','remove prior exact overlap while preserving unresolved semantics'],
+  ['SC4-174','以后还有没有转机','往后这件事还有没有重新好转的可能','remove prior exact overlap while preserving unresolved semantics'],
+  ['SC4-181','这个选择以后会不会后悔','眼下做出的这个选择，过些时候我会不会觉得不妥','remove prior exact overlap while preserving unresolved semantics']
 ].map(([id,from,to,reason]) => ({ id, from, to, reason }));
 
 for (const change of changes) {
@@ -46,7 +51,7 @@ const patch = {
   modelOrThresholdScoredBeforePatch:false,
   semanticRuntimeModified:false,
   verifierWeakened:false,
-  changeReasonClass:'fixture_wording_restored_to_frozen_evidence_path_contracts',
+  changeReasonClass:'fixture_wording_path_contract_and_freshness_corrections_before_any_scoring',
   changes
 };
 fs.writeFileSync(patchFile, `${JSON.stringify(patch, null, 2)}\n`, 'utf8');
