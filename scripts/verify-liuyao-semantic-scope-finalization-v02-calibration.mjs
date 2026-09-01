@@ -9,6 +9,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataDir = path.join(root, 'data');
 const calibrationFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration.json';
 const lockFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration.lock.json';
+const patchFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration-preseal-patch.json';
 const designFile = 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json';
 const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
 const normalize = (value) => String(value || '').trim().replace(/\s+/g, '');
@@ -92,7 +93,8 @@ for (const row of calibration.rows.filter((item) => item.expectedDisposition ===
 }
 assert(pathMismatches.length === 0, `scope calibration known path mismatches (${pathMismatches.length}): ${pathMismatches.slice(0,20).map((row)=>`${row.id}/${row.expectedRoute}/${row.expectedPath}:${row.text} actual=${row.actual} arb=${JSON.stringify(row.arbitration)} unsupported=${JSON.stringify(row.unsupported)}`).join(' | ')}`);
 
-const excluded = new Set([path.basename(calibrationFile), path.basename(lockFile)]);
+// The calibration artifact, its lock, and its own pre-seal wording provenance are the same corpus, not prior evidence.
+const excluded = new Set([path.basename(calibrationFile), path.basename(lockFile), path.basename(patchFile)]);
 const priorFiles = fs.readdirSync(dataDir).filter((name) => name.startsWith('liuyao-') && name.endsWith('.json') && !excluded.has(name));
 const priorStrings = new Map();
 const collect = (value, source) => {
