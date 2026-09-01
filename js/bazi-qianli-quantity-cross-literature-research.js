@@ -212,4 +212,8 @@
         buildDependencies,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForceEvidence) {
+        document.write('<script src="./js/bazi-contextual-force-evidence.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
