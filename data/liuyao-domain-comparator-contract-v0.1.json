@@ -1,0 +1,145 @@
+{
+  "version": "0.1",
+  "status": "design_ready_no_active_ordering_comparators",
+  "scope": "future_choice_dimension_comparison",
+  "runtimeMutation": false,
+  "purpose": "Define the evidence and assessment prerequisites for future per-dimension alternative comparison without comparing raw LiuYao evidence or creating a hidden global score.",
+  "assessmentInfrastructureAudit": {
+    "generalOutcomeAssessmentEngineFound": false,
+    "observationPlan": {
+      "path": "js/liuyao-observation-plan.js",
+      "role": "resolve selected traditional observation candidates to concrete line targets",
+      "notAnOutcomeAssessment": true
+    },
+    "timeAssessment": {
+      "path": "js/liuyao-time-assessment.js",
+      "role": "normalize TimeEffect dimensions into support, peer, constraint, outflow, exertion and trigger structure",
+      "evaluativeOrderingAllowed": false,
+      "notes": "The validator explicitly rejects legacy evaluative tokens such as supportive, adverse, preferred and caution."
+    },
+    "interpretation": {
+      "path": "js/liuyao-interpretation.js",
+      "role": "learner-facing explanatory judgment construction and support/constraint narrative grouping",
+      "formalComparatorContract": false,
+      "notes": "Interpretation helper classifications must not be promoted into cross-alternative ordering without a separately reviewed Assessment contract."
+    }
+  },
+  "principles": [
+    "Comparator input must be reviewed Assessment output, never raw status tags, raw TimeEffects, raw ObservationPlan targets, evidence counts or user-facing prose.",
+    "A dimension label alone does not make two assessments comparable.",
+    "Every ordering comparator is owned by a domain Assessment contract family and versioned independently.",
+    "No global ordering supportive > mixed > adverse is registered in v0.1.",
+    "No active comparator means comparisonStatus=incomparable, not a fallback heuristic ranking.",
+    "External factual dimensions such as legal exposure, exact cost, salary amount or travel time must use their factual/domain providers rather than divination evidence unless an independently reviewed divination Assessment exists."
+  ],
+  "comparatorRegistrationSchema": {
+    "comparatorRef": "string",
+    "version": "string",
+    "dimensionId": "string",
+    "assessmentContractFamily": "string",
+    "compatibleAssessmentVersions": ["string"],
+    "semanticMeaning": "string",
+    "inputStatusesAllowed": ["resolved"],
+    "relationVocabulary": [
+      "left_preferred_on_dimension",
+      "right_preferred_on_dimension",
+      "indistinguishable_on_dimension",
+      "mixed_no_order"
+    ],
+    "forbiddenOutputs": ["probability", "scalarScore", "overallRecommendation", "winner"],
+    "reviewRefs": ["string"],
+    "regressionRequired": true
+  },
+  "comparisonInputContract": {
+    "required": [
+      "alternativeId",
+      "dimensionId",
+      "resolutionStatus",
+      "assessmentStatus",
+      "contractRef",
+      "contractVersion",
+      "evidenceRefs"
+    ],
+    "mustNotDeriveOrderFrom": [
+      "evidenceRefs.length",
+      "raw support/constraint tag counts",
+      "raw line score",
+      "TimeEffect reasonCount",
+      "Interpretation priority",
+      "rule source count"
+    ]
+  },
+  "activeComparators": [],
+  "candidateDimensionReadiness": [
+    {
+      "dimensionId": "target_outcome",
+      "status": "blocked_by_missing_normalized_domain_assessment",
+      "reason": "Employment retention, employment transition, admission, litigation outcome and other targets do not yet share one reviewed outcome Assessment contract family. Same label is not enough for ordering."
+    },
+    {
+      "dimensionId": "stability",
+      "status": "blocked_by_asymmetric_assessment_maturity",
+      "reason": "Current-employment retention has a clearer evidence path than prospective-employment stability. A symmetric stability Assessment contract does not yet exist."
+    },
+    {
+      "dimensionId": "livelihood",
+      "status": "external_or_cross_domain_provider_first",
+      "reason": "Salary, cash runway and income continuity require factual/current income providers; no LiuYao-wide livelihood ordering contract exists."
+    },
+    {
+      "dimensionId": "institution_fit",
+      "status": "blocked_by_institution_resolver_and_missing_assessment",
+      "reason": "Institution anchoring may be partial and no reviewed institution-fit Assessment contract exists."
+    },
+    {
+      "dimensionId": "resolution_feasibility",
+      "status": "candidate_after_litigation_assessment_contract",
+      "reason": "Traditional settlement/dissipation evidence is researched, but no formal versioned dispute-resolution Assessment output exists to compare."
+    },
+    {
+      "dimensionId": "legal_exposure",
+      "status": "modern_legal_fact_provider_only_v0.1",
+      "reason": "This is a high-stakes legal factual/risk dimension and must not be inferred or ordered from divination evidence in this design."
+    },
+    {
+      "dimensionId": "financial_cost",
+      "status": "modern_fact_or_finance_provider_only_v0.1",
+      "reason": "Exact money cost/value is heterogeneous factual data and not a LiuYao comparator dimension without a separate provider contract."
+    },
+    {
+      "dimensionId": "time_cost",
+      "status": "modern_fact_provider_or_separate_timing_contract",
+      "reason": "Existing Time Assessment describes temporal effects and must not be repurposed into a generic duration-cost ordering."
+    },
+    {
+      "dimensionId": "risk",
+      "status": "blocked_by_missing_domain_specific_risk_contract",
+      "reason": "Risk has different semantics across employment, education and litigation; there is no global risk comparator."
+    }
+  ],
+  "comparisonAlgorithmV01": {
+    "steps": [
+      "Validate both dimension assessments are structurally present.",
+      "Require same dimensionId and explicitly compatible semantic meaning.",
+      "Require resolutionStatus=resolved for both.",
+      "Require same reviewed assessmentContractFamily and compatible contract versions.",
+      "Look up an active registered comparatorRef owned by that contract family.",
+      "If no comparator exists, return incomparable/comparator_not_registered.",
+      "Never infer order from assessmentStatus labels alone."
+    ],
+    "defaultWithoutComparator": {
+      "comparisonStatus": "incomparable",
+      "relation": null,
+      "reason": "comparator_not_registered"
+    }
+  },
+  "futureActivationGate": [
+    "domain Assessment contract documented",
+    "Assessment output schema versioned",
+    "positive/mixed/adverse or equivalent states defined within that domain without hidden scoring",
+    "ordering semantics reviewed for the exact dimension",
+    "comparator regression includes mixed, partial and abstention cases",
+    "no high-stakes modern factual dimension is replaced by divination inference",
+    "current-22 behavior remains frozen unless separately migrated"
+  ]
+}
