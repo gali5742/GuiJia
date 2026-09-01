@@ -14,31 +14,47 @@
   function classify(question, suppliedEvidence) {
     const text = normalize(question);
     const currentTargets = Array.isArray(suppliedEvidence?.currentTargets) ? suppliedEvidence.currentTargets : [];
-    const reasons = [];
-
-    if (currentTargets.length > 0) {
-      reasons.push('supported_current_target');
-      return Object.freeze({ version:VERSION, mode:'outcome_or_decision', reasons:Object.freeze(reasons) });
-    }
+    const informationReasons = [];
+    const hasOutcomeOrDecisionModality = OUTCOME_OR_DECISION.test(text);
 
     const directDefinition = DIRECT_DEFINITION_OR_EXPLANATION.test(text);
     const requirementsOrList = REQUIREMENTS_OR_LIST.test(text);
     const generalizedHowTo = GENERALIZED_HOW_TO.test(text);
     const explicitMethod = EXPLICIT_METHOD.test(text);
     const assistantInformationRequest = ASSISTANT_INFORMATION_REQUEST.test(text);
-    if (directDefinition) reasons.push('definition_or_explanation_form');
-    if (requirementsOrList) reasons.push('requirements_or_list_form');
-    if (generalizedHowTo) reasons.push('generalized_how_to_form');
-    if (explicitMethod) reasons.push('explicit_method_form');
-    if (assistantInformationRequest) reasons.push('assistant_information_request_form');
+    if (directDefinition) informationReasons.push('definition_or_explanation_form');
+    if (requirementsOrList) informationReasons.push('requirements_or_list_form');
+    if (generalizedHowTo) informationReasons.push('generalized_how_to_form');
+    if (explicitMethod) informationReasons.push('explicit_method_form');
+    if (assistantInformationRequest) informationReasons.push('assistant_information_request_form');
 
-    if (reasons.length > 0) {
-      return Object.freeze({ version:VERSION, mode:'information_request', reasons:Object.freeze(reasons) });
+    // A direct request for explanation/information remains informational even if phrased
+    // politely as “能不能告诉/解释…”. This is not a divination outcome modality.
+    if (assistantInformationRequest) {
+      return Object.freeze({ version:VERSION, mode:'information_request', reasons:Object.freeze(informationReasons) });
     }
 
-    if (OUTCOME_OR_DECISION.test(text)) {
-      reasons.push('outcome_or_decision_modality');
-      return Object.freeze({ version:VERSION, mode:'outcome_or_decision', reasons:Object.freeze(reasons) });
+    // Evidence currentTargets can be topic/event-sensitive. It may override incidental
+    // information vocabulary only when the sentence also contains an explicit outcome or
+    // decision modality such as 能不能 / 会不会 / 要不要.
+    if (currentTargets.length > 0 && hasOutcomeOrDecisionModality) {
+      return Object.freeze({
+        version:VERSION,
+        mode:'outcome_or_decision',
+        reasons:Object.freeze(['supported_current_target', 'outcome_or_decision_modality'])
+      });
+    }
+
+    if (informationReasons.length > 0) {
+      return Object.freeze({ version:VERSION, mode:'information_request', reasons:Object.freeze(informationReasons) });
+    }
+
+    if (hasOutcomeOrDecisionModality) {
+      return Object.freeze({ version:VERSION, mode:'outcome_or_decision', reasons:Object.freeze(['outcome_or_decision_modality']) });
+    }
+
+    if (currentTargets.length > 0) {
+      return Object.freeze({ version:VERSION, mode:'outcome_or_decision', reasons:Object.freeze(['supported_current_target']) });
     }
 
     return Object.freeze({ version:VERSION, mode:'undetermined', reasons:Object.freeze([]) });
