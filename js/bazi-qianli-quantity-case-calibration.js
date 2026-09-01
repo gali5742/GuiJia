@@ -243,4 +243,8 @@
         buildDependencies,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCrossLiteratureResearch) {
+        document.write('<script src="./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
