@@ -1,0 +1,46 @@
+name: LiuYao Scope Finalization v0.4 Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-scope-finalization-v0.4-calibration.json'
+      - 'data/liuyao-semantic-scope-finalization-v0.4-calibration-preseal-patch.json'
+      - 'scripts/seal-liuyao-semantic-scope-finalization-v04-calibration.mjs'
+      - 'scripts/verify-liuyao-semantic-scope-finalization-v04-sealed.mjs'
+      - '.github/workflows/liuyao-scope-finalization-v04-seal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.6 design and semantics
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v06-design.mjs
+          node scripts/verify-liuyao-semantic-v013-candidate-v06-semantics.mjs
+      - name: Verify presealed Candidate v0.6 Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v04-calibration.mjs
+      - name: Seal Candidate v0.6 Scope calibration
+        run: node scripts/seal-liuyao-semantic-scope-finalization-v04-calibration.mjs
+      - name: Verify sealed Candidate v0.6 Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v04-sealed.mjs
+      - name: Commit sealed Candidate v0.6 Scope calibration and lock
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.4-calibration.json data/liuyao-semantic-scope-finalization-v0.4-calibration.lock.json
+          git commit -m 'test(liuyao): seal candidate v0.6 scope calibration'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
