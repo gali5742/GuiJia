@@ -14,6 +14,24 @@ const changes = [
     from:'仓库下一轮补货月底前能不能到齐',
     to:'仓库下一轮这批货月底前能不能全部入库',
     reason:'preserve declared strong inventory_purchase path using frozen inventory-acquisition plus inventory-object evidence; no model or threshold scoring has occurred'
+  },
+  {
+    id:'SC3-086',
+    from:'这只个股最近价格波动让我很在意，想问问',
+    to:'这只个股近来的涨跌起伏让我很在意，想单独占一下',
+    reason:'remove exact overlap with prior Scope patch while preserving support-only investment price-trend semantics before scoring'
+  },
+  {
+    id:'SC3-125',
+    from:'这台主机现在要不要入',
+    to:'眼前这台主机我到底要不要带回去用',
+    reason:'remove exact overlap with prior development evidence while preserving pure-fallback purchase identity before scoring'
+  },
+  {
+    id:'SC3-130',
+    from:'我们这段关系最后能不能定下来过日子',
+    to:'我们两个人以后能不能真正定下来一起生活',
+    reason:'remove exact overlap with prior independent evidence while preserving pure-fallback relationship-stage identity before scoring'
   }
 ];
 for (const change of changes) {
