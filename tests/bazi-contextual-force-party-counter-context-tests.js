@@ -166,7 +166,7 @@ test('Counter Context 完成不生成 relative dominance、Party Configuration�
     assert(deps['SD-CONTEXTUAL-FORCE-PARTY-RELATIVE-DOMINANCE-RESOLVER']?.status === 'unresolved', 'relative dominance 仍应 unresolved');
     assert(deps['SD-CONTEXTUAL-FORCE-PARTY-CONFIGURATION-RULE']?.status === 'unresolved', 'party configuration 仍应 unresolved');
     assert(deps['SD-QIANLI-SUPPORT-QUANTITY-CLASSIFICATION']?.status === 'unresolved', 'many/few 仍应 unresolved');
-    assert(synthesis.sufficiency?.state === 'insufficient', 'Strength Synthesis 应继续 insufficient');
+    assert(synthesis.sufficiency?.status === 'insufficient', 'Strength Synthesis 应继续 insufficient');
     assert(output.semanticModel.assessmentLayer?.state === 'contract-only', 'Assessment 应继续 contract-only');
     assert((output.semanticModel.assessmentLayer?.assessments || []).length === 0, 'Assessment 不得产生结论');
 });
