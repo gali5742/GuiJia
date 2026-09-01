@@ -1,0 +1,41 @@
+name: LiuYao Scope Finalization v0.2 Failure Diagnostic
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/diagnose-liuyao-semantic-scope-finalization-v02-failure.mjs'
+      - '.github/workflows/liuyao-scope-finalization-v02-failure-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.4 assembly contract
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-design.mjs
+      - name: Verify sealed fresh Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v02-sealed.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Diagnose no-safe-cutoff result on frozen full stack
+        run: node scripts/diagnose-liuyao-semantic-scope-finalization-v02-failure.mjs
+      - name: Commit calibration failure evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.2-calibration-failure.json
+          git commit -m 'test(liuyao): record candidate v0.4 scope calibration failure'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
