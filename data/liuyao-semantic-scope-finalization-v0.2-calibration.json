@@ -1,7 +1,7 @@
 {
   "version": "0.13-scope-finalization-v0.2-calibration-v0.1",
-  "status": "presealed_fresh_scope_calibration",
-  "sealed": false,
+  "status": "sealed_fresh_scope_calibration",
+  "sealed": true,
   "scope": "liuyao_semantic_candidate_v0.4_scope_finalization",
   "createdAfterCandidateV04AssemblyFreeze": true,
   "provenance": {
@@ -1817,5 +1817,13 @@
     "reason": "Preseal verifier found wording that did not reliably realize the declared frozen Evidence/Arbitration path or exactly overlapped prior LiuYao corpora. Corrections change fixture wording only; no semantic rule, model, threshold, label, route, count or scope objective changed.",
     "patchPath": "data/liuyao-semantic-scope-finalization-v0.2-calibration-preseal-patch.json",
     "correctedRows": 92
+  },
+  "sealing": {
+    "sealedAt": "2026-09-01T00:38:54.480Z",
+    "immutableForScopeThresholdCalibration": true,
+    "wordingMayChangeAfterSeal": false,
+    "rowsMayBeAddedAfterSeal": false,
+    "labelsMayChangeAfterSeal": false,
+    "mayBeReusedAsDevelopmentIndependentOrBlind": false
   }
 }
