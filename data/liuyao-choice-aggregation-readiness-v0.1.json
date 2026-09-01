@@ -1,0 +1,109 @@
+{
+  "version": "0.1",
+  "status": "not_ready_no_aggregation_policy",
+  "scope": "future_choice_aggregation_and_conditional_recommendation",
+  "runtimeMutation": false,
+  "currentRoute": false,
+  "purpose": "Record the prerequisites and explicit blockers for any future aggregation or recommendation step after per-dimension comparison.",
+  "upstreamRefs": [
+    "docs/liuyao-literature/choice-suitability-shared-architecture-v0.1.md",
+    "docs/liuyao-literature/choice-normalized-assessment-preference-policy-research-v0.1.md",
+    "docs/liuyao-literature/domain-comparator-research-v0.1.md",
+    "data/liuyao-domain-comparator-contract-v0.1.json",
+    "js/liuyao-choice-theme-adapters-pretraining-v01.js",
+    "js/liuyao-domain-comparator-pretraining-v01.js"
+  ],
+  "criticalDistinctions": [
+    "Theme Adapter status=resolved means its provider-requirement plan is resolved; it does not mean requested dimension assessments are resolved.",
+    "providerRequirements are requests for evidence/assessment providers, not DimensionAssessment outputs.",
+    "dimensionEvidence being empty must never be treated as neutral, adverse, or zero score.",
+    "DimensionComparison is not an OverallRecommendation.",
+    "Explicit user preference capture is not an aggregation formula."
+  ],
+  "currentReadinessAudit": {
+    "choiceSemanticFrame": "ready_design_only",
+    "alternativeBounding": "ready_design_only",
+    "themeAdapterRequirementPlans": "ready_isolated",
+    "normalizedDimensionAssessmentCoverage": "incomplete",
+    "activeDomainComparatorCount": 0,
+    "allRequestedDimensionsComparable": false,
+    "explicitPreferenceCapture": "ready_design_only",
+    "hardConstraintEvaluationProviders": "partial_or_external",
+    "aggregationPolicyReviewed": false,
+    "aggregationRegression": false,
+    "calibrationOrBlindEvaluation": false,
+    "overallRecommendationEnabled": false,
+    "winnerEnabled": false,
+    "scalarScoreEnabled": false
+  },
+  "recommendationActivationGate": {
+    "allRequired": true,
+    "requirements": [
+      "Every requested dimension for every in-scope alternative has a normalized DimensionAssessment or an explicit not_applicable state.",
+      "Every dimension that participates in ordering has an active reviewed Domain Comparator.",
+      "Comparator compatibility has been established for the exact semanticMeaning and contractFamily used by both alternatives.",
+      "All hard constraints have explicit provider results; missing constraints are not treated as satisfied.",
+      "User preference policy is explicit for any aggregation that depends on priorities.",
+      "An aggregation policy has been independently researched, reviewed and versioned.",
+      "The aggregation policy defines mixed, tied, partial and incomparable dimension behavior without hidden numeric scoring.",
+      "High-stakes factual dimensions such as legal exposure are supplied by appropriate modern factual providers rather than divination inference.",
+      "Regression covers contradictory dimensions, missing dimensions, hard-constraint failure, ties, partial alternatives and incomparable dimensions.",
+      "Calibration or sealed evaluation passes before any recommendation becomes current.",
+      "Current-22 behavior remains unchanged unless a separate migration is approved."
+    ]
+  },
+  "allowedOutputsV01": [
+    "bounded alternatives",
+    "provider requirement plans",
+    "normalized dimension assessment records when available",
+    "per-dimension comparisonStatus",
+    "per-dimension relation only when a registered comparator exists",
+    "explicit user priority display",
+    "hard-constraint unresolved/satisfied/violated state when supplied by the responsible provider",
+    "traceRefs and blocker reasons"
+  ],
+  "forbiddenAggregationBehaviors": [
+    "majority_vote_across_dimensions",
+    "supportive_evidence_counting",
+    "evidence_count_weighting",
+    "automatic_supportive_mixed_adverse_numeric_mapping",
+    "automatic_high_medium_low_numeric_mapping",
+    "implicit_user_preference_weights",
+    "treat_adapter_resolved_as_assessment_resolved",
+    "treat_missing_dimension_as_neutral",
+    "treat_unresolved_alternative_as_worse",
+    "treat_partial_alternative_as_lower_score",
+    "pareto_dominance_without_registered_dimension_comparators",
+    "recommendation_from_single_favorable_dimension_when_other_required_dimensions_are_unresolved",
+    "legal_strategy_recommendation_from_divination_evidence",
+    "winner",
+    "overallRecommendation",
+    "scalarScore",
+    "probability"
+  ],
+  "researchCandidatesNotRules": [
+    {
+      "candidate": "explicit_lexicographic_priority",
+      "status": "deferred",
+      "note": "Could only be studied when the user explicitly ranks dimensions and every preceding priority dimension has a reviewed comparator."
+    },
+    {
+      "candidate": "hard_constraint_filter_then_compare",
+      "status": "deferred",
+      "note": "Could only be studied when hard constraints are evaluated by responsible factual/domain providers and failure semantics are reviewed."
+    },
+    {
+      "candidate": "pareto_dominance",
+      "status": "deferred",
+      "note": "Cannot be used until all participating dimensions have registered comparators and partial/incomparable behavior is defined."
+    }
+  ],
+  "defaultV01": {
+    "aggregationStatus": "not_ready",
+    "overallRecommendation": null,
+    "winner": null,
+    "scalarScore": null,
+    "reason": "aggregation_policy_not_registered"
+  },
+  "formalIntegration": "blocked_by_current_v013_gate"
+}
