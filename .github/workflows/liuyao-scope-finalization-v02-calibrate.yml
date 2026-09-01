@@ -1,0 +1,50 @@
+name: LiuYao Scope Finalization v0.2 Fresh Calibration
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'scripts/calibrate-liuyao-semantic-scope-finalization-v02.mjs'
+      - 'scripts/verify-liuyao-semantic-scope-finalization-v02-model.mjs'
+      - '.github/workflows/liuyao-scope-finalization-v02-calibrate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  calibrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.4 assembly contract
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-design.mjs
+      - name: Verify sealed fresh Scope calibration
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v02-sealed.mjs
+      - name: Verify frozen Fallback Acceptance v0.1
+        run: node scripts/verify-liuyao-semantic-fallback-acceptance-v01-model.mjs
+      - name: Verify corrected Routeability v0.4
+        run: node scripts/verify-liuyao-semantic-routeability-v04-model.mjs
+      - name: Verify corrected Identity v0.2
+        run: node scripts/verify-liuyao-semantic-v013-fallback-identity-v02-model.mjs
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Calibrate one global Scope hard-veto cutoff on full Candidate v0.4 stack
+        run: node scripts/calibrate-liuyao-semantic-scope-finalization-v02.mjs
+      - name: Verify calibrated Scope Finalization v0.2 artifact
+        run: node scripts/verify-liuyao-semantic-scope-finalization-v02-model.mjs
+      - name: Commit frozen Scope Finalization v0.2 artifact
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-scope-finalization-v0.2.json data/liuyao-semantic-scope-finalization-v0.2.lock.json
+          git commit -m 'feat(liuyao): freeze fresh-calibrated scope finalization v0.2'
+          git push origin HEAD:liuyao-semantic-v013-core-train-v01
