@@ -1,0 +1,51 @@
+{
+  "version": "0.13-candidate-v0.5-terminal-v0.1",
+  "status": "failed_before_candidate_lock",
+  "candidate": "v0.5",
+  "scope": "liuyao_semantic_current_22",
+  "candidateLockCreated": false,
+  "independentEvaluationAllowed": false,
+  "reason": "fresh_scope_calibration_has_no_global_cutoff_satisfying_all_frozen_safety_gates",
+  "evidence": {
+    "designPath": "data/liuyao-semantic-v013-candidate-v05-design-v0.1.json",
+    "sealedScopeCalibrationPath": "data/liuyao-semantic-scope-finalization-v0.3-calibration.json",
+    "sealedScopeCalibrationLockPath": "data/liuyao-semantic-scope-finalization-v0.3-calibration.lock.json",
+    "failureReportPath": "data/liuyao-semantic-scope-finalization-v0.3-calibration-failure.json"
+  },
+  "failureSummary": {
+    "thresholdCandidates": 224,
+    "safeThresholds": 0,
+    "acceptedAccuracyConstraintFeasibleThresholds": 224,
+    "overallFalseActivationConstraintFeasibleThresholds": 193,
+    "perSubtypeFalseActivationConstraintFeasibleThresholds": 0,
+    "minimumOverallFalseActivation": 0.022222222222222223,
+    "minimumMaxSubtypeFalseActivation": 0.06666666666666667,
+    "irreducibleNearDomainFalseActivationsAtCutoffOne": 2
+  },
+  "irreducibleFailureClasses": [
+    {
+      "semanticClass": "rule_or_procedure_information",
+      "observedForm": "requirements-list-definition",
+      "exampleId": "SC3-196",
+      "failureMechanism": "information_target_not_extracted_then_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    },
+    {
+      "semanticClass": "rule_or_procedure_information",
+      "observedForm": "required-materials-procedure-question",
+      "exampleId": "SC3-210",
+      "failureMechanism": "information_target_not_extracted_then_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    }
+  ],
+  "regressionConclusion": {
+    "candidateV04GovernanceDocumentationFailuresRemoved": true,
+    "candidateV04AccountingClassificationFailuresRemoved": true,
+    "strongScopeBypassMechanismDisproved": false,
+    "earliestWrongResponsibilityLayer": "modern_information_target_evidence"
+  },
+  "immutability": {
+    "sealedCalibrationMayBeEdited": false,
+    "sameCandidateMayBeRetuned": false,
+    "promotionClaim": false
+  },
+  "next": "new_candidate_version_required_for_any_information_target_semantic_expansion"
+}
