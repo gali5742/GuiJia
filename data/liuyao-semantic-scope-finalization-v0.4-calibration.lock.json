@@ -1,0 +1,40 @@
+{
+  "version": "0.13-scope-finalization-v0.4-calibration-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_candidate_v0.6_scope_finalization",
+  "calibrationPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration.json",
+  "calibrationSha256": "6ee8f39662bdb8a0f48993a5f53822bb3325c4ea8bf562684b185681e65f5153",
+  "presealPatchPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration-preseal-patch.json",
+  "presealPatchSha256": "1b3e73067b2997f4d26518193c9ee68ab4c580d5fcc393d811513ad270c518ff",
+  "designPath": "data/liuyao-semantic-v013-candidate-v06-design-v0.1.json",
+  "designSha256": "f1c3f169fdbe9a28ecdfc0afca31bb375bf5c339c7c9d6e236216821867ff969",
+  "designFreezeCommit": "e2331ec823d9d1fdf6976c6f7a45dba985431964",
+  "counts": {
+    "total": 222,
+    "route_known": 132,
+    "non_route": 90,
+    "strong_arbitration": 44,
+    "support_arbitration": 44,
+    "pure_fallback": 44,
+    "outside_current_22": 30,
+    "route_unresolved": 30,
+    "near_domain_not_current_route": 30
+  },
+  "policy": {
+    "useForTraining": false,
+    "useForScopeThresholdCalibration": true,
+    "reuseAsDevelopmentEval": false,
+    "reuseAsIndependent": false,
+    "reuseAsBlind": false,
+    "parameterCount": 1,
+    "parameter": "scope_hard_veto_cutoff",
+    "otherModelOrGateParametersMayChange": false,
+    "multiTextEncoderBatchForbidden": true,
+    "candidateV05ScopeCalibrationExcluded": true,
+    "candidateV04ScopeCalibrationExcluded": true,
+    "fallbackAcceptanceCalibrationExcluded": true,
+    "routeabilityCalibrationExcluded": true,
+    "allDevelopmentIndependentBlindExcluded": true,
+    "predecessorRegressionRowsExcluded": true
+  }
+}

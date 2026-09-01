@@ -1,7 +1,7 @@
 {
   "version": "0.13-scope-finalization-v0.4-calibration-v0.1",
-  "status": "presealed_fresh_scope_calibration",
-  "sealed": false,
+  "status": "sealed_fresh_scope_calibration",
+  "sealed": true,
   "scope": "liuyao_semantic_candidate_v0.6_scope_finalization",
   "createdAfterCandidateV06DesignFreeze": true,
   "provenance": {
@@ -1817,5 +1817,13 @@
       "expectedCandidatePath": null,
       "subtype": "near_domain_not_current_route"
     }
-  ]
+  ],
+  "sealing": {
+    "sealedAt": "2026-09-01T01:52:01.905Z",
+    "immutableForScopeThresholdCalibration": true,
+    "wordingMayChangeAfterSeal": false,
+    "rowsMayBeAddedAfterSeal": false,
+    "labelsMayChangeAfterSeal": false,
+    "mayBeReusedAsDevelopmentIndependentOrBlind": false
+  }
 }
