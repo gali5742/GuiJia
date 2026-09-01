@@ -78,6 +78,7 @@ const GuiJia = loadScripts([
     'js/bazi-qianli-quantity-cross-literature-source.js',
     'js/bazi-qianli-quantity-cross-literature-research.js',
     'js/bazi-contextual-force-evidence-source.js',
+    'js/bazi-contextual-force-evidence-profile.js',
     'js/bazi-contextual-force-evidence.js',
     'js/bazi-assessment.js',
     'js/bazi-interpretation.js'
@@ -86,6 +87,7 @@ const GuiJia = loadScripts([
 const bazi = GuiJia.baziCore;
 const interpretation = GuiJia.baziInterpretation;
 const sourceApi = GuiJia.baziContextualForceEvidenceSource;
+const profileApi = GuiJia.baziContextualForceEvidenceProfile;
 const api = GuiJia.baziContextualForceEvidence;
 
 function makeResult(gans = ['丁','壬','丁','己'], zhis = ['丑','子','亥','酉']) {
@@ -132,10 +134,11 @@ function profileFor(gans, zhis) {
     return outputFor(gans, zhis).semanticModel.strengthSynthesis.contextualForceEvidenceProfile;
 }
 
-test('Contextual Force Evidence v0.1 将来源合同与执行层独立拆分', () => {
+test('Contextual Force Evidence v0.1 将来源、profile mapper 与 synthesis execution 三层拆分', () => {
     assert(sourceApi?.installed === true, 'contextual force source 未安装');
+    assert(profileApi?.installed === true, 'contextual force profile mapper 未安装');
     assert(api?.installed === true, 'contextual force execution 未安装');
-    assert(sourceApi.VERSION === '0.1' && api.VERSION === '0.1', '版本异常');
+    assert(sourceApi.VERSION === '0.1' && profileApi.VERSION === '0.1' && api.VERSION === '0.1', '版本异常');
     assert(Object.keys(sourceApi.SOURCES).length === 6, '来源数量异常');
     assert(sourceApi.EVIDENCE.length === 12, '证据数量异常');
     assert(sourceApi.AXES.length === 9, '证据轴数量异常');
@@ -194,9 +197,9 @@ test('克、泄、被分继续保持三个独立 force axis', () => {
     assert(axes.incomingRestraint.projectContributionRecords.every((item) => item.strengthMeaning === 'restraint'), 'incomingRestraint 不得混入 drain/distribution');
     assert(axes.outboundDrain.projectContributionRecords.every((item) => item.strengthMeaning === 'drain'), 'outboundDrain 不得混入 restraint/distribution');
     assert(axes.outboundDistribution.projectContributionRecords.every((item) => item.strengthMeaning === 'distribution'), 'outboundDistribution 不得混入 restraint/drain');
-    assert(axes.incomingRestraint.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'restraint')), '克制 surface candidates 必须方向一致');
-    assert(axes.outboundDrain.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'drain')), '泄力 surface candidates 必须方向一致');
-    assert(axes.outboundDistribution.sourceSurfaceCandidates.every((item) => api.relationMatchesMeaning(item, 'distribution')), '被分 surface candidates 必须方向一致');
+    assert(axes.incomingRestraint.sourceSurfaceCandidates.every((item) => profileApi.relationMatchesMeaning(item, 'restraint')), '克制 surface candidates 必须方向一致');
+    assert(axes.outboundDrain.sourceSurfaceCandidates.every((item) => profileApi.relationMatchesMeaning(item, 'drain')), '泄力 surface candidates 必须方向一致');
+    assert(axes.outboundDistribution.sourceSurfaceCandidates.every((item) => profileApi.relationMatchesMeaning(item, 'distribution')), '被分 surface candidates 必须方向一致');
     assert(sourceApi.CONTRACT.restraintDrainDistributionSeparate === true, 'contract 必须锁定克泄被分分轴');
 });
 
@@ -266,11 +269,12 @@ test('Contextual Force Evidence 不引入分数、阈值、比例或强弱结果
     assert(sourceApi.CONTRACT.finalAssessmentMapping === false, '不得 final Assessment mapping');
 });
 
-test('生产 loader 链为 Cross-Literature Research → Contextual Force，并由执行层加载独立 source contract', () => {
+test('生产 loader 链为 Cross-Literature → execution → source/profile mapper', () => {
     const crossLit = fs.readFileSync(path.join(ROOT, 'js/bazi-qianli-quantity-cross-literature-research.js'), 'utf8');
     const execution = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-evidence.js'), 'utf8');
-    assert(crossLit.includes('bazi-contextual-force-evidence.js'), 'Cross-Literature Research 未加载 Contextual Force');
+    assert(crossLit.includes('bazi-contextual-force-evidence.js'), 'Cross-Literature Research 未加载 Contextual Force execution');
     assert(execution.includes('bazi-contextual-force-evidence-source.js'), 'Contextual Force execution 未加载 source contract');
+    assert(execution.includes('bazi-contextual-force-evidence-profile.js'), 'Contextual Force execution 未加载 profile mapper');
 });
 
 console.log(`\nContextual Force Evidence v0.1: ${passed} passed, ${failed} failed`);
