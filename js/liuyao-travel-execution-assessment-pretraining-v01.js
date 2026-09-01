@@ -38,6 +38,9 @@
         if (packet.duty !== 'travel_execution') {
             issues.push(issue('travel_execution_duty_required', { value:packet.duty || null }));
         }
+        if (Object.prototype.hasOwnProperty.call(packet, 'alternativeId') && !hasText(packet.alternativeId)) {
+            issues.push(issue('alternative_id_invalid'));
+        }
         const resolutionStatus = packet.resolutionStatus || 'resolved';
         if (!assessmentApi.RESOLUTION_STATUSES.includes(resolutionStatus)) {
             issues.push(issue('evidence_resolution_status_invalid', { value:resolutionStatus }));
@@ -61,7 +64,8 @@
         return { status:issues.length ? 'invalid' : 'valid', issues };
     };
 
-    const baseEnvelope = (resolutionStatus, assessmentStatus, evidenceRefs, reasonRefs, unresolvedIssues = [], traceRefs = []) => ({
+    const baseEnvelope = (alternativeId, resolutionStatus, assessmentStatus, evidenceRefs, reasonRefs, unresolvedIssues = [], traceRefs = []) => ({
+        ...(hasText(alternativeId) ? { alternativeId } : {}),
         assessmentRef:ASSESSMENT_REF,
         assessmentVersion:VERSION,
         contractFamily:CONTRACT_FAMILY,
@@ -79,8 +83,10 @@
 
     const evaluateTravelExecution = (packet) => {
         const validation = validateEvidencePacket(packet);
+        const alternativeId = hasText(packet?.alternativeId) ? packet.alternativeId : null;
         if (validation.status !== 'valid') {
             return baseEnvelope(
+                alternativeId,
                 'unresolved',
                 'not_assessed',
                 [],
@@ -92,13 +98,13 @@
         const resolutionStatus = packet.resolutionStatus || 'resolved';
         const allRefs = packet.evidence.map((item) => item.id);
         if (resolutionStatus === 'unresolved') {
-            return baseEnvelope('unresolved','not_assessed',allRefs,[`${EVALUATOR_REF}:evidence_unresolved`],[issue('evidence_unresolved')]);
+            return baseEnvelope(alternativeId,'unresolved','not_assessed',allRefs,[`${EVALUATOR_REF}:evidence_unresolved`],[issue('evidence_unresolved')]);
         }
         if (resolutionStatus === 'partial') {
-            return baseEnvelope('partial','insufficient_evidence',allRefs,[`${EVALUATOR_REF}:evidence_partial`],[issue('evidence_partial')]);
+            return baseEnvelope(alternativeId,'partial','insufficient_evidence',allRefs,[`${EVALUATOR_REF}:evidence_partial`],[issue('evidence_partial')]);
         }
         if (resolutionStatus === 'not_applicable') {
-            return baseEnvelope('not_applicable','not_assessed',allRefs,[`${EVALUATOR_REF}:not_applicable`]);
+            return baseEnvelope(alternativeId,'not_applicable','not_assessed',allRefs,[`${EVALUATOR_REF}:not_applicable`]);
         }
 
         const supportRefs = [];
@@ -126,6 +132,7 @@
         }
 
         const envelope = baseEnvelope(
+            alternativeId,
             'resolved',
             assessmentStatus,
             [...supportRefs, ...adverseRefs],
@@ -136,7 +143,7 @@
         const checked = assessmentApi.validateAssessmentEnvelope(envelope);
         return checked.status === 'valid'
             ? envelope
-            : baseEnvelope('unresolved','not_assessed',allRefs,[`${EVALUATOR_REF}:invalid_output`],checked.issues);
+            : baseEnvelope(alternativeId,'unresolved','not_assessed',allRefs,[`${EVALUATOR_REF}:invalid_output`],checked.issues);
     };
 
     const describeCandidate = () => ({
