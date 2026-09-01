@@ -24,7 +24,7 @@ const changes = [
   ['SC5-080','这只股票继续拿还是减仓这件事我想看看','这只股票我是继续拿还是先减仓，一直想单独看看','remove prior exact overlap while preserving position support anchors'],
   ['SC5-081','当前债券基金持仓要不要调整，我一直在考虑','手里的债券基金持仓现在要不要调整，我想单独占一下','remove prior exact overlap while preserving position support anchors'],
   ['SC5-085','我关注的混合基金最近净值起伏明显，想单独看看','我关注的这只混合基金近来净值上下起伏，想单独占一下涨跌','remove prior exact overlap while preserving trend support anchors'],
-  ['SC5-087','这个投资标的近来的涨跌变化不少，我想占这一项','这个投资标的最近涨跌来回变化，我想单独看看走势这块','remove prior exact overlap while preserving trend support anchors'],
+  ['SC5-087','这个投资标的近来的涨跌变化不少，我想占这一项','这个投资标的最近涨跌来回变化，我想单独看看这一块','remove prior exact overlap without introducing the frozen current-target keyword 走势'],
   ['SC5-088','这只短债基金最近净值变化频繁，我想看看','这只短债基金近来净值频繁波动，我想单独占一下','remove prior exact overlap while preserving trend support anchors'],
   ['SC5-091','我手上这个小买卖以后还能不能继续做下去','我手上这一摊以后还能不能继续撑下去','remove frozen business-support lexical anchor while preserving the intended business_operation pure-fallback semantic label'],
   ['SC5-141','论文答辩能不能顺利通过','这次毕业论文答辩我能不能顺利通过','remove prior blind-eval exact overlap while preserving outside-current22 exam outcome'],
