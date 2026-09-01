@@ -1,0 +1,32 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const calibrationFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration.json';
+const lockFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration.lock.json';
+const patchFile = 'data/liuyao-semantic-scope-finalization-v0.2-calibration-preseal-patch.json';
+const designFile = 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json';
+const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
+const sha256 = (relative) => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex');
+const assert = (condition, message) => { if (!condition) throw new Error(message); };
+
+execFileSync(process.execPath, ['scripts/verify-liuyao-semantic-scope-finalization-v02-calibration.mjs'], { cwd:root, stdio:'inherit' });
+const calibration = readJson(calibrationFile);
+const lock = readJson(lockFile);
+const patch = readJson(patchFile);
+assert(calibration.status === 'sealed_fresh_scope_calibration' && calibration.sealed === true, 'Scope calibration is not sealed');
+assert(lock.version === '0.13-scope-finalization-v0.2-calibration-lock-v0.1' && lock.status === 'locked', 'Scope calibration lock contract mismatch');
+assert(lock.calibrationPath === calibrationFile && lock.calibrationSha256 === sha256(calibrationFile), 'Scope calibration lock SHA drift');
+assert(lock.presealPatchPath === patchFile && lock.presealPatchSha256 === sha256(patchFile), 'Scope preseal patch lock SHA drift');
+assert(lock.designPath === designFile && lock.designSha256 === sha256(designFile), 'Candidate v0.4 design lock SHA drift');
+assert(lock.designFreezeCommit === calibration.provenance.designFreezeCommit, 'Candidate v0.4 design freeze commit drift');
+assert(lock.policy?.parameterCount === 1 && lock.policy?.parameter === 'scope_hard_veto_cutoff', 'Scope lock parameter contract drift');
+assert(lock.policy?.otherModelOrGateParametersMayChange === false && lock.policy?.multiTextEncoderBatchForbidden === true, 'Scope lock mutation/representation policy drift');
+assert(patch.status === 'recorded_before_seal_and_before_scope_scoring' && patch.modelOrThresholdScoredBeforePatch === false, 'Scope patch provenance is not pre-scoring');
+console.log('LiuYao Candidate v0.4 sealed Scope calibration lock verified.');
+console.log(`- calibration SHA-256: ${lock.calibrationSha256}`);
+console.log(`- patch SHA-256: ${lock.presealPatchSha256}`);
+console.log(`- design SHA-256: ${lock.designSha256}`);
