@@ -201,4 +201,8 @@
         buildDependencies,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForceInteractionAdapter) {
+        document.write('<script src="./js/bazi-contextual-force-interaction-adapter.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
