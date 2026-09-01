@@ -1,0 +1,212 @@
+{
+  "version": "0.1",
+  "status": "design_only_extension_contract",
+  "scope": "future_liuyao_semantic_expansion",
+  "runtimeMutation": false,
+  "purpose": "Define how future next-topic participant/entity/authority resolvers extend the existing semantic resolver stack without creating parallel parsers or leaking traditional LiuYao selectors into semantic facts.",
+  "auditedRuntimeModules": [
+    {
+      "module": "js/liuyao-participant-resolver.js",
+      "currentResponsibility": "relationship_development participant refinement, especially romantic counterpart specificity and sex roles",
+      "layer": "modern_semantic_participant",
+      "reuseDecision": "preserve_current_behavior_extend_via_future_fact_contract",
+      "risk": "generic filename but domain-specific implementation; currently wraps liuyaoIntent.parseDivinationIntent and is load-order sensitive"
+    },
+    {
+      "module": "js/liuyao-object-entity-resolver.js",
+      "currentResponsibility": "extract explicit modern referent candidates and bind them to selected current-22 target slots",
+      "layer": "modern_semantic_entity_candidate",
+      "reuseDecision": "reuse_candidate_shape_and_upstream_role_not_traditional_mapping",
+      "risk": "route-to-slot map is hardcoded to current investment/purchase/delivery families"
+    },
+    {
+      "module": "js/liuyao-entity-typing-adapter.js",
+      "currentResponsibility": "consume calibrated entity-type predictions for investment_asset, purchasable_item, delivery_subject",
+      "layer": "modern_semantic_entity_typing",
+      "reuseDecision": "reuse_acceptance_and_provenance_pattern",
+      "risk": "type inventory and route expected-type map are current-22-specific"
+    },
+    {
+      "module": "js/liuyao-contextual-object-role-adapter.js",
+      "currentResponsibility": "consume upstream object candidates plus calibrated contextual role predictions for investment/purchase/delivery target roles",
+      "layer": "modern_semantic_contextual_role",
+      "reuseDecision": "strong_extension_seam_for_future_contextual_roles",
+      "risk": "role-to-slot and route-to-role maps are hardcoded; wrapper-chain integration is load-order sensitive"
+    },
+    {
+      "module": "js/liuyao-resolver-role-arbitration.js",
+      "currentResponsibility": "arbitrate deterministic object resolver claims against accepted contextual-role evidence and explicit no-role gates",
+      "layer": "modern_semantic_claim_arbitration",
+      "reuseDecision": "reuse_conflict_and_abstention_principles",
+      "risk": "currently scoped to object-role target slots and depends on decorator ordering"
+    },
+    {
+      "module": "js/liuyao-semantic-slot-provider.js",
+      "currentResponsibility": "collect structured intent, participant, object, context and ML slot claims, merge by provider/source priority, expose conflicts and provenance",
+      "layer": "modern_semantic_provider_orchestration",
+      "reuseDecision": "architectural_base_for_future_registered_provider_pipeline",
+      "risk": "closed current-22 slot schema/provider audit and subsequent modules replace resolveSemanticSlots in sequence"
+    },
+    {
+      "module": "js/liuyao-semantic-sufficiency.js",
+      "currentResponsibility": "define current-22 slot schema and per-route semantic sufficiency requirements",
+      "layer": "modern_semantic_sufficiency",
+      "reuseDecision": "preserve_contract_pattern_only_until_expansion_gate",
+      "risk": "slot schema and route requirements are frozen around current-22"
+    },
+    {
+      "module": "js/liuyao-rule-registry.js",
+      "currentResponsibility": "map resolved modern event/participant semantics to traditional Observation candidates, including static selectors and resolverRef selectors",
+      "layer": "traditional_observation_selection",
+      "reuseDecision": "future_PRR_resolvers_belong_downstream_of_semantic_fact_resolution",
+      "risk": "must not be confused with modern participant/entity resolver modules"
+    }
+  ],
+  "layerContract": [
+    {
+      "order": 1,
+      "layerId": "semantic_intent",
+      "responsibility": "identify modern event/current target and bounded question semantics",
+      "forbidden": ["six_relative", "shi_ying_selector", "use_god"]
+    },
+    {
+      "order": 2,
+      "layerId": "candidate_extraction",
+      "responsibility": "extract explicit person/entity/institution/document/alternative candidates",
+      "forbidden": ["traditional_selector_choice"]
+    },
+    {
+      "order": 3,
+      "layerId": "semantic_fact_providers",
+      "responsibility": "classify participant relation, entity type, contextual role, function, representation/control status and lifecycle facts",
+      "forbidden": ["traditional_selector_choice"]
+    },
+    {
+      "order": 4,
+      "layerId": "semantic_claim_arbitration",
+      "responsibility": "merge or expose conflict among semantic facts while preserving provider provenance and explicit no-role/no-type decisions",
+      "forbidden": ["silent_conflict_resolution_without_policy"]
+    },
+    {
+      "order": 5,
+      "layerId": "semantic_sufficiency",
+      "responsibility": "decide whether the modern event/duty has enough facts for downstream traditional resolution",
+      "forbidden": ["fabricating_missing_participant_or_entity"]
+    },
+    {
+      "order": 6,
+      "layerId": "traditional_selector_resolvers",
+      "responsibility": "consume resolved semantic facts and reviewed traditional evidence to return traditional selector candidates/status for ObservationPlan",
+      "forbidden": ["reparse_raw_question_as_primary_strategy", "route_selection", "semantic_event_rewrite"]
+    },
+    {
+      "order": 7,
+      "layerId": "observation_plan_and_assessment",
+      "responsibility": "build Primary/Role/Domain observations and later Evidence/Assessment",
+      "forbidden": ["hidden_semantic_rerouting"]
+    }
+  ],
+  "futureProviderRegistrySchema": {
+    "providerId": "string",
+    "version": "string",
+    "layer": "candidate_extraction|semantic_fact_provider|semantic_claim_arbitration",
+    "consumes": ["fact_or_candidate_type"],
+    "emits": ["semantic_fact_or_claim_type"],
+    "scope": ["event_or_duty_ids"],
+    "priority": "integer_or_reviewed_policy_ref",
+    "conflictPolicy": "policy_ref",
+    "provenanceRequired": true,
+    "mayEmitTraditionalSelector": false
+  },
+  "participantFactSchema": {
+    "participantId": "string",
+    "text": "string_optional",
+    "relationToQuerent": "self|parent|child|wife|husband|sibling|friend_or_peer|known_nonkin|organization_agent|other|unknown",
+    "semanticRoles": ["actual_subject|applicant|traveler|litigant|counterparty|contact_actor|reviewer|decision_maker|filing_actor|settlement_actor|other"],
+    "specificity": "specific|context_bounded|generic|unknown",
+    "representationMode": "self|proxy_uncontrolled|proxy_controller|not_applicable|unknown",
+    "controlRole": "controller|non_controller|shared|not_applicable|unknown",
+    "sourceRefs": ["provider_claim_ref"]
+  },
+  "entityFactSchema": {
+    "entityId": "string",
+    "text": "string",
+    "entityType": "open_versioned_semantic_type",
+    "contextualRoles": ["open_versioned_semantic_role"],
+    "functionContexts": ["open_versioned_function_role"],
+    "lifecycleState": "created|pending_issuance|issued|in_delivery|received|lost|recovered|not_applicable|unknown",
+    "specificity": "specific|context_bounded|generic|unknown",
+    "sourceRefs": ["provider_claim_ref"]
+  },
+  "authorityFactSchema": {
+    "authorityId": "string",
+    "entityRef": "entityId_or_participantId",
+    "authorityRole": "employer|education_institution|supervisor|review_committee|adjudicative_body|issuing_authority|other|unknown",
+    "actionRole": "approve|review|admit|issue|accept_filing|decide|other|unknown",
+    "specificity": "specific|context_bounded|generic|unknown",
+    "sourceRefs": ["provider_claim_ref"]
+  },
+  "traditionalResolverContract": {
+    "resolverNamespace": "PRR-* or reviewed successor",
+    "inputMustBe": ["resolved_semantic_facts", "theme_duty", "reviewed_evidence_refs"],
+    "output": {
+      "status": "resolved|partial|conflicted|unresolved",
+      "selectorCandidates": [
+        {
+          "selector": "traditional_selector_shape",
+          "semanticDuty": "string",
+          "confidenceClass": "stable|provisional|school_specific|conflicted_candidate",
+          "evidenceRefs": ["formal_evidence_id"]
+        }
+      ],
+      "issues": ["resolver_issue"]
+    },
+    "mustNot": [
+      "return a routeId",
+      "rewrite currentTargetAspect",
+      "silently convert modern entity type into a six-relative",
+      "fallback unknown participant/entity to shi/ying or 妻财 without evidence"
+    ]
+  },
+  "nextTopicExtensionMap": [
+    {
+      "need": "represented study/travel/litigation/contact subjects",
+      "semanticProvider": "future participant fact provider",
+      "traditionalResolvers": ["PRR-STUDY-SUBJECT", "PRR-TRAVELER-SUBJECT", "PRR-DISPUTE-PARTICIPANT", "PRR-CONTACT-ACTOR"]
+    },
+    {
+      "need": "education institution / employer / review authority",
+      "semanticProvider": "entity + authority fact providers",
+      "traditionalResolvers": ["PRR-EDUCATION-INSTITUTION", "PRR-ACADEMIC-REVIEW-AUTHORITY"]
+    },
+    {
+      "need": "lost modern object function",
+      "semanticProvider": "entity + function-context facts",
+      "traditionalResolvers": ["PRR-LOST-PROPERTY-OBJECT"]
+    },
+    {
+      "need": "graduation active requirement",
+      "semanticProvider": "process/requirement semantic provider",
+      "traditionalResolvers": ["PRR-GRADUATION-REQUIREMENT"],
+      "note": "Requirement resolver may redirect to a more specific semantic duty before traditional selection; that redirection must occur before layer 6."
+    }
+  ],
+  "migrationPolicy": {
+    "currentRuntimeModulesFrozen": true,
+    "doNotAddMoreDecoratorWrappersForNextTopics": true,
+    "futureExpansionShouldUseRegisteredProviderPipeline": true,
+    "futureProviderPipelineMustPreserve": [
+      "question_over_context precedence where reviewed",
+      "explicit conflicts",
+      "provider provenance",
+      "accepted no-role/no-type abstention gates",
+      "structured intent priority where reviewed"
+    ],
+    "migrationRequires": [
+      "separate version",
+      "current-22 frozen regression",
+      "load-order-independent provider registration tests",
+      "conflict/arbitration regression"
+    ]
+  }
+}
