@@ -1,0 +1,305 @@
+{
+  "version": "0.13-scope-finalization-v0.4-calibration-failure-v0.1",
+  "status": "calibration_failed_no_safe_cutoff",
+  "scope": "liuyao_semantic_candidate_v0.6_scope_finalization",
+  "candidateV06Lockable": false,
+  "evidenceStatus": {
+    "freshCalibration": true,
+    "independentGeneralizationClaim": false,
+    "sealedCorpusMutated": false,
+    "thresholdsRetuned": false,
+    "architectureMutated": false
+  },
+  "dependencies": {
+    "design": {
+      "path": "data/liuyao-semantic-v013-candidate-v06-design-v0.1.json",
+      "sha256": "f1c3f169fdbe9a28ecdfc0afca31bb375bf5c339c7c9d6e236216821867ff969"
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-scope-finalization-v0.4-calibration.json",
+      "sha256": "6ee8f39662bdb8a0f48993a5f53822bb3325c4ea8bf562684b185681e65f5153"
+    },
+    "calibrationLock": {
+      "path": "data/liuyao-semantic-scope-finalization-v0.4-calibration.lock.json",
+      "sha256": "d9103dbe093d06889823dd488d1b9a07c3058d3b11263a683bac7f0d69c3a667"
+    },
+    "correctedDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "sha256": "d9ad664c23642dae914772a6a4416486f0e959d4f312838965428532134fd238"
+    },
+    "routeability": {
+      "path": "data/liuyao-semantic-routeability-v0.4.json",
+      "sha256": "3cb47c30e806605c8886d66ce20cc475be5c9c574256a76a092704cd4ec66db3"
+    },
+    "identity": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.2.json",
+      "sha256": "261d0222a481a599d6fd6ff0f7cf792b8562bdd495c3ba937362489c845935e7"
+    },
+    "acceptance": {
+      "path": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+      "sha256": "869b36a5b5f20889b5dd7b86f3514cdeef4c9f17d0792d1569c861fc6a34a3ae"
+    }
+  },
+  "constraints": {
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05
+  },
+  "thresholdCount": 224,
+  "safeThresholdCount": 0,
+  "feasibility": {
+    "accuracyOnly": 224,
+    "overallFalseActivationOnly": 0,
+    "subtypeFalseActivationOnly": 0,
+    "accuracyAndOverall": 0,
+    "accuracyAndSubtype": 0,
+    "overallAndSubtype": 0,
+    "allThree": 0
+  },
+  "boundary": {
+    "cutoffZero": {
+      "cutoff": 0,
+      "knownExact": 103,
+      "knownRetention": 0.7803030303030303,
+      "knownActivated": 103,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 7,
+      "overallFalseActivation": 0.07777777777777778,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    },
+    "cutoffOne": {
+      "cutoff": 1,
+      "knownExact": 44,
+      "knownRetention": 0.3333333333333333,
+      "knownActivated": 44,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 5,
+      "overallFalseActivation": 0.05555555555555555,
+      "maxSubtypeFalseActivation": 0.16666666666666666,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 5,
+          "falseActivation": 0.16666666666666666
+        }
+      },
+      "bypasses": 44
+    },
+    "bestKnownIgnoringSafety": {
+      "cutoff": 0.39842400588109705,
+      "knownExact": 103,
+      "knownRetention": 0.7803030303030303,
+      "knownActivated": 103,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 7,
+      "overallFalseActivation": 0.07777777777777778,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    },
+    "minimumOverallFalseActivation": {
+      "cutoff": 0.644777780724226,
+      "knownExact": 85,
+      "knownRetention": 0.6439393939393939,
+      "knownActivated": 85,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 5,
+      "overallFalseActivation": 0.05555555555555555,
+      "maxSubtypeFalseActivation": 0.16666666666666666,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 5,
+          "falseActivation": 0.16666666666666666
+        }
+      },
+      "bypasses": 40
+    },
+    "minimumMaxSubtypeFalseActivation": {
+      "cutoff": 0.644777780724226,
+      "knownExact": 85,
+      "knownRetention": 0.6439393939393939,
+      "knownActivated": 85,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 5,
+      "overallFalseActivation": 0.05555555555555555,
+      "maxSubtypeFalseActivation": 0.16666666666666666,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 5,
+          "falseActivation": 0.16666666666666666
+        }
+      },
+      "bypasses": 40
+    },
+    "maximumAcceptedRouteAccuracy": {
+      "cutoff": 0.39842400588109705,
+      "knownExact": 103,
+      "knownRetention": 0.7803030303030303,
+      "knownActivated": 103,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 7,
+      "overallFalseActivation": 0.07777777777777778,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    }
+  },
+  "irreducibleAtCutoffOne": {
+    "nonRouteActivations": 5,
+    "nonRouteRows": [
+      {
+        "id": "SC4-197",
+        "text": "应收账款在会计上通常怎么做账龄分析",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "debt_collection",
+        "arbitrationRoute": "debt_collection",
+        "arbitrationStrength": "strong",
+        "unsupportedTargets": [],
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.6440818325675971
+      },
+      {
+        "id": "SC4-200",
+        "text": "合伙人的权限范围一般怎样写进协议",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "partnership",
+        "arbitrationRoute": "partnership",
+        "arbitrationStrength": "strong",
+        "unsupportedTargets": [],
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.47248681315617874
+      },
+      {
+        "id": "SC4-210",
+        "text": "奖金发放的个税一般如何计算",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "income_bonus",
+        "arbitrationRoute": "income_bonus",
+        "arbitrationStrength": "strong",
+        "unsupportedTargets": [],
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.6440100577098724
+      },
+      {
+        "id": "SC4-212",
+        "text": "包裹投递失败后通常怎样重新派送",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "receive_item",
+        "arbitrationRoute": "receive_item",
+        "arbitrationStrength": "strong",
+        "unsupportedTargets": [],
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.47498378455312407
+      },
+      {
+        "id": "SC4-220",
+        "text": "恋爱关系中的沟通边界通常怎么理解",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "relationship_development",
+        "arbitrationRoute": "relationship_development",
+        "arbitrationStrength": "strong",
+        "unsupportedTargets": [],
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.437071707041799
+      }
+    ],
+    "wrongKnownActivations": 0,
+    "wrongKnownRows": []
+  },
+  "conclusion": "No global Scope hard-veto cutoff satisfies the frozen Candidate v0.6 safety constraints. Candidate v0.6 must not be locked or promoted from this calibration unless a new architecture version is designed.",
+  "priorV05FailureRegression": {
+    "expectedOldFailureThemes": [
+      "requirements_list_information",
+      "required_material_information"
+    ],
+    "irreducibleRowsMatchingNewUnsupportedFamilies": 0
+  }
+}
