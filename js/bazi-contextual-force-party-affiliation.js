@@ -221,7 +221,4 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyAffiliationExpansionAudit) {
         document.write('<script src="./js/bazi-contextual-force-party-affiliation-expansion-audit.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationEffect) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-effect.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
