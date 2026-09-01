@@ -56,4 +56,5 @@ t('DA23 unresolved evidence stays unresolved',()=>{const r=api.assessWithRegiste
 t('DA24 not applicable stays not applicable',()=>{const r=api.assessWithRegisteredEvaluator(req({evidenceResolutionStatus:'not_applicable'}),{});assert.equal(r.resolutionStatus,'not_applicable');assert.equal(r.assessmentStatus,'not_assessed');});
 t('DA25 invalid request returns auditable abstention',()=>{const x=req();delete x.duty;const r=api.assessWithRegisteredEvaluator(x,{});assert.equal(r.resolutionStatus,'unresolved');assert.equal(r.reasonRefs[0],'invalid_evaluator_request');assert(r.unresolvedIssues.some(i=>i.code==='duty_required'));});
 t('DA26 malformed evidence refs rejected',()=>assert.equal(api.validateEvaluatorRequest(req({evidenceRefs:['E1','']})).status,'invalid'));
+t('DA27 resolved insufficient evidence is valid',()=>assert.equal(api.validateAssessmentEnvelope(env({assessmentStatus:'insufficient_evidence',reasonRefs:['no_directional_evidence']})).status,'valid'));
 if(!process.exitCode)console.log(`Domain assessment envelope regression: ${n} passed, 0 failed`);
