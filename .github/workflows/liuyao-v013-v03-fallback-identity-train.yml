@@ -1,0 +1,128 @@
+name: LiuYao v0.13-v0.3 Fallback Identity Train and Freeze
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'js/liuyao-semantic-fallback-identity-model-v01.js'
+      - 'js/liuyao-semantic-fallback-identity-scorer-v01.js'
+      - 'data/liuyao-semantic-fallback-identity-v0.1-training-contract.json'
+      - 'data/liuyao-semantic-fallback-identity-v0.1-calibration-runtime.lock.json'
+      - 'scripts/verify-liuyao-semantic-fallback-identity-v01-training-contract.mjs'
+      - 'scripts/verify-liuyao-semantic-fallback-identity-v01-calibration-runtime-lock.mjs'
+      - 'scripts/train-and-calibrate-liuyao-semantic-fallback-identity-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-fallback-identity-v01-model.mjs'
+      - 'tests/liuyao-semantic-fallback-identity-model-v01-tests.js'
+      - '.github/workflows/liuyao-v013-v03-fallback-identity-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train-freeze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture frozen checkout
+        run: echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify training freeze contract
+        run: node scripts/verify-liuyao-semantic-fallback-identity-v01-training-contract.mjs
+
+      - name: Verify calibration runtime freeze
+        run: node scripts/verify-liuyao-semantic-fallback-identity-v01-calibration-runtime-lock.mjs
+
+      - name: Verify Fallback Identity model algorithm contracts
+        run: node tests/liuyao-semantic-fallback-identity-model-v01-tests.js
+
+      - name: Verify Candidate v0.3 deterministic contracts
+        run: node tests/liuyao-semantic-v013-candidate-v03-contract-tests.js
+
+      - name: Run normal LiuYao semantic responsibility audit before scoring
+        run: node scripts/verify-liuyao-semantic-responsibility-audit.mjs
+
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Train 22 identity heads and calibrate one global threshold
+        id: train
+        continue-on-error: true
+        run: node scripts/train-and-calibrate-liuyao-semantic-fallback-identity-v01.mjs
+
+      - name: Verify frozen model when calibration is feasible
+        if: steps.train.outcome == 'success'
+        run: node scripts/verify-liuyao-semantic-fallback-identity-v01-model.mjs
+
+      - name: Commit immutable training result
+        if: always() && steps.train.outcome != 'skipped'
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          if [ ! -f data/liuyao-semantic-fallback-identity-v0.1-calibration-report.json ] || [ ! -f data/liuyao-semantic-fallback-identity-v0.1-model.json ]; then
+            echo 'Training did not produce auditable result artifacts.'
+            exit 1
+          fi
+
+          git add data/liuyao-semantic-fallback-identity-v0.1-calibration-report.json
+          git add data/liuyao-semantic-fallback-identity-v0.1-model.json
+          if [ -f data/liuyao-semantic-fallback-identity-v0.1-model.lock.json ]; then
+            git add data/liuyao-semantic-fallback-identity-v0.1-model.lock.json
+          fi
+
+          if git diff --cached --quiet; then
+            echo 'Training result already matches committed state.'
+          else
+            if [ "${{ steps.train.outcome }}" = 'success' ]; then
+              git commit -m 'chore(liuyao): freeze fallback identity v0.1 model'
+            else
+              git commit -m 'test(liuyao): record fallback identity v0.1 calibration failure'
+            fi
+          fi
+
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+            js/liuyao-semantic-fallback-identity-model-v01.js \
+            data/liuyao-semantic-fallback-identity-v0.1-training-contract.json \
+            data/liuyao-semantic-fallback-identity-v0.1-calibration-runtime.lock.json \
+            data/liuyao-semantic-fallback-identity-v0.1-training.json \
+            data/liuyao-semantic-fallback-identity-v0.1-calibration.json \
+            data/liuyao-semantic-frozen-dependencies-v0.1.json \
+            data/liuyao-semantic-routeability-v0.2.json \
+            data/liuyao-semantic-routeability-v0.3.json \
+            js/liuyao-semantic-route-evidence-v01.js \
+            js/liuyao-semantic-route-evidence-v02.js \
+            js/liuyao-semantic-route-evidence-v03.js \
+            js/liuyao-semantic-route-arbitration-v011.js \
+            js/liuyao-semantic-route-arbitration-v012.js \
+            js/liuyao-semantic-route-compatibility-v01.js \
+            js/liuyao-semantic-route-compatibility-v02.js \
+            js/liuyao-semantic-route-compatibility-v03.js \
+            js/liuyao-semantic-routeability-v05.js \
+            js/liuyao-semantic-fallback-identity-v01.js \
+            js/liuyao-semantic-route-selection-v04.js \
+            js/liuyao-semantic-finalization-v01.js; then
+            echo 'Frozen training/calibration inputs changed while this run was executing; refusing to publish stale result.'
+            exit 1
+          fi
+
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+
+      - name: Fail the attempt if no feasible global threshold exists
+        if: steps.train.outcome != 'success'
+        run: |
+          echo 'Fallback Identity v0.1 training attempt did not satisfy the frozen calibration constraints.'
+          exit 1

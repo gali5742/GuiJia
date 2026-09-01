@@ -1,0 +1,49 @@
+{
+  "version": "0.13-fallback-identity-v0.1-calibration-runtime-lock-v0.1",
+  "status": "locked_before_first_encoder_scoring",
+  "scope": "liuyao_semantic_fallback_identity_v0.1",
+  "purpose": "Freeze the complete Candidate v0.3 calibration decision path before the first Fallback Identity encoder scoring.",
+  "modules": {
+    "js/liuyao-semantic-route-evidence-v01.js": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b",
+    "js/liuyao-semantic-route-evidence-v02.js": "bb0158a2600dd6193f8ede303770dd62c374e2f0",
+    "js/liuyao-semantic-route-evidence-v03.js": "f612a06951e136abd00324f2df62a2a288ee165f",
+    "js/liuyao-semantic-route-arbitration-v011.js": "04f0b45b2ea529342275aeb28c29a00e707af5bb",
+    "js/liuyao-semantic-route-arbitration-v012.js": "d00327959df11e2e4e624c683c74f9f737c1ea44",
+    "js/liuyao-semantic-route-compatibility-v01.js": "455ffcb3b5aea604c1366ec95009873f8f4a5f9d",
+    "js/liuyao-semantic-route-compatibility-v02.js": "90a0bf3c4ea325a07773eceb07f3af6d34f9406b",
+    "js/liuyao-semantic-route-compatibility-v03.js": "8d4380424cffdedaf18989217ad43dd61341865d",
+    "js/liuyao-semantic-routeability-v05.js": "b71a8c84060f90850321647ead919c5984a1e49c",
+    "js/liuyao-semantic-fallback-identity-v01.js": "e213a9dbab3e9d1fa21e030a4262df05be55bd19",
+    "js/liuyao-semantic-route-selection-v04.js": "abcc770a820222979c1d89c0834bddf97ba60baa",
+    "js/liuyao-semantic-finalization-v01.js": "d84e8b421db029dd93d555429e0b25d2c2f612b9"
+  },
+  "artifacts": {
+    "frozenDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.1.json",
+      "gitBlobSha": "58f10fa9e12107b780df7b4c3d1235d8d5ff9b74",
+      "sha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f"
+    },
+    "routeabilityBaseModel": {
+      "path": "data/liuyao-semantic-routeability-v0.2.json",
+      "gitBlobSha": "60c38a354f86a7a7d58d75c8b76da588f6a71eae",
+      "sha256": "d4b1ecdc13fc391c370a461873963280555e69931835663a7597267666862344"
+    },
+    "routeabilityThresholdSource": {
+      "path": "data/liuyao-semantic-routeability-v0.3.json",
+      "gitBlobSha": "cc5ad3f3b56ac7ccf9a22a5a14da7198c116c0fc",
+      "threshold": 0.7675678218564946
+    }
+  },
+  "invariants": {
+    "routeabilityThreshold": 0.7675678218564946,
+    "scopeHardVetoCutoff": 0.4196,
+    "fallbackIdentityCandidateSource": ["router_top1", "router_top2"],
+    "fallbackIdentityAppliesOnlyWhen": "arbitration_null_and_routeability_route_known",
+    "oneGlobalFallbackThresholdOnly": true,
+    "routeSpecificFallbackThresholdsForbidden": true,
+    "routerMarginTuningForbidden": true,
+    "routeabilityThresholdRetuneForbidden": true,
+    "scopeCutoffRetuneForbidden": true,
+    "traditionalLiuYaoFeaturesForbidden": true
+  }
+}

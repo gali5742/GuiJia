@@ -105,6 +105,12 @@
       "all post-lock independent data"
     ]
   },
+  "calibrationRuntimeLock": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration-runtime.lock.json",
+    "gitBlobSha": "1ce1f1a8df5d5073cc226503a704e44c9d528573",
+    "status": "locked_before_first_encoder_scoring",
+    "requiredByTrainer": true
+  },
   "calibrationBoundary": {
     "calibrationMayTrain": false,
     "mayChooseOnly": "one_global_fallback_identity_threshold",
