@@ -1,0 +1,261 @@
+{
+  "version": "0.13-scope-finalization-v0.2-calibration-failure-v0.1",
+  "status": "calibration_failed_no_safe_cutoff",
+  "scope": "liuyao_semantic_candidate_v0.4_scope_finalization",
+  "candidateV04Lockable": false,
+  "evidenceStatus": {
+    "freshCalibration": true,
+    "independentGeneralizationClaim": false,
+    "sealedCorpusMutated": false,
+    "thresholdsRetuned": false,
+    "architectureMutated": false
+  },
+  "dependencies": {
+    "design": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+      "sha256": "d1de39499b9a180e13df005c2b9d48f6fae58770844a491ca9eb63951dab0eb2"
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-scope-finalization-v0.2-calibration.json",
+      "sha256": "80aeb32d303bdaa12a21ee1ba0089286e396997021ca747389a2adac91a8c652"
+    },
+    "calibrationLock": {
+      "path": "data/liuyao-semantic-scope-finalization-v0.2-calibration.lock.json",
+      "sha256": "3e36b1c0a530e116ebc01902ab3b7e37cf61a606fb0d8984682f58c73057e701"
+    },
+    "correctedDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "sha256": "d9ad664c23642dae914772a6a4416486f0e959d4f312838965428532134fd238"
+    },
+    "routeability": {
+      "path": "data/liuyao-semantic-routeability-v0.4.json",
+      "sha256": "3cb47c30e806605c8886d66ce20cc475be5c9c574256a76a092704cd4ec66db3"
+    },
+    "identity": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.2.json",
+      "sha256": "261d0222a481a599d6fd6ff0f7cf792b8562bdd495c3ba937362489c845935e7"
+    },
+    "acceptance": {
+      "path": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+      "sha256": "869b36a5b5f20889b5dd7b86f3514cdeef4c9f17d0792d1569c861fc6a34a3ae"
+    }
+  },
+  "constraints": {
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05
+  },
+  "thresholdCount": 224,
+  "safeThresholdCount": 0,
+  "feasibility": {
+    "accuracyOnly": 224,
+    "overallFalseActivationOnly": 109,
+    "subtypeFalseActivationOnly": 0,
+    "accuracyAndOverall": 109,
+    "accuracyAndSubtype": 0,
+    "overallAndSubtype": 0,
+    "allThree": 0
+  },
+  "boundary": {
+    "cutoffZero": {
+      "cutoff": 0,
+      "knownExact": 111,
+      "knownRetention": 0.8409090909090909,
+      "knownActivated": 111,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 8,
+      "overallFalseActivation": 0.08888888888888889,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    },
+    "cutoffOne": {
+      "cutoff": 1,
+      "knownExact": 43,
+      "knownRetention": 0.32575757575757575,
+      "knownActivated": 43,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 2,
+      "overallFalseActivation": 0.022222222222222223,
+      "maxSubtypeFalseActivation": 0.06666666666666667,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 2,
+          "falseActivation": 0.06666666666666667
+        }
+      },
+      "bypasses": 43
+    },
+    "bestKnownIgnoringSafety": {
+      "cutoff": 0.405529168560036,
+      "knownExact": 111,
+      "knownRetention": 0.8409090909090909,
+      "knownActivated": 111,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 7,
+      "overallFalseActivation": 0.07777777777777778,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    },
+    "minimumOverallFalseActivation": {
+      "cutoff": 0.6492655222695888,
+      "knownExact": 91,
+      "knownRetention": 0.6893939393939394,
+      "knownActivated": 91,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 2,
+      "overallFalseActivation": 0.022222222222222223,
+      "maxSubtypeFalseActivation": 0.06666666666666667,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 2,
+          "falseActivation": 0.06666666666666667
+        }
+      },
+      "bypasses": 41
+    },
+    "minimumMaxSubtypeFalseActivation": {
+      "cutoff": 0.6492655222695888,
+      "knownExact": 91,
+      "knownRetention": 0.6893939393939394,
+      "knownActivated": 91,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 2,
+      "overallFalseActivation": 0.022222222222222223,
+      "maxSubtypeFalseActivation": 0.06666666666666667,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 2,
+          "falseActivation": 0.06666666666666667
+        }
+      },
+      "bypasses": 41
+    },
+    "maximumAcceptedRouteAccuracy": {
+      "cutoff": 0.405529168560036,
+      "knownExact": 111,
+      "knownRetention": 0.8409090909090909,
+      "knownActivated": 111,
+      "wrongKnown": 0,
+      "acceptedRouteAccuracy": 1,
+      "falseActivations": 7,
+      "overallFalseActivation": 0.07777777777777778,
+      "maxSubtypeFalseActivation": 0.2,
+      "bySubtype": {
+        "outside_current_22": {
+          "total": 30,
+          "activated": 0,
+          "falseActivation": 0
+        },
+        "route_unresolved": {
+          "total": 30,
+          "activated": 1,
+          "falseActivation": 0.03333333333333333
+        },
+        "near_domain_not_current_route": {
+          "total": 30,
+          "activated": 6,
+          "falseActivation": 0.2
+        }
+      },
+      "bypasses": 0
+    }
+  },
+  "irreducibleAtCutoffOne": {
+    "nonRouteActivations": 2,
+    "nonRouteRows": [
+      {
+        "id": "SC2-198",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "partnership",
+        "arbitrationRoute": "partnership",
+        "arbitrationStrength": "strong",
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.548614598949714
+      },
+      {
+        "id": "SC2-220",
+        "subtype": "near_domain_not_current_route",
+        "selectedRoute": "debt_collection",
+        "arbitrationRoute": "debt_collection",
+        "arbitrationStrength": "strong",
+        "strongScopeBypassEligible": true,
+        "scopeProbability": 0.6581343830171821
+      }
+    ],
+    "wrongKnownActivations": 0,
+    "wrongKnownRows": []
+  },
+  "conclusion": "No global Scope hard-veto cutoff satisfies the frozen Candidate v0.4 safety constraints. Candidate v0.4 must not be locked or promoted from this calibration."
+}
