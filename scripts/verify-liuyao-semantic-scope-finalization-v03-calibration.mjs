@@ -32,7 +32,7 @@ assert(calibration.policy?.useAsDevelopmentEval === false && calibration.policy?
 assert(calibration.policy?.parameterToCalibrate === 'scope_hard_veto_cutoff' && calibration.policy?.parameterCount === 1, 'scope parameter contract drift');
 assert(calibration.policy?.otherModelOrGateParametersMayChange === false && calibration.policy?.multiTextEncoderBatchForbidden === true, 'scope calibration mutation/representation policy drift');
 assert(calibration.policy?.candidateV04ScopeCalibrationExcluded === true, 'Candidate v0.4 Scope calibration exclusion missing');
-assert(calibration.policy?.fallbackAcceptanceCalibrationExcluded === true && calibration.policy?.routeabilityCalibrationExcluded === true && calibration.policy?.sealedBlindAndIndependentExcluded === true, 'scope forbidden-source policy drift');
+assert(calibration.policy?.fallbackAcceptanceCalibrationExcluded === true && calibration.policy?.routeabilityCalibrationExcluded === true && calibration.policy?.allDevelopmentIndependentBlindExcluded === true && calibration.policy?.candidateV04RegressionRowsExcluded === true, 'scope forbidden-source policy drift');
 
 const counts = calibration.counts || {};
 assert(calibration.rows?.length === 222 && counts.total === 222, 'scope calibration total != 222');
