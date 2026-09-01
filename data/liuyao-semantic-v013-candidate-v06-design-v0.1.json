@@ -1,0 +1,83 @@
+{
+  "version": "0.13-candidate-v0.6-design-v0.1",
+  "status": "design_frozen_before_v06_calibration_data",
+  "scope": "liuyao_semantic_current_22",
+  "predecessor": {
+    "candidate": "v0.5",
+    "terminalPath": "data/liuyao-semantic-v013-candidate-v05-terminal-v0.1.json",
+    "statusRequired": "failed_before_candidate_lock"
+  },
+  "problemStatement": "Candidate v0.5 removed the v0.4 governance/documentation and accounting-classification irreducible strong activations, but fresh v0.5 Scope calibration still exposed two rule/procedure information forms that were not represented as unsupported targets: requirements-list-definition and required-materials procedure questions.",
+  "responsibilityDecision": {
+    "earliestWrongLayer": "modern_information_target_evidence",
+    "strongScopeBypassChanged": false,
+    "scopeModelChanged": false,
+    "learnedModelChanged": false,
+    "newUnsupportedFamilyAdded": false,
+    "existingUnsupportedFamilyToExtend": "rule_or_procedure_information"
+  },
+  "allowedChangeSurface": {
+    "runtime": [
+      "js/liuyao-semantic-route-evidence-v05.js",
+      "js/liuyao-semantic-route-arbitration-v014.js"
+    ],
+    "semanticExpansion": [
+      "generic requirements-list information intent such as 条件/要求包括什么或包括哪些",
+      "generic procedural required-material information intent such as 办理/申请/登记需要准备或提交哪些材料/资料/证件"
+    ],
+    "mustRemainDomainGeneric": true,
+    "rowIdSpecificExceptionsForbidden": true
+  },
+  "frozenDependencies": {
+    "correctedSemanticDependencies": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "correctedRouteability": "data/liuyao-semantic-routeability-v0.4.json",
+    "correctedIdentity": "data/liuyao-semantic-fallback-identity-v0.2.json",
+    "fallbackAcceptance": "data/liuyao-semantic-fallback-acceptance-v0.1.json",
+    "routeSelection": "js/liuyao-semantic-route-selection-v05.js",
+    "finalization": "js/liuyao-semantic-finalization-v02.js",
+    "compatibility": "js/liuyao-semantic-route-compatibility-v03.js",
+    "routeInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "currentRouteCount": 22,
+    "policyGateChanged": false,
+    "traditionalRuleLayerChanged": false
+  },
+  "evidenceSemantics": {
+    "supportedCurrentTargetPrecedence": true,
+    "principle": "A positive supported current outcome target remains routable even when the sentence also mentions requirements, documents, materials, procedures, or conditions. Information-only questions with no supported current outcome target are unsupported.",
+    "reuseUnsupportedTarget": "rule_or_procedure_information"
+  },
+  "calibrationPolicy": {
+    "freshScopeCalibrationRequired": true,
+    "candidateV05ScopeCalibrationForbiddenForThresholdChoice": true,
+    "candidateV04ScopeCalibrationForbiddenForThresholdChoice": true,
+    "allPriorDevelopmentIndependentBlindForbiddenForThresholdChoice": true,
+    "freeParameterCount": 1,
+    "freeParameter": "scope_hard_veto_cutoff",
+    "otherModelOrGateParametersMayChange": false,
+    "textsPerEncoderCall": 1
+  },
+  "evaluationPolicy": {
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "noStructuralPathCollapse": true
+    },
+    "sequence": [
+      "fresh_scope_calibration",
+      "fresh_prelock_full_stack_development",
+      "candidate_lock",
+      "fresh_post_lock_independent"
+    ],
+    "sameVersionRetuneAfterIndependentForbidden": true
+  },
+  "complexityBudget": {
+    "encoderCount": 1,
+    "newLearnedParameters": 0,
+    "newGlobalThresholds": 0,
+    "newRouteSpecificThresholds": 0,
+    "newUnsupportedTargetFamilies": 0,
+    "goal": "repair information-intent coverage without growing the learned model or adding a new gate"
+  }
+}
