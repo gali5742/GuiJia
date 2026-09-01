@@ -66,8 +66,8 @@
         });
 
         if (assessment.resolutionStatus === 'resolved'
-            && ['not_assessed','insufficient_evidence'].includes(assessment.assessmentStatus)) {
-            issues.push(issue('resolved_status_incompatible_with_unassessed_state'));
+            && assessment.assessmentStatus === 'not_assessed') {
+            issues.push(issue('resolved_status_incompatible_with_not_assessed'));
         }
         if (assessment.resolutionStatus === 'unresolved'
             && !['not_assessed','insufficient_evidence'].includes(assessment.assessmentStatus)) {
