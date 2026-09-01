@@ -17,12 +17,16 @@
     // v0.4 expands information-target coverage at the semantic-object level. These patterns
     // describe reusable documentation/governance/accounting information classes rather than
     // route-specific exceptions. A positively extracted supported current outcome still wins.
+    const definitionOrExplanationIntent = /(?:是什么|什么意思|是什么意思|怎么理解|如何理解|怎样理解|怎么解释|如何解释|怎样解释|怎么看|如何看|怎样看)/.test(text);
+
     const governanceOrDocumentationSubject = /(?:职责分工|职责安排|责任分配|岗位职责|权责分工|权责安排|权限分配|工作分工|利益分配|合伙协议|合作协议|协议模板|合同模板|协议条款|合同条款|条款写法|章程|借条|欠条|收据)/.test(text);
-    const governanceOrDocumentationInfoIntent = /(?:(?:怎么|如何|怎样|通常|一般|应该|需要)[^，。？！?]{0,14}(?:写|填|填写|分|安排|约定|规定|起草|拟定|设置|明确|制作)|(?:模板|范本|写法|怎么写|如何写|怎样写|怎么分|如何分|怎样分|怎么填|如何填|怎样填))/.test(text);
+    const governanceOrDocumentationInfoIntent = /(?:(?:怎么|如何|怎样|通常|一般|应该|需要)[^，。？！?]{0,14}(?:写|填|填写|分|安排|约定|规定|起草|拟定|设置|明确|制作)|(?:模板|范本|写法|怎么写|如何写|怎样写|怎么分|如何分|怎样分|怎么填|如何填|怎样填))/.test(text)
+      || definitionOrExplanationIntent;
     const explicitGovernanceOrDocumentationInfo = governanceOrDocumentationSubject && governanceOrDocumentationInfoIntent;
 
-    const accountingClassificationSubject = /(?:账龄|账龄分析|会计科目|会计分类|账务分类|账务处理|核算口径|入账|记账|应收账款|应付账款|应付款|存货计价|成本归类|会计凭证|记账凭证|财务报表|现金流量表|资产负债表|利润表|坏账准备|盘点表|库存台账|台账|发票)/.test(text);
-    const accountingClassificationInfoIntent = /(?:(?:怎么|如何|怎样|通常|一般|应该|需要|按什么)[^，。？！?]{0,16}(?:分类|归类|记录|记账|入账|核算|计算|处理|划分|编|编制|填|填写|开具|计提)|(?:分哪类|分几类|属于哪类|归哪类|分类标准|分类规则|核算方法|记账方法|入账方法|会计上怎么|账务上怎么|怎么编|如何编|怎样编|怎么填|如何填|怎样填))/.test(text);
+    const accountingClassificationSubject = /(?:账龄|账龄分析|应收账款周转率|应付账款周转率|库存周转率|存货周转率|会计科目|会计分类|账务分类|账务处理|核算口径|入账|记账|应收账款|应付账款|应付款|存货计价|成本归类|会计凭证|记账凭证|财务报表|现金流量表|资产负债表|利润表|坏账准备|盘点表|库存台账|台账|发票)/.test(text);
+    const accountingClassificationInfoIntent = /(?:(?:怎么|如何|怎样|通常|一般|应该|需要|按什么)[^，。？！?]{0,16}(?:分类|归类|记录|记账|入账|核算|计算|处理|划分|编|编制|填|填写|开具|计提)|(?:分哪类|分几类|属于哪类|归哪类|分类标准|分类规则|核算方法|记账方法|入账方法|会计上怎么|账务上怎么|怎么编|如何编|怎样编|怎么填|如何填|怎样填))/.test(text)
+      || definitionOrExplanationIntent;
     const explicitAccountingClassificationInfo = accountingClassificationSubject && accountingClassificationInfoIntent;
 
     if (!hasSupportedCurrentTarget) {
