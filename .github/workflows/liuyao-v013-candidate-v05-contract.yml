@@ -1,0 +1,32 @@
+name: LiuYao Candidate v0.5 Design and Semantic Contract
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core-train-v01
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-terminal-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v05-design-v0.1.json'
+      - 'js/liuyao-semantic-route-evidence-v04.js'
+      - 'js/liuyao-semantic-route-arbitration-v013.js'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v05-design.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v05-semantics.mjs'
+      - '.github/workflows/liuyao-v013-candidate-v05-contract.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core-train-v01
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.5 design freeze
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-design.mjs
+      - name: Verify Candidate v0.5 unsupported-target semantics
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-semantics.mjs
