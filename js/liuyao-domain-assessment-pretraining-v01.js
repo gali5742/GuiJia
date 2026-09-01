@@ -49,6 +49,10 @@
         ].forEach((key) => {
             if (!hasText(assessment[key])) issues.push(issue(`${key}_required`));
         });
+        if (Object.prototype.hasOwnProperty.call(assessment, 'alternativeId')
+            && !hasText(assessment.alternativeId)) {
+            issues.push(issue('alternativeId_invalid'));
+        }
 
         if (!RESOLUTION_STATUSES.includes(assessment.resolutionStatus)) {
             issues.push(issue('resolution_status_invalid', { value:assessment.resolutionStatus || null }));
@@ -98,6 +102,10 @@
         ].forEach((key) => {
             if (!hasText(request[key])) issues.push(issue(`${key}_required`));
         });
+        if (Object.prototype.hasOwnProperty.call(request, 'alternativeId')
+            && !hasText(request.alternativeId)) {
+            issues.push(issue('alternativeId_invalid'));
+        }
 
         if (!validRefArray(request.evidenceRefs)) issues.push(issue('evidence_refs_invalid'));
         if (request.evidenceResolutionStatus
@@ -122,6 +130,7 @@
     };
 
     const unresolvedEnvelope = (request, reason, extraIssues = []) => ({
+        ...(hasText(request?.alternativeId) ? { alternativeId:request.alternativeId } : {}),
         assessmentRef:request?.assessmentRef || 'unregistered_assessment',
         assessmentVersion:request?.assessmentVersion || VERSION,
         contractFamily:request?.contractFamily || 'unresolved',
@@ -189,6 +198,7 @@
         sharedEvaluator:false,
         activeEvaluatorCount:ACTIVE_EVALUATORS.length,
         activeEvaluators:[...ACTIVE_EVALUATORS],
+        choiceBindingRequiredBeforeComparator:true,
         fallbackPolarityMappingEnabled:false,
         evidenceCountingEnabled:false,
         probabilityEnabled:false,
