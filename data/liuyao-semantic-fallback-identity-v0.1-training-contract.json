@@ -1,0 +1,113 @@
+{
+  "version": "0.13-fallback-identity-v0.1-training-contract-v0.1",
+  "status": "locked_before_first_encoder_scoring",
+  "scope": "liuyao_semantic_fallback_identity_v0.1",
+  "candidateDesign": {
+    "path": "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+    "sha256": "2b802c93712f510d096c2771032c362c497aba17fe98c6bc4e4933a81580c093"
+  },
+  "sealedData": {
+    "lockPath": "data/liuyao-semantic-fallback-identity-v0.1-data.lock.json",
+    "lockSha256": "ddc2ca59e3d31934f48ad1b62d9e7db2dc6706e370644fca2dda2aea9a6a597d",
+    "trainingPath": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+    "trainingSha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+    "calibrationPath": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+    "calibrationSha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc"
+  },
+  "encoder": {
+    "dependencyLockPath": "data/liuyao-semantic-frozen-dependencies-v0.1.lock.json",
+    "dependencyLockSha256": "a53f22416f2dd1008759d9b53c76e4b0c618b2a3723af18c0b3d1f34df7ea77a",
+    "artifactSha256": "38c8ccb80269facc7b1dca56a98dd3cf718226a2b35ed06a4d8ca56500b3ae0f",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "algorithm": {
+    "modulePath": "js/liuyao-semantic-fallback-identity-model-v01.js",
+    "moduleSha256": "ae7ebbd1e197d0e7a764993216ac68e64ff562be7945d4221ffd3cceb4baf1e2",
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "routeOrder": [
+      "financial_fortune",
+      "business_operation",
+      "commercial_transaction",
+      "inventory_purchase",
+      "inventory_sale",
+      "borrow_money",
+      "lend_money",
+      "debt_collection",
+      "debt_repayment",
+      "partnership",
+      "investment_profit",
+      "investment_liquidation",
+      "investment_suitability",
+      "investment_position_decision",
+      "investment_price_trend",
+      "income_salary",
+      "income_bonus",
+      "receive_item",
+      "item_purchase",
+      "relationship_development",
+      "marriage_match",
+      "marital_relationship"
+    ],
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "optimizer": "deterministic_full_batch_gradient_descent_with_epoch_decay_lr",
+    "learningRateAtEpoch": "learningRate / (1 + epoch * 0.01)",
+    "classBalancing": {
+      "positiveTotalWeight": 0.5,
+      "negativeTotalWeight": 0.5
+    },
+    "regularization": {
+      "weights": "l2",
+      "bias": "none"
+    },
+    "positiveLabelRule": "expectedRoute === headRoute",
+    "negativeLabelRule": "all other current22 labels plus genuine nonroute",
+    "normalizedTextConflictPolicy": "hard_fail",
+    "sameNormalizedTextSameLabelPolicy": "deduplicate_before_embedding"
+  },
+  "trainingSources": {
+    "allowedHistoricalRouterTrainOnly": [
+      "data/liuyao-semantic-route-training-v0.1.json",
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json"
+    ],
+    "allowedFreshTraining": [
+      "data/liuyao-semantic-fallback-identity-v0.1-training.json"
+    ],
+    "mustExclude": [
+      "all Router validation splits",
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "all v0.11/v0.12 sealed blind data",
+      "Candidate v0.1 independent eval",
+      "Candidate v0.2 independent eval",
+      "all v0.13 development evaluation data",
+      "Routeability v0.3 calibration data",
+      "all post-lock independent data"
+    ]
+  },
+  "calibrationBoundary": {
+    "calibrationMayTrain": false,
+    "mayChooseOnly": "one_global_fallback_identity_threshold",
+    "routeSpecificThresholdsForbidden": true,
+    "routeabilityThresholdRetuneForbidden": true,
+    "scopeCutoffRetuneForbidden": true,
+    "routerMarginTuningForbidden": true,
+    "objective": "maximize fallback known-route retention subject to accepted route accuracy >= 0.98, overall nonroute false activation <= 0.05, and each nonroute subtype false activation <= 0.05"
+  },
+  "featureBoundary": {
+    "traditionalLiuYaoFeaturesForbidden": true,
+    "semanticFeature": "frozen_encoder_vector_only"
+  }
+}
