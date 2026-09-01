@@ -12,8 +12,8 @@ const changes = [
   {
     id:'SC3-004',
     from:'仓库下一轮补货月底前能不能到齐',
-    to:'仓库下一轮补货月底前能不能全部入库',
-    reason:'preserve declared strong inventory_purchase path using the frozen inventory-acquisition anchor; no model or threshold scoring has occurred'
+    to:'仓库下一轮这批货月底前能不能全部入库',
+    reason:'preserve declared strong inventory_purchase path using frozen inventory-acquisition plus inventory-object evidence; no model or threshold scoring has occurred'
   }
 ];
 for (const change of changes) {
