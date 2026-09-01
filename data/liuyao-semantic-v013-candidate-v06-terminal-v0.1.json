@@ -1,0 +1,71 @@
+{
+  "version": "0.13-candidate-v0.6-terminal-v0.1",
+  "status": "failed_before_candidate_lock",
+  "candidate": "v0.6",
+  "scope": "liuyao_semantic_current_22",
+  "candidateLockCreated": false,
+  "independentEvaluationAllowed": false,
+  "reason": "fresh_scope_calibration_has_no_global_cutoff_satisfying_all_frozen_safety_gates",
+  "evidence": {
+    "designPath": "data/liuyao-semantic-v013-candidate-v06-design-v0.1.json",
+    "sealedScopeCalibrationPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration.json",
+    "sealedScopeCalibrationLockPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration.lock.json",
+    "failureReportPath": "data/liuyao-semantic-scope-finalization-v0.4-calibration-failure.json"
+  },
+  "failureSummary": {
+    "thresholdCandidates": 224,
+    "safeThresholds": 0,
+    "acceptedAccuracyConstraintFeasibleThresholds": 224,
+    "overallFalseActivationConstraintFeasibleThresholds": 0,
+    "perSubtypeFalseActivationConstraintFeasibleThresholds": 0,
+    "minimumOverallFalseActivation": 0.05555555555555555,
+    "minimumMaxSubtypeFalseActivation": 0.16666666666666666,
+    "irreducibleNearDomainFalseActivationsAtCutoffOne": 5
+  },
+  "irreducibleFailureClasses": [
+    {
+      "semanticClass": "generic_information_request",
+      "observedForm": "accounting_analysis_how_to",
+      "exampleId": "SC4-197",
+      "failureMechanism": "generic_information_speech_act_not_blocked_before_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    },
+    {
+      "semanticClass": "generic_information_request",
+      "observedForm": "governance_documentation_how_to",
+      "exampleId": "SC4-200",
+      "failureMechanism": "generic_information_speech_act_not_blocked_before_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    },
+    {
+      "semanticClass": "generic_information_request",
+      "observedForm": "tax_calculation_how_to",
+      "exampleId": "SC4-210",
+      "failureMechanism": "generic_information_speech_act_not_blocked_before_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    },
+    {
+      "semanticClass": "generic_information_request",
+      "observedForm": "procedure_recovery_how_to",
+      "exampleId": "SC4-212",
+      "failureMechanism": "generic_information_speech_act_not_blocked_before_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    },
+    {
+      "semanticClass": "generic_information_request",
+      "observedForm": "concept_interpretation_how_to",
+      "exampleId": "SC4-220",
+      "failureMechanism": "generic_information_speech_act_not_blocked_before_domain_anchor_created_confirmed_strong_route_and_scope_bypass"
+    }
+  ],
+  "regressionConclusion": {
+    "candidateV05RequirementsListFailureRemoved": true,
+    "candidateV05RequiredMaterialsFailureRemoved": true,
+    "priorInformationTargetFamiliesRemainUseful": true,
+    "continuingFamilyByFamilyEvidenceExpansionRecommended": false,
+    "strongScopeBypassMechanismDisproved": false,
+    "earliestWrongResponsibilityLayer": "modern_question_mode_before_arbitration"
+  },
+  "immutability": {
+    "sealedCalibrationMayBeEdited": false,
+    "sameCandidateMayBeRetuned": false,
+    "promotionClaim": false
+  },
+  "next": "new_candidate_version_required_with_domain_generic_question_mode_gate_before_arbitration"
+}
