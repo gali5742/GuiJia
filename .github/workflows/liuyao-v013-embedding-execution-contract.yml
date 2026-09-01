@@ -1,0 +1,24 @@
+name: LiuYao v0.13 Embedding Execution Contract
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-embedding-execution-contract-v0.1.json'
+      - 'scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs'
+      - '.github/workflows/liuyao-v013-embedding-execution-contract.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify canonical single-text embedding execution contract
+        run: node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs

@@ -1,0 +1,85 @@
+{
+  "version": "0.13-semantic-embedding-execution-contract-v0.1",
+  "status": "locked_before_representation_correction",
+  "scope": "liuyao_semantic_current22_learned_dependencies",
+  "canonicalExecution": {
+    "unit": "one_normalized_question_per_encoder_invocation",
+    "textsPerEncoderCall": 1,
+    "appliesTo": [
+      "training",
+      "calibration",
+      "development",
+      "independent",
+      "browser_runtime"
+    ],
+    "outerIterationOrConcurrencyAllowed": true,
+    "multiTextFeatureExtractionBatchForbidden": true
+  },
+  "encoder": {
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "changeAllowedForRepresentationCorrection": false
+  },
+  "productionEvidence": {
+    "runtimePath": "js/liuyao-semantic-router-runtime-v01.js",
+    "runtimeGitBlobSha": "0ec9762b7299bb79cce68627ff17dce5a1777105",
+    "normalClassifyCall": "embedTexts([normalized])",
+    "effectiveEncoderBatchSize": 1
+  },
+  "executionAudit": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-embedding-execution-audit.json",
+    "gitBlobSha": "628f4d6590576c1a57bfade31f84513edc4676e1",
+    "architectureOnly": true,
+    "thresholdSelectionEligible": false,
+    "promotionEvidenceEligible": false,
+    "discreteDecisionDriftObserved": true
+  },
+  "legacyArtifacts": [
+    {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.1.json",
+      "gitBlobSha": "58f10fa9e12107b780df7b4c3d1235d8d5ff9b74",
+      "status": "legacy_batched_representation",
+      "mutationAllowed": false
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.2.json",
+      "gitBlobSha": "60c38a354f86a7a7d58d75c8b76da588f6a71eae",
+      "status": "legacy_batched_representation",
+      "mutationAllowed": false
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3.json",
+      "gitBlobSha": "cc5ad3f3b56ac7ccf9a22a5a14da7198c116c0fc",
+      "status": "legacy_batched_representation",
+      "mutationAllowed": false
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-model.json",
+      "gitBlobSha": "f744e8834cfee08a9c0ba826a518b038168fc0a1",
+      "status": "legacy_batched_representation",
+      "mutationAllowed": false
+    }
+  ],
+  "representationCorrectionPolicy": {
+    "sameOriginalTrainingAndCalibrationCorporaMayBeReused": true,
+    "purpose": "remap unchanged learned algorithms into the production-equivalent single-text representation space",
+    "newSemanticFeaturesAllowed": false,
+    "newEncoderAllowed": false,
+    "hyperparameterChangesAllowed": false,
+    "routeSpecificThresholdsAllowed": false,
+    "oldCalibrationMayBeReportedAsFreshGeneralizationEvidence": false,
+    "oldDevelopmentOrIndependentMayBeUsedForTraining": false,
+    "freshDevelopmentMayResumeOnlyAfterCorrectedDependenciesLocked": true
+  },
+  "scopeHardVeto": {
+    "legacyValue": 0.4196,
+    "legacyProvenance": "hardcoded in frozen-dependency and Candidate v0.1 generators without a bound replayable calibration corpus",
+    "inheritIntoCorrectedProbabilitySpace": false,
+    "correctedCandidateStatus": "requires_candidate_revalidation"
+  }
+}
