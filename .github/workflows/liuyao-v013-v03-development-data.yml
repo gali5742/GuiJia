@@ -1,0 +1,76 @@
+name: LiuYao v0.13-v0.3 Fresh Development Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v03-development.mjs'
+      - '.github/workflows/liuyao-v013-v03-development-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-development:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture source checkout
+        run: echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify frozen Fallback Identity model before data creation
+        run: node scripts/verify-liuyao-semantic-fallback-identity-v01-model.mjs
+
+      - name: Generate fresh Candidate v0.3 development data
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs
+
+      - name: Verify preseal path contracts and corpus isolation
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development.mjs
+
+      - name: Seal before any development encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v03-development.mjs
+
+      - name: Verify sealed development data and lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development.mjs
+
+      - name: Commit sealed fresh development data
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v03-development.json
+          git add data/liuyao-semantic-v013-candidate-v03-development.lock.json
+          if git diff --cached --quiet; then
+            echo 'Fresh Candidate v0.3 development data already matches committed state.'
+            exit 0
+          fi
+          git commit -m 'test(liuyao): seal fresh candidate v0.3 development data'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+            data/liuyao-semantic-fallback-identity-v0.1-model.json \
+            data/liuyao-semantic-fallback-identity-v0.1-model.lock.json \
+            data/liuyao-semantic-fallback-identity-v0.1-training-contract.json \
+            data/liuyao-semantic-fallback-identity-v0.1-calibration-runtime.lock.json \
+            js/liuyao-semantic-route-evidence-v01.js \
+            js/liuyao-semantic-route-evidence-v02.js \
+            js/liuyao-semantic-route-evidence-v03.js \
+            js/liuyao-semantic-route-arbitration-v011.js \
+            js/liuyao-semantic-route-arbitration-v012.js; then
+            echo 'Frozen Candidate v0.3 inputs changed during development-data sealing; refusing stale seal.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
