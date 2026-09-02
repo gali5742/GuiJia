@@ -22,6 +22,13 @@ const textCorrections = [
     from:'项目结束后的奖励金会不会有我的份',
     to:'这次项目收尾以后，公司另外那份奖励最后会不会发到我这里',
     reason:'remove_train_calibration_near_duplicate_before_any_encoder_scoring'
+  },
+  {
+    corpus:'training',
+    id:'V04-FI-T-133',
+    from:'这次资格考试最后能不能通过',
+    to:'我准备参加的专业认证这回能不能顺利拿下来',
+    reason:'remove_historical_exact_overlap_before_any_encoder_scoring'
   }
 ];
 for (const correction of textCorrections) {
@@ -103,7 +110,7 @@ const ensureRouteCoverage = (corpus, split) => {
     if (row.deterministicPath !== 'fallback_candidate') {
       throw new Error(`fallback anchor still resolves upstream: ${split}/${routeId}/${row.text}/${row.arbitrationRoute}`);
     }
-    corrections.push({ id:row.id, routeId, reason:'ensure_one_fallback_style_known_per_route_before_any_encoder_scoring', from:previous, to:row.text });
+    corrections.push({ corpus:split === 'train' ? 'training' : 'calibration', id:row.id, routeId, reason:'ensure_one_fallback_style_known_per_route_before_any_encoder_scoring', from:previous, to:row.text });
   }
   return corrections;
 };
@@ -112,7 +119,6 @@ const coverageCorrections = [
   ...ensureRouteCoverage(calibration,'calibration')
 ];
 
-// Re-annotate after route coverage corrections.
 for (const row of training.rows) annotate(row);
 for (const row of calibration.rows) annotate(row);
 const fallbackCount = (rows) => rows.filter((row) => row.identityLabel === 'route_identity_positive' && row.deterministicPath === 'fallback_candidate').length;
@@ -123,10 +129,10 @@ if (calibrationFallback < 22) throw new Error(`calibration fallback-style known 
 
 const correctionSummary = [
   ...textCorrections.map(({corpus,id,reason}) => ({corpus,id,reason})),
-  ...coverageCorrections.map(({id,routeId,reason}) => ({id,routeId,reason}))
+  ...coverageCorrections.map(({corpus,id,routeId,reason}) => ({corpus,id,routeId,reason}))
 ];
-training.presealCorrections = correctionSummary.filter((item) => item.corpus !== 'calibration');
-calibration.presealCorrections = correctionSummary.filter((item) => item.corpus !== 'training');
+training.presealCorrections = correctionSummary.filter((item) => item.corpus === 'training');
+calibration.presealCorrections = correctionSummary.filter((item) => item.corpus === 'calibration');
 training.presealPathSummary = { fallbackStyleKnown:trainingFallback, upstreamResolvedKnown:132-trainingFallback };
 calibration.presealPathSummary = { fallbackStyleKnown:calibrationFallback, upstreamResolvedKnown:88-calibrationFallback };
 training.schemaRevisionReason = 'v0.2 refines overly strict v0.1 all-known-Arbitration-null requirement after deterministic preseal failure; no encoder scoring observed';
@@ -137,4 +143,4 @@ fs.writeFileSync(calibrationPath, `${JSON.stringify(calibration, null, 2)}\n`, '
 console.log('Candidate v0.4 Fallback Identity v0.2 deterministic preseal corrections/path annotations applied.');
 console.log(`- training fallback-style known: ${trainingFallback}/132`);
 console.log(`- calibration fallback-style known: ${calibrationFallback}/88`);
-console.log(`- route coverage corrections: ${coverageCorrections.length}; label changes: 0; encoder scoring: 0`);
+console.log(`- route coverage corrections: ${coverageCorrections.length}; text-isolation corrections: ${textCorrections.length}; label changes: 0; encoder scoring: 0`);
