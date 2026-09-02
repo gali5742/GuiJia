@@ -18,6 +18,7 @@ const tests = [
   'tests/liuyao-line-status-fact-adapter-pretraining-v01-tests.js',
   'tests/liuyao-line-status-fact-adapter-pretraining-v02-tests.js',
   'tests/liuyao-shi-ying-fact-adapter-pretraining-v01-tests.js',
+  'tests/liuyao-move-transform-fact-adapter-pretraining-v01-tests.js',
   'tests/liuyao-travel-line-evidence-adapter-pretraining-v01-tests.js',
   'tests/liuyao-travel-line-fact-assessment-e2e-v01-tests.js',
   'tests/liuyao-travel-line-evidence-adapter-pretraining-v02-tests.js',
@@ -32,7 +33,9 @@ const tests = [
   'tests/liuyao-travel-execution-assessment-pretraining-v03-tests.js',
   'tests/liuyao-travel-execution-comparator-pretraining-v03-tests.js',
   'tests/liuyao-travel-execution-reading-scoped-e2e-v03-tests.js',
-  'tests/liuyao-travel-alternative-anchor-pretraining-v01-tests.js'
+  'tests/liuyao-travel-alternative-anchor-pretraining-v01-tests.js',
+  'tests/liuyao-travel-transport-delay-evidence-adapter-pretraining-v01-tests.js',
+  'tests/liuyao-travel-transport-retreat-evidence-e2e-v01-tests.js'
 ];
 
 for (const test of tests) {
