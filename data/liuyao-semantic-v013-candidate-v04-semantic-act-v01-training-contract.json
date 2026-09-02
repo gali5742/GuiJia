@@ -1,0 +1,99 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-v0.1-training-contract-v0.1",
+  "status": "locked_before_first_semantic_act_encoder_scoring",
+  "scope": "liuyao_semantic_act_eligibility_v0.1",
+  "candidateDesign": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+    "commit": "401c925a0d1f5ed054cad2a937bffbce7c9a57d0",
+    "gitBlobSha": "cc2f830118a5ee4e6fc22cb4ddcc78427f286d18"
+  },
+  "sealedData": {
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-data.lock.json",
+    "lockGitBlobSha": "ceb34ed76c9552e9cc7a371b9fc201f3edddaca5",
+    "trainingPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+    "trainingSha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+    "trainingRows": 132,
+    "calibrationPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+    "calibrationSha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+    "calibrationRows": 66,
+    "schemaSha256": "fb960bc00d7599b9a02bbfe6da4560de3b306ab4e6ef1763b6dc429f318849d2",
+    "dataContractSha256": "1b0b07b0455e7b29a68edc1b1d0e72ed9f8be21ba5617dca6e0f67a7a3aa8013"
+  },
+  "encoderExecution": {
+    "contractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "contractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "correctedFrozenDependenciesPath": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "correctedFrozenDependenciesSha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+  },
+  "algorithm": {
+    "modulePath": "js/liuyao-semantic-act-eligibility-model-v01.js",
+    "moduleGitBlobSha": "9df6601a8e00787e98c96917b29b2109aaf44e47",
+    "type": "single_binary_logistic_head",
+    "positiveLabel": "eligible_divination_outcome_or_decision",
+    "negativeLabel": "ineligible_information_or_procedure",
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "optimizer": "deterministic_full_batch_gradient_descent_with_epoch_decay_lr",
+    "learningRateAtEpoch": "learningRate / (1 + epoch * 0.01)",
+    "classBalancing": {
+      "eligibleTotalWeight": 0.5,
+      "ineligibleTotalWeight": 0.5
+    },
+    "regularization": {
+      "weights": "l2",
+      "bias": "none"
+    },
+    "normalizedTextConflictPolicy": "hard_fail",
+    "hyperparameterSearchAllowed": false,
+    "encoderRetrainingAllowed": false
+  },
+  "trainingBoundary": {
+    "allowedSource": "sealed Semantic Act v0.1 training corpus only",
+    "calibrationRowsMayTrainWeights": false,
+    "CandidateV03DevelopmentMayTrainWeights": false,
+    "independentOrBlindRowsMayTrainWeights": false,
+    "newThemeResearchMayTrainWeights": false,
+    "traditionalLiuYaoFeaturesAllowed": false
+  },
+  "calibrationBoundary": {
+    "allowedSource": "sealed Semantic Act v0.1 calibration corpus only",
+    "weightsFrozenBeforeCalibrationScoring": true,
+    "mayChooseOnly": "one_global_semantic_act_eligibility_threshold",
+    "routeSpecificOrDomainSpecificThresholdsForbidden": true,
+    "minimumEligibleRetention": 0.95,
+    "maximumIneligibleFalsePass": 0.05,
+    "selectionOrder": [
+      "discard threshold regimes with eligible retention < 0.95",
+      "discard threshold regimes with ineligible false-pass > 0.05",
+      "among feasible regimes minimize ineligible false-pass",
+      "then maximize eligible retention"
+    ],
+    "thresholdRegimeEnumeration": "evaluate all distinct prediction regimes induced by calibration probabilities",
+    "tieThresholdPolicy": "for the selected prediction regime choose the midpoint between its highest rejected probability and lowest admitted probability, using 0 or 1 as an open boundary when needed",
+    "noFeasibleThresholdBehavior": "fail training attempt and freeze failure report; do not loosen gates in Candidate v0.4"
+  },
+  "outputPolicy": {
+    "modelPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+    "modelLockPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+    "calibrationReportPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-calibration-report.json",
+    "modelMayBeMarkedLockedOnlyIfCalibrationFeasible": true
+  },
+  "protectedEvaluationBoundary": {
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "CandidateV03FailureRowsRead": false,
+    "developmentReadForThresholdSelection": false
+  }
+}
