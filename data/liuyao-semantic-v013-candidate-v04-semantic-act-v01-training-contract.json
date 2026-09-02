@@ -78,7 +78,8 @@
       "discard threshold regimes with eligible retention < 0.95",
       "discard threshold regimes with ineligible false-pass > 0.05",
       "among feasible regimes minimize ineligible false-pass",
-      "then maximize eligible retention"
+      "then maximize eligible retention",
+      "if distinct feasible regimes remain tied on both metrics choose the regime represented by the higher threshold"
     ],
     "thresholdRegimeEnumeration": "evaluate all distinct prediction regimes induced by calibration probabilities",
     "tieThresholdPolicy": "for the selected prediction regime choose the midpoint between its highest rejected probability and lowest admitted probability, using 0 or 1 as an open boundary when needed",
