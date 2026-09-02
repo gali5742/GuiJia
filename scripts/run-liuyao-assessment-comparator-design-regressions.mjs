@@ -30,7 +30,8 @@ const tests = [
   'tests/liuyao-travel-execution-evidence-compose-pretraining-v03-tests.js',
   'tests/liuyao-travel-execution-assessment-pretraining-v03-tests.js',
   'tests/liuyao-travel-execution-comparator-pretraining-v03-tests.js',
-  'tests/liuyao-travel-execution-reading-scoped-e2e-v03-tests.js'
+  'tests/liuyao-travel-execution-reading-scoped-e2e-v03-tests.js',
+  'tests/liuyao-travel-alternative-anchor-pretraining-v01-tests.js'
 ];
 
 for (const test of tests) {
