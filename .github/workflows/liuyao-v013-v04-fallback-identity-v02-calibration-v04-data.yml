@@ -1,0 +1,76 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Calibration v0.4 Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-calibration-v04-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-calibration-v04:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Capture immutable calibration v0.4 data base
+        run: echo "CAL_V04_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Verify frozen sampling schema before generation
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');const crypto=require('crypto');const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+          const s=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.json');
+          if(s.status!=='frozen_after_v03_sealed_reachability_failure_before_new_calibration_generation')process.exit(1);
+          if(sha(s.carriedTrainingAugmentation.path)!==s.carriedTrainingAugmentation.sha256)process.exit(1);
+          if(sha(s.supersededCalibration.path)!==s.supersededCalibration.sha256)process.exit(1);
+          if(sha(s.supersededCalibration.reachabilityReportPath)!==s.supersededCalibration.reachabilityReportSha256)process.exit(1);
+          if(s.freshCalibration.totalRows!==704||s.freshCalibration.routeKnown.total!==220||s.freshCalibration.nearDomainNonRoute.total!==440)process.exit(1);
+          if(s.encoderBoundaryBeforeSeal.encoderScoringObserved!==false||s.encoderBoundaryBeforeSeal.fallbackIdentityTrainingPerformed!==false)process.exit(1);
+          if(s.postSealReachabilityAudit.minimumNearDomainNonRouteReachingFallback!==8||s.postSealReachabilityAudit.minimumTotalNonRouteReachingFallback!==8)process.exit(1);
+          NODE
+      - name: Generate fresh calibration v0.4 text only
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+      - name: Verify preseal calibration v0.4 without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+      - name: Seal calibration v0.4 before post-seal encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+      - name: Verify sealed calibration v0.4 and lock without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+      - name: Commit sealed calibration v0.4 and lock
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.lock.json
+          if git diff --cached --quiet; then echo 'Calibration v0.4 sealed artifacts already match committed state.'; exit 0; fi
+          git commit -m 'test(liuyao): seal v0.4 fallback calibration v0.4'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3-reachability-audit-v0.1.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+          )
+          if ! git diff --quiet "$CAL_V04_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Calibration v0.4 frozen inputs changed during seal; refusing stale push.'
+            git diff --name-only "$CAL_V04_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
