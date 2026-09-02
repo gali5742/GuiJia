@@ -74,9 +74,9 @@
             author:'袁树珊',
             era:'民国',
             sourceTier:SOURCE_TIERS.TRANSMISSION_RECEPTION_EVIDENCE,
-            bibliographicState:'text-record-verified',
-            editionNote:'相关段落大量明确标注“沈孝瞻曰”，故只作传承／接受史证据，不计作独立横证。',
-            textVerificationState:TEXT_VERIFICATION_STATES.FORMAL_EDITION_AND_TRANSCRIPTION_CROSS_CHECKED,
+            bibliographicState:'formal-edition-verified',
+            editionNote:'正式再版书目信息可核验；本审计的具体段落使用电子转录，且原文明确标注“沈孝瞻曰”，故只作传承／接受史证据，不计作独立横证。',
+            textVerificationState:TEXT_VERIFICATION_STATES.FORMAL_EDITION_VERIFIED_TRANSCRIPTION_USED,
             executableAuthority:false,
             independentCorroboration:false
         })
