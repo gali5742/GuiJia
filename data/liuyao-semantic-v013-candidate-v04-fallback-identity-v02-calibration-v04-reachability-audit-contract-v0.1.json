@@ -1,0 +1,88 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-calibration-v0.4-reachability-audit-contract-v0.1",
+  "status": "locked_before_first_postseal_calibration_v04_encoder_audit",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_calibration_v0.4_upstream_reachability",
+  "purpose": "Measure whether sealed stage-specific calibration v0.4 has sufficient real Fallback exposure after locked Semantic Act Eligibility, deterministic Arbitration and corrected Routeability, before any Fallback Identity v0.2 training, probability scoring or threshold selection.",
+  "sealedCalibration": {
+    "sealCommitSha": "5ceead503f90683da3cd5acb9da6e14c3a299c04",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.lock.json",
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+    "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+    "schemaPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.1.json",
+    "schemaSha256": "bc87e621b02e8495ffa4e5c134f80456aef61e876cf37c2a26145be03f1559fb",
+    "rows": 704,
+    "routeKnownRows": 220,
+    "nearDomainRows": 440,
+    "outsideCurrent22Rows": 22,
+    "routeUnresolvedRows": 22,
+    "sealedBeforeFirstPostsealReachabilityScoring": true,
+    "mutationAllowed": false
+  },
+  "carriedTraining": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+    "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+    "usedInThisAudit": false,
+    "mutationAllowed": false
+  },
+  "semanticAct": {
+    "modelPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+    "modelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+    "modelLockPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+    "modelLockSha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+    "threshold": 0.5045675974201208,
+    "changeAllowed": false
+  },
+  "routeability": {
+    "baseModelPath": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+    "baseModelSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+    "thresholdArtifactPath": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+    "thresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+    "threshold": 0.7678148573595883,
+    "changeAllowed": false
+  },
+  "encoder": {
+    "executionContractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "executionContractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "expectedEncoderCalls": 704,
+    "multiTextBatchForbidden": true
+  },
+  "auditOnly": {
+    "fallbackIdentityWeightsTrained": false,
+    "fallbackIdentityProbabilitiesScored": false,
+    "fallbackThresholdSelected": false,
+    "routerLoaded": false,
+    "routerTopKRead": false,
+    "scopeHardVetoUsedForReachability": false,
+    "v03ReachabilityRowResultsRead": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false,
+    "newThemeResearchRead": false,
+    "corpusMutationAllowed": false
+  },
+  "reachabilityDefinition": "semanticActProbability >= 0.5045675974201208 AND Evidence v0.3 unsupportedTargets empty AND Arbitration v0.12 is null AND corrected Routeability probability >= 0.7678148573595883",
+  "frozenChecks": {
+    "minimumCalibrationKnownSemanticActRetention": 0.95,
+    "requireEveryRouteHasAtLeastOneCalibrationKnownReachingFallback": true,
+    "minimumCalibrationNearDomainNonRouteReachingFallback": 8,
+    "minimumCalibrationTotalNonRouteReachingFallback": 8
+  },
+  "thresholdsMayNotBeRelaxedAfterObservingAudit": true,
+  "failureBehavior": {
+    "ifAnyFrozenCheckFails": "commit immutable calibration v0.4 reachability failure report and stop Fallback Identity v0.2 training",
+    "sealedCalibrationMutationAllowedAfterAudit": false,
+    "sameCalibrationVersionRetryWithEditedTextAllowed": false,
+    "nextAllowedAction": "create a separately versioned fresh stage-specific calibration without reading independent evaluation or row-level failed-audit probabilities"
+  },
+  "successBehavior": {
+    "nextAllowedAction": "freeze Fallback Identity v0.2 training/calibration contract before any Fallback Identity weights or probabilities are produced"
+  }
+}
