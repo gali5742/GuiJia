@@ -30,6 +30,8 @@
     "Every ordering comparator is owned by a domain Assessment contract family and versioned independently.",
     "Assessment contractFamily equality does not imply assessmentRef or version compatibility.",
     "A new Assessment version requires explicit Comparator compatibility review; old comparator candidates remain frozen unless separately reviewed.",
+    "Reading identity must be a first-class comparator input and must not be inferred from evidenceRef string parsing.",
+    "Cross-reading choice ordering is forbidden by default; any future longitudinal comparison requires a separate contract.",
     "No global ordering supportive > mixed > adverse is registered in v0.1.",
     "No active comparator means comparisonStatus=incomparable, not a fallback heuristic ranking.",
     "External factual dimensions such as legal exposure, exact cost, salary amount or travel time must use their factual/domain providers rather than divination evidence unless an independently reviewed divination Assessment exists.",
@@ -80,6 +82,20 @@
       "rule source count"
     ]
   },
+  "readingScopedComparisonInputV02": {
+    "module": "js/liuyao-domain-comparator-pretraining-v02.js",
+    "status": "design_only_parallel_contract",
+    "extendsV01WithoutMutatingV01": true,
+    "additionalRequired": ["readingRef"],
+    "sameReadingRequired": true,
+    "crossReadingComparisonAllowed": false,
+    "crossReadingDefault": {
+      "comparisonStatus": "incomparable",
+      "relation": null,
+      "reason": "reading_scope_mismatch"
+    },
+    "readingRefMustNotBeInferredFrom": ["evidenceRef_string", "castTimestamp_alone", "alternativeId", "array_position"]
+  },
   "activeComparators": [],
   "isolatedCandidates": [
     {
@@ -122,13 +138,34 @@
         "sameFamilyDoesNotImplyCompatibility": true
       },
       "formalEligible": false
+    },
+    {
+      "comparatorRef": "CP-TV-EXEC-003",
+      "status": "isolated_implemented_regression_added_not_executed",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "assessmentContractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.3",
+      "compatibleAssessmentVersions": ["0.3"],
+      "sharedComparisonContract": "js/liuyao-domain-comparator-pretraining-v02.js",
+      "module": "js/liuyao-travel-execution-comparator-pretraining-v03.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-reading-scoped-chain-v0.3.md",
+      "sameReadingRequired": true,
+      "crossReadingComparisonAllowed": false,
+      "strictOrderingPairs": ["supportive_evidence>adverse_evidence"],
+      "mixedOrdering": false,
+      "alternativeAnchoringReady": false,
+      "alternativeAnchoringBlocker": "PRR-TRAVEL-ALTERNATIVE-ANCHOR",
+      "regressionAdded": true,
+      "regressionExecuted": false,
+      "formalEligible": false
     }
   ],
   "candidateDimensionReadiness": [
     {
       "dimensionId": "target_outcome",
       "status": "no_global_comparator_narrow_travel_execution_candidates_exist",
-      "reason": "Employment retention, transition, admission, litigation and other target outcomes do not share one reviewed Assessment family. CP-TV-EXEC-001 and CP-TV-EXEC-002 are isolated to journey_execution_outcome and must not be generalized."
+      "reason": "Employment retention, transition, admission, litigation and other target outcomes do not share one reviewed Assessment family. CP-TV-EXEC-001/002/003 are isolated to journey_execution_outcome. CP-TV-EXEC-003 adds reading scope but does not solve real multi-alternative Travel anchoring."
     },
     {
       "dimensionId": "stability",
@@ -177,6 +214,7 @@
       "Require same dimensionId and explicitly compatible semantic meaning.",
       "Require resolutionStatus=resolved for both.",
       "Require same reviewed assessmentContractFamily, exact compatible assessmentRef, and compatible contract versions.",
+      "When using reading-scoped v0.2 input, require left.readingRef === right.readingRef.",
       "Look up an active registered comparatorRef owned by that contract family and Assessment version.",
       "If no comparator exists, return incomparable/comparator_not_registered.",
       "Never infer order from assessmentStatus labels alone."
@@ -194,6 +232,10 @@
     "ordering semantics reviewed for the exact dimension",
     "assessmentRef and version compatibility explicitly reviewed",
     "cross-version rejection regression exists",
+    "same-reading enforcement regression exists for reading-scoped comparator",
+    "latest candidate regression actually executed",
+    "stable readingRef producer reviewed",
+    "real alternative anchoring reviewed for the target domain",
     "comparator regression includes mixed, partial and abstention cases",
     "no high-stakes modern factual dimension is replaced by divination inference",
     "provenance-backed Evidence refs replace synthetic design-only refs",
