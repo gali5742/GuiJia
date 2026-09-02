@@ -1,0 +1,1090 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-threshold-calibration-manifest-v0.1",
+  "status": "locked_membership_before_fallback_identity_v02_training",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_global_threshold_calibration",
+  "derivation": "reachesFallback=true membership from immutable post-seal upstream reachability reports; no Fallback Identity weights or probabilities existed during membership selection",
+  "policy": {
+    "fallbackIdentityWeightsTrainedAtMembershipFreeze": false,
+    "fallbackIdentityProbabilitiesUsedForMembership": false,
+    "fallbackThresholdSelected": false,
+    "routerTopKUsedForMembership": false,
+    "upstreamProbabilityValuesCopied": false,
+    "calibrationMayTrainWeights": false,
+    "baseOrSupplementTextEdited": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false
+  },
+  "immutableInputs": {
+    "trainingAssemblyReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json",
+      "gitBlobSha": "9a910b6f6097a346d25c879f994960bde868979f"
+    },
+    "baseCalibration": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e"
+    },
+    "baseReachabilityReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json",
+      "gitBlobSha": "f270dbcb50335f178bf594161c0f190eb0fa438a"
+    },
+    "supplement": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d"
+    },
+    "supplementReachabilityReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v0.1.json",
+      "gitBlobSha": "66adacddfc7c42f39de875cacf150dedd026e522"
+    }
+  },
+  "composition": {
+    "total": 125,
+    "known": 110,
+    "nonRoute": 15,
+    "byRoute": {
+      "financial_fortune": 8,
+      "business_operation": 2,
+      "commercial_transaction": 6,
+      "inventory_purchase": 1,
+      "inventory_sale": 5,
+      "borrow_money": 2,
+      "lend_money": 4,
+      "debt_collection": 5,
+      "debt_repayment": 10,
+      "partnership": 7,
+      "investment_profit": 9,
+      "investment_liquidation": 9,
+      "investment_suitability": 10,
+      "investment_position_decision": 6,
+      "investment_price_trend": 7,
+      "income_salary": 2,
+      "income_bonus": 10,
+      "receive_item": 1,
+      "item_purchase": 2,
+      "relationship_development": 1,
+      "marriage_match": 2,
+      "marital_relationship": 1
+    },
+    "byNonRouteSubtype": {
+      "near_domain_not_current_route": 9,
+      "route_unresolved": 6,
+      "outside_current_22": 0
+    }
+  },
+  "statisticalCaveat": {
+    "overallNonRouteN": 15,
+    "maximumFalseActivationRateTarget": 0.05,
+    "oneFalseActivationRate": 0.06666666666666667,
+    "implication": "overall <=0.05 requires zero false route activations on these 15 conditional non-route rows",
+    "outsideCurrent22FallbackN": 0,
+    "outsideCurrent22ThresholdBehavior": "not_estimable_at_fallback_stage_from_this_calibration; must remain a fresh-development promotion gate"
+  },
+  "isolation": {
+    "trainingRows": 1016,
+    "normalizedTrainingOverlap": 0,
+    "normalizedCalibrationDuplicates": 0
+  },
+  "rows": [
+    {
+      "id": "V04-FI-C4-002",
+      "text": "这一年我花销一直压得比较紧，往后能不能比现在轻松",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-004",
+      "text": "最近总觉得钱不太经用，往后能不能不再这么紧",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-005",
+      "text": "眼下日子过得有些拮据，接下来会不会好转一些",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-006",
+      "text": "眼下日子过得有些拮据，往后能不能更从容一点",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-007",
+      "text": "今年前半段用钱总要算着来，接下来会不会后半段松一点",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-008",
+      "text": "今年前半段用钱总要算着来，往后能不能不那么吃紧",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-009",
+      "text": "最近家里用钱安排得很紧，接下来会不会越来越好周转",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-010",
+      "text": "最近家里用钱安排得很紧，往后能不能慢慢有些余地",
+      "expectedRoute": "financial_fortune",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-018",
+      "text": "我手上这门活最近起伏很大，往后能不能后面稳住",
+      "expectedRoute": "business_operation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-019",
+      "text": "这处卖东西的地方最近周转有点慢，接下来会不会继续撑下去",
+      "expectedRoute": "business_operation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-021",
+      "text": "我和对方谈的那批东西还差最后一点条件，接下来会不会把这回事谈拢",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-022",
+      "text": "我和对方谈的那批东西还差最后一点条件，往后能不能最后定下来",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-027",
+      "text": "我和那边已经把大部分细节说好了，接下来会不会最后达成一致",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-028",
+      "text": "我和那边已经把大部分细节说好了，往后能不能把剩下的条件说拢",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-029",
+      "text": "这批东西双方都还有一点犹豫，接下来会不会最终把事情定住",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-030",
+      "text": "这批东西双方都还有一点犹豫，往后能不能最后谈到一块",
+      "expectedRoute": "commercial_transaction",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-034",
+      "text": "柜台后面常用的耗材快见底了，往后能不能及时添足",
+      "expectedRoute": "inventory_purchase",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-042",
+      "text": "后屋压着的旧款已经放了很久，往后能不能逐步减少",
+      "expectedRoute": "inventory_sale",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-045",
+      "text": "架子上剩下的老款还有不少，接下来会不会后面慢慢消化掉",
+      "expectedRoute": "inventory_sale",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-046",
+      "text": "架子上剩下的老款还有不少，往后能不能逐渐变少",
+      "expectedRoute": "inventory_sale",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-048",
+      "text": "上一批剩下的旧品还占着地方，往后能不能慢慢腾出位置",
+      "expectedRoute": "inventory_sale",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-050",
+      "text": "后面放着的过季东西还有几箱，往后能不能慢慢减少",
+      "expectedRoute": "inventory_sale",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-059",
+      "text": "这两周正好缺一截可用的钱，接下来会不会有人先帮我接上",
+      "expectedRoute": "borrow_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-060",
+      "text": "这两周正好缺一截可用的钱，往后能不能暂时有人替我顶过",
+      "expectedRoute": "borrow_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-062",
+      "text": "朋友最近手上转不开来找我商量，往后能不能我先给他一部分周转妥当",
+      "expectedRoute": "lend_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-063",
+      "text": "熟人眼下正差一截想让我帮忙，接下来会不会我先拿一笔给他撑着合适",
+      "expectedRoute": "lend_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-069",
+      "text": "熟人最近临时差一点可用的钱，接下来会不会我先拿一部分给他顶着妥当",
+      "expectedRoute": "lend_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-070",
+      "text": "熟人最近临时差一点可用的钱，往后能不能我先帮他补这一截合宜",
+      "expectedRoute": "lend_money",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-072",
+      "text": "早前放在对方手里的那一笔已经很久没动，往后能不能最终回到我手里",
+      "expectedRoute": "debt_collection",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-074",
+      "text": "之前留在那边的那一份一直没有回来，往后能不能最后回到我这里",
+      "expectedRoute": "debt_collection",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-076",
+      "text": "去年放到对方那里的那笔现在还在外面，往后能不能后面回我这里",
+      "expectedRoute": "debt_collection",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-079",
+      "text": "早些时候交到对方那边的那一笔一直没回来，接下来会不会后来回到我这里",
+      "expectedRoute": "debt_collection",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-080",
+      "text": "早些时候交到对方那边的那一笔一直没回来，往后能不能最终回我手上",
+      "expectedRoute": "debt_collection",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-081",
+      "text": "压在我这边很久的那笔账一直没有收尾，接下来会不会彻底了结",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-082",
+      "text": "压在我这边很久的那笔账一直没有收尾，往后能不能最终清爽下来",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-083",
+      "text": "我名下挂着的那笔账拖了一段时间，接下来会不会今年彻底结束",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-084",
+      "text": "我名下挂着的那笔账拖了一段时间，往后能不能后面顺利收尾",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-085",
+      "text": "一直压着我的那份账目还没处理完，接下来会不会最终了结掉",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-086",
+      "text": "一直压着我的那份账目还没处理完，往后能不能慢慢处理干净",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-087",
+      "text": "这笔挂在我这里的旧账让我一直惦记，接下来会不会后面彻底收尾",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-088",
+      "text": "这笔挂在我这里的旧账让我一直惦记，往后能不能最终结束",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-089",
+      "text": "我这边还有一笔长期挂着的账，接下来会不会今年处理干净",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-090",
+      "text": "我这边还有一笔长期挂着的账，往后能不能后面彻底了结",
+      "expectedRoute": "debt_repayment",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-091",
+      "text": "我和他各自拿一部分东西来做这件事，接下来会不会长期配合下去",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-092",
+      "text": "我和他各自拿一部分东西来做这件事，往后能不能把这件事共同做稳",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-095",
+      "text": "我和这个人准备两边分工来做同一件事，接下来会不会后面合作顺当",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-096",
+      "text": "我和这个人准备两边分工来做同一件事，往后能不能长期配合稳定",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-098",
+      "text": "我们各自负责一块准备把这件事做起来，往后能不能后面能长期做",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-099",
+      "text": "我和他想把两边手里的资源并到这件事上，接下来会不会后面协作顺利",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-100",
+      "text": "我和他想把两边手里的资源并到这件事上，往后能不能长期配合下去",
+      "expectedRoute": "partnership",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-101",
+      "text": "我之前放进去的那份钱已经放了一阵，接下来会不会以后多带回来一些",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-102",
+      "text": "我之前放进去的那份钱已经放了一阵，往后能不能后面有所增加",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-104",
+      "text": "前段时间放进去的那部分现在还在那里，往后能不能最后有所增长",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-105",
+      "text": "我留在里面的那份钱暂时没动，接下来会不会过阵子多出一些",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-106",
+      "text": "我留在里面的那份钱暂时没动，往后能不能以后给我带回更多",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-107",
+      "text": "之前放进去的那一份我准备再放一段，接下来会不会最终增加一点",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-108",
+      "text": "之前放进去的那一份我准备再放一段，往后能不能后面多带回来一些",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-109",
+      "text": "我前些日子放进去的那部分现在还留着，接下来会不会以后比现在多一些",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-110",
+      "text": "我前些日子放进去的那部分现在还留着，往后能不能后面有些增加",
+      "expectedRoute": "investment_profit",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-111",
+      "text": "我手里那一份现在想整个退出来，接下来会不会顺利收回",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-112",
+      "text": "我手里那一份现在想整个退出来，往后能不能完整拿回来",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-114",
+      "text": "之前留着的那一份我准备全部退出，往后能不能完整退回",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-115",
+      "text": "我想把现在手上的这一份一次都退出去，接下来会不会顺利结束",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-116",
+      "text": "我想把现在手上的这一份一次都退出去，往后能不能全部收回来",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-117",
+      "text": "手里这一份我不准备再留了，接下来会不会完整退出来",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-118",
+      "text": "手里这一份我不准备再留了，往后能不能顺利回到我这里",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-119",
+      "text": "我准备把现在留着的那一份全部撤出来，接下来会不会顺利拿回",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-120",
+      "text": "我准备把现在留着的那一份全部撤出来，往后能不能完整结束",
+      "expectedRoute": "investment_liquidation",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-121",
+      "text": "眼前这个去处我正考虑把钱放进去，接下来会不会对我合宜",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-122",
+      "text": "眼前这个去处我正考虑把钱放进去，往后能不能对我稳妥",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-123",
+      "text": "我在考虑要不要把一部分钱放到这个里面，接下来会不会对我合适",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-124",
+      "text": "我在考虑要不要把一部分钱放到这个里面，往后能不能和我现在的情况相称",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-125",
+      "text": "眼前这个去处目前还没决定是否放一部分积蓄进去，接下来会不会对我妥当",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-126",
+      "text": "眼前这个去处目前还没决定是否放一部分积蓄进去，往后能不能适宜我现在参与",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-127",
+      "text": "我正犹豫要不要把手里一部分放进这里，接下来会不会对我稳当",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-128",
+      "text": "我正犹豫要不要把手里一部分放进这里，往后能不能和我目前状况相合",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-129",
+      "text": "眼前这个选择需要我放一部分钱进去，接下来会不会对我合宜",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-130",
+      "text": "眼前这个选择需要我放一部分钱进去，往后能不能适宜我现在进入",
+      "expectedRoute": "investment_suitability",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-131",
+      "text": "手上那一份我还没想好留多少，接下来会不会多留一点更稳",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-132",
+      "text": "手上那一份我还没想好留多少，往后能不能少留一点更妥",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-134",
+      "text": "我现在留着的这一份还有些犹豫，往后能不能先收一点回来更稳",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-137",
+      "text": "手里这一份我准备重新分配多少，接下来会不会多放一点更稳当",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-138",
+      "text": "手里这一份我准备重新分配多少，往后能不能收回一点更合宜",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-140",
+      "text": "现在留下的这一份让我拿不准比例，往后能不能先少留一点更稳",
+      "expectedRoute": "investment_position_decision",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-155",
+      "text": "公司按月固定给我的那份钱现在还是原样，接下来会不会后面有所增加",
+      "expectedRoute": "income_salary",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-156",
+      "text": "公司按月固定给我的那份钱现在还是原样，往后能不能以后比现在多",
+      "expectedRoute": "income_salary",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-161",
+      "text": "公司年底另外给的那一份今年还没消息，接下来会不会最后落到我这里",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-162",
+      "text": "公司年底另外给的那一份今年还没消息，往后能不能今年还能有我的份",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-163",
+      "text": "这次事情做完后公司另外给的一份还没定，接下来会不会最终给到我这里",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-164",
+      "text": "这次事情做完后公司另外给的一份还没定，往后能不能后面有我的份",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-165",
+      "text": "公司说年末可能会另外给一部分，接下来会不会今年落到我手里",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-166",
+      "text": "公司说年末可能会另外给一部分，往后能不能最后轮到我",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-167",
+      "text": "这个项目收尾后公司会另外分一份，接下来会不会最终有我的一份",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-168",
+      "text": "这个项目收尾后公司会另外分一份，往后能不能后面给到我这里",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-169",
+      "text": "今年公司额外给的那部分现在还没确定，接下来会不会最后能有我的份",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-170",
+      "text": "今年公司额外给的那部分现在还没确定，往后能不能最终落到我这边",
+      "expectedRoute": "income_bonus",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-176",
+      "text": "前两天我下单的相机店家已经确认有货，往后能不能这周到我这边",
+      "expectedRoute": "receive_item",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-183",
+      "text": "这台相机我比较了好一阵，接下来会不会现在收下它值得",
+      "expectedRoute": "item_purchase",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-184",
+      "text": "这台相机我比较了好一阵，往后能不能现在把它带走合适",
+      "expectedRoute": "item_purchase",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-204",
+      "text": "我们两个人相处了好几年，往后能不能以后正式把生活并到一处",
+      "expectedRoute": "marriage_match",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-210",
+      "text": "我和她都在认真考虑以后，往后能不能最后把两边日子合到一处",
+      "expectedRoute": "marriage_match",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_known",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-223",
+      "text": "以后日常钱款记录采用按日期分开而不是混在一处的方式，实际用起来会不会更顺手",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-224",
+      "text": "我想让日常钱款记录按日期分开而不是混在一处，这样持续一段时间会不会更清楚",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-442",
+      "text": "整理不同阶段的基金账户资料时，我想按日期分开而不是混在一处，以后找对应资料会不会更快",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-443",
+      "text": "以后基金账户资料采用按日期分开而不是混在一处的方式，实际用起来会不会更顺手",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-444",
+      "text": "我想让基金账户资料按日期分开而不是混在一处，这样持续一段时间会不会更清楚",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-446",
+      "text": "整理不同阶段的基金账户资料时，我想单独放一栏而不是并进总表，以后找对应资料会不会更快",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-448",
+      "text": "我想让基金账户资料单独放一栏而不是并进总表，这样持续一段时间会不会更清楚",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-467",
+      "text": "以后投资资料分类采用单独放一栏而不是并进总表的方式，实际用起来会不会更顺手",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-468",
+      "text": "我想让投资资料分类单独放一栏而不是并进总表，这样持续一段时间会不会更清楚",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "near_domain_not_current_route",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-683",
+      "text": "眼前这件事最后能不能顺下来",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-691",
+      "text": "我手上这件事后面能不能有个好结果",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-693",
+      "text": "眼前这个决定做下去能不能成",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-695",
+      "text": "我现在推进的计划最终能不能落稳",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-702",
+      "text": "眼前这个计划后面能不能正常完成",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-C4-703",
+      "text": "我手里的这件事最终能不能办下来",
+      "expectedRoute": null,
+      "expectedDisposition": "non_route",
+      "subtype": "route_unresolved",
+      "source": "calibration_v0.4"
+    },
+    {
+      "id": "V04-FI-X1-002",
+      "text": "手里看的这只股票这几天标出来的数不太安稳，后面会不会慢慢到更高的位置",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-006",
+      "text": "这只债券基金最近页面上的数变化不少，再往后会不会比当前这个水平更高",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-015",
+      "text": "我看的债券最近市场上标出的数有些波动，再过一阵会不会比目前更高",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-020",
+      "text": "这只指数基金最近账户里的数字有些反复，之后一个月会不会比现在更高",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-023",
+      "text": "我留意的股票近期收盘时看到的数差别很大，后面一段会不会高于目前这一带",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-025",
+      "text": "我看的债券基金近期数值反复变化，接下来一段是否会比眼下这个数字更高",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-028",
+      "text": "这只黄金ETF最近账户显示值变化较多，接下来会不会更多时候高于现在",
+      "expectedRoute": "investment_price_trend",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-056",
+      "text": "我和另一半近来因为钱和家务总有争执，接下来日子能不能重新过得顺一点",
+      "expectedRoute": "marital_relationship",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    },
+    {
+      "id": "V04-FI-X1-103",
+      "text": "对方和我最近常聊到很晚，彼此也都很投入，接下来会不会有进一步变化",
+      "expectedRoute": "relationship_development",
+      "expectedDisposition": "route_known",
+      "subtype": "fallback_stage_route_exposure_supplement",
+      "source": "route_exposure_supplement_v0.1"
+    }
+  ],
+  "nextAction": "freeze_training_and_threshold_calibration_contract_then_train_and_lock_v02_weights_before_any_probability_scoring_on_these_rows"
+}
