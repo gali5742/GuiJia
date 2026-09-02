@@ -7,7 +7,9 @@ on:
     paths:
       - 'scripts/generate-liuyao-semantic-routeability-v03-single-text.mjs'
       - 'scripts/generate-liuyao-semantic-frozen-dependencies-v02-single-text.mjs'
+      - 'scripts/run-liuyao-semantic-frozen-dependencies-v02-node.mjs'
       - 'scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs'
+      - 'scripts/verify-liuyao-semantic-corrected-node-harness-v01.mjs'
       - 'scripts/generate-liuyao-semantic-routeability-v02-model.mjs'
       - 'scripts/calibrate-liuyao-semantic-routeability-v03.mjs'
       - 'data/liuyao-semantic-routeability-v0.2-development.json'
@@ -41,9 +43,11 @@ jobs:
       - name: Rebuild and recalibrate Routeability in canonical single-text representation
         run: node scripts/generate-liuyao-semantic-routeability-v03-single-text.mjs
       - name: Rebuild Router and Scope and calibrate Scope hard-veto on frozen Scope calibration only
-        run: node scripts/generate-liuyao-semantic-frozen-dependencies-v02-single-text.mjs
+        run: node scripts/run-liuyao-semantic-frozen-dependencies-v02-node.mjs
       - name: Verify corrected frozen dependencies
-        run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+        run: |
+          node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+          node scripts/verify-liuyao-semantic-corrected-node-harness-v01.mjs
       - name: Commit corrected dependency artifacts
         run: |
           paths=(
