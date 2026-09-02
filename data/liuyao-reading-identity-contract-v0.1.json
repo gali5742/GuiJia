@@ -1,0 +1,92 @@
+{
+  "version": "0.1",
+  "status": "design_ready_runtime_mutation_not_authorized",
+  "scope": "liuyao_reading_identity_and_cast_snapshot",
+  "runtimeMutation": false,
+  "purpose": "Define a stable reading instance identity and canonical cast snapshot boundary for provenance without generating IDs inside domain modules.",
+  "identityLayers": {
+    "readingRef": {
+      "role": "unique reading instance identity",
+      "recommendedFutureProducer": "result_creation_boundary",
+      "recommendedGeneration": "cryptographically strong random UUID or equivalent unique identifier",
+      "mustNotBeGeneratedBy": ["FactAdapter", "EvidenceAdapter", "AssessmentEvaluator", "Comparator", "theme-specific resolver"]
+    },
+    "castSnapshot": {
+      "role": "canonical original-input snapshot used for audit and replay integrity",
+      "required": ["schemaVersion", "castTimestamp", "daySect", "rawValues", "questionSnapshot", "inputMethod"]
+    },
+    "snapshotFingerprint": {
+      "role": "optional deterministic integrity/replay helper",
+      "sameAsReadingRef": false,
+      "required": false
+    }
+  },
+  "castSnapshotSchemaV01": {
+    "schemaVersion": 1,
+    "castTimestamp": "finite integer milliseconds",
+    "daySect": ["1", "2"],
+    "rawValues": {
+      "length": 6,
+      "vocabulary": [6, 7, 8, 9],
+      "order": "初爻_to_上爻"
+    },
+    "questionSnapshot": "string_captured_at_calculation_boundary",
+    "inputMethod": ["manual", "simulated_all", "mixed_or_unknown"]
+  },
+  "canonicalFingerprintFields": [
+    "schemaVersion",
+    "castTimestamp",
+    "daySect",
+    "rawValues",
+    "questionSnapshot",
+    "inputMethod"
+  ],
+  "fingerprintMustExclude": [
+    "monthGanZhi",
+    "dayGanZhi",
+    "xunKong",
+    "originalHexagramDerivedObject",
+    "changedHexagramDerivedObject",
+    "palace",
+    "naJia",
+    "sixRelations",
+    "statusTags",
+    "moveTags",
+    "TimeEffect",
+    "SemanticRoute",
+    "ObservationPlan",
+    "Assessment",
+    "ComparatorResult"
+  ],
+  "currentRuntimeAudit": {
+    "formInputsFound": ["question", "datetime", "daySect", "lines"],
+    "calculationRawValuesFound": true,
+    "resultCastTimestampFound": true,
+    "resultQuestionSnapshotFound": true,
+    "resultDaySectFound": true,
+    "formalReadingRefFound": false,
+    "rawValuesStoredAsExplicitResultField": false,
+    "inputMethodStored": false,
+    "simulateAllLinesWritesSameLinesArray": true
+  },
+  "rules": [
+    "castTimestamp alone is not a readingRef.",
+    "Derived line state must not replace direct rawValues provenance where the original input is available.",
+    "Reading identity must be created once at the result/cast boundary and then passed downstream read-only.",
+    "Fact, Evidence and Assessment must carry the same readingRef.",
+    "Comparator must reject cross-reading ordering by default.",
+    "A future snapshot fingerprint is a content-integrity aid and must not silently replace reading lifecycle identity."
+  ],
+  "formalIntegrationGate": [
+    "runtime readingRef generation reviewed",
+    "rawValues captured directly before derivation",
+    "question snapshot lifecycle reviewed",
+    "inputMethod lifecycle reviewed",
+    "serialization/export policy reviewed",
+    "readingRef propagation regression executed",
+    "current-22 regression unchanged",
+    "explicit user authorization for relevant Formal Expansion/runtime integration"
+  ],
+  "authorizationGate": "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
+  "formalIntegration": "blocked"
+}
