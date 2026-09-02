@@ -16,26 +16,27 @@
       "module": "js/liuyao-career-position-pretraining-v01.js",
       "observationPlan": true,
       "evidenceBuilder": false,
-      "finalAssessment": false
+      "formalAssessment": false
     },
     "study_exam": {
       "module": "js/liuyao-study-exam-pretraining-v01.js",
       "observationPlan": true,
       "evidenceBuilder": false,
-      "finalAssessment": false
+      "formalAssessment": false
     },
     "travel": {
       "module": "js/liuyao-travel-pretraining-v01.js",
       "observationPlan": true,
       "evidenceBuilder": true,
-      "finalAssessment": false,
+      "formalAssessment": false,
+      "isolatedAssessmentCandidates": ["AE-TV-EXEC-001", "AE-TV-SAFE-001"],
       "evidenceVocabularyExamples": ["positive", "negative"]
     },
     "litigation_dispute": {
       "module": "js/liuyao-litigation-dispute-pretraining-v01.js",
       "observationPlan": true,
       "evidenceBuilder": true,
-      "finalAssessment": false,
+      "formalAssessment": false,
       "evidenceVocabularyExamples": [
         "positive",
         "negative",
@@ -86,12 +87,7 @@
       "insufficient_evidence",
       "not_assessed"
     ],
-    "optional": [
-      "alternativeId",
-      "unresolvedIssues",
-      "traceRefs",
-      "sourceTierRefs"
-    ],
+    "optional": ["alternativeId", "unresolvedIssues", "traceRefs", "sourceTierRefs"],
     "choiceBindingRule": {
       "alternativeIdRequiredForComparator": true,
       "mustBeExplicit": true,
@@ -113,6 +109,34 @@
     "regressionRequired": true
   },
   "activeEvaluators": [],
+  "isolatedCandidates": [
+    {
+      "evaluatorRef": "AE-TV-EXEC-001",
+      "status": "isolated_verified_not_registered",
+      "eventType": "travel",
+      "duty": "travel_execution",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "contractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.1",
+      "module": "js/liuyao-travel-execution-assessment-pretraining-v01.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-assessment-rule-review-v0.1.md",
+      "formalEligible": false
+    },
+    {
+      "evaluatorRef": "AE-TV-SAFE-001",
+      "status": "isolated_verified_not_registered",
+      "eventType": "travel",
+      "duty": "travel_safety",
+      "dimensionId": "risk",
+      "semanticMeaning": "journey_safety_and_major_route_risk",
+      "contractFamily": "travel_safety_assessment",
+      "assessmentRef": "travel_safety_assessment_v0.1",
+      "module": "js/liuyao-travel-safety-assessment-pretraining-v01.js",
+      "reviewRef": "docs/liuyao-literature/travel-safety-assessment-rule-review-v0.1.md",
+      "formalEligible": false
+    }
+  ],
   "defaultWithoutEvaluator": {
     "resolutionStatus": "unresolved",
     "assessmentStatus": "not_assessed",
@@ -138,7 +162,10 @@
     "time facts consumed without recomputation",
     "regression includes no-evidence, mixed, conflicting and unresolved cases",
     "no hidden score/probability output",
+    "provenance-backed Evidence refs replace synthetic design-only refs",
+    "explicit user authorization for Formal Expansion",
     "current-22 remains frozen unless separately migrated"
   ],
-  "formalIntegration": "blocked_by_current_v013_gate"
+  "authorizationGate": "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
+  "formalIntegration": "blocked_by_current_v013_gate_and_user_authorization"
 }
