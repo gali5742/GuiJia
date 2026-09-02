@@ -173,4 +173,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyVisibleMotifE2ECalibrationAudit) {
         document.write('<script src="./js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCollectiveTargetSemanticsAudit) {
+        document.write('<script src="./js/bazi-contextual-force-party-collective-target-semantics-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
