@@ -1,0 +1,91 @@
+name: LiuYao v0.13-v0.4 Semantic Act Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs'
+      - '.github/workflows/liuyao-v013-v04-semantic-act-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-semantic-act-data:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture Semantic Act data base
+        run: echo "SEMANTIC_ACT_DATA_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify frozen v0.4 design and data contract bindings
+        run: |
+          node - <<'NODE'
+          const design = require('./data/liuyao-semantic-v013-candidate-v04-design-v0.1.json');
+          const contract = require('./data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json');
+          const schema = require('./data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json');
+          if (design.status !== 'design_frozen_before_v04_training_or_calibration') process.exit(1);
+          if (contract.status !== 'frozen_before_v04_data_generation') process.exit(1);
+          if (schema.status !== 'frozen_before_semantic_act_data_generation') process.exit(1);
+          if (contract.designBinding?.gitBlobSha !== 'cc2f830118a5ee4e6fc22cb4ddcc78427f286d18') process.exit(1);
+          if (schema.contractBinding?.commit !== 'cdb2f1f2243dc184ee66b447a74c5fa037960c3f') process.exit(1);
+          NODE
+
+      - name: Generate fresh Semantic Act train and calibration text only
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+
+      - name: Verify fresh preseal corpora and contamination boundaries
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+
+      - name: Seal Semantic Act training and calibration together before encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+
+      - name: Verify sealed corpora and lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+
+      - name: Commit sealed Semantic Act data
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json \
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json \
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-data.lock.json
+          if git diff --cached --quiet; then
+            echo 'Candidate v0.4 Semantic Act sealed data already matches committed state.'
+            exit 0
+          fi
+          git commit -m 'test(liuyao): seal v0.4 semantic act fresh data'
+
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json
+            data/liuyao-semantic-route-inventory-v0.2.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-semantic-act-v01-data.mjs
+          )
+          if ! git diff --quiet "$SEMANTIC_ACT_DATA_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Candidate v0.4 Semantic Act data inputs changed during seal; refusing stale push.'
+            git diff --name-only "$SEMANTIC_ACT_DATA_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
