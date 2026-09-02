@@ -1,0 +1,36 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-domain-assessment-pretraining-v01.js');
+require('../js/liuyao-line-status-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-line-evidence-adapter-pretraining-v02.js');
+require('../js/liuyao-travel-execution-assessment-pretraining-v02.js');
+const shared=global.GuiJia.liuyaoDomainAssessmentPretrainingV01;
+const factApi=global.GuiJia.liuyaoLineStatusFactAdapterPretrainingV01;
+const evidenceApi=global.GuiJia.liuyaoTravelLineEvidenceAdapterPretrainingV02;
+const assessApi=global.GuiJia.liuyaoTravelExecutionAssessmentPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const tag=(code,type)=>({code,text:code,type});
+const assess=(tags)=>{
+  const facts=factApi.buildAtomicFacts({position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,isYing:false,statusTags:tags});
+  const packet=evidenceApi.buildEvidencePacket({duty:'travel_execution',alternativeId:'trip-A',travelerFacts:facts.facts});
+  return {facts,packet,result:assessApi.evaluateTravelExecution(packet)};
+};
+
+t('TCA1 active evaluator registry remains empty',()=>assert.equal(shared.ACTIVE_EVALUATORS.length,0));
+t('TCA2 month command chain supportive',()=>assert.equal(assess([tag('MONTH_COMMAND','support')]).result.assessmentStatus,'supportive_evidence'));
+t('TCA3 day generate chain supportive',()=>assert.equal(assess([tag('DAY_GENERATE','support')]).result.assessmentStatus,'supportive_evidence'));
+t('TCA4 month control chain adverse',()=>assert.equal(assess([tag('MONTH_CONTROL','constraint')]).result.assessmentStatus,'adverse_evidence'));
+t('TCA5 day break chain adverse',()=>assert.equal(assess([tag('DAY_BREAK','trigger')]).result.assessmentStatus,'adverse_evidence'));
+t('TCA6 void chain adverse',()=>assert.equal(assess([tag('VOID','void')]).result.assessmentStatus,'adverse_evidence'));
+t('TCA7 month support plus day control stays mixed',()=>assert.equal(assess([tag('MONTH_SUPPORT','support'),tag('DAY_CONTROL','constraint')]).result.assessmentStatus,'mixed_evidence'));
+t('TCA8 two supports plus one constraint still mixed',()=>assert.equal(assess([tag('MONTH_COMMAND','support'),tag('DAY_GENERATE','support'),tag('DAY_CONTROL','constraint')]).result.assessmentStatus,'mixed_evidence'));
+t('TCA9 season state alone insufficient',()=>assert.equal(assess([tag('SEASON_STATE','support')]).result.assessmentStatus,'insufficient_evidence'));
+t('TCA10 day clash alone insufficient',()=>assert.equal(assess([tag('DAY_CLASH','trigger')]).result.assessmentStatus,'insufficient_evidence'));
+t('TCA11 dark moving alone insufficient',()=>assert.equal(assess([tag('DARK_MOVING','trigger')]).result.assessmentStatus,'insufficient_evidence'));
+t('TCA12 sourceTag type cannot flip month control',()=>{const x=assess([tag('MONTH_CONTROL','support')]);assert.equal(x.packet.evidence[0].polarity,'negative');assert.equal(x.result.assessmentStatus,'adverse_evidence');});
+t('TCA13 evidence refs derive from canonical fact refs',()=>{const x=assess([tag('MONTH_COMMAND','support')]);assert(x.packet.evidence[0].sourceFactRefs[0].includes('LINE-STATUS:3:MONTH_COMMAND'));assert.deepEqual(x.result.evidenceRefs,[x.packet.evidence[0].id]);});
+t('TCA14 output is assessment v02',()=>{const x=assess([tag('MONTH_COMMAND','support')]);assert.equal(x.result.assessmentRef,'travel_execution_assessment_v0.2');assert.equal(x.result.assessmentVersion,'0.2');});
+t('TCA15 no traveler vitality token in canonical packet',()=>{const x=assess([tag('MONTH_COMMAND','support'),tag('DAY_CONTROL','constraint')]);assert.equal(x.packet.evidence.some(e=>e.type==='traveler_vitality'),false);});
+t('TCA16 all chain modules remain unreachable',()=>{assert.equal(factApi.currentRuntimeReachable,false);assert.equal(evidenceApi.currentRuntimeReachable,false);assert.equal(assessApi.currentRuntimeReachable,false);});
+if(!process.exitCode)console.log(`Travel execution atomic calendar E2E v02 regression: ${n} passed, 0 failed`);
