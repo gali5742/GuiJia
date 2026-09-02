@@ -26,7 +26,8 @@ const jaccard = (a,b) => {
 
 const design = readJson('data/liuyao-semantic-v013-candidate-v04-design-v0.1.json');
 const contract = readJson('data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json');
-const schema = readJson('data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json');
+const schemaPath = 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.2.json';
+const schema = readJson(schemaPath);
 const semanticActLock = readJson('data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json');
 const inventory = readJson('data/liuyao-semantic-route-inventory-v0.2.json');
 const trainingPath = 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json';
@@ -39,15 +40,18 @@ const routeSet = new Set(routeIds);
 
 assert(design.status === 'design_frozen_before_v04_training_or_calibration', 'v0.4 design not frozen');
 assert(contract.status === 'frozen_before_v04_data_generation', 'v0.4 data contract not frozen');
-assert(schema.status === 'frozen_before_fallback_v02_data_generation', 'Fallback v0.2 data schema not frozen');
+assert(schema.status === 'frozen_after_v01_preseal_path_contract_failure_before_encoder_scoring', 'Fallback v0.2 schema v0.2 not frozen');
+assert(schema.supersedes?.gitBlobSha === '3bdbf13c25c72d3529f345b194af653bcfdcdf50', 'schema v0.1 failure binding drift');
 assert(semanticActLock.status === 'locked' && semanticActLock.threshold === 0.5045675974201208, 'Semantic Act v0.1 lock missing/drifted');
 assert(routeIds.length === 22, `route inventory ${routeIds.length} != 22`);
 assert(training.version === '0.13-candidate-v0.4-fallback-identity-v0.2-training-augmentation-v0.1', 'training version drift');
 assert(calibration.version === '0.13-candidate-v0.4-fallback-identity-v0.2-calibration-v0.1', 'calibration version drift');
+assert(training.schema === schemaPath && calibration.schema === schemaPath, 'corpora not rebound to schema v0.2');
 assert(['presealed_training_augmentation','sealed_training_augmentation'].includes(training.status), `training status ${training.status}`);
 assert(['presealed_calibration_data','sealed_calibration_data'].includes(calibration.status), `calibration status ${calibration.status}`);
 assert(training.sealed === (training.status === 'sealed_training_augmentation'), 'training sealed/status mismatch');
 assert(calibration.sealed === (calibration.status === 'sealed_calibration_data'), 'calibration sealed/status mismatch');
+assert(training.policy?.encoderScoringObserved === false && calibration.policy?.encoderScoringObserved === false, 'encoder scoring marker drift before data seal');
 assert(training.rows?.length === 198, `training rows ${training.rows?.length} != 198`);
 assert(calibration.rows?.length === 154, `calibration rows ${calibration.rows?.length} != 154`);
 
@@ -57,15 +61,25 @@ assert(count(training.rows, (row) => row.identityLabel === 'non_route') === 66, 
 assert(count(calibration.rows, (row) => row.identityLabel === 'route_identity_positive') === 88, 'calibration known != 88');
 assert(count(calibration.rows, (row) => row.identityLabel === 'non_route') === 66, 'calibration nonroute != 66');
 for (const routeId of routeIds) {
-  assert(count(training.rows, (row) => row.expectedRoute === routeId) === 6, `training ${routeId} != 6`);
-  assert(count(calibration.rows, (row) => row.expectedRoute === routeId) === 4, `calibration ${routeId} != 4`);
-  assert(new Set(training.rows.filter((row) => row.expectedRoute === routeId).map((row) => row.wordingPattern)).size >= 3, `training ${routeId} wording patterns < 3`);
-  assert(new Set(calibration.rows.filter((row) => row.expectedRoute === routeId).map((row) => row.wordingPattern)).size >= 2, `calibration ${routeId} wording patterns < 2`);
+  const trainingRouteRows = training.rows.filter((row) => row.expectedRoute === routeId);
+  const calibrationRouteRows = calibration.rows.filter((row) => row.expectedRoute === routeId);
+  assert(trainingRouteRows.length === 6, `training ${routeId} != 6`);
+  assert(calibrationRouteRows.length === 4, `calibration ${routeId} != 4`);
+  assert(new Set(trainingRouteRows.map((row) => row.wordingPattern)).size >= 3, `training ${routeId} wording patterns < 3`);
+  assert(new Set(calibrationRouteRows.map((row) => row.wordingPattern)).size >= 2, `calibration ${routeId} wording patterns < 2`);
+  assert(trainingRouteRows.some((row) => row.deterministicPath === 'fallback_candidate'), `training ${routeId} lacks fallback-style hard example`);
+  assert(calibrationRouteRows.some((row) => row.deterministicPath === 'fallback_candidate'), `calibration ${routeId} lacks fallback-style hard example`);
 }
 for (const subtype of ['outside_current_22','route_unresolved','near_domain_not_current_route']) {
   assert(count(training.rows, (row) => row.subtype === subtype) === 22, `training ${subtype} != 22`);
   assert(count(calibration.rows, (row) => row.subtype === subtype) === 22, `calibration ${subtype} != 22`);
 }
+const trainingFallbackKnown = count(training.rows, (row) => row.identityLabel === 'route_identity_positive' && row.deterministicPath === 'fallback_candidate');
+const calibrationFallbackKnown = count(calibration.rows, (row) => row.identityLabel === 'route_identity_positive' && row.deterministicPath === 'fallback_candidate');
+assert(trainingFallbackKnown >= schema.trainingPathContract.minimumFallbackStyleKnownTotal, `training fallback-style known ${trainingFallbackKnown} < ${schema.trainingPathContract.minimumFallbackStyleKnownTotal}`);
+assert(calibrationFallbackKnown >= schema.calibrationPathContract.minimumFallbackStyleKnownTotal, `calibration fallback-style known ${calibrationFallbackKnown} < ${schema.calibrationPathContract.minimumFallbackStyleKnownTotal}`);
+assert(training.presealPathSummary?.fallbackStyleKnown === trainingFallbackKnown, 'training preseal path summary drift');
+assert(calibration.presealPathSummary?.fallbackStyleKnown === calibrationFallbackKnown, 'calibration preseal path summary drift');
 
 const all = [
   ...training.rows.map((row) => ({...row, corpus:'training'})),
@@ -82,7 +96,14 @@ for (const row of all) {
   assert(typeof row.wordingPattern === 'string' && row.wordingPattern, `missing wording pattern ${row.id}`);
   if (row.identityLabel === 'route_identity_positive') {
     assert(routeSet.has(row.expectedRoute), `unknown route ${row.id}/${row.expectedRoute}`);
-    assert(row.subtype === 'fallback_style_known', `known subtype drift ${row.id}`);
+    assert(['fallback_style_known','upstream_resolved_known'].includes(row.subtype), `known subtype drift ${row.id}/${row.subtype}`);
+    assert(['fallback_candidate','upstream_arbitration'].includes(row.deterministicPath), `missing deterministic path ${row.id}`);
+    if (row.deterministicPath === 'fallback_candidate') {
+      assert(row.arbitrationRoute == null && row.arbitrationStrength == null, `fallback annotation carries Arbitration ${row.id}`);
+    } else {
+      assert(typeof row.arbitrationRoute === 'string' && row.arbitrationRoute, `upstream annotation lacks Arbitration route ${row.id}`);
+      assert(typeof row.arbitrationStrength === 'string' && row.arbitrationStrength, `upstream annotation lacks Arbitration strength ${row.id}`);
+    }
   } else {
     assert(row.identityLabel === 'non_route' && row.expectedRoute == null, `nonroute label drift ${row.id}`);
   }
@@ -98,7 +119,7 @@ for (const a of training.rows) for (const b of calibration.rows) {
 }
 assert(trainCalNear.length === 0, `train/calibration near duplicates >=0.82 (${trainCalNear.length}): ${JSON.stringify(trainCalNear.slice(0,10))}`);
 
-// Known fresh augmentation must really require Fallback at the deterministic Arbitration layer.
+// Deterministic path annotations must replay exactly; known rows may be upstream-resolved or fallback-style, but never unsupported.
 const context = { console, Date, Math, JSON, Intl, Set, Map, Array, Object, Number };
 context.window=context; context.globalThis=context; vm.createContext(context);
 for (const relative of [
@@ -111,13 +132,28 @@ for (const relative of [
 const extractor=context.GuiJia?.liuyaoSemanticRouteEvidenceV03;
 const arbitration=context.GuiJia?.liuyaoSemanticRouteArbitrationV012;
 assert(extractor?.extract && arbitration?.arbitrate,'failed to load Arbitration path modules');
-const pathMismatches=[];
+const pathAnnotationMismatches=[];
+const unsupportedKnown=[];
 for (const row of all.filter((item)=>item.identityLabel==='route_identity_positive')) {
   const evidence=extractor.extract(row.text);
+  const unsupported=evidence.unsupportedTargets||[];
+  if (unsupported.length) { unsupportedKnown.push({id:row.id,text:row.text,unsupported}); continue; }
   const arb=arbitration.arbitrate(row.text,evidence);
-  if ((evidence.unsupportedTargets||[]).length || arb != null) pathMismatches.push({id:row.id,route:row.expectedRoute,text:row.text,unsupported:evidence.unsupportedTargets,arbitration:arb});
+  const expectedPath=arb ? 'upstream_arbitration' : 'fallback_candidate';
+  if (
+    row.deterministicPath !== expectedPath ||
+    row.arbitrationRoute !== (arb?.routeId ?? null) ||
+    row.arbitrationStrength !== (arb?.strength ?? null) ||
+    row.subtype !== (arb ? 'upstream_resolved_known' : 'fallback_style_known')
+  ) {
+    pathAnnotationMismatches.push({
+      id:row.id,text:row.text,recorded:{path:row.deterministicPath,route:row.arbitrationRoute,strength:row.arbitrationStrength,subtype:row.subtype},
+      replay:{path:expectedPath,route:arb?.routeId??null,strength:arb?.strength??null,subtype:arb?'upstream_resolved_known':'fallback_style_known'}
+    });
+  }
 }
-assert(pathMismatches.length===0,`fresh known deterministic path mismatches (${pathMismatches.length}): ${JSON.stringify(pathMismatches.slice(0,20))}`);
+assert(unsupportedKnown.length===0,`known rows became unsupported (${unsupportedKnown.length}): ${JSON.stringify(unsupportedKnown.slice(0,20))}`);
+assert(pathAnnotationMismatches.length===0,`deterministic path annotation mismatches (${pathAnnotationMismatches.length}): ${JSON.stringify(pathAnnotationMismatches.slice(0,20))}`);
 
 // Read only explicitly permitted historical development/train/calibration text. Never open independent/blind/report/diagnostic/research files.
 const protectedName = /(independent|blind|diagnostic|report|literature|research|next-topic)/i;
@@ -146,7 +182,6 @@ const collect=(value,source)=>{
   if(value&&typeof value==='object') for(const item of Object.values(value)) collect(item,source);
 };
 for(const name of permittedNames) collect(JSON.parse(fs.readFileSync(path.join(dataDir,name),'utf8')),name);
-// Semantic Act train/cal are explicitly readable contamination sources.
 for(const name of ['liuyao-semantic-v013-candidate-v04-semantic-act-training.json','liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json']) {
   collect(JSON.parse(fs.readFileSync(path.join(dataDir,name),'utf8')),name);
 }
@@ -177,13 +212,16 @@ if(training.sealed||calibration.sealed){
   assert(lock.status==='locked','Fallback v0.2 data lock not locked');
   assert(lock.trainingSha256===sha256(trainingPath),'training SHA drift');
   assert(lock.calibrationSha256===sha256(calibrationPath),'calibration SHA drift');
-  assert(lock.schemaSha256===sha256('data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json'),'schema SHA drift');
+  assert(lock.schemaPath===schemaPath,'data lock schema path drift');
+  assert(lock.schemaSha256===sha256(schemaPath),'schema v0.2 SHA drift');
+  assert(lock.encoderScoringBeforeSeal===false && lock.fallbackThresholdSelectionBeforeSeal===false,'preseal scoring/threshold boundary drift');
 }
 
 console.log('Candidate v0.4 Fallback Identity v0.2 fresh corpora verified without encoder scoring.');
 console.log('- training: 198 (132 known / 66 non-route); calibration: 154 (88 known / 66 non-route)');
-console.log('- all 22 routes covered with semantic-axis/confusable-family metadata');
-console.log('- known deterministic path: Arbitration=null and unsupportedTargets=0');
+console.log(`- deterministic path mix: training ${trainingFallbackKnown} fallback / ${132-trainingFallbackKnown} upstream; calibration ${calibrationFallbackKnown} fallback / ${88-calibrationFallbackKnown} upstream`);
+console.log('- every current Route has >=1 fallback-style hard example in training and calibration');
+console.log('- known unsupportedTargets: 0; deterministic path annotation replay mismatches: 0');
 console.log('- train/calibration near duplicates >=0.82: 0');
 console.log(`- permitted historical files read: ${permittedNames.length + 2}; protected files skipped without content read: ${protectedSkipped.length}`);
 console.log('- historical exact overlap: 0; near overlap >=0.84: 0');
