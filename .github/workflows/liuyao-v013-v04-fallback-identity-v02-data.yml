@@ -1,0 +1,92 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-fallback-v02-data:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture Fallback v0.2 data base
+        run: echo "FALLBACK_V02_DATA_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify frozen v0.4 upstream locks before data generation
+        run: |
+          node - <<'NODE'
+          const design = require('./data/liuyao-semantic-v013-candidate-v04-design-v0.1.json');
+          const contract = require('./data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json');
+          const schema = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json');
+          const act = require('./data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json');
+          if (design.status !== 'design_frozen_before_v04_training_or_calibration') process.exit(1);
+          if (contract.status !== 'frozen_before_v04_data_generation') process.exit(1);
+          if (schema.status !== 'frozen_before_fallback_v02_data_generation') process.exit(1);
+          if (act.status !== 'locked' || act.threshold !== 0.5045675974201208) process.exit(1);
+          if (act.independentEvaluationRead !== false || act.sealedBlindEvaluationRead !== false || act.developmentRead !== false) process.exit(1);
+          NODE
+
+      - name: Generate fresh Fallback v0.2 train augmentation and calibration text only
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+
+      - name: Verify preseal data without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+
+      - name: Seal Fallback v0.2 corpora before first encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+
+      - name: Verify sealed corpora and lock without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+
+      - name: Commit sealed Fallback v0.2 data
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.lock.json
+          if git diff --cached --quiet; then
+            echo 'Candidate v0.4 Fallback Identity v0.2 sealed data already matches committed state.'
+            exit 0
+          fi
+          git commit -m 'test(liuyao): seal v0.4 fallback identity v0.2 fresh data'
+
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json
+            data/liuyao-semantic-route-inventory-v0.2.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+          )
+          if ! git diff --quiet "$FALLBACK_V02_DATA_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Fallback v0.2 frozen data inputs changed during seal; refusing stale push.'
+            git diff --name-only "$FALLBACK_V02_DATA_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
