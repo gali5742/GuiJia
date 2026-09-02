@@ -6,6 +6,7 @@ on:
       - liuyao-semantic-v013-core
     paths:
       - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.2.json'
       - 'scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
       - 'scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
@@ -32,16 +33,19 @@ jobs:
       - name: Capture Fallback v0.2 data base
         run: echo "FALLBACK_V02_DATA_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
-      - name: Verify frozen v0.4 upstream locks before data generation
+      - name: Verify frozen v0.4 upstream locks and schema v0.2 before data generation
         run: |
           node - <<'NODE'
           const design = require('./data/liuyao-semantic-v013-candidate-v04-design-v0.1.json');
           const contract = require('./data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json');
-          const schema = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json');
+          const failed = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json');
+          const schema = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.2.json');
           const act = require('./data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json');
           if (design.status !== 'design_frozen_before_v04_training_or_calibration') process.exit(1);
           if (contract.status !== 'frozen_before_v04_data_generation') process.exit(1);
-          if (schema.status !== 'frozen_before_fallback_v02_data_generation') process.exit(1);
+          if (failed.status !== 'frozen_before_fallback_v02_data_generation') process.exit(1);
+          if (schema.status !== 'frozen_after_v01_preseal_path_contract_failure_before_encoder_scoring') process.exit(1);
+          if (schema.supersedes?.gitBlobSha !== '3bdbf13c25c72d3529f345b194af653bcfdcdf50') process.exit(1);
           if (act.status !== 'locked' || act.threshold !== 0.5045675974201208) process.exit(1);
           if (act.independentEvaluationRead !== false || act.sealedBlindEvaluationRead !== false || act.developmentRead !== false) process.exit(1);
           NODE
@@ -49,16 +53,16 @@ jobs:
       - name: Generate fresh Fallback v0.2 train augmentation and calibration text only
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
-      - name: Apply deterministic preseal corpus corrections
+      - name: Apply deterministic preseal corpus corrections and path annotations
         run: node scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-preseal-patch.mjs
 
-      - name: Verify preseal data without encoder scoring
+      - name: Verify preseal schema v0.2 data without encoder scoring
         run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
       - name: Seal Fallback v0.2 corpora before first encoder scoring
         run: node scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
-      - name: Verify sealed corpora and lock without encoder scoring
+      - name: Verify sealed corpora and schema v0.2 lock without encoder scoring
         run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
       - name: Commit sealed Fallback v0.2 data
@@ -81,6 +85,7 @@ jobs:
             data/liuyao-semantic-v013-candidate-v04-design-v0.1.json
             data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json
             data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.2.json
             data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json
             data/liuyao-semantic-route-inventory-v0.2.json
             scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
