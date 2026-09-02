@@ -11,6 +11,7 @@ const modelLockPath = 'data/liuyao-semantic-fallback-identity-v0.1-execution-v0.
 const frozenLockPath = 'data/liuyao-semantic-frozen-dependencies-v0.2.lock.json';
 const contractPath = 'data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json';
 const patchPath = 'scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs';
+const executionCorrectionPath = 'scripts/apply-liuyao-semantic-v013-candidate-v03-development-execution-v01-preseal-correction.mjs';
 const runtimeLockPath = 'data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json';
 const read = (relative) => fs.readFileSync(path.join(root, relative));
 const readJson = (relative) => JSON.parse(read(relative).toString('utf8'));
@@ -50,6 +51,13 @@ assert(patchPath === contract.freshDevelopment.presealPatch.path, 'preseal patch
 assert(gitBlobSha(patchPath) === contract.freshDevelopment.presealPatch.gitBlobSha, 'preseal patch blob drift');
 assert(data.presealPatch?.rowsPatched === contract.freshDevelopment.presealPatch.expectedRowsPatched, `preseal patched rows ${data.presealPatch?.rowsPatched}`);
 assert(data.presealPatch?.modelOrThresholdChanged === false, 'preseal patch changed model/threshold');
+assert(contract.freshDevelopment.executionPresealCorrection?.path === executionCorrectionPath, 'execution preseal correction path drift');
+assert(gitBlobSha(executionCorrectionPath) === contract.freshDevelopment.executionPresealCorrection.gitBlobSha, 'execution preseal correction blob drift');
+assert(data.executionPresealCorrection?.version === 'execution-v0.1', 'execution preseal correction metadata missing');
+assert(data.executionPresealCorrection?.targetId === 'V013-V03-D-089', 'execution preseal correction target metadata drift');
+assert(data.executionPresealCorrection?.expectedRoute === 'financial_fortune' && data.executionPresealCorrection?.expectedCandidatePath === 'fallback_head', 'execution preseal correction route/path metadata drift');
+assert(data.executionPresealCorrection?.encoderScoringObserved === false && data.executionPresealCorrection?.independentEvaluationRead === false, 'execution preseal correction used forbidden evidence');
+assert(data.executionPresealCorrection?.labelChanged === false && data.executionPresealCorrection?.modelOrThresholdChanged === false && data.executionPresealCorrection?.verifierWeakened === false, 'execution preseal correction changed protected semantics');
 for (const relative of [
   'js/liuyao-semantic-route-evidence-v01.js',
   'js/liuyao-semantic-route-evidence-v02.js',
