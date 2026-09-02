@@ -1,0 +1,93 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-route-exposure-supplement-reachability-contract-v0.1",
+  "status": "locked_before_first_postseal_supplement_encoder_audit",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_one_shot_route_exposure_supplement_reachability",
+  "purpose": "Audit the sealed one-shot 120-row supplement for the three route identities that remained at zero Fallback exposure after calibration v0.4. This audit may not trigger a second sampling round if it fails.",
+  "sealedSupplement": {
+    "sealCommitSha": "58870657001811a8390c8af14732dde0631b274f",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.lock.json",
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+    "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+    "schemaPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json",
+    "schemaSha256": "17f7b459191afc32151dba1a93cf86a981cf0d79880736a1acd34f1c09f18828",
+    "rows": 120,
+    "perRoute": 40,
+    "routes": ["investment_price_trend","marital_relationship","relationship_development"],
+    "sealedBeforeFirstPostsealEncoderAudit": true,
+    "mutationAllowed": false
+  },
+  "immutableBaseEvidence": {
+    "calibrationV04Path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+    "calibrationV04Sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+    "reachabilityV04Path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json",
+    "readRowLevelResultsInThisAudit": false,
+    "aggregateOnly": {
+      "knownSemanticActRetention": 1,
+      "knownReachingFallback": 101,
+      "knownRows": 220,
+      "nearDomainReachingFallback": 9,
+      "nearDomainRows": 440,
+      "totalNonRouteReachingFallback": 15,
+      "totalNonRouteRows": 484,
+      "coveredRoutes": 19,
+      "zeroRoutes": ["investment_price_trend","marital_relationship","relationship_development"]
+    }
+  },
+  "semanticAct": {
+    "modelPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+    "modelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+    "modelLockPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+    "modelLockSha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+    "threshold": 0.5045675974201208,
+    "changeAllowed": false
+  },
+  "routeability": {
+    "baseModelPath": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+    "baseModelSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+    "thresholdArtifactPath": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+    "thresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+    "threshold": 0.7678148573595883,
+    "changeAllowed": false
+  },
+  "encoder": {
+    "executionContractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "executionContractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "expectedEncoderCalls": 120,
+    "multiTextBatchForbidden": true
+  },
+  "auditOnly": {
+    "fallbackIdentityWeightsTrained": false,
+    "fallbackIdentityProbabilitiesScored": false,
+    "fallbackThresholdSelected": false,
+    "routerLoaded": false,
+    "routerTopKRead": false,
+    "scopeHardVetoUsedForReachability": false,
+    "v04ReachabilityRowResultsRead": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false,
+    "corpusMutationAllowed": false
+  },
+  "reachabilityDefinition": "semanticActProbability >= 0.5045675974201208 AND Evidence v0.3 unsupportedTargets empty AND Arbitration v0.12 is null AND corrected Routeability probability >= 0.7678148573595883",
+  "frozenChecks": {
+    "minimumSupplementKnownSemanticActRetention": 0.95,
+    "requireEverySupplementRouteAtLeastOneReachingFallback": true
+  },
+  "oneShotFailureBehavior": {
+    "ifAnyFrozenCheckFails": "commit immutable supplement reachability failure report, stop Fallback Identity v0.2 training, and audit Routeability representation/semantic boundary for remaining zero-exposure routes",
+    "supplementMutationAllowedAfterAudit": false,
+    "sameVersionRetryWithEditedTextAllowed": false,
+    "secondSamplingRoundAllowed": false
+  },
+  "successBehavior": {
+    "nextAllowedAction": "freeze composite v0.5 reachability decision and Fallback Identity v0.2 training/calibration contract using immutable calibration v0.4 plus sealed supplement before any Fallback weights, probabilities or threshold are produced"
+  }
+}
