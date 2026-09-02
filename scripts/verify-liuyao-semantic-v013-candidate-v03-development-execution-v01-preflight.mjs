@@ -24,10 +24,16 @@ assert(contract.invariants?.healthDiseaseDivinationRowsForbidden === true, 'heal
 assert(contract.independentEvaluation?.readDuringDevelopment === false, 'contract permits independent evaluation read');
 assert(contract.corpusIsolation?.independentOrBlindCorpusReadForbidden === true, 'contract permits independent/blind corpus overlap read');
 assert(contract.freshDevelopment?.mustBeCommittedBeforeFirstEncoderScoring === true, 'development seal commit-before-score boundary missing');
-assert(contract.freshDevelopment.executionPresealCorrection?.targetId === 'V013-V03-D-089', 'execution preseal correction target drift');
-assert(contract.freshDevelopment.executionPresealCorrection?.expectedRoute === 'financial_fortune' && contract.freshDevelopment.executionPresealCorrection?.expectedCandidatePath === 'fallback_head', 'execution preseal correction route/path drift');
-assert(contract.freshDevelopment.executionPresealCorrection?.encoderScoringObserved === false && contract.freshDevelopment.executionPresealCorrection?.independentEvaluationRead === false, 'execution preseal correction used forbidden evidence');
-assert(contract.freshDevelopment.executionPresealCorrection?.labelChanged === false && contract.freshDevelopment.executionPresealCorrection?.modelOrThresholdChanged === false, 'execution preseal correction changes labels/model/threshold');
+const correction = contract.freshDevelopment.executionPresealCorrection;
+assert(correction?.correctionsApplied === 2 && Array.isArray(correction.corrections) && correction.corrections.length === 2, 'execution preseal correction ledger count drift');
+const correctionById = new Map(correction.corrections.map((item) => [item.targetId, item]));
+const d089 = correctionById.get('V013-V03-D-089');
+assert(d089?.expectedDisposition === 'route_known' && d089?.expectedRoute === 'financial_fortune' && d089?.expectedCandidatePath === 'fallback_head' && d089?.reason === 'deterministic_path_alignment', 'D-089 execution correction contract drift');
+const d166 = correctionById.get('V013-V03-D-166');
+assert(d166?.expectedDisposition === 'non_route' && d166?.expectedRoute == null && d166?.expectedCandidatePath == null && d166?.nonRouteSubtype === 'route_unresolved' && d166?.reason === 'exact_prior_calibration_overlap_removal', 'D-166 execution correction contract drift');
+assert(correction.corrections.every((item) => item.encoderScoringObserved === false), 'execution preseal correction observed encoder scoring');
+assert(correction.independentEvaluationRead === false, 'execution preseal correction read independent evaluation');
+assert(correction.labelsChanged === false && correction.modelOrThresholdChanged === false && correction.verifierWeakened === false, 'execution preseal correction changes protected semantics');
 assert(contract.freshDevelopment?.trainingEligible === false && contract.freshDevelopment?.thresholdCalibrationEligible === false, 'development data training/calibration eligibility drift');
 
 const checkBlob = (entry, label) => {
@@ -91,6 +97,7 @@ console.log('Candidate v0.3 corrected development preflight verified before data
 console.log(JSON.stringify({
   routeCount:contract.invariants.routeCount,
   rows:contract.freshDevelopment.expectedCounts.total,
+  presealCorrections:correction.corrections.map((item) => ({ id:item.targetId, reason:item.reason })),
   routeabilityThreshold:contract.thresholds.routeability,
   scopeHardVetoCutoff:contract.thresholds.scopeHardVeto,
   fallbackIdentityGlobalThreshold:contract.thresholds.fallbackIdentityGlobal,
