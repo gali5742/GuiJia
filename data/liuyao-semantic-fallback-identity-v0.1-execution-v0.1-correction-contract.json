@@ -1,0 +1,113 @@
+{
+  "version": "0.13-fallback-identity-v0.1-execution-v0.1-correction-contract-v0.1",
+  "status": "locked_before_first_corrected_encoder_scoring",
+  "scope": "liuyao_semantic_fallback_identity_v0.1_execution_v0.1",
+  "purpose": "Correct only the embedding execution representation and frozen dependency snapshot while preserving the sealed Fallback Identity v0.1 training/calibration contract.",
+  "baseTrainingContract": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-training-contract.json",
+    "gitBlobSha": "dd325ffd8ed456eb6971d321b6b520761d9ed1e6",
+    "role": "authoritative_data_algorithm_hyperparameter_contract"
+  },
+  "baseTrainer": {
+    "path": "scripts/train-and-calibrate-liuyao-semantic-fallback-identity-v01.mjs",
+    "gitBlobSha": "e19e47a1634e7303e2794809012454b1c3644db8",
+    "role": "instrumented_without_repository_mutation"
+  },
+  "baseModelAlgorithm": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v01.js",
+    "gitBlobSha": "6bc3c8b6eebf9a563fdbd98cc34e9becfcbff7c3",
+    "sha256": "ae7ebbd1e197d0e7a764993216ac68e64ff562be7945d4221ffd3cceb4baf1e2"
+  },
+  "sealedData": {
+    "lockPath": "data/liuyao-semantic-fallback-identity-v0.1-data.lock.json",
+    "lockGitBlobSha": "c537c6c68feba7145d142e4cfbc91a2f641a3597",
+    "trainingPath": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+    "trainingGitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a",
+    "calibrationPath": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+    "calibrationGitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd"
+  },
+  "correctedDependencySnapshot": {
+    "correctedFrozenDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "gitBlobSha": "255b2cca09a82608ea8cbf45f06f4f3cff153801",
+      "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+    },
+    "correctedFrozenDependenciesLock": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.lock.json",
+      "gitBlobSha": "2c40edf1c502d2d69a547e4efd9ab14f2c95152f"
+    },
+    "routeabilityBaseModel": {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    "routeabilityThresholdSource": {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "threshold": 0.7678148573595883
+    }
+  },
+  "executionContract": {
+    "contractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "contractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "contractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "canonicalTextsPerEncoderCall": 1,
+    "processorCallsPerQuestion": 1,
+    "modelForwardCallsPerQuestion": 1
+  },
+  "calibrationRuntimeLock": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json",
+    "gitBlobSha": "bb44b7410d9df86b73aa0f5bb62eba8677ca59c5",
+    "status": "locked_before_first_corrected_encoder_scoring"
+  },
+  "preservedTrainingAlgorithm": {
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "epochs": 360,
+    "learningRate": 0.42,
+    "l2": 0.0015,
+    "optimizer": "deterministic_full_batch_gradient_descent_with_epoch_decay_lr",
+    "learningRateAtEpoch": "learningRate / (1 + epoch * 0.01)",
+    "classBalancing": {
+      "positiveTotalWeight": 0.5,
+      "negativeTotalWeight": 0.5
+    },
+    "regularization": {
+      "weights": "l2",
+      "bias": "none"
+    },
+    "positiveLabelRule": "expectedRoute === headRoute",
+    "negativeLabelRule": "all other current22 labels plus genuine nonroute"
+  },
+  "allowedCorrections": [
+    "consume corrected frozen dependencies v0.2 instead of legacy batched frozen dependencies v0.1",
+    "consume corrected Routeability v0.2 execution-v0.1 weights instead of legacy batched v0.2 weights",
+    "use corrected frozen Routeability threshold 0.7678148573595883 in the temporary calibration VM without modifying js/liuyao-semantic-routeability-v05.js",
+    "call the encoder once per question using a single-element text array instead of batching multiple questions",
+    "redirect generated model/report/lock to execution-v0.1 artifact paths",
+    "add execution-correction provenance to generated artifacts"
+  ],
+  "forbiddenChanges": [
+    "training/calibration row edits or additions",
+    "route inventory changes",
+    "optimizer, epoch, learning-rate, L2, class-balancing, or bias-regularization changes",
+    "route-specific fallback thresholds",
+    "calibration gate relaxation",
+    "Routeability threshold retuning inside Fallback calibration",
+    "Scope hard-veto retuning inside Fallback calibration",
+    "Router margin tuning",
+    "Candidate development or independent evaluation leakage",
+    "traditional LiuYao feature use"
+  ],
+  "calibrationHardGates": {
+    "acceptedRouteAccuracyMin": 0.98,
+    "overallNonrouteFalseActivationMax": 0.05,
+    "eachNonrouteSubtypeFalseActivationMax": 0.05,
+    "thresholdPolicy": "exactly_one_global_fallback_threshold"
+  },
+  "outputs": {
+    "model": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.json",
+    "modelLock": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.lock.json",
+    "calibrationReport": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-report.json"
+  }
+}
