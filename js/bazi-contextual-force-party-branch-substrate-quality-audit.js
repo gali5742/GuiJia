@@ -347,4 +347,8 @@
         rebuildSideForceProfile,
         extendSynthesis
     });
+
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapter) {
+        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
