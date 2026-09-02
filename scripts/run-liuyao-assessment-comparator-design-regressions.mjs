@@ -34,8 +34,10 @@ const tests = [
   'tests/liuyao-travel-execution-comparator-pretraining-v03-tests.js',
   'tests/liuyao-travel-execution-reading-scoped-e2e-v03-tests.js',
   'tests/liuyao-travel-alternative-anchor-pretraining-v01-tests.js',
+  'tests/liuyao-travel-transport-object-resolver-pretraining-v01-tests.js',
   'tests/liuyao-travel-transport-delay-evidence-adapter-pretraining-v01-tests.js',
-  'tests/liuyao-travel-transport-retreat-evidence-e2e-v01-tests.js'
+  'tests/liuyao-travel-transport-retreat-evidence-e2e-v01-tests.js',
+  'tests/liuyao-travel-transport-resolver-retreat-e2e-v01-tests.js'
 ];
 
 for (const test of tests) {
