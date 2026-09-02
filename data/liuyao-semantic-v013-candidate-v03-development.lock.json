@@ -1,0 +1,28 @@
+{
+  "version": "0.13-candidate-v0.3-development-lock-execution-v0.1",
+  "status": "locked",
+  "artifact": "data/liuyao-semantic-v013-candidate-v03-development.json",
+  "artifactSha256": "507db53e3e8ea9ce06737d5a86f9df1c317004a661a7ba4d43b330046423c540",
+  "rowCount": 198,
+  "developmentExecutionContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json",
+    "sha256": "8b560116e2f7c7587b50309cc8a06610927b4b7ac6616e59119cb32d67a0f9c4"
+  },
+  "correctedFallbackIdentityModelLock": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.lock.json",
+    "sha256": "25d5a4071c6066ab0c9be7104f1db045464b517f293d6aab8d6e189fc47f24e1",
+    "artifactSha256": "b79aa830ce26ec7fcd1aa080d5470f342fae0406476e0d8419ba1be90f6763b0"
+  },
+  "correctedFrozenDependenciesLock": {
+    "path": "data/liuyao-semantic-frozen-dependencies-v0.2.lock.json",
+    "sha256": "7816cb3b8bbac9697cbd5d71374801d0bab6cf7afecd481251b2b5db144b62d1",
+    "artifactSha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+  },
+  "sealedBeforeFirstDevelopmentEncoderScoring": true,
+  "independentEvaluationDataReadBeforeSeal": false,
+  "postSealWordingMutationAllowed": false,
+  "canonicalTextsPerEncoderCall": 1,
+  "routeabilityThreshold": 0.7678148573595883,
+  "scopeHardVetoCutoff": 0.4319473801404805,
+  "fallbackIdentityGlobalThreshold": 0.5571407097788003
+}
