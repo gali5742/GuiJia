@@ -218,136 +218,136 @@ const known = {
 
 const nearDomain = {
   financial_fortune:[
-    '我把每天的开销按周记还是按月记更顺手','expense_recording_choice'],
-    '家里的花用记录分成几类保存会不会更好找','expense_category_choice'],
-    '我把日常支出清单放手机里还是纸上更方便','expense_list_medium'],
-    '每个月花用的记录先按日期排还是按用途排更清楚','expense_sorting_choice']
+    ['我把每天的开销按周记还是按月记更顺手','expense_recording_choice'],
+    ['家里的花用记录分成几类保存会不会更好找','expense_category_choice'],
+    ['我把日常支出清单放手机里还是纸上更方便','expense_list_medium'],
+    ['每个月花用的记录先按日期排还是按用途排更清楚','expense_sorting_choice']
   ],
   business_operation:[
-    '小铺的钥匙统一放一个地方还是分开保管更方便','small_shop_key_management'],
-    '我把小铺每天的事项按早晚分开记会不会更清楚','small_shop_task_record'],
-    '这间小铺的工具按使用频率摆还是按种类摆更顺手','small_shop_tool_layout'],
-    '小铺里值班事项用纸表还是共享表记录更方便','small_shop_roster_medium']
+    ['小铺的钥匙统一放一个地方还是分开保管更方便','small_shop_key_management'],
+    ['我把小铺每天的事项按早晚分开记会不会更清楚','small_shop_task_record'],
+    ['这间小铺的工具按使用频率摆还是按种类摆更顺手','small_shop_tool_layout'],
+    ['小铺里值班事项用纸表还是共享表记录更方便','small_shop_roster_medium']
   ],
   commercial_transaction:[
-    '我和那边谈东西时先发图片还是先发清单更省事','goods_discussion_medium'],
-    '这回两边对条件时按条目逐项说还是一次说完更清楚','terms_discussion_format'],
-    '和对方核对那批东西时用表格还是文字消息更方便','goods_check_format'],
-    '两边谈细节的时候先讲数量还是先讲时间更容易沟通','negotiation_order_choice']
+    ['我和那边谈东西时先发图片还是先发清单更省事','goods_discussion_medium'],
+    ['这回两边对条件时按条目逐项说还是一次说完更清楚','terms_discussion_format'],
+    ['和对方核对那批东西时用表格还是文字消息更方便','goods_check_format'],
+    ['两边谈细节的时候先讲数量还是先讲时间更容易沟通','negotiation_order_choice']
   ],
   inventory_purchase:[
-    '后仓要用的东西按类别列清单还是按位置列更方便','backroom_need_list'],
-    '铺子后面缺什么用纸记还是手机记更不容易漏','shop_need_record_medium'],
-    '后屋下一轮要添的东西按轻重缓急排会不会更清楚','backroom_need_priority'],
-    '准备下一轮要用的东西时先列数量还是先列种类更省事','supply_list_order']
+    ['后仓要用的东西按类别列清单还是按位置列更方便','backroom_need_list'],
+    ['铺子后面缺什么用纸记还是手机记更不容易漏','shop_need_record_medium'],
+    ['后屋下一轮要添的东西按轻重缓急排会不会更清楚','backroom_need_priority'],
+    ['准备下一轮要用的东西时先列数量还是先列种类更省事','supply_list_order']
   ],
   inventory_sale:[
-    '后仓现有的东西按放置时间排还是按类别排更容易整理','backroom_existing_sort'],
-    '铺子里剩着的那批东西用编号还是照片做记录更方便','remaining_goods_record'],
-    '后屋放久的东西按区域贴标签会不会更好找','old_goods_labeling'],
-    '手里现有那批东西的清单按数量还是按位置排序更清楚','existing_goods_sort']
+    ['后仓现有的东西按放置时间排还是按类别排更容易整理','backroom_existing_sort'],
+    ['铺子里剩着的那批东西用编号还是照片做记录更方便','remaining_goods_record'],
+    ['后屋放久的东西按区域贴标签会不会更好找','old_goods_labeling'],
+    ['手里现有那批东西的清单按数量还是按位置排序更清楚','existing_goods_sort']
   ],
   borrow_money:[
-    '我把别人临时给我的那一笔单独放一个账户会不会更好管理','inbound_temp_fund_accounting'],
-    '这次有人先替我补上的部分按日期记还是按人名记更清楚','inbound_help_recording'],
-    '临时从外面补来的那一笔我单独做个备忘会不会更方便','temporary_inbound_memo'],
-    '别人先给我顶上的那部分用一个表单独记录好不好','inbound_fund_tracking']
+    ['我把别人临时给我的那一笔单独放一个账户会不会更好管理','inbound_temp_fund_accounting'],
+    ['这次有人先替我补上的部分按日期记还是按人名记更清楚','inbound_help_recording'],
+    ['临时从外面补来的那一笔我单独做个备忘会不会更方便','temporary_inbound_memo'],
+    ['别人先给我顶上的那部分用一个表单独记录好不好','inbound_fund_tracking']
   ],
   lend_money:[
-    '我临时给对方用的那一笔单独记在一个表里会不会更方便','outbound_temp_fund_tracking'],
-    '先给别人顶着的那部分按人名还是按日期整理更清楚','outbound_help_sorting'],
-    '给对方暂时用的那笔我放到单独的备忘里好不好','temporary_outbound_memo'],
-    '我先替别人垫的那些记录统一放一个地方会不会更好找','outbound_advance_recording']
+    ['我临时给对方用的那一笔单独记在一个表里会不会更方便','outbound_temp_fund_tracking'],
+    ['先给别人顶着的那部分按人名还是按日期整理更清楚','outbound_help_sorting'],
+    ['给对方暂时用的那笔我放到单独的备忘里好不好','temporary_outbound_memo'],
+    ['我先替别人垫的那些记录统一放一个地方会不会更好找','outbound_advance_recording']
   ],
   debt_collection:[
-    '以前留在别人那里的那些记录按人名分组会不会更好查','old_outward_record_grouping'],
-    '对方那边还挂着的事项我按时间顺序整理是不是更清楚','counterparty_open_item_sorting'],
-    '早前出去的那些数目用一张表统一记会不会更方便','past_amount_tracking'],
-    '留在不同人那边的记录按对象还是按月份分类更好','counterparty_record_classification']
+    ['以前留在别人那里的那些记录按人名分组会不会更好查','old_outward_record_grouping'],
+    ['对方那边还挂着的事项我按时间顺序整理是不是更清楚','counterparty_open_item_sorting'],
+    ['早前出去的那些数目用一张表统一记会不会更方便','past_amount_tracking'],
+    ['留在不同人那边的记录按对象还是按月份分类更好','counterparty_record_classification']
   ],
   debt_repayment:[
-    '我名下还挂着的那些数目按到期先后排会不会更方便','own_open_amount_sorting'],
-    '压在我这边的几项长期记录分开做提醒好不好','own_obligation_reminders'],
-    '我把名下待处理的那些数做成月度清单会不会更清楚','own_pending_amount_list'],
-    '一直挂在我这边的项目按大小还是按时间分类更方便','own_open_item_classification']
+    ['我名下还挂着的那些数目按到期先后排会不会更方便','own_open_amount_sorting'],
+    ['压在我这边的几项长期记录分开做提醒好不好','own_obligation_reminders'],
+    ['我把名下待处理的那些数做成月度清单会不会更清楚','own_pending_amount_list'],
+    ['一直挂在我这边的项目按大小还是按时间分类更方便','own_open_item_classification']
   ],
   partnership:[
-    '我和这个人一起做事时用同一张任务表会不会更方便','joint_task_board'],
-    '两个人做这摊事时职责按模块分还是按时间分更清楚','joint_role_organization'],
-    '我们共同做项目时文件放一个目录还是各自保存更省事','joint_file_management'],
-    '我和对方一起做事时每周固定一次对进度会不会更清楚','joint_progress_routine']
+    ['我和这个人一起做事时用同一张任务表会不会更方便','joint_task_board'],
+    ['两个人做这摊事时职责按模块分还是按时间分更清楚','joint_role_organization'],
+    ['我们共同做项目时文件放一个目录还是各自保存更省事','joint_file_management'],
+    ['我和对方一起做事时每周固定一次对进度会不会更清楚','joint_progress_routine']
   ],
   investment_profit:[
-    '这只基金的记录按月份归档还是按买入批次归档更好找','fund_record_archiving'],
-    '我把这只股票的历史数据放一张表还是分年度保存更方便','stock_history_storage'],
-    '这个项目的数字记录按季度整理会不会更清楚','project_number_recording'],
-    '手里这份基金的资料按时间还是按来源分类更顺手','fund_document_sorting']
+    ['这只基金的记录按月份归档还是按买入批次归档更好找','fund_record_archiving'],
+    ['我把这只股票的历史数据放一张表还是分年度保存更方便','stock_history_storage'],
+    ['这个项目的数字记录按季度整理会不会更清楚','project_number_recording'],
+    ['手里这份基金的资料按时间还是按来源分类更顺手','fund_document_sorting']
   ],
   investment_liquidation:[
-    '我把这只基金的历史凭证合成一个文件还是分开留更方便','fund_document_merge'],
-    '手里这只股票以前的记录按年份归档会不会更好找','stock_record_archiving'],
-    '这个项目的文件在结束前先按类型整理会不会更省事','project_file_organization'],
-    '这份基金相关资料统一放一个目录好还是分开存好','fund_file_storage']
+    ['我把这只基金的历史凭证合成一个文件还是分开留更方便','fund_document_merge'],
+    ['手里这只股票以前的记录按年份归档会不会更好找','stock_record_archiving'],
+    ['这个项目的文件在结束前先按类型整理会不会更省事','project_file_organization'],
+    ['这份基金相关资料统一放一个目录好还是分开存好','fund_file_storage']
   ],
   investment_suitability:[
-    '我把几只基金的资料放在同一个比较表里会不会更方便','fund_comparison_table'],
-    '看这只股票时我先整理公司资料还是先整理历史数据更清楚','stock_research_order'],
-    '这个项目的资料按优点缺点分栏记录会不会更好读','project_research_format'],
-    '几项标的的资料用同一套字段整理是不是更方便比较','asset_research_schema']
+    ['我把几只基金的资料放在同一个比较表里会不会更方便','fund_comparison_table'],
+    ['看这只股票时我先整理公司资料还是先整理历史数据更清楚','stock_research_order'],
+    ['这个项目的资料按优点缺点分栏记录会不会更好读','project_research_format'],
+    ['几项标的的资料用同一套字段整理是不是更方便比较','asset_research_schema']
   ],
   investment_position_decision:[
-    '我把手里几份基金按金额大小排序会不会更清楚','fund_holding_sort'],
-    '股票列表按行业还是按名称排更容易看','stock_list_sort'],
-    '手上这些标的用百分比还是金额显示更直观','holding_display_choice'],
-    '我把各项在手里的份量每周记一次会不会更方便','position_record_frequency']
+    ['我把手里几份基金按金额大小排序会不会更清楚','fund_holding_sort'],
+    ['股票列表按行业还是按名称排更容易看','stock_list_sort'],
+    ['手上这些标的用百分比还是金额显示更直观','holding_display_choice'],
+    ['我把各项在手里的份量每周记一次会不会更方便','position_record_frequency']
   ],
   investment_price_trend:[
-    '这只股票的提醒每天发一次还是只收盘后发更清静','stock_alert_frequency'],
-    '基金曲线用周线还是月线放在首页更容易看','fund_chart_display'],
-    '这个标的的历史图按一年还是三年区间保存更方便','asset_chart_range'],
-    '股票软件里的图先显示成交量还是先显示基本信息更顺手','stock_ui_layout']
+    ['这只股票的提醒每天发一次还是只收盘后发更清静','stock_alert_frequency'],
+    ['基金曲线用周线还是月线放在首页更容易看','fund_chart_display'],
+    ['这个标的的历史图按一年还是三年区间保存更方便','asset_chart_range'],
+    ['股票软件里的图先显示成交量还是先显示基本信息更顺手','stock_ui_layout']
   ],
   income_salary:[
-    '公司每月固定给我的那一份记录按月份放还是按年份放更好找','monthly_fixed_record_sort'],
-    '每月固定到我这里的那部分用一张表连续记会不会更清楚','monthly_fixed_tracking'],
-    '公司常规给我的那一份做成自动分类会不会更省事','regular_company_amount_classification'],
-    '每个月固定那部分的记录用电子文件还是纸质留存更方便','monthly_fixed_record_medium']
+    ['公司每月固定给我的那一份记录按月份放还是按年份放更好找','monthly_fixed_record_sort'],
+    ['每月固定到我这里的那部分用一张表连续记会不会更清楚','monthly_fixed_tracking'],
+    ['公司常规给我的那一份做成自动分类会不会更省事','regular_company_amount_classification'],
+    ['每个月固定那部分的记录用电子文件还是纸质留存更方便','monthly_fixed_record_medium']
   ],
   income_bonus:[
-    '公司偶尔另外给的那一份记录要不要和每月固定部分分开','extra_amount_separate_record'],
-    '年底多出来的那份用单独一栏记录会不会更清楚','year_end_extra_record'],
-    '项目结束后另外那一份按项目名分类还是按月份分类更方便','project_extra_sort'],
-    '公司额外给的那些记录统一放一个文件里好不好','extra_company_amount_archive']
+    ['公司偶尔另外给的那一份记录要不要和每月固定部分分开','extra_amount_separate_record'],
+    ['年底多出来的那份用单独一栏记录会不会更清楚','year_end_extra_record'],
+    ['项目结束后另外那一份按项目名分类还是按月份分类更方便','project_extra_sort'],
+    ['公司额外给的那些记录统一放一个文件里好不好','extra_company_amount_archive']
   ],
   receive_item:[
-    '我等的几件家具用一个清单按日期排会不会更方便','awaited_item_list'],
-    '已经定下的东西按房间分类记录会不会更好找','ordered_item_classification'],
-    '等着来的那些东西用日历提醒还是清单提醒更顺手','arrival_reminder_medium'],
-    '我把已经定好的几样东西统一写在一个备忘里好不好','ordered_item_memo']
+    ['我等的几件家具用一个清单按日期排会不会更方便','awaited_item_list'],
+    ['已经定下的东西按房间分类记录会不会更好找','ordered_item_classification'],
+    ['等着来的那些东西用日历提醒还是清单提醒更顺手','arrival_reminder_medium'],
+    ['我把已经定好的几样东西统一写在一个备忘里好不好','ordered_item_memo']
   ],
   item_purchase:[
-    '我把想收的几样家居东西按房间列还是按预算列更方便','desired_item_list'],
-    '准备挑的小家具先做尺寸表还是先做款式表更清楚','item_comparison_order'],
-    '几个候选的小物件用照片收藏还是文字清单更好找','candidate_item_record'],
-    '我把待选的家居用品按优先级排一下会不会更省事','candidate_item_priority']
+    ['我把想收的几样家居东西按房间列还是按预算列更方便','desired_item_list'],
+    ['准备挑的小家具先做尺寸表还是先做款式表更清楚','item_comparison_order'],
+    ['几个候选的小物件用照片收藏还是文字清单更好找','candidate_item_record'],
+    ['我把待选的家居用品按优先级排一下会不会更省事','candidate_item_priority']
   ],
   relationship_development:[
-    '我和这个人的聊天记录按月份归档会不会更好找','contact_chat_archive'],
-    '两个人见面的日子记在共享日历还是自己日历更方便','contact_calendar_choice'],
-    '我把和这个人的照片单独建一个相册好不好','contact_photo_album'],
-    '我们两个人平时约时间用同一个清单会不会更省事','contact_schedule_tool']
+    ['我和这个人的聊天记录按月份归档会不会更好找','contact_chat_archive'],
+    ['两个人见面的日子记在共享日历还是自己日历更方便','contact_calendar_choice'],
+    ['我把和这个人的照片单独建一个相册好不好','contact_photo_album'],
+    ['我们两个人平时约时间用同一个清单会不会更省事','contact_schedule_tool']
   ],
   marriage_match:[
-    '我和对象两边要办的事项放在一个共享清单里会不会更清楚','couple_shared_checklist'],
-    '两个人以后共同安排的文件按谁负责来分类好不好','couple_document_assignment'],
-    '我和对象需要一起准备的东西按时间排序会不会更方便','couple_preparation_sort'],
-    '两边共同事项用一个日历还是两个日历同步更省事','couple_calendar_choice']
+    ['我和对象两边要办的事项放在一个共享清单里会不会更清楚','couple_shared_checklist'],
+    ['两个人以后共同安排的文件按谁负责来分类好不好','couple_document_assignment'],
+    ['我和对象需要一起准备的东西按时间排序会不会更方便','couple_preparation_sort'],
+    ['两边共同事项用一个日历还是两个日历同步更省事','couple_calendar_choice']
   ],
   marital_relationship:[
-    '我和另一半家里的账单按月份一起整理会不会更方便','household_bill_organization'],
-    '家里两个人的家务用轮流表还是固定分工表更清楚','household_chore_tracking'],
-    '我和另一半共同用的文件放一个目录会不会更好找','shared_household_files'],
-    '两个人的家庭事项每周一起整理一次会不会更省事','household_task_routine']
+    ['我和另一半家里的账单按月份一起整理会不会更方便','household_bill_organization'],
+    ['家里两个人的家务用轮流表还是固定分工表更清楚','household_chore_tracking'],
+    ['我和另一半共同用的文件放一个目录会不会更好找','shared_household_files'],
+    ['两个人的家庭事项每周一起整理一次会不会更省事','household_task_routine']
   ]
 };
 
