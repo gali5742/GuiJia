@@ -184,9 +184,21 @@ test('Source/Contract Audit 不引入 numeric/scalar/threshold/ranking 或 reali
     const synthesis = synthesisFor();
     const audit = synthesis.contextualForcePartyRelationTargetSemanticLevelContractSourceAudit;
     assert(audit?.targetSemanticLevelResolverDefined === false, '不得提前实现 resolver');
-    assert(sourceApi.CONTRACT.groupOutcomeExpandsToMemberEdges === false, '不得展开 member edges');
-    const keys = collectKeys({ contract:sourceApi.CONTRACT, audit });
-    ['forceScore','memberScore','classificationScore','numericWeight','thresholdValue','majorityResult','rankingResult','scalarForce','finalStrength'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
+    assert(audit?.numericScore === null && audit?.scalarForce === null, 'numeric/scalar output 应保持 null');
+    const c = sourceApi.CONTRACT;
+    assert(c.groupOutcomeExpandsToMemberEdges === false, '不得展开 member edges');
+    assert(
+        c.numericAggregation === false &&
+        c.numericWeights === false &&
+        c.thresholding === false &&
+        c.majorityVoting === false &&
+        c.ranking === false &&
+        c.scalarCollapse === false &&
+        c.finalStrengthMapping === false,
+        'numeric/scalar guardrails 应显式关闭'
+    );
+    const keys = collectKeys({ contract:c, audit });
+    ['forceScore','memberScore','classificationScore','numericWeight','thresholdValue','majorityResult','rankingResult','finalStrength'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
     assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 3, 'realization registry 不应增加');
 });
 
