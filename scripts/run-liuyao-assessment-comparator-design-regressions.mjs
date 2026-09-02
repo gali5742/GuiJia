@@ -5,6 +5,7 @@ const tests = [
   'tests/liuyao-domain-comparator-pretraining-v01-tests.js',
   'tests/liuyao-domain-assessment-pretraining-v02-tests.js',
   'tests/liuyao-domain-comparator-pretraining-v02-tests.js',
+  'tests/liuyao-reading-identity-pretraining-v01-tests.js',
   'tests/liuyao-travel-execution-assessment-pretraining-v01-tests.js',
   'tests/liuyao-travel-execution-comparator-pretraining-v01-tests.js',
   'tests/liuyao-travel-execution-evidence-binding-pretraining-v01-tests.js',
