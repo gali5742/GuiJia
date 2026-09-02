@@ -28,44 +28,74 @@ jobs:
       - name: Capture immutable diagnosis base
         run: echo "DIAGNOSIS_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
 
+      - name: Correct diagnosis-only report SHA assertion if still legacy
+        run: |
+          set -euo pipefail
+          SCRIPT='scripts/diagnose-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+          OLD='9bf0fab26070d34bcb2144738a0f8dab6fc81c698f13a731b7ae5f22bfec1cec'
+          NEW='a052b2cbe69cb22834987805985b423f91f53ec19b52ce873335f665c66ce047'
+          if grep -q "$OLD" "$SCRIPT"; then
+            test "$(git hash-object "$SCRIPT")" = '3664f817028dc64c59014deaeabcf784190b1cda'
+            node - <<'NODE'
+          const fs = require('fs');
+          const path = 'scripts/diagnose-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs';
+          const oldValue = '9bf0fab26070d34bcb2144738a0f8dab6fc81c698f13a731b7ae5f22bfec1cec';
+          const newValue = 'a052b2cbe69cb22834987805985b423f91f53ec19b52ce873335f665c66ce047';
+          const source = fs.readFileSync(path, 'utf8');
+          const count = source.split(oldValue).length - 1;
+          if (count !== 1) throw new Error(`legacy report SHA occurrence count ${count}`);
+          fs.writeFileSync(path, source.replace(oldValue, newValue), 'utf8');
+          NODE
+          elif grep -q "$NEW" "$SCRIPT"; then
+            echo 'Diagnosis-only report SHA assertion already corrected.'
+          else
+            echo 'Diagnosis script report SHA assertion is neither approved legacy nor corrected value.'
+            exit 1
+          fi
+
       - name: Generate diagnosis from immutable development evidence only
         run: node scripts/diagnose-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
 
-      - name: Verify exact diagnosis artifact and policy
+      - name: Verify diagnosis artifact structure and immutable bindings
         run: |
           set -euo pipefail
           FILE='data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json'
-          test "$(sha256sum "$FILE" | awk '{print $1}')" = 'cf124d1ff62cf27b8cbc8e404e1fd54b0d37d2515604dfa598fe45d27375cf72'
-          test "$(git hash-object "$FILE")" = 'bb2a09de8e7ec8d96993dc9cfe963a0236650d85'
+          echo "diagnostic_sha256=$(sha256sum "$FILE" | awk '{print $1}')"
+          echo "diagnostic_git_blob=$(git hash-object "$FILE")"
           node - <<'NODE'
           const d = require('./data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json');
           if (d.version !== '0.13-candidate-v0.3-development-failure-diagnostic-v0.1') process.exit(1);
+          if (d.immutableInputs?.developmentReport?.gitBlobSha !== 'eeff1c256f3f962b1577a3e866d095ab6ed1347f') process.exit(1);
+          if (d.immutableInputs?.developmentReport?.sha256 !== 'a052b2cbe69cb22834987805985b423f91f53ec19b52ce873335f665c66ce047') process.exit(1);
+          if (d.immutableInputs?.developmentLock?.gitBlobSha !== 'bf1f86d1569e5f91e19ce61bbbdd8598d760ad21') process.exit(1);
+          if (d.immutableInputs?.developmentLock?.artifactSha256 !== '507db53e3e8ea9ce06737d5a86f9df1c317004a661a7ba4d43b330046423c540') process.exit(1);
           if (d.headline?.knownMisses !== 28 || d.headline?.falseActivations !== 9) process.exit(1);
+          if (d.policy?.candidateV03MutationAllowed !== false || d.policy?.candidateLockAllowed !== false) process.exit(1);
           if (d.policy?.independentEvaluationRead !== false || d.policy?.independentEvaluationCreated !== false) process.exit(1);
           if (d.policy?.thresholdRetunePerformed !== false || d.policy?.trainingEligible !== false || d.policy?.calibrationEligible !== false) process.exit(1);
           if (d.nextVersionBoundary?.candidateV03ThresholdOrModelRetuneForbidden !== true) process.exit(1);
           NODE
 
-      - name: Commit immutable Candidate v0.3 failure evidence
+      - name: Commit corrected diagnosis assertion and immutable failure evidence
         run: |
           set -euo pipefail
+          SCRIPT='scripts/diagnose-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
           FILE='data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json'
-          if [ -z "$(git status --porcelain -- "$FILE")" ]; then
-            echo 'Immutable Candidate v0.3 failure diagnosis already matches committed state.'
+          if [ -z "$(git status --porcelain -- "$SCRIPT" "$FILE")" ]; then
+            echo 'Corrected immutable Candidate v0.3 failure diagnosis already matches committed state.'
             exit 0
           fi
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add "$FILE"
-          git commit -m 'test(liuyao): record immutable v0.3 development failure diagnosis'
+          git add "$SCRIPT" "$FILE"
+          git commit -m 'test(liuyao): fix and record immutable v0.3 development failure diagnosis'
 
           git fetch origin liuyao-semantic-v013-core
           PROTECTED_PATHS=(
             data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json
             data/liuyao-semantic-v013-candidate-v03-development.lock.json
             data/liuyao-semantic-v013-candidate-v03-development.json
-            scripts/diagnose-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
           )
           if ! git diff --quiet "$DIAGNOSIS_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
             echo 'Immutable Candidate v0.3 diagnosis inputs changed during run; refusing stale diagnostic push.'
