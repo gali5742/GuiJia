@@ -1,0 +1,41 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Calibration v0.3 Generator Repair
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair-generator:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Repair deterministic near-domain pair syntax only
+        run: node scripts/repair-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03-generator.mjs
+
+      - name: Syntax-check repaired generator
+        run: node --check scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03.mjs
+
+      - name: Commit repaired generator
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03.mjs
+          if git diff --cached --quiet; then
+            echo 'Generator already repaired.'
+            exit 0
+          fi
+          git commit -m 'fix(liuyao): repair fallback calibration v0.3 generator syntax'
+          git fetch origin liuyao-semantic-v013-core
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
