@@ -1,0 +1,28 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-line-status-fact-adapter-pretraining-v02.js');
+const api=global.GuiJia.liuyaoLineStatusFactAdapterPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const line=(overrides={})=>({position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,isYing:false,statusTags:[{code:'VOID',text:'旬空',type:'void'}],...overrides});
+const input=(overrides={})=>({readingRef:'reading-A',line:line(),...overrides});
+
+t('LSF2-1 design only',()=>{assert.equal(api.currentRuntimeReachable,false);assert.equal(api.registered,false);});
+t('LSF2-2 reading ref required',()=>assert.equal(api.validateInput(input({readingRef:''})).status,'invalid'));
+t('LSF2-3 valid scoped input accepted',()=>assert.equal(api.validateInput(input()).status,'valid'));
+t('LSF2-4 fact ref includes reading scope',()=>{const r=api.buildAtomicFacts(input());assert.equal(r.facts[0].factRef,'READING:reading-A:LINE-STATUS:3:VOID');});
+t('LSF2-5 same line different reading produces different ref',()=>{const a=api.buildAtomicFacts(input({readingRef:'reading-A'})).facts[0];const b=api.buildAtomicFacts(input({readingRef:'reading-B'})).facts[0];assert.notEqual(a.factRef,b.factRef);});
+t('LSF2-6 reading ref retained on fact',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].readingRef,'reading-A'));
+t('LSF2-7 source layer retained',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].sourceLayer,'liuyao_line_status'));
+t('LSF2-8 source ref retained',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].sourceRef,'liuyao-core.buildLiuYaoLineStatus'));
+t('LSF2-9 no polarity emitted',()=>assert.equal(Object.prototype.hasOwnProperty.call(api.buildAtomicFacts(input()).facts[0],'polarity'),false));
+t('LSF2-10 no assessment emitted',()=>assert.equal(Object.prototype.hasOwnProperty.call(api.buildAtomicFacts(input()).facts[0],'assessmentStatus'),false));
+t('LSF2-11 invalid position rejected',()=>assert.equal(api.validateInput({readingRef:'A',line:line({position:0})}).status,'invalid'));
+t('LSF2-12 duplicate code rejected',()=>assert.equal(api.validateInput({readingRef:'A',line:line({statusTags:[{code:'VOID',text:'旬空',type:'void'},{code:'VOID',text:'旬空',type:'void'}]})}).status,'invalid'));
+t('LSF2-13 invalid input emits no facts',()=>assert.deepEqual(api.buildAtomicFacts({readingRef:'',line:line()}).facts,[]));
+t('LSF2-14 descriptor requires reading scope',()=>assert.equal(api.describeAdapter().readingRefRequired,true));
+t('LSF2-15 descriptor does not claim reading producer reviewed',()=>assert.equal(api.describeAdapter().readingRefProducerReviewed,false));
+t('LSF2-16 cast timestamp alone not approved formal id',()=>assert.equal(api.describeAdapter().castTimestampAloneAcceptedAsFormalReadingRef,false));
+t('LSF2-17 no vitality synthesis',()=>assert.equal(api.describeAdapter().buildsVitalitySummary,false));
+t('LSF2-18 no scoring',()=>assert.equal(api.describeAdapter().scoringEnabled,false));
+if(!process.exitCode)console.log(`Line status fact adapter v02 regression: ${n} passed, 0 failed`);
