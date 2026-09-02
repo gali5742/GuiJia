@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-travel-execution-evidence-compose-pretraining-v03.js');
+const api=global.GuiJia.liuyaoTravelExecutionEvidenceComposePretrainingV03;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const ev=(id,readingRef='R1',alternativeId='A')=>({id,readingRef,alternativeId,type:'traveler_calendar_support',polarity:'positive',sourceFactRefs:[`F:${id}`]});
+const component=(overrides={})=>({readingRef:'R1',alternativeId:'A',duty:'travel_execution',resolutionStatus:'resolved',evidence:[ev('E1')],traceRefs:['C1'],...overrides});
+
+t('TEC3-1 design-only unreachable',()=>{assert.equal(api.currentRuntimeReachable,false);assert.equal(api.registered,false);});
+t('TEC3-2 same-scope components compose',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component(),component({evidence:[ev('E2')],traceRefs:['C2']})]});assert.equal(r.resolutionStatus,'resolved');assert.equal(r.evidence.length,2);});
+t('TEC3-3 reading mismatch rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({readingRef:'R2',evidence:[ev('E2','R2')]})]});assert.equal(r.resolutionStatus,'unresolved');assert(r.issues.some(x=>x.code==='component_reading_scope_mismatch'));});
+t('TEC3-4 alternative mismatch rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({alternativeId:'B',evidence:[ev('E2','R1','B')]})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-5 duty mismatch rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({duty:'travel_safety'})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-6 evidence reading mismatch rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({evidence:[ev('E2','R2')]})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-7 evidence alternative mismatch rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({evidence:[ev('E2','R1','B')]})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-8 duplicate ids across components rejected',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component(),component({traceRefs:['C2']})]});assert.equal(r.resolutionStatus,'unresolved');assert(r.issues.some(x=>x.code==='duplicate_evidence_id_across_components'));});
+t('TEC3-9 unresolved component propagates',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({resolutionStatus:'unresolved'})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-10 partial component propagates',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({resolutionStatus:'partial'})]});assert.equal(r.resolutionStatus,'partial');});
+t('TEC3-11 all not-applicable stays not-applicable',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({resolutionStatus:'not_applicable',evidence:[]})]});assert.equal(r.resolutionStatus,'not_applicable');});
+t('TEC3-12 resolved plus not-applicable is resolved',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component(),component({resolutionStatus:'not_applicable',evidence:[],traceRefs:['C2']})]});assert.equal(r.resolutionStatus,'resolved');});
+t('TEC3-13 source fact refs required',()=>{const bad={...ev('E2'),sourceFactRefs:[]};const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component({evidence:[bad]})]});assert.equal(r.resolutionStatus,'unresolved');});
+t('TEC3-14 trace refs deduplicated',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component(),component({evidence:[ev('E2')],traceRefs:['C1']})]});assert.equal(r.componentTraceRefs.filter(x=>x==='C1').length,1);});
+t('TEC3-15 no scoring outputs',()=>{const r=api.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[component()]});for(const k of ['scalarScore','probability','winner','overallRecommendation'])assert.equal(Object.prototype.hasOwnProperty.call(r,k),false);});
+if(!process.exitCode)console.log(`Travel execution evidence composer v03 regression: ${n} passed, 0 failed`);
