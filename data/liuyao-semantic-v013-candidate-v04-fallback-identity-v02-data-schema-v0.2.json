@@ -1,0 +1,83 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-data-schema-v0.2",
+  "status": "frozen_after_v01_preseal_path_contract_failure_before_encoder_scoring",
+  "scope": "liuyao_semantic_fallback_identity_v0.2",
+  "supersedes": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json",
+    "gitBlobSha": "3bdbf13c25c72d3529f345b194af653bcfdcdf50",
+    "reason": "v0.1 incorrectly required every fresh known row to be Arbitration-null. Preseal deterministic verification found 101/220 known rows resolved upstream; no encoder scoring or data seal had occurred. Forcing all rows to evade deterministic cues would overfit corpus wording to current regex behavior."
+  },
+  "inheritsUnchangedFromV01": [
+    "route inventory count 22",
+    "fresh corpus sizes 198 training augmentation / 154 calibration",
+    "6 training known and 4 calibration known per route",
+    "66 non-route rows per corpus with 22 each outside_current_22 / route_unresolved / near_domain_not_current_route",
+    "confusable-family definitions",
+    "route semantic-axis definitions",
+    "wording diversity requirements",
+    "exact and near-duplicate contamination checks",
+    "Router Top2 must not be a label or generation filter",
+    "exactly one global Fallback threshold",
+    "traditional LiuYao features forbidden",
+    "independent/blind/research content must not be read"
+  ],
+  "knownRowSubtypes": [
+    "fallback_style_known",
+    "upstream_resolved_known"
+  ],
+  "deterministicPathAnnotation": {
+    "requiredBeforeSeal": true,
+    "fields": [
+      "deterministicPath",
+      "arbitrationRoute",
+      "arbitrationStrength"
+    ],
+    "fallbackStyleDefinition": "Evidence v0.3 unsupportedTargets is empty and Arbitration v0.12 returns null.",
+    "upstreamResolvedDefinition": "Evidence v0.3 unsupportedTargets is empty and Arbitration v0.12 returns a route."
+  },
+  "trainingPathContract": {
+    "purpose": "Fresh augmentation improves route identity discrimination, including normal explicit route language and genuinely fallback-style hard examples.",
+    "allKnownMustBeArbitrationNull": false,
+    "minimumFallbackStyleKnownPerRoute": 1,
+    "minimumFallbackStyleKnownTotal": 44,
+    "upstreamResolvedKnownMayTrainWeights": true,
+    "fallbackStyleKnownMayTrainWeights": true,
+    "unsupportedTargetKnownRowsForbidden": true,
+    "reason": "Fallback Identity is an identity classifier trained together with historical Router-train-eligible examples; restricting every fresh positive to regex-evading language would distort the training distribution."
+  },
+  "calibrationPathContract": {
+    "allKnownMustBeArbitrationNull": false,
+    "minimumFallbackStyleKnownPerRoute": 1,
+    "minimumFallbackStyleKnownTotal": 22,
+    "thresholdEligibleRows": "Only rows that actually reach Fallback after locked Semantic Act Eligibility, Arbitration and corrected Routeability may participate in global threshold regime selection.",
+    "upstreamResolvedRows": "Remain in the calibration report for path accounting but contribute zero observations to threshold selection metrics.",
+    "safetyAccounting": "Fallback false activation is measured only on non-route rows that reach Fallback; upstream-blocked non-route rows are reported separately and cannot make the Fallback threshold appear safer."
+  },
+  "presealCorrectionBoundary": {
+    "allowed": [
+      "remove train/calibration exact or near duplicates",
+      "annotate deterministic path",
+      "replace the minimum number of rows necessary to ensure every current Route has at least one fallback-style hard example in both fresh training and calibration"
+    ],
+    "forbidden": [
+      "change expectedRoute labels",
+      "change route inventory",
+      "use Router Top2 result to choose wording",
+      "use Fallback model probabilities",
+      "use Semantic Act probabilities before seal",
+      "read independent or sealed blind evaluation",
+      "copy or paraphrase Candidate v0.3 failure wording"
+    ],
+    "encoderScoringObservedMustRemain": false
+  },
+  "semanticActBoundary": {
+    "semanticActModelAlreadyLocked": true,
+    "semanticActProbabilityMayNotBeUsedToEditPresealTexts": true,
+    "afterSealPathAudit": "First post-seal encoder pass may measure Semantic Act and Routeability reachability. If a sealed corpus materially violates its intended path coverage, record that corpus as a failed data artifact and create a new version rather than mutate it."
+  },
+  "promotionBoundary": {
+    "thisSchemaIsNotDevelopmentEvidence": true,
+    "thisSchemaDoesNotReadIndependentEvaluation": true,
+    "candidateV03RemainsImmutable": true
+  }
+}
