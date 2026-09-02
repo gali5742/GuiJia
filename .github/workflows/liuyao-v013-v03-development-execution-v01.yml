@@ -7,6 +7,7 @@ on:
     paths:
       - 'data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json'
       - 'scripts/generate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v03-development-execution-v01-preseal-correction.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01-preflight.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
       - 'scripts/seal-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
@@ -50,6 +51,9 @@ jobs:
       - name: Apply unchanged deterministic preseal wording patch
         run: node scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs
 
+      - name: Apply execution-v0.1 deterministic fallback-path wording correction
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v03-development-execution-v01-preseal-correction.mjs
+
       - name: Verify fresh preseal development data without independent or blind corpus reads
         run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
 
@@ -88,6 +92,7 @@ jobs:
             data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json
             scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs
             scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v03-development-execution-v01-preseal-correction.mjs
             scripts/generate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
             scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01-preflight.mjs
             scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
