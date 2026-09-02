@@ -52,12 +52,18 @@ for (const correction of corrections) {
   row.text = correction.to;
 }
 
+const primary = corrections[0];
 data.executionPresealCorrection = {
   version:'execution-v0.1',
+  // Backward-compatible primary correction fields retained for the existing verifier.
+  targetId:primary.id,
+  expectedRoute:primary.expectedRoute,
+  expectedCandidatePath:primary.expectedCandidatePath,
   correctionsApplied:corrections.length,
   corrections:corrections.map((item) => ({ ...item })),
   encoderScoringObserved:false,
   independentEvaluationRead:false,
+  labelChanged:false,
   labelsChanged:false,
   modelOrThresholdChanged:false,
   verifierWeakened:false
