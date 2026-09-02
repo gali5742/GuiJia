@@ -1,0 +1,73 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-composite-v0.5-reachability-decision-v0.1",
+  "status": "locked_reachability_pass_before_fallback_identity_training",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_composite_v0.5",
+  "decision": "eligible_to_freeze_training_and_threshold_calibration_contract",
+  "notAClaim": [
+    "Routeability is uniformly robust across all 22 routes",
+    "the two relationship routes have strong reachability margin",
+    "Fallback Identity model quality is established",
+    "Candidate v0.4 is promotion-ready"
+  ],
+  "immutableBaseCalibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+    "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+    "reachabilityReportPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json",
+    "reachabilityReportGitBlobSha": "f270dbcb50335f178bf594161c0f190eb0fa438a",
+    "rows": 704,
+    "known": 220,
+    "nonRoute": 484,
+    "knownSemanticActRetention": 1,
+    "knownReachingFallback": 101,
+    "nearDomainReachingFallback": 9,
+    "totalNonRouteReachingFallback": 15,
+    "routesWithKnownFallbackExposure": 19,
+    "mutationAllowed": false
+  },
+  "immutableOneShotSupplement": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+    "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+    "reachabilityReportPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v0.1.json",
+    "reachabilityReportGitBlobSha": "66adacddfc7c42f39de875cacf150dedd026e522",
+    "rows": 120,
+    "knownSemanticActRetention": 1,
+    "knownReachingFallback": 9,
+    "routeExposure": {
+      "investment_price_trend": 7,
+      "marital_relationship": 1,
+      "relationship_development": 1
+    },
+    "mutationAllowed": false,
+    "secondSamplingRoundAllowed": false
+  },
+  "compositePathEvidence": {
+    "totalSealedCalibrationRows": 824,
+    "thresholdEligibleKnownRowsReachingFallback": 110,
+    "thresholdEligibleNonRouteRowsReachingFallback": 15,
+    "thresholdEligibleRowsTotal": 125,
+    "all22RoutesHaveAtLeastOneKnownFallbackExposure": true,
+    "nearDomainSafetyGate": {"required": 8, "observed": 9, "pass": true},
+    "totalNonRouteSafetyGate": {"required": 8, "observed": 15, "pass": true},
+    "knownSemanticActRetentionGate": {"required": 0.95, "baseObserved": 1, "supplementObserved": 1, "pass": true}
+  },
+  "thinExposureWarning": {
+    "marital_relationship": "1/40 supplement rows reached Fallback",
+    "relationship_development": "1/40 supplement rows reached Fallback",
+    "interpretation": "The zero-exposure structural block is cleared, but these two routes remain thin at the Routeability boundary. This permits Fallback Identity training/calibration work; it does not close the Routeability robustness risk. Fresh development must inspect this risk after the Fallback model is locked."
+  },
+  "trainingBoundary": {
+    "fallbackIdentityWeightsTrainedYet": false,
+    "fallbackIdentityProbabilitiesScoredYet": false,
+    "fallbackThresholdSelectedYet": false,
+    "baseCalibrationMayTrain": false,
+    "supplementMayTrain": false,
+    "calibrationAndSupplementRole": "post-upstream conditional threshold calibration and path accounting only",
+    "nextAction": "freeze Fallback Identity v0.2 training/calibration contract before first Fallback Identity encoder training pass"
+  },
+  "evaluationBoundary": {
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false,
+    "thisDecisionIsDevelopmentOrPromotionEvidence": false
+  }
+}
