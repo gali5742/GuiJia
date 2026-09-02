@@ -1,0 +1,318 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-training-calibration-contract-v0.1",
+  "status": "locked_before_first_v02_training_encoder_pass",
+  "scope": "liuyao_semantic_fallback_identity_v0.2",
+  "purpose": "Freeze the exact training corpus, production-equivalent encoder execution, weight-training algorithm, post-lock threshold-calibration membership, all-22 runtime admission rule and global-threshold search before the first Fallback Identity v0.2 training encoder pass.",
+  "compositeReachabilityDecision": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-composite-v05-reachability-decision.json",
+    "gitBlobSha": "339421ba660c3dd8f8832fc6ee7758e396c8bc63",
+    "status": "locked_reachability_pass_before_fallback_identity_training",
+    "eligibleToTrain": true
+  },
+  "trainingAssembly": {
+    "reportPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json",
+    "gitBlobSha": "9a910b6f6097a346d25c879f994960bde868979f",
+    "status": "pass_encoder_free_training_assembly_audit",
+    "rawRows": 1016,
+    "deduplicatedRows": 1016,
+    "knownRows": 805,
+    "nonRouteRows": 211,
+    "normalizedLabelConflicts": 0,
+    "sameLabelDuplicatesRemoved": 0,
+    "byRoute": {
+      "financial_fortune": 37,
+      "business_operation": 50,
+      "commercial_transaction": 40,
+      "inventory_purchase": 31,
+      "inventory_sale": 32,
+      "borrow_money": 40,
+      "lend_money": 32,
+      "debt_collection": 32,
+      "debt_repayment": 34,
+      "partnership": 38,
+      "investment_profit": 39,
+      "investment_liquidation": 39,
+      "investment_suitability": 32,
+      "investment_position_decision": 38,
+      "investment_price_trend": 32,
+      "income_salary": 37,
+      "income_bonus": 31,
+      "receive_item": 32,
+      "item_purchase": 34,
+      "relationship_development": 45,
+      "marriage_match": 43,
+      "marital_relationship": 37
+    }
+  },
+  "trainingSources": {
+    "historicalTrainOnly": [
+      {
+        "path": "data/liuyao-semantic-route-training-v0.1.json",
+        "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+        "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+        "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+        "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+        "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+        "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+        "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+        "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+        "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+        "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+      }
+    ],
+    "expansionLabelOverride": {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "sha256": "6d665811dc2a7ddf46fd8cac78357ff6b50b738639aaaf30e56f96eb4d955dd1",
+      "gitBlobSha": "b4d7dcae7458062ba02141ec022bc2bb5d2d46eb",
+      "trainMappings": 29,
+      "semantics": "override_labels_for_matching_v04_expansion_hard_negative_train_texts_not_additive_rows"
+    },
+    "freshTrainingAugmentation": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359",
+      "rows": 198,
+      "known": 132,
+      "nonRoute": 66,
+      "useForTraining": true,
+      "useForThresholdCalibration": false
+    },
+    "mustExcludeFromTraining": [
+      "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "all Router validation splits",
+      "all Candidate v0.3 development/evaluation/failure rows",
+      "all independent evaluation",
+      "all sealed blind evaluation",
+      "all post-lock independent evaluation",
+      "new-theme literature/research corpora"
+    ]
+  },
+  "encoder": {
+    "executionContractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "executionContractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "trainingEncoderCalls": 1016,
+    "thresholdCalibrationEncoderCallsAfterWeightLock": 125,
+    "multiTextBatchForbidden": true
+  },
+  "algorithm": {
+    "modulePath": "js/liuyao-semantic-fallback-identity-model-v01.js",
+    "moduleSha256": "ae7ebbd1e197d0e7a764993216ac68e64ff562be7945d4221ffd3cceb4baf1e2",
+    "reusePolicy": "reuse_the_frozen_algorithm_from_scratch_do_not_reuse_legacy_weights",
+    "legacyV01WeightsReusable": false,
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "routeOrder": [
+      "financial_fortune",
+      "business_operation",
+      "commercial_transaction",
+      "inventory_purchase",
+      "inventory_sale",
+      "borrow_money",
+      "lend_money",
+      "debt_collection",
+      "debt_repayment",
+      "partnership",
+      "investment_profit",
+      "investment_liquidation",
+      "investment_suitability",
+      "investment_position_decision",
+      "investment_price_trend",
+      "income_salary",
+      "income_bonus",
+      "receive_item",
+      "item_purchase",
+      "relationship_development",
+      "marriage_match",
+      "marital_relationship"
+    ],
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "optimizer": "deterministic_full_batch_gradient_descent_with_epoch_decay_lr",
+    "learningRateAtEpoch": "learningRate / (1 + epoch * 0.01)",
+    "classBalancing": {
+      "positiveTotalWeight": 0.5,
+      "negativeTotalWeight": 0.5
+    },
+    "regularization": {
+      "weights": "l2",
+      "bias": "none"
+    },
+    "positiveLabelRule": "expectedRoute === headRoute",
+    "negativeLabelRule": "all other current22 labels plus genuine nonroute",
+    "normalizedTextConflictPolicy": "hard_fail",
+    "sameNormalizedTextSameLabelPolicy": "deduplicate_before_embedding"
+  },
+  "weightTrainingLifecycle": {
+    "trainFromScratch": true,
+    "calibrationMembershipArtifactMayBeHashedForIntegrityDuringTraining": true,
+    "calibrationRowsMayBeEmbeddedDuringTraining": false,
+    "calibrationRowsMayBeScoredByFallbackHeadsDuringTraining": false,
+    "calibrationProbabilitiesMayExistBeforeWeightLock": false,
+    "thresholdSelectionMayOccurBeforeWeightLock": false,
+    "outputModelPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json",
+    "outputModelLockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+    "requiredModelStatus": "weights_locked_before_threshold_calibration",
+    "requiredModelFields": {
+      "globalThreshold": null,
+      "thresholdSelected": false,
+      "calibrationProbabilitiesScored": false
+    },
+    "failureBehavior": "commit no calibrated threshold; fix only implementation errors that do not change frozen corpus, algorithm, hyperparameters or calibration membership. Any semantic/model-design change requires a new versioned contract."
+  },
+  "thresholdCalibrationMembership": {
+    "manifestPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json",
+    "gitBlobSha": "36cde49db074bf91889b9680a45a7d94cb00a253",
+    "status": "locked_membership_before_fallback_identity_v02_training",
+    "derivation": "reachesFallback=true under already locked upstream Semantic Act, Arbitration and Routeability before Fallback Identity weights existed",
+    "mayTrainWeights": false,
+    "totalRows": 125,
+    "knownRows": 110,
+    "nonRouteRows": 15,
+    "byRoute": {
+      "financial_fortune": 8,
+      "business_operation": 2,
+      "commercial_transaction": 6,
+      "inventory_purchase": 1,
+      "inventory_sale": 5,
+      "borrow_money": 2,
+      "lend_money": 4,
+      "debt_collection": 5,
+      "debt_repayment": 10,
+      "partnership": 7,
+      "investment_profit": 9,
+      "investment_liquidation": 9,
+      "investment_suitability": 10,
+      "investment_position_decision": 6,
+      "investment_price_trend": 7,
+      "income_salary": 2,
+      "income_bonus": 10,
+      "receive_item": 1,
+      "item_purchase": 2,
+      "relationship_development": 1,
+      "marriage_match": 2,
+      "marital_relationship": 1
+    },
+    "nonRouteBySubtype": {
+      "near_domain_not_current_route": 9,
+      "route_unresolved": 6,
+      "outside_current_22": 0
+    },
+    "normalizedTrainingOverlap": 0,
+    "normalizedCalibrationDuplicates": 0
+  },
+  "runtimeAdmissionContract": {
+    "candidateUniverse": "all_current_22_routes",
+    "routerTop1Top2Role": "diagnostic_provenance_only_not_candidate_restriction",
+    "scoreAll22Heads": true,
+    "oneGlobalThresholdOnly": true,
+    "admittedDefinition": "headProbability >= globalThreshold",
+    "exactlyOneAdmitted": "route_known_with_that_route",
+    "zeroAdmitted": "route_unresolved",
+    "multipleAdmitted": "route_unresolved",
+    "routerRankMayBreakMultipleAdmission": false,
+    "routerMarginMayBreakMultipleAdmission": false,
+    "routeSpecificThresholdsForbidden": true
+  },
+  "globalThresholdSearch": {
+    "runOnlyAfterModelWeightLock": true,
+    "probabilityUniverse": "all_22_head_probabilities_on_the_125_locked_membership_rows",
+    "candidateConstruction": [
+      "start with 0, 0.5 and 1",
+      "add every distinct observed head probability",
+      "sort distinct observed probabilities ascending",
+      "add midpoint between every adjacent pair of distinct observed probabilities",
+      "deduplicate and retain finite values in [0,1]"
+    ],
+    "evaluateRuntimeRule": "for each threshold and row, admit every one of the 22 heads whose probability meets threshold; exactly one admission produces route_known, zero or multiple admissions produce route_unresolved",
+    "metrics": {
+      "knownRetention": "known rows with exactly one admitted route divided by 110",
+      "knownExactRoute": "known rows with exactly one admitted route equal to expectedRoute divided by 110",
+      "acceptedRouteAccuracy": "accepted known rows whose admitted route equals expectedRoute divided by accepted known rows",
+      "overallNonRouteFalseActivation": "non-route rows with exactly one admitted route divided by 15",
+      "multipleAdmissionRate": "rows with two or more admitted routes divided by relevant row set",
+      "zeroAdmissionRate": "rows with zero admitted routes divided by relevant row set"
+    },
+    "frozenFeasibilityConstraints": {
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallNonRouteFalseActivation": 0.05,
+      "maximumObservedSubtypeFalseActivation": 0.05,
+      "observedSubtypeConstraintAppliesOnlyWhenNPositive": true,
+      "concreteImplicationAtCurrentN": {
+        "overallNonRoute": "15 rows: requires 0 false route activations because 1/15 = 0.06666666666666667",
+        "near_domain_not_current_route": "9 rows: requires 0 false route activations",
+        "route_unresolved": "6 rows: requires 0 false route activations",
+        "outside_current_22": "0 Fallback-stage rows: not estimable and not counted as a successful subtype safety observation"
+      }
+    },
+    "selectionObjectiveAmongFeasibleThresholds": [
+      "maximize knownRetention",
+      "minimize overallNonRouteFalseActivation",
+      "minimize maximum false activation across observed non-route subtypes with n > 0",
+      "prefer higher threshold as final tie-break"
+    ],
+    "noFeasibleThresholdBehavior": "commit immutable no-feasible-threshold report and stop this Fallback Identity v0.2 line; do not retune weights, training sources, route-specific thresholds, Routeability threshold, Scope cutoff, Router TopK/margin or calibration membership on the same version"
+  },
+  "smallSampleAndResidualRisk": {
+    "conditionalNonRouteN": 15,
+    "outsideCurrent22FallbackN": 0,
+    "outsideCurrent22ThresholdSafety": "not_estimable_from_threshold_calibration",
+    "relationshipDevelopmentKnownN": 1,
+    "maritalRelationshipKnownN": 1,
+    "interpretation": "Threshold calibration can establish a frozen conditional regime but cannot by itself establish robust per-route or outside-current22 generalization. These remain fresh-development promotion risks after model and threshold lock."
+  },
+  "forbiddenTuning": {
+    "routeSpecificFallbackThresholds": true,
+    "routerTopK": true,
+    "routerMargin": true,
+    "routeabilityThreshold": true,
+    "scopeHardVetoCutoff": true,
+    "semanticActThreshold": true,
+    "trainingHyperparameters": true,
+    "encoderOrRepresentation": true,
+    "calibrationMembershipAfterObservingFallbackProbabilities": true
+  },
+  "evaluationBoundary": {
+    "independentEvaluationReadBeforeFreshDevelopmentPass": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsReadForTrainingOrCalibration": false,
+    "freshDevelopmentRequiredAfterModelAndThresholdLock": true,
+    "freshDevelopmentPromotionGatesRemain": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    },
+    "thisContractIsPromotionEvidence": false
+  },
+  "traditionalLiuYaoBoundary": {
+    "traditionalFeaturesForbidden": true,
+    "TRMRModified": false,
+    "semanticLayerMaySelectTraditionalUseGod": false
+  }
+}
