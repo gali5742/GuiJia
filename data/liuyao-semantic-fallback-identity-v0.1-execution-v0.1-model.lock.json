@@ -1,0 +1,32 @@
+{
+  "version": "0.13-fallback-identity-v0.1-execution-v0.1-model-lock-v0.1",
+  "status": "locked",
+  "artifact": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.json",
+  "artifactSha256": "b79aa830ce26ec7fcd1aa080d5470f342fae0406476e0d8419ba1be90f6763b0",
+  "baseTrainingContract": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-training-contract.json",
+    "gitBlobSha": "dd325ffd8ed456eb6971d321b6b520761d9ed1e6"
+  },
+  "executionCorrectionContract": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-correction-contract.json",
+    "gitBlobSha": "ed5f1590df4707dad43b02dd77bc2bb7c9b058af"
+  },
+  "calibrationRuntimeLock": {
+    "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json",
+    "gitBlobSha": "bb44b7410d9df86b73aa0f5bb62eba8677ca59c5"
+  },
+  "calibrationReport": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-report.json",
+  "calibrationReportSha256": "76160cb00bfd9f3f797e4b7f037fa11cc24c7d2b540d400a68880ea07649a3b0",
+  "routeCount": 22,
+  "vectorSize": 512,
+  "canonicalTextsPerEncoderCall": 1,
+  "globalThreshold": 0.5571407097788003,
+  "routeSpecificThresholds": false,
+  "routeabilityThreshold": 0.7678148573595883,
+  "scopeHardVetoCutoff": 0.4319473801404805,
+  "hardGates": {
+    "acceptedRouteAccuracyMin": 0.98,
+    "overallNonrouteFalseActivationMax": 0.05,
+    "eachNonrouteSubtypeFalseActivationMax": 0.05
+  }
+}

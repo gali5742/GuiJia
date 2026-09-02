@@ -1,0 +1,720 @@
+{
+  "version": "0.13-fallback-identity-v0.1-execution-v0.1-calibration-report-v0.1",
+  "status": "feasible_global_threshold_selected",
+  "scope": "liuyao_semantic_fallback_identity_v0.1_execution_v0.1",
+  "policy": {
+    "calibrationTrainsModel": false,
+    "oneGlobalThresholdOnly": true,
+    "routeSpecificThresholds": false,
+    "routeabilityThresholdRetuned": false,
+    "scopeCutoffRetuned": false,
+    "routerMarginTuned": false,
+    "objective": "maximize fallback known-route retention subject to accepted route accuracy >= 0.98, overall nonroute false activation <= 0.05, and each nonroute subtype false activation <= 0.05",
+    "canonicalTextsPerEncoderCall": 1
+  },
+  "calibrationRows": {
+    "total": 134,
+    "known": 66,
+    "nonRoute": 68,
+    "bySubtype": {
+      "fallback_style_known": 66,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 24
+    }
+  },
+  "thresholdCandidatesTested": 538,
+  "selected": {
+    "threshold": 0.5571407097788003,
+    "knownRetention": 0.3484848484848485,
+    "knownExactRoute": 0.3484848484848485,
+    "acceptedRouteAccuracy": 1,
+    "overallFalseActivation": 0.014705882352941176,
+    "maxSubtypeFalseActivation": 0.041666666666666664,
+    "byNonRouteSubtype": {
+      "near_domain_not_current_route": {
+        "n": 24,
+        "falseRouteActivation": 0.041666666666666664
+      },
+      "outside_current_22": {
+        "n": 22,
+        "falseRouteActivation": 0
+      },
+      "route_unresolved": {
+        "n": 22,
+        "falseRouteActivation": 0
+      }
+    },
+    "reachesFallbackIdentity": {
+      "known": 41,
+      "nonRoute": 4
+    },
+    "checks": {
+      "acceptedRouteAccuracy": true,
+      "overallFalseActivation": true,
+      "perSubtypeFalseActivation": true
+    },
+    "feasible": true
+  },
+  "diagnosticTop20": [
+    {
+      "threshold": 0.6173203301120582,
+      "knownRetention": 0.3333333333333333,
+      "knownExactRoute": 0.3333333333333333,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6172109150766281,
+      "knownRetention": 0.3333333333333333,
+      "knownExactRoute": 0.3333333333333333,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.61748892480272,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6174046274573891,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6171015000411978,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.611614083937809,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6061266678344203,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6055274584102132,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6049282489860061,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6040335033918105,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5893380153882839,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5885866810664453,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5866206523740016,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5854729669243093,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5843252814746169,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.5810352554153655,
+      "knownRetention": 0.3181818181818182,
+      "knownExactRoute": 0.3181818181818182,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6237459630610033,
+      "knownRetention": 0.30303030303030304,
+      "knownExactRoute": 0.30303030303030304,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6206174439318617,
+      "knownRetention": 0.30303030303030304,
+      "knownExactRoute": 0.30303030303030304,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.603138757797615,
+      "knownRetention": 0.30303030303030304,
+      "knownExactRoute": 0.30303030303030304,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    },
+    {
+      "threshold": 0.6029917137933791,
+      "knownRetention": 0.30303030303030304,
+      "knownExactRoute": 0.30303030303030304,
+      "acceptedRouteAccuracy": 1,
+      "overallFalseActivation": 0,
+      "maxSubtypeFalseActivation": 0,
+      "byNonRouteSubtype": {
+        "near_domain_not_current_route": {
+          "n": 24,
+          "falseRouteActivation": 0
+        },
+        "outside_current_22": {
+          "n": 22,
+          "falseRouteActivation": 0
+        },
+        "route_unresolved": {
+          "n": 22,
+          "falseRouteActivation": 0
+        }
+      },
+      "reachesFallbackIdentity": {
+        "known": 41,
+        "nonRoute": 4
+      },
+      "checks": {
+        "acceptedRouteAccuracy": true,
+        "overallFalseActivation": true,
+        "perSubtypeFalseActivation": true
+      },
+      "feasible": true
+    }
+  ],
+  "executionCorrection": {
+    "contract": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-correction-contract.json",
+      "gitBlobSha": "ed5f1590df4707dad43b02dd77bc2bb7c9b058af"
+    },
+    "calibrationRuntimeLock": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json",
+      "gitBlobSha": "bb44b7410d9df86b73aa0f5bb62eba8677ca59c5"
+    },
+    "executionContract": {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7"
+    },
+    "canonicalTextsPerEncoderCall": 1,
+    "correctedFrozenDependenciesSha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9",
+    "correctedRouteabilityThreshold": 0.7678148573595883,
+    "correctedScopeHardVetoCutoff": 0.4319473801404805,
+    "legacyBatchSpaceEvidenceReusedAsPromotionEvidence": false
+  }
+}
