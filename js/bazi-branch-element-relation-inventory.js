@@ -182,4 +182,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit) {
         document.write('<script src="./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationSemanticsModernSupportAudit) {
+        document.write('<script src="./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
