@@ -1,0 +1,33 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-domain-assessment-pretraining-v01.js');
+require('../js/liuyao-line-status-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-line-evidence-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-execution-assessment-pretraining-v01.js');
+require('../js/liuyao-travel-safety-assessment-pretraining-v01.js');
+const shared=global.GuiJia.liuyaoDomainAssessmentPretrainingV01;
+const factApi=global.GuiJia.liuyaoLineStatusFactAdapterPretrainingV01;
+const evidenceApi=global.GuiJia.liuyaoTravelLineEvidenceAdapterPretrainingV01;
+const execApi=global.GuiJia.liuyaoTravelExecutionAssessmentPretrainingV01;
+const safeApi=global.GuiJia.liuyaoTravelSafetyAssessmentPretrainingV01;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const line=(tags)=>({position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,isYing:false,statusTags:tags});
+const packet=(duty,tags)=>{
+  const f=factApi.buildAtomicFacts(line(tags));
+  return evidenceApi.buildEvidencePacket({duty,alternativeId:'trip-A',travelerFacts:f.facts});
+};
+
+t('TLF1 shared active evaluator registry still empty',()=>assert.equal(shared.ACTIVE_EVALUATORS.length,0));
+t('TLF2 canonical VOID reaches execution adverse evidence',()=>{const p=packet('travel_execution',[{code:'VOID',text:'旬空',type:'void'}]);const r=execApi.evaluateTravelExecution(p);assert.equal(r.assessmentStatus,'adverse_evidence');});
+t('TLF3 execution assessment retains alternative binding',()=>{const r=execApi.evaluateTravelExecution(packet('travel_execution',[{code:'VOID',text:'旬空',type:'void'}]));assert.equal(r.alternativeId,'trip-A');});
+t('TLF4 source fact provenance survives in evidence id',()=>{const p=packet('travel_execution',[{code:'VOID',text:'旬空',type:'void'}]);assert(p.evidence[0].id.includes('LINE-STATUS:3:VOID'));});
+t('TLF5 month command alone cannot create execution support',()=>{const p=packet('travel_execution',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]);const r=execApi.evaluateTravelExecution(p);assert.equal(p.evidence.length,0);assert.equal(r.assessmentStatus,'insufficient_evidence');});
+t('TLF6 day control alone cannot create execution adverse',()=>{const p=packet('travel_execution',[{code:'DAY_CONTROL',text:'日辰克',type:'constraint'}]);const r=execApi.evaluateTravelExecution(p);assert.equal(p.evidence.length,0);assert.equal(r.assessmentStatus,'insufficient_evidence');});
+t('TLF7 conflicting line status does not create vitality by counting',()=>{const p=packet('travel_execution',[{code:'MONTH_COMMAND',text:'临月建',type:'support'},{code:'DAY_CONTROL',text:'日辰克',type:'constraint'}]);const r=execApi.evaluateTravelExecution(p);assert.equal(p.evidence.length,0);assert.equal(r.assessmentStatus,'insufficient_evidence');});
+t('TLF8 VOID is not reused as safety adverse evidence',()=>{const p=packet('travel_safety',[{code:'VOID',text:'旬空',type:'void'}]);const r=safeApi.evaluateTravelSafety(p);assert.equal(p.evidence.length,0);assert.equal(r.assessmentStatus,'insufficient_evidence');});
+t('TLF9 source tag support does not leak into safety support',()=>{const p=packet('travel_safety',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]);const r=safeApi.evaluateTravelSafety(p);assert.equal(r.assessmentStatus,'insufficient_evidence');});
+t('TLF10 no score probability winner recommendation anywhere in execution output',()=>{const r=execApi.evaluateTravelExecution(packet('travel_execution',[{code:'VOID',text:'旬空',type:'void'}]));for(const k of ['scalarScore','probability','winner','overallRecommendation'])assert.equal(Object.prototype.hasOwnProperty.call(r,k),false);});
+t('TLF11 chain remains isolated',()=>{assert.equal(factApi.currentRuntimeReachable,false);assert.equal(evidenceApi.currentRuntimeReachable,false);assert.equal(execApi.currentRuntimeReachable,false);assert.equal(safeApi.currentRuntimeReachable,false);});
+t('TLF12 canonical static VOID source is line status not TimeFact',()=>{const f=factApi.findFactByCode(factApi.buildAtomicFacts(line([{code:'VOID',text:'旬空',type:'void'}])),'VOID');assert.equal(f.sourceLayer,'liuyao_line_status');});
+if(!process.exitCode)console.log(`Travel line fact assessment E2E regression: ${n} passed, 0 failed`);
