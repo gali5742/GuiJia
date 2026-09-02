@@ -32,7 +32,7 @@ const developmentLock = readJson(developmentLockPath);
 // Immutable inputs: this diagnostic is architecture-only evidence derived from the first
 // corrected fresh Candidate v0.3 development run. It must not silently follow later mutations.
 assert(gitBlobSha(reportPath) === 'eeff1c256f3f962b1577a3e866d095ab6ed1347f', `development report Git blob drift: ${gitBlobSha(reportPath)}`);
-assert(sha256(reportPath) === '9bf0fab26070d34bcb2144738a0f8dab6fc81c698f13a731b7ae5f22bfec1cec', `development report SHA-256 drift: ${sha256(reportPath)}`);
+assert(sha256(reportPath) === 'a052b2cbe69cb22834987805985b423f91f53ec19b52ce873335f665c66ce047', `development report SHA-256 drift: ${sha256(reportPath)}`);
 assert(gitBlobSha(developmentLockPath) === 'bf1f86d1569e5f91e19ce61bbbdd8598d760ad21', `development lock Git blob drift: ${gitBlobSha(developmentLockPath)}`);
 assert(developmentLock.artifactSha256 === '507db53e3e8ea9ce06737d5a86f9df1c317004a661a7ba4d43b330046423c540', 'development artifact binding drift');
 assert(report.execution?.developmentArtifactSha256 === developmentLock.artifactSha256, 'report/development-lock artifact mismatch');
