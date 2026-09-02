@@ -1,0 +1,153 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-data-schema-v0.1",
+  "status": "frozen_before_fallback_v02_data_generation",
+  "scope": "liuyao_semantic_fallback_identity_v0.2",
+  "candidateDesign": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+  "dataContract": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+  "semanticActModelLock": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+  "routeInventory": "data/liuyao-semantic-route-inventory-v0.2.json",
+  "routeCount": 22,
+  "freshCorpusSizes": {
+    "trainingAugmentationRows": 198,
+    "trainingKnownPerRoute": 6,
+    "trainingNonRoute": 66,
+    "calibrationRows": 154,
+    "calibrationKnownPerRoute": 4,
+    "calibrationNonRoute": 66
+  },
+  "rowSchema": {
+    "required": [
+      "id",
+      "text",
+      "identityLabel",
+      "expectedRoute",
+      "subtype",
+      "confusableFamily",
+      "semanticAxis",
+      "wordingPattern"
+    ],
+    "identityLabels": [
+      "route_identity_positive",
+      "non_route"
+    ],
+    "knownSubtype": "fallback_style_known",
+    "nonRouteSubtypes": [
+      "outside_current_22",
+      "route_unresolved",
+      "near_domain_not_current_route"
+    ],
+    "modelFeatureBoundary": "Only text is a learned feature. expectedRoute/confusableFamily/semanticAxis/wordingPattern are corpus-audit metadata only."
+  },
+  "confusableFamilies": {
+    "general_finance": [
+      "financial_fortune",
+      "business_operation",
+      "commercial_transaction"
+    ],
+    "inventory_flow": [
+      "inventory_purchase",
+      "inventory_sale"
+    ],
+    "money_direction": [
+      "borrow_money",
+      "lend_money",
+      "debt_collection",
+      "debt_repayment"
+    ],
+    "partnership_operation": [
+      "partnership",
+      "business_operation"
+    ],
+    "investment_goal": [
+      "investment_profit",
+      "investment_liquidation",
+      "investment_suitability",
+      "investment_position_decision",
+      "investment_price_trend"
+    ],
+    "employment_income": [
+      "income_salary",
+      "income_bonus"
+    ],
+    "item_flow": [
+      "receive_item",
+      "item_purchase"
+    ],
+    "relationship_stage": [
+      "relationship_development",
+      "marriage_match",
+      "marital_relationship"
+    ]
+  },
+  "requiredSemanticAxes": {
+    "financial_fortune": ["overall_personal_financial_state_not_single_transaction"],
+    "business_operation": ["ongoing_venture_viability_not_single_trade_or_partner_choice"],
+    "commercial_transaction": ["specific_trade_completion_between_counterparties"],
+    "inventory_purchase": ["goods_flow_into_business_stock"],
+    "inventory_sale": ["goods_flow_out_of_existing_business_stock"],
+    "borrow_money": ["money_moves_from_other_to_querent_as_temporary_funding"],
+    "lend_money": ["money_moves_from_querent_to_other_as_temporary_funding"],
+    "debt_collection": ["previously_owed_money_returns_to_querent"],
+    "debt_repayment": ["querent_clears_own_existing_obligation"],
+    "partnership": ["whether_to_or_can_operate_jointly_with_specific_partner"],
+    "investment_profit": ["return_or_gain_from_investment"],
+    "investment_liquidation": ["exit_or_sell_out_existing_investment"],
+    "investment_suitability": ["whether_entering_or_holding_investment_is_suitable"],
+    "investment_position_decision": ["increase_reduce_or_hold_position_choice"],
+    "investment_price_trend": ["future_market_price_direction"],
+    "income_salary": ["recurring_fixed_employment_pay"],
+    "income_bonus": ["nonrecurring_additional_employment_reward"],
+    "receive_item": ["arrival_or_receipt_of_already_expected_item"],
+    "item_purchase": ["whether_to_acquire_or_buy_item"],
+    "relationship_development": ["pre_marriage_romantic_progression"],
+    "marriage_match": ["whether_relationship_reaches_formal_marriage"],
+    "marital_relationship": ["quality_or_change_inside_existing_marriage"]
+  },
+  "wordingDiversity": {
+    "minimumDistinctPatternsPerRouteTraining": 3,
+    "minimumDistinctPatternsPerRouteCalibration": 2,
+    "forbidMechanicalTemplateSubstitution": true,
+    "candidateV03FailureTextsMayNotBeCopied": true,
+    "candidateV03FailureTextsMayNotBeNearParaphrased": true
+  },
+  "nonRouteDesign": {
+    "trainingCounts": {
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "calibrationCounts": {
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "semanticActRequirement": "Fallback calibration non-route rows must be eligible or ambiguous enough to survive the Semantic Act gate; informational/procedural rows that are deterministically ineligible belong to Semantic Act calibration, not Fallback threshold selection.",
+    "nearDomainRequirement": "Use current-domain vocabulary while asking an unsupported outcome/decision distinction, so Fallback Identity must abstain rather than rely on domain nouns."
+  },
+  "pathRequirement": {
+    "knownRows": "Before any Fallback model scoring, every fresh known row must have Arbitration=null and must not be rejected by Semantic Act Eligibility. Routeability reachability is recorded but is not a label-generation criterion.",
+    "calibration": "Threshold calibration evaluates only rows that actually reach Fallback under frozen Semantic Act, Arbitration and corrected Routeability. Rows blocked upstream remain in the report but cannot influence the Fallback threshold regime."
+  },
+  "contaminationBoundary": {
+    "readableForExactAndNearDuplicateAudit": [
+      "historical router training corpora",
+      "historical non-independent calibration corpora",
+      "Candidate v0.3 development corpus",
+      "Candidate v0.4 Semantic Act train/calibration corpora"
+    ],
+    "mustNotReadForGenerationOrDuplicateAudit": [
+      "any independent evaluation corpus",
+      "any sealed blind evaluation corpus",
+      "Candidate v0.3 failure diagnostic wording rows",
+      "new-theme literature/research corpora"
+    ],
+    "independentProtectionPrinciple": "Do not open protected evaluation content merely to prove non-overlap. Access isolation is the protection mechanism."
+  },
+  "evaluationBoundary": {
+    "routerTop2MembershipIsNotLabel": true,
+    "routerTop2MembershipIsNotGenerationFilter": true,
+    "routeSpecificThresholdsForbidden": true,
+    "oneGlobalFallbackThresholdOnly": true,
+    "traditionalLiuYaoFeaturesForbidden": true
+  }
+}
