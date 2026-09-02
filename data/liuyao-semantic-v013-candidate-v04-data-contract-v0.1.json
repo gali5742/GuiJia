@@ -1,0 +1,144 @@
+{
+  "version": "0.13-candidate-v0.4-data-contract-v0.1",
+  "status": "frozen_before_v04_data_generation",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+    "commit": "401c925a0d1f5ed054cad2a937bffbce7c9a57d0",
+    "gitBlobSha": "cc2f830118a5ee4e6fc22cb4ddcc78427f286d18"
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "vectorSize": 512,
+    "scopeHardVetoCutoffFrozen": 0.4319473801404805,
+    "routeabilityThresholdFrozen": 0.7678148573595883,
+    "routerWeightsFrozen": true,
+    "routeInventoryCount": 22
+  },
+  "corpora": {
+    "semanticActTraining": {
+      "plannedPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "purpose": "train Semantic Act Eligibility v0.1 only",
+      "labels": [
+        "eligible_divination_outcome_or_decision",
+        "ineligible_information_or_procedure"
+      ],
+      "freshRequired": true,
+      "maySelectThreshold": false,
+      "mayBeUsedForFallbackTraining": false
+    },
+    "semanticActCalibration": {
+      "plannedPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "purpose": "select exactly one global Semantic Act Eligibility threshold",
+      "freshRequired": true,
+      "separateFromSemanticActTraining": true,
+      "mayTrainWeights": false,
+      "mayBeUsedForFallbackTraining": false
+    },
+    "fallbackIdentityTrainingAugmentation": {
+      "plannedPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "purpose": "fresh augmentation for Fallback Identity v0.2 22 one-vs-rest heads",
+      "freshRequired": true,
+      "routeInventoryFrozen": true,
+      "maySelectThreshold": false,
+      "semanticActCalibrationRowsForbidden": true
+    },
+    "fallbackIdentityCalibration": {
+      "plannedPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration.json",
+      "purpose": "select exactly one global all-22 Fallback Identity admission threshold after model weights are frozen",
+      "freshRequired": true,
+      "candidateUniverse": "all_current_22_routes",
+      "mayTrainWeights": false,
+      "routeSpecificThresholdsForbidden": true
+    },
+    "integratedDevelopment": {
+      "plannedPath": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "purpose": "fresh sealed pre-lock integrated Candidate v0.4 development evaluation only",
+      "freshRequired": true,
+      "trainingEligible": false,
+      "calibrationEligible": false,
+      "thresholdSelectionEligible": false,
+      "mustBeSealedAndCommittedBeforeFirstEncoderScoring": true
+    }
+  },
+  "semanticActCoverage": {
+    "eligibleFamilies": [
+      "personal_future_outcome",
+      "current_decision_or_suitability",
+      "personal_timing_or_arrival_outcome",
+      "supported_outcome_with_fee_tax_rule_vocabulary_in_background"
+    ],
+    "ineligibleFamilies": [
+      "factual_fee_tax_rate_or_amount",
+      "procedure_steps_or_deadlines",
+      "requirements_documents_or_materials",
+      "accounting_or_administration_explanation",
+      "rule_policy_definition_or_interpretation",
+      "generic_how_to_or_process_information"
+    ],
+    "contrastiveRequirement": "same current-22 domain vocabulary must appear on both labels so domain nouns cannot solve the task",
+    "traditionalLiuYaoFeaturesForbidden": true
+  },
+  "fallbackCoverage": {
+    "all22RoutesRequired": true,
+    "freshParaphraseCoverageRequired": true,
+    "crossRouteHardNegativesRequired": true,
+    "confusableFamilyCoverageRequired": true,
+    "routerTop2MembershipMayNotBeUsedAsTrainingLabel": true,
+    "candidateV03FailureTextsMayNotBeCopiedOrParaphrasedForTraining": true
+  },
+  "contaminationExclusions": {
+    "exactAndNearDuplicateChecksRequired": true,
+    "exclude": [
+      "data/liuyao-semantic-v013-candidate-v03-development.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json as row source",
+      "Candidate v0.1 independent evaluation",
+      "Candidate v0.2 independent evaluation",
+      "any unread Candidate v0.3 or later independent evaluation",
+      "all sealed blind evaluation corpora",
+      "new-theme literature research corpora reserved for post-Baseline route expansion"
+    ],
+    "failureDiagnosticAllowedUse": "architecture_and_coverage_categories_only_not_wording_generation"
+  },
+  "calibrationPolicy": {
+    "semanticAct": {
+      "selectionOrder": [
+        "satisfy safety constraint on fresh ineligible calibration rows",
+        "within safe thresholds maximize eligible retention"
+      ],
+      "oneGlobalThresholdOnly": true
+    },
+    "fallbackIdentity": {
+      "selectionOrder": [
+        "accepted route accuracy >= 0.98",
+        "overall non-route false activation <= 0.05",
+        "every non-route subtype false activation <= 0.05",
+        "within safe thresholds maximize known-route retention"
+      ],
+      "oneGlobalThresholdOnly": true,
+      "routeSpecificThresholds": false,
+      "routerTopKTuning": false,
+      "routeabilityThresholdTuning": false,
+      "scopeCutoffTuning": false
+    }
+  },
+  "developmentIsolation": {
+    "buildAfterAllTrainingAndCalibrationLocks": true,
+    "exactTextOverlapWithTraining": false,
+    "exactTextOverlapWithCalibration": false,
+    "exactTextOverlapWithCandidateV03Development": false,
+    "independentEvaluationReadBeforeSeal": false,
+    "developmentRowsMayFeedBackIntoSameCandidateTraining": false,
+    "developmentRowsMayFeedBackIntoSameCandidateCalibration": false
+  },
+  "promotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  }
+}
