@@ -1,0 +1,93 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 One-shot Route Exposure Supplement v0.1 Data Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-route-exposure-supplement-v01-data.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-route-exposure-supplement-v01:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Capture immutable supplement data base
+        run: echo "SUPPLEMENT_V01_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Verify frozen one-shot schema and immutable v0.4 provenance before generation
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor e28321b8e57eac7d42649fd684541496f6b9f7e4 HEAD
+          git merge-base --is-ancestor 7228f59b495901a2e510a9e541d70a9d75515e6c HEAD
+          node - <<'NODE'
+          const fs=require('fs');const crypto=require('crypto');
+          const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+          const blob=p=>{const b=fs.readFileSync(p);return crypto.createHash('sha1').update(Buffer.from(`blob ${b.length}\0`)).update(b).digest('hex');};
+          const s=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json');
+          if(s.status!=='frozen_after_calibration_v04_aggregate_reachability_failure_before_supplement_generation')process.exit(1);
+          if(sha(s.immutableBase.calibrationPath)!==s.immutableBase.calibrationSha256)process.exit(1);
+          if(blob(s.immutableBase.reachabilityReportPath)!==s.immutableBase.reachabilityReportGitBlobSha)process.exit(1);
+          if(s.allowedAggregateEvidence.baseSafetyGatesPassed!==true||s.allowedAggregateEvidence.routesWithFallbackExposure!==19)process.exit(1);
+          if(JSON.stringify(s.allowedAggregateEvidence.routesWithZeroFallbackExposure)!==JSON.stringify(['investment_price_trend','marital_relationship','relationship_development']))process.exit(1);
+          if(s.freshSupplement.totalRows!==120||s.freshSupplement.perRoute!==40)process.exit(1);
+          if(s.encoderBoundaryBeforeSeal.encoderScoringObserved!==false||s.encoderBoundaryBeforeSeal.fallbackIdentityTrainingPerformed!==false||s.encoderBoundaryBeforeSeal.fallbackIdentityProbabilityUsed!==false||s.encoderBoundaryBeforeSeal.fallbackThresholdSelected!==false)process.exit(1);
+          if(s.oneShotPolicy.secondSamplingRoundAllowed!==false||s.oneShotPolicy.sameSupplementVersionRetryWithEditedText!==false)process.exit(1);
+          NODE
+      - name: Prove supplement generator is encoder-free before execution
+        run: |
+          node --check scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+          node --check scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+          if grep -E '@huggingface/transformers|pipeline[[:space:]]*\(' scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs; then
+            echo 'Encoder/model invocation found in supplement generator.'
+            exit 1
+          fi
+      - name: Generate fresh one-shot supplement without encoder scoring
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+      - name: Verify preseal supplement without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+      - name: Seal supplement before any post-seal encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+      - name: Verify sealed supplement and lock without encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+      - name: Commit sealed supplement artifacts
+        run: |
+          set -euo pipefail
+          DATA='data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json'
+          LOCK='data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.lock.json'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$DATA" "$LOCK"
+          if git diff --cached --quiet; then echo 'Supplement artifacts already match committed state.'; exit 0; fi
+          git commit -m 'test(liuyao): seal one-shot fallback route exposure supplement v0.1'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.lock.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v01.mjs
+          )
+          if ! git diff --quiet "$SUPPLEMENT_V01_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Supplement inputs changed during seal; refusing stale push.'
+            git diff --name-only "$SUPPLEMENT_V01_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
