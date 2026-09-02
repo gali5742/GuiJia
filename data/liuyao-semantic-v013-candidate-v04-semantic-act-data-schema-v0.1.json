@@ -1,0 +1,117 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-data-schema-v0.1",
+  "status": "frozen_before_semantic_act_data_generation",
+  "scope": "liuyao_semantic_act_eligibility_v0.1",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+    "commit": "cdb2f1f2243dc184ee66b447a74c5fa037960c3f"
+  },
+  "labels": [
+    "eligible_divination_outcome_or_decision",
+    "ineligible_information_or_procedure"
+  ],
+  "rowSchema": {
+    "required": [
+      "id",
+      "text",
+      "label",
+      "actFamily",
+      "domainFamily",
+      "contrastGroup",
+      "split",
+      "provenance"
+    ],
+    "optionalDiagnosticOnly": [
+      "routeCoverage"
+    ],
+    "modelInputFields": [
+      "text"
+    ],
+    "modelTargetFields": [
+      "label"
+    ],
+    "forbiddenAsModelFeatures": [
+      "actFamily",
+      "domainFamily",
+      "contrastGroup",
+      "routeCoverage",
+      "provenance"
+    ]
+  },
+  "eligibleActFamilies": [
+    "personal_future_outcome",
+    "current_decision_or_suitability",
+    "personal_timing_or_arrival_outcome",
+    "supported_outcome_with_fee_tax_rule_vocabulary_in_background"
+  ],
+  "ineligibleActFamilies": [
+    "factual_fee_tax_rate_or_amount",
+    "procedure_steps_or_deadlines",
+    "requirements_documents_or_materials",
+    "accounting_or_administration_explanation",
+    "rule_policy_definition_or_interpretation",
+    "generic_how_to_or_process_information"
+  ],
+  "splitPolicy": {
+    "training": {
+      "plannedRows": 132,
+      "plannedPerLabel": 66,
+      "contrastGroups": 11,
+      "pairedExamplesPerContrastGroup": 6
+    },
+    "calibration": {
+      "plannedRows": 66,
+      "plannedPerLabel": 33,
+      "contrastGroups": 11,
+      "pairedExamplesPerContrastGroup": 3
+    },
+    "exactTextOverlapAcrossSplits": false,
+    "nearDuplicateAcrossSplits": false
+  },
+  "contrastPolicy": {
+    "requireBothLabelsPerContrastGroup": true,
+    "purpose": "force the classifier to learn query act rather than route/domain nouns",
+    "minimumSharedDomainVocabulary": "each contrast group intentionally reuses the same real-world topic family across both labels",
+    "pairMetadataIsDiagnosticOnly": true
+  },
+  "freshnessPolicy": {
+    "generatorMayRead": [
+      "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json",
+      "data/liuyao-semantic-route-inventory-v0.2.json"
+    ],
+    "verifierMayReadForContamination": [
+      "training-visible LiuYao corpora",
+      "calibration-visible LiuYao corpora",
+      "Candidate v0.3 development corpus"
+    ],
+    "verifierMustNotRead": [
+      "independent evaluation row text",
+      "sealed blind evaluation row text",
+      "post-Baseline new-theme literature corpora"
+    ],
+    "independentAndBlindProtection": "no-read boundary, not text-comparison",
+    "candidateV03FailureDiagnosticUse": "coverage categories only; row wording may not be read for generation"
+  },
+  "duplicatePolicy": {
+    "normalize": "trim + remove whitespace + normalize punctuation for comparison only",
+    "exactDuplicateForbidden": true,
+    "nearDuplicateMetric": "character trigram Jaccard",
+    "currentTrainCalibrationMaximum": 0.82,
+    "permittedHistoricalMaximum": 0.84,
+    "intentionalContrastPairException": "none for train/calibration cross-split checks; same-domain vocabulary is allowed but sentence-level near-copy is not"
+  },
+  "contentBoundaries": {
+    "healthOrMedicalDivination": false,
+    "traditionalLiuYaoTerminology": false,
+    "traditionalLiuYaoFeaturesAsLabels": false,
+    "newRouteThemes": false,
+    "routeInventoryCount": 22
+  },
+  "sealing": {
+    "trainingAndCalibrationSealTogether": true,
+    "lockRequired": true,
+    "encoderScoringBeforeSeal": false,
+    "thresholdSelectionBeforeSeal": false
+  }
+}
