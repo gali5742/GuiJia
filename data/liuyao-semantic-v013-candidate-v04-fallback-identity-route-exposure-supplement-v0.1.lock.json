@@ -1,0 +1,29 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-route-exposure-supplement-v0.1-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_one_shot_route_exposure_supplement",
+  "supplementPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+  "supplementSha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+  "schemaPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json",
+  "schemaSha256": "17f7b459191afc32151dba1a93cf86a981cf0d79880736a1acd34f1c09f18828",
+  "immutableBaseCalibrationPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+  "immutableBaseCalibrationSha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+  "supplementRows": 120,
+  "perRoute": 40,
+  "routes": [
+    "investment_price_trend",
+    "marital_relationship",
+    "relationship_development"
+  ],
+  "oneShotSupplement": true,
+  "secondSamplingRoundAllowed": false,
+  "encoderScoringBeforeSeal": false,
+  "fallbackIdentityTrainingPerformed": false,
+  "fallbackIdentityProbabilityUsed": false,
+  "fallbackThresholdSelected": false,
+  "v04CalibrationTextReadForGeneration": false,
+  "v04ReachabilityRowResultsRead": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "candidateV03FailureRowsRead": false
+}
