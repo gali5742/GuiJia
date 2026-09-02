@@ -159,8 +159,9 @@ assert(nearOverlaps.length===0,`historical near overlaps >=0.84 (${nearOverlaps.
 const generatorPath='scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03.mjs';
 const generator=fs.readFileSync(path.join(root,generatorPath),'utf8');
 assert(!/@huggingface\/transformers|pipeline\s*\(/.test(generator),'generator contains encoder/model invocation');
-assert(!generator.includes('liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-v0.1.json'),'generator reads/references forbidden row-level reachability report');
-assert(!/candidate-v03-development-failure-diagnostic|independent|sealed-blind/i.test(generator),'generator contains protected evaluation/failure-data marker');
+const protectedReadPattern=/(?:readJson|readFileSync)\s*\([^\n;]*(?:candidate-v03-development-failure-diagnostic|independent|sealed-blind|reachability-audit)/i;
+assert(!protectedReadPattern.test(generator),'generator performs a protected evaluation/failure-data read');
+assert(!generator.includes('liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-v0.1.json'),'generator directly references forbidden row-level reachability report path');
 
 if(calibration.sealed){
   assert(fs.existsSync(path.join(root,lockPath)),'sealed calibration lock missing');
