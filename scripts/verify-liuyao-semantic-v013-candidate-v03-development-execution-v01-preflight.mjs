@@ -24,6 +24,10 @@ assert(contract.invariants?.healthDiseaseDivinationRowsForbidden === true, 'heal
 assert(contract.independentEvaluation?.readDuringDevelopment === false, 'contract permits independent evaluation read');
 assert(contract.corpusIsolation?.independentOrBlindCorpusReadForbidden === true, 'contract permits independent/blind corpus overlap read');
 assert(contract.freshDevelopment?.mustBeCommittedBeforeFirstEncoderScoring === true, 'development seal commit-before-score boundary missing');
+assert(contract.freshDevelopment.executionPresealCorrection?.targetId === 'V013-V03-D-089', 'execution preseal correction target drift');
+assert(contract.freshDevelopment.executionPresealCorrection?.expectedRoute === 'financial_fortune' && contract.freshDevelopment.executionPresealCorrection?.expectedCandidatePath === 'fallback_head', 'execution preseal correction route/path drift');
+assert(contract.freshDevelopment.executionPresealCorrection?.encoderScoringObserved === false && contract.freshDevelopment.executionPresealCorrection?.independentEvaluationRead === false, 'execution preseal correction used forbidden evidence');
+assert(contract.freshDevelopment.executionPresealCorrection?.labelChanged === false && contract.freshDevelopment.executionPresealCorrection?.modelOrThresholdChanged === false, 'execution preseal correction changes labels/model/threshold');
 assert(contract.freshDevelopment?.trainingEligible === false && contract.freshDevelopment?.thresholdCalibrationEligible === false, 'development data training/calibration eligibility drift');
 
 const checkBlob = (entry, label) => {
@@ -34,6 +38,7 @@ const checkBlob = (entry, label) => {
 checkBlob(contract.historicalDesign, 'historical design');
 checkBlob(contract.freshDevelopment.baseGenerator, 'fresh development base generator');
 checkBlob(contract.freshDevelopment.presealPatch, 'fresh development preseal patch');
+checkBlob(contract.freshDevelopment.executionPresealCorrection, 'fresh development execution preseal correction');
 checkBlob(contract.correctedFrozenDependencies.artifact, 'corrected frozen dependencies');
 checkBlob(contract.correctedFrozenDependencies.lock, 'corrected frozen dependencies lock');
 checkBlob(contract.correctedFrozenDependencies.routeabilityBase, 'corrected Routeability base');
