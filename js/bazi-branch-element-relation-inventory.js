@@ -113,7 +113,7 @@
             blockerType:'duplicate-surface-branch-actor-key',
             actorKey,
             statement:'surface branch inventory 中出现重复 actorKey，无法建立稳定 pairwise relation inventory。'
-        }));
+        })));
 
         const records = [];
         for (let i = 0; i < branches.length; i += 1) {
