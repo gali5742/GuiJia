@@ -1,0 +1,80 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Threshold Calibration Membership Freeze
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/build-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-threshold-calibration-manifest.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  freeze-threshold-calibration-membership:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Capture immutable membership freeze base
+        run: echo "CAL_MEMBERSHIP_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Prove membership builder is encoder-free
+        run: |
+          node --check scripts/build-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest.mjs
+          if grep -E '@huggingface/transformers|pipeline[[:space:]]*\(' scripts/build-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest.mjs; then
+            echo 'Encoder/model invocation found in threshold membership builder.'
+            exit 1
+          fi
+      - name: Build and verify immutable threshold calibration membership
+        run: node scripts/build-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest.mjs
+      - name: Commit frozen threshold calibration membership
+        run: |
+          set -euo pipefail
+          FILE='data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json'
+          test -f "$FILE"
+          node - <<'NODE'
+          const d=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json');
+          if(d.status!=='locked_membership_before_fallback_identity_v02_training')process.exit(1);
+          if(d.policy?.fallbackIdentityWeightsTrainedAtMembershipFreeze!==false||d.policy?.fallbackIdentityProbabilitiesUsedForMembership!==false||d.policy?.fallbackThresholdSelected!==false)process.exit(1);
+          if(d.policy?.calibrationMayTrainWeights!==false||d.policy?.routerTopKUsedForMembership!==false)process.exit(1);
+          if(d.composition?.total!==125||d.composition?.known!==110||d.composition?.nonRoute!==15)process.exit(1);
+          if(Object.keys(d.composition?.byRoute||{}).length!==22||Object.values(d.composition.byRoute).some(n=>n<1))process.exit(1);
+          if(d.composition?.byNonRouteSubtype?.near_domain_not_current_route!==9||d.composition?.byNonRouteSubtype?.route_unresolved!==6||d.composition?.byNonRouteSubtype?.outside_current_22!==0)process.exit(1);
+          if(d.isolation?.normalizedTrainingOverlap!==0||d.isolation?.normalizedCalibrationDuplicates!==0)process.exit(1);
+          NODE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$FILE"
+          if git diff --cached --quiet; then echo 'Threshold calibration membership already matches committed state.'; exit 0; fi
+          git commit -m 'test(liuyao): freeze fallback identity v0.2 threshold calibration membership'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json
+            data/liuyao-semantic-route-training-v0.1.json
+            data/liuyao-semantic-route-training-v0.2-augmentation.json
+            data/liuyao-semantic-route-training-v0.3-targeted.json
+            data/liuyao-semantic-route-training-v0.4-expansion.json
+            data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json
+            data/liuyao-semantic-route-training-v0.5-targeted-22.json
+            js/liuyao-semantic-fallback-identity-model-v01.js
+            scripts/build-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest.mjs
+          )
+          if ! git diff --quiet "$CAL_MEMBERSHIP_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Threshold calibration membership inputs changed during freeze; refusing stale push.'
+            git diff --name-only "$CAL_MEMBERSHIP_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
