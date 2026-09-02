@@ -5,8 +5,18 @@ on:
     branches:
       - liuyao-semantic-v013-core
     paths:
+      - 'scripts/generate-liuyao-semantic-routeability-v03-single-text.mjs'
       - 'scripts/generate-liuyao-semantic-frozen-dependencies-v02-single-text.mjs'
       - 'scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs'
+      - 'scripts/generate-liuyao-semantic-routeability-v02-model.mjs'
+      - 'scripts/calibrate-liuyao-semantic-routeability-v03.mjs'
+      - 'data/liuyao-semantic-routeability-v0.2-development.json'
+      - 'data/liuyao-semantic-routeability-v0.3-calibration.json'
+      - 'data/liuyao-semantic-routeability-v0.3-contract.json'
+      - 'js/liuyao-semantic-routeability-v02.js'
+      - 'js/liuyao-semantic-routeability-v03.js'
+      - 'js/liuyao-semantic-scope-gate-v01.js'
+      - 'js/liuyao-semantic-router-poc-v081.js'
       - '.github/workflows/liuyao-v013-corrected-frozen-dependencies-v02.yml'
   workflow_dispatch:
 
@@ -28,18 +38,29 @@ jobs:
         run: node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs
       - name: Install pinned Transformers.js
         run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
-      - name: Rebuild Router and Scope in canonical single-text representation
+      - name: Rebuild and recalibrate Routeability in canonical single-text representation
+        run: node scripts/generate-liuyao-semantic-routeability-v03-single-text.mjs
+      - name: Rebuild Router and Scope and calibrate Scope hard-veto on frozen Scope calibration only
         run: node scripts/generate-liuyao-semantic-frozen-dependencies-v02-single-text.mjs
       - name: Verify corrected frozen dependencies
         run: node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
-      - name: Commit corrected dependency artifact
+      - name: Commit corrected dependency artifacts
         run: |
-          if [ -z "$(git status --porcelain -- data/liuyao-semantic-frozen-dependencies-v0.2.json data/liuyao-semantic-frozen-dependencies-v0.2.lock.json)" ]; then
+          paths=(
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.lock.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.lock.json
+          )
+          if [ -z "$(git status --porcelain -- "${paths[@]}")" ]; then
             echo 'Corrected frozen dependencies already match generated state.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/liuyao-semantic-frozen-dependencies-v0.2.json data/liuyao-semantic-frozen-dependencies-v0.2.lock.json
-          git commit -m 'chore(liuyao): freeze corrected single-text Router Scope'
+          git add "${paths[@]}"
+          git commit -m 'chore(liuyao): freeze corrected single-text semantic dependencies'
+          git pull --rebase origin liuyao-semantic-v013-core
           git push origin HEAD:liuyao-semantic-v013-core

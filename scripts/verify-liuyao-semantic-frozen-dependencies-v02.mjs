@@ -10,12 +10,20 @@ const sha256 = (relative)=>crypto.createHash('sha256').update(readBytes(relative
 const assert=(condition,message)=>{if(!condition)throw new Error(message);};
 const artifactPath='data/liuyao-semantic-frozen-dependencies-v0.2.json';
 const lockPath='data/liuyao-semantic-frozen-dependencies-v0.2.lock.json';
+const routeabilityV02Path='data/liuyao-semantic-routeability-v0.2-execution-v0.1.json';
+const routeabilityV02LockPath='data/liuyao-semantic-routeability-v0.2-execution-v0.1.lock.json';
+const routeabilityV03Path='data/liuyao-semantic-routeability-v0.3-execution-v0.1.json';
+const routeabilityV03LockPath='data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json';
 const artifact=readJson(artifactPath); const lock=readJson(lockPath);
+const routeabilityV02=readJson(routeabilityV02Path); const routeabilityV02Lock=readJson(routeabilityV02LockPath);
+const routeabilityV03=readJson(routeabilityV03Path); const routeabilityV03Lock=readJson(routeabilityV03LockPath);
+
 assert(artifact.version==='0.2'&&artifact.status==='frozen','corrected dependency artifact not frozen');
-assert(artifact.correction?.type==='embedding_execution_only','correction type drift');
+assert(artifact.correction?.type==='embedding_execution_and_calibration_provenance_correction','correction type drift');
 assert(artifact.correction?.canonicalTextsPerEncoderCall===1,'corrected dependency execution is not single-text');
-assert(artifact.correction?.sameTrainingData===true&&artifact.correction?.sameAlgorithms===true&&artifact.correction?.sameHyperparameters===true,'representation correction changed model contract');
+assert(artifact.correction?.sameTrainingData===true&&artifact.correction?.sameModelTrainingAlgorithms===true&&artifact.correction?.sameModelHyperparameters===true,'representation correction changed model training contract');
 assert(artifact.correction?.freshGeneralizationEvidence===false,'representation correction cannot be fresh evidence');
+assert(artifact.correction?.candidateDevelopmentUsedForCorrection===false&&artifact.correction?.independentEvaluationUsedForCorrection===false,'correction leaked Candidate evaluation data');
 assert(artifact.encoder?.revision==='75c43b069aac4d136ba6bc1122f995fedcfd2781','encoder revision drift');
 assert(artifact.encoder?.dtype==='q8'&&artifact.encoder?.vectorSize===512&&artifact.encoder?.pooling==='mean'&&artifact.encoder?.normalize===true,'encoder shape/normalization drift');
 assert(artifact.router?.routeOrder?.length===22,'corrected router route count drift');
@@ -24,20 +32,52 @@ assert(artifact.router?.routeHead?.biases?.length===22,'corrected router bias sh
 assert(artifact.scopeGate?.gate?.weights?.length===512&&Number.isFinite(artifact.scopeGate.gate.bias),'corrected Scope shape drift');
 assert(Number.isFinite(artifact.scopeGate?.originalThreshold),'corrected Scope original threshold missing');
 assert(artifact.scopeGate?.generationCalibration?.evidenceClass==='representation_correction_only','Scope correction calibration evidence class drift');
-assert(artifact.semanticStackPolicy?.hardVetoCutoff===null,'corrected candidate hard-veto must not inherit legacy cutoff');
-assert(artifact.semanticStackPolicy?.hardVetoStatus==='requires_candidate_revalidation','corrected Scope hard-veto status drift');
+assert(Number.isFinite(artifact.scopeGate?.hardVetoCalibration?.threshold),'Scope hard-veto calibration missing');
+assert(artifact.scopeGate.hardVetoCalibration.supportedRecall>=1-1e-12,'Scope hard-veto must preserve every supported frozen calibration row');
+assert(artifact.scopeGate.hardVetoCalibration.candidateDevelopmentUsed===false&&artifact.scopeGate.hardVetoCalibration.independentEvaluationUsed===false,'Scope hard-veto used forbidden Candidate evidence');
+assert(artifact.scopeGate.hardVetoCalibration.dataBoundary==='scope_gate_v0.1_frozen_calibration_split_only','Scope hard-veto calibration boundary drift');
+assert(artifact.semanticStackPolicy?.hardVetoCutoff===artifact.scopeGate.hardVetoCalibration.threshold,'Scope hard-veto cutoff/calibration mismatch');
+assert(artifact.semanticStackPolicy?.hardVetoStatus==='calibrated_on_frozen_scope_calibration_only','corrected Scope hard-veto status drift');
 assert(artifact.semanticStackPolicy?.legacyHardVetoCutoff===0.4196&&artifact.semanticStackPolicy?.legacyCutoffInherited===false,'legacy Scope cutoff provenance drift');
+assert(artifact.semanticStackPolicy?.legacyCutoffProvenance==='literal_policy_constant_without_recoverable_calibration_provenance','legacy Scope cutoff provenance classification drift');
+
+assert(routeabilityV02.version==='0.2-execution-v0.1'&&routeabilityV02.status==='frozen','corrected Routeability v0.2 missing');
+assert(routeabilityV02.executionCorrection?.canonicalTextsPerEncoderCall===1,'Routeability v0.2 is not single-text');
+assert(routeabilityV02.executionCorrection?.sameTrainingData===true&&routeabilityV02.executionCorrection?.sameTrainingAlgorithm===true&&routeabilityV02.executionCorrection?.sameHyperparameters===true,'Routeability v0.2 training contract drift');
+assert(routeabilityV02.training?.total===928&&routeabilityV02.training?.byLabel?.route_known===717&&routeabilityV02.training?.byLabel?.non_route===211,'Routeability v0.2 training boundary drift');
+assert(routeabilityV02.calibration?.total===110&&routeabilityV02.calibration?.byLabel?.route_known===44&&routeabilityV02.calibration?.byLabel?.non_route===66,'Routeability v0.2 calibration boundary drift');
+assert(routeabilityV02.model?.weights?.length===512&&Number.isFinite(routeabilityV02.model.bias),'Routeability v0.2 model shape drift');
+assert(routeabilityV02Lock.status==='locked'&&routeabilityV02Lock.artifact===routeabilityV02Path&&routeabilityV02Lock.artifactSha256===sha256(routeabilityV02Path),'Routeability v0.2 lock drift');
+
+assert(routeabilityV03.version==='0.3-execution-v0.1'&&routeabilityV03.status==='frozen','corrected Routeability v0.3 missing');
+assert(routeabilityV03.executionCorrection?.canonicalTextsPerEncoderCall===1,'Routeability v0.3 is not single-text');
+assert(routeabilityV03.executionCorrection?.sameCalibrationData===true&&routeabilityV03.executionCorrection?.sameCalibrationPolicy===true&&routeabilityV03.executionCorrection?.sameSafetyCaps===true,'Routeability v0.3 calibration contract drift');
+assert(routeabilityV03.baseModel?.path===routeabilityV02Path&&routeabilityV03.baseModel?.weightsReusedUnchanged===true,'Routeability v0.3 must calibrate corrected v0.2 weights');
+assert(routeabilityV03.baseModel.sha256===sha256(routeabilityV02Path),'Routeability v0.3 base SHA drift');
+assert(routeabilityV03.calibration?.total===223,'Routeability v0.3 calibration boundary drift');
+assert(routeabilityV03.calibration?.falseActivation<=routeabilityV03.policy.maxFalseActivationOverall+1e-12,'Routeability v0.3 overall safety cap failed');
+assert(routeabilityV03.calibration?.maxSubtypeFalseActivation<=routeabilityV03.policy.maxFalseActivationPerSubtype+1e-12,'Routeability v0.3 subtype safety cap failed');
+assert(routeabilityV03Lock.status==='locked'&&routeabilityV03Lock.artifact===routeabilityV03Path&&routeabilityV03Lock.artifactSha256===sha256(routeabilityV03Path),'Routeability v0.3 lock drift');
+assert(routeabilityV03Lock.baseModelSha256===sha256(routeabilityV02Path),'Routeability v0.3 lock base SHA drift');
+assert(artifact.routeability?.artifact?.path===routeabilityV03Path&&artifact.routeability.artifact.sha256===sha256(routeabilityV03Path),'dependency Routeability reference drift');
+assert(artifact.routeability?.lock?.path===routeabilityV03LockPath&&artifact.routeability.lock.sha256===sha256(routeabilityV03LockPath),'dependency Routeability lock reference drift');
+assert(artifact.routeability?.threshold===routeabilityV03.calibration.threshold,'dependency Routeability threshold drift');
+assert(artifact.routeability?.canonicalTextsPerEncoderCall===1,'dependency Routeability execution drift');
+
 assert(lock.status==='locked'&&lock.artifact===artifactPath,'corrected dependency lock malformed');
 assert(lock.artifactSha256===sha256(artifactPath),'corrected dependency artifact SHA drift');
 assert(lock.canonicalTextsPerEncoderCall===1,'corrected dependency lock execution drift');
-assert(lock.scopeHardVetoCutoff===null&&lock.scopeHardVetoStatus==='requires_candidate_revalidation','corrected Scope lock drift');
+assert(lock.scopeHardVetoCutoff===artifact.semanticStackPolicy.hardVetoCutoff&&lock.scopeHardVetoStatus===artifact.semanticStackPolicy.hardVetoStatus,'corrected Scope lock drift');
+assert(lock.routeabilityArtifactSha256===sha256(routeabilityV03Path)&&lock.routeabilityThreshold===routeabilityV03.calibration.threshold,'corrected Routeability dependency lock drift');
 assert(sha256(artifact.correction.executionContract.path)===artifact.correction.executionContract.sha256,'execution contract source drift');
 assert(sha256(artifact.correction.legacyArtifact.path)===artifact.correction.legacyArtifact.sha256,'legacy dependency artifact mutated');
-for(const source of [artifact.router.source,...artifact.router.trainingSources,artifact.scopeGate.source,...artifact.scopeGate.trainingSources,artifact.generator]){
+for(const source of [artifact.router.source,...artifact.router.trainingSources,artifact.scopeGate.source,...artifact.scopeGate.trainingSources,artifact.routeability.artifact,artifact.routeability.lock,artifact.generator]){
   assert(sha256(source.path)===source.sha256,`corrected dependency source drift: ${source.path}`);
 }
-console.log('Representation-corrected frozen Router/Scope dependencies v0.2 verified.');
+console.log('Representation-corrected Router/Scope/Routeability dependencies v0.2 verified.');
 console.log(`- Router routes: ${artifact.router.routeOrder.length}`);
-console.log(`- Scope original threshold: ${artifact.scopeGate.originalThreshold}`);
-console.log('- Candidate hard-veto: requires revalidation; legacy 0.4196 not inherited');
+console.log(`- Scope internal threshold: ${artifact.scopeGate.originalThreshold}`);
+console.log(`- Scope hard-veto cutoff: ${artifact.semanticStackPolicy.hardVetoCutoff}`);
+console.log(`- Routeability v0.3 threshold: ${artifact.routeability.threshold}`);
+console.log(`- Routeability false activation: ${routeabilityV03.calibration.falseActivation}; max subtype: ${routeabilityV03.calibration.maxSubtypeFalseActivation}`);
 console.log(`- artifact SHA-256: ${lock.artifactSha256}`);
