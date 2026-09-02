@@ -1,0 +1,23 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-data-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_act_eligibility_v0.1_data",
+  "trainingPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+  "trainingSha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+  "calibrationPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+  "calibrationSha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+  "schemaPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json",
+  "schemaSha256": "fb960bc00d7599b9a02bbfe6da4560de3b306ab4e6ef1763b6dc429f318849d2",
+  "contractPath": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+  "contractSha256": "1b0b07b0455e7b29a68edc1b1d0e72ed9f8be21ba5617dca6e0f67a7a3aa8013",
+  "trainingRows": 132,
+  "calibrationRows": 66,
+  "routeInventoryCount": 22,
+  "encoderScoringBeforeSeal": false,
+  "thresholdSelectionBeforeSeal": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "candidateV03FailureRowsReadForGeneration": false,
+  "newThemeResearchImported": false,
+  "traditionalLiuYaoFeaturesUsed": false
+}

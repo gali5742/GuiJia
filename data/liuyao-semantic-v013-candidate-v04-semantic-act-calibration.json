@@ -1,0 +1,953 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-calibration-v0.1",
+  "status": "sealed_calibration_data",
+  "sealed": true,
+  "scope": "liuyao_semantic_act_eligibility_v0.1",
+  "schemaVersion": "0.13-candidate-v0.4-semantic-act-data-schema-v0.1",
+  "policy": {
+    "createdAfterDataContractFreeze": true,
+    "generatedWithoutReadingCandidateV03FailureRows": true,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "newThemeResearchImported": false,
+    "traditionalLiuYaoFeaturesUsed": false,
+    "encoderScoringPerformed": false,
+    "useForSemanticActWeightTraining": false,
+    "useForSemanticActThresholdSelection": true,
+    "useForFallbackIdentityTraining": false,
+    "mayChooseOnlyOneGlobalSemanticActThreshold": true
+  },
+  "rows": [
+    {
+      "id": "V013-V04-SA-C-001",
+      "text": "这摊生意什么时候才可能从勉强维持变得稳定一点",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-002",
+      "text": "现在个体经营常见的服务费率大概是多少",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-003",
+      "text": "按现有收费规则继续经营，我后面还能不能有比较稳定的结余",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-004",
+      "text": "小店停业或恢复经营一般需要走哪些手续",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-005",
+      "text": "明年我的日常收支会不会比今年更容易平衡",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-006",
+      "text": "做经营收入申报时通常要留哪些凭证",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "wealth_general",
+      "contrastGroup": "wealth_general:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "financial_fortune",
+        "business_operation"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-007",
+      "text": "和对方谈的采购合同什么时候才可能真正落地",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-008",
+      "text": "跨境采购现在常见的关税和增值税怎么计算",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-009",
+      "text": "按平台退换货规则继续卖这批货，后面还能不能顺利清掉",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-010",
+      "text": "商品退货后重新入库一般要走什么流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-011",
+      "text": "这季度店里的库存周转会不会比前一阵顺一些",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-012",
+      "text": "批量出库时通常需要保存哪些单据",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "commerce_inventory",
+      "contrastGroup": "commerce_inventory:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "commercial_transaction",
+        "inventory_purchase",
+        "inventory_sale"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-013",
+      "text": "最近需要的周转款什么时候比较可能凑到",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-014",
+      "text": "逾期利息一般是按照什么公式计算的",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-015",
+      "text": "按照现在合同里的逾期条款继续催款，这笔钱后面还能不能收回来",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-016",
+      "text": "债务结清后申请开具结清证明通常走什么流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-017",
+      "text": "未来半年我和这笔债务之间的压力会不会明显小一些",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-018",
+      "text": "向对方催收欠款时通常应该保存哪些书面记录",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "credit_debt",
+      "contrastGroup": "credit_debt:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-019",
+      "text": "这次联合项目什么时候比较可能看到明确进展",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-020",
+      "text": "合伙企业常见的工商登记费用大概是多少",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-021",
+      "text": "按照现有退出规则不变，我继续留在这个合伙关系里会不会更稳",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-022",
+      "text": "合伙人退出后办理变更登记通常是什么流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-023",
+      "text": "未来一年我们两个人的合作会不会比现在顺畅",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-024",
+      "text": "签合伙协议前一般需要核对哪些基础资料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "partnership",
+      "contrastGroup": "partnership:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-025",
+      "text": "这项投资什么时候比较可能从现在的震荡里走出方向",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-026",
+      "text": "股票交易的印花税现在具体按多少收取",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-027",
+      "text": "按照当前赎回规则不变，我下个月全部撤出这只基金能不能顺利完成",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-028",
+      "text": "基金赎回后资金到账通常经历什么流程和时间",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-029",
+      "text": "未来一段时间我这笔投资整体会不会比现在更有起色",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-030",
+      "text": "办理证券账户销户一般需要准备哪些资料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "investment",
+      "contrastGroup": "investment:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-031",
+      "text": "公司这轮薪级调整什么时候比较可能影响到我",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-032",
+      "text": "社保个人缴费比例现在一般是多少",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-033",
+      "text": "按照新的薪酬制度执行后，我每月实际拿到的钱会不会增加",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-034",
+      "text": "工资账户信息变更通常应该先找哪个部门办理",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-035",
+      "text": "明年我的月度固定收入会不会比今年稳定一些",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-036",
+      "text": "申请收入证明时一般需要提供哪些信息",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "salary",
+      "contrastGroup": "salary:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-037",
+      "text": "这个项目结束以后额外奖励什么时候比较可能到账",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-038",
+      "text": "季度奖金常见的个人所得税扣税比例怎么确定",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-039",
+      "text": "按公司现行奖金规则不变，我今年还能不能拿到这一份奖励",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-040",
+      "text": "奖金发放延期时员工通常通过什么流程查询",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-041",
+      "text": "明年的额外奖励收入会不会比今年更有起色",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-042",
+      "text": "申请奖金异议时一般要提交哪些资料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "bonus",
+      "contrastGroup": "bonus:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-043",
+      "text": "这批货什么时候比较可能完成最后一段配送",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-044",
+      "text": "大件家具配送的上楼费一般按什么标准收取",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-045",
+      "text": "按照现在的清关流程继续走，我这个海外包裹还能不能正常收到",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-046",
+      "text": "海外包裹进入海关以后通常还要经过哪些流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-047",
+      "text": "接下来几天这件一直没动的快递会不会重新开始派送",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-048",
+      "text": "代领快递时一般需要准备哪些证明材料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "delivery",
+      "contrastGroup": "delivery:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-049",
+      "text": "我看中的这款设备什么时候买比较可能更顺手",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-050",
+      "text": "分期购买商品的手续费通常怎么计算",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-051",
+      "text": "按照商家的退换货规则来看，我现在先买回去试用合不合适",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-052",
+      "text": "线上订单改成门店自提一般是什么操作流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-053",
+      "text": "这次把预算花在这件东西上以后会不会觉得选择对了",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-054",
+      "text": "申请商品保修时通常需要提供哪些凭证",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "purchase",
+      "contrastGroup": "purchase:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-055",
+      "text": "我们这段关系什么时候比较可能出现明确转折",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-056",
+      "text": "情侣共同账户常见的手续费大概是多少",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-057",
+      "text": "按照现在各自的生活安排继续相处，我们后面还能不能逐步靠近",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-058",
+      "text": "共同租约增加一个承租人通常要走什么流程",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-059",
+      "text": "明年我和这个人的感情状态会不会比今年更清楚",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-060",
+      "text": "双方共同申请住房时一般需要提供哪些资料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "relationship",
+      "contrastGroup": "relationship:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-061",
+      "text": "我们这段婚姻什么时候比较可能走出最近的僵局",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-062",
+      "text": "婚姻登记相关证明补办一般需要多少费用",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_07",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-063",
+      "text": "按照目前家庭开支的分担方式继续生活，我们夫妻关系后面还能不能稳定",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-064",
+      "text": "变更婚姻状态后的各类证件通常先办哪一步",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_08",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-065",
+      "text": "未来一年我和另一半之间会不会比现在更容易沟通",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    },
+    {
+      "id": "V013-V04-SA-C-066",
+      "text": "办理夫妻共同贷款时一般需要提交哪些资料",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "marriage",
+      "contrastGroup": "marriage:pair_09",
+      "split": "calibration",
+      "routeCoverage": [
+        "marriage_match",
+        "marital_relationship"
+      ],
+      "provenance": "fresh_v04_manual_semantic_act_contrast"
+    }
+  ],
+  "sealPolicy": {
+    "sealedTogetherWithTraining": true,
+    "sealedBeforeFirstEncoderScoring": true,
+    "independentEvaluationReadBeforeSeal": false,
+    "sealedBlindEvaluationReadBeforeSeal": false,
+    "thresholdSelectedBeforeSeal": false
+  }
+}
