@@ -1,0 +1,27 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-travel-transport-object-resolver-pretraining-v01.js');
+require('../js/liuyao-move-transform-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-transport-delay-evidence-adapter-pretraining-v01.js');
+const resolverApi=global.GuiJia.liuyaoTravelTransportObjectResolverPretrainingV01;
+const factApi=global.GuiJia.liuyaoMoveTransformFactAdapterPretrainingV01;
+const evidenceApi=global.GuiJia.liuyaoTravelTransportDelayEvidenceAdapterPretrainingV01;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const semantic=(overrides={})=>({readingRef:'reading-A',travelDuty:'travel_disruption_transport',currentTargetAspect:'transport_operation',transportContext:{mode:'flight',serviceText:'CA123',specificity:'specific_service',relevance:'explicit'},candidateTargets:[{key:'line-4',type:'line',position:4,relation:'父母'}],...overrides});
+const moveFacts=(readingRef='reading-A',code='RETREAT')=>factApi.buildAtomicFacts({readingRef,line:{position:4,moving:true,branch:'辰',element:'土',changedBranch:'丑',changedElement:'土',relation:'父母',changedRelation:'父母',moveTags:[{code,text:code,type:code==='PROGRESS'?'support':'constraint'}]}}).facts;
+const full=(semanticOverrides={},code='RETREAT')=>{const resolution=resolverApi.resolveTransportObject(semantic(semanticOverrides));if(resolution.status!=='resolved')return{resolution,evidence:null};const evidence=evidenceApi.buildEvidence({readingRef:resolution.readingRef,duty:'travel_disruption_transport',transportBinding:resolution.binding,moveFacts:moveFacts(resolution.readingRef,code)});return{resolution,evidence};};
+
+t('TTO-R-E2E-1 sole visible parent resolves to binding',()=>assert.equal(full().resolution.status,'resolved'));
+t('TTO-R-E2E-2 binding feeds retreat evidence without manual selector',()=>{const r=full();assert.equal(r.evidence.resolutionStatus,'resolved');assert.equal(r.evidence.evidence.length,1);});
+t('TTO-R-E2E-3 binding position matches move fact position',()=>assert.equal(full().evidence.evidence[0].transportLinePosition,4));
+t('TTO-R-E2E-4 reading scope survives resolver fact evidence',()=>{const r=full();assert.equal(r.resolution.readingRef,'reading-A');assert.equal(r.evidence.readingRef,'reading-A');assert(r.evidence.evidence[0].sourceFactRefs[0].startsWith('READING:reading-A:'));});
+t('TTO-R-E2E-5 multiple parents stop before evidence',()=>{const r=full({candidateTargets:[{key:'line-2',type:'line',position:2,relation:'父母'},{key:'line-4',type:'line',position:4,relation:'父母'}]});assert.equal(r.resolution.status,'unresolved');assert.equal(r.evidence,null);});
+t('TTO-R-E2E-6 hidden only stops before evidence',()=>{const r=full({candidateTargets:[{key:'hidden-4',type:'hidden',position:4,relation:'父母'}]});assert.equal(r.resolution.status,'unresolved');assert.equal(r.evidence,null);});
+t('TTO-R-E2E-7 generic transport context stops before evidence',()=>{const r=full({transportContext:{mode:'flight',specificity:'generic',relevance:'explicit'}});assert.equal(r.resolution.status,'unresolved');assert.equal(r.evidence,null);});
+t('TTO-R-E2E-8 journey target stops before transport binding',()=>{const r=full({currentTargetAspect:'traveler_journey'});assert.equal(r.resolution.status,'unresolved');assert.equal(r.evidence,null);});
+t('TTO-R-E2E-9 progress creates no on-time evidence',()=>{const r=full({},'PROGRESS');assert.equal(r.evidence.resolutionStatus,'resolved');assert.equal(r.evidence.evidence.length,0);});
+t('TTO-R-E2E-10 resolver never sees move facts',()=>assert.equal(resolverApi.describeResolver().readsMoveState,false));
+t('TTO-R-E2E-11 evidence layer never resolves object',()=>assert.equal(evidenceApi.describeAdapter().resolvesTransportObject,false));
+t('TTO-R-E2E-12 no assessment comparator formal registration',()=>{assert.equal(evidenceApi.describeAdapter().assessmentReady,false);assert.equal(evidenceApi.describeAdapter().comparatorReady,false);assert.equal(resolverApi.formalEligible,false);assert.equal(evidenceApi.formalEligible,false);});
+if(!process.exitCode)console.log(`Travel transport resolver→RETREAT E2E regression: ${n} passed, 0 failed`);
