@@ -12,6 +12,7 @@
     const freezeArray = (items = []) => Object.freeze([...items]);
     const unique = (items = []) => [...new Set(items.filter(Boolean))];
     const POSITION_INDEX = Object.freeze({ year:0, month:1, day:2, hour:3 });
+    const POSITION_ORDER = Object.freeze(['year','month','day','hour']);
 
     const dependencyStatus = (synthesis = {}, id = '') =>
         (synthesis.dependencies || []).find((item) => item.id === id)?.status || 'unavailable';
@@ -105,15 +106,56 @@
         });
     };
 
-    const branchStructureContext = (semanticModel = {}, candidate = {}, index = 0) => {
+    const rebuildCanonicalBranchStructureCatalog = (semanticModel = {}, synthesis = {}) => {
+        const surface = synthesis.qianliQuantitySemanticBridgeInventory?.sourceSurfaceInventory || {};
+        const stems = surface.stems || [];
+        const branches = surface.branches || [];
+        const gans = Array(4).fill(null);
+        const zhis = Array(4).fill(null);
+        stems.forEach((item) => {
+            const index = POSITION_INDEX[item.position];
+            if (index !== undefined) gans[index] = item.gan || null;
+        });
+        const dayGan = semanticModel.strengthEvidence?.dayMaster?.gan || null;
+        if (dayGan) gans[POSITION_INDEX.day] = dayGan;
+        branches.forEach((item) => {
+            const index = POSITION_INDEX[item.position];
+            if (index !== undefined) zhis[index] = item.zhi || null;
+        });
+        if (gans.some((item) => !item) || zhis.some((item) => !item)) return Object.freeze({
+            status:'unavailable-incomplete-four-pillar-machine-inventory',
+            gans:freezeArray(gans),
+            zhis:freezeArray(zhis),
+            records:Object.freeze([])
+        });
+        const rawRelations = baziCore.calculateInternalChartRelations?.(gans, zhis) || [];
+        const catalog = baziCore.buildBaziStructureCatalog?.(rawRelations) || rawRelations;
+        const canonicalById = Object.fromEntries((semanticModel.structures || []).map((item) => [item.id, item]));
+        const records = freezeArray(catalog.filter((item) => baziCore.getBaziRelationMeta?.(item)?.scope === 'branch').map((item) => Object.freeze({
+            ...item,
+            canonicalStructureId:canonicalById[item.id]?.id || item.id || null,
+            canonicalStructureCode:canonicalById[item.id]?.code || item.code || null,
+            canonicalStructurePresent:Boolean(canonicalById[item.id])
+        })));
+        return Object.freeze({
+            status:'rebuilt-from-four-pillar-machine-inventory-via-canonical-core',
+            gans:freezeArray(gans),
+            zhis:freezeArray(zhis),
+            records,
+            boundary:'仅用同一 baziCore 关系计算器恢复 semanticModel 精简 Structure 已剥离的 participant provenance；不解析展示文本，不新增关系规则。'
+        });
+    };
+
+    const branchStructureContext = (semanticModel = {}, synthesis = {}, candidate = {}, index = 0) => {
         const pillarIndex = candidatePillarIndex(candidate);
-        const structures = freezeArray((semanticModel.structures || []).filter((item) => {
-            const meta = baziCore.getBaziRelationMeta?.(item) || null;
-            return meta?.scope === 'branch' && pillarIndex !== null && (item.pillarIndices || []).includes(pillarIndex);
-        }));
+        const catalog = rebuildCanonicalBranchStructureCatalog(semanticModel, synthesis);
+        const structures = freezeArray((catalog.records || []).filter((item) =>
+            pillarIndex !== null && (item.pillarIndices || []).includes(pillarIndex)
+        ));
         return Object.freeze({
             familyKey:FAMILY_ADAPTERS.branchInteraction.key,
             status:COVERAGE_STATES.PARTIAL,
+            structureCatalogStatus:catalog.status,
             structureRecords:structures,
             ordinaryElementRelationInventory:null,
             blockerRecords:Object.freeze([Object.freeze({
@@ -247,7 +289,7 @@
     const buildCandidateInputRecord = (semanticModel = {}, synthesis = {}, candidate = {}, index = 0) => {
         const familyRecords = freezeArray([
             coveringStemContext(semanticModel, synthesis, candidate, index),
-            branchStructureContext(semanticModel, candidate, index),
+            branchStructureContext(semanticModel, synthesis, candidate, index),
             seasonalContext(synthesis, candidate, index),
             branchNetworkPartyContext(synthesis, candidate, index),
             positionalRoleContext(synthesis, candidate, index),
@@ -316,6 +358,7 @@
         COVERAGE_STATES,
         FAMILY_ADAPTERS,
         CONTRACT,
+        POSITION_ORDER,
         dependencyStatus,
         candidatePosition,
         candidatePillarIndex,
@@ -323,6 +366,7 @@
         counterContextForCandidate,
         coveringStemIdentity,
         coveringStemReceptionContext,
+        rebuildCanonicalBranchStructureCatalog,
         coveringStemContext,
         branchStructureContext,
         seasonalContext,
