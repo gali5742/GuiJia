@@ -1,0 +1,75 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Training Assembly Audit
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-training-assembly-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit-training-assembly:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Capture immutable assembly audit base
+        run: echo "ASSEMBLY_AUDIT_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Prove audit is encoder-free and syntax-valid
+        run: |
+          node --check scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs
+          if grep -E '@huggingface/transformers|pipeline[[:space:]]*\(' scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs; then
+            echo 'Encoder/model invocation found in training assembly audit.'
+            exit 1
+          fi
+      - name: Run deterministic training assembly audit
+        run: node scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs
+      - name: Verify and commit immutable assembly report
+        run: |
+          set -euo pipefail
+          FILE='data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json'
+          test -f "$FILE"
+          node - <<'NODE'
+          const d=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json');
+          if(d.status!=='pass_encoder_free_training_assembly_audit')process.exit(1);
+          if(d.policy?.encoderUsed!==false||d.policy?.modelProbabilityUsed!==false||d.policy?.thresholdSelected!==false)process.exit(1);
+          if(d.policy?.calibrationRead!==false||d.policy?.v04CalibrationUsedForTraining!==false||d.policy?.routeExposureSupplementUsedForTraining!==false||d.policy?.legacyFallbackV01FreshTrainingUsed!==false)process.exit(1);
+          if(d.inputs?.expansionLabelPatch?.semantics!=='override_labels_for_matching_v04_expansion_hard_negative_train_texts_not_additive_rows')process.exit(1);
+          if(d.inputs?.expansionLabelPatch?.allTrainMappingsMatchExactlyOneExpansionHardNegative!==true)process.exit(1);
+          if(d.checks?.all22RoutesHavePositives!==true||d.checks?.normalizedLabelConflictsZero!==true||d.checks?.calibrationExcluded!==true||d.checks?.encoderFree!==true)process.exit(1);
+          if(Object.keys(d.finalTrainingManifest?.byRoute||{}).length!==22)process.exit(1);
+          NODE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$FILE"
+          if git diff --cached --quiet; then echo 'Assembly report already matches committed state.'; exit 0; fi
+          git commit -m 'test(liuyao): record fallback identity v0.2 training assembly audit'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-route-training-v0.1.json
+            data/liuyao-semantic-route-training-v0.2-augmentation.json
+            data/liuyao-semantic-route-training-v0.3-targeted.json
+            data/liuyao-semantic-route-training-v0.4-expansion.json
+            data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json
+            data/liuyao-semantic-route-training-v0.5-targeted-22.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json
+            js/liuyao-semantic-fallback-identity-model-v01.js
+            scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs
+          )
+          if ! git diff --quiet "$ASSEMBLY_AUDIT_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Training assembly inputs changed during audit; refusing stale report push.'
+            git diff --name-only "$ASSEMBLY_AUDIT_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
