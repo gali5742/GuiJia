@@ -1,0 +1,68 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-data-schema-v0.4.1",
+  "status": "frozen_after_v04_pregeneration_hash_type_failure_before_any_calibration_generation",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_stage_specific_calibration_v0.4",
+  "supersedes": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.json",
+    "gitBlobSha": "c3442addda0ed483f44004238624399117c4b589",
+    "reason": "v0.4 incorrectly labeled the Git blob SHA of the immutable v0.3 reachability report as SHA256. The workflow stopped before generation, so no calibration v0.4 text, encoder scoring, model probability, Fallback training or threshold selection occurred."
+  },
+  "purpose": "Replace threshold-ineligible calibration v0.3 with a larger fresh stage-specific calibration whose sampling design gives rare natural Routeability false positives enough opportunity to reach Fallback without lowering any frozen safety gate or tuning text from row-level model probabilities.",
+  "carriedTrainingAugmentation": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+    "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+    "reuseAllowedForFutureFallbackTraining": true,
+    "regenerate": false,
+    "mutate": false,
+    "fallbackIdentityTrainingPreviouslyPerformed": false
+  },
+  "supersededCalibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.json",
+    "sha256": "21fbafcdc96c5a22ce0a188255babe81757f231ed89ec2086c9ea810a6dca7c6",
+    "reachabilityReportPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3-reachability-audit-v0.1.json",
+    "reachabilityReportGitBlobSha": "e53065fdc048349c7e745c53ff242fd16e7a2a7e",
+    "thresholdSelectionEligible": false,
+    "mutationAllowed": false,
+    "sameVersionRetryAllowed": false
+  },
+  "allowedFailureEvidenceForDesign": {
+    "aggregateOnly": true,
+    "rowLevelResultsReadForGeneration": false,
+    "v03Aggregates": {
+      "knownSemanticActRetention": 1,
+      "knownReachingFallback": 69,
+      "knownRows": 132,
+      "nearDomainReachingFallback": 2,
+      "nearDomainRows": 88,
+      "totalNonRouteReachingFallback": 3,
+      "totalNonRouteRows": 132,
+      "routesWithZeroKnownFallbackExposure": ["receive_item"]
+    },
+    "designInference": "The safety failure is primarily a rare-exposure sampling problem after Routeability. Preserve the >=8 safety gates and increase fresh near-domain sample size. The only aggregate route-level zero is receive_item, so its fresh known examples may use clearer already-ordered purchase background while remaining deterministic-Arbitration-null."
+  },
+  "freshCalibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+    "totalRows": 704,
+    "routeKnown": {"total":220,"perRoute":10,"routeCount":22,"subtype":"fallback_stage_known","presealRequirements":["Evidence v0.3 unsupportedTargets empty","Arbitration v0.12 null","natural modern-language route semantics","no encoder/model probability used to select or edit text"]},
+    "nearDomainNonRoute": {"total":440,"perRouteFamily":20,"routeFamilyCount":22,"subtype":"near_domain_not_current_route","design":"Domain-dense operational, representation, organization or workflow decisions that are close enough to current Route vocabulary to pressure Routeability but whose requested target remains outside all current 22 Route identities.","compositionMinimumsPerFamily":{"distinctOperationalObjects":5,"distinctSentenceFrames":4},"presealRequirements":["Evidence v0.3 unsupportedTargets empty","Arbitration v0.12 null","not a supported current Route outcome/decision","not an explicit fact/rule/procedure information request","no encoder/model probability used to select or edit text"]},
+    "outsideCurrent22": {"total":22,"subtype":"outside_current_22"},
+    "routeUnresolved": {"total":22,"subtype":"route_unresolved"}
+  },
+  "freshnessAndIsolation": {
+    "generatorMayReadV02OrV03CalibrationText": false,
+    "generatorMayReadV03ReachabilityRowResults": false,
+    "generatorMayReadAnyReachabilityProbability": false,
+    "generatorMayReadCandidateV03FailureRows": false,
+    "generatorMayReadIndependentEvaluation": false,
+    "generatorMayReadSealedBlindEvaluation": false,
+    "verifierMayReadNonProtectedHistoricalTrainCalibrationForExactNearDuplicateAudit": true,
+    "verifierMustSkipReachabilityReportsAndProtectedEvaluationContent": true,
+    "freshInternalExactDuplicateAllowed": false,
+    "freshInternalTrigramJaccardThreshold": 0.82,
+    "historicalTrigramJaccardThreshold": 0.84
+  },
+  "encoderBoundaryBeforeSeal": {"encoderScoringObserved":false,"semanticActProbabilityUsedForGeneration":false,"routeabilityProbabilityUsedForGeneration":false,"fallbackIdentityProbabilityUsed":false,"fallbackIdentityTrainingPerformed":false,"fallbackThresholdSelected":false},
+  "postSealReachabilityAudit": {"singleTextEncoderCallsOnly":true,"minimumKnownSemanticActRetention":0.95,"requireEveryRouteHasAtLeastOneKnownReachingFallback":true,"minimumNearDomainNonRouteReachingFallback":8,"minimumTotalNonRouteReachingFallback":8,"thresholdsMayNotBeRelaxedAfterAudit":true,"semanticActThreshold":0.5045675974201208,"routeabilityThreshold":0.7678148573595883,"fallbackIdentityProbabilityForbiddenDuringAudit":true,"routerTopKForbiddenDuringAudit":true},
+  "failureBehavior": {"ifAnyReachabilityGateFails":"commit immutable failure and create a new calibration version; do not mutate sealed v0.4 and do not train Fallback Identity v0.2","sameVersionTextEditingAfterEncoderAudit":false},
+  "successBehavior": {"nextAllowedAction":"freeze Fallback Identity v0.2 training/calibration contract before any Fallback Identity weights, probabilities or threshold are produced"}
+}
