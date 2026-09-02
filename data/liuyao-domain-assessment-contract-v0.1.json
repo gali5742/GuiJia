@@ -29,11 +29,17 @@
       "observationPlan": true,
       "evidenceBuilder": true,
       "formalAssessment": false,
-      "isolatedAssessmentCandidates": ["AE-TV-EXEC-001", "AE-TV-SAFE-001", "AE-TV-EXEC-002"],
+      "isolatedAssessmentCandidates": ["AE-TV-EXEC-001", "AE-TV-SAFE-001", "AE-TV-EXEC-002", "AE-TV-EXEC-003"],
       "canonicalLineStatusProducer": "js/liuyao-core.js#buildLiuYaoLineStatus",
-      "atomicLineFactAdapter": "js/liuyao-line-status-fact-adapter-pretraining-v01.js",
-      "atomicExecutionEvidenceAdapter": "js/liuyao-travel-line-evidence-adapter-pretraining-v02.js",
+      "legacyAtomicLineFactPrototype": "js/liuyao-line-status-fact-adapter-pretraining-v01.js",
+      "readingScopedLineFactAdapter": "js/liuyao-line-status-fact-adapter-pretraining-v02.js",
+      "readingScopedShiYingFactAdapter": "js/liuyao-shi-ying-fact-adapter-pretraining-v01.js",
+      "readingScopedExecutionEvidenceAdapter": "js/liuyao-travel-line-evidence-adapter-pretraining-v03.js",
+      "readingScopedDestinationEvidenceAdapter": "js/liuyao-travel-destination-evidence-adapter-pretraining-v01.js",
+      "readingScopedExecutionComposer": "js/liuyao-travel-execution-evidence-compose-pretraining-v03.js",
       "globalTravelerVitalityProducer": false,
+      "multiAlternativeTravelAnchorReady": false,
+      "multiAlternativeTravelAnchorBlocker": "PRR-TRAVEL-ALTERNATIVE-ANCHOR",
       "evidenceVocabularyExamples": ["positive", "negative"]
     },
     "litigation_dispute": {
@@ -68,6 +74,7 @@
     "Time Engine facts may be consumed by a domain evidence builder but must not be recomputed inside Assessment.",
     "Static line status and TimeFact transitions are separate provenance layers; a static VOID tag must not be mislabeled as a TimeFact.",
     "Presentation helpers such as classifyTargetState must not be promoted into a formal strength/Assessment engine without independent review.",
+    "Reading identity must be carried explicitly rather than inferred from evidence-ref string formatting.",
     "No Assessment output may contain probability, scalarScore, winner or overallRecommendation.",
     "alternativeId is optional for standalone domain assessment and must be explicitly bound before Choice Comparator use; array position or label order must never create the binding."
   ],
@@ -100,6 +107,17 @@
       "mustNotInferFrom": ["array_index", "left_right_position", "display_label_order"]
     },
     "forbidden": ["probability", "scalarScore", "winner", "overallRecommendation"]
+  },
+  "readingScopedEnvelopeV02": {
+    "module": "js/liuyao-domain-assessment-pretraining-v02.js",
+    "status": "design_only_parallel_contract",
+    "extendsV01WithoutMutatingV01": true,
+    "additionalRequired": ["readingRef"],
+    "alternativeId": "optional_for_standalone_required_before_comparison",
+    "bindingCarriesReadingRef": true,
+    "crossReadingComparisonAllowed": false,
+    "readingRefMustNotBeInferredFrom": ["evidenceRef_string", "castTimestamp_alone", "array_position", "alternative_label"],
+    "formalReadingRefProducerReviewed": false
   },
   "evaluatorRegistrationSchema": {
     "evaluatorRef": "string",
@@ -157,7 +175,44 @@
         "deprecated": ["traveler_vitality|positive", "traveler_vitality|negative"],
         "added": ["traveler_calendar_support|positive", "traveler_calendar_constraint|negative", "traveler_void|negative"]
       },
-      "comparatorCompatibility": "not_reviewed",
+      "comparatorCompatibility": "reviewed_only_with_CP-TV-EXEC-002",
+      "formalEligible": false
+    },
+    {
+      "evaluatorRef": "AE-TV-EXEC-003",
+      "status": "isolated_implemented_regression_added_not_executed",
+      "eventType": "travel",
+      "duty": "travel_execution",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "contractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.3",
+      "assessmentVersion": "0.3",
+      "sharedEnvelope": "js/liuyao-domain-assessment-pretraining-v02.js",
+      "module": "js/liuyao-travel-execution-assessment-pretraining-v03.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-reading-scoped-chain-v0.3.md",
+      "readingRefRequired": true,
+      "alternativeIdRequiredInThisCandidate": true,
+      "acceptedEvidence": [
+        "traveler_calendar_support|positive",
+        "traveler_calendar_constraint|negative",
+        "traveler_void|negative",
+        "traveler_controls_destination|positive",
+        "destination_controls_traveler|negative"
+      ],
+      "forbiddenOpaqueEvidence": [
+        "traveler_vitality|positive",
+        "traveler_vitality|negative",
+        "destination_relation|positive",
+        "destination_relation|negative",
+        "route_process_obstruction|negative",
+        "transport_disruption|negative"
+      ],
+      "comparatorCompatibility": "CP-TV-EXEC-003_only",
+      "multiAlternativeAnchorReady": false,
+      "multiAlternativeAnchorBlocker": "PRR-TRAVEL-ALTERNATIVE-ANCHOR",
+      "regressionAdded": true,
+      "regressionExecuted": false,
       "formalEligible": false
     }
   ],
@@ -186,8 +241,12 @@
     "partial and unresolved behavior specified",
     "time facts consumed without recomputation",
     "regression includes no-evidence, mixed, conflicting and unresolved cases",
+    "latest candidate regression actually executed",
     "no hidden score/probability output",
     "provenance-backed Evidence refs replace synthetic design-only refs",
+    "stable readingRef producer reviewed",
+    "readingRef carried Fact to Evidence to Assessment to Comparator",
+    "real alternative anchoring reviewed wherever a comparator is product-facing",
     "comparator compatibility reviewed for the exact assessment version",
     "explicit user authorization for Formal Expansion",
     "current-22 remains frozen unless separately migrated"
