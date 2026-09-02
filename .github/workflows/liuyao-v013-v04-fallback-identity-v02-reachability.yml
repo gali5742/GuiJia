@@ -1,0 +1,110 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Reachability Audit
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-contract-v0.1.json'
+      - 'scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-reachability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit-reachability:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable reachability audit checkout
+        run: echo "REACHABILITY_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify sealed inputs and frozen audit contract before encoder use
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const crypto = require('crypto');
+          const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+          const c = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-contract-v0.1.json');
+          const d = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.lock.json');
+          if (c.status !== 'locked_before_first_postseal_fallback_data_encoder_audit') process.exit(1);
+          if (d.status !== 'locked' || d.encoderScoringBeforeSeal !== false || d.fallbackThresholdSelectionBeforeSeal !== false) process.exit(1);
+          if (sha(d.trainingPath) !== c.sealedData.trainingSha256) process.exit(1);
+          if (sha(d.calibrationPath) !== c.sealedData.calibrationSha256) process.exit(1);
+          if (sha(d.schemaPath) !== c.sealedData.schemaSha256) process.exit(1);
+          if (c.auditOnly.fallbackIdentityWeightsTrained !== false || c.auditOnly.fallbackIdentityProbabilitiesScored !== false || c.auditOnly.fallbackThresholdSelected !== false) process.exit(1);
+          if (c.auditOnly.independentEvaluationRead !== false || c.auditOnly.sealedBlindEvaluationRead !== false) process.exit(1);
+          NODE
+
+      - name: Install pinned Transformers.js only after reachability contract freeze
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Run sealed-data upstream reachability audit
+        id: audit
+        continue-on-error: true
+        run: node scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability.mjs
+
+      - name: Verify audit report policy and commit immutable result
+        if: always() && steps.audit.outcome != 'skipped'
+        run: |
+          set -euo pipefail
+          FILE='data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-v0.1.json'
+          test -f "$FILE"
+          node - <<'NODE'
+          const d = require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-v0.1.json');
+          if (d.policy?.auditOnly !== true) process.exit(1);
+          if (d.policy?.fallbackIdentityWeightsTrained !== false || d.policy?.fallbackIdentityProbabilitiesScored !== false || d.policy?.fallbackThresholdSelected !== false) process.exit(1);
+          if (d.policy?.independentEvaluationRead !== false || d.policy?.sealedBlindEvaluationRead !== false || d.policy?.candidateV03FailureRowsRead !== false) process.exit(1);
+          if (d.execution?.canonicalTextsPerEncoderCall !== 1 || d.execution?.encoderCalls !== 352 || d.execution?.rowsScored !== 352) process.exit(1);
+          NODE
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$FILE"
+          if git diff --cached --quiet; then
+            echo 'Fallback v0.2 reachability audit report already matches committed state.'
+          else
+            if [ "${{ steps.audit.outcome }}" = 'success' ]; then
+              git commit -m 'test(liuyao): record v0.4 fallback v0.2 reachability pass'
+            else
+              git commit -m 'test(liuyao): record v0.4 fallback v0.2 reachability failure'
+            fi
+          fi
+
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.lock.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.2.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability-audit-contract-v0.1.json
+            scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-reachability.mjs
+          )
+          if ! git diff --quiet "$REACHABILITY_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Reachability audit inputs changed during scoring; refusing stale report push.'
+            git diff --name-only "$REACHABILITY_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+
+      - name: Fail workflow if frozen reachability checks fail
+        if: steps.audit.outcome != 'success'
+        run: |
+          echo 'Sealed Fallback v0.2 corpus failed frozen upstream reachability checks; do not train Fallback Identity v0.2.'
+          exit 1
