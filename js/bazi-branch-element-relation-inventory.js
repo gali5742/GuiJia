@@ -163,27 +163,4 @@
         buildInventory,
         recordsForActor
     });
-
-    const loadRelationEffectGeneralizationAudit = () => {
-        if (typeof document === 'undefined' || GuiJia.baziContextualForcePartyRelationEffectGeneralizationAudit?.installed) return;
-        const loadAudit = () => {
-            if (GuiJia.baziContextualForcePartyRelationEffectGeneralizationAudit?.installed) return;
-            const auditScript = document.createElement('script');
-            auditScript.src = './js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0';
-            document.head.appendChild(auditScript);
-        };
-        if (GuiJia.baziContextualForcePartyRelationEffectGeneralizationSource?.installed) {
-            loadAudit();
-            return;
-        }
-        const sourceScript = document.createElement('script');
-        sourceScript.src = './js/bazi-contextual-force-party-relation-effect-generalization-source.js?v=13.44.0';
-        sourceScript.onload = loadAudit;
-        document.head.appendChild(sourceScript);
-    };
-
-    if (typeof document !== 'undefined') {
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadRelationEffectGeneralizationAudit, { once:true });
-        else loadRelationEffectGeneralizationAudit();
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
