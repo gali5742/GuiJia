@@ -167,4 +167,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationEffectGeneralizationAudit) {
         document.write('<script src="./js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit) {
+        document.write('<script src="./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
