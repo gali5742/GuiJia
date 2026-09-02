@@ -14,7 +14,10 @@ const tests = [
   'tests/liuyao-travel-evidence-source-pretraining-v01-tests.js',
   'tests/liuyao-line-status-fact-adapter-pretraining-v01-tests.js',
   'tests/liuyao-travel-line-evidence-adapter-pretraining-v01-tests.js',
-  'tests/liuyao-travel-line-fact-assessment-e2e-v01-tests.js'
+  'tests/liuyao-travel-line-fact-assessment-e2e-v01-tests.js',
+  'tests/liuyao-travel-line-evidence-adapter-pretraining-v02-tests.js',
+  'tests/liuyao-travel-execution-assessment-pretraining-v02-tests.js',
+  'tests/liuyao-travel-execution-atomic-calendar-e2e-v02-tests.js'
 ];
 
 for (const test of tests) {
