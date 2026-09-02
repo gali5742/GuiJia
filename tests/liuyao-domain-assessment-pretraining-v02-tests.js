@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-domain-assessment-pretraining-v02.js');
+const api=global.GuiJia.liuyaoDomainAssessmentPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const a=(overrides={})=>({readingRef:'reading-A',alternativeId:'A',assessmentRef:'x_v0.2',assessmentVersion:'0.2',contractFamily:'x',eventType:'travel',duty:'travel_execution',dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',resolutionStatus:'resolved',assessmentStatus:'supportive_evidence',evidenceRefs:['E1'],reasonRefs:['R1'],...overrides});
+
+t('DA2-1 design only no active evaluators',()=>assert.equal(api.ACTIVE_EVALUATORS.length,0));
+t('DA2-2 reading ref required',()=>{const x=a();delete x.readingRef;assert.equal(api.validateAssessmentEnvelope(x).status,'invalid');});
+t('DA2-3 valid envelope accepted',()=>assert.equal(api.validateAssessmentEnvelope(a()).status,'valid'));
+t('DA2-4 binding carries reading ref',()=>{const b=api.bindAssessmentForComparison(a());assert.equal(b.status,'bound');assert.equal(b.input.readingRef,'reading-A');});
+t('DA2-5 alternative remains explicit',()=>assert.equal(api.bindAssessmentForComparison(a()).input.alternativeId,'A'));
+t('DA2-6 unbound assessment allowed standalone but not comparison',()=>{const x=a();delete x.alternativeId;assert.equal(api.validateAssessmentEnvelope(x).status,'valid');assert.equal(api.bindAssessmentForComparison(x).status,'unbound');});
+t('DA2-7 explicit alternative binds standalone assessment',()=>{const x=a();delete x.alternativeId;assert.equal(api.bindAssessmentForComparison(x,'A').status,'bound');});
+t('DA2-8 alternative mismatch rejected',()=>assert.equal(api.bindAssessmentForComparison(a(),'B').status,'invalid'));
+t('DA2-9 forbidden score rejected',()=>assert.equal(api.validateAssessmentEnvelope(a({scalarScore:1})).status,'invalid'));
+t('DA2-10 resolved not_assessed rejected',()=>assert.equal(api.validateAssessmentEnvelope(a({assessmentStatus:'not_assessed'})).status,'invalid'));
+t('DA2-11 unresolved not assessed accepted',()=>assert.equal(api.validateAssessmentEnvelope(a({resolutionStatus:'unresolved',assessmentStatus:'not_assessed'})).status,'valid'));
+t('DA2-12 evaluator request requires reading ref',()=>assert.equal(api.validateEvaluatorRequest({eventType:'travel',duty:'travel_execution',dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',contractFamily:'x',assessmentRef:'x',assessmentVersion:'0.2',evidenceRefs:[]}).status,'invalid'));
+t('DA2-13 missing evaluator remains unresolved',()=>{const r=api.assessWithRegisteredEvaluator({readingRef:'reading-A',eventType:'travel',duty:'travel_execution',dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',contractFamily:'x',assessmentRef:'x',assessmentVersion:'0.2',evidenceRefs:[]});assert.equal(r.resolutionStatus,'unresolved');assert.equal(r.readingRef,'reading-A');});
+t('DA2-14 readiness says reading carried',()=>{const r=api.buildAssessmentReadiness();assert.equal(r.readingRefRequired,true);assert.equal(r.readingRefCarriedToComparator,true);});
+t('DA2-15 cross reading comparison not allowed by contract',()=>assert.equal(api.buildAssessmentReadiness().crossReadingComparisonAllowed,false));
+t('DA2-16 no scoring probability winner recommendation',()=>{const r=api.buildAssessmentReadiness();assert.equal(r.evidenceCountingEnabled,false);assert.equal(r.probabilityEnabled,false);assert.equal(r.scalarScoreEnabled,false);assert.equal(r.winnerEnabled,false);});
+if(!process.exitCode)console.log(`Domain assessment v02 reading-scope regression: ${n} passed, 0 failed`);
