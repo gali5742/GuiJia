@@ -1,0 +1,45 @@
+import './verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.mjs';
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const read = (relative) => fs.readFileSync(path.join(root, relative));
+const readJson = (relative) => JSON.parse(read(relative).toString('utf8'));
+const sha256 = (relative) => crypto.createHash('sha256').update(read(relative)).digest('hex');
+const assert = (condition, message) => { if (!condition) throw new Error(message); };
+
+const contract = readJson('data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.json');
+const model = readJson(contract.outputPolicy.modelPath);
+const report = readJson(contract.outputPolicy.calibrationReportPath);
+const lock = readJson(contract.outputPolicy.modelLockPath);
+assert(model.version === '0.13-candidate-v0.4-semantic-act-eligibility-v0.1-model-v0.1', 'Semantic Act model version drift');
+assert(model.status === 'locked_after_fresh_calibration' && model.calibrationPassed === true, 'Semantic Act model not locked after calibration');
+assert(Array.isArray(model.model?.weights) && model.model.weights.length === 512, 'Semantic Act model weights missing');
+assert(model.model.weights.every(Number.isFinite) && Number.isFinite(model.model.bias), 'Semantic Act model contains non-finite parameters');
+assert(Number.isFinite(model.threshold) && model.threshold > 0 && model.threshold < 1, 'Semantic Act threshold invalid');
+assert(model.execution?.canonicalTextsPerEncoderCall === 1, 'Semantic Act model execution shape drift');
+assert(model.hyperparameters?.epochs === 360 && model.hyperparameters?.learningRate === 0.42 && model.hyperparameters?.l2 === 0.0015, 'Semantic Act model hyperparameter drift');
+assert(model.bindings?.trainingSha256 === contract.sealedData.trainingSha256, 'Semantic Act model training binding drift');
+assert(model.bindings?.calibrationSha256 === contract.sealedData.calibrationSha256, 'Semantic Act model calibration binding drift');
+assert(model.protectedEvaluationBoundary?.independentEvaluationRead === false, 'Semantic Act model independent read drift');
+assert(model.protectedEvaluationBoundary?.sealedBlindEvaluationRead === false, 'Semantic Act model blind read drift');
+assert(model.protectedEvaluationBoundary?.developmentRead === false, 'Semantic Act model development read drift');
+assert(report.status === 'calibration_passed', 'Semantic Act calibration report not passed');
+assert(report.execution?.canonicalTextsPerEncoderCall === 1, 'Semantic Act report execution shape drift');
+assert(report.summary?.eligibleRetention >= contract.calibrationBoundary.minimumEligibleRetention, 'Semantic Act eligible retention below frozen gate');
+assert(report.summary?.ineligibleFalsePass <= contract.calibrationBoundary.maximumIneligibleFalsePass, 'Semantic Act false-pass above frozen gate');
+assert(report.thresholdSelection?.selectedThreshold === model.threshold, 'Semantic Act model/report threshold mismatch');
+assert(lock.version === '0.13-candidate-v0.4-semantic-act-eligibility-v0.1-model-lock-v0.1' && lock.status === 'locked', 'Semantic Act model lock drift');
+assert(lock.modelSha256 === sha256(contract.outputPolicy.modelPath), 'Semantic Act model SHA drift');
+assert(lock.calibrationReportSha256 === sha256(contract.outputPolicy.calibrationReportPath), 'Semantic Act calibration report SHA drift');
+assert(lock.trainingContractSha256 === sha256('data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.json'), 'Semantic Act training contract SHA drift');
+assert(lock.threshold === model.threshold, 'Semantic Act lock/model threshold mismatch');
+assert(lock.canonicalTextsPerEncoderCall === 1, 'Semantic Act lock execution shape drift');
+assert(lock.independentEvaluationRead === false && lock.sealedBlindEvaluationRead === false && lock.developmentRead === false, 'Semantic Act lock protected-eval boundary drift');
+
+console.log('Candidate v0.4 Semantic Act v0.1 model verified and locked.');
+console.log(`- threshold: ${model.threshold}`);
+console.log(`- eligible retention: ${report.summary.eligibleRetention}`);
+console.log(`- ineligible false-pass: ${report.summary.ineligibleFalsePass}`);
