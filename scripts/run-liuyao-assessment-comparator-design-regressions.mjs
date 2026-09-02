@@ -11,7 +11,8 @@ const tests = [
   'tests/liuyao-travel-safety-comparator-pretraining-v01-tests.js',
   'tests/liuyao-travel-evidence-binding-pretraining-v01-tests.js',
   'tests/liuyao-travel-duty-separation-e2e-v01-tests.js',
-  'tests/liuyao-travel-evidence-source-pretraining-v01-tests.js'
+  'tests/liuyao-travel-evidence-source-pretraining-v01-tests.js',
+  'tests/liuyao-line-status-fact-adapter-pretraining-v01-tests.js'
 ];
 
 for (const test of tests) {
