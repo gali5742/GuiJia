@@ -1,0 +1,26 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-move-transform-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-transport-delay-evidence-adapter-pretraining-v01.js');
+const factApi=global.GuiJia.liuyaoMoveTransformFactAdapterPretrainingV01;
+const evidenceApi=global.GuiJia.liuyaoTravelTransportDelayEvidenceAdapterPretrainingV01;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const moveLine=(code='RETREAT',overrides={})=>({position:4,moving:true,branch:'辰',element:'土',changedBranch:'丑',changedElement:'土',relation:'父母',changedRelation:'父母',moveTags:[{code,text:code,type:code==='PROGRESS'?'support':'constraint'}],...overrides});
+const facts=(readingRef='reading-A',code='RETREAT')=>factApi.buildAtomicFacts({readingRef,line:moveLine(code)}).facts;
+const binding={status:'resolved',bindingRef:'transport:flight-A',objectClass:'transport_operation',relation:'父母',position:4};
+const build=(readingRef='reading-A',code='RETREAT',overrides={})=>evidenceApi.buildEvidence({readingRef,duty:'travel_disruption_transport',transportBinding:binding,moveFacts:facts(readingRef,code),...overrides});
+
+t('TTR-E2E-1 move fact carries reading scope',()=>assert.equal(facts()[0].factRef,'READING:reading-A:MOVE:4:RETREAT'));
+t('TTR-E2E-2 retreat reaches narrow delay evidence',()=>{const r=build();assert.equal(r.resolutionStatus,'resolved');assert.equal(r.evidence.length,1);assert.equal(r.evidence[0].type,'transport_delay_or_postponement');});
+t('TTR-E2E-3 evidence retains exact source fact',()=>assert.equal(build().evidence[0].sourceFactRefs[0],facts()[0].factRef));
+t('TTR-E2E-4 evidence retains exact concrete binding',()=>assert.equal(build().evidence[0].transportBindingRef,'transport:flight-A'));
+t('TTR-E2E-5 different reading produces different fact and evidence ids',()=>{const a=build('reading-A').evidence[0];const b=build('reading-B').evidence[0];assert.notEqual(a.id,b.id);assert.notEqual(a.sourceFactRefs[0],b.sourceFactRefs[0]);});
+t('TTR-E2E-6 cross-reading injection fails',()=>{const foreign=facts('reading-B');const r=evidenceApi.buildEvidence({readingRef:'reading-A',duty:'travel_disruption_transport',transportBinding:binding,moveFacts:foreign});assert.equal(r.resolutionStatus,'unresolved');assert.equal(r.evidence.length,0);});
+t('TTR-E2E-7 different transport position fails',()=>{const r=evidenceApi.buildEvidence({readingRef:'reading-A',duty:'travel_disruption_transport',transportBinding:{...binding,position:3},moveFacts:facts()});assert.equal(r.resolutionStatus,'unresolved');});
+t('TTR-E2E-8 progress yields no positive evidence',()=>{const r=build('reading-A','PROGRESS');assert.equal(r.resolutionStatus,'resolved');assert.equal(r.evidence.length,0);});
+t('TTR-E2E-9 no assessment is generated',()=>{const r=build();assert.equal(Object.prototype.hasOwnProperty.call(r,'assessmentStatus'),false);assert.equal(evidenceApi.describeAdapter().assessmentReady,false);});
+t('TTR-E2E-10 no comparator is generated',()=>assert.equal(evidenceApi.describeAdapter().comparatorReady,false));
+t('TTR-E2E-11 no runtime registration',()=>{assert.equal(factApi.registered,false);assert.equal(evidenceApi.registered,false);});
+t('TTR-E2E-12 formal eligibility remains false',()=>{assert.equal(factApi.formalEligible,false);assert.equal(evidenceApi.formalEligible,false);});
+if(!process.exitCode)console.log(`Travel transport retreat evidence E2E regression: ${n} passed, 0 failed`);
