@@ -17,11 +17,14 @@ const tests = [
   'tests/liuyao-travel-line-fact-assessment-e2e-v01-tests.js',
   'tests/liuyao-travel-line-evidence-adapter-pretraining-v02-tests.js',
   'tests/liuyao-travel-execution-assessment-pretraining-v02-tests.js',
-  'tests/liuyao-travel-execution-atomic-calendar-e2e-v02-tests.js'
+  'tests/liuyao-travel-execution-atomic-calendar-e2e-v02-tests.js',
+  'tests/liuyao-travel-execution-comparator-pretraining-v02-tests.js',
+  'tests/liuyao-travel-execution-comparator-cross-version-v01-tests.js',
+  'tests/liuyao-travel-execution-atomic-calendar-comparator-e2e-v02-tests.js'
 ];
 
 for (const test of tests) {
-  const result = spawnSync(process.execPath, [test], { cwd: process.cwd(), stdio: 'inherit' });
+  const result = spawnSync(process.execPath, [test], { cwd: process.cwd(), stdio:'inherit' });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
 
