@@ -28,6 +28,8 @@
     "Comparator input must be reviewed Assessment output, never raw status tags, raw TimeEffects, raw ObservationPlan targets, evidence counts or user-facing prose.",
     "A dimension label alone does not make two assessments comparable.",
     "Every ordering comparator is owned by a domain Assessment contract family and versioned independently.",
+    "Assessment contractFamily equality does not imply assessmentRef or version compatibility.",
+    "A new Assessment version requires explicit Comparator compatibility review; old comparator candidates remain frozen unless separately reviewed.",
     "No global ordering supportive > mixed > adverse is registered in v0.1.",
     "No active comparator means comparisonStatus=incomparable, not a fallback heuristic ranking.",
     "External factual dimensions such as legal exposure, exact cost, salary amount or travel time must use their factual/domain providers rather than divination evidence unless an independently reviewed divination Assessment exists.",
@@ -38,6 +40,7 @@
     "version": "string",
     "dimensionId": "string",
     "assessmentContractFamily": "string",
+    "assessmentRef": "string",
     "compatibleAssessmentVersions": ["string"],
     "semanticMeaning": "string",
     "inputStatusesAllowed": ["resolved"],
@@ -65,7 +68,8 @@
     ],
     "notes": [
       "contractFamily must be explicit; it must not be inferred from contractRef naming conventions.",
-      "semanticMeaning must be explicit; equal dimensionId alone is insufficient for comparability."
+      "semanticMeaning must be explicit; equal dimensionId alone is insufficient for comparability.",
+      "contractRef and contractVersion compatibility must be explicit and versioned; same contractFamily never overrides a mismatch."
     ],
     "mustNotDeriveOrderFrom": [
       "evidenceRefs.length",
@@ -101,13 +105,30 @@
       "module": "js/liuyao-travel-safety-comparator-pretraining-v01.js",
       "reviewRef": "docs/liuyao-literature/travel-safety-comparator-rule-review-v0.1.md",
       "formalEligible": false
+    },
+    {
+      "comparatorRef": "CP-TV-EXEC-002",
+      "status": "isolated_implemented_regression_added_not_executed",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "assessmentContractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.2",
+      "compatibleAssessmentVersions": ["0.2"],
+      "module": "js/liuyao-travel-execution-comparator-pretraining-v02.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-comparator-v02-compatibility-review-v0.1.md",
+      "crossVersionPolicy": {
+        "acceptsV01": false,
+        "oldComparatorAcceptsV02": false,
+        "sameFamilyDoesNotImplyCompatibility": true
+      },
+      "formalEligible": false
     }
   ],
   "candidateDimensionReadiness": [
     {
       "dimensionId": "target_outcome",
-      "status": "no_global_comparator_narrow_travel_execution_candidate_exists",
-      "reason": "Employment retention, transition, admission, litigation and other target outcomes do not share one reviewed Assessment family. CP-TV-EXEC-001 is isolated to journey_execution_outcome and must not be generalized."
+      "status": "no_global_comparator_narrow_travel_execution_candidates_exist",
+      "reason": "Employment retention, transition, admission, litigation and other target outcomes do not share one reviewed Assessment family. CP-TV-EXEC-001 and CP-TV-EXEC-002 are isolated to journey_execution_outcome and must not be generalized."
     },
     {
       "dimensionId": "stability",
@@ -155,8 +176,8 @@
       "Validate both dimension assessments are structurally present.",
       "Require same dimensionId and explicitly compatible semantic meaning.",
       "Require resolutionStatus=resolved for both.",
-      "Require same reviewed assessmentContractFamily and compatible contract versions.",
-      "Look up an active registered comparatorRef owned by that contract family.",
+      "Require same reviewed assessmentContractFamily, exact compatible assessmentRef, and compatible contract versions.",
+      "Look up an active registered comparatorRef owned by that contract family and Assessment version.",
       "If no comparator exists, return incomparable/comparator_not_registered.",
       "Never infer order from assessmentStatus labels alone."
     ],
@@ -171,6 +192,8 @@
     "Assessment output schema versioned",
     "positive/mixed/adverse or equivalent states defined within that domain without hidden scoring",
     "ordering semantics reviewed for the exact dimension",
+    "assessmentRef and version compatibility explicitly reviewed",
+    "cross-version rejection regression exists",
     "comparator regression includes mixed, partial and abstention cases",
     "no high-stakes modern factual dimension is replaced by divination inference",
     "provenance-backed Evidence refs replace synthetic design-only refs",
