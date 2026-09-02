@@ -1,0 +1,135 @@
+{
+  "version": "0.1",
+  "status": "design_ready_no_formal_producers",
+  "scope": "travel_fact_to_evidence_provenance",
+  "runtimeMutation": false,
+  "formalExpansionAuthorized": false,
+  "purpose": "Separate synthetic regression fixtures from provenance-backed atomic facts before any Travel Evidence enters a formal Domain Assessment.",
+  "supportedDuties": [
+    "travel_execution",
+    "travel_safety",
+    "travel_disruption_journey",
+    "travel_disruption_transport"
+  ],
+  "sourcePacketSchema": {
+    "required": ["mode", "duty", "facts"],
+    "modeVocabulary": ["synthetic_fixture", "provenance_backed"],
+    "optional": ["alternativeId", "observationPlanRef", "traceRefs"]
+  },
+  "factSchema": {
+    "requiredForProvenanceBacked": [
+      "factRef",
+      "factType",
+      "subjectRef",
+      "sourceLayer",
+      "producerRef",
+      "atomicity"
+    ],
+    "sourceLayerVocabulary": [
+      "observation_fact",
+      "relation_fact",
+      "movement_fact",
+      "time_fact",
+      "derived_fact",
+      "synthetic_fixture"
+    ],
+    "atomicityVocabulary": [
+      "atomic",
+      "derived_reviewed",
+      "conclusion_shaped"
+    ],
+    "optional": ["value", "timeFactRefs", "ruleRefs", "sourceRefs", "notes"]
+  },
+  "formalRules": [
+    "provenance_backed facts must identify the Observation subject they describe",
+    "provenance_backed facts must identify a producerRef",
+    "time_fact facts must retain timeFactRefs and must consume rather than recompute Time Engine output",
+    "conclusion_shaped facts are forbidden as direct formal Evidence inputs unless decomposed by a separately reviewed producer",
+    "synthetic_fixture facts are always formalEligible=false",
+    "absence of an adverse fact must never be synthesized into positive Evidence",
+    "Evidence producers must preserve factRefs, subjectRef, ruleRefs and producer provenance",
+    "Evidence polarity must be created by a reviewed duty-specific Evidence producer, not by the shared source layer"
+  ],
+  "legacyIsolatedFactAudit": {
+    "travelerVitality": {
+      "classification": "derived_status_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved traveler subject plus reviewed subject-effectiveness fact producer"
+    },
+    "travelerVoid": {
+      "classification": "time_fact_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved traveler subject plus existing Time Engine void fact reference"
+    },
+    "destinationSupportsTraveler": {
+      "classification": "relation_fact_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved destination and traveler subjects plus reviewed relation fact"
+    },
+    "destinationControlsTraveler": {
+      "classification": "relation_fact_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved destination and traveler subjects plus reviewed relation fact"
+    },
+    "routeObstruction": {
+      "classification": "conclusion_shaped_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "decomposed route-process atomic or reviewed derived facts"
+    },
+    "safetySupport": {
+      "classification": "derived_domain_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved safety-support observation subject plus reviewed line-state evidence producer"
+    },
+    "hazardPressure": {
+      "classification": "derived_domain_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved hazard observation subject plus reviewed line-state evidence producer"
+    },
+    "transportDisrupted": {
+      "classification": "conclusion_shaped_placeholder",
+      "formalEligibleAsCurrentBoolean": false,
+      "requiredFutureSource": "resolved transport-operation subject plus decomposed transport state/movement/time facts"
+    }
+  },
+  "formalEvidenceProducerRegistrationSchema": {
+    "producerRef": "string",
+    "version": "string",
+    "eventType": "travel",
+    "duty": "string",
+    "acceptedFactTypes": ["string"],
+    "outputEvidenceTypes": ["string"],
+    "reviewRefs": ["string"],
+    "preservesFactRefs": true,
+    "preservesSubjectRef": true,
+    "recomputesTimeEngine": false,
+    "regressionRequired": true
+  },
+  "activeFormalEvidenceProducers": [],
+  "syntheticFixturePolicy": {
+    "allowedFor": [
+      "isolated unit tests",
+      "architecture regression",
+      "Assessment/Comparator contract validation"
+    ],
+    "forbiddenFor": [
+      "formal runtime Evidence",
+      "formal evaluator registration evidence",
+      "training labels",
+      "calibration",
+      "blind evaluation",
+      "user-facing factual claims"
+    ],
+    "formalEligible": false
+  },
+  "nextResearchPriorities": [
+    "define traveler subject effectiveness fact provenance without inventing a duplicate strength engine",
+    "bind traveler void to existing Time Engine fact references",
+    "define destination-traveler relation fact provenance",
+    "decompose routeObstruction into reviewable facts",
+    "decompose transportDisrupted into transport-operation facts",
+    "research positive transport-operation Evidence rather than infer it from absence of disruption"
+  ],
+  "authorizationGate": "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
+  "formalIntegration": "blocked_by_missing_evidence_producers_current_v013_gate_and_user_authorization"
+}
