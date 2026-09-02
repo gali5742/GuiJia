@@ -1,6 +1,12 @@
 name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Calibration v0.3 Generator Repair
 
 on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/repair-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03-generator.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-calibration-v03-repair.yml'
   workflow_dispatch:
 
 permissions:
