@@ -1,0 +1,23 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-travel-alternative-anchor-pretraining-v01.js');
+const api=global.GuiJia.liuyaoTravelAlternativeAnchorPretrainingV01;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const alt=(id='A',dest='DEST-A')=>({alternativeId:id,semanticDestinationRef:dest});
+const input=(overrides={})=>({readingRef:'R1',travelerRelationToQuerent:'self',alternatives:[alt()],...overrides});
+
+t('TAA1-1 design only not registered',()=>{assert.equal(api.currentRuntimeReachable,false);assert.equal(api.registered,false);});
+t('TAA1-2 single self destination resolves to ying',()=>{const r=api.resolveTravelAlternativeAnchors(input());assert.equal(r.status,'resolved');assert.deepEqual(r.alternatives[0].traditionalSelector,{type:'ying'});});
+t('TAA1-3 single result is not a multi-alternative comparison',()=>assert.equal(api.resolveTravelAlternativeAnchors(input()).comparisonReady,false));
+t('TAA1-4 two named destinations abstain',()=>{const r=api.resolveTravelAlternativeAnchors(input({alternatives:[alt('A','D-A'),alt('B','D-B')]}));assert.equal(r.status,'unresolved');assert.equal(r.comparisonReady,false);assert.equal(r.alternatives.every(x=>x.traditionalSelector===null),true);});
+t('TAA1-5 three named destinations also abstain',()=>assert.equal(api.resolveTravelAlternativeAnchors(input({alternatives:[alt('A','D-A'),alt('B','D-B'),alt('C','D-C')]})).status,'unresolved'));
+t('TAA1-6 represented traveler single destination remains partial',()=>{const r=api.resolveTravelAlternativeAnchors(input({travelerRelationToQuerent:'parent'}));assert.equal(r.status,'partial');assert.equal(r.comparisonReady,false);});
+t('TAA1-7 reading ref required',()=>assert.equal(api.validateInput(input({readingRef:''})).status,'invalid'));
+t('TAA1-8 duplicate alternative ids rejected',()=>assert.equal(api.validateInput(input({alternatives:[alt('A','D-A'),alt('A','D-B')]})).status,'invalid'));
+t('TAA1-9 duplicate destination refs rejected',()=>assert.equal(api.validateInput(input({alternatives:[alt('A','D-A'),alt('B','D-A')]})).status,'invalid'));
+t('TAA1-10 empty alternatives rejected',()=>assert.equal(api.validateInput(input({alternatives:[]})).status,'invalid'));
+t('TAA1-11 no implicit A equals shi B equals ying',()=>{const r=api.resolveTravelAlternativeAnchors(input({alternatives:[alt('A','D-A'),alt('B','D-B')]}));assert.equal(r.alternatives.some(x=>x.traditionalSelector?.type==='shi'),false);assert.equal(r.alternatives.some(x=>x.traditionalSelector?.type==='ying'),false);});
+t('TAA1-12 descriptor declares multi anchor unsupported',()=>{const d=api.describeResolver();assert.equal(d.namedMultiDestinationSupported,false);assert.equal(d.hardcodedAlternativePositions,false);});
+t('TAA1-13 no scoring outputs',()=>{const r=api.resolveTravelAlternativeAnchors(input());for(const k of ['scalarScore','probability','winner','overallRecommendation'])assert.equal(Object.prototype.hasOwnProperty.call(r,k),false);});
+if(!process.exitCode)console.log(`Travel alternative anchor v01 regression: ${n} passed, 0 failed`);
