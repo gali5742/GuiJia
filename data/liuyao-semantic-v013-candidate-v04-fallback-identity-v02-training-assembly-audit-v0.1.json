@@ -1,0 +1,195 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-training-assembly-audit-v0.1",
+  "status": "pass_encoder_free_training_assembly_audit",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_training_manifest_preparation",
+  "policy": {
+    "encoderUsed": false,
+    "modelProbabilityUsed": false,
+    "thresholdSelected": false,
+    "calibrationRead": false,
+    "v04CalibrationUsedForTraining": false,
+    "routeExposureSupplementUsedForTraining": false,
+    "legacyFallbackV01FreshTrainingUsed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false
+  },
+  "algorithmReuse": {
+    "modulePath": "js/liuyao-semantic-fallback-identity-model-v01.js",
+    "moduleSha256": "ae7ebbd1e197d0e7a764993216ac68e64ff562be7945d4221ffd3cceb4baf1e2",
+    "routeCount": 22,
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "classBalancing": {
+      "positiveTotalWeight": 0.5,
+      "negativeTotalWeight": 0.5
+    },
+    "weightRegularization": "l2",
+    "biasRegularized": false
+  },
+  "inputs": {
+    "historicalData": [
+      {
+        "path": "data/liuyao-semantic-route-training-v0.1.json",
+        "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+        "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+        "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+        "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+        "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+        "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+        "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+        "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+        "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+        "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+      }
+    ],
+    "expansionLabelPatch": {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "sha256": "6d665811dc2a7ddf46fd8cac78357ff6b50b738639aaaf30e56f96eb4d955dd1",
+      "gitBlobSha": "b4d7dcae7458062ba02141ec022bc2bb5d2d46eb",
+      "semantics": "override_labels_for_matching_v04_expansion_hard_negative_train_texts_not_additive_rows",
+      "trainMappings": 29,
+      "allTrainMappingsMatchExactlyOneExpansionHardNegative": true
+    },
+    "freshTrainingAugmentation": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359",
+      "rows": 198
+    },
+    "excludedFromTraining": [
+      "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "all Router validation splits",
+      "all independent evaluation",
+      "all sealed blind evaluation",
+      "all development evaluation/failure rows"
+    ]
+  },
+  "rawAssembly": {
+    "rows": 1016,
+    "bySource": {
+      "data/liuyao-semantic-route-training-v0.1.json": 241,
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json": 255,
+      "data/liuyao-semantic-route-training-v0.3-targeted.json": 48,
+      "data/liuyao-semantic-route-training-v0.4-expansion.json": 210,
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json": 64,
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json": 198
+    },
+    "bySubtype": {
+      "historical_route_train": 644,
+      "historical_genuine_nonroute": 145,
+      "historical_contrastive_known": 29,
+      "fallback_style_known": 72,
+      "upstream_resolved_known": 60,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    }
+  },
+  "normalizationAudit": {
+    "conflictingLabels": 0,
+    "sameLabelDuplicateOccurrences": 0,
+    "uniqueNormalizedTexts": 1016,
+    "deduplicatedRows": 1016,
+    "removedSameLabelDuplicates": 0
+  },
+  "finalTrainingManifest": {
+    "rows": 1016,
+    "known": 805,
+    "nonRoute": 211,
+    "byRoute": {
+      "financial_fortune": 37,
+      "business_operation": 50,
+      "commercial_transaction": 40,
+      "inventory_purchase": 31,
+      "inventory_sale": 32,
+      "borrow_money": 40,
+      "lend_money": 32,
+      "debt_collection": 32,
+      "debt_repayment": 34,
+      "partnership": 38,
+      "investment_profit": 39,
+      "investment_liquidation": 39,
+      "investment_suitability": 32,
+      "investment_position_decision": 38,
+      "investment_price_trend": 32,
+      "income_salary": 37,
+      "income_bonus": 31,
+      "receive_item": 32,
+      "item_purchase": 34,
+      "relationship_development": 45,
+      "marriage_match": 43,
+      "marital_relationship": 37
+    },
+    "bySubtype": {
+      "fallback_style_known": 72,
+      "historical_contrastive_known": 29,
+      "historical_genuine_nonroute": 145,
+      "historical_route_train": 644,
+      "near_domain_not_current_route": 22,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "upstream_resolved_known": 60
+    },
+    "bySource": {
+      "data/liuyao-semantic-route-training-v0.1.json": {
+        "total": 241,
+        "known": 180,
+        "nonRoute": 61
+      },
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json": {
+        "total": 255,
+        "known": 195,
+        "nonRoute": 60
+      },
+      "data/liuyao-semantic-route-training-v0.3-targeted.json": {
+        "total": 48,
+        "known": 48,
+        "nonRoute": 0
+      },
+      "data/liuyao-semantic-route-training-v0.4-expansion.json": {
+        "total": 210,
+        "known": 204,
+        "nonRoute": 6
+      },
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json": {
+        "total": 64,
+        "known": 46,
+        "nonRoute": 18
+      },
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json": {
+        "total": 198,
+        "known": 132,
+        "nonRoute": 66
+      }
+    }
+  },
+  "checks": {
+    "patchIsOverrideNotAdditive": true,
+    "all22RoutesHavePositives": true,
+    "knownAndNonRoutePresent": true,
+    "normalizedLabelConflictsZero": true,
+    "augmentationSealedForTrainingOnly": true,
+    "calibrationExcluded": true,
+    "encoderFree": true
+  },
+  "nextAction": "freeze_fallback_identity_v02_training_and_calibration_contract_with_exact_input_hashes_and_final_manifest_counts_before_first_training_encoder_pass"
+}
