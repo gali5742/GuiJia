@@ -7,6 +7,7 @@ on:
     paths:
       - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.1.json'
       - 'scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-preseal-patch.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
       - 'scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs'
       - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-data.yml'
@@ -48,6 +49,9 @@ jobs:
       - name: Generate fresh Fallback v0.2 train augmentation and calibration text only
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
+      - name: Apply deterministic preseal corpus corrections
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-preseal-patch.mjs
+
       - name: Verify preseal data without encoder scoring
         run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
 
@@ -80,6 +84,7 @@ jobs:
             data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json
             data/liuyao-semantic-route-inventory-v0.2.json
             scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-preseal-patch.mjs
             scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
             scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.mjs
           )
