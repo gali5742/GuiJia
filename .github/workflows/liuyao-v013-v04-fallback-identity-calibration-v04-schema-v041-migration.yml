@@ -1,0 +1,47 @@
+name: LiuYao Fallback Calibration v0.4 Schema v0.4.1 Migration
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/migrate-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-calibration-v04-schema-v041-migration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-schema-reference:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Apply pre-generation schema v0.4.1 migration
+        run: node scripts/migrate-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs
+      - name: Syntax-check migrated scripts
+        run: |
+          node --check scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+          node --check scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
+      - name: Commit schema v0.4.1 migration
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            scripts/generate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs \
+            scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs \
+            scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs \
+            .github/workflows/liuyao-v013-v04-fallback-identity-v02-calibration-v04-data.yml
+          if git diff --cached --quiet; then echo 'Schema v0.4.1 migration already applied.'; exit 0; fi
+          git commit -m 'fix(liuyao): bind fallback calibration v0.4 to schema v0.4.1'
+          git fetch origin liuyao-semantic-v013-core
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
