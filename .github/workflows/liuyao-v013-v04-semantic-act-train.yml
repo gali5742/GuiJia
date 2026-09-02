@@ -1,0 +1,116 @@
+name: LiuYao v0.13-v0.4 Semantic Act Train and Lock
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'js/liuyao-semantic-act-eligibility-model-v01.js'
+      - 'data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.json'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.mjs'
+      - 'scripts/train-and-calibrate-liuyao-semantic-v013-candidate-v04-semantic-act-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.mjs'
+      - '.github/workflows/liuyao-v013-v04-semantic-act-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train-lock:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture frozen Semantic Act training checkout
+        run: echo "SEMANTIC_ACT_TRAIN_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify Semantic Act training contract before first encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.mjs
+
+      - name: Verify deterministic model module contract without encoder scoring
+        run: |
+          node - <<'NODE'
+          const fs = require('fs'); const vm = require('vm');
+          const context = { console, Math, Object, Array, Set, Map, Number, Float32Array, Float64Array };
+          context.window = context; context.globalThis = context; vm.createContext(context);
+          vm.runInContext(fs.readFileSync('js/liuyao-semantic-act-eligibility-model-v01.js','utf8'), context);
+          const m = context.GuiJia?.liuyaoSemanticActEligibilityModelV01;
+          if (!m?.train || !m?.probability) process.exit(1);
+          if (m.vectorSize !== 512 || m.hyperparameters.epochs !== 360 || m.hyperparameters.learningRate !== 0.42 || m.hyperparameters.l2 !== 0.0015) process.exit(1);
+          NODE
+
+      - name: Install pinned Transformers.js after complete training freeze
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Train Semantic Act weights and calibrate exactly one global threshold
+        id: train
+        continue-on-error: true
+        run: node scripts/train-and-calibrate-liuyao-semantic-v013-candidate-v04-semantic-act-v01.mjs
+
+      - name: Verify locked Semantic Act model when calibration is feasible
+        if: steps.train.outcome == 'success'
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.mjs
+
+      - name: Commit immutable Semantic Act training result
+        if: always() && steps.train.outcome != 'skipped'
+        run: |
+          set -euo pipefail
+          MODEL='data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json'
+          REPORT='data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-calibration-report.json'
+          LOCK='data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json'
+          test -f "$MODEL"
+          test -f "$REPORT"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$MODEL" "$REPORT"
+          if [ -f "$LOCK" ]; then git add "$LOCK"; fi
+          if git diff --cached --quiet; then
+            echo 'Semantic Act training result already matches committed state.'
+          else
+            if [ "${{ steps.train.outcome }}" = 'success' ]; then
+              git commit -m 'chore(liuyao): lock v0.4 semantic act model'
+            else
+              git commit -m 'test(liuyao): record v0.4 semantic act calibration failure'
+            fi
+          fi
+
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-data-schema-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-data.lock.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            js/liuyao-semantic-act-eligibility-model-v01.js
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.json
+            scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.mjs
+            scripts/train-and-calibrate-liuyao-semantic-v013-candidate-v04-semantic-act-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.mjs
+          )
+          if ! git diff --quiet "$SEMANTIC_ACT_TRAIN_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Semantic Act frozen training inputs changed during scoring; refusing stale result push.'
+            git diff --name-only "$SEMANTIC_ACT_TRAIN_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+
+      - name: Fail attempt if frozen calibration gates are infeasible
+        if: steps.train.outcome != 'success'
+        run: |
+          echo 'Semantic Act v0.1 did not satisfy the frozen calibration gates; Candidate v0.4 may not proceed with this model attempt.'
+          exit 1
