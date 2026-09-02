@@ -1,0 +1,11 @@
+{
+  "version": "0.2-execution-v0.1-lock",
+  "status": "locked",
+  "artifact": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+  "artifactSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+  "executionContractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+  "canonicalTextsPerEncoderCall": 1,
+  "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "threshold": 0.7712993866368442,
+  "maxFalseActivation": 0.05
+}
