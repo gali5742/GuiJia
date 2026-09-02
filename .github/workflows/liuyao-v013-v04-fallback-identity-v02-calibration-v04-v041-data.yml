@@ -7,6 +7,7 @@ on:
     paths:
       - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.4.1.json'
       - 'scripts/run-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-preseal-diversity.mjs'
       - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-calibration-v04-v041-data.yml'
   workflow_dispatch:
 
@@ -44,6 +45,8 @@ jobs:
           NODE
       - name: Generate fresh calibration v0.4 under schema v0.4.1 without encoder scoring
         run: node scripts/run-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs generate
+      - name: Apply deterministic preseal cross-family diversity correction
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-preseal-diversity.mjs
       - name: Verify preseal calibration v0.4 under schema v0.4.1
         run: node scripts/run-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs verify
       - name: Seal calibration v0.4 before any post-seal encoder scoring
@@ -69,6 +72,7 @@ jobs:
             scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
             scripts/seal-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v04.mjs
             scripts/run-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-schema-v041.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v04-preseal-diversity.mjs
           )
           if ! git diff --quiet "$CAL_V041_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
             echo 'Calibration v0.4/v0.4.1 inputs changed during seal; refusing stale push.'
