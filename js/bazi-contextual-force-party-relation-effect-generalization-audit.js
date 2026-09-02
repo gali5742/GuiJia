@@ -9,6 +9,7 @@
     }
 
     const sourceApi = GuiJia.baziContextualForcePartyRelationEffectGeneralizationSource || null;
+    const branchElementRelationApi = GuiJia.baziBranchElementRelationInventory || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     if (!sourceApi || !priorSynthesisApi) return;
 
@@ -26,7 +27,10 @@
         const unresolvedCrossVisible = crossVisible.filter((item) => !['realized-in-source-context','not-realized-in-source-context'].includes(item.realizationState));
 
         const branchView = synthesis.contextualForcePartyBranchSubstrateQualityInputAdapterView || {};
-        const branchInventory = branchView.branchElementRelationInventory || null;
+        const surfaceBranches = synthesis.qianliQuantitySemanticBridgeInventory?.sourceSurfaceInventory?.branches || [];
+        const branchInventory = branchView.branchElementRelationInventory
+            || branchElementRelationApi?.buildInventory?.(surfaceBranches)
+            || null;
         const branchRelations = branchInventory?.records || [];
         const branchPeerRelations = branchRelations.filter((item) => item.relationKind === 'peer');
 
@@ -65,6 +69,7 @@
                 relationIdentityAvailable:Boolean(branchInventory),
                 realizationLayerAvailable:false,
                 genericRelationEffectTypeMappingDefined:false,
+                sourceView:branchView.branchElementRelationInventory ? 'input-adapter-view' : branchInventory ? 'direct-neutral-inventory' : 'unavailable',
                 boundary:'普通表层地支生克比和仅为 neutral identity；当前没有 pairwise realization/effect layer。'
             }),
             structureScopedInteraction:Object.freeze({
@@ -222,7 +227,7 @@
     };
 
     const extendSynthesis = (semanticModel = {}, base = {}) => {
-        if (!base || base.state === 'unavailable' || !base.contextualForcePartyBranchSubstrateQualityInputAdapterView) return base;
+        if (!base || base.state === 'unavailable' || !base.contextualForcePartyRelationEffectView) return base;
         const audit = buildAudit(base);
         const claim = makeClaim(audit);
         const auditDependencies = buildAuditDependencies(audit);
@@ -272,6 +277,7 @@
         RULE_ID,
         CONTRACT,
         sourceApi,
+        branchElementRelationApi,
         buildMachineCoverage,
         buildAudit,
         buildAuditDependencies,
