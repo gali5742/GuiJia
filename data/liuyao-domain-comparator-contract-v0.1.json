@@ -30,7 +30,8 @@
     "Every ordering comparator is owned by a domain Assessment contract family and versioned independently.",
     "No global ordering supportive > mixed > adverse is registered in v0.1.",
     "No active comparator means comparisonStatus=incomparable, not a fallback heuristic ranking.",
-    "External factual dimensions such as legal exposure, exact cost, salary amount or travel time must use their factual/domain providers rather than divination evidence unless an independently reviewed divination Assessment exists."
+    "External factual dimensions such as legal exposure, exact cost, salary amount or travel time must use their factual/domain providers rather than divination evidence unless an independently reviewed divination Assessment exists.",
+    "An isolated verified comparator candidate is not an active comparator and does not authorize runtime ordering."
   ],
   "comparatorRegistrationSchema": {
     "comparatorRef": "string",
@@ -76,11 +77,37 @@
     ]
   },
   "activeComparators": [],
+  "isolatedCandidates": [
+    {
+      "comparatorRef": "CP-TV-EXEC-001",
+      "status": "isolated_verified_not_registered",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "assessmentContractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.1",
+      "compatibleAssessmentVersions": ["0.1"],
+      "module": "js/liuyao-travel-execution-comparator-pretraining-v01.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-comparator-rule-review-v0.1.md",
+      "formalEligible": false
+    },
+    {
+      "comparatorRef": "CP-TV-SAFE-001",
+      "status": "isolated_verified_not_registered",
+      "dimensionId": "risk",
+      "semanticMeaning": "journey_safety_and_major_route_risk",
+      "assessmentContractFamily": "travel_safety_assessment",
+      "assessmentRef": "travel_safety_assessment_v0.1",
+      "compatibleAssessmentVersions": ["0.1"],
+      "module": "js/liuyao-travel-safety-comparator-pretraining-v01.js",
+      "reviewRef": "docs/liuyao-literature/travel-safety-comparator-rule-review-v0.1.md",
+      "formalEligible": false
+    }
+  ],
   "candidateDimensionReadiness": [
     {
       "dimensionId": "target_outcome",
-      "status": "blocked_by_missing_normalized_domain_assessment",
-      "reason": "Employment retention, employment transition, admission, litigation outcome and other targets do not yet share one reviewed outcome Assessment contract family. Same label is not enough for ordering."
+      "status": "no_global_comparator_narrow_travel_execution_candidate_exists",
+      "reason": "Employment retention, transition, admission, litigation and other target outcomes do not share one reviewed Assessment family. CP-TV-EXEC-001 is isolated to journey_execution_outcome and must not be generalized."
     },
     {
       "dimensionId": "stability",
@@ -119,8 +146,8 @@
     },
     {
       "dimensionId": "risk",
-      "status": "blocked_by_missing_domain_specific_risk_contract",
-      "reason": "Risk has different semantics across employment, education and litigation; there is no global risk comparator."
+      "status": "no_global_comparator_narrow_travel_safety_candidate_exists",
+      "reason": "Risk semantics differ across domains. CP-TV-SAFE-001 is isolated to journey_safety_and_major_route_risk and does not create a global risk ordering."
     }
   ],
   "comparisonAlgorithmV01": {
@@ -146,6 +173,10 @@
     "ordering semantics reviewed for the exact dimension",
     "comparator regression includes mixed, partial and abstention cases",
     "no high-stakes modern factual dimension is replaced by divination inference",
+    "provenance-backed Evidence refs replace synthetic design-only refs",
+    "explicit user authorization for Formal Expansion",
     "current-22 behavior remains frozen unless separately migrated"
-  ]
+  ],
+  "authorizationGate": "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
+  "formalIntegration": "blocked_by_current_v013_gate_and_user_authorization"
 }
