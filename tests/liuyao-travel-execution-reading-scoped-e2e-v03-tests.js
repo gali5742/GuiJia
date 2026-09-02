@@ -1,0 +1,45 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-line-status-fact-adapter-pretraining-v02.js');
+require('../js/liuyao-shi-ying-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-line-evidence-adapter-pretraining-v03.js');
+require('../js/liuyao-travel-destination-evidence-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-execution-evidence-compose-pretraining-v03.js');
+require('../js/liuyao-domain-assessment-pretraining-v02.js');
+require('../js/liuyao-travel-execution-assessment-pretraining-v03.js');
+const lineFactApi=global.GuiJia.liuyaoLineStatusFactAdapterPretrainingV02;
+const shiYingFactApi=global.GuiJia.liuyaoShiYingFactAdapterPretrainingV01;
+const lineEvidenceApi=global.GuiJia.liuyaoTravelLineEvidenceAdapterPretrainingV03;
+const destinationEvidenceApi=global.GuiJia.liuyaoTravelDestinationEvidenceAdapterPretrainingV01;
+const composeApi=global.GuiJia.liuyaoTravelExecutionEvidenceComposePretrainingV03;
+const assessmentApi=global.GuiJia.liuyaoTravelExecutionAssessmentPretrainingV03;
+const sharedAssessmentApi=global.GuiJia.liuyaoDomainAssessmentPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const member=(role)=>({position:role==='shi'?3:6,label:role==='shi'?'三爻':'上爻',relation:role==='shi'?'兄弟':'父母',branch:role==='shi'?'午':'子',element:role==='shi'?'火':'水',role});
+const lineComponent=(readingRef,alternativeId,statusTags)=>{
+  const facts=lineFactApi.buildAtomicFacts({readingRef,line:{position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,isYing:false,statusTags}});
+  assert.equal(facts.status,'resolved');
+  return lineEvidenceApi.buildEvidenceComponent({readingRef,alternativeId,duty:'travel_execution',travelerFacts:facts.facts});
+};
+const destinationComponent=(readingRef,alternativeId,sourceCode,travelerRelationToQuerent='self')=>{
+  const raw=[{code:sourceCode,text:sourceCode,type:'neutral',family:'shi-ying',members:[member('shi'),member('ying')]}];
+  const facts=shiYingFactApi.buildAtomicFacts({readingRef,facts:raw});
+  assert.equal(facts.status,'resolved');
+  return destinationEvidenceApi.buildEvidenceComponent({readingRef,alternativeId,duty:'travel_execution',travelerRelationToQuerent,destinationSelector:'ying',destinationRelevance:'explicit',shiYingFacts:facts.facts});
+};
+const assess=(readingRef,alternativeId,components)=>assessmentApi.evaluateTravelExecution(composeApi.composeEvidencePacket({readingRef,alternativeId,components}));
+
+t('TVE2E3-1 all chain modules remain design-only',()=>{for(const api of [lineFactApi,shiYingFactApi,lineEvidenceApi,destinationEvidenceApi,composeApi,assessmentApi])assert.equal(api.currentRuntimeReachable,false);});
+t('TVE2E3-2 calendar support plus traveler-controls-destination is supportive',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]),destinationComponent('R1','A','SHI_CONTROLS_YING')]);assert.equal(r.assessmentStatus,'supportive_evidence');assert.equal(r.readingRef,'R1');assert.equal(r.alternativeId,'A');});
+t('TVE2E3-3 calendar constraint plus destination-controls-traveler is adverse',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'MONTH_CONTROL',text:'月建克',type:'constraint'}]),destinationComponent('R1','A','YING_CONTROLS_SHI')]);assert.equal(r.assessmentStatus,'adverse_evidence');});
+t('TVE2E3-4 support plus void stays mixed without counting',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'},{code:'VOID',text:'旬空',type:'void'}])]);assert.equal(r.assessmentStatus,'mixed_evidence');});
+t('TVE2E3-5 non-directional day harmony is ignored',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'DAY_HARMONY',text:'日合',type:'trigger'}])]);assert.equal(r.assessmentStatus,'insufficient_evidence');assert.equal(r.evidenceRefs.length,0);});
+t('TVE2E3-6 represented traveler destination mapping abstains while line evidence remains',()=>{const dest=destinationComponent('R1','A','SHI_CONTROLS_YING','parent');assert.equal(dest.resolutionStatus,'not_applicable');const r=assess('R1','A',[lineComponent('R1','A',[{code:'DAY_GENERATE',text:'日辰生',type:'support'}]),dest]);assert.equal(r.assessmentStatus,'supportive_evidence');});
+t('TVE2E3-7 cross-reading component is rejected by composer',()=>{const line=lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]);const dest=destinationComponent('R2','A','SHI_CONTROLS_YING');const packet=composeApi.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[line,dest]});assert.equal(packet.resolutionStatus,'unresolved');assert(packet.issues.some(x=>x.code==='component_reading_scope_mismatch'));});
+t('TVE2E3-8 cross-alternative component is rejected by composer',()=>{const line=lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]);const dest=destinationComponent('R1','B','SHI_CONTROLS_YING');const packet=composeApi.composeEvidencePacket({readingRef:'R1',alternativeId:'A',components:[line,dest]});assert.equal(packet.resolutionStatus,'unresolved');});
+t('TVE2E3-9 fact refs carry explicit reading scope',()=>{const facts=lineFactApi.buildAtomicFacts({readingRef:'READING-X',line:{position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,statusTags:[{code:'VOID',text:'旬空',type:'void'}]}});assert(facts.facts[0].factRef.startsWith('READING:READING-X:'));});
+t('TVE2E3-10 assessment envelope validates against shared v02',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'DAY_SUPPORT',text:'日辰比扶',type:'support'}])]);assert.equal(sharedAssessmentApi.validateAssessmentEnvelope(r).status,'valid');});
+t('TVE2E3-11 deprecated opaque evidence is absent from provenance chain',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}]),destinationComponent('R1','A','SHI_CONTROLS_YING')]);assert.equal(r.evidenceRefs.some(ref=>/traveler_vitality|destination_relation|route_process_obstruction|transport_disruption/.test(ref)),false);});
+t('TVE2E3-12 no score probability winner recommendation',()=>{const r=assess('R1','A',[lineComponent('R1','A',[{code:'MONTH_COMMAND',text:'临月建',type:'support'}])]);for(const k of ['scalarScore','probability','winner','overallRecommendation'])assert.equal(Object.prototype.hasOwnProperty.call(r,k),false);});
+if(!process.exitCode)console.log(`Travel execution reading-scoped e2e v03 regression: ${n} passed, 0 failed`);
