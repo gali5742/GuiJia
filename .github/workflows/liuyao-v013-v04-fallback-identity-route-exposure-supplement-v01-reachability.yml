@@ -1,0 +1,104 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 One-shot Supplement Reachability Audit
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-reachability-contract-v0.1.json'
+      - 'scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v01.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-route-exposure-supplement-v01-reachability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit-one-shot-supplement-reachability:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Capture immutable supplement audit checkout
+        run: echo "SUPPLEMENT_AUDIT_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Verify sealed supplement and frozen one-shot contract before encoder use
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor 58870657001811a8390c8af14732dde0631b274f HEAD
+          git merge-base --is-ancestor ee6f091acf0de44cf9062cb14ae84b42cd09aebe HEAD
+          node - <<'NODE'
+          const fs=require('fs');const crypto=require('crypto');const sha=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+          const c=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-reachability-contract-v0.1.json');
+          const l=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.lock.json');
+          const d=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json');
+          if(c.status!=='locked_before_first_postseal_supplement_encoder_audit')process.exit(1);
+          if(c.sealedSupplement.sealCommitSha!=='58870657001811a8390c8af14732dde0631b274f')process.exit(1);
+          if(l.status!=='locked'||l.encoderScoringBeforeSeal!==false||l.fallbackIdentityTrainingPerformed!==false||l.fallbackIdentityProbabilityUsed!==false||l.fallbackThresholdSelected!==false)process.exit(1);
+          if(l.oneShotSupplement!==true||l.secondSamplingRoundAllowed!==false)process.exit(1);
+          if(d.status!=='sealed_route_exposure_supplement'||d.sealed!==true||d.sealedBeforeFirstPostsealSupplementEncoderAudit!==true)process.exit(1);
+          if(sha(l.supplementPath)!==c.sealedSupplement.sha256||sha(l.schemaPath)!==c.sealedSupplement.schemaSha256)process.exit(1);
+          if(l.supplementRows!==120||l.perRoute!==40)process.exit(1);
+          if(c.encoder.canonicalTextsPerEncoderCall!==1||c.encoder.expectedEncoderCalls!==120||c.encoder.transformersJsVersion!=='4.2.0')process.exit(1);
+          if(c.frozenChecks.minimumSupplementKnownSemanticActRetention!==0.95||c.frozenChecks.requireEverySupplementRouteAtLeastOneReachingFallback!==true)process.exit(1);
+          if(c.auditOnly.fallbackIdentityWeightsTrained!==false||c.auditOnly.fallbackIdentityProbabilitiesScored!==false||c.auditOnly.fallbackThresholdSelected!==false)process.exit(1);
+          if(c.auditOnly.routerLoaded!==false||c.auditOnly.routerTopKRead!==false||c.auditOnly.v04ReachabilityRowResultsRead!==false||c.auditOnly.independentEvaluationRead!==false||c.auditOnly.sealedBlindEvaluationRead!==false)process.exit(1);
+          if(c.oneShotFailureBehavior.secondSamplingRoundAllowed!==false||c.oneShotFailureBehavior.sameVersionRetryWithEditedTextAllowed!==false)process.exit(1);
+          NODE
+      - name: Install pinned Transformers.js only after contract freeze
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run sealed one-shot supplement reachability audit
+        id: audit
+        continue-on-error: true
+        run: node scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v01.mjs
+      - name: Verify and commit immutable supplement audit result
+        if: always() && steps.audit.outcome != 'skipped'
+        run: |
+          set -euo pipefail
+          FILE='data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v0.1.json'
+          test -f "$FILE"
+          node - <<'NODE'
+          const d=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v0.1.json');
+          if(d.policy?.auditOnly!==true||d.policy?.oneShotSupplement!==true||d.policy?.secondSamplingRoundAllowed!==false)process.exit(1);
+          if(d.policy?.fallbackIdentityWeightsTrained!==false||d.policy?.fallbackIdentityProbabilitiesScored!==false||d.policy?.fallbackThresholdSelected!==false)process.exit(1);
+          if(d.policy?.routerLoaded!==false||d.policy?.routerTopKRead!==false||d.policy?.v04ReachabilityRowResultsRead!==false)process.exit(1);
+          if(d.policy?.independentEvaluationRead!==false||d.policy?.sealedBlindEvaluationRead!==false||d.policy?.candidateV03FailureRowsRead!==false)process.exit(1);
+          if(d.execution?.canonicalTextsPerEncoderCall!==1||d.execution?.encoderCalls!==120||d.execution?.rowsScored!==120)process.exit(1);
+          if(d.frozenChecks?.minimumSupplementKnownSemanticActRetention!==0.95||d.frozenChecks?.requireEverySupplementRouteAtLeastOneReachingFallback!==true)process.exit(1);
+          NODE
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$FILE"
+          if git diff --cached --quiet; then echo 'Supplement reachability report already matches committed state.'; else
+            if [ '${{ steps.audit.outcome }}' = 'success' ]; then git commit -m 'test(liuyao): record one-shot supplement reachability pass'; else git commit -m 'test(liuyao): record one-shot supplement reachability failure'; fi
+          fi
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.lock.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-schema-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-route-exposure-supplement-reachability-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-reachability-v01.mjs
+          )
+          if ! git diff --quiet "$SUPPLEMENT_AUDIT_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Supplement reachability inputs changed during scoring; refusing stale report push.'
+            git diff --name-only "$SUPPLEMENT_AUDIT_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Enforce one-shot failure boundary
+        if: steps.audit.outcome != 'success'
+        run: |
+          echo 'One-shot supplement failed frozen reachability checks. Do not sample again; audit Routeability representation/semantic boundary.'
+          exit 1
