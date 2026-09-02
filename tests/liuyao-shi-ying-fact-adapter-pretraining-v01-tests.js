@@ -1,0 +1,27 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-shi-ying-fact-adapter-pretraining-v01.js');
+const api=global.GuiJia.liuyaoShiYingFactAdapterPretrainingV01;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const members=[{position:3,branch:'午',element:'火',role:'shi'},{position:6,branch:'子',element:'水',role:'ying'}];
+const fact=(code='SHI_CONTROLS_YING',overrides={})=>({code,text:code,type:'neutral',family:'shi-ying',members,...overrides});
+const input=(overrides={})=>({readingRef:'reading-A',facts:[fact()],...overrides});
+
+t('SYF1 design only',()=>{assert.equal(api.currentRuntimeReachable,false);assert.equal(api.registered,false);});
+t('SYF2 reading ref required',()=>assert.equal(api.validateInput(input({readingRef:''})).status,'invalid'));
+t('SYF3 facts array required',()=>assert.equal(api.validateInput(input({facts:null})).status,'invalid'));
+t('SYF4 valid source fact accepted',()=>assert.equal(api.validateInput(input()).status,'valid'));
+t('SYF5 wrong family rejected',()=>assert.equal(api.validateInput(input({facts:[fact('X',{family:'other'})]})).status,'invalid'));
+t('SYF6 members required',()=>assert.equal(api.validateInput(input({facts:[fact('X',{members:null})]})).status,'invalid'));
+t('SYF7 duplicate source codes rejected',()=>assert.equal(api.validateInput(input({facts:[fact('X'),fact('X')]})).status,'invalid'));
+t('SYF8 fact ref includes reading scope',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].factRef,'READING:reading-A:SHI-YING:SHI_CONTROLS_YING'));
+t('SYF9 different reading produces different ref',()=>{const a=api.buildAtomicFacts(input({readingRef:'A'})).facts[0];const b=api.buildAtomicFacts(input({readingRef:'B'})).facts[0];assert.notEqual(a.factRef,b.factRef);});
+t('SYF10 source code retained',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].sourceCode,'SHI_CONTROLS_YING'));
+t('SYF11 members retained',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].members.length,2));
+t('SYF12 source type remains neutral',()=>assert.equal(api.buildAtomicFacts(input()).facts[0].sourceType,'neutral'));
+t('SYF13 no polarity generated',()=>assert.equal(Object.prototype.hasOwnProperty.call(api.buildAtomicFacts(input()).facts[0],'polarity'),false));
+t('SYF14 no assessment generated',()=>assert.equal(Object.prototype.hasOwnProperty.call(api.buildAtomicFacts(input()).facts[0],'assessmentStatus'),false));
+t('SYF15 find fact by code works',()=>{const r=api.buildAtomicFacts(input({facts:[fact('SHI_CONTROLS_YING'),fact('SHI_YING_SIX_CLASH',{type:'trigger'})]}));assert.equal(api.findFactByCode(r,'SHI_YING_SIX_CLASH').sourceType,'trigger');});
+t('SYF16 descriptor forbids recomputation',()=>{const d=api.describeAdapter();assert.equal(d.recomputesElementRelation,false);assert.equal(d.recomputesBranchHarmony,false);assert.equal(d.recomputesBranchClash,false);assert.equal(d.directionalAssessmentEnabled,false);});
+if(!process.exitCode)console.log(`Shi-Ying fact adapter regression: ${n} passed, 0 failed`);
