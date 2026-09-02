@@ -192,7 +192,8 @@ test('生产 handoff 在 DOM ready 后顺序加载 generalization source → aud
     assert(source.includes('DOMContentLoaded'), '缺 post-load handoff');
     assert(source.includes('./js/bazi-contextual-force-party-relation-effect-generalization-source.js?v=13.44.0'), '缺 source loader');
     assert(source.includes('./js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0'), '缺 audit loader');
-    assert(source.indexOf('relation-effect-generalization-source.js') < source.indexOf('relation-effect-generalization-audit.js'), 'source 必须先于 audit');
+    assert(source.includes('sourceScript.onload = loadAudit'), 'source 加载完成后必须触发 audit loader');
+    assert(source.includes('document.head.appendChild(sourceScript)'), 'source script 必须实际挂载到 DOM');
 });
 
 console.log(`\nRelation Effect Generalization Audit v0.1: ${passed} passed, ${failed} failed`);
