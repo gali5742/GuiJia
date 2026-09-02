@@ -29,7 +29,11 @@
       "observationPlan": true,
       "evidenceBuilder": true,
       "formalAssessment": false,
-      "isolatedAssessmentCandidates": ["AE-TV-EXEC-001", "AE-TV-SAFE-001"],
+      "isolatedAssessmentCandidates": ["AE-TV-EXEC-001", "AE-TV-SAFE-001", "AE-TV-EXEC-002"],
+      "canonicalLineStatusProducer": "js/liuyao-core.js#buildLiuYaoLineStatus",
+      "atomicLineFactAdapter": "js/liuyao-line-status-fact-adapter-pretraining-v01.js",
+      "atomicExecutionEvidenceAdapter": "js/liuyao-travel-line-evidence-adapter-pretraining-v02.js",
+      "globalTravelerVitalityProducer": false,
       "evidenceVocabularyExamples": ["positive", "negative"]
     },
     "litigation_dispute": {
@@ -62,6 +66,8 @@
     "Assessment output must retain evidenceRefs and contract provenance.",
     "Unresolved or partial evidence/subject resolution must remain explicit rather than being converted to adverse evidence.",
     "Time Engine facts may be consumed by a domain evidence builder but must not be recomputed inside Assessment.",
+    "Static line status and TimeFact transitions are separate provenance layers; a static VOID tag must not be mislabeled as a TimeFact.",
+    "Presentation helpers such as classifyTargetState must not be promoted into a formal strength/Assessment engine without independent review.",
     "No Assessment output may contain probability, scalarScore, winner or overallRecommendation.",
     "alternativeId is optional for standalone domain assessment and must be explicitly bound before Choice Comparator use; array position or label order must never create the binding."
   ],
@@ -135,6 +141,24 @@
       "module": "js/liuyao-travel-safety-assessment-pretraining-v01.js",
       "reviewRef": "docs/liuyao-literature/travel-safety-assessment-rule-review-v0.1.md",
       "formalEligible": false
+    },
+    {
+      "evaluatorRef": "AE-TV-EXEC-002",
+      "status": "isolated_implemented_regression_added_not_executed",
+      "eventType": "travel",
+      "duty": "travel_execution",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "contractFamily": "travel_execution_assessment",
+      "assessmentRef": "travel_execution_assessment_v0.2",
+      "module": "js/liuyao-travel-execution-assessment-pretraining-v02.js",
+      "reviewRef": "docs/liuyao-literature/travel-execution-atomic-calendar-evidence-review-v0.1.md",
+      "evidenceMigration": {
+        "deprecated": ["traveler_vitality|positive", "traveler_vitality|negative"],
+        "added": ["traveler_calendar_support|positive", "traveler_calendar_constraint|negative", "traveler_void|negative"]
+      },
+      "comparatorCompatibility": "not_reviewed",
+      "formalEligible": false
     }
   ],
   "defaultWithoutEvaluator": {
@@ -147,6 +171,7 @@
     "supportive_evidence_count",
     "majority_polarity",
     "raw_line_score_threshold",
+    "status_tag_counting",
     "TimeEffect_reason_count",
     "interpretation_priority",
     "source_count",
@@ -163,6 +188,7 @@
     "regression includes no-evidence, mixed, conflicting and unresolved cases",
     "no hidden score/probability output",
     "provenance-backed Evidence refs replace synthetic design-only refs",
+    "comparator compatibility reviewed for the exact assessment version",
     "explicit user authorization for Formal Expansion",
     "current-22 remains frozen unless separately migrated"
   ],
