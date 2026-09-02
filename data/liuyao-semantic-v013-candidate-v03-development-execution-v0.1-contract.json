@@ -40,15 +40,32 @@
     "independentEvaluationEligible": false,
     "executionPresealCorrection": {
       "path": "scripts/apply-liuyao-semantic-v013-candidate-v03-development-execution-v01-preseal-correction.mjs",
-      "gitBlobSha": "58ae158f6e973a02bce1410e92eb174aca66c275",
-      "targetId": "V013-V03-D-089",
-      "expectedRoute": "financial_fortune",
-      "expectedCandidatePath": "fallback_head",
-      "reason": "remove deterministic finance-domain support cue from one pure-fallback row before sealing; correction chosen from non-learned Evidence/Arbitration path audit only",
-      "encoderScoringObserved": false,
+      "gitBlobSha": "f05dd51bc63d423b66a81a1cce2ae5a73ea834da",
+      "correctionsApplied": 2,
+      "corrections": [
+        {
+          "targetId": "V013-V03-D-089",
+          "expectedDisposition": "route_known",
+          "expectedRoute": "financial_fortune",
+          "expectedCandidatePath": "fallback_head",
+          "nonRouteSubtype": null,
+          "reason": "deterministic_path_alignment",
+          "encoderScoringObserved": false
+        },
+        {
+          "targetId": "V013-V03-D-166",
+          "expectedDisposition": "non_route",
+          "expectedRoute": null,
+          "expectedCandidatePath": null,
+          "nonRouteSubtype": "route_unresolved",
+          "reason": "exact_prior_calibration_overlap_removal",
+          "encoderScoringObserved": false
+        }
+      ],
       "independentEvaluationRead": false,
-      "labelChanged": false,
-      "modelOrThresholdChanged": false
+      "labelsChanged": false,
+      "modelOrThresholdChanged": false,
+      "verifierWeakened": false
     }
   },
   "correctedFrozenDependencies": {
