@@ -1,0 +1,97 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-route-exposure-supplement-schema-v0.1",
+  "status": "frozen_after_calibration_v04_aggregate_reachability_failure_before_supplement_generation",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_one_shot_route_exposure_supplement",
+  "purpose": "Preserve the sealed v0.4 safety calibration and add one separately versioned fresh known-route supplement only for the three aggregate route identities with zero Fallback exposure. This is a one-shot coverage repair, not repeated sampling until pass.",
+  "immutableBase": {
+    "calibrationPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+    "calibrationSha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.lock.json",
+    "reachabilityReportPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4-reachability-audit-v0.1.json",
+    "reachabilityReportGitBlobSha": "f270dbcb50335f178bf594161c0f190eb0fa438a",
+    "mutationAllowed": false,
+    "reuseAsCompositeCalibrationBase": true
+  },
+  "allowedAggregateEvidence": {
+    "rowLevelResultsReadForGeneration": false,
+    "knownSemanticActRetention": 1,
+    "knownReachingFallback": 101,
+    "knownRows": 220,
+    "nearDomainReachingFallback": 9,
+    "nearDomainRows": 440,
+    "totalNonRouteReachingFallback": 15,
+    "totalNonRouteRows": 484,
+    "baseSafetyGatesPassed": true,
+    "routesWithFallbackExposure": 19,
+    "routesWithZeroFallbackExposure": [
+      "investment_price_trend",
+      "marital_relationship",
+      "relationship_development"
+    ]
+  },
+  "freshSupplement": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+    "totalRows": 120,
+    "identityLabel": "route_identity_positive",
+    "subtype": "fallback_stage_route_exposure_supplement",
+    "perRoute": 40,
+    "routes": [
+      "investment_price_trend",
+      "marital_relationship",
+      "relationship_development"
+    ],
+    "design": "Natural modern-language paraphrases of the three supported route identities, intentionally avoiding existing deterministic Evidence/Arbitration trigger vocabulary so that the examples test the learned Routeability-to-Fallback path rather than deterministic support arbitration.",
+    "presealRequirements": [
+      "Evidence v0.3 unsupportedTargets empty",
+      "Arbitration v0.12 null",
+      "40 rows per target route",
+      "no exact duplicates",
+      "fresh internal trigram Jaccard below 0.82",
+      "historical trigram Jaccard below 0.84",
+      "no encoder or model probability used to select or edit text"
+    ]
+  },
+  "freshnessAndIsolation": {
+    "generatorMayReadV04CalibrationText": false,
+    "generatorMayReadV04ReachabilityRowResults": false,
+    "generatorMayReadAnyReachabilityProbability": false,
+    "generatorMayReadIndependentEvaluation": false,
+    "generatorMayReadSealedBlindEvaluation": false,
+    "generatorMayReadCandidateV03FailureRows": false,
+    "aggregateZeroRouteIdsMayBeUsed": true,
+    "verifierMayReadNonProtectedHistoricalTrainCalibrationForDuplicateAudit": true,
+    "verifierMustSkipReachabilityReportsAndProtectedEvaluationContent": true
+  },
+  "encoderBoundaryBeforeSeal": {
+    "encoderScoringObserved": false,
+    "fallbackIdentityTrainingPerformed": false,
+    "fallbackIdentityProbabilityUsed": false,
+    "fallbackThresholdSelected": false
+  },
+  "postSealSupplementAudit": {
+    "singleTextEncoderCallsOnly": true,
+    "expectedEncoderCalls": 120,
+    "minimumKnownSemanticActRetention": 0.95,
+    "requireEachSupplementRouteAtLeastOneReachingFallback": true,
+    "semanticActThreshold": 0.5045675974201208,
+    "routeabilityThreshold": 0.7678148573595883,
+    "fallbackIdentityProbabilityForbidden": true,
+    "routerTopKForbidden": true
+  },
+  "compositeReachabilityDecision": {
+    "baseV04SafetyEvidenceReusedUnchanged": true,
+    "baseV04CoveredRoutes": 19,
+    "supplementMustCoverRemainingRoutes": 3,
+    "successRequiresAll22RoutesCovered": true,
+    "successRequiresBaseNearDomainAtLeast": 8,
+    "successRequiresBaseTotalNonRouteAtLeast": 8
+  },
+  "oneShotPolicy": {
+    "ifSupplementAuditFails": "do not generate another larger or edited supplement from audit outcomes; audit Routeability representation and semantic boundary for the remaining zero-exposure route identities",
+    "sameSupplementVersionRetryWithEditedText": false,
+    "secondSamplingRoundAllowed": false
+  },
+  "successBehavior": {
+    "nextAllowedAction": "freeze composite v0.5 Fallback Identity training/calibration contract using immutable v0.4 base plus sealed supplement, before any Fallback Identity weights, probabilities or threshold are produced"
+  }
+}
