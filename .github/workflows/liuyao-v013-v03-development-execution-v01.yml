@@ -1,0 +1,190 @@
+name: LiuYao v0.13-v0.3 Corrected Fresh Development
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01-preflight.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+      - 'scripts/evaluate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v03-development-report-execution-v01.mjs'
+      - '.github/workflows/liuyao-v013-v03-development-execution-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  corrected-development:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture Phase C source checkout
+        run: echo "PHASE_C_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify corrected Phase A and Phase B locks
+        run: |
+          node scripts/verify-liuyao-semantic-embedding-execution-contract-v01.mjs
+          node scripts/verify-liuyao-semantic-frozen-dependencies-v02.mjs
+          node scripts/verify-liuyao-semantic-fallback-identity-v01-execution-v01-model.mjs
+
+      - name: Verify Phase C contract before fresh data generation
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01-preflight.mjs
+
+      - name: Generate fresh Candidate v0.3 development data against corrected Fallback lock
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+
+      - name: Apply unchanged deterministic preseal wording patch
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs
+
+      - name: Verify fresh preseal development data without independent or blind corpus reads
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+
+      - name: Seal fresh development data before encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+
+      - name: Verify sealed fresh development data and lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+
+      - name: Commit and push development data seal before any encoder scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v03-development.json
+          git add data/liuyao-semantic-v013-candidate-v03-development.lock.json
+          if git diff --cached --quiet; then
+            echo 'Fresh corrected Candidate v0.3 development data already matches committed state.'
+          else
+            git commit -m 'test(liuyao): seal corrected fresh candidate v0.3 development data'
+          fi
+
+          git fetch origin liuyao-semantic-v013-core
+          FROZEN_PATHS=(
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.lock.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.lock.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.lock.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v03-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json
+            scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs
+            scripts/generate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01-preflight.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+            scripts/evaluate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v03-development-report-execution-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-routeability-v05.js
+            js/liuyao-semantic-fallback-identity-v01.js
+            js/liuyao-semantic-route-selection-v04.js
+            js/liuyao-semantic-finalization-v01.js
+          )
+          if ! git diff --quiet "$PHASE_C_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${FROZEN_PATHS[@]}"; then
+            echo 'Candidate v0.3 frozen inputs changed during development sealing; refusing stale seal.'
+            git diff --name-only "$PHASE_C_BASE_SHA"..origin/liuyao-semantic-v013-core -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          echo "DEVELOPMENT_SEAL_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git push origin HEAD:liuyao-semantic-v013-core
+          git fetch origin liuyao-semantic-v013-core
+          git merge-base --is-ancestor "$(git rev-parse HEAD)" origin/liuyao-semantic-v013-core
+          echo "Development data+lock are committed remotely before encoder scoring at $(git rev-parse HEAD)."
+
+      - name: Install pinned encoder runtime only after committed seal
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Score exactly 198 fresh development rows one question per encoder invocation
+        run: node scripts/evaluate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+
+      - name: Independently recompute and verify development report metrics
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v03-development-report-execution-v01.mjs
+
+      - name: Commit corrected development report
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json
+          if git diff --cached --quiet; then
+            echo 'Corrected Candidate v0.3 development report already matches committed state.'
+          else
+            git commit -m 'test(liuyao): record corrected candidate v0.3 development metrics'
+          fi
+
+          git fetch origin liuyao-semantic-v013-core
+          FROZEN_PATHS=(
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.lock.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.lock.json
+            data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v03-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json
+            data/liuyao-semantic-v013-candidate-v03-development.json
+            data/liuyao-semantic-v013-candidate-v03-development.lock.json
+            scripts/evaluate-liuyao-semantic-v013-candidate-v03-development-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v03-development-report-execution-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-routeability-v05.js
+            js/liuyao-semantic-fallback-identity-v01.js
+            js/liuyao-semantic-route-selection-v04.js
+            js/liuyao-semantic-finalization-v01.js
+          )
+          if ! git diff --quiet "$DEVELOPMENT_SEAL_COMMIT"..origin/liuyao-semantic-v013-core -- "${FROZEN_PATHS[@]}"; then
+            echo 'Candidate v0.3 frozen inputs changed after the committed development seal; refusing stale report push.'
+            git diff --name-only "$DEVELOPMENT_SEAL_COMMIT"..origin/liuyao-semantic-v013-core -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+
+      - name: Enforce Candidate-lock readiness gates
+        run: |
+          node - <<'NODE'
+          const report = require('./data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json');
+          if (!report.readyForCandidateLock) {
+            console.error('Corrected Candidate v0.3 development did not pass pre-lock gates.');
+            console.error(JSON.stringify({ checks:report.checks, summary:report.summary }, null, 2));
+            process.exit(1);
+          }
+          console.log('Corrected Candidate v0.3 development passes pre-lock gates. Candidate lock may proceed in the next phase.');
+          NODE

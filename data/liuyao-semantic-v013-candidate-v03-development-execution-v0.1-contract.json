@@ -1,0 +1,141 @@
+{
+  "version": "0.13-candidate-v0.3-development-execution-v0.1-contract-v0.1",
+  "status": "locked_before_first_corrected_development_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.3_development_execution_v0.1",
+  "purpose": "Bind fresh Candidate v0.3 development data and scoring to the representation-corrected Phase A dependencies and Phase B Fallback Identity model before any corrected development encoder scoring.",
+  "historicalDesign": {
+    "path": "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+    "gitBlobSha": "e687500b334560d292ebb0b7e7aa9426883ccc2c",
+    "role": "historical_candidate_v03_design_and_promotion_gate_source",
+    "legacyThresholdValuesInherited": false
+  },
+  "freshDevelopment": {
+    "baseGenerator": {
+      "path": "scripts/generate-liuyao-semantic-v013-candidate-v03-development.mjs",
+      "gitBlobSha": "a417ec6925484f0c56290dc55e1df2dacbeabc8f",
+      "authoredBeforeCorrectedFallbackDevelopmentResults": true,
+      "repositoryMutationAllowed": false
+    },
+    "presealPatch": {
+      "path": "scripts/apply-liuyao-semantic-v013-candidate-v03-development-preseal-patch.mjs",
+      "gitBlobSha": "460099ef45d68da4d60c61d5a09705e7b11b6638",
+      "expectedRowsPatched": 25,
+      "repositoryMutationAllowed": false
+    },
+    "expectedCounts": {
+      "total": 198,
+      "route_known": 132,
+      "non_route": 66,
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_head": 44,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "mustBeCommittedBeforeFirstEncoderScoring": true,
+    "postSealWordingMutationAllowed": false,
+    "trainingEligible": false,
+    "thresholdCalibrationEligible": false,
+    "independentEvaluationEligible": false
+  },
+  "correctedFrozenDependencies": {
+    "artifact": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "gitBlobSha": "255b2cca09a82608ea8cbf45f06f4f3cff153801",
+      "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+    },
+    "lock": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.lock.json",
+      "gitBlobSha": "2c40edf1c502d2d69a547e4efd9ab14f2c95152f"
+    },
+    "routeabilityBase": {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    "routeabilityThresholdSource": {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039"
+    }
+  },
+  "correctedFallbackIdentity": {
+    "model": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.json",
+      "gitBlobSha": "cb844e7dcae0c59da2c201024d5bd94bfb382d90",
+      "sha256": "b79aa830ce26ec7fcd1aa080d5470f342fae0406476e0d8419ba1be90f6763b0"
+    },
+    "modelLock": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-model.lock.json",
+      "gitBlobSha": "17ae6cc2c92487a9f4719807e133ee2b5a89d8c1"
+    },
+    "runtimeLock": {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-execution-v0.1-calibration-runtime.lock.json",
+      "gitBlobSha": "bb44b7410d9df86b73aa0f5bb62eba8677ca59c5"
+    },
+    "globalThreshold": 0.5571407097788003,
+    "routeSpecificThresholds": false
+  },
+  "execution": {
+    "embeddingContract": {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7"
+    },
+    "canonicalTextsPerEncoderCall": 1,
+    "processorCallsPerQuestion": 1,
+    "modelForwardCallsPerQuestion": 1,
+    "developmentRowsScored": 198,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "repositoryRuntimeMutation": false,
+    "temporaryRouteabilityThresholdInstrumentation": {
+      "module": "js/liuyao-semantic-routeability-v05.js",
+      "moduleGitBlobSha": "b71a8c84060f90850321647ead919c5984a1e49c",
+      "from": 0.7675678218564946,
+      "to": 0.7678148573595883,
+      "requiredExactReplacementCount": 1
+    }
+  },
+  "thresholds": {
+    "routeability": 0.7678148573595883,
+    "scopeHardVeto": 0.4319473801404805,
+    "fallbackIdentityGlobal": 0.5571407097788003,
+    "retuningAllowedDuringDevelopment": false
+  },
+  "independentEvaluation": {
+    "readDuringDevelopment": false,
+    "freshPostLockIndependentRequired": true,
+    "candidateV02IndependentReuseForbidden": true,
+    "oldIndependentArtifactsMayBeUsedAsDevelopmentScoringInputs": false,
+    "oldIndependentArtifactsMayBeReadForCorpusOverlapDuringCorrectedDevelopment": false
+  },
+  "corpusIsolation": {
+    "allowedOverlapAuditFamilies": [
+      "router_training",
+      "routeability_training_or_calibration",
+      "fallback_training_or_calibration",
+      "historical_development"
+    ],
+    "independentOrBlindCorpusReadForbidden": true
+  },
+  "promotionPolicy": {
+    "source": "historicalDesign.evaluationPolicy.promotionGates",
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true,
+    "thresholdSelectionEligible": false
+  },
+  "invariants": {
+    "routeCount": 22,
+    "routeInventoryExpansionForbidden": true,
+    "newThemeResearchImportForbidden": true,
+    "traditionalLiuYaoFeaturesForbidden": true,
+    "healthDiseaseDivinationRowsForbidden": true,
+    "developmentMayTuneThresholds": false,
+    "developmentMayTrainModels": false,
+    "candidateLockRequiredBeforeFreshIndependent": true
+  }
+}
