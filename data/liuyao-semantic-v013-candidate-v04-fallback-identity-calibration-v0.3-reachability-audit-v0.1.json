@@ -1,0 +1,5285 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-calibration-v0.3-reachability-audit-v0.1",
+  "status": "fail_locked_sealed_calibration_v03_reachability",
+  "scope": "liuyao_semantic_fallback_identity_v0.2_calibration_v0.3_upstream_reachability",
+  "immutableInputs": {
+    "auditContract": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-calibration-v03-reachability-audit-contract-v0.1.json",
+      "sha256": "277d1aabb8168a09aef1b3c1daed8080114212f458348e8aaf6a66aa7b4bfff6"
+    },
+    "calibrationLock": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.lock.json",
+      "sha256": "bf4e4ce71bd3b29e818e73975e854052c46836329ebef7cddfac45efc02437f9"
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.json",
+      "sha256": "21fbafcdc96c5a22ce0a188255babe81757f231ed89ec2086c9ea810a6dca7c6"
+    },
+    "schema": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data-schema-v0.3.json",
+      "sha256": "b50b06b3bd377c59cd7ea7726ee6671b7ca8e6fa48bc6e158c8d7d1f5e103470"
+    },
+    "carriedTraining": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "usedInThisAudit": false
+    },
+    "semanticActModel": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "threshold": 0.5045675974201208
+    },
+    "routeabilityBase": {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    "routeabilityThresholdArtifact": {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "threshold": 0.7678148573595883
+    },
+    "executionContract": {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7"
+    }
+  },
+  "policy": {
+    "auditOnly": true,
+    "fallbackIdentityWeightsTrained": false,
+    "fallbackIdentityProbabilitiesScored": false,
+    "fallbackThresholdSelected": false,
+    "routerLoaded": false,
+    "routerTopKRead": false,
+    "scopeHardVetoUsedForReachability": false,
+    "oldReachabilityRowResultsRead": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV03FailureRowsRead": false,
+    "newThemeResearchRead": false,
+    "corpusMutationAllowed": false
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderCalls": 264,
+    "rowsScored": 264
+  },
+  "frozenChecks": {
+    "minimumCalibrationKnownSemanticActRetention": 0.95,
+    "requireEveryRouteHasAtLeastOneCalibrationKnownReachingFallback": true,
+    "minimumCalibrationNearDomainNonRouteReachingFallback": 8,
+    "minimumCalibrationTotalNonRouteReachingFallback": 8
+  },
+  "summary": {
+    "calibrationKnown": 132,
+    "calibrationNonRoute": 132,
+    "calibrationKnownSemanticActRetention": 1,
+    "calibrationKnownReachingFallback": 69,
+    "calibrationNonRouteReachingFallback": 3,
+    "nearDomainReachingFallback": 2
+  },
+  "byRoute": {
+    "borrow_money": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "business_operation": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "commercial_transaction": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "debt_collection": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 4
+    },
+    "debt_repayment": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "financial_fortune": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    },
+    "income_bonus": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "income_salary": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "inventory_purchase": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "inventory_sale": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 4
+    },
+    "investment_liquidation": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "investment_position_decision": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "investment_price_trend": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 3,
+      "reachesFallback": 3
+    },
+    "investment_profit": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "investment_suitability": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "item_purchase": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "lend_money": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    },
+    "marital_relationship": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    },
+    "marriage_match": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 3,
+      "reachesFallback": 3
+    },
+    "partnership": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 4
+    },
+    "receive_item": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 0,
+      "reachesFallback": 0
+    },
+    "relationship_development": {
+      "n": 6,
+      "semanticActEligible": 6,
+      "arbitrationNull": 6,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    }
+  },
+  "byNonRouteSubtype": {
+    "near_domain_not_current_route": {
+      "n": 88,
+      "semanticActEligible": 53,
+      "arbitrationNull": 88,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 2
+    },
+    "outside_current_22": {
+      "n": 22,
+      "semanticActEligible": 22,
+      "arbitrationNull": 22,
+      "routeabilityAccepted": 0,
+      "reachesFallback": 0
+    },
+    "route_unresolved": {
+      "n": 22,
+      "semanticActEligible": 22,
+      "arbitrationNull": 22,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    }
+  },
+  "checks": {
+    "calibrationKnownSemanticActRetention": true,
+    "everyRouteCalibrationFallbackExposure": false,
+    "calibrationNearDomainFallbackExposure": false,
+    "calibrationTotalNonRouteFallbackExposure": false
+  },
+  "pass": false,
+  "nextAction": "freeze_this_calibration_v03_failure_and_create_new_versioned_stage_specific_calibration_without_mutating_current_sealed_data",
+  "results": [
+    {
+      "id": "V04-FI-C3-001",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7420830278616249,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7675531269948379,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-002",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7545735975876849,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7524339804391579,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-003",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7640995819974116,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7843017082069985,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-004",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8047666103486097,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7794378552105333,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-005",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7448679742289338,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7306114004420975,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-006",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "financial_fortune",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8190940068540515,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.759564706107541,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-007",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7518670774101001,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7678033684981991,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-008",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7564831409283038,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7648295223022802,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-009",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7794993511104531,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7325039693948087,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-010",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8073498013724664,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8029247675768748,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-011",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6979000588676166,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7449777379161365,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-012",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "business_operation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7636257793404582,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7611462606784252,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-013",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7806641268158356,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7969377862047059,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-014",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8070744010569906,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7900587973571064,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-015",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7384097880317066,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7741806813504744,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-016",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7912571154097044,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7957574332190732,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-017",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6816382269249923,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7722026901985314,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-018",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7637439696630447,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7866481642380792,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-019",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6812993716779239,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7674948219665012,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-020",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6944875718928347,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7592298588306213,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-021",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7751656988499214,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7737660842314584,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-022",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7243590163173224,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.759886257661422,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-023",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7317320550376694,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7524074051755542,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-024",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6270254619697746,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7487850646086358,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-025",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7150301162163437,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7732712009962691,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-026",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7426357081042917,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.777626369723539,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-027",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7438471442454533,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7534438165744012,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-028",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7173161428698885,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7687491068072055,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-029",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6864048461343365,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7430356477225194,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-030",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "inventory_sale",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6950719206458099,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7827796988871305,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-031",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7215412566914851,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7537262328517057,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-032",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8007427992217263,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7140101850770573,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-033",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.749272627381461,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7796218138283688,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-034",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7466760107570216,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7521645027128407,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-035",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7003798836938747,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7561842239784214,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-036",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "borrow_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7546557524386281,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.740083317220241,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-037",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7094341377088154,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.762204731590046,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-038",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7222732490677327,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7536065025937848,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-039",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.771759766751898,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7763887044173827,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-040",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7823705807075441,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7610648829073756,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-041",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8018456710676148,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.761647858643513,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-042",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "lend_money",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7523472778089693,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7730560396907921,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-043",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7723745290065295,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7792757949594149,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-044",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7153792851696279,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7849025422245739,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-045",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7034694514292329,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7375874581831279,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-046",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7679420556064497,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7725132803020863,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-047",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7752772366911179,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7847889491356175,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-048",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_collection",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7328737739976303,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7677966313906847,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-049",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7599749653463792,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7872057168425994,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-050",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7918912008190241,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7788170473765749,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-051",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6744727661897272,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7654639762492316,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-052",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7339610291521316,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7958323051003128,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-053",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8375901298067335,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7970173572119204,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-054",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "debt_repayment",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7394381552997917,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7848871356761288,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-055",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8104594433933092,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7852112266225518,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-056",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7559418016135262,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8098813431022504,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-057",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6860999584834728,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.755703562812427,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-058",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7645451983377964,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7578764243897684,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-059",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7250389767281842,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7837165324273365,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-060",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "partnership",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7462224612753522,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7856202340446008,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-061",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6919264059644449,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8002729770048781,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-062",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7910978710042875,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8033733581343241,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-063",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7237762712680521,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8183775928550799,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-064",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.741892157653882,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7717848027768661,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-065",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7512802076227798,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8024212484650001,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-066",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_profit",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7554974649593194,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7791604607702993,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-067",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7046037462651475,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8357045452407345,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-068",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7289643979643621,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8124483246767256,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-069",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7439297768507798,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8072975820313532,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-070",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6669844923971634,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7959242720108562,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-071",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7595909182126437,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8150533723225003,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-072",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7672160553724467,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8100859970186175,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-073",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8114272609380291,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7825167680714109,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-074",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7309979824868843,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8188389939682679,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-075",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.800308529698105,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7725881649133188,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-076",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7973465441861585,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7895229644233165,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-077",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8097043335847575,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7916924140241706,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-078",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_suitability",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8142095578357267,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7676766960616455,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-079",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.5766853139611237,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7801038434433033,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-080",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7239910004110731,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8075787030877252,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-081",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7265986960177856,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7738428411734857,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-082",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.671849361850239,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7885014215428324,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-083",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7194534071380247,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7588580131621182,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-084",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6775542895005874,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.8008810013267954,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-085",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6851370348725895,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7704360740750139,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-086",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7491555285963238,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7806529200773277,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-087",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6733983139190349,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7504988486473508,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-088",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.630637694418968,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7491187041726989,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-089",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7451561300710617,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7754194538716348,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-090",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6060513131983825,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7426684489070196,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-091",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.5888565808632941,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7458472441979909,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-092",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6331750278414024,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7629646410129952,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-093",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6018318485703537,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7047576115676966,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-094",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7577011753707555,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7885101068212003,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-095",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7279363144685586,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7535460179268424,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-096",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_salary",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.5437463138334687,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7335113377322702,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-097",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7577027604112746,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7957450916237921,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-098",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6677864489607964,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7820449587494,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-099",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.742690867037769,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7677683820297168,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-100",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7602941763609169,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7888469749003838,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-101",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7744177027813596,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7922424391800831,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-102",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "income_bonus",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7622360042634195,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7913536996976002,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-103",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6420194984178024,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7125377749280303,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-104",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.5256189921171671,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6998848005710252,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-105",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7632051702480315,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.717074749652194,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-106",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6752750306644175,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7230810565875726,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-107",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7323645285923014,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6981819133339926,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-108",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "receive_item",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.6559405852653493,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7192903405074004,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-109",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7068378354653966,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7598742105326233,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-110",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7074886632650769,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7458947182778799,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-111",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7279677829115839,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7233284685771224,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-112",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7808127892523262,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.752647419996604,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-113",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7119235817083713,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.784939087984541,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-114",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "item_purchase",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.777793873537499,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7477700523079804,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-115",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.788188438121266,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7697134484481863,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-116",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7604070935678789,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7173183727382322,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-117",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8460238777702381,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7578740342624023,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-118",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7785544840119043,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7474153131990259,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-119",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7835265180369997,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7453156427151882,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-120",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "relationship_development",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8215080814721823,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.773455579733489,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-121",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.726774682538422,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7782124465691959,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-122",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7284802197370308,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7643749011348995,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-123",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7918102614266742,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7855060353899317,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-124",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7254842993394671,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7511043416163474,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-125",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.8020708883070305,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7958233271555923,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-126",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marriage_match",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7072476698868915,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7623683230566958,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-127",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7867033265270182,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7718034226743148,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-128",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7274903115043692,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7519160143887763,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-129",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7523520265254,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7480192623243058,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-130",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7036037220645426,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7548792291002862,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-131",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7837507428476528,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7630739099737361,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-132",
+      "identityLabel": "route_identity_positive",
+      "expectedRoute": "marital_relationship",
+      "subtype": "fallback_stage_known",
+      "semanticAct": {
+        "probability": 0.7525447202232554,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7716761385641265,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-133",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4366041072564582,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7251850448837261,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-134",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.49946195803579463,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7092043887961375,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-135",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4821565745310814,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7412213538954288,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-136",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.3398345103534555,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7010103008699269,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-137",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4920701010670642,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6904427450251827,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-138",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5575304110606485,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7038071542690276,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-139",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5023346700221756,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7157327737324642,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-140",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.37349011396396237,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6770546442093521,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-141",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6046734633179149,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7372115239055335,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-142",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.47411899680770775,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7517055097145706,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-143",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5151331345997162,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7148354068415251,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-144",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5363042201445719,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7055862224873255,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-145",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.45073348603817714,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7488088671798747,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-146",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5566610521420354,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6929351176893933,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-147",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6490843417486274,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7205701919207671,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-148",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5138706885684566,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.728044527266612,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-149",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5323917747955846,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7264785232449036,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-150",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5551036377730534,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7173413381471796,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-151",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6395988283423059,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7066661321990215,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-152",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.46783315335826814,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7388799143427746,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-153",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6161629643814474,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7678814442291904,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-154",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5374844960633598,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7096541399492637,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-155",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6916704183863208,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7206574841757659,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-156",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5270533977716697,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.738147818483815,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-157",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6246089795115853,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7470645480044936,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-158",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.447442345980945,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6924805455805763,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-159",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6514981151592226,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7525975231995269,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-160",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6569222435669639,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7162697684642171,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-161",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.567721823054786,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.694557975278283,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-162",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5782286659783303,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.705754772187937,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-163",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5792072135492315,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6954385762233102,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-164",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.47900482721225557,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7166869400967361,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-165",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.7165126034262649,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7108004155310602,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-166",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5835123457061041,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7260260292163137,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-167",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5610829597324121,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7449242956979828,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-168",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6403908927195199,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7185342469898052,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-169",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6433928805880567,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.716560495407375,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-170",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.43540055680369666,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7195924101618668,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-171",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4782199703673378,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7121609631460161,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-172",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5957481982656126,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7174143712741837,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-173",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4527130911410996,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7685105604369108,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-174",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5949553378616357,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7601846058986504,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-175",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.506206148618759,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7393387163083655,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-176",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.38809188766438035,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7634978059505442,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-177",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.47670787904882134,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7241294945416052,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-178",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6153123987758483,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7945842760359556,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-179",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6193853555309209,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7348558231385279,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-180",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.40805040693267297,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7662127450932326,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-181",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5473613357997729,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.750882726468064,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-182",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5159119837413547,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7557866382740127,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-183",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.576967710279916,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7034681616670412,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-184",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4429134010594303,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6997624853348161,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-185",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.47829744636682914,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7729390604329318,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-186",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.38212653515440986,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.726748197548622,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-187",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.443821882525472,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7622699659882656,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-188",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5853674437231894,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.711594118822572,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-189",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5962573326438197,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7390191611008765,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-190",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.3872287045285139,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7041165444253077,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-191",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5397381806114995,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7011049412704956,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-192",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.3955626821764167,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7593598677888088,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-193",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.47219340995893605,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7405564237815195,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-194",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5365595544833022,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7079801431361531,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-195",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.55465256339076,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7240559279009747,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-196",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4396452508179442,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6951878416270334,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-197",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4214124674514482,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.726589896002349,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-198",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5138742663835681,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7434850781027386,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-199",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5313053508758311,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7354752856434731,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-200",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4219262014364652,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7233624636903001,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-201",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5747023887726932,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7254789853683845,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-202",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6137537547494488,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7291536909802498,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-203",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.46878502234108504,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6989223870132146,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-204",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6138716635497443,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7306865791621796,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-205",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5315631984598623,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7530311160784137,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-206",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4428113607785233,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7330561772998029,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-207",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.4131691920466568,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7129256081480325,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-208",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.7151744526228383,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7189120056579046,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-209",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6539047335256205,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7436079999089027,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-210",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.39004496176989156,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6736490754115096,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-211",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5680653488703707,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7352230111608982,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-212",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5680120364693848,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7185357957235718,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-213",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5123322291729643,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7554518116920462,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-214",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.3835083630528772,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7203844108869181,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-215",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6837902007977951,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7278653304357817,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-216",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.3316925568029271,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6715695134845406,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-217",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5622554485242885,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7545960136415918,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-218",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.34147980383730725,
+        "threshold": 0.5045675974201208,
+        "eligible": false
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7189215044527558,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-219",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.6401888222985084,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7337809175221278,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-220",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "semanticAct": {
+        "probability": 0.5047819043503365,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6870534782817492,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-221",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.5474224975870298,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7063786739163964,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-222",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7206160121224873,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7208457079093656,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-223",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7402024663087583,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.747180057728883,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-224",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.5912353686743749,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7238615343614416,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-225",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7271471331815104,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.695536766305706,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-226",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6914945956117821,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7306391092531883,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-227",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6415098321827281,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7347450400367794,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-228",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.8175443756015736,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7297395376037715,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-229",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6817535651426871,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7506547524921199,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-230",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6216486198418989,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7547236163257284,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-231",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7933127788003504,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7571266434917534,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-232",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6581260473300339,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7665953968050452,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-233",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7041723446781423,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7159336238881427,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-234",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6446978083179656,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7083042754337592,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-235",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7523188725218817,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7523665922528889,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-236",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.5941254545887322,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6804659449489794,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-237",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6917533911064049,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7473614943762688,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-238",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6673541994800029,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.6926312739733329,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-239",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.674578172741319,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7359994628725222,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-240",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.6523606203883127,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7243791763365234,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-241",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.5738384355357176,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7084196058740783,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-242",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "semanticAct": {
+        "probability": 0.7189621874247489,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7278881315890345,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-243",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8207112764287753,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7562352644167318,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-244",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7789629811911014,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7308720170736454,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-245",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8543786518746267,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7701891378108715,
+        "threshold": 0.7678148573595883,
+        "accepted": true
+      },
+      "reachesFallback": true
+    },
+    {
+      "id": "V04-FI-C3-246",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7172342226757609,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7057993385372316,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-247",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7583900203685737,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.737524476587826,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-248",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7212546955408901,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7195488180920685,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-249",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.6575413220809074,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7145329097655202,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-250",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8515365116921259,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7585600814411066,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-251",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7693939710801483,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7335573368649916,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-252",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.6373718342434105,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7291455028508645,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-253",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7631517094311154,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7139433080246518,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-254",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.793890463293496,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7329154197878497,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-255",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8199685396896002,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7366965121590814,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-256",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7818613652881995,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7265916378255276,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-257",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7576653656064244,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7145819971291673,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-258",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8365145807882105,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7473425888470872,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-259",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7531207810879285,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7343887134242159,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-260",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7650505222494526,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7341333067014563,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-261",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7258866340106928,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7365125730335099,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-262",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7263285096434858,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7289352744843837,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-263",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.7992550467603525,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7523434027677847,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    },
+    {
+      "id": "V04-FI-C3-264",
+      "identityLabel": "non_route",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "semanticAct": {
+        "probability": 0.8409339500181006,
+        "threshold": 0.5045675974201208,
+        "eligible": true
+      },
+      "unsupportedTargets": [],
+      "arbitration": null,
+      "routeability": {
+        "probability": 0.7599095438127837,
+        "threshold": 0.7678148573595883,
+        "accepted": false
+      },
+      "reachesFallback": false
+    }
+  ]
+}
