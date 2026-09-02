@@ -114,7 +114,7 @@
                 'SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-INVENTORY-COVERAGE',
                 ...extraDepends
             ]),
-            resolvedByClaimIds:complete ? ['SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-UPSTREAM-SEMANTIC-COVERAGE'] : []
+            resolvedByClaimIds:[]
         });
     };
 
