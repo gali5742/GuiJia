@@ -1,0 +1,36 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-domain-assessment-pretraining-v01.js');
+require('../js/liuyao-domain-comparator-pretraining-v01.js');
+require('../js/liuyao-line-status-fact-adapter-pretraining-v01.js');
+require('../js/liuyao-travel-line-evidence-adapter-pretraining-v02.js');
+require('../js/liuyao-travel-execution-assessment-pretraining-v02.js');
+require('../js/liuyao-travel-execution-comparator-pretraining-v02.js');
+const sharedA=global.GuiJia.liuyaoDomainAssessmentPretrainingV01;
+const sharedC=global.GuiJia.liuyaoDomainComparatorPretrainingV01;
+const factApi=global.GuiJia.liuyaoLineStatusFactAdapterPretrainingV01;
+const evidenceApi=global.GuiJia.liuyaoTravelLineEvidenceAdapterPretrainingV02;
+const assessApi=global.GuiJia.liuyaoTravelExecutionAssessmentPretrainingV02;
+const compareApi=global.GuiJia.liuyaoTravelExecutionComparatorPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const tag=(code,type)=>({code,text:code,type});
+const assessment=(alternativeId,tags)=>{
+  const facts=factApi.buildAtomicFacts({position:3,branch:'午',element:'火',relation:'兄弟',isShi:true,isYing:false,statusTags:tags});
+  const packet=evidenceApi.buildEvidencePacket({duty:'travel_execution',alternativeId,travelerFacts:facts.facts});
+  return {facts,packet,assessment:assessApi.evaluateTravelExecution(packet)};
+};
+
+t('TCC1 shared registries remain empty',()=>{assert.equal(sharedA.ACTIVE_EVALUATORS.length,0);assert.equal(sharedC.ACTIVE_COMPARATORS.length,0);});
+t('TCC2 supportive calendar chain beats constraint chain',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support')]);const b=assessment('B',[tag('DAY_CONTROL','constraint')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.relation,'left_preferred_on_dimension');});
+t('TCC3 constraint chain loses to supportive chain',()=>{const a=assessment('A',[tag('MONTH_BREAK','constraint')]);const b=assessment('B',[tag('DAY_GENERATE','support')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.relation,'right_preferred_on_dimension');});
+t('TCC4 mixed chain cannot beat adverse chain',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support'),tag('DAY_CONTROL','constraint')]);const b=assessment('B',[tag('VOID','void')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.relation,'mixed_no_order');});
+t('TCC5 two supports do not outrank one support',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support'),tag('DAY_GENERATE','support')]);const b=assessment('B',[tag('MONTH_SUPPORT','support')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.relation,'indistinguishable_on_dimension');});
+t('TCC6 two constraints do not become worse than one constraint',()=>{const a=assessment('A',[tag('MONTH_CONTROL','constraint'),tag('DAY_BREAK','trigger')]);const b=assessment('B',[tag('VOID','void')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.relation,'indistinguishable_on_dimension');});
+t('TCC7 season-state-only alternative blocks comparison as insufficient',()=>{const a=assessment('A',[tag('SEASON_STATE','support')]);const b=assessment('B',[tag('MONTH_CONTROL','constraint')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.comparisonStatus,'incomparable');assert.equal(r.relation,null);});
+t('TCC8 day-clash-only alternative blocks comparison as insufficient',()=>{const a=assessment('A',[tag('DAY_CLASH','trigger')]);const b=assessment('B',[tag('MONTH_COMMAND','support')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(r.comparisonStatus,'incomparable');});
+t('TCC9 canonical fact refs remain traceable through assessment',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support')]);assert(a.packet.evidence[0].sourceFactRefs[0].includes('LINE-STATUS:3:MONTH_COMMAND'));assert.deepEqual(a.assessment.evidenceRefs,[a.packet.evidence[0].id]);});
+t('TCC10 comparator does not expose raw evidence details',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support')]);const b=assessment('B',[tag('DAY_CONTROL','constraint')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);assert.equal(Object.prototype.hasOwnProperty.call(r,'evidenceRefs'),false);assert.equal(Object.prototype.hasOwnProperty.call(r,'calendarSupportCount'),false);});
+t('TCC11 all modules remain isolated',()=>{for(const api of [factApi,evidenceApi,assessApi,compareApi])assert.equal(api.currentRuntimeReachable,false);});
+t('TCC12 no overall winner recommendation or probability',()=>{const a=assessment('A',[tag('MONTH_COMMAND','support')]);const b=assessment('B',[tag('DAY_CONTROL','constraint')]);const r=compareApi.compareTravelExecution(a.assessment,b.assessment);for(const k of ['winner','overallRecommendation','probability','scalarScore'])assert.equal(Object.prototype.hasOwnProperty.call(r,k),false);});
+if(!process.exitCode)console.log(`Travel execution atomic calendar comparator E2E v02 regression: ${n} passed, 0 failed`);
