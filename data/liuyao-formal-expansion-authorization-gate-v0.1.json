@@ -1,0 +1,49 @@
+{
+  "version": "0.1",
+  "status": "formal_expansion_not_authorized",
+  "scope": "liuyao_next_topic_and_choice_assessment_expansion",
+  "userAuthorizationRequired": true,
+  "authorizationState": "not_granted",
+  "authorizationRule": "Formal Expansion may begin only after the user explicitly grants permission in a future conversation turn. Technical readiness alone is insufficient.",
+  "allowedBeforeAuthorization": [
+    "literature research",
+    "source provenance normalization",
+    "rule candidate review",
+    "rule review",
+    "intent schema design",
+    "collision review",
+    "resolver architecture design",
+    "isolated unreachable pretraining modules",
+    "isolated regression tests",
+    "design-only evidence binding",
+    "domain assessment contract research",
+    "isolated domain assessment candidates",
+    "domain comparator contract research",
+    "isolated domain comparator candidates",
+    "aggregation readiness research",
+    "handover and audit documentation"
+  ],
+  "forbiddenBeforeAuthorization": [
+    "adding next-topic routes to current route inventory",
+    "making next-topic routes current",
+    "formal integration into js/liuyao-intent.js",
+    "formal next-topic registration in js/liuyao-rule-registry.js",
+    "adding isolated assessment candidates to ACTIVE_EVALUATORS",
+    "adding isolated comparator candidates to ACTIVE_COMPARATORS",
+    "using next-topic material in current v0.13 semantic training",
+    "using next-topic material in current calibration",
+    "using next-topic material in current blind evaluation",
+    "replacing current-22 behavior",
+    "modifying sealed v0.11/v0.12 behavior",
+    "modifying Time Engine for next-topic convenience"
+  ],
+  "technicalGatesStillApply": [
+    "data/liuyao-semantic-v013-candidate-v03-design-v0.1.json",
+    "data/liuyao-next-topic-literature-research-policy-v0.1.json",
+    "domain-specific formal registration review",
+    "provenance-backed Evidence refs",
+    "required frozen regression / calibration policy"
+  ],
+  "currentIsolatedCandidatesDoNotConstituteAuthorization": true,
+  "formalExpansionAuthorized": false
+}
