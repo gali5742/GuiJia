@@ -1,0 +1,644 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-v0.1-calibration-report-v0.1",
+  "status": "calibration_passed",
+  "scope": "liuyao_semantic_act_eligibility_v0.1",
+  "immutableInputs": {
+    "trainingSha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+    "calibrationSha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+    "trainingContractSha256": "c0d5ba8fa86be6e4125c3f4ef0fbe7e14848fcb97f7feb5ef19cee2b85ec93fb",
+    "algorithmModuleGitBlobSha": "9df6601a8e00787e98c96917b29b2109aaf44e47",
+    "embeddingExecutionContractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "trainingEncoderInvocations": 132,
+    "calibrationEncoderInvocations": 66,
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "weightsFrozenBeforeCalibrationScoring": true,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "developmentRead": false,
+    "CandidateV03FailureRowsRead": false
+  },
+  "gates": {
+    "minimumEligibleRetention": 0.95,
+    "maximumIneligibleFalsePass": 0.05
+  },
+  "thresholdSelection": {
+    "regimesEvaluated": 67,
+    "feasibleRegimes": 3,
+    "selectedRepresentativeThreshold": 0.6045743659115665,
+    "stableInterval": {
+      "highestRejected": 0.4045608289286751,
+      "lowestAdmitted": 0.6045743659115665,
+      "midpoint": 0.5045675974201208
+    },
+    "selectedThreshold": 0.5045675974201208,
+    "selectionOrder": [
+      "discard threshold regimes with eligible retention < 0.95",
+      "discard threshold regimes with ineligible false-pass > 0.05",
+      "among feasible regimes minimize ineligible false-pass",
+      "then maximize eligible retention",
+      "if distinct feasible regimes remain tied on both metrics choose the regime represented by the higher threshold"
+    ]
+  },
+  "summary": {
+    "eligibleTotal": 33,
+    "eligiblePassed": 33,
+    "eligibleRetention": 1,
+    "ineligibleTotal": 33,
+    "ineligiblePassed": 0,
+    "ineligibleFalsePass": 0
+  },
+  "byDomain": {
+    "bonus": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "commerce_inventory": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "credit_debt": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "delivery": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "investment": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "marriage": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "partnership": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "purchase": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "relationship": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "salary": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    },
+    "wealth_general": {
+      "n": 6,
+      "eligibleRetention": 1,
+      "ineligibleFalsePass": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "V013-V04-SA-C-001",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "wealth_general",
+      "probability": 0.6875458972101658,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-002",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "wealth_general",
+      "probability": 0.27617960882407694,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-003",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "wealth_general",
+      "probability": 0.747255449103732,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-004",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "wealth_general",
+      "probability": 0.34350170335766833,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-005",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "wealth_general",
+      "probability": 0.7010176504818598,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-006",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "wealth_general",
+      "probability": 0.1709571057737762,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-007",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.6045743659115665,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-008",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.2530051815464812,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-009",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.7009435543570398,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-010",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.4045608289286751,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-011",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.710185678947726,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-012",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "commerce_inventory",
+      "probability": 0.2115827371602213,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-013",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "credit_debt",
+      "probability": 0.6517567444273838,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-014",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "credit_debt",
+      "probability": 0.3507112823025012,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-015",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "credit_debt",
+      "probability": 0.6591888264863168,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-016",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "credit_debt",
+      "probability": 0.23419384182091113,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-017",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "credit_debt",
+      "probability": 0.7749456035436948,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-018",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "credit_debt",
+      "probability": 0.2941852940983202,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-019",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "partnership",
+      "probability": 0.6549187771535147,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-020",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "partnership",
+      "probability": 0.1867869419979447,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-021",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "partnership",
+      "probability": 0.755319465076898,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-022",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "partnership",
+      "probability": 0.24261250424069114,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-023",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "partnership",
+      "probability": 0.7467333470981062,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-024",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "partnership",
+      "probability": 0.20108975805490817,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-025",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "investment",
+      "probability": 0.6905243313345735,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-026",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "investment",
+      "probability": 0.3477629177643676,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-027",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "investment",
+      "probability": 0.7096410295288089,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-028",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "investment",
+      "probability": 0.27007328379671425,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-029",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "investment",
+      "probability": 0.8241061712314938,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-030",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "investment",
+      "probability": 0.17930406551877875,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-031",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "salary",
+      "probability": 0.6797299601294604,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-032",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "salary",
+      "probability": 0.36019625671040567,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-033",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "salary",
+      "probability": 0.6281575820972377,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-034",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "salary",
+      "probability": 0.25109909322644824,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-035",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "salary",
+      "probability": 0.7119853151503396,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-036",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "salary",
+      "probability": 0.1928030397417025,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-037",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "bonus",
+      "probability": 0.6046855457888842,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-038",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "bonus",
+      "probability": 0.2678920865074723,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-039",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "bonus",
+      "probability": 0.7465131516675165,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-040",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "bonus",
+      "probability": 0.22403490964180364,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-041",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "bonus",
+      "probability": 0.7202731412010724,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-042",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "bonus",
+      "probability": 0.22536184980930513,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-043",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "delivery",
+      "probability": 0.7191835365640932,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-044",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "delivery",
+      "probability": 0.31156673185517497,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-045",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "delivery",
+      "probability": 0.6499605242904585,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-046",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "delivery",
+      "probability": 0.3232297210620447,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-047",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "delivery",
+      "probability": 0.7670755834758323,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-048",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "delivery",
+      "probability": 0.23818795148586744,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-049",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "purchase",
+      "probability": 0.7319317774676185,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-050",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "purchase",
+      "probability": 0.23342757511140963,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-051",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "purchase",
+      "probability": 0.7022606486829275,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-052",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "purchase",
+      "probability": 0.23156895235590297,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-053",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "purchase",
+      "probability": 0.7659181720291643,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-054",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "purchase",
+      "probability": 0.21512092969406374,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-055",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "relationship",
+      "probability": 0.7032498902364489,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-056",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "relationship",
+      "probability": 0.2718457335860986,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-057",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "relationship",
+      "probability": 0.8118480708135766,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-058",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "relationship",
+      "probability": 0.2005806288117938,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-059",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "relationship",
+      "probability": 0.7368798212930449,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-060",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "relationship",
+      "probability": 0.23306817821397577,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-061",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_timing_or_arrival_outcome",
+      "domainFamily": "marriage",
+      "probability": 0.7667320605198867,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-062",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "factual_fee_tax_rate_or_amount",
+      "domainFamily": "marriage",
+      "probability": 0.2662111213504723,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-063",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "supported_outcome_with_fee_tax_rule_vocabulary_in_background",
+      "domainFamily": "marriage",
+      "probability": 0.7035891600762977,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-064",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "procedure_steps_or_deadlines",
+      "domainFamily": "marriage",
+      "probability": 0.2860543418263799,
+      "passesSelectedThreshold": false
+    },
+    {
+      "id": "V013-V04-SA-C-065",
+      "label": "eligible_divination_outcome_or_decision",
+      "actFamily": "personal_future_outcome",
+      "domainFamily": "marriage",
+      "probability": 0.7975286072363355,
+      "passesSelectedThreshold": true
+    },
+    {
+      "id": "V013-V04-SA-C-066",
+      "label": "ineligible_information_or_procedure",
+      "actFamily": "requirements_documents_or_materials",
+      "domainFamily": "marriage",
+      "probability": 0.1860941354873679,
+      "passesSelectedThreshold": false
+    }
+  ]
+}

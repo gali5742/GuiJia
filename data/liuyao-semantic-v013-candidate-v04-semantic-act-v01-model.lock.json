@@ -1,0 +1,16 @@
+{
+  "version": "0.13-candidate-v0.4-semantic-act-eligibility-v0.1-model-lock-v0.1",
+  "status": "locked",
+  "scope": "liuyao_semantic_act_eligibility_v0.1",
+  "modelPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+  "modelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+  "calibrationReportPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-calibration-report.json",
+  "calibrationReportSha256": "58c2435c454fb77e9649dcfb2ca944f94ec9c73614124c3d3d93041d591aff57",
+  "trainingContractPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-training-contract.json",
+  "trainingContractSha256": "c0d5ba8fa86be6e4125c3f4ef0fbe7e14848fcb97f7feb5ef19cee2b85ec93fb",
+  "threshold": 0.5045675974201208,
+  "canonicalTextsPerEncoderCall": 1,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "developmentRead": false
+}
