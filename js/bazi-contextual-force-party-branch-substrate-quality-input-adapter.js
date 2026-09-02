@@ -10,15 +10,106 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile) {
         document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziBranchElementRelationInventory) {
+        document.write('<script src="./js/bazi-branch-element-relation-inventory.js?v=13.44.0"><\/script>');
+    }
 
     const contractApi = GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterContract || null;
-    const profileApi = GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile || null;
+    const baseProfileApi = GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile || null;
+    const branchElementRelationApi = GuiJia.baziBranchElementRelationInventory || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
-    if (!contractApi || !profileApi || !priorSynthesisApi) return;
+    if (!contractApi || !baseProfileApi || !priorSynthesisApi) return;
 
     const { VERSION, RULE_ID, FAMILY_KEYS, COVERAGE_STATES, FAMILY_ADAPTERS, CONTRACT } = contractApi;
     const freezeArray = (items = []) => Object.freeze([...items]);
     const unique = (items = []) => [...new Set(items.filter(Boolean))];
+
+    const buildBranchElementRelationInventory = (synthesis = {}) => {
+        if (!branchElementRelationApi?.buildInventory) return null;
+        const branches = synthesis.qianliQuantitySemanticBridgeInventory?.sourceSurfaceInventory?.branches || [];
+        return branchElementRelationApi.buildInventory(branches);
+    };
+
+    const augmentBranchInteractionFamily = (family = {}, candidate = {}, inventory = null) => {
+        if (!inventory || !branchElementRelationApi?.recordsForActor) return family;
+        const actorPresent = (inventory.branches || []).some((item) => item.actorKey === candidate.actorKey);
+        const relationRecords = actorPresent ? branchElementRelationApi.recordsForActor(inventory, candidate.actorKey) : freezeArray([]);
+        const expectedRelationCount = actorPresent ? Math.max((inventory.branches || []).length - 1, 0) : 0;
+        const structureComplete = String(family.structureCatalogStatus || '').startsWith('rebuilt-from-four-pillar-machine-inventory');
+        const relationComplete = inventory.complete === true && actorPresent && relationRecords.length === expectedRelationCount;
+        const complete = structureComplete && relationComplete;
+        const blockers = [];
+        if (!structureComplete) blockers.push(Object.freeze({
+            id:`BSQIA-BRANCH-STRUCTURE-${candidate.actorKey || 'UNKNOWN'}`,
+            blockerType:'branch-structure-provenance-unavailable',
+            statement:'当前 branch candidate 的特殊 Structure participant provenance 尚不可稳定恢复。'
+        }));
+        if (!relationComplete) blockers.push(Object.freeze({
+            id:`BSQIA-BRANCH-ELEMENT-${candidate.actorKey || 'UNKNOWN'}`,
+            blockerType:'neutral-branch-element-relation-inventory-incomplete',
+            statement:'当前 branch candidate 的普通五行生克比和 pairwise relation inventory 尚不完整。'
+        }));
+        return Object.freeze({
+            ...family,
+            status:complete ? COVERAGE_STATES.RESOLVED : COVERAGE_STATES.PARTIAL,
+            ordinaryElementRelationInventory:Object.freeze({
+                inventoryId:inventory.id || null,
+                status:relationComplete ? 'resolved-neutral-relation-identity' : 'unresolved-neutral-relation-identity',
+                actorKey:candidate.actorKey || null,
+                expectedRelationCount,
+                actualRelationCount:relationRecords.length,
+                relationRecords,
+                specialStructureIndependent:true,
+                realizedEffect:null,
+                directedCapacity:null,
+                qualityMapping:null
+            }),
+            blockerRecords:freezeArray(blockers),
+            qualityMapping:null,
+            relationCountAsQuality:false,
+            boundary:'特殊 Structure 与普通五行 relation identity 并行保存；普通生克比和只确认潜在五行关系，不表示已兑现为 effect、capacity、party force 或 substrate quality。'
+        });
+    };
+
+    const buildAdapterView = (semanticModel = {}, synthesis = {}) => {
+        const baseView = baseProfileApi.buildAdapterView(semanticModel, synthesis);
+        const relationInventory = buildBranchElementRelationInventory(synthesis);
+        if (!relationInventory) return baseView;
+        const records = freezeArray((baseView.candidateRecords || []).map((record) => {
+            const familyRecords = freezeArray((record.familyRecords || []).map((family) =>
+                family.familyKey === FAMILY_ADAPTERS.branchInteraction.key
+                    ? augmentBranchInteractionFamily(family, record, relationInventory)
+                    : family
+            ));
+            const blockerRecords = freezeArray(familyRecords.flatMap((item) => item.blockerRecords || []));
+            return Object.freeze({
+                ...record,
+                familyRecords,
+                upstreamSemanticCoverageComplete:blockerRecords.length === 0,
+                blockerRecords
+            });
+        }));
+        const blockerRecords = freezeArray(records.flatMap((record) => record.blockerRecords || []));
+        const upstreamSemanticCoverageComplete = records.every((record) => record.upstreamSemanticCoverageComplete === true);
+        return Object.freeze({
+            ...baseView,
+            status:baseView.structuralInventoryCoverageComplete
+                ? upstreamSemanticCoverageComplete
+                    ? 'mapped-complete-input-and-upstream-coverage'
+                    : 'mapped-complete-family-inventory-upstream-partial'
+                : 'mapped-partial-family-inventory',
+            candidateRecords:records,
+            upstreamSemanticCoverageComplete,
+            blockerRecords,
+            blockerIds:freezeArray(unique(blockerRecords.map((item) => item.id))),
+            branchElementRelationInventoryDefined:true,
+            branchElementRelationInventoryComplete:relationInventory.complete === true,
+            branchElementRelationInventory:relationInventory,
+            boundary:'Adapter coverage 已包含普通支间五行 neutral relation inventory；这只补齐 branch-interaction 输入事实，不把潜在关系升级为实际作用，也不授权 substrate quality。'
+        });
+    };
+
+    const profileApi = Object.freeze({ ...baseProfileApi, buildAdapterView });
 
     const familyRecords = (view = {}, familyKey = '') => freezeArray(
         (view.candidateRecords || []).map((record) =>
@@ -37,52 +128,58 @@
         claimKey,
         status,
         ruleId:RULE_ID,
-        value:Object.freeze(value),
         sourceEffectIds:Object.freeze([]),
         sourceRefs:Object.freeze([]),
+        value:Object.freeze(value),
         rationale,
         boundary
     });
 
     const buildClaims = (view = {}) => {
         const upstreamResolved = view.upstreamSemanticCoverageComplete === true;
+        const branchElementResolved = view.branchElementRelationInventoryComplete === true;
         return Object.freeze([
             makeClaim({
                 id:'SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-ADAPTER-MODEL',
                 claimKey:'strength.contextual-force.party.branch-substrate-quality.input-adapter.model',
-                value:{
-                    familyKeys:FAMILY_KEYS,
-                    structuralInventoryCoverageDistinctFromUpstreamSemanticCoverage:true,
-                    automaticQualityResolverDefined:false
-                },
-                rationale:'上一阶段已经冻结六类来源输入。本层只把这些 family 映射到现有项目语义层，并明确区分“有稳定记录”与“上游语义已经解析”。',
+                value:{ familyKeys:FAMILY_KEYS, structuralInventoryCoverageDistinctFromUpstreamSemanticCoverage:true, automaticQualityResolverDefined:false },
+                rationale:'六类来源输入已经映射到现有项目语义层，并继续区分“有稳定 family record”与“上游语义已经解析”。',
                 boundary:'Adapter model resolved 不表示任一 family 的 concrete semantic coverage resolved。'
             }),
             makeClaim({
                 id:'SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-INVENTORY-COVERAGE',
                 claimKey:'strength.contextual-force.party.branch-substrate-quality.input-adapter.inventory-coverage',
                 status:view.structuralInventoryCoverageComplete ? 'resolved' : 'unresolved',
-                value:{
-                    candidateCount:(view.candidateRecords || []).length,
-                    structuralInventoryCoverageComplete:view.structuralInventoryCoverageComplete === true,
-                    requiredFamilyKeys:FAMILY_KEYS
-                },
+                value:{ candidateCount:(view.candidateRecords || []).length, structuralInventoryCoverageComplete:view.structuralInventoryCoverageComplete === true, requiredFamilyKeys:FAMILY_KEYS },
                 rationale:view.structuralInventoryCoverageComplete
-                    ? '每个 surface-branch substrate candidate 都已得到六类 family record；缺失语义以 blocker 显式保留。'
+                    ? '每个 surface-branch substrate candidate 都具有六类 family record；未解析语义继续以 blocker 保存。'
                     : '仍有 substrate candidate 缺少 required family record。',
-                boundary:'Inventory coverage 只检查映射记录完整，不把 partial family 当 resolved semantic input。'
+                boundary:'Inventory coverage 只检查 family 映射记录完整，不把 partial family 当 resolved semantic input。'
+            }),
+            makeClaim({
+                id:'SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-ELEMENT-RELATION-INVENTORY',
+                claimKey:'strength.contextual-force.party.branch-substrate-quality.branch-element-relation-inventory',
+                status:branchElementResolved ? 'resolved' : 'unresolved',
+                value:{
+                    defined:view.branchElementRelationInventoryDefined === true,
+                    complete:branchElementResolved,
+                    pairCount:view.branchElementRelationInventory?.actualPairCount || 0,
+                    relationKinds:freezeArray(['generation','restraint','peer']),
+                    specialStructureIndependent:true
+                },
+                rationale:branchElementResolved
+                    ? '表层地支两两之间的普通五行生、克、同类 relation identity 已由地支五行派生，并与特殊 Structure 分层保存。'
+                    : '普通支间五行 relation inventory 仍不完整。',
+                boundary:'普通 relation identity 不表示 realized effect、effectiveness、directed capacity、quality 或 force score。'
             }),
             makeClaim({
                 id:'SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-UPSTREAM-SEMANTIC-COVERAGE',
                 claimKey:'strength.contextual-force.party.branch-substrate-quality.input-adapter.upstream-semantic-coverage',
                 status:upstreamResolved ? 'resolved' : 'unresolved',
-                value:{
-                    coverageComplete:upstreamResolved,
-                    blockerIds:freezeArray(view.blockerIds || [])
-                },
+                value:{ coverageComplete:upstreamResolved, blockerIds:freezeArray(view.blockerIds || []) },
                 rationale:upstreamResolved
                     ? '当前所有 branch substrate candidates 的六类 input family 上游语义均已解析。'
-                    : 'Family inventory 已可追溯，但仍有覆干 reception、普通支间五行关系、党势/relative dominance 或 directed relation-effect 等 blocker。',
+                    : '普通支间五行 relation identity 已补齐，但仍可能存在覆干 reception、党势/relative dominance 或 directed relation-effect 等 blocker。',
                 boundary:'Upstream semantic coverage resolved 仍只意味着 comparator 的输入可用；不授权 cross-axis comparison 或 substrate quality。'
             })
         ]);
@@ -110,10 +207,7 @@
             status:complete ? 'resolved' : 'unresolved',
             statement:complete ? statementResolved : statementUnresolved,
             boundary:'Family coverage 只表示该输入的上游语义可追溯，不生成 substrate quality，也不参与计数表决。',
-            dependsOnDependencyIds:unique([
-                'SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-INVENTORY-COVERAGE',
-                ...extraDepends
-            ]),
+            dependsOnDependencyIds:unique(['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-INVENTORY-COVERAGE', ...extraDepends]),
             resolvedByClaimIds:[]
         });
     };
@@ -122,15 +216,19 @@
         const hasBranch = (view.candidateRecords || []).length > 0;
         const inventoryResolved = view.structuralInventoryCoverageComplete === true;
         const upstreamResolved = view.upstreamSemanticCoverageComplete === true;
+        const branchElementResolved = !hasBranch || view.branchElementRelationInventoryComplete === true;
         const branchElementInventory = makeDependency({
             id:'SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-ELEMENT-RELATION-INVENTORY',
             scope:'surface-branch-ordinary-element-relation-inventory',
-            status:hasBranch ? 'unresolved' : 'resolved',
-            statement:hasBranch
-                ? '现有 Structure 已覆盖刑冲合害破及组合结构，但尚无逐支普通五行生克比和 relation inventory。'
-                : '当前无 surface-branch substrate candidate，普通支间五行 relation inventory 对本盘 not-applicable。',
-            boundary:'该缺口只能补 neutral relation identity；未来即使建立，也不得直接映射吉凶、quality 或 force score。',
-            dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-ADAPTER-MODEL']
+            status:branchElementResolved ? 'resolved' : 'unresolved',
+            statement:branchElementResolved
+                ? hasBranch
+                    ? `表层地支 ordinary five-element relation inventory 已解析，共 ${view.branchElementRelationInventory?.actualPairCount || 0} 组 pairwise relation。`
+                    : '当前无 surface-branch substrate candidate，普通支间五行 relation inventory 对本盘 not-applicable。'
+                : '普通支间五行生克比和 pairwise relation inventory 尚未完整建立。',
+            boundary:'该层只维护 neutral relation identity；不得直接映射吉凶、effectiveness、capacity、quality 或 force score。',
+            dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-INPUT-ADAPTER-MODEL'],
+            resolvedByClaimIds:branchElementResolved ? ['SC-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-ELEMENT-RELATION-INVENTORY'] : []
         });
 
         const familyDeps = [
@@ -147,8 +245,8 @@
                 FAMILY_ADAPTERS.branchInteraction.key,
                 'SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-INTERACTION-INPUT-COVERAGE',
                 'surface-branch-interaction-input-coverage',
-                '当前 branch candidates 的结构关系与普通支间五行 relation input 均可追溯。',
-                'Branch Structure 可追溯，但普通支间五行生克比和 inventory 仍缺，因此 branch-interaction input coverage 未完成。',
+                '当前 branch candidates 的特殊 Structure 与普通支间五行 relation identity 均可追溯。',
+                '至少一个 branch candidate 的 Structure provenance 或普通五行 relation inventory 尚未完整。',
                 ['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-ELEMENT-RELATION-INVENTORY']
             ),
             buildFamilyDependency(
@@ -217,7 +315,7 @@
                 status:upstreamResolved ? 'resolved' : 'unresolved',
                 statement:upstreamResolved
                     ? '六类 branch substrate quality input family 的 concrete upstream semantics 已完整可追溯。'
-                    : `Input inventory 已建立，但仍有 ${(view.blockerRecords || []).length} 项 upstream semantic blocker。`,
+                    : `Input inventory 已建立，但仍有 ${(view.blockerRecords || []).length} 项其他 upstream semantic blocker。`,
                 boundary:'Upstream semantic coverage complete 也不授权跨轴比较或 substrate quality 结论。',
                 dependsOnDependencyIds:[
                     'SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-COVERING-STEM-INPUT-COVERAGE',
@@ -248,7 +346,9 @@
             ])),
             resolvedByClaimIds:hasBranch ? Object.freeze([]) : freezeArray(current.resolvedByClaimIds || []),
             statement:hasBranch
-                ? '六类 input family 已映射，但 upstream semantic coverage 尚不完整，且来源仍无跨轴优先级/补偿规则；comparison 继续 unresolved。'
+                ? view.upstreamSemanticCoverageComplete
+                    ? '六类上游输入已可追溯，但来源仍无跨轴优先级/补偿规则；comparison 继续 unresolved。'
+                    : 'Branch element relation inventory 已补齐，但仍有其他 upstream semantic blocker，且来源无跨轴优先级/补偿规则；comparison 继续 unresolved。'
                 : '当前无 branch substrate candidate，cross-axis comparison not-applicable。',
             boundary:'不得把 family coverage 状态、blocker 数量或记录数量当作比较器。'
         });
@@ -272,13 +372,13 @@
             ])),
             resolvedByClaimIds:hasBranch ? Object.freeze([]) : freezeArray(current.resolvedByClaimIds || []),
             statement:hasBranch
-                ? 'Branch substrate input inventory 已结构化，但 upstream semantic coverage 与 cross-axis comparison 均未完成，因此 substrate quality 继续 unresolved。'
+                ? 'Branch substrate input inventory 已结构化，但 upstream semantic coverage 与 cross-axis comparison 仍未全部完成，因此 substrate quality 继续 unresolved。'
                 : '当前无 surface-branch substrate candidate，quality resolver not-applicable。',
             boundary:'不得从 adapter status、family completeness 或任一单项 context 直接生成 quality。'
         });
     };
 
-    const rebuildDownstreamCoverage = (base = {}, view = {}) => ['SD-CONTEXTUAL-FORCE-PARTY-COUNTER-FOUNDATION-CONTEXT-COVERAGE','SD-CONTEXTUAL-FORCE-PARTY-SIDE-FORCE-PROFILE'].map((id) => {
+    const rebuildDownstreamCoverage = (base = {}) => ['SD-CONTEXTUAL-FORCE-PARTY-COUNTER-FOUNDATION-CONTEXT-COVERAGE','SD-CONTEXTUAL-FORCE-PARTY-SIDE-FORCE-PROFILE'].map((id) => {
         const current = (base.dependencies || []).find((item) => item.id === id);
         if (!current) return null;
         return Object.freeze({
@@ -293,8 +393,8 @@
             ])),
             resolvedByClaimIds:Object.freeze([]),
             statement:id.endsWith('FOUNDATION-CONTEXT-COVERAGE')
-                ? 'Branch substrate input mapping 已建立，但 upstream semantics、quality resolver 与 hidden manifestation 仍未齐全，因此 foundation coverage 保持 unresolved。'
-                : 'Side Force Profile 已能追溯 branch substrate 的六类输入记录，但 concrete substrate quality、hidden manifestation 与 relation-effect generalization 仍未齐全。',
+                ? 'Branch substrate 普通关系输入已补齐，但 upstream semantics、quality resolver 与 hidden manifestation 仍未齐全，因此 foundation coverage 保持 unresolved。'
+                : 'Side Force Profile 已能追溯 branch substrate 的普通关系与六类输入记录，但 concrete substrate quality、hidden manifestation 与 relation-effect generalization 仍未齐全。',
             boundary:'Input adapter 不得被当作 concrete foundation quality 或 side-force comparison。'
         });
     }).filter(Boolean);
@@ -308,20 +408,9 @@
         const substrateResolver = rebuildSubstrateQualityResolver(base, view);
         const downstream = rebuildDownstreamCoverage(base, view);
         const replacedClaimIds = new Set(claims.map((item) => item.id));
-        const replacedDependencyIds = new Set([
-            ...dependencies.map((item) => item.id),
-            crossAxis.id,
-            substrateResolver.id,
-            ...downstream.map((item) => item.id)
-        ]);
+        const replacedDependencyIds = new Set([...dependencies.map((item) => item.id), crossAxis.id, substrateResolver.id, ...downstream.map((item) => item.id)]);
         const nextClaims = Object.freeze([...(base.claims || []).filter((item) => !replacedClaimIds.has(item.id)), ...claims]);
-        const nextDependencies = Object.freeze([
-            ...(base.dependencies || []).filter((item) => !replacedDependencyIds.has(item.id)),
-            ...dependencies,
-            crossAxis,
-            substrateResolver,
-            ...downstream
-        ]);
+        const nextDependencies = Object.freeze([...(base.dependencies || []).filter((item) => !replacedDependencyIds.has(item.id)), ...dependencies, crossAxis, substrateResolver, ...downstream]);
         const conflicts = typeof priorSynthesisApi.detectConflicts === 'function'
             ? priorSynthesisApi.detectConflicts(nextClaims)
             : base.conflicts || Object.freeze([]);
@@ -339,10 +428,11 @@
             boundaries:Object.freeze([
                 ...(base.boundaries || []),
                 'Branch Substrate Quality Input Adapter v0.1 将六类 source-audited family 映射到现有项目语义层，并把 structural inventory coverage 与 upstream semantic coverage 分开。',
-                '现有 Structure 只覆盖刑冲合害破与组合关系，不等于普通支间五行生克比和 inventory；该缺口作为独立 blocker 保留。',
+                'Branch Element Relation Inventory v0.1 已补齐表层地支两两之间的普通五行生、克、同类 relation identity，并与刑冲合害破、三合三会等 Structure 分层。',
+                '普通五行 relation identity 只表示潜在关系；不得据此生成 realized effect、effectiveness、directed capacity、party force、substrate quality 或 score。',
                 'actor-specific seasonal context 与 pillar/position provenance 可以单独 resolved，但不得因此生成 substrate quality。',
                 'branch network/party 与 directed capacity 继续受 Relation Effect Generalization / Relative Dominance 等既有 blocker 约束。',
-                'Input inventory complete 不等于 cross-axis comparison-ready；Substrate Quality Resolver、Relative Dominance、Party Configuration、Qianli many/few、Strength Synthesis 与 Assessment 继续关闭。'
+                'Branch element inventory resolved 不等于 cross-axis comparison-ready；Substrate Quality Resolver、Relative Dominance、Party Configuration、Qianli many/few、Strength Synthesis 与 Assessment 继续关闭。'
             ])
         });
     };
@@ -363,6 +453,9 @@
         FAMILY_ADAPTERS,
         CONTRACT,
         profileApi,
+        branchElementRelationApi,
+        buildBranchElementRelationInventory,
+        augmentBranchInteractionFamily,
         familyRecords,
         familyCoverageComplete,
         buildClaims,

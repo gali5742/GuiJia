@@ -44,6 +44,7 @@ const GuiJia = loadScripts([
     'js/bazi-contextual-force-party-counter-context-contract.js','js/bazi-contextual-force-party-counter-context-profile.js','js/bazi-contextual-force-party-counter-context.js',
     'js/bazi-contextual-force-party-nonstem-foundation-source.js','js/bazi-contextual-force-party-nonstem-foundation-audit.js',
     'js/bazi-contextual-force-party-branch-substrate-quality-source.js','js/bazi-contextual-force-party-branch-substrate-quality-audit.js',
+    'js/bazi-branch-element-relation-inventory.js',
     'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js','js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js','js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js',
     'js/bazi-assessment.js','js/bazi-interpretation.js'
 ]);
@@ -82,6 +83,7 @@ test('Input Adapter v0.1 独立拆分 contract、profile mapper 与 execution', 
     assert(contractApi?.installed && profileApi?.installed && adapterApi?.installed, '三层必须安装');
     assert(contractApi.VERSION === '0.1' && profileApi.VERSION === '0.1' && adapterApi.VERSION === '0.1', '版本异常');
     assert(contractApi.FAMILY_KEYS.length === 6, '必须固定六类 source-audited family');
+    assert(GuiJia.baziBranchElementRelationInventory?.installed === true, 'Branch Element Relation Inventory 必须安装');
 });
 
 test('合同严格区分 family inventory coverage 与 upstream semantic coverage', () => {
@@ -128,21 +130,28 @@ test('固定盘日支亥 substrate 的覆干 identity 精确落到日主丁', ()
     assert(cover.qualityMapping === null, '覆干 identity 不得直接生成 quality');
 });
 
-test('支间 Structure 可按 candidate 柱位挂接，但普通五行生克比和 inventory 明确保留缺口', () => {
+test('支间特殊 Structure 与普通五行 relation inventory 并行挂接', () => {
     const view = synthesisFor().contextualForcePartyBranchSubstrateQualityInputAdapterView;
     const zi = view.candidateRecords.find((item) => item.zhi === '子');
     const branch = family(zi, 'branch-interaction-context');
     assert(branch.structureRecords.length > 0, '子支应有结构关系 provenance');
     assert(branch.structureRecords.some((item) => (item.branches || []).includes('亥') && (item.branches || []).includes('子') && (item.branches || []).includes('丑')), '应保留亥子丑三会结构');
-    assert(branch.ordinaryElementRelationInventory === null, '不得伪造普通五行关系 inventory');
-    assert(branch.status === contractApi.COVERAGE_STATES.PARTIAL, 'branch interaction 应因普通五行关系缺口保持 partial');
+    assert(branch.ordinaryElementRelationInventory?.status === 'resolved-neutral-relation-identity', '普通五行 relation inventory 应 resolved');
+    assert(branch.ordinaryElementRelationInventory.actualRelationCount === 3, '四支盘中子支应有 3 组 ordinary relation');
+    assert(branch.ordinaryElementRelationInventory.relationRecords.some((item) => item.relationKind === 'peer' && (item.participantZhis || []).includes('亥')), '子亥同类 relation 缺失');
+    assert(branch.status === contractApi.COVERAGE_STATES.RESOLVED, 'branch interaction 在普通 relation 补齐后应 resolved');
 });
 
-test('普通支间五行 relation inventory 是独立 blocker，不用 Structure presence 冒充', () => {
-    const deps = depMap(synthesisFor());
+test('普通支间五行 relation inventory 独立 resolved，不用 Structure presence 冒充', () => {
+    const synthesis = synthesisFor();
+    const view = synthesis.contextualForcePartyBranchSubstrateQualityInputAdapterView;
+    const deps = depMap(synthesis);
     const dep = deps['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-ELEMENT-RELATION-INVENTORY'];
-    assert(dep?.status === 'unresolved', 'branch element relation inventory 应 unresolved');
-    assert(deps['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-INTERACTION-INPUT-COVERAGE']?.status === 'unresolved', 'branch interaction coverage 应被该缺口阻断');
+    assert(view.branchElementRelationInventoryDefined === true && view.branchElementRelationInventoryComplete === true, 'branch element relation inventory 应完整');
+    assert(view.branchElementRelationInventory.actualPairCount === 6, '四支应形成 6 组普通 pair relation');
+    assert(dep?.status === 'resolved', 'branch element relation inventory dependency 应 resolved');
+    assert(deps['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-BRANCH-INTERACTION-INPUT-COVERAGE']?.status === 'resolved', 'branch interaction coverage 应 resolved');
+    assert(!view.blockerRecords.some((item) => String(item.blockerType || '').includes('branch-element-relation-inventory')), '旧 relation inventory blocker 不得残留');
 });
 
 test('固定盘水 branch anchors 的 seasonal input 可解析为子月旺，但不映射 quality', () => {
@@ -203,7 +212,7 @@ test('covering-stem identity 可解析但 reception 仍保留具体上游 blocke
     if (cover.status === contractApi.COVERAGE_STATES.PARTIAL) assert(cover.blockerRecords.length > 0, 'partial cover 必须有 blocker');
 });
 
-test('Cross-Axis Comparison 与 Substrate Quality Resolver 接入 adapter 依赖后继续 unresolved', () => {
+test('Cross-Axis Comparison 与 Substrate Quality Resolver 在 branch relation 补齐后仍继续 unresolved', () => {
     const deps = depMap(synthesisFor());
     const cross = deps['SD-CONTEXTUAL-FORCE-PARTY-BRANCH-SUBSTRATE-QUALITY-CROSS-AXIS-COMPARISON-RULE'];
     const quality = deps['SD-CONTEXTUAL-FORCE-PARTY-SURFACE-BRANCH-SUBSTRATE-QUALITY-RESOLVER'];
@@ -252,15 +261,18 @@ test('Adapter contract/runtime 不引入 score/weight/threshold/majority/ranking
     assert(contractApi.CONTRACT.scalarCollapse === false, 'scalarCollapse 必须 false');
     view.candidateRecords.forEach((record) => {
         assert(record.substrateQuality === null && record.crossAxisComparison === null && record.numericScore === null && record.scalarQuality === null, 'candidate 不得产生 quality/scalar');
+        const branch = family(record, 'branch-interaction-context');
+        assert(branch.ordinaryElementRelationInventory?.qualityMapping === null && branch.ordinaryElementRelationInventory?.directedCapacity === null, 'ordinary relation 不得升级为 quality/capacity');
     });
 });
 
-test('生产 loader 顺序为 Branch Substrate Quality Audit → Input Adapter，Adapter 再独立加载 contract/profile', () => {
+test('生产 loader 顺序为 Branch Substrate Quality Audit → Input Adapter，Adapter 加载 contract/profile 与 Branch Element Relation Inventory', () => {
     const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-branch-substrate-quality-audit.js'), 'utf8');
     const adapterSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js'), 'utf8');
     assert(auditSource.includes('./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0'), 'Branch Quality Audit 尾部缺 adapter loader');
     assert(adapterSource.includes('./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0'), 'Adapter 缺 contract loader');
     assert(adapterSource.includes('./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0'), 'Adapter 缺 profile loader');
+    assert(adapterSource.includes('./js/bazi-branch-element-relation-inventory.js?v=13.44.0'), 'Adapter 缺 Branch Element Relation Inventory loader');
 });
 
 console.log(`\nBranch Substrate Quality Input Adapter v0.1: ${passed} passed, ${failed} failed`);
