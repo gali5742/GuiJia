@@ -1,0 +1,261 @@
+{
+  "version": "0.13-candidate-v0.4-design-v0.1",
+  "status": "design_frozen_before_v04_training_or_calibration",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "sourceFailureEvidence": {
+    "path": "data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json",
+    "commit": "148d7c077c554e292f74e78edf7253a39206c305",
+    "gitBlobSha": "f8a2b570d086e8a1f99d4c0ad333cefb57aae55d",
+    "sha256": "772d9ff9fde9646d54641aff4a6d2bd23b887349a01391b0760f53eece7dbe31",
+    "allowedUse": "architecture_diagnosis_only",
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "thresholdSelectionEligible": false
+  },
+  "candidateV03": {
+    "mutationAllowed": false,
+    "lockAllowed": false,
+    "promotionStatus": "failed_fresh_development",
+    "developmentRowsMayEnterV04Training": false,
+    "developmentRowsMayEnterV04Calibration": false,
+    "developmentRowsMayDetermineV04Thresholds": false
+  },
+  "correctedExecutionBaseline": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoder": {
+      "modelId": "Xenova/bge-small-zh-v1.5",
+      "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+      "runtime": "Transformers.js 4.2.0",
+      "dtype": "q8",
+      "dimensions": 512,
+      "pooling": "mean",
+      "normalized": true
+    },
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "routeabilityThreshold": 0.7678148573595883,
+    "candidateV03FallbackGlobalThresholdHistoricalOnly": 0.5571407097788003,
+    "frozenDependenciesSha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+  },
+  "diagnosisSignals": {
+    "knownMisses": 28,
+    "allKnownMissesOnFallbackHead": true,
+    "routeabilityRejects": 9,
+    "fallbackRejectAll": 14,
+    "fallbackMultipleAdmissions": 5,
+    "fallbackExpectedRouteAbsentFromRouterTop2": 8,
+    "wrongAcceptedKnownRoute": 0,
+    "nearDomainFalseActivations": 9,
+    "nearDomainDirectArbitrationLeaks": 7,
+    "nearDomainFallbackLeaks": 2,
+    "strongPathPositiveRegression": "44/44",
+    "supportPathPositiveRegression": "44/44",
+    "acceptedKnownPrecision": 1
+  },
+  "designDecision": {
+    "strategy": "minimal_attributable_revision",
+    "changeNow": [
+      "add an independent modern-language semantic-act eligibility gate before Arbitration rescue and any Fallback admission",
+      "remove Router Top1/Top2 as the eligibility universe for Fallback Identity by allowing all current 22 identity heads to be scored",
+      "retrain and recalibrate a new Fallback Identity version on fresh eligible corpora with exactly one global admission threshold",
+      "allow Selection to consume a uniquely admitted Fallback route even when that route was outside Router Top2"
+    ],
+    "explicitlyDeferred": [
+      "Routeability model retraining",
+      "Routeability threshold retuning",
+      "below-threshold Fallback Identity rescue",
+      "Router model retraining",
+      "Router TopK tuning",
+      "Scope hard-veto retuning"
+    ],
+    "reason": "Candidate v0.3 exposes separable safety, candidate-recall and Routeability-recall failures. Candidate v0.4 changes only the first two so fresh development can attribute gains or regressions. The nine Routeability rejects remain an explicit residual risk rather than being mixed into the same revision."
+  },
+  "plannedRuntime": {
+    "semanticActEligibility": {
+      "version": "v0.1",
+      "position": "after_normalization_and_embedding_before_route_arbitration_rescue_and_fallback",
+      "responsibility": "classify whether the current modern-language request is a divination outcome/decision act rather than a factual, explanatory, procedural, administrative or accounting information request",
+      "model": {
+        "type": "single binary logistic head over the frozen 512-dimensional encoder vector",
+        "encoderRetraining": false,
+        "labels": [
+          "eligible_divination_outcome_or_decision",
+          "ineligible_information_or_procedure"
+        ],
+        "thresholdPolicy": "one_global_threshold_selected_on_fresh_v04_semantic_act_calibration_only"
+      },
+      "hardBehavior": [
+        "ineligible semantic act returns non_route before Arbitration rescue",
+        "domain or route vocabulary alone must never override an ineligible information act",
+        "mentioning fees, tax, rules or procedures does not make a question ineligible when the actual current predicate is a supported personal outcome or decision",
+        "the gate must not select or rank any of the 22 routes"
+      ],
+      "forbiddenFeatures": [
+        "traditional LiuYao 六亲",
+        "世应",
+        "用神",
+        "Rule Registry output",
+        "Observation Rule output"
+      ]
+    },
+    "evidence": {
+      "version": "v0.3",
+      "change": "none_in_v04_initial_candidate",
+      "role": "retain current structural semantic evidence for Arbitration and Compatibility; do not fit new lexical rules to Candidate v0.3 failed development wording"
+    },
+    "arbitration": {
+      "version": "v0.12",
+      "change": "no positive-route rule expansion",
+      "behavior": "existing strong/support routing remains a regression target, but can only rescue after semanticActEligibility is eligible"
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "change": "none_in_v04_initial_candidate"
+    },
+    "routeability": {
+      "version": "v0.5_execution_corrected_threshold",
+      "baseModelSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+      "thresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "threshold": 0.7678148573595883,
+      "change": "none",
+      "fallbackBelowThresholdRescue": false,
+      "knownResidualRisk": "the nine Candidate v0.3 fallback-style known Routeability rejects are not repaired in v0.4 by design"
+    },
+    "fallbackIdentity": {
+      "version": "v0.2",
+      "appliesOnlyWhen": "semanticActEligibility eligible AND Arbitration null AND Routeability route_known",
+      "candidateUniverse": "all_current_22_routes",
+      "routerTop1Top2": "diagnostic_provenance_only_not_candidate_restriction",
+      "model": {
+        "type": "22 independent binary logistic heads over the frozen 512-dimensional encoder vector",
+        "trainingAlgorithm": "retain deterministic full-batch one-vs-rest logistic training contract unless fresh pre-training contract explicitly proves a versioned change necessary",
+        "thresholdPolicy": "exactly_one_global_fallback_admission_threshold",
+        "routeSpecificThresholds": false
+      },
+      "decisionContract": [
+        "score every current 22-route identity head",
+        "admit a route only when its validator probability meets the one calibrated global threshold",
+        "select only when exactly one of all 22 routes is admitted",
+        "if zero routes are admitted return route_unresolved",
+        "if multiple routes are admitted return route_unresolved",
+        "do not break multiple admission by Router rank or margin"
+      ],
+      "purpose": "remove Router Top2 candidate-recall truncation without sacrificing the current abstention-first accepted-route precision contract"
+    },
+    "selection": {
+      "version": "v0.5",
+      "changes": [
+        "preserve Arbitration priority and Compatibility review",
+        "accept a Fallback Identity v0.2 unique admission as a candidate even if it is outside Router Top2",
+        "record provenance fallback_identity_all22 for such a candidate",
+        "never synthesize a route that was not uniquely admitted"
+      ]
+    },
+    "finalization": {
+      "version": "v0.1",
+      "change": "none",
+      "scopeHardVetoCutoff": 0.4319473801404805
+    }
+  },
+  "freshDataPolicy": {
+    "semanticActTraining": {
+      "required": true,
+      "fresh": true,
+      "mustCover": [
+        "eligible personal future outcome questions",
+        "eligible current decision/suitability questions",
+        "ineligible factual fee/tax/rate questions",
+        "ineligible procedure/requirements/documents questions",
+        "ineligible accounting/administration/explanation questions",
+        "contrastive pairs where the same domain vocabulary appears in both eligible and ineligible semantic acts"
+      ]
+    },
+    "semanticActCalibration": {
+      "required": true,
+      "separateFromTraining": true,
+      "objective": "minimize ineligible false-pass subject to preserving eligible current-22 retention; select exactly one global eligibility threshold before integrated development"
+    },
+    "fallbackIdentityTraining": {
+      "required": true,
+      "freshAugmentationRequired": true,
+      "mayReuse": [
+        "eligible existing Semantic Router training splits that were already training-eligible under prior contracts"
+      ],
+      "mustAddFreshCoverage": [
+        "route paraphrase diversity",
+        "cross-route hard negatives",
+        "confusable route-family negatives",
+        "cases where the correct route is semantically clear without depending on Router Top2 membership"
+      ]
+    },
+    "fallbackIdentityCalibration": {
+      "required": true,
+      "separateFromTraining": true,
+      "candidateUniverse": "all_current_22_routes",
+      "mayChoose": [
+        "one global Fallback Identity admission threshold"
+      ],
+      "mustNotChoose": [
+        "route-specific thresholds",
+        "Router TopK",
+        "Router margin threshold",
+        "Routeability threshold",
+        "Scope hard-veto cutoff"
+      ]
+    },
+    "forbiddenSources": [
+      "Candidate v0.3 198-row development corpus",
+      "Candidate v0.3 development report rows as training examples",
+      "Candidate v0.1 independent eval",
+      "Candidate v0.2 independent eval",
+      "any unread Candidate v0.3 or later independent evaluation",
+      "sealed blind evaluation corpora",
+      "new-theme literature research corpora intended for post-Baseline route expansion"
+    ]
+  },
+  "freshDevelopmentPolicy": {
+    "required": true,
+    "buildOnlyAfter": [
+      "semanticActEligibility model and global threshold are locked",
+      "Fallback Identity v0.2 model and one global threshold are locked",
+      "Selection v0.5 runtime contract is fixed"
+    ],
+    "isolation": [
+      "no exact text overlap with Candidate v0.3 development",
+      "no exact text overlap with v0.4 training or calibration",
+      "no independent evaluation read before seal",
+      "development artifact and lock must be committed before first encoder scoring"
+    ],
+    "requiredCoverage": [
+      "strong Arbitration positive regression",
+      "support Arbitration positive regression",
+      "pure Fallback Identity known routes across all 22 routes",
+      "outside_current_22 non-route",
+      "route_unresolved non-route",
+      "near_domain_not_current_route including factual/procedural/accounting query acts"
+    ],
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    }
+  },
+  "independentEvaluationPolicy": {
+    "readBeforeDevelopmentPass": false,
+    "readBeforeCandidateLock": false,
+    "candidateLockRequiredBeforeFreshIndependent": true,
+    "freshPostLockIndependentRequired": true,
+    "sameVersionRetuneAfterIndependent": false
+  },
+  "routeInventory": {
+    "count": 22,
+    "frozenBeforeBaseline1": true,
+    "newThemeResearchImported": false
+  },
+  "traditionalLiuYaoBoundary": {
+    "modified": false,
+    "semanticLayerMaySelectTraditionalUseGod": false,
+    "semanticLayerMayModifyTRMR": false
+  }
+}
