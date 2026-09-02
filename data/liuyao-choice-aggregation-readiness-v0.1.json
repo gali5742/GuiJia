@@ -9,14 +9,19 @@
     "docs/liuyao-literature/choice-suitability-shared-architecture-v0.1.md",
     "docs/liuyao-literature/choice-normalized-assessment-preference-policy-research-v0.1.md",
     "docs/liuyao-literature/domain-comparator-research-v0.1.md",
+    "data/liuyao-domain-assessment-contract-v0.1.json",
     "data/liuyao-domain-comparator-contract-v0.1.json",
+    "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
     "js/liuyao-choice-theme-adapters-pretraining-v01.js",
+    "js/liuyao-domain-assessment-pretraining-v01.js",
     "js/liuyao-domain-comparator-pretraining-v01.js"
   ],
   "criticalDistinctions": [
     "Theme Adapter status=resolved means its provider-requirement plan is resolved; it does not mean requested dimension assessments are resolved.",
     "providerRequirements are requests for evidence/assessment providers, not DimensionAssessment outputs.",
     "dimensionEvidence being empty must never be treated as neutral, adverse, or zero score.",
+    "An isolated verified Assessment or Comparator candidate is not active runtime capability.",
+    "A narrow comparator for one semanticMeaning does not create a comparator for the whole dimension label.",
     "DimensionComparison is not an OverallRecommendation.",
     "Explicit user preference capture is not an aggregation formula."
   ],
@@ -24,18 +29,53 @@
     "choiceSemanticFrame": "ready_design_only",
     "alternativeBounding": "ready_design_only",
     "themeAdapterRequirementPlans": "ready_isolated",
-    "normalizedDimensionAssessmentCoverage": "incomplete",
+    "normalizedDimensionAssessmentCoverage": "incomplete_with_two_travel_isolated_candidates",
+    "isolatedAssessmentCandidates": [
+      "AE-TV-EXEC-001",
+      "AE-TV-SAFE-001"
+    ],
+    "activeDomainEvaluatorCount": 0,
+    "isolatedComparatorCandidates": [
+      "CP-TV-EXEC-001",
+      "CP-TV-SAFE-001"
+    ],
     "activeDomainComparatorCount": 0,
+    "narrowTravelExecutionComparisonDesignVerified": true,
+    "narrowTravelSafetyComparisonDesignVerified": true,
     "allRequestedDimensionsComparable": false,
+    "crossDimensionOrderingAvailable": false,
     "explicitPreferenceCapture": "ready_design_only",
     "hardConstraintEvaluationProviders": "partial_or_external",
     "aggregationPolicyReviewed": false,
     "aggregationRegression": false,
     "calibrationOrBlindEvaluation": false,
+    "formalExpansionUserAuthorization": false,
     "overallRecommendationEnabled": false,
     "winnerEnabled": false,
     "scalarScoreEnabled": false
   },
+  "narrowIsolatedReadiness": [
+    {
+      "eventType": "travel",
+      "duty": "travel_execution",
+      "dimensionId": "target_outcome",
+      "semanticMeaning": "journey_execution_outcome",
+      "assessmentCandidate": "AE-TV-EXEC-001",
+      "comparatorCandidate": "CP-TV-EXEC-001",
+      "status": "isolated_verified_not_active",
+      "aggregationEligible": false
+    },
+    {
+      "eventType": "travel",
+      "duty": "travel_safety",
+      "dimensionId": "risk",
+      "semanticMeaning": "journey_safety_and_major_route_risk",
+      "assessmentCandidate": "AE-TV-SAFE-001",
+      "comparatorCandidate": "CP-TV-SAFE-001",
+      "status": "isolated_verified_not_active",
+      "aggregationEligible": false
+    }
+  ],
   "recommendationActivationGate": {
     "allRequired": true,
     "requirements": [
@@ -49,6 +89,8 @@
       "High-stakes factual dimensions such as legal exposure are supplied by appropriate modern factual providers rather than divination inference.",
       "Regression covers contradictory dimensions, missing dimensions, hard-constraint failure, ties, partial alternatives and incomparable dimensions.",
       "Calibration or sealed evaluation passes before any recommendation becomes current.",
+      "Synthetic design-only Evidence refs have been replaced by provenance-backed Evidence refs.",
+      "The user explicitly authorizes Formal Expansion in a future turn.",
       "Current-22 behavior remains unchanged unless a separate migration is approved."
     ]
   },
@@ -57,7 +99,7 @@
     "provider requirement plans",
     "normalized dimension assessment records when available",
     "per-dimension comparisonStatus",
-    "per-dimension relation only when a registered comparator exists",
+    "isolated per-dimension relations from explicitly invoked design-only candidates in tests",
     "explicit user priority display",
     "hard-constraint unresolved/satisfied/violated state when supplied by the responsible provider",
     "traceRefs and blocker reasons"
@@ -70,6 +112,8 @@
     "automatic_high_medium_low_numeric_mapping",
     "implicit_user_preference_weights",
     "treat_adapter_resolved_as_assessment_resolved",
+    "treat_isolated_candidate_as_active_registry_entry",
+    "generalize_narrow_comparator_to_dimension_label",
     "treat_missing_dimension_as_neutral",
     "treat_unresolved_alternative_as_worse",
     "treat_partial_alternative_as_lower_score",
@@ -85,7 +129,7 @@
     {
       "candidate": "explicit_lexicographic_priority",
       "status": "deferred",
-      "note": "Could only be studied when the user explicitly ranks dimensions and every preceding priority dimension has a reviewed comparator."
+      "note": "Could only be studied when the user explicitly ranks dimensions and every preceding priority dimension has a reviewed active comparator."
     },
     {
       "candidate": "hard_constraint_filter_then_compare",
@@ -95,7 +139,7 @@
     {
       "candidate": "pareto_dominance",
       "status": "deferred",
-      "note": "Cannot be used until all participating dimensions have registered comparators and partial/incomparable behavior is defined."
+      "note": "Cannot be used until all participating dimensions have active registered comparators and partial/incomparable behavior is defined."
     }
   ],
   "defaultV01": {
@@ -105,5 +149,6 @@
     "scalarScore": null,
     "reason": "aggregation_policy_not_registered"
   },
-  "formalIntegration": "blocked_by_current_v013_gate"
+  "authorizationGate": "data/liuyao-formal-expansion-authorization-gate-v0.1.json",
+  "formalIntegration": "blocked_by_current_v013_gate_and_user_authorization"
 }
