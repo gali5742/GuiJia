@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('assert');
+require('../js/liuyao-domain-comparator-pretraining-v02.js');
+const api=global.GuiJia.liuyaoDomainComparatorPretrainingV02;
+let n=0;
+const t=(name,fn)=>{try{fn();n++;}catch(e){console.error('FAIL',name,e);process.exitCode=1;}};
+const a=(id='A',overrides={})=>({readingRef:'reading-A',alternativeId:id,dimensionId:'target_outcome',semanticMeaning:'journey_execution_outcome',resolutionStatus:'resolved',assessmentStatus:'supportive_evidence',contractFamily:'travel_execution_assessment',contractRef:'travel_execution_assessment_v0.3',contractVersion:'0.3',evidenceRefs:['E1'],...overrides});
+
+t('DC2-1 design only zero active comparators',()=>assert.equal(api.ACTIVE_COMPARATORS.length,0));
+t('DC2-2 reading ref required',()=>{const x=a();delete x.readingRef;assert.equal(api.validateDimensionAssessment(x).status,'invalid');});
+t('DC2-3 valid scoped assessment accepted',()=>assert.equal(api.validateDimensionAssessment(a()).status,'valid'));
+t('DC2-4 same reading still refuses without registered comparator',()=>{const r=api.compareDimensionAssessments(a('A'),a('B'));assert.equal(r.comparisonStatus,'incomparable');assert.equal(r.reason,'comparator_not_registered');});
+t('DC2-5 cross reading is incomparable',()=>{const r=api.compareDimensionAssessments(a('A'),a('B',{readingRef:'reading-B'}));assert.equal(r.comparisonStatus,'incomparable');assert.equal(r.reason,'reading_scope_mismatch');assert.equal(r.relation,null);});
+t('DC2-6 reading mismatch beats fallback comparator absence',()=>{const r=api.compareDimensionAssessments(a('A'),a('B',{readingRef:'reading-B'}));assert.notEqual(r.reason,'comparator_not_registered');});
+t('DC2-7 dimension mismatch remains incomparable',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{dimensionId:'risk'})).reason,'dimension_mismatch'));
+t('DC2-8 semantic mismatch remains incomparable',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{semanticMeaning:'other'})).reason,'semantic_meaning_mismatch'));
+t('DC2-9 family mismatch remains incomparable',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{contractFamily:'other'})).reason,'contract_family_mismatch'));
+t('DC2-10 partial same reading remains partial',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{resolutionStatus:'partial'})).comparisonStatus,'partial'));
+t('DC2-11 unresolved same reading remains unresolved',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{resolutionStatus:'unresolved'})).comparisonStatus,'unresolved'));
+t('DC2-12 not applicable same reading incomparable',()=>assert.equal(api.compareDimensionAssessments(a('A'),a('B',{resolutionStatus:'not_applicable'})).reason,'dimension_not_applicable'));
+t('DC2-13 evidence count never creates ordering',()=>{const r=api.compareDimensionAssessments(a('A',{evidenceRefs:['E1','E2','E3']}),a('B',{evidenceRefs:['E4']}));assert.equal(r.reason,'comparator_not_registered');assert.equal(r.relation,null);});
+t('DC2-14 forbidden probability rejected',()=>assert.equal(api.validateDimensionAssessment(a('A',{probability:0.9})).status,'invalid'));
+t('DC2-15 readiness requires same reading',()=>{const r=api.buildComparatorReadiness();assert.equal(r.readingRefRequired,true);assert.equal(r.sameReadingRequired,true);assert.equal(r.crossReadingComparisonAllowed,false);});
+t('DC2-16 no fallback ranking',()=>assert.equal(api.buildComparatorReadiness().fallbackHeuristicEnabled,false));
+if(!process.exitCode)console.log(`Domain comparator v02 reading-scope regression: ${n} passed, 0 failed`);
