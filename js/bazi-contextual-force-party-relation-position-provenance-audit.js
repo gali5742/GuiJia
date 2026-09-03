@@ -102,7 +102,7 @@
         status:'unresolved',
         statement:'当前仅为代表性古典／近现代 position-sensitive cases 建立 provenance records；尚未证明所有财→官杀、食神→七杀、七杀→印及 curated annotation records 都已补齐 position provenance。',
         boundary:'不得因 contract 已定义就假定全 corpus 已具备 position evidence；没有来源位置语义的记录也不得自动生成 proximity/intervening assertions。',
-        dependsOnDependencyIds:[contractDependency.id,'SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-COVERAGE']
+        dependsOnDependencyIds:[contractDependency.id,'SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-CONTRACT']
     });
 
     const rebuildDependency = (base = {}, id = '', additions = [], statement = null, boundary = null) => {
