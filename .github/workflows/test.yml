@@ -23,11 +23,17 @@ jobs:
       - name: Production runtime boundary smoke test
         run: node tests/bazi-production-runtime-boundary-tests.js
 
+      - name: Verify source production runtime boundary
+        run: node scripts/verify-production-runtime-boundary.mjs .
+
       - name: Core regression tests
         run: npm test
 
       - name: Build same-origin vendor site
         run: node scripts/build-pages-site.mjs
+
+      - name: Verify built production runtime boundary
+        run: node scripts/verify-production-runtime-boundary.mjs .site
 
       - name: Verify vendor bytes and lunar smoke test
         run: node scripts/verify-vendor.mjs .site
