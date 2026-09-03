@@ -91,9 +91,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('生产加载路径包含六冲／六合根条件模块与 Guard 016-017', () => {
-    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(assessmentSource.includes('./js/bazi-root-six-relations.js'), '生产页面没有 Root Six Relations 加载路径');
+test('Research bootstrap 显式声明六冲／六合根条件模块，Guard 016-017 保持', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(bootstrapSource.includes('./js/bazi-root-six-relations.js'), 'Research bootstrap 未声明 Root Six Relations 模块');
     const guards = new Map(GuiJia.baziAssessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
     assert(guards.has('BAZI-ASSESS-GUARD-016'), '缺少 Guard 016');
     assert(guards.has('BAZI-ASSESS-GUARD-017'), '缺少 Guard 017');
