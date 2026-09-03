@@ -188,4 +188,7 @@
     if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationPositionProvenanceAudit) {
         document.write('<script src="./js/bazi-contextual-force-party-relation-position-provenance-audit.js?v=13.44.0"><\/script>');
     }
+    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCompetingRelationPathAudit) {
+        document.write('<script src="./js/bazi-contextual-force-party-competing-relation-path-audit.js?v=13.44.0"><\/script>');
+    }
 })(typeof window !== 'undefined' ? window : globalThis);
