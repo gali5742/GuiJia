@@ -187,14 +187,25 @@ test('Audit/runtime 不引入 score、weight、threshold、majority 或 generic 
     assert(audit.numericScore === null && audit.scalarForce === null && audit.actorGlobalEffectiveness === null, '不得生成 scalar/global effectiveness');
 });
 
-test('生产 loader 同步按 Branch Inventory → Generalization Audit → Source registry 接续', () => {
-    const branchSource = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
+test('研究 bootstrap 按 Branch Inventory → Input Adapter → Generalization Source/Audit 接续', () => {
+    const bootstrapText = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
     const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-relation-effect-generalization-audit.js'), 'utf8');
-    assert(branchSource.includes('./js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0'), 'Branch Inventory 缺 audit loader');
-    assert(branchSource.includes('document.write'), '生产 handoff 必须保持 parser-synchronous');
-    assert(!branchSource.includes('DOMContentLoaded'), '不得留下 DOM-ready 异步竞态');
-    assert(auditSource.includes('./js/bazi-contextual-force-party-relation-effect-generalization-source.js?v=13.44.0'), 'Audit 缺 source registry loader');
-    assert(auditSource.indexOf('relation-effect-generalization-source.js') < auditSource.indexOf('const sourceApi'), 'source registry 必须在 audit 读取前加载');
+    const ordered = [
+        'bazi-branch-element-relation-inventory.js',
+        'bazi-contextual-force-party-branch-substrate-quality-input-adapter.js',
+        'bazi-contextual-force-party-relation-effect-generalization-source.js',
+        'bazi-contextual-force-party-relation-effect-generalization-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrapText.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Generalization Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-relation-effect-generalization-source.js'), 'Audit 应保留 bootstrap prerequisite provenance');
+    assert(auditSource.indexOf('relation-effect-generalization-source.js') < auditSource.indexOf('const sourceApi'), 'source prerequisite provenance 必须位于 audit 读取前');
+    assert(!/DOMContentLoaded/.test(bootstrapText + auditSource), '不得引入 DOM-ready 异步竞态');
 });
 
 console.log(`\nRelation Effect Generalization Audit v0.1: ${passed} passed, ${failed} failed`);
