@@ -138,6 +138,38 @@ assert(ineligible.final.disposition === 'non_route', 'ineligible Semantic Act di
 assert(ineligible.arbitration === null && ineligible.routeability === null && ineligible.fallbackIdentity === null, 'ineligible Semantic Act leaked into downstream routing');
 G.liuyaoSemanticRouteEvidenceV03 = originalEvidence;
 
+const positiveText = '我欠银行的房贷今年能不能还清';
+const positive = G.liuyaoSemanticCandidateV04RuntimeV01.decide({
+  text:positiveText,
+  vector:new Float32Array(512),
+  semanticActArtifact:fakeSemanticAct(2),
+  routeabilityProbability:1,
+  routerHead:{ top1:{id:'debt_repayment',score:0.1}, top2:{id:'borrow_money',score:0.09} },
+  scope:{ hardVeto:false },
+  fallbackArtifact:null,
+  fallbackThresholdLock:null
+});
+assert(positive.semanticAct.status === 'eligible', 'positive runtime path did not pass Semantic Act');
+assert(positive.arbitration?.routeId === 'debt_repayment' && positive.arbitration?.strength === 'strong', `positive runtime Arbitration drift: ${JSON.stringify(positive.arbitration)}`);
+assert(positive.routeability?.disposition === 'route_known', `positive runtime Routeability drift: ${JSON.stringify(positive.routeability)}`);
+assert(positive.fallbackIdentity === null, 'strong Arbitration path incorrectly invoked Fallback Identity');
+assert(positive.selection?.status === 'selected' && positive.selection?.routeId === 'debt_repayment', `positive runtime Selection drift: ${JSON.stringify(positive.selection)}`);
+assert(positive.final?.status === 'route_selected' && positive.final?.routeId === 'debt_repayment', `positive runtime Finalization drift: ${JSON.stringify(positive.final)}`);
+
+const strongEvidence = G.liuyaoSemanticRouteEvidenceV03.extract(positiveText);
+const strongCompatibilityV02 = G.liuyaoSemanticRouteCompatibilityV02.evaluate('debt_repayment', strongEvidence);
+assert(strongCompatibilityV02.status === 'confirmed', `historical Compatibility v0.2 no longer confirms strong Scope-bypass fixture: ${JSON.stringify(strongCompatibilityV02)}`);
+const strongScopeBypass = G.liuyaoSemanticFinalizationV01.finalize({
+  routeability:{ disposition:'route_known' },
+  selection:{ status:'selected', routeId:'debt_repayment' },
+  scope:{ hardVeto:true },
+  arbitration:{ routeId:'debt_repayment', strength:'strong' },
+  evidence:strongEvidence
+});
+assert(strongScopeBypass.status === 'route_selected' && strongScopeBypass.scopeBypassed === true, `Finalization strong Scope-bypass historical behavior drift: ${JSON.stringify(strongScopeBypass)}`);
+const finalizationSource = readText('js/liuyao-semantic-finalization-v01.js');
+assert(finalizationSource.includes('liuyaoSemanticRouteCompatibilityV02'), 'Finalization strong Scope bypass dependency changed from frozen Compatibility v0.2');
+
 const modernOnlySource = [
   'js/liuyao-semantic-act-eligibility-v01.js',
   'js/liuyao-semantic-routeability-v05-execution-v01.js',
@@ -151,6 +183,8 @@ const modernOnlySource = [
 });
 
 console.log('Candidate v0.4 integrated runtime lock verified');
+console.log('  Positive path: Semantic Act -> Arbitration -> Routeability -> Selection -> Finalization verified');
+console.log('  Frozen Finalization strong Scope bypass remains bound to Compatibility v0.2');
 console.log(`  Routeability threshold: ${lock.execution.routeabilityThreshold}`);
 console.log(`  Semantic Act threshold: ${lock.execution.semanticActThreshold}`);
 console.log(`  Fallback global threshold: ${lock.execution.fallbackGlobalThreshold}`);
