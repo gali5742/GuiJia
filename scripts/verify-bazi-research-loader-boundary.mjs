@@ -38,6 +38,7 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-party-counter-context.js',
     'js/bazi-contextual-force-party-nonstem-foundation-audit.js',
     'js/bazi-contextual-force-party-branch-substrate-quality-audit.js',
+    'js/bazi-branch-element-relation-inventory.js',
     'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js',
     'js/bazi-contextual-force-party-relation-effect-generalization-audit.js',
     'js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js',
@@ -111,7 +112,13 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationSource', src:'./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit', src:'./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationSource', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-source.js?v=13.44.0' },
-    { globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationAudit', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js?v=13.44.0' }
+    { globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationAudit', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyCollectiveTargetSemanticsAudit', src:'./js/bazi-contextual-force-party-collective-target-semantics-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractAudit', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationSemanticsModernSupportAudit', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationPositionProvenanceAudit', src:'./js/bazi-contextual-force-party-relation-position-provenance-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyCompetingRelationPathAudit', src:'./js/bazi-contextual-force-party-competing-relation-path-audit.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
