@@ -29,6 +29,9 @@ jobs:
       - name: Audit BaZi test/runtime coupling
         run: node scripts/audit-bazi-test-runtime-coupling.mjs
 
+      - name: Verify BaZi research loader boundary
+        run: node scripts/verify-bazi-research-loader-boundary.mjs
+
       - name: Core regression tests
         run: npm test
 

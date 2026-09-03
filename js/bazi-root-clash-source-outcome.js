@@ -4,6 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziRootClashSourceOutcome?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-root-clash-interaction-effect.js?v=13.44.0
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
     const ROOT_CLASH_SOURCE_OUTCOME_VERSION = '0.1';
@@ -293,8 +294,4 @@
         buildSourceOutcomeRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootClashInteractionEffect) {
-        document.write('<script src="./js/bazi-root-clash-interaction-effect.js?v=13.44.0"><\\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
