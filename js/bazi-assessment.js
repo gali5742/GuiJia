@@ -3,43 +3,9 @@
 
     const GuiJia = global.GuiJia = global.GuiJia || {};
 
-    // Research/evaluation layers may still use classic parser-ordered loading on dedicated
-    // test pages, but the production entry must not pull the research dependency cascade
-    // into the user-facing critical path. The production interpretation treats Assessment
-    // as optional until a layer is explicitly promoted into the production runtime.
-    const documentPath = typeof document !== 'undefined' ? (document.location?.pathname || '') : '';
-    const isProductionEntry = documentPath.endsWith('/') || documentPath.endsWith('/index.html');
-    const shouldLoadResearchDependencies = typeof document !== 'undefined'
-        && document.readyState === 'loading'
-        && !isProductionEntry;
-
-    if (shouldLoadResearchDependencies && !GuiJia.baziMonthCommand) {
-        document.write('<script src="./js/bazi-month-command.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziStrengthSynthesis) {
-        document.write('<script src="./js/bazi-strength-synthesis.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziRootEffectState) {
-        document.write('<script src="./js/bazi-root-effect-state.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziRootSixRelations) {
-        document.write('<script src="./js/bazi-root-six-relations.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziClashPreconditions) {
-        document.write('<script src="./js/bazi-clash-preconditions.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziClashSeasonalPosition) {
-        document.write('<script src="./js/bazi-clash-seasonal-position.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziClashNonseasonalForce) {
-        document.write('<script src="./js/bazi-clash-nonseasonal-force.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziElementPresenceScope) {
-        document.write('<script src="./js/bazi-element-presence-scope.js?v=13.44.0"><\/script>');
-    }
-    if (shouldLoadResearchDependencies && !GuiJia.baziClashRescueContext) {
-        document.write('<script src="./js/bazi-clash-rescue-context.js?v=13.44.0"><\/script>');
-    }
+    // Runtime boundary: this module is pure. It never discovers or parser-loads
+    // research/evaluation dependencies. Any research browser harness must opt in
+    // through the dedicated bazi-research-bootstrap entry instead.
 
     const ASSESSMENT_SCHEMA_VERSION = '0.1';
     const ASSESSMENT_RULESET_VERSION = '0.1-draft';
