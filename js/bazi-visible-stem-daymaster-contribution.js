@@ -4,6 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziVisibleStemDaymasterContribution?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-qianli-strength-composition.js?v=13.44.0
+
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
     const VISIBLE_STEM_DAYMASTER_CONTRIBUTION_VERSION = '0.1';
@@ -334,8 +336,4 @@
         buildContributionRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliStrengthComposition) {
-        document.write('<script src="./js/bazi-qianli-strength-composition.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);

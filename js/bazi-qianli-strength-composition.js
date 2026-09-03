@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziQianliStrengthComposition?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliStrengthCompositionSource) {
-        document.write('<script src="./js/bazi-qianli-strength-composition-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-qianli-strength-composition-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0
 
     const sourceApi = GuiJia.baziQianliStrengthCompositionSource || null;
     if (!sourceApi) return;
@@ -366,8 +365,4 @@
         buildDependencies,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityClassificationAudit) {
-        document.write('<script src="./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.5';
+    const VERSION = '0.6';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -29,7 +29,10 @@
         Object.freeze({ globalKey:'baziVisibleStemActorInteractionAggregation', src:'./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziVisibleStemActorFunctionComposition', src:'./js/bazi-visible-stem-actor-function-composition.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziVisibleStemActorProfileInterpretation', src:'./js/bazi-visible-stem-actor-profile-interpretation.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziVisibleStemDaymasterContribution', src:'./js/bazi-visible-stem-daymaster-contribution.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziVisibleStemDaymasterContribution', src:'./js/bazi-visible-stem-daymaster-contribution.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliStrengthCompositionSource', src:'./js/bazi-qianli-strength-composition-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliStrengthComposition', src:'./js/bazi-qianli-strength-composition.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantityClassificationAudit', src:'./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
