@@ -4,12 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyCounterContext?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCounterContextContract) {
-        document.write('<script src="./js/bazi-contextual-force-party-counter-context-contract.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCounterContextProfile) {
-        document.write('<script src="./js/bazi-contextual-force-party-counter-context-profile.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-counter-context-contract.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-counter-context-profile.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0
 
     const contractApi = GuiJia.baziContextualForcePartyCounterContextContract || null;
     const profileApi = GuiJia.baziContextualForcePartyCounterContextProfile || null;
@@ -232,8 +229,4 @@
         buildDependencies,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyNonStemFoundationAudit) {
-        document.write('<script src="./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
