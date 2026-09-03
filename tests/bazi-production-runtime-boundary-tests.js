@@ -37,8 +37,24 @@ for (const pathname of ['/GuiJia/', '/GuiJia/index.html', '/tests/bazi-assessmen
 
 assert.ok(!indexHtml.includes('bazi-research-bootstrap.js'), 'production index must not opt into the BaZi research bootstrap');
 const researchRuntime = execute(bootstrapSource, '/research/bazi-runtime.html');
-assert.equal(researchRuntime.writes.length, 9, 'explicit research bootstrap must preserve the current nine research roots');
+const researchDependencies = researchRuntime.GuiJia?.baziResearchBootstrap?.dependencies || [];
 assert.equal(researchRuntime.GuiJia?.baziResearchBootstrap?.mode, 'explicit-research-opt-in');
-assert.equal(researchRuntime.GuiJia?.baziResearchBootstrap?.dependencies?.length, 9);
+assert.equal(researchRuntime.writes.length, researchDependencies.length, 'research bootstrap must explicitly emit each declared dependency exactly once');
+
+const requiredResearchRoots = [
+    'baziMonthCommand',
+    'baziStrengthSynthesis',
+    'baziRootEffectState',
+    'baziRootSixRelations',
+    'baziClashPreconditions',
+    'baziClashSeasonalPosition',
+    'baziClashNonseasonalForce',
+    'baziElementPresenceScope',
+    'baziClashRescueContext'
+];
+const declaredResearchKeys = new Set(researchDependencies.map((item) => item.globalKey));
+requiredResearchRoots.forEach((globalKey) => {
+    assert.ok(declaredResearchKeys.has(globalKey), `research bootstrap lost required root ${globalKey}`);
+});
 
 console.log('BaZi production runtime boundary tests passed');
