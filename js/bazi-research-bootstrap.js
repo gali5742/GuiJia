@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.9';
+    const VERSION = '0.10';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -51,7 +51,11 @@
         Object.freeze({ globalKey:'baziContextualForcePartyMembershipContract', src:'./js/bazi-contextual-force-party-membership-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyMembershipProfile', src:'./js/bazi-contextual-force-party-membership-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyMembership', src:'./js/bazi-contextual-force-party-membership.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartyAffiliation', src:'./js/bazi-contextual-force-party-affiliation.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationContract', src:'./js/bazi-contextual-force-party-affiliation-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationProfile', src:'./js/bazi-contextual-force-party-affiliation-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliation', src:'./js/bazi-contextual-force-party-affiliation.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationExpansionSource', src:'./js/bazi-contextual-force-party-affiliation-expansion-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationExpansionAudit', src:'./js/bazi-contextual-force-party-affiliation-expansion-audit.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
