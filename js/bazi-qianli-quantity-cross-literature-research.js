@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziQianliQuantityCrossLiteratureResearch?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCrossLiteratureSource) {
-        document.write('<script src="./js/bazi-qianli-quantity-cross-literature-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-qianli-quantity-cross-literature-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-evidence.js?v=13.44.0
 
     const sourceApi = GuiJia.baziQianliQuantityCrossLiteratureSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
@@ -212,8 +211,4 @@
         buildDependencies,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForceEvidence) {
-        document.write('<script src="./js/bazi-contextual-force-evidence.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
