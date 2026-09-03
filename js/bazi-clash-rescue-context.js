@@ -4,6 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziClashRescueContext?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-root-clash-source-outcome.js?v=13.44.0
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     const preconditionsApi = GuiJia.baziClashPreconditions || null;
     const baziCore = GuiJia.baziCore || {};
