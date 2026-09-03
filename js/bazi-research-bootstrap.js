@@ -55,7 +55,11 @@
         Object.freeze({ globalKey:'baziContextualForcePartyAffiliationProfile', src:'./js/bazi-contextual-force-party-affiliation-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyAffiliation', src:'./js/bazi-contextual-force-party-affiliation.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyAffiliationExpansionSource', src:'./js/bazi-contextual-force-party-affiliation-expansion-source.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationExpansionAudit', src:'./js/bazi-contextual-force-party-affiliation-expansion-audit.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartyAffiliationExpansionAudit', src:'./js/bazi-contextual-force-party-affiliation-expansion-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRelationEffectContract', src:'./js/bazi-contextual-force-party-relation-effect-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRelationEffectProfile', src:'./js/bazi-contextual-force-party-relation-effect-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRelationEffect', src:'./js/bazi-contextual-force-party-relation-effect.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRelativeDominanceAudit', src:'./js/bazi-contextual-force-party-relative-dominance-audit.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
