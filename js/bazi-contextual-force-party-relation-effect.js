@@ -4,12 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyRelationEffect?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationEffectContract) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-effect-contract.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationEffectProfile) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-effect-profile.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-relation-effect-contract.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-relation-effect-profile.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-relative-dominance-audit.js?v=13.44.0
 
     const contractApi = GuiJia.baziContextualForcePartyRelationEffectContract || null;
     const profileApi = GuiJia.baziContextualForcePartyRelationEffectProfile || null;
@@ -255,8 +252,4 @@
         rebuildPartyRule,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelativeDominanceAudit) {
-        document.write('<script src="./js/bazi-contextual-force-party-relative-dominance-audit.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);

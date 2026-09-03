@@ -29,7 +29,10 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-evidence.js',
     'js/bazi-contextual-force-interaction-adapter.js',
     'js/bazi-contextual-force-party-audit.js',
-    'js/bazi-contextual-force-party-membership.js'
+    'js/bazi-contextual-force-party-membership.js',
+    'js/bazi-contextual-force-party-affiliation.js',
+    'js/bazi-contextual-force-party-affiliation-expansion-audit.js',
+    'js/bazi-contextual-force-party-relation-effect.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -70,7 +73,15 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyMembershipContract', src:'./js/bazi-contextual-force-party-membership-contract.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyMembershipProfile', src:'./js/bazi-contextual-force-party-membership-profile.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyMembership', src:'./js/bazi-contextual-force-party-membership.js?v=13.44.0' },
-    { globalKey:'baziContextualForcePartyAffiliation', src:'./js/bazi-contextual-force-party-affiliation.js?v=13.44.0' }
+    { globalKey:'baziContextualForcePartyAffiliationContract', src:'./js/bazi-contextual-force-party-affiliation-contract.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyAffiliationProfile', src:'./js/bazi-contextual-force-party-affiliation-profile.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyAffiliation', src:'./js/bazi-contextual-force-party-affiliation.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyAffiliationExpansionSource', src:'./js/bazi-contextual-force-party-affiliation-expansion-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyAffiliationExpansionAudit', src:'./js/bazi-contextual-force-party-affiliation-expansion-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationEffectContract', src:'./js/bazi-contextual-force-party-relation-effect-contract.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationEffectProfile', src:'./js/bazi-contextual-force-party-relation-effect-profile.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationEffect', src:'./js/bazi-contextual-force-party-relation-effect.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelativeDominanceAudit', src:'./js/bazi-contextual-force-party-relative-dominance-audit.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
