@@ -4,6 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziVisibleStemActorFunctionComposition?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-visible-stem-actor-profile-interpretation.js?v=13.44.0
+
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
     const VISIBLE_STEM_ACTOR_FUNCTION_COMPOSITION_VERSION = '0.2';
@@ -425,8 +427,4 @@
         buildActorFunctionProfileRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemActorProfileInterpretation) {
-        document.write('<script src="./js/bazi-visible-stem-actor-profile-interpretation.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
