@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziQianliQuantityCaseCalibration?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCaseCalibrationSource) {
-        document.write('<script src="./js/bazi-qianli-quantity-case-calibration-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-qianli-quantity-case-calibration-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0
 
     const sourceApi = GuiJia.baziQianliQuantityCaseCalibrationSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
@@ -243,8 +242,4 @@
         buildDependencies,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCrossLiteratureResearch) {
-        document.write('<script src="./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
