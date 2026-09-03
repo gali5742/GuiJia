@@ -1,0 +1,28 @@
+name: LiuYao v0.13-v0.4 Fallback All-22 Runtime Contract
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'js/liuyao-semantic-fallback-identity-scorer-v02.js'
+      - 'js/liuyao-semantic-fallback-identity-v02.js'
+      - 'js/liuyao-semantic-route-selection-v05.js'
+      - 'tests/liuyao-semantic-v013-candidate-v04-fallback-all22-runtime-contract-tests.js'
+      - '.github/workflows/liuyao-v013-v04-fallback-all22-runtime-contract.yml'
+  workflow_dispatch:
+
+jobs:
+  runtime-contract:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Verify Candidate v0.4 Fallback all-22 runtime contracts
+        run: node tests/liuyao-semantic-v013-candidate-v04-fallback-all22-runtime-contract-tests.js
+      - name: Verify legacy Candidate v0.3 deterministic contracts remain unchanged
+        run: node tests/liuyao-semantic-v013-candidate-v03-contract-tests.js
