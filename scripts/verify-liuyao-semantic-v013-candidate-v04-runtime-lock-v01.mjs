@@ -154,7 +154,7 @@ assert(positive.arbitration?.routeId === 'debt_repayment' && positive.arbitratio
 assert(positive.routeability?.disposition === 'route_known', `positive runtime Routeability drift: ${JSON.stringify(positive.routeability)}`);
 assert(positive.fallbackIdentity === null, 'strong Arbitration path incorrectly invoked Fallback Identity');
 assert(positive.selection?.status === 'selected' && positive.selection?.routeId === 'debt_repayment', `positive runtime Selection drift: ${JSON.stringify(positive.selection)}`);
-assert(positive.final?.status === 'route_selected' && positive.final?.routeId === 'debt_repayment', `positive runtime Finalization drift: ${JSON.stringify(positive.final)}`);
+assert(positive.final?.disposition === 'route_known' && positive.final?.routeId === 'debt_repayment', `positive runtime Finalization drift: ${JSON.stringify(positive.final)}`);
 
 const strongEvidence = G.liuyaoSemanticRouteEvidenceV03.extract(positiveText);
 const strongCompatibilityV02 = G.liuyaoSemanticRouteCompatibilityV02.evaluate('debt_repayment', strongEvidence);
@@ -166,7 +166,7 @@ const strongScopeBypass = G.liuyaoSemanticFinalizationV01.finalize({
   arbitration:{ routeId:'debt_repayment', strength:'strong' },
   evidence:strongEvidence
 });
-assert(strongScopeBypass.status === 'route_selected' && strongScopeBypass.scopeBypassed === true, `Finalization strong Scope-bypass historical behavior drift: ${JSON.stringify(strongScopeBypass)}`);
+assert(strongScopeBypass.disposition === 'route_known' && strongScopeBypass.scopeBypassed === true, `Finalization strong Scope-bypass historical behavior drift: ${JSON.stringify(strongScopeBypass)}`);
 const finalizationSource = readText('js/liuyao-semantic-finalization-v01.js');
 assert(finalizationSource.includes('liuyaoSemanticRouteCompatibilityV02'), 'Finalization strong Scope bypass dependency changed from frozen Compatibility v0.2');
 
