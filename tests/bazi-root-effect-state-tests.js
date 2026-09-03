@@ -90,9 +90,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('生产加载路径包含 Root Effective State 独立模块与 Guard 015', () => {
-    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(assessmentSource.includes('./js/bazi-root-effect-state.js'), '生产页面没有 Root Effective State 加载路径');
+test('Research bootstrap 显式声明 Root Effective State 模块，Guard 015 保持', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(bootstrapSource.includes('./js/bazi-root-effect-state.js'), 'Research bootstrap 未声明 Root Effective State 模块');
     assert(GuiJia.baziAssessment.assessmentGuardRegistry.rules.some((item) => item.id === 'BAZI-ASSESS-GUARD-015'), '缺少 Guard 015');
 });
 
