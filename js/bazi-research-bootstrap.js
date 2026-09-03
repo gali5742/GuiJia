@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.8';
+    const VERSION = '0.9';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -43,7 +43,12 @@
         Object.freeze({ globalKey:'baziContextualForceEvidenceSource', src:'./js/bazi-contextual-force-evidence-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForceEvidenceProfile', src:'./js/bazi-contextual-force-evidence-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForceEvidence', src:'./js/bazi-contextual-force-evidence.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForceInteractionAdapter', src:'./js/bazi-contextual-force-interaction-adapter.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForceInteractionAdapterContract', src:'./js/bazi-contextual-force-interaction-adapter-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForceInteractionAdapterProfile', src:'./js/bazi-contextual-force-interaction-adapter-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForceInteractionAdapter', src:'./js/bazi-contextual-force-interaction-adapter.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySource', src:'./js/bazi-contextual-force-party-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyAudit', src:'./js/bazi-contextual-force-party-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyMembership', src:'./js/bazi-contextual-force-party-membership.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
