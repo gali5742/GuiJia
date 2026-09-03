@@ -1,0 +1,120 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Locked Threshold Calibration
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-calibration-contract-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json'
+      - 'data/liuyao-semantic-embedding-execution-contract-v0.1.json'
+      - 'js/liuyao-semantic-fallback-identity-model-v01.js'
+      - 'scripts/calibrate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-calibrate-threshold.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  calibrate-and-lock-threshold:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable calibration base and weights hashes
+        run: |
+          set -euo pipefail
+          echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "WEIGHTS_MODEL_SHA256=$(sha256sum data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json | awk '{print $1}')" >> "$GITHUB_ENV"
+          echo "WEIGHTS_LOCK_SHA256=$(sha256sum data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json | awk '{print $1}')" >> "$GITHUB_ENV"
+
+      - name: Prove calibration implementation cannot retrain or rewrite weights
+        run: |
+          set -euo pipefail
+          node --check scripts/calibrate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration.mjs
+          if grep -E 'trainAll|trainHead|route-training-v0\.|fallback-identity-training-augmentation' scripts/calibrate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.mjs; then
+            echo 'Threshold calibrator contains a training-code or training-corpus reference.'
+            exit 1
+          fi
+
+      - name: Require committed weights-only lock before calibration
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights-lock.mjs
+
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Score locked 125-row membership with all 22 heads and search one global threshold
+        run: node scripts/calibrate-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.mjs
+
+      - name: Verify frozen threshold search and selected optimum or immutable failure
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration.mjs
+
+      - name: Prove weights artifacts were not mutated by calibration
+        run: |
+          set -euo pipefail
+          test "$WEIGHTS_MODEL_SHA256" = "$(sha256sum data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json | awk '{print $1}')"
+          test "$WEIGHTS_LOCK_SHA256" = "$(sha256sum data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json | awk '{print $1}')"
+          git diff --exit-code -- \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json
+
+      - name: Refuse stale calibration publication if frozen inputs changed
+        run: |
+          set -euo pipefail
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-calibration-contract-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json \
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json \
+            js/liuyao-semantic-fallback-identity-model-v01.js; then
+            echo 'Frozen Fallback Identity v0.2 threshold-calibration inputs changed during this run.'
+            exit 1
+          fi
+
+      - name: Commit immutable threshold calibration result
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-report-v0.1.json
+          if [ -f data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json ]; then
+            git add data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json
+          fi
+          if git diff --cached --quiet; then
+            echo 'Threshold calibration result already matches committed state.'
+          else
+            if node -e "const r=require('./data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-report-v0.1.json'); process.exit(r.status==='feasible_global_threshold_selected'?0:1)"; then
+              git commit -m 'feat(liuyao): lock fallback identity v0.2 global threshold'
+            else
+              git commit -m 'test(liuyao): record fallback identity v0.2 no-feasible-threshold result'
+            fi
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
+
+      - name: Stop v0.2 line when frozen calibration has no feasible threshold
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const report=JSON.parse(fs.readFileSync('data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-report-v0.1.json','utf8'));
+          if(report.status!=='feasible_global_threshold_selected'){
+            console.error('No feasible global Fallback Identity v0.2 threshold exists under the frozen contract. Same-version retuning is forbidden.');
+            process.exit(1);
+          }
+          console.log('Feasible global Fallback Identity v0.2 threshold is locked.');
+          NODE
