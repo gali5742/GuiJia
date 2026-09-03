@@ -1,0 +1,89 @@
+{
+  "version": "0.13-candidate-v0.4-runtime-lock-v0.1",
+  "status": "runtime_locked_before_fresh_development",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+    "gitBlobSha": "cc2f830118a5ee4e6fc22cb4ddcc78427f286d18"
+  },
+  "dataContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+    "gitBlobSha": "0f5f4b863689dda83fada81aa2a5cad45647b73e"
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "vectorSize": 512,
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "routeabilityThreshold": 0.7678148573595883,
+    "semanticActThreshold": 0.5045675974201208,
+    "fallbackGlobalThreshold": 0.5549057227178391,
+    "routeInventoryCount": 22,
+    "fallbackCandidateUniverse": "all_current_22_routes",
+    "routerTop2FallbackRestriction": false,
+    "semanticActBeforeArbitrationRescue": true,
+    "fallbackBelowThresholdRouteabilityRescue": false,
+    "routeSpecificFallbackThresholds": false
+  },
+  "frozenArtifacts": {
+    "representationCorrectedDependencies": {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+    },
+    "semanticActModel": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "lockPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json"
+    },
+    "routeabilityBaseExecution": {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    "routeabilityThresholdExecution": {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "lockPath": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json"
+    },
+    "fallbackIdentityModel": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json",
+      "sha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d",
+      "weightsLockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+      "thresholdLockPath": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json"
+    }
+  },
+  "modules": {
+    "js/liuyao-semantic-route-evidence-v01.js": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b",
+    "js/liuyao-semantic-route-evidence-v02.js": "bb0158a2600dd6193f8ede303770dd62c374e2f0",
+    "js/liuyao-semantic-route-evidence-v03.js": "f612a06951e136abd00324f2df62a2a288ee165f",
+    "js/liuyao-semantic-route-arbitration-v011.js": "04f0b45b2ea529342275aeb28c29a00e707af5bb",
+    "js/liuyao-semantic-route-arbitration-v012.js": "d00327959df11e2e4e624c683c74f9f737c1ea44",
+    "js/liuyao-semantic-route-compatibility-v01.js": "455ffcb3b5aea604c1366ec95009873f8f4a5f9d",
+    "js/liuyao-semantic-route-compatibility-v02.js": "90a0bf3c4ea325a07773eceb07f3af6d34f9406b",
+    "js/liuyao-semantic-route-compatibility-v03.js": "8d4380424cffdedaf18989217ad43dd61341865d",
+    "js/liuyao-semantic-act-eligibility-v01.js": "2fa9d5a1dc11d7063ac03d42df720329f9ec09f7",
+    "js/liuyao-semantic-routeability-v05-execution-v01.js": "37e3fa34300985e3c1c526ba67187731ab9f343d",
+    "js/liuyao-semantic-fallback-identity-scorer-v02.js": "05e98decccebfe3f00cb42f8702d2613cee3b630",
+    "js/liuyao-semantic-fallback-identity-v02.js": "3c54a0bc0185c277c3c40b3dcc29564dd98e9f27",
+    "js/liuyao-semantic-route-selection-v05.js": "3d7726f1ea56e26a4fffeadb629d9aa4e8037b0e",
+    "js/liuyao-semantic-finalization-v01.js": "d84e8b421db029dd93d555429e0b25d2c2f612b9",
+    "js/liuyao-semantic-candidate-v04-runtime-v01.js": "59d87a7365eb38499979e47ba60ff5ae669d4f66"
+  },
+  "fallbackCalibrationDiagnostic": {
+    "knownTotal": 110,
+    "knownExact": 20,
+    "knownRetention": 0.18181818181818182,
+    "acceptedRouteAccuracy": 1,
+    "overallNonRouteFalseActivation": 0,
+    "promotionMeaning": "none_calibration_feasibility_only"
+  },
+  "isolation": {
+    "candidateV03DevelopmentRowsMayModifyRuntime": false,
+    "freshV04DevelopmentMayModifyRuntime": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "traditionalLiuYaoFeaturesUsed": false,
+    "frontendCutover": false
+  },
+  "nextAction": "build_and_seal_fresh_candidate_v04_development_before_first_development_encoder_scoring"
+}
