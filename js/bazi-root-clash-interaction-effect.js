@@ -4,6 +4,11 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziRootClashInteractionEffect?.installed) return;
 
+    // Research bootstrap dependencies (preserved order):
+    // ./js/bazi-root-actor-interaction-aggregation.js?v=13.44.0
+    // ./js/bazi-root-baseline-effectiveness.js?v=13.44.0
+    // ./js/bazi-stem-bearing-effect.js?v=13.44.0
+    // ./js/bazi-visible-stem-functional-availability.js?v=13.44.0
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
     const ROOT_CLASH_INTERACTION_EFFECT_VERSION = '0.1';
