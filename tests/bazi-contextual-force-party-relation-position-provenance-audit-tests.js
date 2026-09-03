@@ -41,8 +41,9 @@ const extension = extensions['contextual-force-party-relation-position-provenanc
 const depMap = (synthesis) => Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 
 const BASE_DEPENDENCIES = Object.freeze([
-    Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-RELATION-SEMANTICS-CROSS-LITERATURE-MODERN-SUPPORT-AUDIT', status:'resolved', dependsOnDependencyIds:[], resolvedByClaimIds:[] }),
-    Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-COVERAGE', status:'unresolved', dependsOnDependencyIds:[], resolvedByClaimIds:[] }),
+    Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-CONTRACT', status:'resolved', dependsOnDependencyIds:[], resolvedByClaimIds:[] }),
+    Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-RELATION-SEMANTICS-CROSS-LITERATURE-MODERN-SUPPORT-AUDIT', status:'resolved', dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-CONTRACT'], resolvedByClaimIds:[] }),
+    Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-COVERAGE', status:'unresolved', dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-CONTRACT'], resolvedByClaimIds:[] }),
     Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-RELATION-POSITION-PROVENANCE', status:'unresolved', dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-RELATION-SEMANTICS-CROSS-LITERATURE-MODERN-SUPPORT-AUDIT'], resolvedByClaimIds:[] }),
     Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-RELATION-CHART-LOCAL-TARGET-CANDIDATE-BINDING', status:'unresolved', dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-RELATION-POSITION-PROVENANCE'], resolvedByClaimIds:[] }),
     Object.freeze({ id:'SD-CONTEXTUAL-FORCE-PARTY-COMPETING-RELATION-PATH-RESOLUTION', status:'unresolved', dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-RELATION-POSITION-PROVENANCE'], resolvedByClaimIds:[] }),
@@ -66,6 +67,24 @@ function collectKeys(value, keys = new Set()) {
     if (!value || typeof value !== 'object') return keys;
     Object.keys(value).forEach((key) => { keys.add(key); collectKeys(value[key], keys); });
     return keys;
+}
+
+function hasDependencyCycle(dependencies = []) {
+    const graph = new Map(dependencies.map((item) => [item.id, item.dependsOnDependencyIds || []]));
+    const visiting = new Set();
+    const visited = new Set();
+    const visit = (id) => {
+        if (visiting.has(id)) return true;
+        if (visited.has(id) || !graph.has(id)) return false;
+        visiting.add(id);
+        for (const next of graph.get(id)) {
+            if (visit(next)) return true;
+        }
+        visiting.delete(id);
+        visited.add(id);
+        return false;
+    };
+    return [...graph.keys()].some(visit);
 }
 
 test('Relation Position Provenance v0.1 source/audit 安装且 registry validator 通过', () => {
@@ -122,6 +141,17 @@ test('易位用 counterfactual placement 保存，不创建替代命盘 executab
     assert(entry?.kind === 'counterfactual-swap' && entry.counterfactual, '应有 counterfactual swap');
     assert(entry.counterfactual.originalPlacements.length === 2 && entry.counterfactual.alternativePlacements.length === 2, '易位应保存原始/替代 placement');
     assert(entry.executableRelationAuthorization === false, '易位不能自动授权替代 relation execution');
+});
+
+test('Position Coverage 只依赖已解析合同，Curated Coverage 单向消费 Position Coverage，依赖图无环', () => {
+    const synthesis = extendBase();
+    const deps = depMap(synthesis);
+    const positionCoverage = deps['SD-CONTEXTUAL-FORCE-PARTY-RELATION-POSITION-PROVENANCE-COVERAGE'];
+    const annotationCoverage = deps['SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-COVERAGE'];
+    assert(positionCoverage?.dependsOnDependencyIds.includes('SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-CONTRACT'), 'position coverage 应依赖 curated annotation contract');
+    assert(!positionCoverage.dependsOnDependencyIds.includes('SD-CONTEXTUAL-FORCE-PARTY-CURATED-RELATION-SOURCE-SEMANTIC-ANNOTATION-COVERAGE'), 'position coverage 不得反向依赖 curated coverage');
+    assert(annotationCoverage?.dependsOnDependencyIds.includes(positionCoverage.id), 'curated coverage 应单向消费 position coverage');
+    assert(hasDependencyCycle(synthesis.dependencies) === false, 'dependency graph 不得出现环');
 });
 
 test('Synthesis 只 resolved position contract，coverage / consumer / competing path 继续 unresolved', () => {
