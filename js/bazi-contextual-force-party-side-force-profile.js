@@ -4,12 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartySideForceProfile?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartySideForceProfileContract) {
-        document.write('<script src="./js/bazi-contextual-force-party-side-force-profile-contract.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartySideForceProfileProfile) {
-        document.write('<script src="./js/bazi-contextual-force-party-side-force-profile-profile.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-side-force-profile-contract.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-side-force-profile-profile.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-counter-context.js?v=13.44.0
 
     const contractApi = GuiJia.baziContextualForcePartySideForceProfileContract || null;
     const profileApi = GuiJia.baziContextualForcePartySideForceProfileProfile || null;
@@ -234,8 +231,4 @@
         rebuildPartyRule,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCounterContext) {
-        document.write('<script src="./js/bazi-contextual-force-party-counter-context.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
