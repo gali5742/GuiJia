@@ -4,6 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziVisibleStemFunctionalAvailability?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-visible-stem-function-reachability.js?v=13.44.0
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
     const VISIBLE_STEM_FUNCTIONAL_AVAILABILITY_VERSION = '0.1';
@@ -305,8 +306,4 @@
         buildFunctionalAvailabilityRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemFunctionReachability) {
-        document.write('<script src="./js/bazi-visible-stem-function-reachability.js?v=13.44.0"><\\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
