@@ -93,9 +93,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('生产加载路径包含 Clash Preconditions 模块与 Guard 018-019', () => {
-    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(assessmentSource.includes('./js/bazi-clash-preconditions.js'), '生产页面没有 Clash Preconditions 加载路径');
+test('Research bootstrap 显式声明 Clash Preconditions 模块，Guard 018-019 保持', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(bootstrapSource.includes('./js/bazi-clash-preconditions.js'), 'Research bootstrap 未声明 Clash Preconditions 模块');
     const guards = new Map(GuiJia.baziAssessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));
     assert(guards.has('BAZI-ASSESS-GUARD-018'), '缺少 Guard 018');
     assert(guards.has('BAZI-ASSESS-GUARD-019'), '缺少 Guard 019');
