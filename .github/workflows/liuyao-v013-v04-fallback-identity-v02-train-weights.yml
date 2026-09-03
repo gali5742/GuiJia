@@ -1,0 +1,105 @@
+name: LiuYao v0.13-v0.4 Fallback Identity v0.2 Weights-Only Training
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-calibration-contract-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-composite-v05-reachability-decision.json'
+      - 'data/liuyao-semantic-route-training-v0.1.json'
+      - 'data/liuyao-semantic-route-training-v0.2-augmentation.json'
+      - 'data/liuyao-semantic-route-training-v0.3-targeted.json'
+      - 'data/liuyao-semantic-route-training-v0.4-expansion.json'
+      - 'data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json'
+      - 'data/liuyao-semantic-route-training-v0.5-targeted-22.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json'
+      - 'data/liuyao-semantic-embedding-execution-contract-v0.1.json'
+      - 'js/liuyao-semantic-fallback-identity-model-v01.js'
+      - 'scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs'
+      - 'scripts/train-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights-lock.mjs'
+      - '.github/workflows/liuyao-v013-v04-fallback-identity-v02-train-weights.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train-and-lock-weights:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable training base
+        run: echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Prove training implementation is calibration-isolated
+        run: |
+          set -euo pipefail
+          node --check scripts/train-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights-lock.mjs
+          if grep -E 'threshold-calibration-manifest|fallback-identity-calibration-v0\.4|route-exposure-supplement' scripts/train-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights.mjs; then
+            echo 'Weights-only trainer directly references locked calibration row artifacts.'
+            exit 1
+          fi
+
+      - name: Re-run encoder-free training assembly audit
+        run: node scripts/audit-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly.mjs
+
+      - name: Require clean deterministic assembly reproduction
+        run: git diff --exit-code -- data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json
+
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Train 22 Fallback Identity heads from scratch with 1016 single-text encoder calls
+        run: node scripts/train-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights.mjs
+
+      - name: Verify weights-only lock and absence of calibration side effects
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-fallback-identity-v02-weights-lock.mjs
+
+      - name: Refuse stale weight publication if frozen training inputs changed
+        run: |
+          set -euo pipefail
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-calibration-contract-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-composite-v05-reachability-decision.json \
+            data/liuyao-semantic-route-training-v0.1.json \
+            data/liuyao-semantic-route-training-v0.2-augmentation.json \
+            data/liuyao-semantic-route-training-v0.3-targeted.json \
+            data/liuyao-semantic-route-training-v0.4-expansion.json \
+            data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json \
+            data/liuyao-semantic-route-training-v0.5-targeted-22.json \
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json \
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json \
+            js/liuyao-semantic-fallback-identity-model-v01.js; then
+            echo 'Frozen Fallback Identity v0.2 training inputs changed while this run was executing.'
+            exit 1
+          fi
+
+      - name: Commit immutable weights-only model lock
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json
+          git add data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json
+          if git diff --cached --quiet; then
+            echo 'Weights-only model already matches committed state.'
+          else
+            git commit -m 'feat(liuyao): lock fallback identity v0.2 weights before calibration'
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          git push origin HEAD:liuyao-semantic-v013-core
