@@ -20,7 +20,10 @@ const migratedModules = Object.freeze([
     'js/bazi-visible-stem-actor-function-composition.js',
     'js/bazi-visible-stem-actor-profile-interpretation.js',
     'js/bazi-visible-stem-daymaster-contribution.js',
-    'js/bazi-qianli-strength-composition.js'
+    'js/bazi-qianli-strength-composition.js',
+    'js/bazi-qianli-quantity-classification-audit.js',
+    'js/bazi-qianli-quantity-semantic-bridge.js',
+    'js/bazi-qianli-quantity-case-calibration.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -42,7 +45,13 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziVisibleStemDaymasterContribution', src:'./js/bazi-visible-stem-daymaster-contribution.js?v=13.44.0' },
     { globalKey:'baziQianliStrengthCompositionSource', src:'./js/bazi-qianli-strength-composition-source.js?v=13.44.0' },
     { globalKey:'baziQianliStrengthComposition', src:'./js/bazi-qianli-strength-composition.js?v=13.44.0' },
-    { globalKey:'baziQianliQuantityClassificationAudit', src:'./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0' }
+    { globalKey:'baziQianliQuantityClassificationSource', src:'./js/bazi-qianli-quantity-classification-source.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantityClassificationAudit', src:'./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantitySemanticBridgeSource', src:'./js/bazi-qianli-quantity-semantic-bridge-source.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantitySemanticBridge', src:'./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantityCaseCalibrationSource', src:'./js/bazi-qianli-quantity-case-calibration-source.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantityCaseCalibration', src:'./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantityCrossLiteratureResearch', src:'./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([

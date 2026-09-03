@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziQianliQuantitySemanticBridge?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantitySemanticBridgeSource) {
-        document.write('<script src="./js/bazi-qianli-quantity-semantic-bridge-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-qianli-quantity-semantic-bridge-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziQianliQuantitySemanticBridgeSource || null;
     const auditApi = GuiJia.baziQianliQuantityClassificationAudit || null;
