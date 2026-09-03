@@ -4,9 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziQianliQuantityClassificationAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityClassificationSource) {
-        document.write('<script src="./js/bazi-qianli-quantity-classification-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-qianli-quantity-classification-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0
 
     const sourceApi = GuiJia.baziQianliQuantityClassificationSource || null;
     if (!sourceApi) return;
@@ -188,11 +188,4 @@
         buildDependencies,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantitySemanticBridge) {
-        document.write('<script src="./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziQianliQuantityCaseCalibration) {
-        document.write('<script src="./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
