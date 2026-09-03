@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.6';
+    const VERSION = '0.7';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -32,7 +32,13 @@
         Object.freeze({ globalKey:'baziVisibleStemDaymasterContribution', src:'./js/bazi-visible-stem-daymaster-contribution.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziQianliStrengthCompositionSource', src:'./js/bazi-qianli-strength-composition-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziQianliStrengthComposition', src:'./js/bazi-qianli-strength-composition.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziQianliQuantityClassificationAudit', src:'./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziQianliQuantityClassificationSource', src:'./js/bazi-qianli-quantity-classification-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantityClassificationAudit', src:'./js/bazi-qianli-quantity-classification-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantitySemanticBridgeSource', src:'./js/bazi-qianli-quantity-semantic-bridge-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantitySemanticBridge', src:'./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantityCaseCalibrationSource', src:'./js/bazi-qianli-quantity-case-calibration-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantityCaseCalibration', src:'./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziQianliQuantityCrossLiteratureResearch', src:'./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
