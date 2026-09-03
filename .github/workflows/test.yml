@@ -26,6 +26,9 @@ jobs:
       - name: Verify source production runtime boundary
         run: node scripts/verify-production-runtime-boundary.mjs .
 
+      - name: Audit BaZi test/runtime coupling
+        run: node scripts/audit-bazi-test-runtime-coupling.mjs
+
       - name: Core regression tests
         run: npm test
 
