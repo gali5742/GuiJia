@@ -161,15 +161,28 @@ test('Audit 不引入 score、threshold、majority、ranking 或 actor-global ef
     assert(audit.numericScore === null && audit.scalarForce === null && audit.actorGlobalEffectiveness === null, '不得生成 scalar/global effectiveness');
 });
 
-test('生产 loader 保持 Branch → Generalization → Authorization → Calibration 的 parser-synchronous 顺序', () => {
-    const branchText = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
+test('研究 bootstrap 保持 Branch → Input Adapter → Generalization → Authorization → Calibration 的 parser-synchronous 顺序', () => {
+    const bootstrapText = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
     const calibrationText = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js'), 'utf8');
-    const generalIndex = branchText.indexOf('bazi-contextual-force-party-relation-effect-generalization-audit.js');
-    const authIndex = branchText.indexOf('bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js');
-    const calibrationIndex = branchText.indexOf('bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js');
-    assert(generalIndex >= 0 && authIndex > generalIndex && calibrationIndex > authIndex, 'production loader 顺序异常');
-    assert(calibrationText.includes('document.write') && calibrationText.includes('bazi-contextual-force-party-visible-motif-e2e-calibration-source.js'), 'Calibration Audit 应同步加载 source');
-    assert(!/DOMContentLoaded/.test(branchText + calibrationText), '不得引入 DOMContentLoaded async loader');
+    const ordered = [
+        'bazi-branch-element-relation-inventory.js',
+        'bazi-contextual-force-party-branch-substrate-quality-input-adapter.js',
+        'bazi-contextual-force-party-relation-effect-generalization-source.js',
+        'bazi-contextual-force-party-relation-effect-generalization-audit.js',
+        'bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js',
+        'bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js',
+        'bazi-contextual-force-party-visible-motif-e2e-calibration-source.js',
+        'bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrapText.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!calibrationText.includes('document.write'), 'Calibration Audit 不应继续持有隐式 source loader');
+    assert(calibrationText.includes('bazi-contextual-force-party-visible-motif-e2e-calibration-source.js'), 'Calibration Audit 应保留 bootstrap prerequisite provenance');
+    assert(!/DOMContentLoaded/.test(bootstrapText + calibrationText), '不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
