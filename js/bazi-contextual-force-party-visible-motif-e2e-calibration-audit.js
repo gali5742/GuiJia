@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyVisibleMotifE2ECalibrationAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyVisibleMotifE2ECalibrationSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-visible-motif-e2e-calibration-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-visible-motif-e2e-calibration-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyVisibleMotifE2ECalibrationSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
