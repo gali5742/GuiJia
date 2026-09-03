@@ -4,15 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapter?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterContract) {
-        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile) {
-        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziBranchElementRelationInventory) {
-        document.write('<script src="./js/bazi-branch-element-relation-inventory.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-branch-element-relation-inventory.js?v=13.44.0
 
     const contractApi = GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterContract || null;
     const baseProfileApi = GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile || null;

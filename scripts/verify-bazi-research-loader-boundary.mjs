@@ -37,7 +37,8 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-party-side-force-profile.js',
     'js/bazi-contextual-force-party-counter-context.js',
     'js/bazi-contextual-force-party-nonstem-foundation-audit.js',
-    'js/bazi-contextual-force-party-branch-substrate-quality-audit.js'
+    'js/bazi-contextual-force-party-branch-substrate-quality-audit.js',
+    'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -98,6 +99,9 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyNonStemFoundationAudit', src:'./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyBranchSubstrateQualitySource', src:'./js/bazi-contextual-force-party-branch-substrate-quality-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyBranchSubstrateQualityAudit', src:'./js/bazi-contextual-force-party-branch-substrate-quality-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterContract', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0' },
+    { globalKey:'baziBranchElementRelationInventory', src:'./js/bazi-branch-element-relation-inventory.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapter', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0' }
 ]);
 
