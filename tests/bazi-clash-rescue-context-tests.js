@@ -137,11 +137,11 @@ function findBranchStructureContext(model, relationCode, zhis) {
     });
 }
 
-test('生产加载路径包含 Clash Rescue Context 与 Root Clash Source Outcome 模块', () => {
-    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
+test('Research bootstrap 显式声明 Clash Rescue Context，且其研究链继续接入 Root Clash Source Outcome', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
     const rescueSource = fs.readFileSync(path.join(ROOT, 'js/bazi-clash-rescue-context.js'), 'utf8');
-    assert(assessmentSource.includes('./js/bazi-clash-rescue-context.js'), '生产页面没有 clash rescue context 模块加载路径');
-    assert(rescueSource.includes('./js/bazi-root-clash-source-outcome.js?v=13.44.0'), 'Rescue Context 未接入 Root Clash Source Outcome 浏览器加载链');
+    assert(bootstrapSource.includes('./js/bazi-clash-rescue-context.js'), 'Research bootstrap 未声明 Clash Rescue Context 模块');
+    assert(rescueSource.includes('./js/bazi-root-clash-source-outcome.js?v=13.44.0'), 'Rescue Context 研究链未接入 Root Clash Source Outcome');
     assert(rescueApi?.installed === true, 'Clash Rescue Context 模块未安装');
     assert(rescueApi.CLASH_RESCUE_CONTEXT_VERSION === '0.2', `Rescue Context 版本异常：${rescueApi.CLASH_RESCUE_CONTEXT_VERSION}`);
     assert(outcomeApi?.installed === true, 'Root Clash Source Outcome 模块未安装');
