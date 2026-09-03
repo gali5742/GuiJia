@@ -23,7 +23,10 @@ const migratedModules = Object.freeze([
     'js/bazi-qianli-strength-composition.js',
     'js/bazi-qianli-quantity-classification-audit.js',
     'js/bazi-qianli-quantity-semantic-bridge.js',
-    'js/bazi-qianli-quantity-case-calibration.js'
+    'js/bazi-qianli-quantity-case-calibration.js',
+    'js/bazi-qianli-quantity-cross-literature-research.js',
+    'js/bazi-contextual-force-evidence-profile.js',
+    'js/bazi-contextual-force-evidence.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -51,7 +54,12 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziQianliQuantitySemanticBridge', src:'./js/bazi-qianli-quantity-semantic-bridge.js?v=13.44.0' },
     { globalKey:'baziQianliQuantityCaseCalibrationSource', src:'./js/bazi-qianli-quantity-case-calibration-source.js?v=13.44.0' },
     { globalKey:'baziQianliQuantityCaseCalibration', src:'./js/bazi-qianli-quantity-case-calibration.js?v=13.44.0' },
-    { globalKey:'baziQianliQuantityCrossLiteratureResearch', src:'./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0' }
+    { globalKey:'baziQianliQuantityCrossLiteratureSource', src:'./js/bazi-qianli-quantity-cross-literature-source.js?v=13.44.0' },
+    { globalKey:'baziQianliQuantityCrossLiteratureResearch', src:'./js/bazi-qianli-quantity-cross-literature-research.js?v=13.44.0' },
+    { globalKey:'baziContextualForceEvidenceSource', src:'./js/bazi-contextual-force-evidence-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForceEvidenceProfile', src:'./js/bazi-contextual-force-evidence-profile.js?v=13.44.0' },
+    { globalKey:'baziContextualForceEvidence', src:'./js/bazi-contextual-force-evidence.js?v=13.44.0' },
+    { globalKey:'baziContextualForceInteractionAdapter', src:'./js/bazi-contextual-force-interaction-adapter.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
