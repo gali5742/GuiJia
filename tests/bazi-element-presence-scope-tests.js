@@ -100,9 +100,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('生产加载路径包含 Element Presence Scope 模块与 Guard 021', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(source.includes('./js/bazi-element-presence-scope.js'), '生产页面没有 element presence scope 模块加载路径');
+test('Research bootstrap 显式声明 Element Presence Scope 模块，Guard 021 保持', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(bootstrapSource.includes('./js/bazi-element-presence-scope.js'), 'Research bootstrap 未声明 Element Presence Scope 模块');
     assert(scopeApi?.installed === true, 'Element Presence Scope 模块未安装');
     assert(scopeApi.ELEMENT_PRESENCE_SCOPE_KEY === 'explicit-pillar-surface', 'scope key 异常');
     const guards = new Map(GuiJia.baziAssessment.assessmentGuardRegistry.rules.map((item) => [item.id, item.statement]));

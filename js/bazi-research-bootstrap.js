@@ -1,0 +1,34 @@
+(function (global) {
+    'use strict';
+
+    const GuiJia = global.GuiJia = global.GuiJia || {};
+    if (GuiJia.baziResearchBootstrap?.installed) return;
+
+    const VERSION = '0.1';
+    const dependencies = Object.freeze([
+        Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziRootEffectState', src:'./js/bazi-root-effect-state.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziRootSixRelations', src:'./js/bazi-root-six-relations.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziClashPreconditions', src:'./js/bazi-clash-preconditions.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziClashSeasonalPosition', src:'./js/bazi-clash-seasonal-position.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziClashNonseasonalForce', src:'./js/bazi-clash-nonseasonal-force.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziElementPresenceScope', src:'./js/bazi-element-presence-scope.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziClashRescueContext', src:'./js/bazi-clash-rescue-context.js?v=13.44.0' })
+    ]);
+
+    const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
+    if (canParserLoad) {
+        dependencies.forEach((dependency) => {
+            if (GuiJia[dependency.globalKey]) return;
+            document.write(`<script src="${dependency.src}"><\/script>`);
+        });
+    }
+
+    GuiJia.baziResearchBootstrap = Object.freeze({
+        installed:true,
+        version:VERSION,
+        mode:'explicit-research-opt-in',
+        dependencies
+    });
+})(typeof window !== 'undefined' ? window : globalThis);
