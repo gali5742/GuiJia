@@ -98,9 +98,9 @@ function seasonalDimension(record) {
     return (record?.comparisonDimensions || []).find((item) => item.key === 'seasonal-command-position');
 }
 
-test('生产加载路径包含 Clash Seasonal Position 模块', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(source.includes('./js/bazi-clash-seasonal-position.js'), '生产页面没有季节地位模块加载路径');
+test('Research bootstrap 显式声明 Clash Seasonal Position 模块', () => {
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(bootstrapSource.includes('./js/bazi-clash-seasonal-position.js'), 'Research bootstrap 未声明 Clash Seasonal Position 模块');
     assert(seasonalApi?.installed === true, '季节地位模块未安装');
 });
 
