@@ -4,6 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziVisibleStemFunctionRealizationSource?.installed) return;
 
+    // Research bootstrap dependency: ./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0
+
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     const baseRealizationApi = GuiJia.baziVisibleStemFunctionRealization || null;
 
@@ -398,8 +400,4 @@
         refineRealizationRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziVisibleStemActorInteractionAggregation) {
-        document.write('<script src="./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
