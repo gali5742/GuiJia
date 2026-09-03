@@ -250,9 +250,10 @@ test('Month Command v0.2 不引入分数、权重、根效力或最终身强弱�
     assert(!serialized.includes('"strong"') && !serialized.includes('"weak"') && !serialized.includes('"balanced"'), '不得输出最终强弱结论');
 });
 
-test('生产 Assessment 加载链继续包含独立 Month Command 模块', () => {
-    const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
-    assert(assessmentSource.includes('./js/bazi-month-command.js?v=13.44.0'), '生产加载链未接入 Month Command 独立模块');
+test('Research bootstrap 显式声明独立 Month Command 模块', () => {
+    const researchBootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    assert(researchBootstrapSource.includes("globalKey:'baziMonthCommand'"), 'Research bootstrap 未声明 Month Command globalKey');
+    assert(researchBootstrapSource.includes("src:'./js/bazi-month-command.js?v=13.44.0'"), 'Research bootstrap 未接入 Month Command 独立模块');
 });
 
 console.log(`\nBaZi month command calendar v0.2: ${passed} passed, ${failed} failed`);
