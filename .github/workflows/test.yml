@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Production runtime boundary smoke test
+        run: node tests/bazi-production-runtime-boundary-tests.js
+
       - name: Core regression tests
         run: npm test
 
