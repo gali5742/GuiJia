@@ -1,0 +1,82 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-threshold-lock-v0.1",
+  "status": "global_threshold_locked_after_weights",
+  "scope": "liuyao_semantic_fallback_identity_v0.2",
+  "weightsModel": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json",
+    "sha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d"
+  },
+  "weightsLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+    "sha256": "7873b9b4831b19a4bf2526d96425955fc4dac075ae1b7bce9f271cbf9e195ab4",
+    "status": "weights_locked_before_threshold_calibration"
+  },
+  "calibrationReport": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-report-v0.1.json",
+    "sha256": "70e70905b984e95aec91a4d9823ddcde7a7dd5914f89ec935adfe0db17ffea36"
+  },
+  "calibrationMembership": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold-calibration-manifest-v0.1.json",
+    "gitBlobSha": "36cde49db074bf91889b9680a45a7d94cb00a253",
+    "rows": 125
+  },
+  "routeCount": 22,
+  "vectorSize": 512,
+  "canonicalTextsPerEncoderCall": 1,
+  "calibrationEncoderCalls": 125,
+  "scoreAll22Heads": true,
+  "routeSpecificThresholds": false,
+  "globalThreshold": 0.5549057227178391,
+  "thresholdSelected": true,
+  "selectedMetrics": {
+    "threshold": 0.5549057227178391,
+    "knownRetention": 0.18181818181818182,
+    "knownExactRoute": 0.18181818181818182,
+    "acceptedRouteAccuracy": 1,
+    "acceptedKnown": 20,
+    "exactKnown": 20,
+    "wrongUniqueKnown": 0,
+    "knownZeroAdmissions": 88,
+    "knownMultipleAdmissions": 2,
+    "overallNonRouteFalseActivation": 0,
+    "nonRouteFalseActivations": 0,
+    "nonRouteZeroAdmissions": 15,
+    "nonRouteMultipleAdmissions": 0,
+    "maxObservedSubtypeFalseActivation": 0,
+    "byNonRouteSubtype": {
+      "near_domain_not_current_route": {
+        "n": 9,
+        "estimable": true,
+        "falseRouteActivations": 0,
+        "falseRouteActivation": 0,
+        "zeroAdmissions": 9,
+        "multipleAdmissions": 0
+      },
+      "route_unresolved": {
+        "n": 6,
+        "estimable": true,
+        "falseRouteActivations": 0,
+        "falseRouteActivation": 0,
+        "zeroAdmissions": 6,
+        "multipleAdmissions": 0
+      },
+      "outside_current_22": {
+        "n": 0,
+        "estimable": false,
+        "falseRouteActivations": 0,
+        "falseRouteActivation": null,
+        "zeroAdmissions": 0,
+        "multipleAdmissions": 0
+      }
+    },
+    "checks": {
+      "acceptedRouteAccuracy": true,
+      "overallNonRouteFalseActivation": true,
+      "observedSubtypeFalseActivation": true
+    },
+    "feasible": true
+  },
+  "outsideCurrent22FallbackN": 0,
+  "outsideCurrent22ThresholdSafety": "not_estimable_from_threshold_calibration",
+  "nextAction": "implement_and_freeze_fallback_identity_v02_all22_runtime_then_build_fresh_candidate_v04_development"
+}
