@@ -3,33 +3,41 @@
 
     const GuiJia = global.GuiJia = global.GuiJia || {};
 
-    // The static page still loads classic scripts in dependency order. Keep the new
-    // Synthesis layers independent while ensuring they are available before Assessment.
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziMonthCommand) {
+    // Research/evaluation layers may still use classic parser-ordered loading on dedicated
+    // test pages, but the production entry must not pull the research dependency cascade
+    // into the user-facing critical path. The production interpretation treats Assessment
+    // as optional until a layer is explicitly promoted into the production runtime.
+    const documentPath = typeof document !== 'undefined' ? (document.location?.pathname || '') : '';
+    const isProductionEntry = documentPath.endsWith('/') || documentPath.endsWith('/index.html');
+    const shouldLoadResearchDependencies = typeof document !== 'undefined'
+        && document.readyState === 'loading'
+        && !isProductionEntry;
+
+    if (shouldLoadResearchDependencies && !GuiJia.baziMonthCommand) {
         document.write('<script src="./js/bazi-month-command.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziStrengthSynthesis) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziStrengthSynthesis) {
         document.write('<script src="./js/bazi-strength-synthesis.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootEffectState) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziRootEffectState) {
         document.write('<script src="./js/bazi-root-effect-state.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootSixRelations) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziRootSixRelations) {
         document.write('<script src="./js/bazi-root-six-relations.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashPreconditions) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziClashPreconditions) {
         document.write('<script src="./js/bazi-clash-preconditions.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashSeasonalPosition) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziClashSeasonalPosition) {
         document.write('<script src="./js/bazi-clash-seasonal-position.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashNonseasonalForce) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziClashNonseasonalForce) {
         document.write('<script src="./js/bazi-clash-nonseasonal-force.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziElementPresenceScope) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziElementPresenceScope) {
         document.write('<script src="./js/bazi-element-presence-scope.js?v=13.44.0"><\/script>');
     }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziClashRescueContext) {
+    if (shouldLoadResearchDependencies && !GuiJia.baziClashRescueContext) {
         document.write('<script src="./js/bazi-clash-rescue-context.js?v=13.44.0"><\/script>');
     }
 
