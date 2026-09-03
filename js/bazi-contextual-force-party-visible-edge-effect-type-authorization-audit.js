@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
