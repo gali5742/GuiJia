@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyNonStemFoundationAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyNonStemFoundationSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-nonstem-foundation-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-nonstem-foundation-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-branch-substrate-quality-audit.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyNonStemFoundationSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
@@ -316,8 +315,4 @@
         rebuildSideForceProfile,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityAudit) {
-        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-audit.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);

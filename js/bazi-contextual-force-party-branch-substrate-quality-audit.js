@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyBranchSubstrateQualityAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualitySource) {
-        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-branch-substrate-quality-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyBranchSubstrateQualitySource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
@@ -347,8 +346,4 @@
         rebuildSideForceProfile,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyBranchSubstrateQualityInputAdapter) {
-        document.write('<script src="./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -35,7 +35,9 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-party-relation-effect.js',
     'js/bazi-contextual-force-party-relative-dominance-audit.js',
     'js/bazi-contextual-force-party-side-force-profile.js',
-    'js/bazi-contextual-force-party-counter-context.js'
+    'js/bazi-contextual-force-party-counter-context.js',
+    'js/bazi-contextual-force-party-nonstem-foundation-audit.js',
+    'js/bazi-contextual-force-party-branch-substrate-quality-audit.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -92,7 +94,11 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyCounterContextContract', src:'./js/bazi-contextual-force-party-counter-context-contract.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyCounterContextProfile', src:'./js/bazi-contextual-force-party-counter-context-profile.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyCounterContext', src:'./js/bazi-contextual-force-party-counter-context.js?v=13.44.0' },
-    { globalKey:'baziContextualForcePartyNonStemFoundationAudit', src:'./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0' }
+    { globalKey:'baziContextualForcePartyNonStemFoundationSource', src:'./js/bazi-contextual-force-party-nonstem-foundation-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyNonStemFoundationAudit', src:'./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualitySource', src:'./js/bazi-contextual-force-party-branch-substrate-quality-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualityAudit', src:'./js/bazi-contextual-force-party-branch-substrate-quality-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapter', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
