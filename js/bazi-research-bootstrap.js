@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.12';
+    const VERSION = '0.13';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -71,6 +71,9 @@
         Object.freeze({ globalKey:'baziContextualForcePartyNonStemFoundationAudit', src:'./js/bazi-contextual-force-party-nonstem-foundation-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyBranchSubstrateQualitySource', src:'./js/bazi-contextual-force-party-branch-substrate-quality-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyBranchSubstrateQualityAudit', src:'./js/bazi-contextual-force-party-branch-substrate-quality-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterContract', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziBranchElementRelationInventory', src:'./js/bazi-branch-element-relation-inventory.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapter', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0' })
     ]);
 
