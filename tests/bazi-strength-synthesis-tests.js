@@ -98,11 +98,14 @@ function collectKeys(value, keys = new Set()) {
     return keys;
 }
 
-test('静态页面存在 Strength Synthesis 的生产加载路径', () => {
+test('Strength Synthesis 保持研究显式 opt-in，不回流生产入口', () => {
     const indexSource = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
     const assessmentSource = fs.readFileSync(path.join(ROOT, 'js/bazi-assessment.js'), 'utf8');
+    const bootstrapSource = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
     const modulePath = './js/bazi-strength-synthesis.js';
-    assert(indexSource.includes(modulePath) || assessmentSource.includes(modulePath), '生产页面没有加载 bazi-strength-synthesis.js 的路径');
+    assert(!indexSource.includes(modulePath), '生产 index 不应直接加载 bazi-strength-synthesis.js');
+    assert(!assessmentSource.includes(modulePath), '纯 Assessment 模块不应发现 bazi-strength-synthesis.js');
+    assert(bootstrapSource.includes(modulePath), 'Research bootstrap 必须显式声明 bazi-strength-synthesis.js');
 });
 
 test('验证盘启用月令层级与根角色 Synthesis Rule，但不生成最终身强弱结论', () => {
