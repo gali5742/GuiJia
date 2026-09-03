@@ -12,7 +12,10 @@ const migratedModules = Object.freeze([
     'js/bazi-root-clash-interaction-effect.js',
     'js/bazi-visible-stem-functional-availability.js',
     'js/bazi-visible-stem-function-reachability.js',
-    'js/bazi-visible-stem-directed-function.js'
+    'js/bazi-visible-stem-directed-function.js',
+    'js/bazi-visible-stem-function-coverage.js',
+    'js/bazi-visible-stem-function-realization.js',
+    'js/bazi-visible-stem-function-realization-source.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -25,7 +28,10 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziVisibleStemFunctionalAvailability', src:'./js/bazi-visible-stem-functional-availability.js?v=13.44.0' },
     { globalKey:'baziVisibleStemFunctionReachability', src:'./js/bazi-visible-stem-function-reachability.js?v=13.44.0' },
     { globalKey:'baziVisibleStemDirectedFunction', src:'./js/bazi-visible-stem-directed-function.js?v=13.44.0' },
-    { globalKey:'baziVisibleStemFunctionCoverage', src:'./js/bazi-visible-stem-function-coverage.js?v=13.44.0' }
+    { globalKey:'baziVisibleStemFunctionCoverage', src:'./js/bazi-visible-stem-function-coverage.js?v=13.44.0' },
+    { globalKey:'baziVisibleStemFunctionRealization', src:'./js/bazi-visible-stem-function-realization.js?v=13.44.0' },
+    { globalKey:'baziVisibleStemFunctionRealizationSource', src:'./js/bazi-visible-stem-function-realization-source.js?v=13.44.0' },
+    { globalKey:'baziVisibleStemActorInteractionAggregation', src:'./js/bazi-visible-stem-actor-interaction-aggregation.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
