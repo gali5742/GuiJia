@@ -293,8 +293,4 @@
         buildSourceOutcomeRecords,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziRootClashInteractionEffect) {
-        document.write('<script src="./js/bazi-root-clash-interaction-effect.js?v=13.44.0"><\\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
