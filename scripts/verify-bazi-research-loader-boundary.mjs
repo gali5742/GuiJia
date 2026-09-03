@@ -38,7 +38,10 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-party-counter-context.js',
     'js/bazi-contextual-force-party-nonstem-foundation-audit.js',
     'js/bazi-contextual-force-party-branch-substrate-quality-audit.js',
-    'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js'
+    'js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js',
+    'js/bazi-contextual-force-party-relation-effect-generalization-audit.js',
+    'js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js',
+    'js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -102,7 +105,13 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterContract', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-contract.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapterProfile', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter-profile.js?v=13.44.0' },
     { globalKey:'baziBranchElementRelationInventory', src:'./js/bazi-branch-element-relation-inventory.js?v=13.44.0' },
-    { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapter', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0' }
+    { globalKey:'baziContextualForcePartyBranchSubstrateQualityInputAdapter', src:'./js/bazi-contextual-force-party-branch-substrate-quality-input-adapter.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationEffectGeneralizationSource', src:'./js/bazi-contextual-force-party-relation-effect-generalization-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationEffectGeneralizationAudit', src:'./js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationSource', src:'./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit', src:'./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationSource', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-source.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationAudit', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js?v=13.44.0' }
 ]);
 
 const forbiddenLoaderPatterns = Object.freeze([
