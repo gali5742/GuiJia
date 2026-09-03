@@ -1,0 +1,38 @@
+{
+  "version": "0.13-candidate-v0.4-fallback-identity-v0.2-model-lock-v0.1",
+  "status": "weights_locked_before_threshold_calibration",
+  "scope": "liuyao_semantic_fallback_identity_v0.2",
+  "artifact": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json",
+  "artifactSha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d",
+  "trainingContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-calibration-contract-v0.1.json",
+    "sha256": "f8ef202845b6ecc2539cbd882fe630d2dcff49f6e012e8679ffec25f951483c5"
+  },
+  "trainingAssembly": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-training-assembly-audit-v0.1.json",
+    "gitBlobSha": "9a910b6f6097a346d25c879f994960bde868979f"
+  },
+  "encoderExecutionContract": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7"
+  },
+  "algorithm": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v01.js",
+    "sha256": "ae7ebbd1e197d0e7a764993216ac68e64ff562be7945d4221ffd3cceb4baf1e2"
+  },
+  "routeCount": 22,
+  "vectorSize": 512,
+  "trainingRows": 1016,
+  "trainingKnown": 805,
+  "trainingNonRoute": 211,
+  "canonicalTextsPerEncoderCall": 1,
+  "trainingEncoderCalls": 1016,
+  "trainFromScratch": true,
+  "legacyV01WeightsReused": false,
+  "globalThreshold": null,
+  "thresholdSelected": false,
+  "calibrationProbabilitiesScored": false,
+  "calibrationRowsEmbedded": false,
+  "calibrationRowsRead": false,
+  "nextAction": "run_locked_125_row_all22_global_threshold_calibration"
+}
