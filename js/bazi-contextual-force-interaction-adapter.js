@@ -4,12 +4,9 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForceInteractionAdapter?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForceInteractionAdapterContract) {
-        document.write('<script src="./js/bazi-contextual-force-interaction-adapter-contract.js?v=13.44.0"><\/script>');
-    }
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForceInteractionAdapterProfile) {
-        document.write('<script src="./js/bazi-contextual-force-interaction-adapter-profile.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-interaction-adapter-contract.js?v=13.44.0
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-interaction-adapter-profile.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-audit.js?v=13.44.0
 
     const contractApi = GuiJia.baziContextualForceInteractionAdapterContract || null;
     const profileApi = GuiJia.baziContextualForceInteractionAdapterProfile || null;
@@ -167,8 +164,4 @@
         rebuildProfileCoverageDependency,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyAudit) {
-        document.write('<script src="./js/bazi-contextual-force-party-audit.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
