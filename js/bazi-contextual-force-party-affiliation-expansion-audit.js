@@ -4,9 +4,8 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyAffiliationExpansionAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyAffiliationExpansionSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-affiliation-expansion-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-affiliation-expansion-source.js?v=13.44.0
+    // Research bootstrap dependency: ./js/bazi-contextual-force-party-relation-effect.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyAffiliationExpansionSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
@@ -233,8 +232,4 @@
         rebuildPartyRule,
         extendSynthesis
     });
-
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationEffect) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-effect.js?v=13.44.0"><\/script>');
-    }
 })(typeof window !== 'undefined' ? window : globalThis);
