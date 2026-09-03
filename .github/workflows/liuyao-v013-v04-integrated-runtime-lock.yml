@@ -1,0 +1,31 @@
+name: LiuYao v0.13-v0.4 Integrated Runtime Lock
+
+on:
+  push:
+    branches: [liuyao-semantic-v013-core]
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-runtime.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-*.json'
+      - 'data/liuyao-semantic-frozen-dependencies-v0.2*'
+      - 'data/liuyao-semantic-routeability-v0.2-execution-v0.1.json'
+      - 'data/liuyao-semantic-routeability-v0.3-execution-v0.1*'
+      - 'js/liuyao-semantic-*.js'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-runtime-lock-v01.mjs'
+      - '.github/workflows/liuyao-v013-v04-integrated-runtime-lock.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify Candidate v0.4 integrated runtime lock
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-runtime-lock-v01.mjs
+      - name: Verify Fallback all-22 runtime contracts
+        run: node tests/liuyao-semantic-v013-candidate-v04-fallback-all22-runtime-contract-tests.js
