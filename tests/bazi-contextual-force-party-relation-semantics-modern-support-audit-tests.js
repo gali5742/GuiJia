@@ -155,12 +155,24 @@ test('Modern Support Audit 不引入 numeric/scalar/threshold/ranking 或 execut
     ['forceScore','memberScore','classificationScore','numericWeight','thresholdValue','majorityResult','rankingResult','finalStrength','memberEdges','realizedEdge'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
 });
 
-test('生产 loader 顺序为 Curated Annotation → Modern Support Audit，保持 parser-synchronous', () => {
-    const loader = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
-    const annotationAudit = loader.indexOf('bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js');
-    const modernAudit = loader.indexOf('bazi-contextual-force-party-relation-semantics-modern-support-audit.js');
-    assert(annotationAudit >= 0 && modernAudit > annotationAudit, 'loader 顺序异常');
-    assert(!loader.includes('DOMContentLoaded'), '不得引入异步 DOMContentLoaded loader');
+test('研究 bootstrap 顺序为 Curated Annotation Source/Audit → Modern Support Source/Audit', () => {
+    const bootstrap = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js'), 'utf8');
+    const ordered = [
+        'bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js',
+        'bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js',
+        'bazi-contextual-force-party-relation-semantics-modern-support-source.js',
+        'bazi-contextual-force-party-relation-semantics-modern-support-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrap.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Modern Support Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-relation-semantics-modern-support-source.js'), 'Modern Support Audit 应保留 bootstrap prerequisite provenance');
+    assert(!bootstrap.includes('DOMContentLoaded'), 'research bootstrap 不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\nRelation Semantics Modern Support Audit tests: ${passed} passed, ${failed} failed.`);
