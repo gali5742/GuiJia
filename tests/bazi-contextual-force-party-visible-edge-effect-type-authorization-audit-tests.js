@@ -142,12 +142,24 @@ test('Strength Synthesis 与 Assessment 继续关闭', () => {
     assert(output.semanticModel.assessmentLayer?.state === 'contract-only', 'Assessment 应继续 contract-only');
 });
 
-test('生产 loader 保持同步顺序：Generalization Audit → Visible-Edge Authorization Audit', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
-    const general = './js/bazi-contextual-force-party-relation-effect-generalization-audit.js?v=13.44.0';
-    const visible = './js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js?v=13.44.0';
-    assert(source.includes(general) && source.includes(visible), '生产 loader 缺新 audit');
-    assert(source.indexOf(general) < source.indexOf(visible), 'Visible-Edge audit 必须在 Generalization audit 之后加载');
+test('研究 bootstrap 保持同步顺序：Generalization Source/Audit → Visible-Edge Source/Audit', () => {
+    const bootstrap = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js'), 'utf8');
+    const ordered = [
+        'bazi-contextual-force-party-relation-effect-generalization-source.js',
+        'bazi-contextual-force-party-relation-effect-generalization-audit.js',
+        'bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js',
+        'bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrap.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Visible-Edge Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-visible-edge-effect-type-authorization-source.js'), 'Visible-Edge Audit 应保留 bootstrap prerequisite provenance');
+    assert(!bootstrap.includes('DOMContentLoaded'), 'research bootstrap 不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\nVisible-Edge Effect-Type Authorization Audit v0.1: ${passed} passed, ${failed} failed`);
