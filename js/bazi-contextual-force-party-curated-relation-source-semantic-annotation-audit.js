@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;

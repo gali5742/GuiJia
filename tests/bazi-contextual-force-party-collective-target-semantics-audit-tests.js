@@ -187,14 +187,24 @@ test('Audit 不引入 score、threshold、majority、ranking 或 actor-global ef
     assert(audit.numericScore === null && audit.scalarForce === null && audit.actorGlobalEffectiveness === null, '不得生成 scalar/global effectiveness');
 });
 
-test('生产 loader 保持 parser-synchronous，并在 calibration 后加载 collective audit', () => {
-    const text = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
-    const generalizationIndex = text.indexOf('bazi-contextual-force-party-relation-effect-generalization-audit.js');
-    const authorizationIndex = text.indexOf('bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js');
-    const calibrationIndex = text.indexOf('bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js');
-    const collectiveIndex = text.indexOf('bazi-contextual-force-party-collective-target-semantics-audit.js');
-    assert(generalizationIndex >= 0 && authorizationIndex > generalizationIndex && calibrationIndex > authorizationIndex && collectiveIndex > calibrationIndex, 'loader 顺序异常');
-    assert(!/DOMContentLoaded/.test(text), '不得引入 DOMContentLoaded async loader');
+test('研究 bootstrap 在 calibration 后显式加载 Collective Target Source/Audit', () => {
+    const bootstrap = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-collective-target-semantics-audit.js'), 'utf8');
+    const ordered = [
+        'bazi-contextual-force-party-visible-motif-e2e-calibration-source.js',
+        'bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js',
+        'bazi-contextual-force-party-collective-target-semantics-source.js',
+        'bazi-contextual-force-party-collective-target-semantics-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrap.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Collective Target Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-collective-target-semantics-source.js'), 'Collective Target Audit 应保留 bootstrap prerequisite provenance');
+    assert(!bootstrap.includes('DOMContentLoaded'), 'research bootstrap 不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);

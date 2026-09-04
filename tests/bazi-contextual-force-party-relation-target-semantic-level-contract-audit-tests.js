@@ -202,12 +202,24 @@ test('Source/Contract Audit 不引入 numeric/scalar/threshold/ranking 或 reali
     assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 3, 'realization registry 不应增加');
 });
 
-test('生产 loader 顺序为 Collective Target Semantics → Relation Target Level Contract Audit', () => {
-    const loader = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
-    const collective = loader.indexOf('bazi-contextual-force-party-collective-target-semantics-audit.js');
-    const contractAudit = loader.indexOf('bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js');
-    assert(collective >= 0 && contractAudit > collective, 'loader 顺序异常');
-    assert(!loader.includes('DOMContentLoaded'), '不得引入异步 DOMContentLoaded loader');
+test('研究 bootstrap 顺序为 Collective Target Source/Audit → Relation Target Level Source/Audit', () => {
+    const bootstrap = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js'), 'utf8');
+    const ordered = [
+        'bazi-contextual-force-party-collective-target-semantics-source.js',
+        'bazi-contextual-force-party-collective-target-semantics-audit.js',
+        'bazi-contextual-force-party-relation-target-semantic-level-contract-source.js',
+        'bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrap.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Relation Target Contract Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-relation-target-semantic-level-contract-source.js'), 'Relation Target Contract Audit 应保留 bootstrap prerequisite provenance');
+    assert(!bootstrap.includes('DOMContentLoaded'), 'research bootstrap 不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\nRelation Target Semantic Level Contract Audit tests: ${passed} passed, ${failed} failed.`);

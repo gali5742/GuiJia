@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyCollectiveTargetSemanticsAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyCollectiveTargetSemanticsSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-collective-target-semantics-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-collective-target-semantics-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyCollectiveTargetSemanticsSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
