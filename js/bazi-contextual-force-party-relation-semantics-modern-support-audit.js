@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyRelationSemanticsModernSupportAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationSemanticsModernSupportSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-semantics-modern-support-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-relation-semantics-modern-support-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyRelationSemanticsModernSupportSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
