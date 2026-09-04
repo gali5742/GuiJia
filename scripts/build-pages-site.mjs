@@ -2,6 +2,51 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { ROOT, verifyVendorTree } from './vendor-lib.mjs';
 
+const packageJson = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+const sourceVersion = packageJson.version;
+const buildIdentitySource = process.env.GUIJIA_BUILD_ID
+  ? 'GUIJIA_BUILD_ID'
+  : process.env.GITHUB_SHA
+    ? 'GITHUB_SHA'
+    : 'local-fallback';
+const rawBuildIdentity = String(process.env.GUIJIA_BUILD_ID || process.env.GITHUB_SHA || `local-${sourceVersion}`).trim();
+const cacheKey = /^[0-9a-f]{7,40}$/i.test(rawBuildIdentity)
+  ? rawBuildIdentity.slice(0, 12).toLowerCase()
+  : rawBuildIdentity
+      .replace(/[^A-Za-z0-9._-]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 64);
+
+if (!cacheKey) {
+  throw new Error('Unable to derive a static cache key from GUIJIA_BUILD_ID, GITHUB_SHA, or the local fallback.');
+}
+
+const sourceCacheToken = `?v=${sourceVersion}`;
+const builtCacheToken = `?v=${cacheKey}`;
+const rewriteExtensions = new Set(['.html', '.js', '.css', '.json', '.md']);
+
+function collectFiles(directory, files = []) {
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const fullPath = path.join(directory, entry.name);
+    if (entry.isDirectory()) collectFiles(fullPath, files);
+    else files.push(fullPath);
+  }
+  return files;
+}
+
+function rewriteStaticCacheKeys(directory) {
+  let replacementCount = 0;
+  for (const file of collectFiles(directory)) {
+    if (!rewriteExtensions.has(path.extname(file).toLowerCase())) continue;
+    const source = fs.readFileSync(file, 'utf8');
+    if (!source.includes(sourceCacheToken)) continue;
+    const matches = source.split(sourceCacheToken).length - 1;
+    fs.writeFileSync(file, source.replaceAll(sourceCacheToken, builtCacheToken));
+    replacementCount += matches;
+  }
+  return replacementCount;
+}
+
 const out = path.join(ROOT, '.site');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
@@ -18,6 +63,22 @@ for (const dir of ['assets', 'data', 'js']) {
   });
 }
 
+const replacementCount = rewriteStaticCacheKeys(out);
+if (!replacementCount) {
+  throw new Error(`No static cache references matched ${sourceCacheToken}; source version/query markers may have drifted.`);
+}
+
+fs.writeFileSync(
+  path.join(out, 'build-meta.json'),
+  `${JSON.stringify({
+    schemaVersion:1,
+    sourceVersion,
+    cacheKey,
+    buildIdentitySource,
+    replacementCount
+  }, null, 2)}\n`
+);
+
 const vendorDir = path.join(ROOT, 'vendor');
 const vendorLock = path.join(ROOT, 'vendor-lock.json');
 if (!fs.existsSync(vendorDir) || !fs.existsSync(vendorLock)) {
@@ -30,3 +91,4 @@ fs.copyFileSync(vendorLock, path.join(out, 'vendor-lock.json'));
 
 verifyVendorTree(out);
 console.log(`GitHub Pages site built from checked-in verified vendor snapshots at ${out}`);
+console.log(`Static cache key: ${cacheKey} (${buildIdentitySource}); replaced ${replacementCount} ${sourceCacheToken} reference(s)`);
