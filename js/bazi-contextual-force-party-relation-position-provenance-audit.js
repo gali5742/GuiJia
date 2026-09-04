@@ -4,9 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziContextualForcePartyRelationPositionProvenanceAudit?.installed) return;
 
-    if (typeof document !== 'undefined' && document.readyState === 'loading' && !GuiJia.baziContextualForcePartyRelationPositionProvenanceSource) {
-        document.write('<script src="./js/bazi-contextual-force-party-relation-position-provenance-source.js?v=13.44.0"><\/script>');
-    }
+    // Research bootstrap prerequisite: ./js/bazi-contextual-force-party-relation-position-provenance-source.js?v=13.44.0
 
     const sourceApi = GuiJia.baziContextualForcePartyRelationPositionProvenanceSource || null;
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;

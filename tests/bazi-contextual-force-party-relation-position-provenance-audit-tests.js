@@ -177,12 +177,24 @@ test('Position provenance audit 不引入距离评分、优先级、阈值或最
     ['distanceScore','proximityScore','positionWeight','priorityScore','thresholdValue','majorityResult','rankingResult','finalStrength','memberEdges'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
 });
 
-test('生产 loader 顺序为 Modern Support → Position Provenance，且保持 parser-synchronous', () => {
-    const loader = fs.readFileSync(path.join(ROOT, 'js/bazi-branch-element-relation-inventory.js'), 'utf8');
-    const modern = loader.indexOf('bazi-contextual-force-party-relation-semantics-modern-support-audit.js');
-    const position = loader.indexOf('bazi-contextual-force-party-relation-position-provenance-audit.js');
-    assert(modern >= 0 && position > modern, 'loader 顺序异常');
-    assert(!loader.includes('DOMContentLoaded'), '不得引入异步 DOMContentLoaded loader');
+test('研究 bootstrap 顺序为 Modern Support Source/Audit → Position Provenance Source/Audit', () => {
+    const bootstrap = fs.readFileSync(path.join(ROOT, 'js/bazi-research-bootstrap.js'), 'utf8');
+    const auditSource = fs.readFileSync(path.join(ROOT, 'js/bazi-contextual-force-party-relation-position-provenance-audit.js'), 'utf8');
+    const ordered = [
+        'bazi-contextual-force-party-relation-semantics-modern-support-source.js',
+        'bazi-contextual-force-party-relation-semantics-modern-support-audit.js',
+        'bazi-contextual-force-party-relation-position-provenance-source.js',
+        'bazi-contextual-force-party-relation-position-provenance-audit.js'
+    ];
+    let previous = -1;
+    ordered.forEach((needle) => {
+        const index = bootstrap.indexOf(needle);
+        assert(index > previous, `bootstrap 顺序异常: ${needle}`);
+        previous = index;
+    });
+    assert(!auditSource.includes('document.write'), 'Position Provenance Audit 不应继续持有隐式 source loader');
+    assert(auditSource.includes('bazi-contextual-force-party-relation-position-provenance-source.js'), 'Position Provenance Audit 应保留 bootstrap prerequisite provenance');
+    assert(!bootstrap.includes('DOMContentLoaded'), 'research bootstrap 不得引入 DOMContentLoaded async loader');
 });
 
 console.log(`\nRelation Position Provenance Audit tests: ${passed} passed, ${failed} failed.`);

@@ -45,7 +45,10 @@ const migratedModules = Object.freeze([
     'js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js',
     'js/bazi-contextual-force-party-collective-target-semantics-audit.js',
     'js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js',
-    'js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js'
+    'js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js',
+    'js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js',
+    'js/bazi-contextual-force-party-relation-position-provenance-audit.js',
+    'js/bazi-contextual-force-party-competing-relation-path-audit.js'
 ]);
 
 const explicitSegment = Object.freeze([
@@ -122,8 +125,11 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractAudit', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationSemanticsModernSupportSource', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyRelationSemanticsModernSupportAudit', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyRelationPositionProvenanceSource', src:'./js/bazi-contextual-force-party-relation-position-provenance-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyRelationPositionProvenanceAudit', src:'./js/bazi-contextual-force-party-relation-position-provenance-audit.js?v=13.44.0' },
+    { globalKey:'baziContextualForcePartyCompetingRelationPathSource', src:'./js/bazi-contextual-force-party-competing-relation-path-source.js?v=13.44.0' },
     { globalKey:'baziContextualForcePartyCompetingRelationPathAudit', src:'./js/bazi-contextual-force-party-competing-relation-path-audit.js?v=13.44.0' }
 ]);
 
