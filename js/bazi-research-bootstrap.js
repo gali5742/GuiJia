@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.14';
+    const VERSION = '0.15';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -81,8 +81,11 @@
         Object.freeze({ globalKey:'baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit', src:'./js/bazi-contextual-force-party-visible-edge-effect-type-authorization-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationSource', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyVisibleMotifE2ECalibrationAudit', src:'./js/bazi-contextual-force-party-visible-motif-e2e-calibration-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCollectiveTargetSemanticsSource', src:'./js/bazi-contextual-force-party-collective-target-semantics-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveTargetSemanticsAudit', src:'./js/bazi-contextual-force-party-collective-target-semantics-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractSource', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractAudit', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationSemanticsModernSupportAudit', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationPositionProvenanceAudit', src:'./js/bazi-contextual-force-party-relation-position-provenance-audit.js?v=13.44.0' }),
