@@ -38,6 +38,9 @@ jobs:
       - name: Build same-origin vendor site
         run: node scripts/build-pages-site.mjs
 
+      - name: Verify built static cache key
+        run: node scripts/verify-build-cache-key.mjs .site
+
       - name: Verify built production runtime boundary
         run: node scripts/verify-production-runtime-boundary.mjs .site
 
