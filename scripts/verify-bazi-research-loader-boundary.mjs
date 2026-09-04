@@ -133,6 +133,10 @@ const explicitSegment = Object.freeze([
     { globalKey:'baziContextualForcePartyCompetingRelationPathAudit', src:'./js/bazi-contextual-force-party-competing-relation-path-audit.js?v=13.44.0' }
 ]);
 
+const explicitModulePaths = Object.freeze([
+    ...new Set(explicitSegment.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, '')))
+]);
+
 const forbiddenLoaderPatterns = Object.freeze([
     { label:'document.write', pattern:/\bdocument\.write\s*\(/ },
     { label:'script element creation', pattern:/createElement\s*\(\s*['"]script['"]\s*\)/ },
@@ -140,11 +144,18 @@ const forbiddenLoaderPatterns = Object.freeze([
 ]);
 
 const errors = [];
+const explicitModulePathSet = new Set(explicitModulePaths);
 for (const relative of migratedModules) {
+    if (!explicitModulePathSet.has(relative)) {
+        errors.push(`${relative}: migrated research module is missing from the explicit bootstrap closure`);
+    }
+}
+
+for (const relative of explicitModulePaths) {
     const source = read(relative);
     for (const rule of forbiddenLoaderPatterns) {
         if (rule.pattern.test(source)) {
-            errors.push(`${relative}: migrated research module still contains ${rule.label}`);
+            errors.push(`${relative}: explicit research dependency still contains ${rule.label}`);
         }
     }
 }
@@ -177,5 +188,6 @@ if (errors.length) {
 }
 
 console.log('BaZi research loader boundary verification passed');
-console.log(`- ${migratedModules.length} migrated module(s) are free of implicit script loaders`);
+console.log(`- ${migratedModules.length} migrated module(s) remain inside the explicit bootstrap closure`);
+console.log(`- ${explicitModulePaths.length} explicit dependency module(s) are free of implicit script loaders`);
 console.log(`- ${explicitSegment.length} dependency entries are explicit and ordered in the research bootstrap`);
