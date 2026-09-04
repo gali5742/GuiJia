@@ -23,6 +23,8 @@ if (!cacheKey) {
 
 const sourceCacheToken = `?v=${sourceVersion}`;
 const builtCacheToken = `?v=${cacheKey}`;
+const sourceRuntimeLabel = `GuiJia v${sourceVersion}`;
+const builtRuntimeLabel = `GuiJia build ${cacheKey}`;
 const rewriteExtensions = new Set(['.html', '.js', '.css', '.json', '.md']);
 
 function collectFiles(directory, files = []) {
@@ -47,6 +49,16 @@ function rewriteStaticCacheKeys(directory) {
   return replacementCount;
 }
 
+function rewriteRuntimeIdentityComment(file) {
+  const source = fs.readFileSync(file, 'utf8');
+  const matches = source.split(sourceRuntimeLabel).length - 1;
+  if (matches !== 1) {
+    throw new Error(`Expected exactly one ${sourceRuntimeLabel} runtime label in ${path.relative(ROOT, file)}, found ${matches}.`);
+  }
+  fs.writeFileSync(file, source.replace(sourceRuntimeLabel, builtRuntimeLabel));
+  return matches;
+}
+
 const out = path.join(ROOT, '.site');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
@@ -67,6 +79,7 @@ const replacementCount = rewriteStaticCacheKeys(out);
 if (!replacementCount) {
   throw new Error(`No static cache references matched ${sourceCacheToken}; source version/query markers may have drifted.`);
 }
+const runtimeLabelReplacementCount = rewriteRuntimeIdentityComment(path.join(out, 'index.html'));
 
 fs.writeFileSync(
   path.join(out, 'build-meta.json'),
@@ -75,7 +88,8 @@ fs.writeFileSync(
     sourceVersion,
     cacheKey,
     buildIdentitySource,
-    replacementCount
+    replacementCount,
+    runtimeLabelReplacementCount
   }, null, 2)}\n`
 );
 
@@ -92,3 +106,4 @@ fs.copyFileSync(vendorLock, path.join(out, 'vendor-lock.json'));
 verifyVendorTree(out);
 console.log(`GitHub Pages site built from checked-in verified vendor snapshots at ${out}`);
 console.log(`Static cache key: ${cacheKey} (${buildIdentitySource}); replaced ${replacementCount} ${sourceCacheToken} reference(s)`);
+console.log(`Runtime identity comment: ${builtRuntimeLabel}`);
