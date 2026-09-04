@@ -35,6 +35,7 @@ if (meta.schemaVersion !== 1) fail(`Unexpected build metadata schema: ${meta.sch
 if (typeof meta.sourceVersion !== 'string' || !meta.sourceVersion.trim()) fail('build-meta sourceVersion is missing');
 if (typeof meta.cacheKey !== 'string' || !/^[A-Za-z0-9._-]+$/.test(meta.cacheKey)) fail(`Invalid build cacheKey: ${meta.cacheKey}`);
 if (!Number.isInteger(meta.replacementCount) || meta.replacementCount <= 0) fail(`Invalid replacementCount: ${meta.replacementCount}`);
+if (meta.runtimeLabelReplacementCount !== 1) fail(`Expected one runtime identity label replacement, found ${meta.runtimeLabelReplacementCount}`);
 if (meta.cacheKey === meta.sourceVersion) fail('Built cache key must be distinct from the source release version');
 
 const staleToken = `?v=${meta.sourceVersion}`;
@@ -65,8 +66,15 @@ for (const relative of ['index.html', 'js/bazi-research-bootstrap.js']) {
   if (mismatched.length) fail(`${relative} contains cache key(s) other than ${meta.cacheKey}: ${mismatched.join(', ')}`);
 }
 
+const builtIndex = fs.readFileSync(path.join(target, 'index.html'), 'utf8');
+const staleRuntimeLabel = `GuiJia v${meta.sourceVersion}`;
+const builtRuntimeLabel = `GuiJia build ${meta.cacheKey}`;
+if (builtIndex.includes(staleRuntimeLabel)) fail(`Built index still advertises stale runtime label: ${staleRuntimeLabel}`);
+if (!builtIndex.includes(builtRuntimeLabel)) fail(`Built index is missing runtime build identity: ${builtRuntimeLabel}`);
+
 console.log(`Built static cache-key verification passed: ${target}`);
 console.log(`- source version: ${meta.sourceVersion}`);
 console.log(`- cache key: ${meta.cacheKey} (${meta.buildIdentitySource || 'unknown source'})`);
 console.log(`- ${meta.replacementCount} source-version reference(s) rewritten`);
 console.log(`- ${builtReferenceCount} build-key reference(s) inspected outside vendor snapshots`);
+console.log(`- runtime identity comment: ${builtRuntimeLabel}`);
