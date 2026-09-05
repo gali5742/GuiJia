@@ -1,0 +1,126 @@
+{
+  "version": "0.13-candidate-v0.4-development-freshness-contract-v0.1",
+  "status": "frozen_before_candidate_v04_development_generation_and_scoring",
+  "scope": "liuyao_semantic_v013_candidate_v04_fresh_development",
+  "runtimeMutationAllowed": false,
+  "datasetPlan": {
+    "totalRows": 198,
+    "known": {
+      "total": 132,
+      "perRoute": 6,
+      "routeCount": 22,
+      "strata": {
+        "strong": 44,
+        "support": 44,
+        "pure_fallback": 44
+      },
+      "perRoutePerStratum": 2
+    },
+    "nonRoute": {
+      "total": 66,
+      "strata": {
+        "unsupported_information": 22,
+        "non_divination_information": 22,
+        "outside_current_22": 22
+      }
+    }
+  },
+  "generationBoundary": {
+    "generatorMayRead": [
+      "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+      "data/liuyao-semantic-route-inventory-v0.2.json",
+      "this freshness contract"
+    ],
+    "generatorMustNotReadRowWordingFrom": [
+      "any compareText exclusion source",
+      "Candidate v0.3 development rows",
+      "independent evaluation rows",
+      "sealed blind evaluation rows"
+    ],
+    "verifierMayReadCompareTextSourcesAfterGeneration": true,
+    "encoderOrModelScoringBeforeFreshnessSeal": false
+  },
+  "comparisonNormalization": {
+    "comparisonOnly": true,
+    "runtimeInputNormalizationUnaffected": true,
+    "steps": [
+      "Unicode NFKC",
+      "lowercase",
+      "trim",
+      "remove all Unicode whitespace",
+      "remove common ASCII and CJK punctuation"
+    ]
+  },
+  "rejectionRules": {
+    "normalizedExactDuplicate": true,
+    "characterTrigramJaccardGreaterThanOrEqual": 0.75,
+    "normalizedLevenshteinSimilarityGreaterThanOrEqual": 0.85,
+    "embeddingSimilarityForbidden": true,
+    "modelProbabilityForbidden": true,
+    "thresholdMutationAfterAnyDevelopmentResult": false
+  },
+  "textExtraction": {
+    "mode": "recursive_key_whitelist",
+    "allowedKeys": [
+      "text",
+      "question",
+      "query",
+      "prompt",
+      "utterance",
+      "input",
+      "surfaceText",
+      "questionText",
+      "sourceText"
+    ],
+    "metadataStringsAreNotCompared": true,
+    "primarySourceWithZeroExtractedTexts": "fail_closed"
+  },
+  "exclusionSources": {
+    "compareText": [
+      "data/liuyao-semantic-route-training-v0.1.json",
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "data/liuyao-semantic-routeability-v0.2-development.json",
+      "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "data/liuyao-semantic-scope-gate-v0.1-development.json",
+      "data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "data/liuyao-semantic-v013-candidate-v03-development.json"
+    ],
+    "provenanceOnly": [
+      "data/liuyao-semantic-v013-candidate-v03-development.lock.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-data.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-calibration-report.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json",
+      "data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json",
+      "data/liuyao-semantic-frozen-dependencies-v0.2.lock.json"
+    ]
+  },
+  "protectedNoReadCorpora": [
+    "independent evaluation row text",
+    "sealed blind evaluation row text",
+    "post-Baseline new-theme literature corpora"
+  ],
+  "failureBehavior": {
+    "freshnessFailureBeforeScoring": "replace only rejected fresh rows, rerun deterministic freshness checks, and reseal; frozen runtime remains immutable",
+    "developmentFailureAfterScoring": "freeze failure and diagnose a next candidate; do not retune Candidate v0.4 runtime"
+  }
+}
