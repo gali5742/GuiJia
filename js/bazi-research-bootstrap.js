@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.19';
+    const VERSION = '0.20';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -93,6 +93,9 @@
         Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentityContract', src:'./js/bazi-contextual-force-party-actor-group-identity-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentityProfile', src:'./js/bazi-contextual-force-party-actor-group-identity-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentity', src:'./js/bazi-contextual-force-party-actor-group-identity.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCuratedTargetResolverContract', src:'./js/bazi-contextual-force-party-curated-target-resolver-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCuratedTargetResolverProfile', src:'./js/bazi-contextual-force-party-curated-target-resolver-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCuratedTargetResolver', src:'./js/bazi-contextual-force-party-curated-target-resolver.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveRelationEffectContract', src:'./js/bazi-contextual-force-party-collective-relation-effect-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveRelationEffectProfile', src:'./js/bazi-contextual-force-party-collective-relation-effect-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveRelationEffect', src:'./js/bazi-contextual-force-party-collective-relation-effect.js?v=13.44.0' }),
