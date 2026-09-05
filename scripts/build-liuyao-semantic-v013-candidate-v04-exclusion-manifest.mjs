@@ -2,10 +2,9 @@ import fs from 'node:fs'
 import crypto from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 
-const contractPath = 'data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.1.1.json'
+const contractPath = 'data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.2.json'
 const outputPath = process.argv[2] ?? 'tmp/liuyao-semantic-v013-candidate-v04-exclusion-manifest.json'
 const contract = JSON.parse(fs.readFileSync(contractPath, 'utf8'))
-const allowedKeys = new Set(contract.textExtraction.allowedKeys)
 
 function sha256(buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex')
@@ -15,38 +14,31 @@ function gitBlobSha(path) {
   return execFileSync('git', ['hash-object', path], { encoding: 'utf8' }).trim()
 }
 
-function collectTexts(value, key = null, out = []) {
+function looksLikeNaturalLanguageKey(key) {
+  const value = String(key).trim()
+  if (!value) return false
+  if (/\p{Script=Han}/u.test(value) && Array.from(value).length >= 6) return true
+  if (/\s/u.test(value) && Array.from(value).length >= 24) return true
+  return false
+}
+
+function collectHistoricalTexts(value, out = []) {
   if (typeof value === 'string') {
-    if (key && allowedKeys.has(key) && value.trim()) out.push(value)
+    const text = value.trim()
+    if (text) out.push(text)
     return out
   }
   if (Array.isArray(value)) {
-    for (const item of value) collectTexts(item, key, out)
+    for (const item of value) collectHistoricalTexts(item, out)
     return out
   }
   if (value && typeof value === 'object') {
-    for (const [childKey, childValue] of Object.entries(value)) {
-      collectTexts(childValue, childKey, out)
+    for (const [key, childValue] of Object.entries(value)) {
+      if (looksLikeNaturalLanguageKey(key)) out.push(key.trim())
+      collectHistoricalTexts(childValue, out)
     }
   }
   return out
-}
-
-function collectStringKeyCounts(value, key = null, counts = new Map()) {
-  if (typeof value === 'string') {
-    if (key && value.trim()) counts.set(key, (counts.get(key) ?? 0) + 1)
-    return counts
-  }
-  if (Array.isArray(value)) {
-    for (const item of value) collectStringKeyCounts(item, key, counts)
-    return counts
-  }
-  if (value && typeof value === 'object') {
-    for (const [childKey, childValue] of Object.entries(value)) {
-      collectStringKeyCounts(childValue, childKey, counts)
-    }
-  }
-  return counts
 }
 
 function inspect(path, compareText) {
@@ -61,14 +53,9 @@ function inspect(path, compareText) {
   }
   if (compareText) {
     const json = JSON.parse(raw.toString('utf8'))
-    const texts = [...new Set(collectTexts(json).map((text) => text.trim()).filter(Boolean))]
+    const texts = [...new Set(collectHistoricalTexts(json).map((text) => text.trim()).filter(Boolean))]
     if (texts.length === 0) {
-      const keys = [...collectStringKeyCounts(json).entries()]
-        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-        .slice(0, 20)
-        .map(([name, count]) => `${name}:${count}`)
-        .join(',')
-      throw new Error(`compareText source yielded zero whitelisted texts: ${path}; availableStringKeys=${keys}`)
+      throw new Error(`compareText source yielded zero conservative text candidates: ${path}`)
     }
     entry.extractedTextCount = texts.length
   }
@@ -78,8 +65,9 @@ function inspect(path, compareText) {
 const compare = contract.exclusionSources.compareText.map((path) => inspect(path, true))
 const provenanceOnly = contract.exclusionSources.provenanceOnly.map((path) => inspect(path, false))
 const manifest = {
-  version: '0.13-candidate-v0.4-development-exclusion-manifest-v0.1',
+  version: '0.13-candidate-v0.4-development-exclusion-manifest-v0.2',
   status: 'generated_before_candidate_v04_development_generation_and_scoring',
+  freshnessClaim: contract.freshnessClaim,
   contract: {
     path: contractPath,
     sha256: sha256(fs.readFileSync(contractPath)),
@@ -94,12 +82,17 @@ const manifest = {
   compareText: compare,
   provenanceOnly,
   protectedNoReadCorpora: contract.protectedNoReadCorpora,
-  generationBoundaryPreserved: true,
+  historicalTextValuesLogged: false,
+  generationBoundaryPreservedByGeneratorRuntime: true,
   encoderOrModelScoringObserved: false
 }
 
 fs.mkdirSync(outputPath.split('/').slice(0, -1).join('/') || '.', { recursive: true })
 fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`)
-console.log('CANDIDATE_V04_EXCLUSION_MANIFEST_BEGIN')
-console.log(JSON.stringify(manifest, null, 2))
-console.log('CANDIDATE_V04_EXCLUSION_MANIFEST_END')
+console.log('CANDIDATE_V04_EXCLUSION_MANIFEST_SUMMARY', JSON.stringify({
+  version: manifest.version,
+  contract: manifest.contract,
+  sourceCounts: manifest.sourceCounts,
+  historicalTextValuesLogged: false,
+  encoderOrModelScoringObserved: false
+}))
