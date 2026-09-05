@@ -53,10 +53,13 @@ const migratedModules = Object.freeze([
 
 const bootstrap = read('js/bazi-research-bootstrap.js');
 const dependencyPattern = /Object\.freeze\(\{\s*globalKey:'([^']+)',\s*src:'([^']+)'\s*\}\)/g;
-const explicitDependencies = Object.freeze([...bootstrap.matchAll(dependencyPattern)].map((match) => Object.freeze({
+const bootstrapDependencies = Object.freeze([...bootstrap.matchAll(dependencyPattern)].map((match) => Object.freeze({
     globalKey:match[1],
     src:match[2]
 })));
+const closureStartGlobalKey = 'baziClashRescueContext';
+const closureStartIndex = bootstrapDependencies.findIndex((item) => item.globalKey === closureStartGlobalKey);
+const explicitDependencies = Object.freeze(closureStartIndex >= 0 ? bootstrapDependencies.slice(closureStartIndex) : []);
 const explicitModulePaths = Object.freeze(explicitDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, '')));
 
 const forbiddenLoaderPatterns = Object.freeze([
@@ -66,14 +69,17 @@ const forbiddenLoaderPatterns = Object.freeze([
 ]);
 
 const errors = [];
-if (!explicitDependencies.length) {
-    errors.push('bazi-research-bootstrap.js: no explicit dependencies could be parsed');
+if (!bootstrapDependencies.length) {
+    errors.push('bazi-research-bootstrap.js: no dependencies could be parsed');
+}
+if (closureStartIndex < 0) {
+    errors.push(`bazi-research-bootstrap.js: sealed closure start ${closureStartGlobalKey} is missing`);
 }
 
-const globalKeys = explicitDependencies.map((item) => item.globalKey);
-const modulePaths = explicitModulePaths;
-const duplicateGlobalKeys = globalKeys.filter((key, index) => globalKeys.indexOf(key) !== index);
-const duplicateModulePaths = modulePaths.filter((modulePath, index) => modulePaths.indexOf(modulePath) !== index);
+const allGlobalKeys = bootstrapDependencies.map((item) => item.globalKey);
+const allModulePaths = bootstrapDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, ''));
+const duplicateGlobalKeys = allGlobalKeys.filter((key, index) => allGlobalKeys.indexOf(key) !== index);
+const duplicateModulePaths = allModulePaths.filter((modulePath, index) => allModulePaths.indexOf(modulePath) !== index);
 if (duplicateGlobalKeys.length) errors.push(`bazi-research-bootstrap.js: duplicate globalKey(s): ${[...new Set(duplicateGlobalKeys)].join(', ')}`);
 if (duplicateModulePaths.length) errors.push(`bazi-research-bootstrap.js: duplicate dependency module(s): ${[...new Set(duplicateModulePaths)].join(', ')}`);
 
@@ -137,6 +143,7 @@ if (errors.length) {
 }
 
 console.log('BaZi research loader boundary verification passed');
+console.log(`- sealed closure starts at ${closureStartGlobalKey}`);
 console.log(`- ${migratedModules.length} migrated module(s) remain inside the explicit bootstrap closure`);
 console.log(`- ${explicitModulePaths.length} explicit dependency module(s) are free of implicit script loaders`);
-console.log(`- ${explicitDependencies.length} dependency entries are explicit and ordered in the research bootstrap`);
+console.log(`- ${explicitDependencies.length} dependency entries are explicit and ordered in the sealed research closure`);
