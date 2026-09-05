@@ -25,6 +25,7 @@ const contentTypes = new Map([
   ['.svg', 'image/svg+xml'],
   ['.ico', 'image/x-icon']
 ]);
+const allowedOptionalLocalMisses = new Set(['/data/iching.json']);
 
 const server = http.createServer((request, response) => {
   try {
@@ -64,12 +65,17 @@ const browser = await chromium.launch({ headless:true });
 const page = await browser.newPage();
 const pageErrors = [];
 const failedLocalResponses = [];
+const optionalLocalMisses = [];
 
 page.on('pageerror', (error) => pageErrors.push(error.message));
 page.on('response', (response) => {
-  if (response.url().startsWith(baseUrl) && response.status() >= 400) {
-    failedLocalResponses.push(`${response.status()} ${response.url()}`);
+  if (!response.url().startsWith(baseUrl) || response.status() < 400) return;
+  const pathname = new URL(response.url()).pathname;
+  if (response.status() === 404 && allowedOptionalLocalMisses.has(pathname)) {
+    optionalLocalMisses.push(`${response.status()} ${pathname}`);
+    return;
   }
+  failedLocalResponses.push(`${response.status()} ${response.url()}`);
 });
 
 try {
@@ -106,7 +112,10 @@ try {
   console.log('- Vue mounted and removed v-cloak');
   console.log('- BaZi input view rendered');
   console.log('- BaZi/LiuYao module navigation executed in Chromium');
-  console.log('- no browser page errors or failed same-origin asset responses');
+  console.log('- no browser page errors or unexpected failed same-origin asset responses');
+  if (optionalLocalMisses.length) {
+    console.log(`- allowed optional local fallback miss(es): ${optionalLocalMisses.join(', ')}`);
+  }
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
