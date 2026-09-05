@@ -1,0 +1,105 @@
+{
+  "version": "0.13-candidate-v0.4-development-lock-v0.1",
+  "status": "locked_before_first_candidate_v04_development_encoder_scoring",
+  "artifact": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+    "gitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+    "sha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20",
+    "rowCount": 198,
+    "expectedCounts": {
+      "total": 198,
+      "strong": 44,
+      "support": 44,
+      "fallback": 44,
+      "unresolved": 22,
+      "information": 22,
+      "outside": 22
+    }
+  },
+  "freshnessReport": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-report-v0.1.json",
+    "gitBlobSha": "e050d15375b2ea6dad41c3cf7499ddf6cfa01ebe",
+    "sha256": "e23172cdc3a4d54524b3c166677bc6c03dcba246266d41287826a11b64a9293a",
+    "status": "PASS",
+    "historicalRejectedRowCount": 0,
+    "internalRejectedPairCount": 0
+  },
+  "runtimeLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "sha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4"
+  },
+  "generationProtocol": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.2.1.json",
+    "gitBlobSha": "7112343b7842e5c4c54543a86cf5dc6245718601",
+    "sha256": "caff66fbfdaf3b3a76b7497214b6c46154b811b7650d1ad328737ec550cd38d8"
+  },
+  "freshnessVerifierContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-verifier-contract-v0.1.json",
+    "gitBlobSha": "4b08ec496e9bcd8c5c0ffdde61971a4ba5fec88c",
+    "sha256": "869a9b313a991d08a50281ed5b68b7009e74a55d73abb6ec949e8bbae8c84cbf"
+  },
+  "exclusionManifest": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-exclusion-manifest-v0.2.json",
+    "gitBlobSha": "87d910126ab8e78a63aa8bfa61e12840688b8c1a",
+    "sha256": "c6a8b62d99bc38f7b7613cf3efac0ba9ad42257d8b0430424aa7c5ddba4ac29d"
+  },
+  "presealFreshnessFailureEvidence": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-preseal-freshness-failure-v0.1.json",
+    "gitBlobSha": "b5fe56989373c8fae41c2e3e2ef2969f24d6df6f",
+    "sha256": "3d9d5b45b67f1f776933ac12d0589c347633cefaabdf89a73d7083b36693e9ea"
+  },
+  "scripts": {
+    "generator": {
+      "path": "scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs",
+      "gitBlobSha": "73b6bfd93ddcd5ce20946846437cacf1544fcea5",
+      "sha256": "c37588bea09a0230884f0deff62649447e0d851b72c6d4ad84dec5c11460f308"
+    },
+    "presealCorrection": {
+      "path": "scripts/apply-liuyao-semantic-v013-candidate-v04-development-preseal-structural-correction.mjs",
+      "gitBlobSha": "9fe2d2612bfcc9b5d0425a38d755c1bdb9b3096d",
+      "sha256": "87abc6a7db6c7339045c59d3e5244ac0416b16adc0d9694472b01d0ded10fb2b"
+    },
+    "freshnessVerifier": {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v04-development-freshness.mjs",
+      "gitBlobSha": "956d187baa68755c0e61b9bccbe2e41fae703680",
+      "sha256": "321188684fe88c5065a3e3a1f012152dbe237931fc64e37a05751c3ad43a17d0"
+    }
+  },
+  "sealingWorkflow": {
+    "runId": 33981322413,
+    "triggerCommit": "9b2f9a9f31f307410d231da4d23b0233015f4a05",
+    "referencePassingRunBeforeSealAutomation": {
+      "runId": 33981152758,
+      "jobId": 101346483484,
+      "artifactId": 9973783227,
+      "artifactZipSha256": "397d6fc6c4ee4c9fdb00b95149c37b9896637f5a7c8a4abdb38be9814a435b32",
+      "triggerCommit": "0e6892c9795f119c8e8ac7abec153945ca0e7baf"
+    }
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "vectorSize": 512,
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "routeabilityThreshold": 0.7678148573595883,
+    "semanticActThreshold": 0.5045675974201208,
+    "fallbackGlobalThreshold": 0.5549057227178391
+  },
+  "sealing": {
+    "structuralValidationPassed": true,
+    "postGenerationFreshnessPassed": true,
+    "sealedBeforeFirstDevelopmentEncoderScoring": true,
+    "postSealWordingMutationAllowed": false,
+    "developmentMayTrainModels": false,
+    "developmentMayCalibrateThresholds": false,
+    "developmentMayMutateRuntime": false
+  },
+  "protectedEvaluationBoundary": {
+    "independentEvaluationReadBeforeSeal": false,
+    "sealedBlindEvaluationReadBeforeSeal": false,
+    "postBaselineNewThemeImported": false
+  },
+  "nextAction": "first_candidate_v04_integrated_development_scoring_with_frozen_runtime_only"
+}

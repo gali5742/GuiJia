@@ -1,0 +1,43 @@
+{
+  "version": "0.13-candidate-v0.4-development-freshness-report-v0.1",
+  "status": "PASS",
+  "verifierContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-verifier-contract-v0.1.json",
+    "gitBlobSha": "4b08ec496e9bcd8c5c0ffdde61971a4ba5fec88c",
+    "sha256": "869a9b313a991d08a50281ed5b68b7009e74a55d73abb6ec949e8bbae8c84cbf"
+  },
+  "developmentArtifact": {
+    "path": "tmp/liuyao-semantic-v013-candidate-v04-development.json",
+    "sha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20",
+    "rowCount": 198,
+    "encoderScoringObserved": false,
+    "modelProbabilityObserved": false
+  },
+  "exclusionManifest": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-exclusion-manifest-v0.2.json",
+    "gitBlobSha": "87d910126ab8e78a63aa8bfa61e12840688b8c1a",
+    "sha256": "c6a8b62d99bc38f7b7613cf3efac0ba9ad42257d8b0430424aa7c5ddba4ac29d",
+    "compareTextSources": 20,
+    "provenanceOnlySources": 12,
+    "extractedHistoricalCandidates": 8076,
+    "distinctNormalizedHistoricalCandidates": 7459
+  },
+  "thresholds": {
+    "normalizedExactRejected": true,
+    "characterTrigramJaccardGte": 0.75,
+    "normalizedLevenshteinSimilarityGte": 0.85
+  },
+  "results": {
+    "historicalRejectedRowCount": 0,
+    "rejectedRowIds": [],
+    "internalRejectedPairCount": 0,
+    "pass": true
+  },
+  "rejectedRows": [],
+  "internalRejects": [],
+  "historicalTextValuesLoggedOrStoredInReport": false,
+  "runtimeMutationAllowed": false,
+  "encoderOrModelScoringObserved": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false
+}
