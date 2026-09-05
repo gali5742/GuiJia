@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import crypto from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 
-const contractPath = 'data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.1.json'
+const contractPath = 'data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.1.1.json'
 const outputPath = process.argv[2] ?? 'tmp/liuyao-semantic-v013-candidate-v04-exclusion-manifest.json'
 const contract = JSON.parse(fs.readFileSync(contractPath, 'utf8'))
 const allowedKeys = new Set(contract.textExtraction.allowedKeys)
