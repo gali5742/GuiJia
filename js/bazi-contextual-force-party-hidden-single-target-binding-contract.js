@@ -24,6 +24,7 @@
             annotationId:'CF-CRSA-ANN-04',
             targetRoleClass:'七杀',
             targetSemanticLevel:'single-actor',
+            targetAntecedentSpan:'独杀',
             scope:'hidden-branch',
             sourcePositionWording:'时逢独杀',
             pillar:'hour',
@@ -40,6 +41,7 @@
         resolverScope:'audited-source-scoped-hidden-single-target-only',
         sourceCaseRegistryRequired:true,
         curatedSourcePositionRequired:true,
+        curatedAntecedentRequired:true,
         chartKeyRequired:true,
         targetRoleClassRequired:true,
         hiddenScopeRequired:true,
@@ -63,7 +65,7 @@
         ranking:false,
         scalarCollapse:false,
         finalStrengthMapping:false,
-        statement:'Hidden Single Target Binding v0.1 只处理人工审定 registry 中具有明确 chart、target role、hidden scope、source position 与 cardinality 的命例。CASE-06 的“时逢独杀”被审定为 hour pillar provenance；程序只在该柱既有 cangGan inventory 中寻找七杀 role，要求唯一 candidate 后返回现有统一 hidden actorKey。'
+        statement:'Hidden Single Target Binding v0.1 只处理人工审定 registry 中具有明确 chart、target role、antecedent、hidden scope、source position 与 cardinality 的命例。CASE-06 的“四食相制”回指“独杀”，“时逢独杀”被审定为 hour pillar provenance；程序只在该柱既有 cangGan inventory 中寻找七杀 role，要求唯一 candidate 后返回现有统一 hidden actorKey。'
     });
 
     GuiJia.baziContextualForcePartyHiddenSingleTargetBindingContract = Object.freeze({
