@@ -35,6 +35,9 @@ jobs:
       - name: Actor Group Identity regression
         run: node tests/bazi-contextual-force-party-actor-group-identity-tests.js
 
+      - name: Collective Relation Effect regression
+        run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
+
       - name: Core regression tests
         run: npm test
 
