@@ -1,0 +1,64 @@
+{
+  "version": "0.13-candidate-v0.4-development-freshness-verifier-contract-v0.1",
+  "status": "frozen_before_first_candidate_v04_development_freshness_verification",
+  "scope": "candidate_v04_integrated_development_preseal_freshness_only",
+  "developmentProtocol": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.2.1.json",
+    "gitBlobSha": "7112343b7842e5c4c54543a86cf5dc6245718601"
+  },
+  "exclusionManifest": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-exclusion-manifest-v0.2.json",
+    "gitBlobSha": "87d910126ab8e78a63aa8bfa61e12840688b8c1a",
+    "requiredCompareTextSources": 20,
+    "requiredProvenanceOnlySources": 12,
+    "requiredExtractedHistoricalCandidates": 8076
+  },
+  "normalization": {
+    "steps": [
+      "Unicode NFKC",
+      "lowercase",
+      "trim",
+      "remove all Unicode whitespace",
+      "remove Unicode punctuation and symbol characters for comparison only"
+    ],
+    "runtimeInputUnaffected": true
+  },
+  "historicalExtraction": {
+    "mode": "conservative_recursive_all_string_values_plus_natural_language_object_keys",
+    "stringValues": "all non-empty string leaf values",
+    "objectKeyHeuristic": "contains Han script and length >= 6, or length >= 24 with whitespace",
+    "logsMayPrintHistoricalText": false,
+    "sourceHashMismatch": "fail_closed"
+  },
+  "pairUniverse": {
+    "historical": "every development row text versus every extracted candidate from all 20 compareText sources",
+    "internal": "every distinct pair of Candidate v0.4 development row texts",
+    "provenanceOnlySourcesParticipateInTextComparison": false
+  },
+  "metrics": {
+    "normalizedExact": {
+      "rejectOnEquality": true
+    },
+    "characterTrigramJaccard": {
+      "representation": "set of unique contiguous Unicode code-point trigrams after comparison normalization; normalized strings shorter than 3 use the complete normalized string as their single gram",
+      "formula": "intersection_size / union_size",
+      "rejectGreaterThanOrEqual": 0.75
+    },
+    "normalizedLevenshteinSimilarity": {
+      "distance": "standard unit-cost Levenshtein edit distance over Unicode code points after comparison normalization",
+      "formula": "1 - distance / max(lengthA,lengthB)",
+      "bothEmptySimilarity": 1,
+      "rejectGreaterThanOrEqual": 0.85,
+      "implementationMayUseExactThreshold-safe length and band pruning": true
+    }
+  },
+  "failureDisclosure": {
+    "reportMayInclude": ["development row id", "source path", "metric", "similarity", "internal peer row id"],
+    "reportMustNotInclude": ["historical source text", "historical normalized text"],
+    "freshnessFailureMayModify": "only rejected fresh development fixtures before any encoder/model scoring",
+    "runtimeMutationAllowed": false
+  },
+  "encoderOrModelScoringBeforeFreshnessPass": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false
+}
