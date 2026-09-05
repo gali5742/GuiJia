@@ -53,6 +53,8 @@
         if (!annotation.id || annotation.id !== registryEntry.annotationId) issues.push('annotation-registry-mismatch');
         if (annotation.annotationDisposition !== 'relation-target-present') issues.push('annotation-has-no-relation-target');
         if (!positionEvidenceObserved) issues.push('curated-source-position-provenance-missing');
+        if (relationUnit?.target?.mentionMode !== 'antecedent-linked') issues.push('target-mention-mode-is-not-antecedent-linked');
+        if (relationUnit?.target?.antecedentSpan !== registryEntry.targetAntecedentSpan) issues.push('target-antecedent-mismatch');
         if (relationUnit?.target?.roleClass !== registryEntry.targetRoleClass) issues.push('target-role-class-mismatch');
         if (relationUnit?.target?.semanticLevelHint !== registryEntry.targetSemanticLevel) issues.push('annotation-target-level-mismatch');
         if (relationUnit?.target?.chartBindingEvidence?.scope !== registryEntry.scope) issues.push('annotation-scope-mismatch');
@@ -81,6 +83,7 @@
                 annotationId:registryEntry.annotationId || null,
                 targetRoleClass:registryEntry.targetRoleClass || null,
                 targetSemanticLevel:registryEntry.targetSemanticLevel || null,
+                targetAntecedentSpan:registryEntry.targetAntecedentSpan || null,
                 scope:registryEntry.scope || null,
                 stableActorKey:null,
                 validation,
@@ -97,6 +100,7 @@
             chartKey:sourceCase.chartKey,
             targetRoleClass:registryEntry.targetRoleClass,
             targetSemanticLevel:registryEntry.targetSemanticLevel,
+            targetAntecedentSpan:registryEntry.targetAntecedentSpan,
             sourcePositionWording:registryEntry.sourcePositionWording,
             pillar:registryEntry.pillar,
             pillarIndex:registryEntry.pillarIndex,
@@ -111,7 +115,7 @@
             relativeDominance:null,
             numericWeight:null,
             validation,
-            boundary:'该 binding 只把 CASE-06 已审定的“时逢独杀”绑定到本命例 hour branch 中唯一七杀 hidden actor；不创建 relation effect，也不泛化为所有“独杀”或所有 hidden target 的规则。'
+            boundary:'该 binding 只把 CASE-06 已审定的“四食相制→独杀”与“时逢独杀”绑定到本命例 hour branch 中唯一七杀 hidden actor；不创建 relation effect，也不泛化为所有“独杀”或所有 hidden target 的规则。'
         });
     };
 
