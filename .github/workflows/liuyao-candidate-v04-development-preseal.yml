@@ -19,9 +19,15 @@ jobs:
         run: node scripts/apply-liuyao-semantic-v013-candidate-v04-development-preseal-structural-correction.mjs
       - name: Generate deterministic development artifact
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs
-      - name: Upload generated development
+      - name: Verify exact and near-duplicate freshness
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-development-freshness.mjs
+      - name: Upload generated development and freshness report
         uses: actions/upload-artifact@v4
         with:
           name: liuyao-candidate-v04-development-preseal
-          path: tmp/liuyao-semantic-v013-candidate-v04-development.json
+          path: |
+            tmp/liuyao-semantic-v013-candidate-v04-development.json
+            tmp/liuyao-semantic-v013-candidate-v04-development-freshness-report.json
           if-no-files-found: error
+      - name: Enforce freshness gate
+        run: node -e "const r=require('./tmp/liuyao-semantic-v013-candidate-v04-development-freshness-report.json'); if(!r.results?.pass){console.error('Candidate v0.4 freshness gate failed; rejected rows:', r.results?.rejectedRowIds, 'internal pairs:', r.results?.internalRejectedPairCount); process.exit(1)}"
