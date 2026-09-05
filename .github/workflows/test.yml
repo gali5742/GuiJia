@@ -49,3 +49,11 @@ jobs:
 
       - name: Verify static Pages artifact
         run: node scripts/verify-static-site.mjs .site deployed
+
+      - name: Install Chromium browser smoke runtime
+        run: |
+          npm install --no-save --ignore-scripts playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Browser smoke built Pages artifact
+        run: node scripts/browser-smoke.mjs .site
