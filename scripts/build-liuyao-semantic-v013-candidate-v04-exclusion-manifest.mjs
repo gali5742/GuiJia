@@ -32,6 +32,23 @@ function collectTexts(value, key = null, out = []) {
   return out
 }
 
+function collectStringKeyCounts(value, key = null, counts = new Map()) {
+  if (typeof value === 'string') {
+    if (key && value.trim()) counts.set(key, (counts.get(key) ?? 0) + 1)
+    return counts
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectStringKeyCounts(item, key, counts)
+    return counts
+  }
+  if (value && typeof value === 'object') {
+    for (const [childKey, childValue] of Object.entries(value)) {
+      collectStringKeyCounts(childValue, childKey, counts)
+    }
+  }
+  return counts
+}
+
 function inspect(path, compareText) {
   if (!fs.existsSync(path)) throw new Error(`missing exclusion source: ${path}`)
   const raw = fs.readFileSync(path)
@@ -45,7 +62,14 @@ function inspect(path, compareText) {
   if (compareText) {
     const json = JSON.parse(raw.toString('utf8'))
     const texts = [...new Set(collectTexts(json).map((text) => text.trim()).filter(Boolean))]
-    if (texts.length === 0) throw new Error(`compareText source yielded zero whitelisted texts: ${path}`)
+    if (texts.length === 0) {
+      const keys = [...collectStringKeyCounts(json).entries()]
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .slice(0, 20)
+        .map(([name, count]) => `${name}:${count}`)
+        .join(',')
+      throw new Error(`compareText source yielded zero whitelisted texts: ${path}; availableStringKeys=${keys}`)
+    }
     entry.extractedTextCount = texts.length
   }
   return entry
@@ -74,7 +98,6 @@ const manifest = {
   encoderOrModelScoringObserved: false
 }
 
-fs.mkdirSync(new URL('../tmp/', import.meta.url), { recursive: true })
 fs.mkdirSync(outputPath.split('/').slice(0, -1).join('/') || '.', { recursive: true })
 fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`)
 console.log('CANDIDATE_V04_EXCLUSION_MANIFEST_BEGIN')
