@@ -1,0 +1,27 @@
+{
+  "version": "0.13-candidate-v0.4-development-pregeneration-boundary-failure-v0.1",
+  "status": "immutable_failure_before_development_generation_or_scoring",
+  "failedProtocol": "0.13-candidate-v0.4-development-freshness-contract-v0.1.1",
+  "failureClass": "generator_no_read_boundary_breached_by_diagnostic_logging",
+  "evidence": {
+    "workflowRunId": 33978505138,
+    "workflowJobId": 101339348576,
+    "sourcePath": "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+    "mechanism": "historical row wording is encoded as JSON object keys; the schema-diagnostic error printed those keys while attempting to discover text-bearing fields"
+  },
+  "exposureHandling": {
+    "historicalRowTextRepeatedHere": false,
+    "candidateV04DevelopmentRowsGeneratedBeforeFailure": 0,
+    "candidateV04DevelopmentRowsCommittedBeforeFailure": 0,
+    "encoderScoringBeforeFailure": false,
+    "modelProbabilityObservedBeforeFailure": false,
+    "candidateV04RuntimeMutated": false
+  },
+  "decision": {
+    "v011BlindGenerationClaimValid": false,
+    "candidateV04DataContractStillRecoverable": true,
+    "reason": "The higher frozen Candidate v0.4 data contract requires fresh sealed development plus exact/near-duplicate exclusion, but does not require generator blindness. A replacement pre-score protocol may proceed if it does not relax any contamination threshold or runtime gate and explicitly records that freshness is established by deterministic generation plus post-generation exclusion rather than blind authoring.",
+    "sameProtocolRetryAllowed": false,
+    "nextProtocol": "development-freshness-contract-v0.2"
+  }
+}
