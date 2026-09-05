@@ -1,0 +1,116 @@
+name: LiuYao v0.13 Candidate v0.4 Fresh Development
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json'
+      - 'scripts/evaluate-liuyao-semantic-v013-candidate-v04-development-execution-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs'
+      - '.github/workflows/liuyao-v013-v04-development-execution-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrated-development:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable scoring checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "SCORING_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git merge-base --is-ancestor a5c35796515f241f35f5b3f43c480e79a8a3fade HEAD
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-development.json)" = "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-development.lock.json)" = "568ecc2de4cbfe82aa932ecb36272e44afd0e8f3"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-runtime.lock.json)" = "32ffdfbd4c0364b22f4f49f450c861cb39a0624c"
+          echo 'Candidate v0.4 sealed development and frozen runtime bindings verified before encoder installation.'
+
+      - name: Install pinned corrected encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Score exactly 198 sealed rows one question per encoder invocation
+        run: node scripts/evaluate-liuyao-semantic-v013-candidate-v04-development-execution-v01.mjs
+
+      - name: Independently recompute and verify development report
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs
+
+      - name: Commit immutable Candidate v0.4 development report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json
+          if git diff --cached --quiet; then
+            echo 'Candidate v0.4 development report already matches committed state.'
+          else
+            git commit -m 'test(liuyao): record candidate v0.4 fresh development metrics [skip ci]'
+          fi
+
+          git fetch origin v04-fresh-development
+          FROZEN_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-development.json
+            data/liuyao-semantic-v013-candidate-v04-development.lock.json
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json
+            scripts/evaluate-liuyao-semantic-v013-candidate-v04-development-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-act-eligibility-v01.js
+            js/liuyao-semantic-routeability-v05-execution-v01.js
+            js/liuyao-semantic-fallback-identity-scorer-v02.js
+            js/liuyao-semantic-fallback-identity-v02.js
+            js/liuyao-semantic-route-selection-v05.js
+            js/liuyao-semantic-finalization-v01.js
+            js/liuyao-semantic-candidate-v04-runtime-v01.js
+          )
+          if ! git diff --quiet "$SCORING_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"; then
+            echo 'Candidate v0.4 frozen scoring inputs changed during development execution; refusing stale report push.'
+            git diff --name-only "$SCORING_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+
+      - name: Enforce Candidate-lock readiness gates
+        shell: bash
+        run: |
+          node - <<'NODE'
+          const report = require('./data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json')
+          if (!report.readyForCandidateLock) {
+            console.error('Candidate v0.4 fresh development FAIL. Same-version retuning is forbidden.')
+            console.error(JSON.stringify({ checks: report.checks, summary: report.summary }, null, 2))
+            process.exit(1)
+          }
+          console.log('Candidate v0.4 fresh development PASS. Candidate lock may proceed; independent evaluation remains unread.')
+          NODE
