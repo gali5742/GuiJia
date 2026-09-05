@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Apply preseal structural fixture correction
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v04-development-preseal-structural-correction.mjs
       - name: Generate deterministic development artifact
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs
       - name: Upload generated development
