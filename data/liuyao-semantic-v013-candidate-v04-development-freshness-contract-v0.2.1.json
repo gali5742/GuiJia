@@ -1,0 +1,84 @@
+{
+  "version": "0.13-candidate-v0.4-development-freshness-contract-v0.2.1",
+  "status": "frozen_structural_correction_before_candidate_v04_development_generation_and_scoring",
+  "supersedes": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.2.json",
+    "reason": "Pre-generation audit of the frozen Candidate v0.3 execution contract and Arbitration v0.12 established that strong/support are path-count strata, not per-route all-22 quotas. Requiring every Route to produce both Arbitration strengths would invent structurally unreachable paths. No Candidate v0.4 development row has been generated or scored."
+  },
+  "unchangedFromV02": [
+    "198 total rows",
+    "132 route_known and 66 non-route rows",
+    "44 strong_arbitration rows",
+    "44 support_arbitration rows",
+    "44 pure_fallback rows",
+    "22 route_unresolved-equivalent unsupported_information rows",
+    "22 non_divination_information rows",
+    "22 outside_current_22 rows",
+    "all contamination thresholds",
+    "32-source frozen exclusion manifest",
+    "runtime immutability",
+    "independent/blind no-read boundary"
+  ],
+  "datasetPlan": {
+    "totalRows": 198,
+    "known": {
+      "total": 132,
+      "strata": {
+        "strong_arbitration": {
+          "rows": 44,
+          "routeQuota": "only routes structurally reachable as Arbitration strength=strong under frozen Evidence v0.3 + Arbitration v0.12; no artificial all-22 quota"
+        },
+        "support_arbitration": {
+          "rows": 44,
+          "routeQuota": "only routes structurally reachable as Arbitration strength=support under frozen Evidence v0.3 + Arbitration v0.12; no artificial all-22 quota"
+        },
+        "fallback_head": {
+          "rows": 44,
+          "routeQuota": "exactly 2 fresh rows for each of all 22 frozen routes",
+          "arbitrationMustBeNull": true
+        }
+      },
+      "all22CoverageGuaranteedBy": "fallback_head"
+    },
+    "nonRoute": {
+      "total": 66,
+      "strata": {
+        "unsupported_information": {"rows":22,"expectedRuntimeClass":"route_unresolved","meaning":"eligible divination act with insufficient stable current-22 target semantics"},
+        "non_divination_information": {"rows":22,"expectedRuntimeClass":"non_route","meaning":"factual/procedural/accounting/administrative information act near current route vocabulary"},
+        "outside_current_22": {"rows":22,"safetyExpectation":"never accept a false current-22 route"}
+      }
+    }
+  },
+  "structuralBindings": {
+    "historicalExecutionContract": "data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-contract.json",
+    "evidence": "js/liuyao-semantic-route-evidence-v03.js",
+    "arbitration": "js/liuyao-semantic-route-arbitration-v012.js",
+    "historicalExpectedCounts": {"strong_arbitration":44,"support_arbitration":44,"fallback_head":44}
+  },
+  "generationProtocol": {
+    "mechanism": "deterministic repository script",
+    "allowedInputs": [
+      "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+      "data/liuyao-semantic-route-inventory-v0.2.json",
+      "js/liuyao-semantic-route-evidence-v01.js",
+      "js/liuyao-semantic-route-evidence-v02.js",
+      "js/liuyao-semantic-route-evidence-v03.js",
+      "js/liuyao-semantic-route-arbitration-v011.js",
+      "js/liuyao-semantic-route-arbitration-v012.js",
+      "this contract"
+    ],
+    "historicalRowCorporaAsGeneratorInputs": false,
+    "freshnessClaim": "deterministically_generated_and_post_generation_decontaminated_not_blind_authored"
+  },
+  "freshnessBinding": {
+    "manifest": "data/liuyao-semantic-v013-candidate-v04-development-exclusion-manifest-v0.2.json",
+    "normalization": ["Unicode NFKC","lowercase","trim","remove all Unicode whitespace","remove common ASCII and CJK punctuation"],
+    "rejectExact": true,
+    "rejectCharacterTrigramJaccardGte": 0.75,
+    "rejectNormalizedLevenshteinSimilarityGte": 0.85,
+    "embeddingsOrModelScoresForbiddenBeforeSeal": true
+  },
+  "sealOrder": ["generate","freshness verify","replace freshness rejects only if required","commit dataset","commit dataset lock","first encoder scoring"],
+  "runtimeMutationAllowed": false
+}
