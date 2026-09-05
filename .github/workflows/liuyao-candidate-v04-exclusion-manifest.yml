@@ -1,0 +1,29 @@
+name: LiuYao Candidate v0.4 Exclusion Manifest
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exclusion-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Build exclusion manifest
+        run: node scripts/build-liuyao-semantic-v013-candidate-v04-exclusion-manifest.mjs
+
+      - name: Upload manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: liuyao-candidate-v04-exclusion-manifest
+          path: tmp/liuyao-semantic-v013-candidate-v04-exclusion-manifest.json
+          if-no-files-found: error
