@@ -1,0 +1,113 @@
+{
+  "version": "0.13-candidate-v0.4-development-execution-v0.1-contract-v0.1.1",
+  "status": "locked_before_first_candidate_v04_development_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4_integrated_development",
+  "supersedes": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract.json",
+    "gitBlobSha": "84bd5098f815935afe63e5b0ecdcf88a036e2a43",
+    "reason": "pre-scoring metadata binding correction only; sealed data, runtime, metric definitions and promotion gates are unchanged"
+  },
+  "correctionEvidence": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json",
+    "encoderOrModelScoringObservedBeforeCorrection": false
+  },
+  "sealedDevelopment": {
+    "artifactPath": "data/liuyao-semantic-v013-candidate-v04-development.json",
+    "artifactGitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+    "artifactSha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-development.lock.json",
+    "lockGitBlobSha": "568ecc2de4cbfe82aa932ecb36272e44afd0e8f3",
+    "sealCommit": "a5c35796515f241f35f5b3f43c480e79a8a3fade",
+    "rowCount": 198,
+    "expectedCounts": {
+      "route_known": 132,
+      "non_route": 66,
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_head": 44,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "postSealWordingMutationAllowed": false,
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "thresholdSelectionEligible": false
+  },
+  "frozenRuntime": {
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "lockGitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "lockSha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4",
+    "semanticActModelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+    "routeabilityBaseSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+    "routeabilityThresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+    "fallbackIdentityModelSha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d",
+    "semanticActThreshold": 0.5045675974201208,
+    "routeabilityThreshold": 0.7678148573595883,
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "fallbackIdentityGlobalThreshold": 0.5549057227178391,
+    "routeCount": 22,
+    "fallbackCandidateUniverse": "all_current_22_routes",
+    "routerTop2FallbackRestriction": false,
+    "routeSpecificFallbackThresholds": false,
+    "runtimeMutationDuringDevelopment": false
+  },
+  "embeddingExecution": {
+    "contractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "contractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "contractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "unit": "one_normalized_question_per_encoder_invocation",
+    "canonicalTextsPerEncoderCall": 1,
+    "processorCallsPerQuestion": 1,
+    "modelForwardCallsPerQuestion": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "scoring": {
+    "plannedEvaluatorPath": "scripts/evaluate-liuyao-semantic-v013-candidate-v04-development-execution-v01.mjs",
+    "plannedVerifierPath": "scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs",
+    "plannedReportPath": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json",
+    "usesCandidateRuntime": "js/liuyao-semantic-candidate-v04-runtime-v01.js",
+    "routerHeadPurpose": "Selection provenance and compatibility only; never limits Fallback Identity v0.2 candidate universe",
+    "scopeScorePurpose": "frozen finalization hard veto only",
+    "developmentRowsScoredExactlyOncePerEvaluatorRun": 198,
+    "independentMetricRecomputationRequired": true
+  },
+  "metricDefinitions": {
+    "knownExactRoute": "known rows whose final disposition is route_known and final routeId equals expectedRoute / all 132 known rows",
+    "acceptedRouteAccuracy": "known rows whose final disposition is route_known and final routeId equals expectedRoute / known rows whose final disposition is route_known; unresolved or rejected known rows are excluded from this denominator",
+    "overallFalseRouteActivation": "non-route rows whose final disposition is route_known / all 66 non-route rows",
+    "perSubtypeFalseRouteActivation": "within each of outside_current_22, route_unresolved and near_domain_not_current_route: final route_known rows / 22",
+    "knownPathFinalExact": "within each expected path strong_arbitration, support_arbitration and fallback_head: exact final route rows / 44",
+    "structuralPathCollapse": "true if any one of the three known paths has knownPathFinalExact equal to 0; false only when every path has at least one exact final route"
+  },
+  "promotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "developmentPolicy": {
+    "training": false,
+    "calibration": false,
+    "thresholdRetuning": false,
+    "runtimeMutation": false,
+    "dataMutation": false,
+    "claimsGeneralization": false,
+    "developmentOnly": true,
+    "ifFail": "freeze immutable Candidate v0.4 development failure evidence; no same-version retuning or wording changes",
+    "ifPass": "Candidate v0.4 lock may be created before any fresh post-lock independent evaluation"
+  },
+  "protectedEvaluationBoundary": {
+    "independentEvaluationReadDuringDevelopment": false,
+    "sealedBlindEvaluationReadDuringDevelopment": false,
+    "postBaselineNewThemeCorpusImported": false
+  }
+}
