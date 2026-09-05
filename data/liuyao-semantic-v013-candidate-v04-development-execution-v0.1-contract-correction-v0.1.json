@@ -1,0 +1,26 @@
+{
+  "version": "0.13-candidate-v0.4-development-execution-v0.1-contract-correction-v0.1",
+  "status": "immutable_pre_scoring_binding_correction",
+  "scope": "candidate_v04_integrated_development_execution_contract_only",
+  "incorrectContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract.json",
+    "gitBlobSha": "84bd5098f815935afe63e5b0ecdcf88a036e2a43",
+    "createdBeforeAnyCandidateV04DevelopmentEncoderScoring": true
+  },
+  "authoritativeSealLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development.lock.json",
+    "gitBlobSha": "568ecc2de4cbfe82aa932ecb36272e44afd0e8f3",
+    "sealedArtifactGitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+    "sealedArtifactSha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20",
+    "runtimeLockGitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "runtimeLockSha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4"
+  },
+  "failureType": "contract_binding_metadata_mismatch_from_inaccurate_handover_summary",
+  "sealedDevelopmentMutation": false,
+  "runtimeMutation": false,
+  "metricOrGateMutation": false,
+  "encoderOrModelScoringObservedBeforeCorrection": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "requiredAction": "supersede the incorrect execution contract before the first Candidate v0.4 development encoder call"
+}
