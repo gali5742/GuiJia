@@ -32,6 +32,9 @@ jobs:
       - name: Verify BaZi research loader boundary
         run: node scripts/verify-bazi-research-loader-boundary.mjs
 
+      - name: Hidden Single Target Binding regression
+        run: node tests/bazi-contextual-force-party-hidden-single-target-binding-tests.js
+
       - name: Actor Group Identity regression
         run: node tests/bazi-contextual-force-party-actor-group-identity-tests.js
 
