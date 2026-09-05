@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.16';
+    const VERSION = '0.17';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -87,6 +87,9 @@
         Object.freeze({ globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractAudit', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationAudit', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentityContract', src:'./js/bazi-contextual-force-party-actor-group-identity-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentityProfile', src:'./js/bazi-contextual-force-party-actor-group-identity-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyActorGroupIdentity', src:'./js/bazi-contextual-force-party-actor-group-identity.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationSemanticsModernSupportSource', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationSemanticsModernSupportAudit', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationPositionProvenanceSource', src:'./js/bazi-contextual-force-party-relation-position-provenance-source.js?v=13.44.0' }),
