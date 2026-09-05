@@ -32,6 +32,9 @@ jobs:
       - name: Verify BaZi research loader boundary
         run: node scripts/verify-bazi-research-loader-boundary.mjs
 
+      - name: Actor Group Identity regression
+        run: node tests/bazi-contextual-force-party-actor-group-identity-tests.js
+
       - name: Core regression tests
         run: npm test
 
