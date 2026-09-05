@@ -1,0 +1,32 @@
+{
+  "version": "0.13-candidate-v0.4-development-preseal-freshness-failure-v0.1",
+  "status": "immutable_preseal_freshness_failure_before_any_encoder_or_model_scoring",
+  "failedWorkflow": {
+    "runId": 33981069131,
+    "jobId": 101346257536,
+    "artifactId": 9973759411,
+    "artifactZipSha256": "e9820673baf64a2446b67a27014168d13087c290ea10746b7a60c88000c78941"
+  },
+  "results": {
+    "historicalRejectedRowCount": 1,
+    "rejectedRowIds": ["V013-V04-D-192"],
+    "internalRejectedPairCount": 0,
+    "failure": {
+      "rowId": "V013-V04-D-192",
+      "metric": "normalized_exact",
+      "similarity": 1,
+      "sourcePath": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "historicalMatchedTextRecorded": false
+    }
+  },
+  "allowedCorrection": {
+    "onlyRejectedFreshFixtureMayChange": true,
+    "replacementAppliedBy": "scripts/apply-liuyao-semantic-v013-candidate-v04-development-preseal-structural-correction.mjs",
+    "runtimeMutationAllowed": false,
+    "modelOrThresholdMutationAllowed": false
+  },
+  "encoderScoringObserved": false,
+  "modelProbabilityObserved": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false
+}
