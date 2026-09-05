@@ -1,0 +1,25 @@
+name: LiuYao Candidate v0.4 Development Preseal
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate-structural:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate deterministic development artifact
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Upload generated development
+        uses: actions/upload-artifact@v4
+        with:
+          name: liuyao-candidate-v04-development-preseal
+          path: tmp/liuyao-semantic-v013-candidate-v04-development.json
+          if-no-files-found: error
