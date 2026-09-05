@@ -193,8 +193,11 @@ test('Contract/runtime 不引入 score、threshold、ranking、final Strength �
     assert(audit?.numericScore === null && audit?.scalarForce === null && audit?.relativeDominance === null, 'audit numeric/dominance 应保持 null');
     assert(audit.bindingCreatesRelationEffect === false && audit.bindingCreatesMembership === false, 'binding 不得创建 effect/membership');
     assert(c.numericAggregation === false && c.numericWeights === false && c.thresholding === false && c.majorityVoting === false && c.ranking === false && c.scalarCollapse === false && c.finalStrengthMapping === false, 'numeric guardrails 应全部关闭');
+    const profile = audit.profile;
+    assert((profile.memberEdges || []).length === 0, 'memberEdges guardrail 必须为空');
+    assert((profile.relationEffects || []).length === 0, 'relationEffects guardrail 必须为空');
     const keys = collectKeys({ contract:c, audit });
-    ['forceScore','bindingScore','priorityScore','thresholdValue','majorityResult','rankingResult','finalStrength','memberEdges'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
+    ['forceScore','bindingScore','priorityScore','thresholdValue','majorityResult','rankingResult','finalStrength'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
 });
 
 test('研究 bootstrap 顺序应为 Curated Annotation → Hidden Binding → Actor Group → Collective Effect', () => {
