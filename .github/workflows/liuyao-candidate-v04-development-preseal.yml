@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   generate-structural:
@@ -31,3 +31,27 @@ jobs:
           if-no-files-found: error
       - name: Enforce freshness gate
         run: node -e "const r=require('./tmp/liuyao-semantic-v013-candidate-v04-development-freshness-report.json'); if(!r.results?.pass){console.error('Candidate v0.4 freshness gate failed; rejected rows:', r.results?.rejectedRowIds, 'internal pairs:', r.results?.internalRejectedPairCount); process.exit(1)}"
+      - name: Seal exact PASS artifacts before first scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Commit sealed development and lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin v04-fresh-development
+          remote_sha="$(git rev-parse origin/v04-fresh-development)"
+          if [ "$remote_sha" != "$GITHUB_SHA" ]; then
+            echo "Branch advanced during seal: expected $GITHUB_SHA, found $remote_sha"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            data/liuyao-semantic-v013-candidate-v04-development.json \
+            data/liuyao-semantic-v013-candidate-v04-development-freshness-report-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v04-development.lock.json
+          if git diff --cached --quiet; then
+            echo "Seal produced no new files; refusing ambiguous reseal"
+            exit 1
+          fi
+          git commit -m "data(liuyao): seal candidate v0.4 fresh development [skip ci]"
+          git push origin HEAD:v04-fresh-development
