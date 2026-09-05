@@ -76,12 +76,16 @@ const lock = {
     presealCorrection: bind(correctionPath),
     freshnessVerifier: bind(verifierPath)
   },
-  successfulPresealWorkflow: {
-    runId: 33981152758,
-    jobId: 101346483484,
-    artifactId: 9973783227,
-    artifactZipSha256: '397d6fc6c4ee4c9fdb00b95149c37b9896637f5a7c8a4abdb38be9814a435b32',
-    triggerCommit: '0e6892c9795f119c8e8ac7abec153945ca0e7baf'
+  sealingWorkflow: {
+    runId: Number(process.env.GITHUB_RUN_ID || 0),
+    triggerCommit: process.env.GITHUB_SHA || null,
+    referencePassingRunBeforeSealAutomation: {
+      runId: 33981152758,
+      jobId: 101346483484,
+      artifactId: 9973783227,
+      artifactZipSha256: '397d6fc6c4ee4c9fdb00b95149c37b9896637f5a7c8a4abdb38be9814a435b32',
+      triggerCommit: '0e6892c9795f119c8e8ac7abec153945ca0e7baf'
+    }
   },
   execution: {
     canonicalTextsPerEncoderCall: runtime.execution.canonicalTextsPerEncoderCall,
