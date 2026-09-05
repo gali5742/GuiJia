@@ -1,0 +1,127 @@
+{
+  "version": "0.13-candidate-v0.4-development-freshness-contract-v0.2",
+  "status": "frozen_replacement_protocol_before_candidate_v04_development_generation_and_scoring",
+  "supersedesFailedProtocol": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-contract-v0.1.1.json",
+    "failureRecord": "data/liuyao-semantic-v013-candidate-v04-development-pregeneration-boundary-failure-v0.1.json"
+  },
+  "freshnessClaim": "deterministically_generated_and_post_generation_decontaminated_not_blind_authored",
+  "runtimeMutationAllowed": false,
+  "unchangedSafetyRules": {
+    "normalizedExactDuplicateRejected": true,
+    "characterTrigramJaccardGreaterThanOrEqualRejected": 0.75,
+    "normalizedLevenshteinSimilarityGreaterThanOrEqualRejected": 0.85,
+    "embeddingSimilarityForbiddenForFreshness": true,
+    "modelProbabilityForbiddenBeforeDevelopmentSeal": true,
+    "thresholdMutationAfterAnyDevelopmentResult": false
+  },
+  "datasetPlan": {
+    "totalRows": 198,
+    "known": {
+      "total": 132,
+      "routeCount": 22,
+      "perRoute": 6,
+      "strata": {"strong":44,"support":44,"pure_fallback":44},
+      "perRoutePerStratum": 2
+    },
+    "nonRoute": {
+      "total": 66,
+      "strata": {
+        "unsupported_information": {
+          "rows": 22,
+          "formalMeaning": "eligible divination act whose supplied target semantics are insufficient to resolve a stable current-22 route",
+          "expectedRuntimeClass": "route_unresolved"
+        },
+        "non_divination_information": {
+          "rows": 22,
+          "formalMeaning": "factual/procedural/accounting/administrative information act near current route vocabulary",
+          "expectedRuntimeClass": "non_route"
+        },
+        "outside_current_22": {
+          "rows": 22,
+          "formalMeaning": "eligible divination outcome or decision whose target is outside the frozen 22-route universe",
+          "expectedRuntimeClass": "non_route_or_route_unresolved_but_never_false_current22_acceptance"
+        }
+      }
+    }
+  },
+  "generationProtocol": {
+    "mechanism": "deterministic repository script",
+    "scriptMayRead": [
+      "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+      "data/liuyao-semantic-route-inventory-v0.2.json",
+      "frozen Evidence/Arbitration source code needed to construct strong/support structural fixtures",
+      "this v0.2 protocol"
+    ],
+    "scriptMayReadHistoricalRowText": false,
+    "historicalCorporaMayOnlyBeReadByPostGenerationFreshnessVerifier": true,
+    "independentAndBlindEvaluationReadBeforeSeal": false,
+    "authorExposureCaveat": "A prior schema-diagnostic log exposed a subset of historical row wording to the surrounding development conversation. Therefore v0.2 does not claim blind authorship. Validity rests on the deterministic generator's declared file inputs plus mandatory exact/near-duplicate rejection before any encoder call."
+  },
+  "comparisonNormalization": {
+    "comparisonOnly": true,
+    "runtimeInputNormalizationUnaffected": true,
+    "steps": ["Unicode NFKC","lowercase","trim","remove all Unicode whitespace","remove common ASCII and CJK punctuation"]
+  },
+  "historicalTextExtraction": {
+    "mode": "conservative_recursive_all_string_values_plus_natural_language_object_keys",
+    "stringValues": "collect all non-empty string leaf values from compareText sources",
+    "objectKeys": "also collect object keys that look like natural-language surface text; never print extracted strings to logs",
+    "naturalLanguageObjectKeyHeuristic": "contains Han script and length >= 6, or length >= 24 with whitespace",
+    "falsePositivePolicy": "prefer extra comparison candidates over missed historical wording",
+    "zeroCandidateSource": "fail_closed_without_logging_source_values"
+  },
+  "exclusionSources": {
+    "compareText": [
+      "data/liuyao-semantic-route-training-v0.1.json",
+      "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "data/liuyao-semantic-route-training-v0.4-expansion-label-patch.json",
+      "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "data/liuyao-semantic-routeability-v0.2-development.json",
+      "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "data/liuyao-semantic-scope-gate-v0.1-development.json",
+      "data/liuyao-semantic-scope-gate-v0.1-preuse-patch.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.3.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "data/liuyao-semantic-v013-candidate-v03-development.json"
+    ],
+    "provenanceOnly": [
+      "data/liuyao-semantic-v013-candidate-v03-development.lock.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-execution-v0.1-report.json",
+      "data/liuyao-semantic-v013-candidate-v03-development-failure-diagnostic-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-data.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-calibration-report.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-data.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+      "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json",
+      "data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json",
+      "data/liuyao-semantic-frozen-dependencies-v0.2.lock.json"
+    ]
+  },
+  "protectedNoReadCorpora": ["independent evaluation row text","sealed blind evaluation row text","post-Baseline new-theme literature corpora"],
+  "sealOrder": [
+    "freeze this protocol",
+    "freeze exclusion provenance/hash manifest",
+    "generate 198 rows without historical corpus reads inside generator",
+    "run post-generation exact/near-duplicate checks",
+    "replace only rejected rows before any encoder scoring if required",
+    "commit dataset and dataset lock",
+    "first integrated development scoring"
+  ],
+  "failureBehavior": {
+    "freshnessFailureBeforeScoring": "replace only rejected rows under the same deterministic generator contract and rerun freshness; runtime stays immutable",
+    "developmentFailureAfterScoring": "freeze FAIL and diagnose next Candidate; Candidate v0.4 runtime may not be retuned"
+  }
+}
