@@ -1,0 +1,100 @@
+name: LiuYao v0.13 Candidate v0.4 Independent Lock v0.1.1
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'scripts/create-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs'
+      - '.github/workflows/liuyao-v013-v04-independent-lock-v011.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  correct-independent-lock:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture corrected lock checkout
+        run: echo "LOCK_V011_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify frozen Candidate and correction evidence boundary
+        run: |
+          set -euo pipefail
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+          git merge-base --is-ancestor ac113ff1c888a9519e4fbd420a5616f645737692 HEAD
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json)" = "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json)" = "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.lock.json)" = "2b5732914195162a2dd04c75083626aa29cbedd3"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-lock-correction-v0.1.json)" = "502342667cfc9e2d81afaeeee5a41679fbf68354"
+          test ! -e data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json
+          echo 'Existing data seal and correction evidence are intact. No encoder/model scoring occurs in this workflow.'
+
+      - name: Create corrected lock from clean committed sources only
+        run: node scripts/create-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+
+      - name: Verify corrected lock before commit
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+
+      - name: Commit corrected lock without touching sealed independent bytes
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json)" = "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json)" = "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+          git add data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json
+          test "$(git diff --cached --name-only)" = "data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json"
+          git commit -m 'test(liuyao): seal corrected independent lock v0.1.1 [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_PATHS=(
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent.json
+            data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent.lock.json
+            data/liuyao-semantic-v013-candidate-v04-independent-lock-correction-v0.1.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs
+            scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs
+            scripts/create-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+          )
+          if ! git diff --quiet "$LOCK_V011_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"; then
+            echo 'Frozen Candidate/independent/correction inputs changed during corrected lock commit; refusing stale push.'
+            git diff --name-only "$LOCK_V011_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+          echo "LOCK_V011_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify committed corrected lock and seal boundary
+        run: |
+          set -euo pipefail
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json)" = "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json)" = "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+          echo "Corrected independent lock commit: $LOCK_V011_COMMIT"
+          echo 'Corrected v0.1.1 independent lock is remotely committed and verified. Encoder/model scoring has still not occurred.'
