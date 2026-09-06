@@ -1,0 +1,154 @@
+{
+  "version": "0.13-candidate-v0.5-design-v0.1",
+  "status": "design_frozen_after_candidate_v04_independent_fail_before_v05_training_or_calibration",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.5",
+  "basis": {
+    "aggregateDiagnosticContractPath": "data/liuyao-semantic-v013-next-candidate-aggregate-diagnostic-contract-v0.1.json",
+    "candidateV04IndependentFailureEvidencePath": "data/liuyao-semantic-v013-candidate-v04-independent-failure-evidence-v0.1.json",
+    "rowLevelIndependentResultsUsedForDesign": false,
+    "independentTextsUsedForDesign": false,
+    "sealedBlindEvaluationRead": false
+  },
+  "designGoal": "make the smallest attributable post-v0.4 architecture revision that improves implicit known-route fallback uniqueness/recall without weakening the already successful safety boundary",
+  "frozenFromV04": {
+    "encoder": {
+      "modelId": "Xenova/bge-small-zh-v1.5",
+      "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+      "transformersJsVersion": "4.2.0",
+      "dtype": "q8",
+      "vectorSize": 512,
+      "pooling": "mean",
+      "normalize": true,
+      "canonicalTextsPerEncoderCall": 1
+    },
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "semanticActEligibility": {
+      "version": "v0.1",
+      "threshold": 0.5045675974201208,
+      "changeAllowedInCandidateV05": false
+    },
+    "evidence": {
+      "version": "v0.3",
+      "changeAllowedInCandidateV05": false
+    },
+    "arbitration": {
+      "version": "v0.12",
+      "changeAllowedInCandidateV05": false
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "changeAllowedInCandidateV05": false
+    },
+    "routeability": {
+      "version": "corrected_v0.5",
+      "threshold": 0.7678148573595883,
+      "belowThresholdFallbackRescue": false,
+      "changeAllowedInCandidateV05": false,
+      "reason": "preserve attribution: first test whether Fallback Identity structure alone can recover enough reachable known rows while maintaining v0.4 safety"
+    },
+    "selectionAndFinalization": {
+      "selectionSemantics": "Arbitration route when accepted; otherwise Fallback route only when Fallback returns one accepted identity; unresolved otherwise",
+      "scopeHardVetoUnchanged": true
+    },
+    "routeInventory": {
+      "count": 22,
+      "frozenBeforeBaseline10": true,
+      "newRoutesAllowed": false
+    }
+  },
+  "onlyArchitecturalRevision": {
+    "component": "Fallback Identity",
+    "from": {
+      "version": "v0.2",
+      "headType": "22_independent_binary_logistic_heads",
+      "decision": "apply one global admission threshold independently to all 22 probabilities; select iff exactly one route is admitted",
+      "failureModes": ["reject_all", "multiple_admissions"]
+    },
+    "to": {
+      "version": "v0.3",
+      "headType": "single_22_class_multinomial_logistic_softmax_head",
+      "candidateUniverse": "all_current_22_routes",
+      "scores": "one normalized 22-class probability distribution over the same frozen 512-dimensional question vector",
+      "winner": "argmax over all 22 route probabilities",
+      "acceptance": "select the argmax route iff its maximum softmax probability is greater than or equal to one globally calibrated confidence threshold; otherwise unresolved",
+      "globalThresholdCount": 1,
+      "routeSpecificThresholds": false,
+      "routerTop2Restriction": false,
+      "marginThreshold": false,
+      "secondThreshold": false,
+      "multipleAdmissionStatePossible": false,
+      "rejectAllEquivalent": "max probability below global confidence threshold",
+      "routerRankTieBreak": false
+    }
+  },
+  "rationale": {
+    "aggregateOnly": true,
+    "observedV04Aggregate": {
+      "fallbackHeadTotal": 44,
+      "fallbackHeadReachedFallback": 33,
+      "fallbackHeadSelected": 17,
+      "fallbackHeadRejectAll": 11,
+      "fallbackHeadMultipleAdmissions": 5,
+      "fallbackHeadExact": 16,
+      "nonRouteFalseActivations": 0
+    },
+    "interpretation": [
+      "v0.4 independent binary admissions spend capacity on 22 separate yes/no boundaries although the Fallback decision is mutually exclusive when it succeeds",
+      "a 22-class softmax makes route identity mutually exclusive by construction and removes the multiple-admission branch without adding a second threshold",
+      "one global maximum-confidence threshold preserves explicit abstention and the project-wide prohibition on route-specific thresholds",
+      "Routeability remains unchanged in v0.5 so any change in integrated development can be attributed primarily to Fallback Identity v0.3 rather than a bundled upstream recall change"
+    ]
+  },
+  "fallbackV03TrainingContractDirection": {
+    "task": "22_class_multinomial_logistic_regression",
+    "input": "frozen 512-dimensional normalized encoder vector",
+    "labels": "exactly one of the frozen current 22 routes for route-known training rows",
+    "nonRouteRowsTrainClassWeights": false,
+    "nonRouteRowsThresholdCalibrationOnly": true,
+    "reason": "non-route examples should calibrate abstention through the single global confidence threshold rather than introduce a synthetic 23rd semantic route",
+    "freshRouteKnownTrainingRequired": true,
+    "freshThresholdCalibrationRequired": true,
+    "officialV04IndependentRowsForbiddenFromTrainingOrCalibration": true,
+    "candidateV04DevelopmentRowsForbiddenFromV05TrainingOrCalibration": true,
+    "historicalTrainCalibrationMayBeUsedOnlyIfExplicitlyRevalidatedAgainstFreshnessAndContaminationContract": true
+  },
+  "thresholdCalibrationDirection": {
+    "threshold": "one global maximum-softmax confidence threshold",
+    "routeSpecificThresholds": false,
+    "marginThreshold": false,
+    "objectiveMustBeFrozenBeforeCalibrationScoring": true,
+    "mustJointlyMeasure": [
+      "reachable known-route exact acceptance",
+      "accepted reachable-known route accuracy",
+      "overall non-route false route activation",
+      "false route activation for outside_current_22",
+      "false route activation for route_unresolved",
+      "false route activation for near_domain_not_current_route"
+    ],
+    "doNotInferThresholdFromV04Independent": true
+  },
+  "v05Development": {
+    "mustBeFresh": true,
+    "mustBeSealedBeforeFirstScoring": true,
+    "mustRetainThreeKnownPathStrata": ["strong_arbitration", "support_arbitration", "fallback_head"],
+    "mustRetainThreeNonRouteSubtypes": ["outside_current_22", "route_unresolved", "near_domain_not_current_route"],
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    },
+    "gatesChangedFromV04": false
+  },
+  "attributionRules": {
+    "routeabilityMayBeRetrainedOrRetunedInV05": false,
+    "semanticActMayBeRetrainedOrRetunedInV05": false,
+    "evidenceArbitrationCompatibilityMayChangeInV05": false,
+    "fallbackArchitectureMayChange": true,
+    "fallbackModelWeightsAndNewGlobalThresholdMayBeFreshlyTrainedCalibratedUnderNewContracts": true,
+    "ifV05FailsDueRouteabilityRecall": "freeze v0.5 failure and consider Routeability revision only in a later new Candidate version rather than bundling a rescue into v0.5",
+    "ifV05FailsDueFallbackPrecisionOrSafety": "freeze v0.5 failure and redesign Fallback in a later version; no same-version post-hoc threshold rescue"
+  },
+  "nextAction": "freeze_candidate_v05_data_contract_for_fallback_identity_v03_training_calibration_and_fresh_integrated_development_before_generating_any_v05_data"
+}
