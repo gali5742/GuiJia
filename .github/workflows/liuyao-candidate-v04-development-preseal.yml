@@ -1,9 +1,8 @@
 name: LiuYao Candidate v0.4 Development Preseal
 
+# Historical one-shot sealing workflow. Candidate v0.4 development is already
+# sealed; automatic push execution would only attempt an illegal reseal.
 on:
-  push:
-    branches:
-      - v04-fresh-development
   workflow_dispatch:
 
 permissions:
