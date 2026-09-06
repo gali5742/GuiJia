@@ -1,0 +1,118 @@
+name: LiuYao v0.13 Candidate v0.5 Fallback Identity v0.3 Calibration Reachability
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - '.github/workflows/liuyao-v013-v05-fallback-identity-v03-calibration-reachability-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: liuyao-v013-v05-fallback-identity-v03-calibration-reachability
+  cancel-in-progress: false
+
+jobs:
+  postseal-reachability:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Pin immutable post-seal reachability inputs before encoder installation
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "AUDIT_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git merge-base --is-ancestor e344bbb3ec539a00de05f301df2d4e7d03c08382 HEAD
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-contract-v0.1.json)" = "931855c8a02b637fa8888cddf1d5a0b1f1aa2c89"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json)" = "975925cecf80d131160beafcf1812ea9c08f8d37"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json)" = "ab0c5bae295094130039385e7a2efa81b0412b8d"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json)" = "a2f6edf4115b5f2377d2751c99fc55a7faa9e557"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-design-v0.1.json)" = "f96ccb39f2b9e7c24c0d6c01ccfb4b3bc48c23a4"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json)" = "f2184376d8e87b86ad84349c72b75351828cfac3"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json)" = "803b1e4fdd8d30421e5949404abb91e61155e35a"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-runtime.lock.json)" = "32ffdfbd4c0364b22f4f49f450c861cb39a0624c"
+          test "$(git hash-object data/liuyao-semantic-embedding-execution-contract-v0.1.json)" = "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+          test "$(git hash-object scripts/audit-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-v01.mjs)" = "f388cfe93c53ef3a9e6672fb13a4bbcb00c4da1a"
+          test "$(git hash-object scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v01.mjs)" = "64f175dddbff243e7e48639d48b7a1eb8faaa794"
+          test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v0.1.json
+          node --check scripts/audit-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-v01.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v01.mjs
+          echo 'V05_REACHABILITY_INPUTS_PINNED fallbackWeightsTrained=false fallbackProbabilitiesObserved=false encoderScoringBeforeThisPoint=false'
+
+      - name: Install pinned encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Audit exactly 352 sealed calibration rows with frozen upstream only
+        run: node scripts/audit-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-v01.mjs
+
+      - name: Independently verify aggregate reachability report
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v01.mjs
+
+      - name: Commit immutable reachability report on PASS or FAIL
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          REPORT=data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v0.1.json
+          git add "$REPORT"
+          test "$(git diff --cached --name-only)" = "$REPORT"
+          git commit -m 'test(liuyao): record candidate v0.5 calibration reachability [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_INPUTS=(
+            data/liuyao-semantic-v013-candidate-v05-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            scripts/audit-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+          )
+          if ! git diff --quiet "$AUDIT_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_INPUTS[@]}"; then
+            echo 'Frozen v0.5 reachability inputs changed during audit; refusing stale report push.'
+            git diff --name-only "$AUDIT_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_INPUTS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+          echo "REACHABILITY_REPORT_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Enforce frozen reachability gates after immutable report commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v01.mjs
+          node - <<'NODE'
+          const report = require('./data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v0.1.json')
+          console.log(JSON.stringify({ status: report.status, summary: report.summary, checks: report.checks, pass: report.pass }, null, 2))
+          if (!report.pass) {
+            console.error('Candidate v0.5 sealed calibration reachability FAIL. Do not train Fallback v0.3 or mutate this calibration; a new versioned calibration is required.')
+            process.exit(1)
+          }
+          console.log('Candidate v0.5 sealed calibration reachability PASS. Fallback v0.3 training remains forbidden until a separate weight-training execution contract is frozen.')
+          NODE
+          echo "reachabilityReportCommit=$REACHABILITY_REPORT_COMMIT"
