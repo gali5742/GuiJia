@@ -7,6 +7,7 @@ on:
     paths:
       - 'data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json'
       - 'scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs'
       - '.github/workflows/liuyao-v013-v04-independent-preseal.yml'
   workflow_dispatch:
@@ -32,6 +33,9 @@ jobs:
         run: |
           node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
           git merge-base --is-ancestor 7353fca9d7b3668a446db558ca7ca131c9d290e5 HEAD
+
+      - name: Apply deterministic strong-path preseal correction without encoder scoring
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs
 
       - name: Generate fresh post-lock independent corpus without encoder scoring
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
