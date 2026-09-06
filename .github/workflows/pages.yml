@@ -30,6 +30,25 @@ jobs:
       pages: write
       id-token: write
     steps:
+      - name: Checkout workflow definition
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Confirm shared Pages build and verification ownership
+        run: |
+          grep -F "node scripts/build-pages-site.mjs" .github/workflows/verify.yml
+          grep -F "node scripts/verify-vendor.mjs .site" .github/workflows/verify.yml
+          grep -F "node scripts/verify-static-site.mjs .site deployed" .github/workflows/verify.yml
+          grep -F "node scripts/browser-smoke.mjs .site" .github/workflows/verify.yml
+          if grep -Eq '^\s*run:\s*node scripts/build-pages-site\.mjs' .github/workflows/pages.yml; then
+            echo "Pages caller must deploy the verified shared artifact without rebuilding." >&2
+            exit 1
+          fi
+
       - name: Download verified site artifact
         uses: actions/download-artifact@v4
         with:
