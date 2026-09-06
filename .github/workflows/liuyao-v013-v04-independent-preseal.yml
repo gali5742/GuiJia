@@ -9,6 +9,7 @@ on:
       - 'scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs'
       - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs'
       - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs'
+      - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs'
       - 'scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs'
       - '.github/workflows/liuyao-v013-v04-independent-preseal.yml'
@@ -41,6 +42,9 @@ jobs:
 
       - name: Apply deterministic fallback preseal correction without encoder scoring
         run: node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs
+
+      - name: Apply freshness-only preseal correction without encoder scoring
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs
 
       - name: Generate fresh post-lock independent corpus without encoder scoring
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
