@@ -1,0 +1,129 @@
+{
+  "version": "0.13-candidate-v0.4-independent-contract-v0.1",
+  "status": "frozen_after_candidate_lock_before_fresh_independent_generation",
+  "scope": "fresh_post_lock_candidate_v04_independent_evaluation",
+  "candidateLock": {
+    "path": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json",
+    "gitBlobSha": "57286439b7c370b2390d97e06d7664a57d34d520",
+    "lockCommit": "7353fca9d7b3668a446db558ca7ca131c9d290e5",
+    "candidateGitBlobSha": "ef85976ee937f3c3331c1cb6f021b6ae5431d8c0",
+    "candidateSha256": "50418579ebc83e016fd282c53eeec0efdfbc1edf8ef63f741b85602a66482410"
+  },
+  "population": {
+    "total": 198,
+    "known": 132,
+    "nonRoute": 66,
+    "knownPaths": {
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_head": 44
+    },
+    "nonRouteSubtypes": {
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "fallbackCoverage": "exactly two fallback_head known rows per each of the frozen 22 routes"
+  },
+  "generationBoundary": {
+    "mustBeGeneratedAfterCandidateLockCommit": true,
+    "candidateRuntimeMutationAllowed": false,
+    "candidateThresholdRetuningAllowed": false,
+    "candidateModelTrainingAllowed": false,
+    "developmentRowTextMayBeUsedAsGenerationTemplate": false,
+    "developmentPerRowResultsMayBeReadForGeneration": false,
+    "developmentFailureIdsMayBeUsedForTargetedWording": false,
+    "historicalIndependentRowTextMayBeReadForGeneration": false,
+    "sealedBlindEvaluationRowTextMayBeRead": false,
+    "postBaselineNewThemeCorpusMayBeRead": false,
+    "allowedGenerationInputs": [
+      "this frozen independent contract",
+      "frozen 22-route inventory identifiers",
+      "frozen deterministic Evidence/Arbitration/Compatibility contracts for preseal structural validation only",
+      "fresh author-authored wording banks created after Candidate v0.4 lock"
+    ],
+    "encoderOrModelProbabilityMayBeUsedBeforeIndependentSeal": false
+  },
+  "presealStructuralRequirements": {
+    "strong_arbitration": "all 44 known rows deterministically produce the expected route with Arbitration strength strong and no unsupported target",
+    "support_arbitration": "all 44 known rows deterministically produce the expected route with Arbitration strength support and no unsupported target",
+    "fallback_head": "all 44 known rows deterministically produce Arbitration null and no unsupported target; no encoder/Routeability/Fallback score may be inspected before seal",
+    "nonRoute": "all 66 rows remain labeled non_route and may not contain traditional LiuYao routing terminology or health/disease requests",
+    "healthDeterministicBlock": "excluded from this Semantic Router independent corpus"
+  },
+  "freshness": {
+    "comparisonNormalization": [
+      "Unicode NFKC",
+      "lowercase",
+      "trim",
+      "remove all Unicode whitespace",
+      "remove Unicode punctuation and symbol characters for comparison only"
+    ],
+    "normalizedExactReject": true,
+    "characterTrigramJaccardRejectGreaterThanOrEqual": 0.75,
+    "normalizedLevenshteinSimilarityFormula": "1 - distance / max(lengthA,lengthB)",
+    "normalizedLevenshteinRejectGreaterThanOrEqual": 0.85,
+    "compareAgainst": {
+      "developmentExclusionManifest": {
+        "path": "data/liuyao-semantic-v013-candidate-v04-development-exclusion-manifest-v0.2.json",
+        "gitBlobSha": "87d910126ab8e78a63aa8bfa61e12840688b8c1a",
+        "useAll20CompareTextSources": true,
+        "useProtectedNoReadCorpora": false
+      },
+      "sealedCandidateV04Development": {
+        "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+        "gitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+        "sha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20"
+      }
+    },
+    "internalPairCheck": true,
+    "failureDisclosureMayInclude": [
+      "fresh independent row id",
+      "source path",
+      "metric",
+      "similarity",
+      "internal peer row id"
+    ],
+    "failureDisclosureMustNotInclude": [
+      "historical source text",
+      "historical normalized text"
+    ],
+    "presealCorrectionPolicy": "before any encoder/model scoring, only freshness-rejected or deterministic-structure-invalid fresh independent fixtures may be replaced; labels, counts, frozen gates and Candidate runtime may not change"
+  },
+  "seal": {
+    "independentArtifactPath": "data/liuyao-semantic-v013-candidate-v04-independent.json",
+    "independentLockPath": "data/liuyao-semantic-v013-candidate-v04-independent.lock.json",
+    "mustSealBeforeFirstIndependentEncoderScoring": true,
+    "postSealWordingMutationAllowed": false,
+    "independentMayTrainModels": false,
+    "independentMayCalibrateThresholds": false,
+    "independentMayMutateRuntime": false
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "processorCallsPerQuestion": 1,
+    "modelForwardCallsPerQuestion": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "promotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true,
+    "structuralPathCollapseDefinition": "any one of strong_arbitration, support_arbitration or fallback_head has zero exact final routes"
+  },
+  "decisionPolicy": {
+    "ifPass": "Candidate v0.4 may be considered to have passed fresh post-lock independent evaluation under the frozen current-22 gates; any later Baseline 1.0 promotion decision remains a separate explicit action",
+    "ifFail": "freeze immutable Candidate v0.4 independent failure evidence; Candidate v0.4 may not be retuned, have thresholds changed, or have wording edited to rescue the same version",
+    "sameVersionRetuneAfterIndependent": false,
+    "independentRowsMayFeedLaterTraining": false,
+    "independentRowsMayFeedLaterCalibration": false
+  }
+}
