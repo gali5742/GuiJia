@@ -1,0 +1,97 @@
+{
+  "version": "0.13-next-candidate-aggregate-diagnostic-contract-v0.1",
+  "status": "frozen_after_candidate_v04_independent_fail_before_next_candidate_design",
+  "scope": "aggregate_only_architecture_diagnosis_for_next_liuyao_semantic_candidate",
+  "sourceFailureEvidence": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent-failure-evidence-v0.1.json",
+    "commit": "093e9158e2f2c922bfca07f7da154e058b4fe02b",
+    "allowedSections": [
+      "promotionGates",
+      "officialChecks",
+      "aggregateMetrics",
+      "aggregateByKnownPath",
+      "aggregateByNonRouteSubtype",
+      "aggregateDiagnosis",
+      "immutabilityPolicy"
+    ]
+  },
+  "forbiddenInputs": {
+    "officialIndependentReportResultsArray": true,
+    "independentRowIdsForWordingDesign": true,
+    "independentRowTexts": true,
+    "rowLevelSemanticActProbabilities": true,
+    "rowLevelRouteabilityProbabilities": true,
+    "rowLevelFallbackProbabilities": true,
+    "rowLevelRouterRanksOrMargins": true,
+    "independentFailureTextParaphrasesAsTrainingFixtures": true,
+    "sealedBlindEvaluation": true,
+    "postBaselineNewThemeCorpus": true
+  },
+  "allowedArchitecturalSignals": {
+    "safety": {
+      "overallFalseActivation": 0,
+      "allThreeNonRouteSubtypesWithinGate": true,
+      "interpretation": "do not weaken safety gates merely to recover recall"
+    },
+    "semanticAct": {
+      "knownRetention": 1,
+      "interpretation": "Semantic Act is not the known-recall bottleneck in the official independent aggregate"
+    },
+    "strongArbitration": {
+      "exact": 0.9772727272727273,
+      "interpretation": "strong path is stable enough that a next-version change should not target it without separate evidence"
+    },
+    "supportArbitration": {
+      "exact": 1,
+      "interpretation": "support path is stable enough that a next-version change should not target it without separate evidence"
+    },
+    "routeabilityOnFallbackHead": {
+      "accepted": 33,
+      "total": 44,
+      "recall": 0.75,
+      "interpretation": "upstream Routeability rejects a material share of implicit known-route questions before Fallback"
+    },
+    "fallbackIdentity": {
+      "reached": 33,
+      "selected": 17,
+      "rejectAll": 11,
+      "multipleAdmissions": 5,
+      "interpretation": "independent binary admissions create both under-admission and multi-admission failure modes"
+    },
+    "acceptedKnownPrecision": {
+      "correct": 103,
+      "accepted": 105,
+      "accuracy": 0.9809523809523809,
+      "interpretation": "precision remains just above the frozen gate, so recall changes must preserve precision rather than simply broaden acceptance"
+    }
+  },
+  "nextCandidateDesignConstraints": {
+    "mustUseNewCandidateVersion": true,
+    "candidateV04MutationForbidden": true,
+    "candidateV04ThresholdRetuningForbidden": true,
+    "candidateV04IndependentRerunForSelectionForbidden": true,
+    "current22RouteInventoryRemainsFrozen": true,
+    "oneGlobalFallbackAcceptanceThreshold": true,
+    "routeSpecificFallbackThresholdsForbidden": true,
+    "routerTop2MayNotLimitFallbackCandidateUniverse": true,
+    "traditionalLiuYaoRulesRemainOutsideModernSemanticModel": true,
+    "healthDiseaseDeterministicBlockRemainsOutsideSemanticRouter": true,
+    "futureTrainingCalibrationDataMustBeFreshAndIndependentOfOfficialIndependentRows": true,
+    "futureDevelopmentMustBeFreshAndSealedBeforeScoring": true
+  },
+  "diagnosticQuestionsForNextDesign": [
+    "Can Routeability be retrained or redesigned for implicit current-22 routable questions without relaxing its frozen-v0.4 threshold post hoc or sacrificing non-route safety?",
+    "Can Fallback Identity eliminate the reject-all/multiple-admission structural failure mode while preserving one global acceptance threshold and all-22 coverage?",
+    "Would a mutually exclusive 22-class identity distribution plus one global confidence threshold provide cleaner uniqueness semantics than 22 independent sigmoid admissions?",
+    "What fresh calibration population is required to measure both implicit known-route recall and all three non-route safety subtypes before any new threshold is selected?",
+    "How should attribution be preserved so Routeability and Fallback changes can be evaluated separately rather than bundled into an uninterpretable revision?"
+  ],
+  "designOrder": [
+    "freeze next-candidate architecture before generating any fresh training/calibration data",
+    "prefer minimal attributable revisions and separate Routeability work from Fallback Identity work when experimentally feasible",
+    "freeze data contracts before generation",
+    "seal all fresh calibration/development artifacts before first scoring",
+    "retain the v0.4 independent report solely as immutable evaluation evidence, not as a fixture source"
+  ],
+  "nextAction": "design_next_candidate_version_from_aggregate_signals_only_before_any_new_training_or_calibration_generation"
+}
