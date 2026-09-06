@@ -1,0 +1,127 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-calibration-reachability-contract-v0.1",
+  "status": "locked_before_first_v05_postseal_calibration_encoder_audit",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.5_fallback_identity_v0.3_postseal_calibration_reachability",
+  "sealedDataBundle": {
+    "sealCommit": "e344bbb3ec539a00de05f301df2d4e7d03c08382",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json",
+    "lockGitBlobSha": "975925cecf80d131160beafcf1812ea9c08f8d37",
+    "lockSha256": "d647a52343459a3506c8510912f8c4d212425a61c7692e6c6ee109f4efdeafa5",
+    "training": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+      "gitBlobSha": "ab0c5bae295094130039385e7a2efa81b0412b8d",
+      "sha256": "e0c627a969c77cf2212354ec4002e2ab5764c3d198186b791de566225a308ad9",
+      "rows": 264,
+      "usedInThisAudit": false
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+      "gitBlobSha": "a2f6edf4115b5f2377d2751c99fc55a7faa9e557",
+      "sha256": "2fd8f0083f2f02395e92fb9a80bc5ca37bb20816ef9704310389c30ec2f02edf",
+      "rows": 352,
+      "knownRows": 176,
+      "nonRouteRows": 176,
+      "nearDomainRows": 88,
+      "outsideCurrent22Rows": 44,
+      "routeUnresolvedRows": 44
+    }
+  },
+  "designAndMethodology": {
+    "candidateV05Design": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-design-v0.1.json",
+      "gitBlobSha": "f96ccb39f2b9e7c24c0d6c01ccfb4b3bc48c23a4"
+    },
+    "dataContract": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json",
+      "gitBlobSha": "f2184376d8e87b86ad84349c72b75351828cfac3",
+      "sha256": "9ddfc7fa19cedf3b2f676433e39fd48df5510e1f66b736da03168c7ebd34dce8"
+    },
+    "fallbackV03Methodology": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json",
+      "gitBlobSha": "803b1e4fdd8d30421e5949404abb91e61155e35a",
+      "sha256": "38ca2c96720fffc78b60655a0f282c7723d7f25c0e6c3770d743ca44d7d080cc",
+      "usedForFallbackWeightsInThisAudit": false,
+      "usedForFallbackProbabilityInThisAudit": false
+    }
+  },
+  "frozenUpstream": {
+    "v04RuntimeLock": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+      "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+      "sha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4",
+      "purpose": "bind unchanged Candidate v0.5 upstream Semantic Act, Evidence, Arbitration and corrected Routeability dependencies only; v0.4 Fallback artifacts are not loaded or used"
+    },
+    "semanticAct": {
+      "modelPath": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "modelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "threshold": 0.5045675974201208
+    },
+    "routeability": {
+      "baseModelPath": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "baseModelSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+      "thresholdArtifactPath": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "thresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "threshold": 0.7678148573595883,
+      "belowThresholdFallbackRescue": false
+    }
+  },
+  "encoder": {
+    "executionContractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "executionContractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "executionContractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "expectedEncoderCalls": 352
+  },
+  "reachabilityDefinition": {
+    "semanticActEligible": "semanticActProbability >= 0.5045675974201208",
+    "deterministicArbitrationMustBeNull": true,
+    "unsupportedTargetsMustBeEmpty": true,
+    "routeabilityAccepted": "routeabilityProbability >= 0.7678148573595883",
+    "reachesFallback": "semanticActEligible && unsupportedTargets.length===0 && arbitration===null && routeabilityAccepted"
+  },
+  "frozenChecks": {
+    "minimumCalibrationKnownSemanticActRetention": 0.95,
+    "minimumKnownReachingFallbackPerRoute": 2,
+    "minimumTotalKnownReachingFallback": 88,
+    "minimumTotalNonRouteReachingFallback": 16,
+    "minimumNearDomainNonRouteReachingFallback": 8,
+    "minimumOutsideCurrent22ReachingFallback": 2,
+    "minimumRouteUnresolvedReachingFallback": 4
+  },
+  "auditPolicy": {
+    "auditOnly": true,
+    "calibrationTextMutationAllowed": false,
+    "trainingRowsEncoded": false,
+    "fallbackV03WeightsMayBeTrained": false,
+    "fallbackV03ProbabilitiesMayBeObserved": false,
+    "fallbackV03ThresholdMayBeSelected": false,
+    "routerLoaded": false,
+    "routerTopKUsed": false,
+    "scopeHardVetoUsedForReachability": false,
+    "officialV04IndependentResultsRead": false,
+    "officialV04IndependentRowsUsed": false,
+    "sealedBlindEvaluationRead": false,
+    "postBaselineNewThemeCorpusImported": false,
+    "reportRowLevelProbabilities": false,
+    "reportRowLevelTexts": false,
+    "reportAggregatesOnly": true
+  },
+  "failurePolicy": {
+    "ifAnyFrozenCheckFails": "freeze immutable v0.5 calibration reachability failure evidence; do not mutate or rescore this sealed calibration to rescue it; create a new versioned calibration dataset only",
+    "thresholdLoweringToPassReachability": false,
+    "semanticActRetuning": false,
+    "routeabilityRetuning": false,
+    "sameSealedCalibrationWordingEdits": false
+  },
+  "passPolicy": {
+    "ifAllFrozenChecksPass": "only then freeze a separate Fallback Identity v0.3 weight-training execution contract before encoding training rows or fitting softmax weights"
+  },
+  "nextAction": "implement aggregate_only_postseal_reachability_auditor_then_score_exactly_352_sealed_calibration_rows_once"
+}
