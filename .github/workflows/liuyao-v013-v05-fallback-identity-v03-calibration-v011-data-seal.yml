@@ -1,0 +1,105 @@
+name: LiuYao v0.13 Candidate v0.5 Fallback Identity v0.3 Calibration v0.1.1 Data Seal
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - '.github/workflows/liuyao-v013-v05-fallback-identity-v03-calibration-v011-data-seal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: liuyao-v013-v05-fallback-v03-calibration-v011-data-seal
+  cancel-in-progress: false
+
+jobs:
+  generate-verify-seal:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Pin replacement calibration inputs before generation
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git merge-base --is-ancestor d5db6e44a8c238923ba98d18e4c5ffab491fdc51 HEAD
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-data-contract-v0.1.json)" = "eacd6ed249bf4a62ae203a02ea4c5a125e215190"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json)" = "803b1e4fdd8d30421e5949404abb91e61155e35a"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json)" = "ab0c5bae295094130039385e7a2efa81b0412b8d"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json)" = "a2f6edf4115b5f2377d2751c99fc55a7faa9e557"
+          test "$(git hash-object scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs)" = "1358ee87f1a293a29741bb9c9bcb2d1ef9dcdee0"
+          test "$(git hash-object scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-preseal.mjs)" = "f9c48853bd719bb5461a863ff643cec580c64d2b"
+          test "$(git hash-object scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs)" = "735b7be4443fabab6beb0fc096d9c450cfc80137"
+          test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.json
+          test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.lock.json
+          node --check scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-preseal.mjs
+          node --check scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+          echo 'CALIBRATION_V011_PREGEN_BINDINGS_OK encoderInstalled=false encoderScoringPerformed=false'
+
+      - name: Generate fresh calibration v0.1.1 text only
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+
+      - name: Deterministic preseal verification
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-preseal.mjs
+
+      - name: Seal calibration v0.1.1 before first encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+
+      - name: Verify sealed calibration v0.1.1
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-preseal.mjs
+
+      - name: Commit immutable replacement calibration and lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          CAL=data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.json
+          LOCK=data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.lock.json
+          git add "$CAL" "$LOCK"
+          ACTUAL="$(git diff --cached --name-only | sort)"
+          EXPECTED="$(printf '%s\n' "$CAL" "$LOCK" | sort)"
+          test "$ACTUAL" = "$EXPECTED"
+          git commit -m 'test(liuyao): seal candidate v0.5 calibration v0.1.1 [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_INPUTS=(
+            data/liuyao-semantic-v013-candidate-v05-design-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-failure-evidence-v0.1.json
+            data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-data-contract-v0.1.json
+            scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011-preseal.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v011.mjs
+          )
+          if ! git diff --quiet "$BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_INPUTS[@]}"; then
+            echo 'Frozen calibration v0.1.1 inputs changed during seal; refusing stale push.'
+            git diff --name-only "$BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_INPUTS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+          echo "SEALED_CALIBRATION_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Report immutable calibration v0.1.1 hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'calibrationSha256=' && sha256sum data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.json | awk '{print $1}'
+          printf 'lockSha256=' && sha256sum data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.lock.json | awk '{print $1}'
+          echo "sealedCalibrationCommit=$SEALED_CALIBRATION_COMMIT"
+          echo 'CALIBRATION_V011_SEALED encoderScoringPerformed=false fallbackWeightsTrained=false fallbackProbabilityObserved=false'
