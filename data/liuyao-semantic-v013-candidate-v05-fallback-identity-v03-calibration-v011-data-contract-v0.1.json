@@ -1,0 +1,112 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-calibration-v0.1.1-data-contract-v0.1",
+  "status": "frozen_before_calibration_v011_generation_or_encoder_scoring",
+  "scope": "candidate_v05_fallback_identity_v03_calibration_only_replacement_v011",
+  "basis": {
+    "reachabilityFailureEvidencePath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-failure-evidence-v0.1.json",
+    "failedCalibrationReportPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v0.1.json",
+    "aggregateFailureSignalsOnly": true,
+    "failedCalibrationRowsReadForDesign": false,
+    "failedReachabilityRowScoresReadForDesign": false,
+    "officialV04IndependentRowsReadForDesign": false,
+    "sealedBlindEvaluationRead": false
+  },
+  "carriedTraining": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+    "gitBlobSha": "ab0c5bae295094130039385e7a2efa81b0412b8d",
+    "sha256": "e0c627a969c77cf2212354ec4002e2ab5764c3d198186b791de566225a308ad9",
+    "rows": 264,
+    "regenerate": false,
+    "mutate": false,
+    "encodeDuringReplacementGenerationOrReachability": false,
+    "fallbackWeightsAlreadyTrained": false
+  },
+  "supersededCalibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+    "gitBlobSha": "a2f6edf4115b5f2377d2751c99fc55a7faa9e557",
+    "sha256": "2fd8f0083f2f02395e92fb9a80bc5ca37bb20816ef9704310389c30ec2f02edf",
+    "status": "sealed_but_reachability_failed",
+    "mutationAllowed": false,
+    "reuseRowsInReplacement": false,
+    "useAsGenerationTemplate": false
+  },
+  "replacementCalibration": {
+    "artifactPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.json",
+    "lockPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-v0.1.1.lock.json",
+    "totalRows": 880,
+    "known": {
+      "rows": 264,
+      "rowsPerRoute": 12,
+      "routeCount": 22,
+      "identityLabel": "route_identity_positive",
+      "subtype": "fallback_stage_known",
+      "design": "fresh identity-clear but deterministic-Arbitration-null language; uniform 12 per route; weak-route aggregate signals may guide semantic explicitness but never reuse failed row wording"
+    },
+    "nonRoute": {
+      "rows": 616,
+      "near_domain_not_current_route": {
+        "rows": 440,
+        "rowsPerPressureFamily": 20,
+        "pressureFamilies": 22,
+        "design": "domain-dense substantive operational or coordination choices adjacent to each route, phrased as outcome-like questions while remaining outside the route identity itself"
+      },
+      "outside_current_22": {
+        "rows": 132,
+        "themeCount": 11,
+        "rowsPerTheme": 12,
+        "design": "clear divination-style outcome questions in modern domains outside the frozen 22 routes, rather than obviously non-semantic UI or filing chores"
+      },
+      "route_unresolved": {
+        "rows": 44,
+        "design": "retain a moderate unresolved sample because aggregate v0.1 exposure was already abundant; do not expand this subtype at the expense of near-domain/outside coverage"
+      }
+    }
+  },
+  "samplingRationale": {
+    "known": "v0.1 had sufficient total known exposure 106/176 but route imbalance including one route at 0/8; 12 fresh rows per route increases route-level support without changing upstream thresholds",
+    "nearDomain": "v0.1 had only 1/88 exposure; replacement uses 20 fresh hard negatives per route family and makes them substantive/domain-dense rather than obvious record/UI organization questions",
+    "outsideCurrent22": "v0.1 had 0/44 exposure; replacement triples count and uses explicit outcome-style semantic acts in non-current22 domains so at least a small meaningful hard-negative subset can naturally survive Routeability",
+    "routeUnresolved": "v0.1 already had 32/44 exposure, so 44 is retained rather than expanded",
+    "gateChanges": false
+  },
+  "presealRules": {
+    "unsupportedTargetsMustBeEmpty": true,
+    "arbitrationV012MustBeNullForEveryRow": true,
+    "normalizedExactDuplicatesAllowed": false,
+    "internalNormalizedTrigramJaccardUpperBound": 0.82,
+    "historicalProtectedNormalizedTrigramJaccardUpperBound": 0.84,
+    "traditionalLiuYaoTermsAllowed": false,
+    "healthDiseaseQuestionsAllowed": false,
+    "encoderOrModelScoringBeforeSeal": false,
+    "semanticActProbabilityUsedForWording": false,
+    "routeabilityProbabilityUsedForWording": false,
+    "fallbackProbabilityUsedForWording": false,
+    "labelsMayChangeDuringPresealCorrection": false,
+    "deterministicLexicalCorrectionsBeforeSealAllowed": true
+  },
+  "protectedReadBoundary": {
+    "replacementGeneratorMayReadFailedCalibrationArtifact": false,
+    "replacementGeneratorMayReadFailedReachabilityReport": false,
+    "replacementGeneratorMayReadV04IndependentReport": false,
+    "replacementGeneratorMayReadAnyRowLevelEvaluationResults": false,
+    "presealVerifierMayReadHistoricalRowTextsOnlyForContaminationScreening": true,
+    "presealVerifierMustNotPrintHistoricalProtectedText": true
+  },
+  "postSealReachabilityGates": {
+    "minimumCalibrationKnownSemanticActRetention": 0.95,
+    "minimumKnownReachingFallbackPerRoute": 2,
+    "minimumTotalKnownReachingFallback": 88,
+    "minimumTotalNonRouteReachingFallback": 16,
+    "minimumNearDomainNonRouteReachingFallback": 8,
+    "minimumOutsideCurrent22ReachingFallback": 2,
+    "minimumRouteUnresolvedReachingFallback": 4,
+    "changedFromCalibrationV01": false
+  },
+  "sealPolicy": {
+    "sealBeforeFirstEncoderScoring": true,
+    "postSealMutationAllowed": false,
+    "ifReachabilityFails": "freeze failure and create a later new versioned calibration; do not mutate v0.1.1",
+    "ifReachabilityPasses": "only then freeze Fallback v0.3 weight-training execution contract; carried training remains the sole weight-fit split"
+  },
+  "nextAction": "implement_fresh_calibration_v011_generator_and_deterministic_preseal_verifier_without_encoder_scoring"
+}
