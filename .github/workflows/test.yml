@@ -44,6 +44,9 @@ jobs:
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
+      - name: Actor-Set Opposition E2E Calibration regression
+        run: node tests/bazi-contextual-force-party-actor-set-opposition-e2e-calibration-tests.js
+
       - name: Counterfactual Placement Alternative regression
         run: node tests/bazi-contextual-force-party-counterfactual-placement-alternative-tests.js
 
