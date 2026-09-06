@@ -176,7 +176,7 @@ test('VMEC CASE-02 → RTLC CASE-04 → GROUP-01 → CRE-01 端到端闭合', ()
     assert(record.sourceActorKey === 'visible:3:丙', 'CASE-02 source actor 异常');
     assert(record.targetGroupId === 'CF-AGI-GROUP-01' && record.collectiveEffectId === 'CF-CRE-SOURCE-01', 'CASE-02 group/effect 映射异常');
     assert(record.targetMemberActorKeys.join('|') === 'visible:0:庚|visible:1:庚', 'CASE-02 target members 异常');
-    assert(record.relationEffectState === 'realized-relation-effect' && record.relationType === RELATION_TYPES.ANCHOR_OPPOSITION, 'CASE-02 collective effect 未兑现');
+    assert(record.relationEffectState === 'realized-relation-effect-in-source-context' && record.relationType === RELATION_TYPES.ANCHOR_OPPOSITION, 'CASE-02 collective effect 未兑现');
 });
 
 test('VMEC CASE-04 → RTLC CASE-05 → GROUP-02 → CRE-02 端到端闭合', () => {
