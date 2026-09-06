@@ -38,6 +38,9 @@ jobs:
       - name: Actor Group Identity regression
         run: node tests/bazi-contextual-force-party-actor-group-identity-tests.js
 
+      - name: Source Actor Group Identity regression
+        run: node tests/bazi-contextual-force-party-source-actor-group-identity-tests.js
+
       - name: Curated Finite Target Resolver regression
         run: node tests/bazi-contextual-force-party-curated-target-resolver-tests.js
 
