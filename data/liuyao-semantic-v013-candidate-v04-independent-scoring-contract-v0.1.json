@@ -1,0 +1,135 @@
+{
+  "version": "0.13-candidate-v0.4-independent-scoring-contract-v0.1",
+  "status": "locked_before_first_candidate_v04_independent_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4_fresh_post_lock_independent",
+  "candidateLock": {
+    "path": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json",
+    "gitBlobSha": "57286439b7c370b2390d97e06d7664a57d34d520",
+    "sha256": "6f4d94209a781ffc650b6b3046143655756c6d1ba58a737fc5a559595a214126",
+    "lockCommit": "7353fca9d7b3668a446db558ca7ca131c9d290e5"
+  },
+  "correctedIndependentLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json",
+    "gitBlobSha": "4e3aaf3c92385435dcadd2eded32147cfcce72b9",
+    "sha256": "c7e202ca3e2605c12b6aba1b3033ef16eb412e09731b9e73f5c74ff9028d8eae",
+    "lockCommit": "3c76a2828ad3928d898840fcf749e22e21e923cb",
+    "supersedesInvalidV01ForScoring": true
+  },
+  "sealedIndependent": {
+    "artifactPath": "data/liuyao-semantic-v013-candidate-v04-independent.json",
+    "artifactGitBlobSha": "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774",
+    "artifactSha256": "193aa0c86eac0945844a2675571522a407d60cfe8d1e7f24a1cd47c374c533e8",
+    "presealReportPath": "data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json",
+    "presealReportGitBlobSha": "1c97f1b11394c1698f5b5fba8cdb3503eba17a47",
+    "presealReportSha256": "24e4a42c1ec2897bc2a8a789e6c7d4a448d27331befbacd89e694927c8a2388e",
+    "dataSealCommit": "ac113ff1c888a9519e4fbd420a5616f645737692",
+    "rowCount": 198,
+    "expectedCounts": {
+      "route_known": 132,
+      "non_route": 66,
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_head": 44,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "postSealWordingMutationAllowed": false,
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "thresholdSelectionEligible": false
+  },
+  "frozenRuntime": {
+    "lockPath": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "lockGitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "lockSha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4",
+    "semanticActModelSha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+    "routeabilityBaseSha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+    "routeabilityThresholdArtifactSha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+    "fallbackIdentityModelSha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d",
+    "semanticActThreshold": 0.5045675974201208,
+    "routeabilityThreshold": 0.7678148573595883,
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "fallbackIdentityGlobalThreshold": 0.5549057227178391,
+    "routeCount": 22,
+    "fallbackCandidateUniverse": "all_current_22_routes",
+    "routerTop2FallbackRestriction": false,
+    "routeSpecificFallbackThresholds": false,
+    "runtimeMutationDuringIndependent": false
+  },
+  "embeddingExecution": {
+    "contractPath": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "contractGitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "contractSha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "unit": "one_normalized_question_per_encoder_invocation",
+    "canonicalTextsPerEncoderCall": 1,
+    "processorCallsPerQuestion": 1,
+    "modelForwardCallsPerQuestion": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "metricReference": {
+    "developmentContractPath": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json",
+    "developmentContractGitBlobSha": "7c8c63ecb35a4b9ed2f77cab9d3e7079a25fa077",
+    "developmentVerifierPath": "scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs",
+    "developmentVerifierGitBlobSha": "1fb073fe1e4967f8e3d0ec196d966a10b6501c98",
+    "reason": "independent evaluation must reuse the exact development metric semantics and promotion gates without post-development changes"
+  },
+  "scoring": {
+    "plannedEvaluatorPath": "scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs",
+    "plannedVerifierPath": "scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs",
+    "plannedReportPath": "data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json",
+    "usesCandidateRuntime": "js/liuyao-semantic-candidate-v04-runtime-v01.js",
+    "routerHeadPurpose": "Selection provenance and compatibility only; never limits Fallback Identity v0.2 candidate universe",
+    "scopeScorePurpose": "frozen finalization hard veto only",
+    "independentRowsScoredExactlyOncePerEvaluatorRun": 198,
+    "encoderInvocationCountMustEqual": 198,
+    "canonicalTextsSubmittedMustEqual": 198,
+    "independentMetricRecomputationRequired": true,
+    "reportMustBeCommittedOnPassOrFail": true,
+    "singleOfficialIndependentScoringRun": true,
+    "retriesForMetricSelectionForbidden": true
+  },
+  "metricDefinitions": {
+    "knownExactRoute": "known rows whose final disposition is route_known and final routeId equals expectedRoute / all 132 known rows",
+    "acceptedRouteAccuracy": "known rows whose final disposition is route_known and final routeId equals expectedRoute / known rows whose final disposition is route_known; unresolved or rejected known rows are excluded from this denominator",
+    "overallFalseRouteActivation": "non-route rows whose final disposition is route_known / all 66 non-route rows",
+    "perSubtypeFalseRouteActivation": "within each of outside_current_22, route_unresolved and near_domain_not_current_route: final route_known rows / 22",
+    "knownPathFinalExact": "within each expected path strong_arbitration, support_arbitration and fallback_head: exact final route rows / 44",
+    "structuralPathCollapse": "true if any one of the three known paths has knownPathFinalExact equal to 0; false only when every path has at least one exact final route"
+  },
+  "promotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "independentPolicy": {
+    "training": false,
+    "calibration": false,
+    "thresholdSelection": false,
+    "thresholdRetuning": false,
+    "runtimeMutation": false,
+    "candidateMutation": false,
+    "dataMutation": false,
+    "claimsGeneralizationBeyondCurrent22": false,
+    "independentOnly": true,
+    "ifFail": "freeze immutable Candidate v0.4 independent failure evidence; Candidate v0.4 must not be promoted or same-version retuned; do not regenerate or rewrite the sealed independent rows",
+    "ifPass": "Candidate v0.4 may proceed only to a separately frozen Baseline 1.0 promotion decision; no post-pass fitting is allowed"
+  },
+  "protectedEvaluationBoundary": {
+    "correctedIndependentLockVerifiedBeforeScoring": true,
+    "independentEncoderOrModelScoringObservedBeforeThisContract": false,
+    "sealedBlindEvaluationRead": false,
+    "sealedBlindEvaluationMayBeReadDuringThisIndependentScoring": false,
+    "postBaselineNewThemeCorpusImported": false
+  },
+  "nextAction": "implement_independent_evaluator_and_verifier_against_this_frozen_contract_then_score_exactly_198_sealed_rows_once"
+}
