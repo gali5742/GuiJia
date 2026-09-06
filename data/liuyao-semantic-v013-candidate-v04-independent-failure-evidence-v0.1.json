@@ -1,0 +1,166 @@
+{
+  "version": "0.13-candidate-v0.4-independent-failure-evidence-v0.1",
+  "status": "immutable_post_lock_independent_failure_frozen",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4_fresh_post_lock_independent",
+  "candidate": {
+    "candidateLockPath": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json",
+    "candidateLockGitBlobSha": "57286439b7c370b2390d97e06d7664a57d34d520",
+    "candidateLockSha256": "6f4d94209a781ffc650b6b3046143655756c6d1ba58a737fc5a559595a214126",
+    "candidateLockCommit": "7353fca9d7b3668a446db558ca7ca131c9d290e5",
+    "eligibleForBaseline10Promotion": false
+  },
+  "independentSeal": {
+    "correctedLockPath": "data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json",
+    "correctedLockGitBlobSha": "4e3aaf3c5bd045ca7b3f18c627f9a5da639872dc",
+    "correctedLockSha256": "c7e202ca717c06131b02261414329740ad0e6d21950025a603a6613b517070d3",
+    "correctedLockCommit": "3c76a2828ad3928d898840fcf749e22e21e923cb",
+    "artifactPath": "data/liuyao-semantic-v013-candidate-v04-independent.json",
+    "artifactGitBlobSha": "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774",
+    "artifactSha256": "193aa0c86eac0945844a2675571522a407d60cfe8d1e7f24a1cd47c374c533e8",
+    "presealReportPath": "data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json",
+    "presealReportGitBlobSha": "1c97f1b11394c1698f5b5fba8cdb3503eba17a47",
+    "presealReportSha256": "24e4a42c1ec2897bc2a8a789e6c7d4a448d27331befbacd89e694927c8a2388e",
+    "dataSealCommit": "ac113ff1c888a9519e4fbd420a5616f645737692",
+    "rows": 198,
+    "postSealMutationAllowed": false
+  },
+  "scoringContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent-scoring-contract-v0.1.1.json",
+    "gitBlobSha": "e4e4950f81c1a67d600f1c7c3e71c7c6ecb27620",
+    "sha256": "a1b368e8f67cceec77385f3c2c9bf25d6298f519a59d56914fa59aaa9fe3d58a",
+    "correctedBeforeFirstIndependentScoring": true,
+    "metricDefinitionsAndPromotionGatesFrozenBeforeScoring": true
+  },
+  "officialIndependentExecution": {
+    "workflowRunId": 34012251780,
+    "jobId": 101429973625,
+    "triggerCommit": "62830e6e3aa9c136f99a5e03605c7b815c87e591",
+    "reportCommit": "ae373a03d3a587287bee1aef0195988ff4a2f112",
+    "reportPath": "data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json",
+    "reportGitBlobSha": "11579ddfa724770391398ac9dda0efed12548ed4",
+    "reportSha256": "9dba8b7d2a6d87026419aec93d93b9b4f62ac30e38a48b8efd6c9555306c9b2b",
+    "encoderInvocationCount": 198,
+    "canonicalTextsSubmitted": 198,
+    "singleTextExecution": true,
+    "reportIndependentlyVerified": true,
+    "reportCommittedBeforeGateFailure": true,
+    "officialResult": "FAIL"
+  },
+  "promotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "officialChecks": {
+    "knownExactRoute": false,
+    "acceptedRouteAccuracy": true,
+    "overallFalseRouteActivation": true,
+    "perSubtypeFalseActivation": true,
+    "noStructuralPathCollapse": true
+  },
+  "aggregateMetrics": {
+    "known": 132,
+    "nonRoute": 66,
+    "knownFinalExactCount": 103,
+    "knownFinalRouteKnownCount": 105,
+    "knownExactRoute": 0.7803030303030303,
+    "knownFinalRetention": 0.7954545454545454,
+    "acceptedRouteAccuracy": 0.9809523809523809,
+    "wrongSelectedRouteCount": 2,
+    "nonRouteFalseRouteActivationCount": 0,
+    "overallFalseRouteActivation": 0,
+    "semanticActKnownRetention": 1,
+    "routeabilityKnownRecall": 0.9166666666666666,
+    "semanticActRejectedKnownCount": 0,
+    "routeabilityRejectedKnownAfterSemanticActCount": 11,
+    "scopeHardVetoKnownCount": 0
+  },
+  "aggregateByKnownPath": {
+    "strong_arbitration": {
+      "n": 44,
+      "finalExactCount": 43,
+      "finalExact": 0.9772727272727273,
+      "acceptedAccuracy": 1
+    },
+    "support_arbitration": {
+      "n": 44,
+      "finalExactCount": 44,
+      "finalExact": 1,
+      "acceptedAccuracy": 1
+    },
+    "fallback_head": {
+      "n": 44,
+      "routeabilityAcceptedCount": 33,
+      "routeabilityRecall": 0.75,
+      "fallbackReachedCount": 33,
+      "fallbackSelectedCount": 17,
+      "fallbackRejectAllCount": 11,
+      "fallbackMultipleAdmissionsCount": 5,
+      "finalRouteKnownCount": 18,
+      "finalExactCount": 16,
+      "finalRetention": 0.4090909090909091,
+      "finalExact": 0.36363636363636365,
+      "acceptedAccuracy": 0.8888888888888888
+    }
+  },
+  "aggregateByNonRouteSubtype": {
+    "outside_current_22": {
+      "n": 22,
+      "falseRouteActivationCount": 0,
+      "falseRouteActivation": 0,
+      "fallbackReachedCount": 1
+    },
+    "route_unresolved": {
+      "n": 22,
+      "falseRouteActivationCount": 0,
+      "falseRouteActivation": 0,
+      "fallbackReachedCount": 5
+    },
+    "near_domain_not_current_route": {
+      "n": 22,
+      "semanticActRejectedCount": 21,
+      "semanticActRejection": 0.9545454545454546,
+      "falseRouteActivationCount": 0,
+      "falseRouteActivation": 0,
+      "fallbackReachedCount": 0
+    }
+  },
+  "aggregateDiagnosis": {
+    "primaryFailure": "known-route recall below frozen 0.80 promotion gate",
+    "knownExactRowsNeededForGate": 106,
+    "knownExactRowsObserved": 103,
+    "shortfallRows": 3,
+    "safetyFailureObserved": false,
+    "strongPathCollapseObserved": false,
+    "supportPathCollapseObserved": false,
+    "fallbackPathCollapseObserved": false,
+    "dominantBottleneck": "fallback_head recall and uniqueness",
+    "signals": [
+      "Semantic Act retained all 132 known rows",
+      "strong arbitration generalized at 43/44 exact",
+      "support arbitration generalized at 44/44 exact",
+      "11/44 fallback-head known rows were rejected before Fallback by frozen Routeability",
+      "of 33 fallback-head known rows reaching Fallback, only 17 selected exactly one route",
+      "Fallback produced 11 reject-all and 5 multiple-admission outcomes on known fallback-head rows",
+      "66/66 non-route rows avoided false route activation",
+      "two accepted known routes were wrong, leaving accepted-route accuracy only narrowly above the frozen 0.98 gate"
+    ]
+  },
+  "immutabilityPolicy": {
+    "candidateV04MayBePromotedToBaseline10": false,
+    "sameVersionThresholdRetuningAllowed": false,
+    "sameVersionRuntimeMutationAllowed": false,
+    "sameVersionTrainingOrCalibrationAllowed": false,
+    "independentScoringRerunForMetricSelectionAllowed": false,
+    "independentRowsMayBeRegeneratedOrEdited": false,
+    "independentRowsMayEnterFutureTraining": false,
+    "independentRowsMayEnterFutureCalibration": false,
+    "rowLevelIndependentTextsOrProbabilitiesMayBeUsedToSculptFutureTrainingOrCalibrationWording": false,
+    "aggregateFailureSignalsMayInformNewVersionArchitecture": true,
+    "futureModelWorkRequiresNewCandidateVersion": true,
+    "sealedBlindEvaluationRead": false
+  },
+  "nextAction": "freeze_aggregate_only_next_candidate_diagnostic_contract_then_design_new_candidate_version_without_reusing_independent_rows"
+}
