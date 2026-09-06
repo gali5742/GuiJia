@@ -1,0 +1,118 @@
+name: LiuYao v0.13 Candidate v0.4 Lock
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-lock.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs'
+      - '.github/workflows/liuyao-v013-v04-candidate-lock.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lock:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable Candidate-lock checkout
+        run: echo "CANDIDATE_LOCK_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Confirm fresh development PASS from sealed Candidate v0.4 runtime
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs
+
+      - name: Confirm protected evaluation boundary is still unread before lock
+        run: |
+          node - <<'NODE'
+          const runtime = require('./data/liuyao-semantic-v013-candidate-v04-runtime.lock.json')
+          const development = require('./data/liuyao-semantic-v013-candidate-v04-development.lock.json')
+          const report = require('./data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json')
+          if (runtime.isolation?.independentEvaluationRead !== false) throw new Error('runtime lock does not prove independent unread')
+          if (runtime.isolation?.sealedBlindEvaluationRead !== false) throw new Error('runtime lock does not prove sealed blind unread')
+          if (development.protectedEvaluationBoundary?.independentEvaluationReadBeforeSeal !== false) throw new Error('development lock does not prove independent unread before seal')
+          if (development.protectedEvaluationBoundary?.sealedBlindEvaluationReadBeforeSeal !== false) throw new Error('development lock does not prove blind unread before seal')
+          if (report.policy?.readsIndependentEval !== false || report.policy?.usesIndependentEval !== false) throw new Error('development report used independent evaluation')
+          if (report.policy?.readsSealedBlindEval !== false) throw new Error('development report read sealed blind evaluation')
+          console.log('Protected evaluation boundary remains unread before Candidate v0.4 lock.')
+          NODE
+
+      - name: Generate Candidate v0.4 lock without encoder or evaluation reads
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-lock.mjs
+
+      - name: Verify Candidate v0.4 lock bindings and invariants
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+
+      - name: Commit immutable Candidate v0.4 lock
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json
+          git add data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json
+          git commit -m 'test(liuyao): lock v0.13 candidate v0.4 after fresh development pass [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_PATHS=(
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-development.json
+            data/liuyao-semantic-v013-candidate-v04-development.lock.json
+            data/liuyao-semantic-v013-candidate-v04-development-freshness-report-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-lock.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+            scripts/evaluate-liuyao-semantic-v013-candidate-v04-development-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-development-report-execution-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-act-eligibility-v01.js
+            js/liuyao-semantic-routeability-v05-execution-v01.js
+            js/liuyao-semantic-fallback-identity-scorer-v02.js
+            js/liuyao-semantic-fallback-identity-v02.js
+            js/liuyao-semantic-route-selection-v05.js
+            js/liuyao-semantic-finalization-v01.js
+            js/liuyao-semantic-candidate-v04-runtime-v01.js
+          )
+          if ! git diff --quiet "$CANDIDATE_LOCK_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"; then
+            echo 'Candidate v0.4 frozen inputs changed during lock generation; refusing stale lock push.'
+            git diff --name-only "$CANDIDATE_LOCK_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+
+      - name: Verify committed Candidate lock is now the only legal boundary for independent evaluation
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+          node - <<'NODE'
+          const lock = require('./data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json')
+          if (lock.nextAction !== 'fresh_post_lock_candidate_v04_independent_evaluation_only') process.exit(1)
+          if (lock.invariants?.candidateMutationAllowed !== false) process.exit(1)
+          if (lock.invariants?.thresholdRetuningAllowed !== false) process.exit(1)
+          if (lock.invariants?.independentEvaluationMustBeFreshPostLock !== true) process.exit(1)
+          console.log('Candidate v0.4 is locked. Fresh post-lock independent evaluation may now be designed; runtime mutation remains forbidden.')
+          NODE
