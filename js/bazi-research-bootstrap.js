@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.21';
+    const VERSION = '0.22';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -103,6 +103,9 @@
         Object.freeze({ globalKey:'baziContextualForcePartyRelationSemanticsModernSupportAudit', src:'./js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationPositionProvenanceSource', src:'./js/bazi-contextual-force-party-relation-position-provenance-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationPositionProvenanceAudit', src:'./js/bazi-contextual-force-party-relation-position-provenance-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCounterfactualPlacementAlternativeContract', src:'./js/bazi-contextual-force-party-counterfactual-placement-alternative-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCounterfactualPlacementAlternativeProfile', src:'./js/bazi-contextual-force-party-counterfactual-placement-alternative-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyCounterfactualPlacementAlternative', src:'./js/bazi-contextual-force-party-counterfactual-placement-alternative.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCompetingRelationPathSource', src:'./js/bazi-contextual-force-party-competing-relation-path-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCompetingRelationPathAudit', src:'./js/bazi-contextual-force-party-competing-relation-path-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceScopedSequentialCompositionContract', src:'./js/bazi-contextual-force-party-source-scoped-sequential-composition-contract.js?v=13.44.0' }),
