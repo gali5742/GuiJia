@@ -50,6 +50,9 @@ jobs:
       - name: Source-Scoped Sequential Composition regression
         run: node tests/bazi-contextual-force-party-source-scoped-sequential-composition-tests.js
 
+      - name: Counterfactual Path Pair regression
+        run: node tests/bazi-contextual-force-party-counterfactual-path-pair-tests.js
+
       - name: Core regression tests
         run: npm test
 
