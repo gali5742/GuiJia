@@ -1,0 +1,33 @@
+{
+  "version": "0.13-candidate-v0.4-independent-preseal-report-v0.1",
+  "status": "PASS",
+  "scope": "fresh_post_lock_independent_preseal_only",
+  "policy": {
+    "encoderScoring": false,
+    "modelProbabilityObserved": false,
+    "runtimeMutation": false,
+    "historicalIndependentRowTextRead": false,
+    "sealedBlindEvaluationRead": false,
+    "developmentPerRowResultsRead": false
+  },
+  "sources": {
+    "compareTextSources": 21,
+    "extractedHistoricalCandidates": 8510,
+    "includesSealedCandidateV04Development": true
+  },
+  "structural": {
+    "pass": true,
+    "failureCount": 0,
+    "failures": []
+  },
+  "freshness": {
+    "pass": true,
+    "historicalRejectedRowCount": 0,
+    "historicalRejectionCount": 0,
+    "internalRejectedRowCount": 0,
+    "internalRejectedPairCount": 0,
+    "historicalRejects": [],
+    "internalRejects": []
+  },
+  "nextAction": "seal_fresh_independent_before_first_encoder_scoring"
+}

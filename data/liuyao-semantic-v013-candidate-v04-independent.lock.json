@@ -1,0 +1,119 @@
+{
+  "version": "0.13-candidate-v0.4-independent-lock-v0.1",
+  "status": "sealed_before_first_post_lock_independent_encoder_scoring",
+  "scope": "fresh_post_lock_candidate_v04_independent_evaluation",
+  "candidateLock": {
+    "path": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json",
+    "gitBlobSha": "57286439b7c370b2390d97e06d7664a57d34d520",
+    "sha256": "6f4d94209a781ffc650b6b3046143655756c6d1ba58a737fc5a559595a214126"
+  },
+  "independentContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json",
+    "gitBlobSha": "4d15ba83f9372b961122cb776dd56de5ebdfe436",
+    "sha256": "1f00d154f9f3d2fceb73b25257f289a0fc818c7ebf46c5f6b14478de3a633dac"
+  },
+  "independentArtifact": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent.json",
+    "gitBlobSha": "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774",
+    "sha256": "193aa0c86eac0945844a2675571522a407d60cfe8d1e7f24a1cd47c374c533e8"
+  },
+  "presealReport": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json",
+    "gitBlobSha": "1c97f1b11394c1698f5b5fba8cdb3503eba17a47",
+    "sha256": "24e4a42c1ec2897bc2a8a789e6c7d4a448d27331befbacd89e694927c8a2388e"
+  },
+  "generationAndPresealScripts": {
+    "scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs": {
+      "path": "scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs",
+      "gitBlobSha": "78e79873efb65148a13bc50eeede35f261db7405",
+      "sha256": "2935a40108be9d021653ddd363728cea50137fff17bb28b776bf48a0eb02d5d9"
+    },
+    "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs": {
+      "path": "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs",
+      "gitBlobSha": "d9091d5e6d4f14ab207fa0a49161f841a0bcd5a5",
+      "sha256": "0308068931224cb3c3ba9ba839013c8e18af61685f645afb436a9155a2797bc0"
+    },
+    "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs": {
+      "path": "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs",
+      "gitBlobSha": "af1594a1eca7d4bd1247ebb0bfc2e0abfb4237cd",
+      "sha256": "fcd4c8be3303442313d12f619c66499be6d3a7a65beed5fe2662de82a0a4a3c6"
+    },
+    "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs": {
+      "path": "scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs",
+      "gitBlobSha": "90c4441c8dc2f44275321cc1011f09f6831a31a7",
+      "sha256": "0c16a16aae7b6ae6ee7b10b92f4b295dc1563db72c17f2a6c64020561e1d2b80"
+    },
+    "scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs": {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs",
+      "gitBlobSha": "e9151a846879bb4adac9416364486514bd66f09e",
+      "sha256": "709f871373681a42a2ec8351188e7b4817a3f9d615904a670b1dc32f51ebe356"
+    },
+    "scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs": {
+      "path": "scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs",
+      "gitBlobSha": "ae64ffc105d0789aa5b5a82f00b4d610f3434096",
+      "sha256": "e29306f2bcfd69382895111909c23caf5b0d3bff11e0603887f9654dfd15abf7"
+    },
+    "scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs": {
+      "path": "scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs",
+      "gitBlobSha": "b526ce8ea8091a830de48858ec8827a25399b6e5",
+      "sha256": "708022c41c544657a2bd6fcfd71f6da2f28b59bffd5442451954c0eed90bfcb7"
+    },
+    "scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs": {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs",
+      "gitBlobSha": "0982e5cee89d3c55aa9441d5d3cef23e647a8c75",
+      "sha256": "2dd9ff85aa229c581bca2aa049e585ee0fe8979f1f4eec9ed62e93011fada1f6"
+    }
+  },
+  "referencePassingPresealRun": {
+    "runId": 34011312636,
+    "jobId": 101427536553,
+    "triggerCommit": "1aa5c3fcbd12d174714e6c3181c84ef0884d1492",
+    "independentArtifactSha256": "193aa0c86eac0945844a2675571522a407d60cfe8d1e7f24a1cd47c374c533e8",
+    "independentArtifactGitBlobSha": "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774",
+    "presealReportSha256": "24e4a42c1ec2897bc2a8a789e6c7d4a448d27331befbacd89e694927c8a2388e",
+    "presealReportGitBlobSha": "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+  },
+  "population": {
+    "total": 198,
+    "known": 132,
+    "nonRoute": 66,
+    "strong_arbitration": 44,
+    "support_arbitration": 44,
+    "fallback_head": 44,
+    "outside_current_22": 22,
+    "route_unresolved": 22,
+    "near_domain_not_current_route": 22,
+    "fallbackAll22ExactlyTwoPerRoute": true
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true
+  },
+  "invariants": {
+    "sealedBeforeFirstIndependentEncoderScoring": true,
+    "postSealWordingMutationAllowed": false,
+    "independentMayTrainModels": false,
+    "independentMayCalibrateThresholds": false,
+    "independentMaySelectThresholds": false,
+    "independentMayMutateCandidateRuntime": false,
+    "candidateMutationAllowed": false,
+    "thresholdRetuningAllowed": false,
+    "independentRowsMayFeedLaterTraining": false,
+    "independentRowsMayFeedLaterCalibration": false,
+    "sealedBlindEvaluationRead": false,
+    "postBaselineNewThemeImported": false
+  },
+  "lockGeneration": {
+    "encoderInstalled": false,
+    "encoderScoringPerformed": false,
+    "modelProbabilityObserved": false,
+    "runtimeMutation": false
+  },
+  "nextAction": "freeze_independent_scoring_contract_then_score_exactly_198_sealed_rows"
+}
