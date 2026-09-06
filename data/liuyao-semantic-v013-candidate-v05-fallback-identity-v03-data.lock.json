@@ -1,0 +1,32 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-data-lock-v0.1",
+  "status": "locked_before_first_v05_encoder_scoring",
+  "scope": "fresh_v05_fallback_identity_v03_training_and_calibration_bundle",
+  "trainingPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+  "trainingSha256": "e0c627a969c77cf2212354ec4002e2ab5764c3d198186b791de566225a308ad9",
+  "calibrationPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+  "calibrationSha256": "2fd8f0083f2f02395e92fb9a80bc5ca37bb20816ef9704310389c30ec2f02edf",
+  "dataContractPath": "data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json",
+  "dataContractSha256": "9ddfc7fa19cedf3b2f676433e39fd48df5510e1f66b736da03168c7ebd34dce8",
+  "methodologyPath": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json",
+  "methodologySha256": "38ca2c96720fffc78b60655a0f282c7723d7f25c0e6c3770d743ca44d7d080cc",
+  "generatorPath": "scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs",
+  "generatorSha256": "bcf2d6a90f65b07abf79c4824ae5f5baa4a704739acb4ee8aaf7822e250c5d35",
+  "verifierPath": "scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-v01.mjs",
+  "verifierSha256": "673ec800e141e5dc691b8bceb305c443d321781f0b43c4971ab6c81d9148d00d",
+  "sealerPath": "scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs",
+  "sealerSha256": "cf5b02428608a99a33774b0e852b4ffd2750608aa1b0c884acb92ed0812ac831",
+  "rowCounts": {
+    "training": 264,
+    "calibration": 352,
+    "calibrationKnown": 176,
+    "calibrationNonRoute": 176
+  },
+  "encoderScoringObserved": false,
+  "fallbackWeightsTrained": false,
+  "fallbackProbabilitiesObserved": false,
+  "globalThresholdSelected": false,
+  "officialV04IndependentRowsUsed": false,
+  "sealedBlindEvaluationRead": false,
+  "nextAction": "freeze_post_seal_calibration_reachability_contract_before_any_encoder_scoring_or_fallback_v03_training"
+}
