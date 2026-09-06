@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveLiuYaoToolPage } from './liuyao-tool-pages.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const ident=fs.readFileSync(path.join(root,'js/liuyao-semantic-route-identifiability-v010.js'),'utf8');
 const stack=fs.readFileSync(path.join(root,'js/liuyao-semantic-decision-stack-v010.js'),'utf8');
-const page=fs.readFileSync(path.join(root,'semantic-decision-stack-v010.html'),'utf8');
+const page=fs.readFileSync(resolveLiuYaoToolPage('semantic-decision-stack-v010.html'),'utf8');
 const fail=(m)=>{throw new Error(m)};const assert=(c,m)=>{if(!c)fail(m)};
 
 assert(ident.includes("const VERSION = '0.10-dev'"),'Route Identifiability v0.10 version mismatch');
