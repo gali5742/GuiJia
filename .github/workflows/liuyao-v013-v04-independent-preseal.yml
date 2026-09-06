@@ -1,0 +1,48 @@
+name: LiuYao v0.13 Candidate v0.4 Independent Preseal
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs'
+      - '.github/workflows/liuyao-v013-v04-independent-preseal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preseal:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Verify Candidate v0.4 is locked before independent generation
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+          git merge-base --is-ancestor 7353fca9d7b3668a446db558ca7ca131c9d290e5 HEAD
+
+      - name: Generate fresh post-lock independent corpus without encoder scoring
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
+
+      - name: Run deterministic structural and freshness preseal checks
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs
+
+      - name: Print preseal artifact hashes only after PASS
+        run: |
+          sha256sum data/liuyao-semantic-v013-candidate-v04-independent.json
+          git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json
+          sha256sum data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json
+          git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json
+          echo 'Independent preseal PASS. No encoder/model scoring has occurred; seal is the next legal step.'
