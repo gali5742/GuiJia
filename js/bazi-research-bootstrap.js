@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.26';
+    const VERSION = '0.27';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -89,6 +89,9 @@
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveMediationEffectContract', src:'./js/bazi-contextual-force-party-collective-mediation-effect-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveMediationEffectProfile', src:'./js/bazi-contextual-force-party-collective-mediation-effect-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCollectiveMediationEffect', src:'./js/bazi-contextual-force-party-collective-mediation-effect.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSetMediationE2ECalibrationContract', src:'./js/bazi-contextual-force-party-source-set-mediation-e2e-calibration-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSetMediationE2ECalibrationProfile', src:'./js/bazi-contextual-force-party-source-set-mediation-e2e-calibration-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSetMediationE2ECalibration', src:'./js/bazi-contextual-force-party-source-set-mediation-e2e-calibration.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractSource', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationTargetSemanticLevelContractAudit', src:'./js/bazi-contextual-force-party-relation-target-semantic-level-contract-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyCuratedRelationSourceSemanticAnnotationSource', src:'./js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-source.js?v=13.44.0' }),
