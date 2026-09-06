@@ -7,18 +7,30 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build:
+  verify:
+    name: shared-verification
+    uses: ./.github/workflows/verify.yml
+    with:
+      upload_site_artifact: true
+    permissions:
+      contents: read
+
+  package:
+    name: package-verified-pages-artifact
     runs-on: ubuntu-latest
+    needs: verify
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
-      - name: Checkout
+      - name: Checkout workflow definition
         uses: actions/checkout@v5
 
       - name: Setup Node
@@ -26,79 +38,22 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Production runtime boundary smoke test
-        run: node tests/bazi-production-runtime-boundary-tests.js
-
-      - name: Verify source production runtime boundary
-        run: node scripts/verify-production-runtime-boundary.mjs .
-
-      - name: Audit BaZi test/runtime coupling
-        run: node scripts/audit-bazi-test-runtime-coupling.mjs
-
-      - name: Verify BaZi research loader boundary
-        run: node scripts/verify-bazi-research-loader-boundary.mjs
-
-      - name: Hidden Single Target Binding regression
-        run: node tests/bazi-contextual-force-party-hidden-single-target-binding-tests.js
-
-      - name: Actor Group Identity regression
-        run: node tests/bazi-contextual-force-party-actor-group-identity-tests.js
-
-      - name: Source Actor Group Identity regression
-        run: node tests/bazi-contextual-force-party-source-actor-group-identity-tests.js
-
-      - name: Collective Mediation Effect regression
-        run: node tests/bazi-contextual-force-party-collective-mediation-effect-tests.js
-
-      - name: Source-Set Mediation E2E Calibration regression
-        run: node tests/bazi-contextual-force-party-source-set-mediation-e2e-calibration-tests.js
-
-      - name: Curated Finite Target Resolver regression
-        run: node tests/bazi-contextual-force-party-curated-target-resolver-tests.js
-
-      - name: Collective Relation Effect regression
-        run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
-
-      - name: Actor-Set Opposition E2E Calibration regression
-        run: node tests/bazi-contextual-force-party-actor-set-opposition-e2e-calibration-tests.js
-
-      - name: Relation Endpoint Identity regression
-        run: node tests/bazi-contextual-force-party-relation-endpoint-identity-tests.js
-
-      - name: Counterfactual Placement Alternative regression
-        run: node tests/bazi-contextual-force-party-counterfactual-placement-alternative-tests.js
-
-      - name: Source-Scoped Sequential Composition regression
-        run: node tests/bazi-contextual-force-party-source-scoped-sequential-composition-tests.js
-
-      - name: Counterfactual Path Pair regression
-        run: node tests/bazi-contextual-force-party-counterfactual-path-pair-tests.js
-
-      - name: Regression tests
-        run: npm test
-
-      - name: Build Pages artifact with local vendor snapshots
-        run: node scripts/build-pages-site.mjs
-
-      - name: Verify built static cache key
-        run: node scripts/verify-build-cache-key.mjs .site
-
-      - name: Verify built production runtime boundary
-        run: node scripts/verify-production-runtime-boundary.mjs .site
-
-      - name: Verify deployed vendor snapshots
-        run: node scripts/verify-vendor.mjs .site
-
-      - name: Verify static Pages artifact
-        run: node scripts/verify-static-site.mjs .site deployed
-
-      - name: Install Chromium browser smoke runtime
+      - name: Confirm shared Pages build and verification ownership
         run: |
-          npm install --no-save --ignore-scripts playwright@1.62.1
-          npx playwright install --with-deps chromium
+          grep -F "node scripts/build-pages-site.mjs" .github/workflows/verify.yml
+          grep -F "node scripts/verify-vendor.mjs .site" .github/workflows/verify.yml
+          grep -F "node scripts/verify-static-site.mjs .site deployed" .github/workflows/verify.yml
+          grep -F "node scripts/browser-smoke.mjs .site" .github/workflows/verify.yml
+          if grep -Eq '^\s*run:\s*node scripts/build-pages-site\.mjs' .github/workflows/pages.yml; then
+            echo "Pages caller must deploy the verified shared artifact without rebuilding." >&2
+            exit 1
+          fi
 
-      - name: Browser smoke built Pages artifact
-        run: node scripts/browser-smoke.mjs .site
+      - name: Download verified site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: verified-pages-site
+          path: .site
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
@@ -114,7 +69,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: package
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
