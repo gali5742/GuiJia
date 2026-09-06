@@ -4,10 +4,10 @@ const generatorPath = 'scripts/generate-liuyao-semantic-v013-candidate-v04-indep
 if (!fs.existsSync(generatorPath)) throw new Error(`generator missing: ${generatorPath}`)
 
 let source = fs.readFileSync(generatorPath, 'utf8')
-const anchor = "const strongSelected = roundRobinTake(pool.strong_arbitration, 44)"
-if ((source.split(anchor).length - 1) !== 1) throw new Error('independent strong supplement patch anchor count != 1')
+const strongAnchor = "const strongSelected = roundRobinTake(pool.strong_arbitration, 44)"
+if ((source.split(strongAnchor).length - 1) !== 1) throw new Error('independent strong supplement patch anchor count != 1')
 
-const injected = `const presealStrongSupplement = {
+const strongInjected = `const presealStrongSupplement = {
   commercial_transaction: [
     '这笔商业交易已经进入成交阶段，最后能不能正式成交？',
     '这次客户采购的商业订单能否在本周完成成交？'
@@ -94,7 +94,50 @@ for (const [routeId, texts] of Object.entries(presealStrongSupplement)) {
   }
 }
 
-${anchor}`
-source = source.replace(anchor, injected)
+${strongAnchor}`
+source = source.replace(strongAnchor, strongInjected)
+
+const supportAnchor = "const supportSelected = roundRobinTake(pool.support_arbitration, 44)"
+if ((source.split(supportAnchor).length - 1) !== 1) throw new Error('independent support supplement patch anchor count != 1')
+const supportInjected = `const presealSupportSupplement = {
+  financial_fortune: [
+    '最近财运方面整体是什么状态？','接下来一阵钱财运势总体怎样？','这一阶段我的财务运势大体如何？','最近现金流和钱财状态总体怎么样？','往后几个月财运层面会是什么走势？','近期整体收支和财务状态如何？','最近手头钱财这一块总体表现怎样？','未来一阵子的财运状况大致如何？'
+  ],
+  business_operation: [
+    '这家门店最近经营状况总体怎样？','我这间工作室后续经营情况如何？','这门生意最近的营业状态怎么样？','网店接下来一阵经营表现如何？','目前这个店铺的经营势头怎样？','自己做的业务近期经营情况如何？','门店这段时间营业状态总体怎么样？','这项长期生意后面经营表现如何？'
+  ],
+  investment_position_decision: [
+    '这只股票目前仓位情况后面该怎么处理？','现有持仓接下来需要怎样安排？','我这笔投资当前仓位后续如何调整比较好？','手里的持仓现在该怎么安排更合适？','这项投资的仓位接下来应该怎样处理？','现在持有的这部分仓位后面怎么调整？','当前持仓比例接下来该如何安排？','这笔投资眼下的仓位处理方向怎样？'
+  ],
+  investment_profit: [
+    '这笔投资后面的收益情况总体怎样？','这项投入接下来利润表现如何？','已经投进去的资金以后收益状况怎样？','这只基金后续盈利情况大体如何？','目前这项投资的回报表现会怎样？','这笔资金投入后的收益层面怎么样？'
+  ],
+  investment_suitability: [
+    '这个投资标的整体适配情况怎样？','这个项目作为投资对象总体合适程度如何？','这项投资对我的适合程度大体怎样？','眼前这个标的从投资适配角度看如何？','这个投资机会整体是否值得考虑？','这个对象从投资匹配角度总体怎么样？'
+  ],
+  investment_price_trend: [
+    '这只股票近期价格走势总体怎样？','这个投资标的接下来价位趋势如何？','这只基金最近市场价格走势怎么样？','目前这个标的后续价格方向大体如何？','这项投资近期价位变化趋势怎样？','手里这个标的往后一阵价格走势如何？'
+  ],
+  income_salary: [
+    '最近工资收入这一块总体怎么样？','接下来几个月薪资情况大致如何？','目前每月工资这一项后面情况怎样？','近期固定薪资收入整体表现如何？','未来一阵工资方面的状态怎么样？','今年薪资这一块总体情况怎样？'
+  ],
+  income_bonus: [
+    '今年奖金这一块总体情况怎样？','近期绩效奖金方面大体是什么状态？','接下来额外奖金收入情况如何？','这段时间公司奖金这一项总体怎样？','年终奖方面今年整体情况如何？','近期奖金收入这一块表现怎么样？'
+  ],
+  commercial_transaction: [
+    '最近这桩商业交易整体进展怎样？','这笔商务交易目前情况如何？','眼下客户这笔订单交易状态怎么样？','这次商业买卖整体进展如何？','目前这笔交易后续情况大体怎样？','正在谈的商务订单整体状态如何？'
+  ]
+}
+for (const [routeId, texts] of Object.entries(presealSupportSupplement)) {
+  for (const text of texts) {
+    const { evidence, arb } = inspect(text)
+    if ((evidence.unsupportedTargets || []).length === 0 && arb?.routeId === routeId && arb?.strength === 'support') {
+      pool.support_arbitration.push({ routeId, text })
+    }
+  }
+}
+
+${supportAnchor}`
+source = source.replace(supportAnchor, supportInjected)
 fs.writeFileSync(generatorPath, source, 'utf8')
-console.log('CANDIDATE_V04_INDEPENDENT_PRESEAL_STRONG_SUPPLEMENT_APPLIED')
+console.log('CANDIDATE_V04_INDEPENDENT_PRESEAL_STRUCTURAL_SUPPLEMENTS_APPLIED')
