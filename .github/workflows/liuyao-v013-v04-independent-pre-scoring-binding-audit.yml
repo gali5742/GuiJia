@@ -1,0 +1,43 @@
+name: LiuYao v0.13 Candidate v0.4 Independent Pre-Scoring Binding Audit
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - '.github/workflows/liuyao-v013-v04-independent-pre-scoring-binding-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-bindings:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - name: Prove no official independent scoring report exists
+        run: test ! -e data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json
+
+      - name: Print authoritative pre-scoring bindings only
+        run: |
+          set -euo pipefail
+          for path in \
+            data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json \
+            data/liuyao-semantic-v013-candidate-v04-independent.json \
+            data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json \
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json \
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json \
+            data/liuyao-semantic-v013-candidate-v04-independent-scoring-contract-v0.1.json \
+            scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs \
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs
+          do
+            printf '%s\n' "$path"
+            printf 'gitBlobSha=' && git hash-object "$path"
+            printf 'sha256=' && sha256sum "$path" | awk '{print $1}'
+          done
+          echo 'PRE_SCORING_BINDING_AUDIT_COMPLETE encoderInstalled=false encoderScoringPerformed=false modelProbabilityObserved=false'
