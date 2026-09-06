@@ -37,18 +37,23 @@ jobs:
           test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json)" = "f2184376d8e87b86ad84349c72b75351828cfac3"
           test "$(git hash-object data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json)" = "803b1e4fdd8d30421e5949404abb91e61155e35a"
           test "$(git hash-object scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs)" = "f84816f2a5dbe1f75e296536c452e0b93af1d716"
+          test "$(git hash-object scripts/apply-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-lexical-correction-v01.mjs)" = "e3220acea56430ce8459fce3439bae08625e7154"
           test "$(git hash-object scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-v01.mjs)" = "89f0c07340fc73fc13a00323adcb11013d2281fe"
           test "$(git hash-object scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs)" = "1608a3e886e42f8942a5d6e6136e3dba2bcd642d"
           test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json
           test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json
           test ! -e data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json
           node --check scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs
+          node --check scripts/apply-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-lexical-correction-v01.mjs
           node --check scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-v01.mjs
           node --check scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs
           echo 'PRE_GENERATION_BINDINGS_OK encoderInstalled=false encoderScoringPerformed=false'
 
       - name: Generate fresh v0.5 training and calibration text only
         run: node scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs
+
+      - name: Apply deterministic preseal lexical corrections
+        run: node scripts/apply-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-lexical-correction-v01.mjs
 
       - name: Deterministic preseal verification
         run: node scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-v01.mjs
@@ -83,6 +88,7 @@ jobs:
             data/liuyao-semantic-v013-candidate-v05-data-contract-v0.1.json
             data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-methodology-v0.1.json
             scripts/generate-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-lexical-correction-v01.mjs
             scripts/verify-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-preseal-v01.mjs
             scripts/seal-liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data-v01.mjs
           )
