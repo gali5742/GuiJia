@@ -1,0 +1,129 @@
+name: LiuYao v0.13 Candidate v0.4 Fresh Independent
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-independent-scoring-contract-v0.1.json'
+      - 'scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs'
+      - '.github/workflows/liuyao-v013-v04-independent-execution-v01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrated-independent:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture immutable independent scoring checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "SCORING_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git merge-base --is-ancestor 3c76a2828ad3928d898840fcf749e22e21e923cb HEAD
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-scoring-contract-v0.1.json)" = "965e509f85ac8c21822bb4bb4cbca7098a080623"
+          test "$(git hash-object scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs)" = "fbe05a18f31730ea66738ed35d2415347e359b0d"
+          test "$(git hash-object scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs)" = "752c92c9ac356541d7c8795ce8dfa31ec0a2bc9a"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json)" = "4e3aaf3c92385435dcadd2eded32147cfcce72b9"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json)" = "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json)" = "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+          test "$(git hash-object data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json)" = "57286439b7c370b2390d97e06d7664a57d34d520"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-runtime.lock.json)" = "32ffdfbd4c0364b22f4f49f450c861cb39a0624c"
+          test ! -e data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock-v011.mjs
+          node --check scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs
+          node --check scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs
+          echo 'Corrected independent lock, sealed rows, frozen Candidate/runtime, scoring contract and evaluator/verifier are pinned before encoder installation.'
+
+      - name: Install pinned corrected encoder runtime
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+
+      - name: Score exactly 198 sealed independent rows once
+        run: node scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs
+
+      - name: Independently recompute and verify independent report
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs
+
+      - name: Commit immutable Candidate v0.4 independent report on PASS or FAIL
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json
+          test "$(git diff --cached --name-only)" = "data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json"
+          git commit -m 'test(liuyao): record candidate v0.4 fresh independent metrics [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_PATHS=(
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent.json
+            data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent.lock.json
+            data/liuyao-semantic-v013-candidate-v04-independent-lock-correction-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent.lock-v0.1.1.json
+            data/liuyao-semantic-v013-candidate-v04-independent-scoring-contract-v0.1.json
+            data/liuyao-semantic-embedding-execution-contract-v0.1.json
+            data/liuyao-semantic-frozen-dependencies-v0.2.json
+            data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json
+            data/liuyao-semantic-routeability-v0.2-execution-v0.1.json
+            data/liuyao-semantic-routeability-v0.3-execution-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json
+            data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json
+            scripts/evaluate-liuyao-semantic-v013-candidate-v04-independent-execution-v01.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-act-eligibility-v01.js
+            js/liuyao-semantic-routeability-v05-execution-v01.js
+            js/liuyao-semantic-fallback-identity-scorer-v02.js
+            js/liuyao-semantic-fallback-identity-v02.js
+            js/liuyao-semantic-route-selection-v05.js
+            js/liuyao-semantic-finalization-v01.js
+            js/liuyao-semantic-candidate-v04-runtime-v01.js
+          )
+          if ! git diff --quiet "$SCORING_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"; then
+            echo 'Frozen Candidate/independent scoring inputs changed during execution; refusing stale report push.'
+            git diff --name-only "$SCORING_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+          echo "INDEPENDENT_REPORT_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Enforce immutable post-lock independent promotion gates
+        shell: bash
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-report-execution-v01.mjs
+          node - <<'NODE'
+          const report = require('./data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json')
+          console.log(JSON.stringify({ status: report.status, checks: report.checks, summary: report.summary }, null, 2))
+          if (!report.readyForBaseline10Promotion) {
+            console.error('Candidate v0.4 post-lock independent FAIL. Same-version retuning, threshold changes, runtime mutation and independent wording changes are forbidden.')
+            process.exit(1)
+          }
+          console.log('Candidate v0.4 post-lock independent PASS. Only a separately frozen Baseline 1.0 promotion decision may proceed.')
+          NODE
+          echo "Independent report commit: $INDEPENDENT_REPORT_COMMIT"
