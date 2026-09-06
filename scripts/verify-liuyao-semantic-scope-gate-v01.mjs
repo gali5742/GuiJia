@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveLiuYaoToolPage } from './liuyao-tool-pages.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const runtime = fs.readFileSync(path.join(root, 'js/liuyao-semantic-scope-gate-v01.js'), 'utf8');
-const page = fs.readFileSync(path.join(root, 'semantic-scope-gate-v01.html'), 'utf8');
+const page = fs.readFileSync(resolveLiuYaoToolPage('semantic-scope-gate-v01.html'), 'utf8');
 const fail = (message) => { throw new Error(message); };
 const assert = (condition, message) => { if (!condition) fail(message); };
 
