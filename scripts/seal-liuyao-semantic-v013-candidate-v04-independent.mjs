@@ -56,7 +56,9 @@ const scriptPaths = [
   'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs',
   'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs',
   'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs',
-  'scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs'
+  'scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs',
+  'scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs',
+  'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs'
 ]
 for (const path of scriptPaths) assert(fs.existsSync(path), `seal script binding missing: ${path}`)
 
