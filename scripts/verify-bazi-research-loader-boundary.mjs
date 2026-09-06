@@ -69,12 +69,8 @@ const forbiddenLoaderPatterns = Object.freeze([
 ]);
 
 const errors = [];
-if (!bootstrapDependencies.length) {
-    errors.push('bazi-research-bootstrap.js: no dependencies could be parsed');
-}
-if (closureStartIndex < 0) {
-    errors.push(`bazi-research-bootstrap.js: sealed closure start ${closureStartGlobalKey} is missing`);
-}
+if (!bootstrapDependencies.length) errors.push('bazi-research-bootstrap.js: no dependencies could be parsed');
+if (closureStartIndex < 0) errors.push(`bazi-research-bootstrap.js: sealed closure start ${closureStartGlobalKey} is missing`);
 
 const allGlobalKeys = bootstrapDependencies.map((item) => item.globalKey);
 const allModulePaths = bootstrapDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, ''));
@@ -85,9 +81,7 @@ if (duplicateModulePaths.length) errors.push(`bazi-research-bootstrap.js: duplic
 
 const explicitModulePathSet = new Set(explicitModulePaths);
 for (const relative of migratedModules) {
-    if (!explicitModulePathSet.has(relative)) {
-        errors.push(`${relative}: migrated research module is missing from the explicit bootstrap closure`);
-    }
+    if (!explicitModulePathSet.has(relative)) errors.push(`${relative}: migrated research module is missing from the explicit bootstrap closure`);
 }
 
 for (const relative of explicitModulePaths) {
@@ -98,18 +92,12 @@ for (const relative of explicitModulePaths) {
     }
     const source = fs.readFileSync(fullPath, 'utf8');
     for (const rule of forbiddenLoaderPatterns) {
-        if (rule.pattern.test(source)) {
-            errors.push(`${relative}: explicit research dependency still contains ${rule.label}`);
-        }
+        if (rule.pattern.test(source)) errors.push(`${relative}: explicit research dependency still contains ${rule.label}`);
     }
 }
 
-if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
-    errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
-}
-if (!bootstrap.includes("const VERSION = '0.21'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.21');
-}
+if (!bootstrap.includes("mode:'explicit-research-opt-in'")) errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
+if (!bootstrap.includes("const VERSION = '0.22'")) errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.22');
 
 const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js',
@@ -129,6 +117,9 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js',
     'js/bazi-contextual-force-party-relation-position-provenance-source.js',
     'js/bazi-contextual-force-party-relation-position-provenance-audit.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative-contract.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative-profile.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative.js',
     'js/bazi-contextual-force-party-competing-relation-path-source.js',
     'js/bazi-contextual-force-party-competing-relation-path-audit.js',
     'js/bazi-contextual-force-party-source-scoped-sequential-composition-contract.js',
@@ -142,9 +133,7 @@ for (const relative of requiredTail) {
         errors.push(`bazi-research-bootstrap.js: missing required tail dependency ${relative}`);
         continue;
     }
-    if (index <= previousTailIndex) {
-        errors.push(`bazi-research-bootstrap.js: research tail order changed at ${relative}`);
-    }
+    if (index <= previousTailIndex) errors.push(`bazi-research-bootstrap.js: research tail order changed at ${relative}`);
     previousTailIndex = index;
 }
 
