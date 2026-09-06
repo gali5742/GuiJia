@@ -70,6 +70,12 @@ jobs:
           git add data/liuyao-semantic-v013-candidate-v04-independent.lock.json
           git commit -m 'test(liuyao): seal fresh post-lock candidate v0.4 independent corpus [skip ci]'
 
+          # Preseal correction scripts deliberately patch the generator only in this CI checkout.
+          # The generated/verified data are already captured in the commit above; restore the
+          # tracked generator before fetch/rebase so temporary correction state cannot leak.
+          git restore scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
+          test -z "$(git status --porcelain)"
+
           git fetch origin v04-fresh-development
           FROZEN_PATHS=(
             data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json
