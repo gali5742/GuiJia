@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveLiuYaoToolPage } from './liuyao-tool-pages.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const jsPath = path.join(root, 'js/liuyao-semantic-router-poc-v081.js');
-const htmlPath = path.join(root, 'semantic-router-poc-v081.html');
+const htmlPath = resolveLiuYaoToolPage('semantic-router-poc-v081.html');
 
 const fail = (message) => { throw new Error(message); };
 if (!fs.existsSync(jsPath)) fail('Missing v0.8.1 router JS');
