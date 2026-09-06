@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "pages": [
+    { "source": "tools/liuyao/traditional/rule-registry-test.html", "deployAs": "rule-registry-test.html", "group": "traditional" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc.html", "deployAs": "semantic-router-poc.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v02.html", "deployAs": "semantic-router-poc-v02.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v03.html", "deployAs": "semantic-router-poc-v03.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v04.html", "deployAs": "semantic-router-poc-v04.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v05.html", "deployAs": "semantic-router-poc-v05.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v06.html", "deployAs": "semantic-router-poc-v06.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v07.html", "deployAs": "semantic-router-poc-v07.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v08.html", "deployAs": "semantic-router-poc-v08.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-poc-v081.html", "deployAs": "semantic-router-poc-v081.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-candidate-eval-v01.html", "deployAs": "semantic-router-candidate-eval-v01.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-decision-v09.html", "deployAs": "semantic-router-decision-v09.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/router/semantic-router-runtime-v01.html", "deployAs": "semantic-router-runtime-v01.html", "group": "semantic/router" },
+    { "source": "tools/liuyao/semantic/decision-stack/semantic-decision-stack-v010.html", "deployAs": "semantic-decision-stack-v010.html", "group": "semantic/decision-stack" },
+    { "source": "tools/liuyao/semantic/decision-stack/semantic-decision-stack-v011.html", "deployAs": "semantic-decision-stack-v011.html", "group": "semantic/decision-stack" },
+    { "source": "tools/liuyao/semantic/decision-stack/semantic-decision-stack-v011-sealed-blind-v01.html", "deployAs": "semantic-decision-stack-v011-sealed-blind-v01.html", "group": "semantic/decision-stack" },
+    { "source": "tools/liuyao/semantic/decision-stack/semantic-decision-stack-v012.html", "deployAs": "semantic-decision-stack-v012.html", "group": "semantic/decision-stack" },
+    { "source": "tools/liuyao/semantic/decision-stack/semantic-decision-stack-v012-sealed-blind-v01.html", "deployAs": "semantic-decision-stack-v012-sealed-blind-v01.html", "group": "semantic/decision-stack" },
+    { "source": "tools/liuyao/semantic/resolution/semantic-object-resolver-test.html", "deployAs": "semantic-object-resolver-test.html", "group": "semantic/resolution" },
+    { "source": "tools/liuyao/semantic/resolution/semantic-entity-typing-poc.html", "deployAs": "semantic-entity-typing-poc.html", "group": "semantic/resolution" },
+    { "source": "tools/liuyao/semantic/resolution/semantic-entity-typing-blind-eval.html", "deployAs": "semantic-entity-typing-blind-eval.html", "group": "semantic/resolution" },
+    { "source": "tools/liuyao/semantic/resolution/semantic-contextual-object-role-poc.html", "deployAs": "semantic-contextual-object-role-poc.html", "group": "semantic/resolution" },
+    { "source": "tools/liuyao/semantic/resolution/semantic-contextual-object-role-blind-eval.html", "deployAs": "semantic-contextual-object-role-blind-eval.html", "group": "semantic/resolution" },
+    { "source": "tools/liuyao/semantic/gates/semantic-scope-gate-v01.html", "deployAs": "semantic-scope-gate-v01.html", "group": "semantic/gates" },
+    { "source": "tools/liuyao/semantic/gates/semantic-sufficiency-test.html", "deployAs": "semantic-sufficiency-test.html", "group": "semantic/gates" },
+    { "source": "tools/liuyao/semantic/gates/semantic-slot-provider-test.html", "deployAs": "semantic-slot-provider-test.html", "group": "semantic/gates" }
+  ]
+}
