@@ -10,6 +10,7 @@ on:
       - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs'
       - 'scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs'
       - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs'
+      - 'scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs'
       - '.github/workflows/liuyao-v013-v04-independent-preseal.yml'
   workflow_dispatch:
 
@@ -44,8 +45,8 @@ jobs:
       - name: Generate fresh post-lock independent corpus without encoder scoring
         run: node scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
 
-      - name: Run deterministic structural and freshness preseal checks
-        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs
+      - name: Run deterministic structural and freshness preseal checks with safe rejection metadata
+        run: node scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs
 
       - name: Print preseal artifact hashes only after PASS
         run: |
