@@ -1,0 +1,298 @@
+{
+  "version": "0.13-candidate-v0.4",
+  "status": "frozen_candidate_after_fresh_development_pass",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "modernSemanticOnly": true,
+  "routeInventoryCount": 22,
+  "routeInventoryFrozenBeforeBaseline1": true,
+  "traditionalLiuYaoBoundaryModified": false,
+  "runtime": {
+    "semanticActEligibility": "v0.1",
+    "evidence": "v0.3",
+    "arbitration": "v0.12",
+    "compatibility": "v0.3",
+    "routeability": "v0.5-execution-v0.1",
+    "fallbackIdentity": "v0.2-all22",
+    "selection": "v0.5",
+    "finalization": "v0.1"
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "vectorSize": 512,
+    "scopeHardVetoCutoff": 0.4319473801404805,
+    "routeabilityThreshold": 0.7678148573595883,
+    "semanticActThreshold": 0.5045675974201208,
+    "fallbackGlobalThreshold": 0.5549057227178391,
+    "fallbackCandidateUniverse": "all_current_22_routes",
+    "routerTop2FallbackRestriction": false,
+    "routeSpecificFallbackThresholds": false,
+    "fallbackBelowThresholdRouteabilityRescue": false
+  },
+  "runtimeLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "sha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4"
+  },
+  "runtimeSources": [
+    {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "gitBlobSha": "255b2cca09a82608ea8cbf45f06f4f3cff153801",
+      "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.lock.json",
+      "gitBlobSha": "7e58f4d753df8317739583e698ceef509f55e85c",
+      "sha256": "783e8c587b61d5025848ec5cba846db0f61f9d13c0f1853fb78c5165dee5b9ac"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json",
+      "gitBlobSha": "cef6850fbcc2d832288c14287363cf2fc1d32935",
+      "sha256": "d403c7c856e14cf9c5bb5ee12db3d928670f57f6378c84d63abfbeefc2439f9d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.lock.json",
+      "gitBlobSha": "74ad01c0ef7de6e9d023e6c181a9fe975810f3f4",
+      "sha256": "7873b9b4831b19a4bf2526d96425955fc4dac075ae1b7bce9f271cbf9e195ab4"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json",
+      "gitBlobSha": "0eb10c55c0fa060e24fc14794d24eb3321a34b6b",
+      "sha256": "d23c1755e1154f6a1809b2bb25a484ca3bcbc3b08f6074cc37df970d03160ccf"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "gitBlobSha": "864d63dd23d56722a7d1cede553a6c8f123bedb0",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+      "gitBlobSha": "36eb8b252bf680650d49e4ac2b4e6ce5fecb6b69",
+      "sha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736"
+    },
+    {
+      "path": "js/liuyao-semantic-act-eligibility-v01.js",
+      "gitBlobSha": "2fa9d5a1dc11d7063ac03d42df720329f9ec09f7",
+      "sha256": "582efc5b2ed510c1a4205cdfb314ef697d6554f33eafb896bcd74116f2542ebc"
+    },
+    {
+      "path": "js/liuyao-semantic-candidate-v04-runtime-v01.js",
+      "gitBlobSha": "59d87a7365eb38499979e47ba60ff5ae669d4f66",
+      "sha256": "3a428d76140fe2bc24ce05ad07d2ff9ed2aab5b74ff3f3d6c061aa44f1b72ba4"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-scorer-v02.js",
+      "gitBlobSha": "05e98decccebfe3f00cb42f8702d2613cee3b630",
+      "sha256": "d4c81e9610a2e9e5a74b03f5cbc10bd779f1942cdc41239ad91e88945f8d3767"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-v02.js",
+      "gitBlobSha": "3c54a0bc0185c277c3c40b3dcc29564dd98e9f27",
+      "sha256": "45f9e4b7801586dedc0f8575807b830bbe8f1b1b4e2dd73e58ce228c64e1878e"
+    },
+    {
+      "path": "js/liuyao-semantic-finalization-v01.js",
+      "gitBlobSha": "d84e8b421db029dd93d555429e0b25d2c2f612b9",
+      "sha256": "743424fe9259acd20378aea8bdf707d62a8b9d947a875763b402696559fca7e0"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v011.js",
+      "gitBlobSha": "04f0b45b2ea529342275aeb28c29a00e707af5bb",
+      "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v012.js",
+      "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44",
+      "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60"
+    },
+    {
+      "path": "js/liuyao-semantic-route-compatibility-v01.js",
+      "gitBlobSha": "455ffcb3b5aea604c1366ec95009873f8f4a5f9d",
+      "sha256": "18f6b654cd3a4deede93aa2b9ce0e8776041c46dab4089684f130822a48807c9"
+    },
+    {
+      "path": "js/liuyao-semantic-route-compatibility-v02.js",
+      "gitBlobSha": "90a0bf3c4ea325a07773eceb07f3af6d34f9406b",
+      "sha256": "0fa2b6f77eacd26110d04290d53f89f6e0972e4a957ac6c2b6b6a88ead248a7b"
+    },
+    {
+      "path": "js/liuyao-semantic-route-compatibility-v03.js",
+      "gitBlobSha": "8d4380424cffdedaf18989217ad43dd61341865d",
+      "sha256": "77cac7248334b90cff41601ac74ef2db2e3e99df62970b08c32904683436be07"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v01.js",
+      "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b",
+      "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v02.js",
+      "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0",
+      "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v03.js",
+      "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f",
+      "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5"
+    },
+    {
+      "path": "js/liuyao-semantic-route-selection-v05.js",
+      "gitBlobSha": "3d7726f1ea56e26a4fffeadb629d9aa4e8037b0e",
+      "sha256": "571efd3706dfc3e232cbdbf0e4c44ea607e834eeab14463668777ffacdae3789"
+    },
+    {
+      "path": "js/liuyao-semantic-routeability-v05-execution-v01.js",
+      "gitBlobSha": "37e3fa34300985e3c1c526ba67187731ab9f343d",
+      "sha256": "62e58e5a0ad61d563f04fc9ef8de9aee5484c972056c933bf561446eef1d7dab"
+    }
+  ],
+  "preLockEvidence": {
+    "developmentArtifact": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "gitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+      "sha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20"
+    },
+    "developmentLock": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.lock.json",
+      "gitBlobSha": "568ecc2de4cbfe82aa932ecb36272e44afd0e8f3",
+      "sha256": "f97481e1a203d9bf651b858264655ce5d80122c4e0cafa1ddfbadcba3e80fc30"
+    },
+    "freshnessReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-report-v0.1.json",
+      "gitBlobSha": "e050d15375b2ea6dad41c3cf7499ddf6cfa01ebe",
+      "sha256": "e23172cdc3a4d54524b3c166677bc6c03dcba246266d41287826a11b64a9293a"
+    },
+    "scoringContract": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json",
+      "gitBlobSha": "7c8c63ecb35a4b9ed2f77cab9d3e7079a25fa077",
+      "sha256": "f57c6ec83440095af5157563c0474992ed9beb0053736697c2a97f63c2df229d"
+    },
+    "scoringContractCorrection": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json",
+      "gitBlobSha": "7c698a5d79c20d4c987414301288a7404efb5581",
+      "sha256": "ead853cfcf668037a876186ad60d4c4d3f39f990916e3744b22842e286976be6"
+    },
+    "developmentReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json",
+      "gitBlobSha": "9e06a5c10e6eaa839f8bb7abad9cf3ff9bd11adf",
+      "sha256": "400db2dd8bd29e43528a5db23bca4d3f31a6925907c14b1db4fbdddd7dabf92a"
+    }
+  },
+  "freshDevelopment": {
+    "status": "pre_lock_development_pass",
+    "readyForCandidateLock": true,
+    "checks": {
+      "knownExactRoute": true,
+      "acceptedRouteAccuracy": true,
+      "overallFalseRouteActivation": true,
+      "perSubtypeFalseActivation": true,
+      "noStructuralPathCollapse": true
+    },
+    "metrics": {
+      "knownExactRoute": 0.803030303030303,
+      "acceptedRouteAccuracy": 1,
+      "nonRouteFalseRouteActivation": 0.015151515151515152,
+      "byNonRouteSubtype": {
+        "outside_current_22": {
+          "n": 22,
+          "semanticActRejection": 0,
+          "falseRouteActivation": 0,
+          "noRouteActivationSafety": 1,
+          "fallbackReached": 3
+        },
+        "route_unresolved": {
+          "n": 22,
+          "semanticActRejection": 0,
+          "falseRouteActivation": 0,
+          "noRouteActivationSafety": 1,
+          "fallbackReached": 8
+        },
+        "near_domain_not_current_route": {
+          "n": 22,
+          "semanticActRejection": 0.9090909090909091,
+          "falseRouteActivation": 0.045454545454545456,
+          "noRouteActivationSafety": 0.9545454545454546,
+          "fallbackReached": 0
+        }
+      },
+      "byKnownPath": {
+        "strong_arbitration": {
+          "n": 44,
+          "semanticActRetention": 1,
+          "routeabilityRecall": 1,
+          "fallbackReached": 0,
+          "fallbackSelected": 0,
+          "finalRetention": 0.9772727272727273,
+          "finalExact": 0.9772727272727273,
+          "acceptedAccuracy": 1,
+          "scopeHardVeto": 0,
+          "wrongSelected": 0
+        },
+        "support_arbitration": {
+          "n": 44,
+          "semanticActRetention": 1,
+          "routeabilityRecall": 1,
+          "fallbackReached": 0,
+          "fallbackSelected": 0,
+          "finalRetention": 1,
+          "finalExact": 1,
+          "acceptedAccuracy": 1,
+          "scopeHardVeto": 0,
+          "wrongSelected": 0
+        },
+        "fallback_head": {
+          "n": 44,
+          "semanticActRetention": 1,
+          "routeabilityRecall": 0.8409090909090909,
+          "fallbackReached": 37,
+          "fallbackSelected": 19,
+          "finalRetention": 0.4318181818181818,
+          "finalExact": 0.4318181818181818,
+          "acceptedAccuracy": 1,
+          "scopeHardVeto": 0,
+          "wrongSelected": 0
+        }
+      },
+      "wrongSelectedRoute": 0
+    },
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    },
+    "marginDiagnostics": {
+      "knownExactPassedByRows": 1,
+      "knownExactNumerator": 106,
+      "knownExactDenominator": 132,
+      "nearDomainFalseActivations": 1,
+      "nearDomainRows": 22,
+      "interpretation": "formal development PASS under frozen gates; margins remain diagnostic and may not trigger same-version retuning"
+    }
+  },
+  "evaluationPolicy": {
+    "current198DevelopmentIsDevelopmentOnly": true,
+    "developmentMayTrainCalibrateOrRetuneCandidate": false,
+    "developmentMayMutateCandidateRuntime": false,
+    "independentEvalMustBeFreshAfterThisLock": true,
+    "independentEvalReadBeforeThisLock": false,
+    "independentEvalMayNotTrainCalibrateOrRetuneThisCandidate": true,
+    "candidateMutationAfterLock": false,
+    "noSameVersionRetuneAfterIndependentEval": true,
+    "sealedBlindEvaluationReadBeforeThisLock": false,
+    "postBaselineNewThemeCorpusImported": false
+  },
+  "nextAction": "fresh_post_lock_candidate_v04_independent_evaluation_only"
+}

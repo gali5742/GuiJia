@@ -1,0 +1,81 @@
+{
+  "version": "0.13-candidate-v0.4-lock-v0.1",
+  "status": "locked_after_fresh_development_pass_before_independent_evaluation",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "candidate": {
+    "path": "data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json",
+    "gitBlobSha": "ef85976ee937f3c3331c1cb6f021b6ae5431d8c0",
+    "sha256": "50418579ebc83e016fd282c53eeec0efdfbc1edf8ef63f741b85602a66482410"
+  },
+  "runtimeLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "sha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4"
+  },
+  "developmentArtifact": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+    "gitBlobSha": "f6b2b85d7183260b7df4a8d6fc3257fcf37a24f9",
+    "sha256": "6d3504d4cf2a66f543045feb1261ef69ea4966d9f53f09fe51a6740ad6984e20"
+  },
+  "developmentLock": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development.lock.json",
+    "gitBlobSha": "568ecc2de4cbfe82aa932ecb36272e44afd0e8f3",
+    "sha256": "f97481e1a203d9bf651b858264655ce5d80122c4e0cafa1ddfbadcba3e80fc30"
+  },
+  "developmentFreshnessReport": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-freshness-report-v0.1.json",
+    "gitBlobSha": "e050d15375b2ea6dad41c3cf7499ddf6cfa01ebe",
+    "sha256": "e23172cdc3a4d54524b3c166677bc6c03dcba246266d41287826a11b64a9293a"
+  },
+  "correctedScoringContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-v0.1.1.json",
+    "gitBlobSha": "7c8c63ecb35a4b9ed2f77cab9d3e7079a25fa077",
+    "sha256": "f57c6ec83440095af5157563c0474992ed9beb0053736697c2a97f63c2df229d"
+  },
+  "scoringContractCorrection": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-contract-correction-v0.1.json",
+    "gitBlobSha": "7c698a5d79c20d4c987414301288a7404efb5581",
+    "sha256": "ead853cfcf668037a876186ad60d4c4d3f39f990916e3744b22842e286976be6"
+  },
+  "preLockDevelopmentReport": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json",
+    "gitBlobSha": "9e06a5c10e6eaa839f8bb7abad9cf3ff9bd11adf",
+    "sha256": "400db2dd8bd29e43528a5db23bca4d3f31a6925907c14b1db4fbdddd7dabf92a"
+  },
+  "developmentGatePass": {
+    "readyForCandidateLock": true,
+    "checks": {
+      "knownExactRoute": true,
+      "acceptedRouteAccuracy": true,
+      "overallFalseRouteActivation": true,
+      "perSubtypeFalseActivation": true,
+      "noStructuralPathCollapse": true
+    },
+    "knownExactRoute": 0.803030303030303,
+    "acceptedRouteAccuracy": 1,
+    "overallFalseRouteActivation": 0.015151515151515152,
+    "nearDomainFalseRouteActivation": 0.045454545454545456,
+    "wrongSelectedRoute": 0
+  },
+  "invariants": {
+    "routeCount": 22,
+    "routeInventoryExpansionBeforeBaseline1": false,
+    "candidateMutationAllowed": false,
+    "thresholdRetuningAllowed": false,
+    "routeSpecificFallbackThresholds": false,
+    "routerTop2FallbackRestriction": false,
+    "traditionalLiuYaoFeaturesModified": false,
+    "developmentMayFeedTrainingOrCalibration": false,
+    "independentEvaluationMustBeFreshPostLock": true,
+    "independentEvaluationReadBeforeLock": false,
+    "sealedBlindEvaluationReadBeforeLock": false,
+    "postBaselineNewThemeImported": false
+  },
+  "lockGeneration": {
+    "baseCommit": "354935032fbe3923e3397ba042e3ca279cc314ac",
+    "reportVerifierRequiredBeforeGeneration": true,
+    "encoderScoringPerformedDuringLockGeneration": false,
+    "independentEvaluationReadDuringLockGeneration": false
+  },
+  "nextAction": "fresh_post_lock_candidate_v04_independent_evaluation_only"
+}
