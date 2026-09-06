@@ -1,0 +1,175 @@
+{
+  "version": "0.13-candidate-v0.5-data-contract-v0.1",
+  "status": "frozen_before_candidate_v05_data_generation_or_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.5_fallback_identity_v0.3",
+  "architecture": {
+    "designPath": "data/liuyao-semantic-v013-candidate-v05-design-v0.1.json",
+    "candidateVersion": "v0.5",
+    "onlyChangedComponent": "Fallback Identity v0.3",
+    "fallbackHead": "22-class multinomial logistic softmax",
+    "fallbackAcceptance": "argmax maximum-softmax probability >= one global confidence threshold",
+    "routeSpecificThresholds": false,
+    "marginThreshold": false,
+    "routerTop2Restriction": false,
+    "routeabilityChanged": false,
+    "semanticActChanged": false,
+    "evidenceArbitrationCompatibilityChanged": false
+  },
+  "protectedHistoricalEvaluation": {
+    "candidateV04IndependentFailureEvidencePath": "data/liuyao-semantic-v013-candidate-v04-independent-failure-evidence-v0.1.json",
+    "aggregateDiagnosticContractPath": "data/liuyao-semantic-v013-next-candidate-aggregate-diagnostic-contract-v0.1.json",
+    "officialV04IndependentReportPath": "data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json",
+    "officialV04IndependentRowsMayBeUsedAsGenerationInputs": false,
+    "officialV04IndependentRowsMayBeCopiedOrParaphrased": false,
+    "officialV04IndependentRowLevelProbabilitiesMayBeUsedForFixtureDesign": false,
+    "candidateV04DevelopmentRowsMayBeUsedAsV05TrainingOrCalibration": false,
+    "sealedBlindEvaluationRead": false,
+    "newThemeResearchImported": false,
+    "automatedContaminationScreeningMayCompareProtectedTextsWithoutEmittingMatchedProtectedText": true,
+    "contaminationScreeningOutputMayExposeOnly": [
+      "new_row_id",
+      "protected_source_path",
+      "similarity_metric",
+      "similarity_value",
+      "normalized_exact_boolean"
+    ]
+  },
+  "training": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+    "purpose": "fit only the 22-class softmax route-identity weights and biases",
+    "totalRows": 264,
+    "routeKnownRows": 264,
+    "nonRouteRows": 0,
+    "rowsPerRoute": 12,
+    "routeCount": 22,
+    "label": "exactly one current-22 route",
+    "classBalance": "exactly 12 rows per route",
+    "freshGenerationRequired": true,
+    "minimumFallbackStyleRowsPerRoute": 6,
+    "minimumLexicalSurfaceFamiliesPerRoute": 4,
+    "upstreamResolvedExamplesAllowed": true,
+    "fallbackStyleExamplesRequired": true,
+    "nonRouteMayTrainClassWeights": false,
+    "thresholdSelectionEligible": false,
+    "developmentEligible": false
+  },
+  "calibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+    "purpose": "select the single global maximum-softmax confidence threshold only after post-seal fallback-stage reachability audit passes",
+    "totalRows": 352,
+    "knownRows": 176,
+    "knownRowsPerRoute": 8,
+    "nonRouteRows": 176,
+    "nonRouteSubtypes": {
+      "outside_current_22": 44,
+      "route_unresolved": 44,
+      "near_domain_not_current_route": 88
+    },
+    "freshGenerationRequired": true,
+    "trainingEligible": false,
+    "developmentEligible": false,
+    "mustBeSealedBeforeFirstEncoderScoring": true,
+    "thresholdMayNotBeSelectedIfReachabilityAuditFails": true
+  },
+  "calibrationPresealDeterministicRequirements": {
+    "knownRows": {
+      "unsupportedTargetsMustBeEmpty": true,
+      "arbitrationMustBeNull": true,
+      "semanticActProbabilityMayBeUsedToEditText": false,
+      "routeabilityProbabilityMayBeUsedToEditText": false,
+      "softmaxProbabilityMayBeUsedToEditText": false
+    },
+    "nonRouteRows": {
+      "unsupportedTargetsMustBeEmptyWhereApplicable": true,
+      "arbitrationMustBeNull": true,
+      "semanticActProbabilityMayBeUsedToEditText": false,
+      "routeabilityProbabilityMayBeUsedToEditText": false,
+      "softmaxProbabilityMayBeUsedToEditText": false
+    },
+    "deterministicTextCorrectionsBeforeSealAllowed": true,
+    "labelsMayChangeDuringPresealCorrection": false,
+    "routeInventoryMayChange": false
+  },
+  "calibrationPostSealReachabilityAudit": {
+    "mustBeFrozenBySeparateContractBeforeFirstPostSealEncoderScoring": true,
+    "permittedModels": [
+      "locked Semantic Act v0.1",
+      "frozen corrected Routeability v0.5"
+    ],
+    "fallbackV03WeightsMayBeTrainedBeforeReachabilityPass": false,
+    "fallbackV03ProbabilitiesMayBeObservedBeforeReachabilityPass": false,
+    "globalFallbackThresholdMayBeSelectedBeforeReachabilityPass": false,
+    "hardGates": {
+      "minimumKnownSemanticActRetention": 0.95,
+      "minimumKnownRowsReachingFallbackPerRoute": 2,
+      "minimumTotalKnownRowsReachingFallback": 88,
+      "minimumTotalNonRouteRowsReachingFallback": 16,
+      "minimumNearDomainRowsReachingFallback": 8,
+      "minimumOutsideCurrent22RowsReachingFallback": 2,
+      "minimumRouteUnresolvedRowsReachingFallback": 4
+    },
+    "ifFail": "freeze immutable calibration reachability failure; do not mutate this sealed calibration version; generate a new version under a new data contract if further work is justified"
+  },
+  "freshIntegratedDevelopment": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-development.json",
+    "totalRows": 198,
+    "knownRows": 132,
+    "nonRouteRows": 66,
+    "knownPathStrata": {
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_head": 44
+    },
+    "nonRouteSubtypes": {
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    },
+    "fallbackHeadCoverage": "exactly 2 fresh fallback-head known rows per current route",
+    "freshGenerationRequired": true,
+    "mustBeSealedBeforeFirstDevelopmentEncoderScoring": true,
+    "trainingEligible": false,
+    "calibrationEligible": false,
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    },
+    "promotionGatesChangedFromV04": false
+  },
+  "separationRules": {
+    "trainingCalibrationExactOverlapAllowed": false,
+    "trainingDevelopmentExactOverlapAllowed": false,
+    "calibrationDevelopmentExactOverlapAllowed": false,
+    "nearDuplicateScreeningRequired": true,
+    "recommendedInternalNearDuplicateJaccardUpperBound": 0.82,
+    "protectedHistoricalNearDuplicateJaccardUpperBound": 0.84,
+    "normalizedExactHistoricalOverlapAllowed": false,
+    "sameQuestionParaphraseAcrossSplitsAllowed": false,
+    "corpusGenerationMustNotReadEncoderProbabilities": true,
+    "corpusGenerationMustNotReadOfficialIndependentResultsRows": true
+  },
+  "contentRules": {
+    "modernNaturalLanguageOnly": true,
+    "traditionalLiuYaoTermsInQuestionTextForbidden": true,
+    "healthDiseaseQuestionsForbidden": true,
+    "current22RoutesOnlyForKnownLabels": true,
+    "noHardCodedTemplateFamiliesDominatingOneRoute": true,
+    "routeIdentityMustComeFromSemanticsNotRouteNameTokens": true,
+    "nonRouteExamplesMustRemainPlausibleModernQuestionsRatherThanArtificialNonsense": true
+  },
+  "execution": {
+    "encoderModelId": "Xenova/bge-small-zh-v1.5",
+    "encoderRevision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true
+  },
+  "nextAction": "freeze_fallback_identity_v03_training_methodology_before_generating_or_scoring_v05_training_and_calibration_data"
+}
