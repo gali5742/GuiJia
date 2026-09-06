@@ -44,6 +44,9 @@ jobs:
       - name: Collective Mediation Effect regression
         run: node tests/bazi-contextual-force-party-collective-mediation-effect-tests.js
 
+      - name: Source-Set Mediation E2E Calibration regression
+        run: node tests/bazi-contextual-force-party-source-set-mediation-e2e-calibration-tests.js
+
       - name: Curated Finite Target Resolver regression
         run: node tests/bazi-contextual-force-party-curated-target-resolver-tests.js
 
