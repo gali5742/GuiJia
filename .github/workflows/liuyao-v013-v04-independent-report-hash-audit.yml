@@ -1,0 +1,38 @@
+name: LiuYao v0.13 Candidate v0.4 Independent Report Hash Audit
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - '.github/workflows/liuyao-v013-v04-independent-report-hash-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-report-hash:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - name: Verify official independent report commit and print immutable hashes
+        run: |
+          set -euo pipefail
+          REPORT=data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json
+          git merge-base --is-ancestor ae373a03d3a587287bee1aef0195988ff4a2f112 HEAD
+          test -f "$REPORT"
+          test "$(git hash-object "$REPORT")" = "11579ddfa724770391398ac9dda0efed12548ed4"
+          printf 'reportGitBlobSha=' && git hash-object "$REPORT"
+          printf 'reportSha256=' && sha256sum "$REPORT" | awk '{print $1}'
+          node - <<'NODE'
+          const r = require('./data/liuyao-semantic-v013-candidate-v04-independent-execution-v0.1-report.json')
+          if (r.status !== 'post_lock_independent_fail') process.exit(1)
+          if (r.readyForBaseline10Promotion !== false) process.exit(1)
+          console.log(JSON.stringify({status:r.status, readyForBaseline10Promotion:r.readyForBaseline10Promotion, checks:r.checks, summary:r.summary}, null, 2))
+          NODE
+          echo 'IMMUTABLE_INDEPENDENT_FAILURE_REPORT_AUDITED encoderScoringPerformed=false reportMutation=false'
