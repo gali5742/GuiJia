@@ -44,6 +44,9 @@ jobs:
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
+      - name: Source-Scoped Sequential Composition regression
+        run: node tests/bazi-contextual-force-party-source-scoped-sequential-composition-tests.js
+
       - name: Core regression tests
         run: npm test
 
