@@ -1,0 +1,275 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-calibration-reachability-report-v0.1",
+  "status": "fail_locked_sealed_v05_calibration_reachability",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.5_fallback_identity_v0.3_postseal_calibration_reachability",
+  "immutableInputs": {
+    "auditContract": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-contract-v0.1.json",
+      "sha256": "1e9bf95153ef454b4f099a5c7bf8a05036cfc8a76e86f43bd6afd1507abacf0e"
+    },
+    "dataLock": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json",
+      "sha256": "d647a52343459a3506c8510912f8c4d212425a61c7692e6c6ee109f4efdeafa5"
+    },
+    "training": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+      "sha256": "e0c627a969c77cf2212354ec4002e2ab5764c3d198186b791de566225a308ad9",
+      "usedInThisAudit": false
+    },
+    "calibration": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+      "sha256": "2fd8f0083f2f02395e92fb9a80bc5ca37bb20816ef9704310389c30ec2f02edf"
+    },
+    "semanticActModel": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "threshold": 0.5045675974201208
+    },
+    "routeabilityBase": {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d"
+    },
+    "routeabilityThresholdArtifact": {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "threshold": 0.7678148573595883
+    },
+    "embeddingExecutionContract": {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7"
+    }
+  },
+  "policy": {
+    "auditOnly": true,
+    "aggregateOnlyReport": true,
+    "rowLevelTextsReported": false,
+    "rowLevelProbabilitiesReported": false,
+    "trainingRowsEncoded": false,
+    "fallbackV03WeightsTrained": false,
+    "fallbackV03ProbabilitiesScored": false,
+    "fallbackV03ThresholdSelected": false,
+    "routerLoaded": false,
+    "routerTopKRead": false,
+    "scopeHardVetoUsedForReachability": false,
+    "officialV04IndependentResultsRead": false,
+    "sealedBlindEvaluationRead": false,
+    "calibrationMutationAllowed": false
+  },
+  "execution": {
+    "canonicalTextsPerEncoderCall": 1,
+    "encoderCalls": 352,
+    "rowsScored": 352
+  },
+  "frozenChecks": {
+    "minimumCalibrationKnownSemanticActRetention": 0.95,
+    "minimumKnownReachingFallbackPerRoute": 2,
+    "minimumTotalKnownReachingFallback": 88,
+    "minimumTotalNonRouteReachingFallback": 16,
+    "minimumNearDomainNonRouteReachingFallback": 8,
+    "minimumOutsideCurrent22ReachingFallback": 2,
+    "minimumRouteUnresolvedReachingFallback": 4
+  },
+  "summary": {
+    "calibrationKnown": 176,
+    "calibrationNonRoute": 176,
+    "calibrationKnownSemanticActRetention": 1,
+    "calibrationKnownReachingFallback": 106,
+    "minimumKnownReachingFallbackPerRouteObserved": 0,
+    "calibrationNonRouteReachingFallback": 33,
+    "nearDomainReachingFallback": 1,
+    "outsideCurrent22ReachingFallback": 0,
+    "routeUnresolvedReachingFallback": 32,
+    "deterministicEligibilityFailures": 0
+  },
+  "byRoute": {
+    "financial_fortune": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "business_operation": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "commercial_transaction": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 7,
+      "reachesFallback": 7
+    },
+    "inventory_purchase": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "inventory_sale": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    },
+    "borrow_money": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "lend_money": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 2,
+      "reachesFallback": 2
+    },
+    "debt_collection": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "debt_repayment": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 8,
+      "reachesFallback": 8
+    },
+    "partnership": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 7,
+      "reachesFallback": 7
+    },
+    "investment_profit": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "investment_liquidation": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 8,
+      "reachesFallback": 8
+    },
+    "investment_suitability": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 8,
+      "reachesFallback": 8
+    },
+    "investment_position_decision": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "investment_price_trend": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 4
+    },
+    "income_salary": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 5,
+      "reachesFallback": 5
+    },
+    "income_bonus": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 6,
+      "reachesFallback": 6
+    },
+    "receive_item": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 7,
+      "reachesFallback": 7
+    },
+    "item_purchase": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "relationship_development": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "marriage_match": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 4,
+      "reachesFallback": 4
+    },
+    "marital_relationship": {
+      "n": 8,
+      "semanticActEligible": 8,
+      "arbitrationNull": 8,
+      "routeabilityAccepted": 0,
+      "reachesFallback": 0
+    }
+  },
+  "byNonRouteSubtype": {
+    "near_domain_not_current_route": {
+      "n": 88,
+      "semanticActEligible": 73,
+      "arbitrationNull": 88,
+      "routeabilityAccepted": 1,
+      "reachesFallback": 1
+    },
+    "outside_current_22": {
+      "n": 44,
+      "semanticActEligible": 35,
+      "arbitrationNull": 44,
+      "routeabilityAccepted": 0,
+      "reachesFallback": 0
+    },
+    "route_unresolved": {
+      "n": 44,
+      "semanticActEligible": 44,
+      "arbitrationNull": 44,
+      "routeabilityAccepted": 32,
+      "reachesFallback": 32
+    }
+  },
+  "checks": {
+    "calibrationKnownSemanticActRetention": true,
+    "everyRouteMinimumKnownFallbackExposure": false,
+    "calibrationTotalKnownFallbackExposure": true,
+    "calibrationTotalNonRouteFallbackExposure": true,
+    "calibrationNearDomainFallbackExposure": false,
+    "calibrationOutsideCurrent22FallbackExposure": false,
+    "calibrationRouteUnresolvedFallbackExposure": true,
+    "deterministicCalibrationEligibilityRemainsClean": true
+  },
+  "pass": false,
+  "nextAction": "freeze_immutable_v05_calibration_reachability_failure_and_create_new_versioned_calibration_without_mutating_this_sealed_bundle"
+}
