@@ -107,8 +107,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.27'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.27');
+if (!bootstrap.includes("const VERSION = '0.28'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.28');
 }
 
 const requiredTail = Object.freeze([
@@ -142,6 +142,9 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-actor-set-opposition-e2e-calibration-contract.js',
     'js/bazi-contextual-force-party-actor-set-opposition-e2e-calibration-profile.js',
     'js/bazi-contextual-force-party-actor-set-opposition-e2e-calibration.js',
+    'js/bazi-contextual-force-party-relation-endpoint-identity-contract.js',
+    'js/bazi-contextual-force-party-relation-endpoint-identity-profile.js',
+    'js/bazi-contextual-force-party-relation-endpoint-identity.js',
     'js/bazi-contextual-force-party-relation-semantics-modern-support-source.js',
     'js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js',
     'js/bazi-contextual-force-party-relation-position-provenance-source.js',
