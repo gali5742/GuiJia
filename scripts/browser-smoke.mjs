@@ -78,6 +78,11 @@ page.on('response', (response) => {
   failedLocalResponses.push(`${response.status()} ${response.url()}`);
 });
 
+const assertBrowserHealthy = (stage) => {
+  assert(pageErrors.length === 0, `Browser page error(s) ${stage}:\n- ${pageErrors.join('\n- ')}`);
+  assert(failedLocalResponses.length === 0, `Built-site request failure(s) ${stage}:\n- ${failedLocalResponses.join('\n- ')}`);
+};
+
 try {
   const response = await page.goto(baseUrl, { waitUntil:'domcontentloaded', timeout:30_000 });
   assert(response?.ok(), `Initial page request failed: ${response?.status() || 'no response'}`);
@@ -87,8 +92,7 @@ try {
     return Boolean(app && !app.hasAttribute('v-cloak'));
   }, undefined, { timeout:15_000 });
 
-  assert(pageErrors.length === 0, `Browser page error(s):\n- ${pageErrors.join('\n- ')}`);
-  assert(failedLocalResponses.length === 0, `Built-site request failure(s):\n- ${failedLocalResponses.join('\n- ')}`);
+  assertBrowserHealthy('after initial mount');
 
   const app = page.locator('#app');
   assert(await app.count() === 1, 'Mounted #app root is missing');
@@ -97,21 +101,39 @@ try {
   assert(await page.getByText('出生信息', { exact:true }).count() >= 1, 'Default BaZi input view did not render');
   assert(await page.locator('input[type="datetime-local"]').count() >= 1, 'BaZi datetime input did not render');
 
+  const baziDateTime = page.locator('input[type="datetime-local"]').first();
+  await baziDateTime.fill('2000-01-01T12:00');
+  await page.getByRole('button', { name:'开始八字排盘', exact:true }).click();
+  await page.waitForURL(/#bazi-result$/, { timeout:10_000 });
+  await page.getByRole('heading', { name:'原局四柱', exact:true }).waitFor({ state:'visible', timeout:10_000 });
+  assert(await page.locator('.bazi-item').count() === 4, 'BaZi happy path did not render four pillars');
+  assertBrowserHealthy('after BaZi calculation');
+
+  await page.getByRole('button', { name:'← 返回修改信息', exact:true }).click();
+  await page.getByText('出生信息', { exact:true }).waitFor({ state:'visible', timeout:5_000 });
+
   const liuyaoTab = page.locator('button.module-tab').filter({ hasText:'六爻' });
   await liuyaoTab.click();
   await page.getByRole('heading', { name:'六爻排盘', exact:true }).first().waitFor({ state:'visible', timeout:5_000 });
 
-  const baziTab = page.locator('button.module-tab').filter({ hasText:'八字' });
-  await baziTab.click();
-  await page.getByRole('heading', { name:'八字排盘与结构分析', exact:true }).first().waitFor({ state:'visible', timeout:5_000 });
-
-  assert(pageErrors.length === 0, `Browser page error(s) after module navigation:\n- ${pageErrors.join('\n- ')}`);
-  assert(failedLocalResponses.length === 0, `Built-site request failure(s) after module navigation:\n- ${failedLocalResponses.join('\n- ')}`);
+  const liuyaoDateTime = page.locator('input[type="datetime-local"]').first();
+  await liuyaoDateTime.fill('2026-01-15T12:00');
+  const lineSelectors = page.locator('.yao-entry-grid select');
+  assert(await lineSelectors.count() === 6, 'LiuYao input did not render six line selectors');
+  const deterministicLinesTopToBottom = ['8', '7', '6', '7', '8', '9'];
+  for (let index = 0; index < deterministicLinesTopToBottom.length; index += 1) {
+    await lineSelectors.nth(index).selectOption(deterministicLinesTopToBottom[index]);
+  }
+  await page.getByRole('button', { name:'开始六爻排盘', exact:true }).click();
+  await page.waitForURL(/#liuyao-result$/, { timeout:10_000 });
+  await page.getByRole('heading', { name:'卦象总览', exact:true }).waitFor({ state:'visible', timeout:10_000 });
+  assert(await page.locator('.hexagram-summary-card').count() === 2, 'LiuYao happy path did not render original and changed hexagrams');
+  assertBrowserHealthy('after LiuYao calculation');
 
   console.log(`Built-site browser smoke passed: ${baseUrl}`);
   console.log('- Vue mounted and removed v-cloak');
-  console.log('- BaZi input view rendered');
-  console.log('- BaZi/LiuYao module navigation executed in Chromium');
+  console.log('- BaZi input → calculation → four-pillar result completed in Chromium');
+  console.log('- LiuYao input → six-line calculation → original/changed hexagram result completed in Chromium');
   console.log('- no browser page errors or unexpected failed same-origin asset responses');
   if (optionalLocalMisses.length) {
     console.log(`- allowed optional local fallback miss(es): ${optionalLocalMisses.join(', ')}`);

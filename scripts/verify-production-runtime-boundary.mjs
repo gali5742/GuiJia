@@ -8,6 +8,11 @@ const root = path.resolve(defaultRoot, process.argv[2] || '.');
 const indexPath = path.join(root, 'index.html');
 const MAX_PRODUCTION_JS_FILES = 32;
 const MAX_PRODUCTION_JS_BYTES = 1_310_720; // 1.25 MiB, excludes vendor snapshots.
+const forbiddenLoaderPatterns = Object.freeze([
+    { label:'document.write', pattern:/\bdocument\.write\s*\(/ },
+    { label:'script element creation', pattern:/createElement\s*\(\s*['"]script['"]\s*\)/ },
+    { label:'dynamic script src assignment', pattern:/\.src\s*=\s*['"`][^'"`]*\.js/ }
+]);
 
 function fail(message) {
     throw new Error(message);
@@ -27,7 +32,7 @@ if (productionScripts.includes('js/bazi-research-bootstrap.js')) {
 }
 
 const missing = [];
-const parserLoaders = [];
+const implicitLoaders = [];
 let totalBytes = 0;
 for (const relative of productionScripts) {
     const filename = path.join(root, relative);
@@ -37,12 +42,14 @@ for (const relative of productionScripts) {
     }
     const source = fs.readFileSync(filename, 'utf8');
     totalBytes += Buffer.byteLength(source);
-    if (/\bdocument\.write\s*\(/.test(source)) parserLoaders.push(relative);
+    for (const rule of forbiddenLoaderPatterns) {
+        if (rule.pattern.test(source)) implicitLoaders.push(`${relative}: ${rule.label}`);
+    }
 }
 
 if (missing.length) fail(`Production scripts missing:\n- ${missing.join('\n- ')}`);
-if (parserLoaders.length) {
-    fail(`Production runtime contains parser-discovered script loading:\n- ${parserLoaders.join('\n- ')}`);
+if (implicitLoaders.length) {
+    fail(`Production runtime contains implicit script loading:\n- ${implicitLoaders.join('\n- ')}`);
 }
 if (productionScripts.length > MAX_PRODUCTION_JS_FILES) {
     fail(`Production JS file budget exceeded: ${productionScripts.length} > ${MAX_PRODUCTION_JS_FILES}`);
@@ -54,4 +61,4 @@ if (totalBytes > MAX_PRODUCTION_JS_BYTES) {
 console.log('Production runtime boundary verification passed');
 console.log(`- ${productionScripts.length} explicit production JS file(s)`);
 console.log(`- ${totalBytes} production JS byte(s), excluding vendor snapshots`);
-console.log('- 0 parser-discovered production script loader(s)');
+console.log('- 0 implicit production script loader(s)');
