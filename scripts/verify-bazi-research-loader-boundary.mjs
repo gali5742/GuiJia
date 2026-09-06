@@ -53,33 +53,113 @@ const migratedModules = Object.freeze([
 
 const bootstrap = read('js/bazi-research-bootstrap.js');
 const dependencyPattern = /Object\.freeze\(\{\s*globalKey:'([^']+)',\s*src:'([^']+)'\s*\}\)/g;
-const bootstrapDependencies = Object.freeze([...bootstrap.matchAll(dependencyPattern)].map((match) => Object.freeze({ globalKey:match[1], src:match[2] })));
+const bootstrapDependencies = Object.freeze([...bootstrap.matchAll(dependencyPattern)].map((match) => Object.freeze({
+    globalKey:match[1],
+    src:match[2]
+})));
 const closureStartGlobalKey = 'baziClashRescueContext';
 const closureStartIndex = bootstrapDependencies.findIndex((item) => item.globalKey === closureStartGlobalKey);
 const explicitDependencies = Object.freeze(closureStartIndex >= 0 ? bootstrapDependencies.slice(closureStartIndex) : []);
 const explicitModulePaths = Object.freeze(explicitDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, '')));
+
 const forbiddenLoaderPatterns = Object.freeze([
     { label:'document.write', pattern:/\bdocument\.write\s*\(/ },
     { label:'script element creation', pattern:/createElement\s*\(\s*['"]script['"]\s*\)/ },
     { label:'dynamic script src assignment', pattern:/\.src\s*=\s*['"`][^'"`]*\.js/ }
 ]);
-const errors=[];
-if(!bootstrapDependencies.length) errors.push('bazi-research-bootstrap.js: no dependencies could be parsed');
-if(closureStartIndex<0) errors.push(`bazi-research-bootstrap.js: sealed closure start ${closureStartGlobalKey} is missing`);
-const allGlobalKeys=bootstrapDependencies.map(x=>x.globalKey), allModulePaths=bootstrapDependencies.map(({src})=>src.replace(/^\.\//,'').replace(/\?.*$/,''));
-const duplicateGlobalKeys=allGlobalKeys.filter((key,index)=>allGlobalKeys.indexOf(key)!==index), duplicateModulePaths=allModulePaths.filter((p,index)=>allModulePaths.indexOf(p)!==index);
-if(duplicateGlobalKeys.length) errors.push(`bazi-research-bootstrap.js: duplicate globalKey(s): ${[...new Set(duplicateGlobalKeys)].join(', ')}`);
-if(duplicateModulePaths.length) errors.push(`bazi-research-bootstrap.js: duplicate dependency module(s): ${[...new Set(duplicateModulePaths)].join(', ')}`);
-const explicitModulePathSet=new Set(explicitModulePaths);
-for(const relative of migratedModules){if(!explicitModulePathSet.has(relative)) errors.push(`${relative}: migrated research module is missing from the explicit bootstrap closure`)}
-for(const relative of explicitModulePaths){const fullPath=path.join(root,relative);if(!fs.existsSync(fullPath)){errors.push(`${relative}: explicit research dependency file is missing`);continue}const source=fs.readFileSync(fullPath,'utf8');for(const rule of forbiddenLoaderPatterns){if(rule.pattern.test(source))errors.push(`${relative}: explicit research dependency still contains ${rule.label}`)}}
-if(!bootstrap.includes("mode:'explicit-research-opt-in'")) errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
-if(!bootstrap.includes("const VERSION = '0.23'")) errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.23');
-const requiredTail=Object.freeze([
-'js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js','js/bazi-contextual-force-party-hidden-single-target-binding-contract.js','js/bazi-contextual-force-party-hidden-single-target-binding-profile.js','js/bazi-contextual-force-party-hidden-single-target-binding.js','js/bazi-contextual-force-party-actor-group-identity-contract.js','js/bazi-contextual-force-party-actor-group-identity-profile.js','js/bazi-contextual-force-party-actor-group-identity.js','js/bazi-contextual-force-party-curated-target-resolver-contract.js','js/bazi-contextual-force-party-curated-target-resolver-profile.js','js/bazi-contextual-force-party-curated-target-resolver.js','js/bazi-contextual-force-party-collective-relation-effect-contract.js','js/bazi-contextual-force-party-collective-relation-effect-profile.js','js/bazi-contextual-force-party-collective-relation-effect.js','js/bazi-contextual-force-party-relation-semantics-modern-support-source.js','js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js','js/bazi-contextual-force-party-relation-position-provenance-source.js','js/bazi-contextual-force-party-relation-position-provenance-audit.js','js/bazi-contextual-force-party-counterfactual-placement-alternative-contract.js','js/bazi-contextual-force-party-counterfactual-placement-alternative-profile.js','js/bazi-contextual-force-party-counterfactual-placement-alternative.js','js/bazi-contextual-force-party-competing-relation-path-source.js','js/bazi-contextual-force-party-competing-relation-path-audit.js','js/bazi-contextual-force-party-source-scoped-sequential-composition-contract.js','js/bazi-contextual-force-party-source-scoped-sequential-composition-profile.js','js/bazi-contextual-force-party-source-scoped-sequential-composition.js','js/bazi-contextual-force-party-counterfactual-path-pair-contract.js','js/bazi-contextual-force-party-counterfactual-path-pair-profile.js','js/bazi-contextual-force-party-counterfactual-path-pair.js'
+
+const errors = [];
+if (!bootstrapDependencies.length) {
+    errors.push('bazi-research-bootstrap.js: no dependencies could be parsed');
+}
+if (closureStartIndex < 0) {
+    errors.push(`bazi-research-bootstrap.js: sealed closure start ${closureStartGlobalKey} is missing`);
+}
+
+const allGlobalKeys = bootstrapDependencies.map((item) => item.globalKey);
+const allModulePaths = bootstrapDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, ''));
+const duplicateGlobalKeys = allGlobalKeys.filter((key, index) => allGlobalKeys.indexOf(key) !== index);
+const duplicateModulePaths = allModulePaths.filter((modulePath, index) => allModulePaths.indexOf(modulePath) !== index);
+if (duplicateGlobalKeys.length) errors.push(`bazi-research-bootstrap.js: duplicate globalKey(s): ${[...new Set(duplicateGlobalKeys)].join(', ')}`);
+if (duplicateModulePaths.length) errors.push(`bazi-research-bootstrap.js: duplicate dependency module(s): ${[...new Set(duplicateModulePaths)].join(', ')}`);
+
+const explicitModulePathSet = new Set(explicitModulePaths);
+for (const relative of migratedModules) {
+    if (!explicitModulePathSet.has(relative)) {
+        errors.push(`${relative}: migrated research module is missing from the explicit bootstrap closure`);
+    }
+}
+
+for (const relative of explicitModulePaths) {
+    const fullPath = path.join(root, relative);
+    if (!fs.existsSync(fullPath)) {
+        errors.push(`${relative}: explicit research dependency file is missing`);
+        continue;
+    }
+    const source = fs.readFileSync(fullPath, 'utf8');
+    for (const rule of forbiddenLoaderPatterns) {
+        if (rule.pattern.test(source)) {
+            errors.push(`${relative}: explicit research dependency still contains ${rule.label}`);
+        }
+    }
+}
+
+if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
+    errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
+}
+if (!bootstrap.includes("const VERSION = '0.23'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.23');
+}
+
+const requiredTail = Object.freeze([
+    'js/bazi-contextual-force-party-curated-relation-source-semantic-annotation-audit.js',
+    'js/bazi-contextual-force-party-hidden-single-target-binding-contract.js',
+    'js/bazi-contextual-force-party-hidden-single-target-binding-profile.js',
+    'js/bazi-contextual-force-party-hidden-single-target-binding.js',
+    'js/bazi-contextual-force-party-actor-group-identity-contract.js',
+    'js/bazi-contextual-force-party-actor-group-identity-profile.js',
+    'js/bazi-contextual-force-party-actor-group-identity.js',
+    'js/bazi-contextual-force-party-curated-target-resolver-contract.js',
+    'js/bazi-contextual-force-party-curated-target-resolver-profile.js',
+    'js/bazi-contextual-force-party-curated-target-resolver.js',
+    'js/bazi-contextual-force-party-collective-relation-effect-contract.js',
+    'js/bazi-contextual-force-party-collective-relation-effect-profile.js',
+    'js/bazi-contextual-force-party-collective-relation-effect.js',
+    'js/bazi-contextual-force-party-relation-semantics-modern-support-source.js',
+    'js/bazi-contextual-force-party-relation-semantics-modern-support-audit.js',
+    'js/bazi-contextual-force-party-relation-position-provenance-source.js',
+    'js/bazi-contextual-force-party-relation-position-provenance-audit.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative-contract.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative-profile.js',
+    'js/bazi-contextual-force-party-counterfactual-placement-alternative.js',
+    'js/bazi-contextual-force-party-competing-relation-path-source.js',
+    'js/bazi-contextual-force-party-competing-relation-path-audit.js',
+    'js/bazi-contextual-force-party-source-scoped-sequential-composition-contract.js',
+    'js/bazi-contextual-force-party-source-scoped-sequential-composition-profile.js',
+    'js/bazi-contextual-force-party-source-scoped-sequential-composition.js',
+    'js/bazi-contextual-force-party-counterfactual-path-pair-contract.js',
+    'js/bazi-contextual-force-party-counterfactual-path-pair-profile.js',
+    'js/bazi-contextual-force-party-counterfactual-path-pair.js'
 ]);
-let previousTailIndex=-1;for(const relative of requiredTail){const index=explicitModulePaths.indexOf(relative);if(index<0){errors.push(`bazi-research-bootstrap.js: missing required tail dependency ${relative}`);continue}if(index<=previousTailIndex)errors.push(`bazi-research-bootstrap.js: research tail order changed at ${relative}`);previousTailIndex=index}
-if(errors.length){console.error('BaZi research loader boundary verification failed:');errors.forEach((e)=>console.error(`- ${e}`));process.exit(1)}
+let previousTailIndex = -1;
+for (const relative of requiredTail) {
+    const index = explicitModulePaths.indexOf(relative);
+    if (index < 0) {
+        errors.push(`bazi-research-bootstrap.js: missing required tail dependency ${relative}`);
+        continue;
+    }
+    if (index <= previousTailIndex) {
+        errors.push(`bazi-research-bootstrap.js: research tail order changed at ${relative}`);
+    }
+    previousTailIndex = index;
+}
+
+if (errors.length) {
+    console.error('BaZi research loader boundary verification failed:');
+    errors.forEach((error) => console.error(`- ${error}`));
+    process.exit(1);
+}
+
 console.log('BaZi research loader boundary verification passed');
 console.log(`- sealed closure starts at ${closureStartGlobalKey}`);
 console.log(`- ${migratedModules.length} migrated module(s) remain inside the explicit bootstrap closure`);
