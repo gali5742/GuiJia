@@ -1,0 +1,84 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-calibration-reachability-failure-evidence-v0.1",
+  "status": "immutable_postseal_calibration_v01_reachability_failure",
+  "scope": "candidate_v05_fallback_identity_v03_calibration_v01_only",
+  "report": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-reachability-report-v0.1.json",
+    "gitBlobSha": "a5a41878e7c81972940c72f8b6c423657c6972a0",
+    "commit": "d5db6e44a8c238923ba98d18e4c5ffab491fdc51",
+    "status": "fail_locked_sealed_v05_calibration_reachability",
+    "aggregateOnly": true,
+    "rowLevelTextsReported": false,
+    "rowLevelProbabilitiesReported": false
+  },
+  "sealedCalibration": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+    "gitBlobSha": "a2f6edf4115b5f2377d2751c99fc55a7faa9e557",
+    "sha256": "2fd8f0083f2f02395e92fb9a80bc5ca37bb20816ef9704310389c30ec2f02edf",
+    "rows": 352,
+    "mutationAllowed": false,
+    "rescoreToSearchWordingAllowed": false,
+    "thresholdSelectionEligible": false
+  },
+  "carriedTraining": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training.json",
+    "gitBlobSha": "ab0c5bae295094130039385e7a2efa81b0412b8d",
+    "sha256": "e0c627a969c77cf2212354ec4002e2ab5764c3d198186b791de566225a308ad9",
+    "rows": 264,
+    "invalidatedByCalibrationReachabilityFailure": false,
+    "reason": "training rows were not encoded or used in the failed reachability audit and no Fallback v0.3 weights were trained"
+  },
+  "aggregateObserved": {
+    "known": {
+      "n": 176,
+      "semanticActRetention": 1,
+      "reachesFallback": 106,
+      "minimumPerRoute": 0,
+      "weakRouteExposure": {
+        "marital_relationship": 0,
+        "inventory_purchase": 1,
+        "item_purchase": 1,
+        "relationship_development": 1,
+        "inventory_sale": 2,
+        "lend_money": 2
+      }
+    },
+    "nonRoute": {
+      "n": 176,
+      "reachesFallback": 33,
+      "near_domain_not_current_route": { "n": 88, "reachesFallback": 1 },
+      "outside_current_22": { "n": 44, "reachesFallback": 0 },
+      "route_unresolved": { "n": 44, "reachesFallback": 32 }
+    },
+    "deterministicEligibilityFailures": 0
+  },
+  "frozenChecks": {
+    "knownSemanticActRetention": "PASS",
+    "everyRouteMinimumKnownFallbackExposure": "FAIL",
+    "totalKnownFallbackExposure": "PASS",
+    "totalNonRouteFallbackExposure": "PASS",
+    "nearDomainFallbackExposure": "FAIL",
+    "outsideCurrent22FallbackExposure": "FAIL",
+    "routeUnresolvedFallbackExposure": "PASS",
+    "deterministicEligibility": "PASS"
+  },
+  "diagnosis": {
+    "aggregateOnly": true,
+    "rowLevelFailedCalibrationDataMayBeReadToDesignReplacement": false,
+    "rowLevelReachabilityScoresMayBeReadToDesignReplacement": false,
+    "mainIssue": "exposure distribution is inadequate despite sufficient total known and total non-route reachability",
+    "knownIssue": "several route identities are underexposed, with marital_relationship at zero",
+    "safetySamplingIssue": "near-domain and outside-current22 hard negatives are too easily rejected upstream to calibrate the downstream Fallback confidence threshold",
+    "routeUnresolvedIssue": "route_unresolved already provides abundant downstream safety exposure and does not need expansion"
+  },
+  "prohibitions": {
+    "trainFallbackV03UsingCurrentCalibration": true,
+    "selectFallbackV03ThresholdUsingCurrentCalibration": true,
+    "mutateCurrentSealedCalibration": true,
+    "lowerReachabilityGates": true,
+    "retuneSemanticAct": true,
+    "retuneRouteability": true,
+    "reuseCurrentCalibrationRowsAsTemplatesForReplacement": true
+  },
+  "nextAction": "create_a_new_versioned_calibration_only_replacement_with_unchanged_training_and_unchanged_reachability_gates_using_only_aggregate_failure_signals"
+}
