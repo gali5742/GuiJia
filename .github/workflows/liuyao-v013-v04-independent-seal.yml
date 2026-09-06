@@ -1,0 +1,119 @@
+name: LiuYao v0.13 Candidate v0.4 Independent Seal
+
+on:
+  push:
+    branches:
+      - v04-fresh-development
+    paths:
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs'
+      - '.github/workflows/liuyao-v013-v04-independent-seal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seal-independent:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: v04-fresh-development
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Capture independent seal checkout
+        run: echo "INDEPENDENT_SEAL_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify locked Candidate v0.4 before independent seal
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-lock.mjs
+          git merge-base --is-ancestor 7353fca9d7b3668a446db558ca7ca131c9d290e5 HEAD
+
+      - name: Rebuild exact fresh independent corpus without encoder scoring
+        run: |
+          node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs
+          node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs
+          node scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs
+          node scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
+
+      - name: Re-run deterministic structural and freshness preseal checks
+        run: node scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs
+
+      - name: Require byte-identical reference PASS before sealing
+        run: |
+          set -euo pipefail
+          test "$(sha256sum data/liuyao-semantic-v013-candidate-v04-independent.json | awk '{print $1}')" = "193aa0c86eac0945844a2675571522a407d60cfe8d1e7f24a1cd47c374c533e8"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent.json)" = "2c4b7c8f5398210fdf48f1d085cda4b9b7c00774"
+          test "$(sha256sum data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json | awk '{print $1}')" = "24e4a42c1ec2897bc2a8a789e6c7d4a448d27331befbacd89e694927c8a2388e"
+          test "$(git hash-object data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json)" = "1c97f1b11394c1698f5b5fba8cdb3503eba17a47"
+          echo 'Reference PASS bytes reproduced exactly. No encoder/model scoring has occurred.'
+
+      - name: Create independent lock before first encoder scoring
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs
+
+      - name: Verify independent lock bindings and invariants
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs
+
+      - name: Commit independent artifact report and lock before encoder scoring
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-independent.json
+          git add data/liuyao-semantic-v013-candidate-v04-independent-preseal-report-v0.1.json
+          git add data/liuyao-semantic-v013-candidate-v04-independent.lock.json
+          git commit -m 'test(liuyao): seal fresh post-lock candidate v0.4 independent corpus [skip ci]'
+
+          git fetch origin v04-fresh-development
+          FROZEN_PATHS=(
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.json
+            data/liuyao-semantic-decision-stack-v0.13-candidate-v0.4.lock.json
+            data/liuyao-semantic-v013-candidate-v04-runtime.lock.json
+            data/liuyao-semantic-v013-candidate-v04-independent-contract-v0.1.json
+            data/liuyao-semantic-v013-candidate-v04-development.json
+            data/liuyao-semantic-v013-candidate-v04-development.lock.json
+            data/liuyao-semantic-v013-candidate-v04-development-execution-v0.1-report.json
+            scripts/generate-liuyao-semantic-v013-candidate-v04-independent.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-structural-correction.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-fallback-correction.mjs
+            scripts/apply-liuyao-semantic-v013-candidate-v04-independent-preseal-freshness-correction.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-preseal.mjs
+            scripts/run-liuyao-semantic-v013-candidate-v04-independent-preseal-with-diagnostics.mjs
+            scripts/seal-liuyao-semantic-v013-candidate-v04-independent.mjs
+            scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs
+            js/liuyao-semantic-route-evidence-v01.js
+            js/liuyao-semantic-route-evidence-v02.js
+            js/liuyao-semantic-route-evidence-v03.js
+            js/liuyao-semantic-route-arbitration-v011.js
+            js/liuyao-semantic-route-arbitration-v012.js
+            js/liuyao-semantic-route-compatibility-v01.js
+            js/liuyao-semantic-route-compatibility-v02.js
+            js/liuyao-semantic-route-compatibility-v03.js
+            js/liuyao-semantic-act-eligibility-v01.js
+            js/liuyao-semantic-routeability-v05-execution-v01.js
+            js/liuyao-semantic-fallback-identity-scorer-v02.js
+            js/liuyao-semantic-fallback-identity-v02.js
+            js/liuyao-semantic-route-selection-v05.js
+            js/liuyao-semantic-finalization-v01.js
+            js/liuyao-semantic-candidate-v04-runtime-v01.js
+          )
+          if ! git diff --quiet "$INDEPENDENT_SEAL_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"; then
+            echo 'Frozen Candidate/independent inputs changed during sealing; refusing stale seal push.'
+            git diff --name-only "$INDEPENDENT_SEAL_BASE_SHA"..origin/v04-fresh-development -- "${FROZEN_PATHS[@]}"
+            exit 1
+          fi
+          git rebase origin/v04-fresh-development
+          git push origin HEAD:v04-fresh-development
+          echo "INDEPENDENT_SEAL_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Verify committed seal boundary remains pre-scoring
+        run: |
+          node scripts/verify-liuyao-semantic-v013-candidate-v04-independent-lock.mjs
+          echo "Independent seal commit: $INDEPENDENT_SEAL_COMMIT"
+          echo 'Fresh post-lock independent corpus is remotely sealed. Independent scoring contract must be frozen next; encoder scoring has not yet occurred.'
