@@ -1,0 +1,60 @@
+name: LiuYao Candidate v0.4 Fresh Development Seal
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-development.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-runtime.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - '.github/workflows/liuyao-v013-v04-fresh-development-seal.yml'
+  pull_request:
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v04-development.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-runtime.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json'
+      - 'scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - 'scripts/seal-liuyao-semantic-v013-candidate-v04-development.mjs'
+      - '.github/workflows/liuyao-v013-v04-fresh-development-seal.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  seal-fresh-development:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generate fresh cohort without encoder scoring
+        run: node scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Verify counts, frozen bindings and contamination isolation
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Seal cohort against frozen Candidate v0.4 runtime
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Verify deterministic seal
+        run: node scripts/seal-liuyao-semantic-v013-candidate-v04-development.mjs --check
+      - name: Commit generated cohort and immutable lock when needed
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          if git diff --quiet -- data/liuyao-semantic-v013-candidate-v04-development.json data/liuyao-semantic-v013-candidate-v04-development.lock.json; then
+            echo 'Fresh development cohort and lock already match the generator.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v04-development.json data/liuyao-semantic-v013-candidate-v04-development.lock.json
+          git commit -m 'test(liuyao): seal fresh Candidate v0.4 development cohort'
+          git push
