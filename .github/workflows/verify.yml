@@ -51,6 +51,9 @@ jobs:
       - name: Curated Finite Target Resolver regression
         run: node tests/bazi-contextual-force-party-curated-target-resolver-tests.js
 
+      - name: Relation Target Normalized Input regression
+        run: node tests/bazi-contextual-force-party-relation-target-normalized-input-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
