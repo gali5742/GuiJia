@@ -49,7 +49,7 @@ jobs:
         if: github.event_name == 'push'
         shell: bash
         run: |
-          if git diff --quiet -- data/liuyao-semantic-v013-candidate-v04-development.json data/liuyao-semantic-v013-candidate-v04-development.lock.json; then
+          if [ -z "$(git status --porcelain -- data/liuyao-semantic-v013-candidate-v04-development.json data/liuyao-semantic-v013-candidate-v04-development.lock.json)" ]; then
             echo 'Fresh development cohort and lock already match the generator.'
             exit 0
           fi
