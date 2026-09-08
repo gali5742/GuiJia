@@ -57,6 +57,9 @@ jobs:
       - name: Generic Target-Level Resolver regression
         run: node tests/bazi-contextual-force-party-generic-target-level-resolver-tests.js
 
+      - name: Generic Relation Effect Execution regression
+        run: node tests/bazi-contextual-force-party-generic-relation-effect-execution-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
