@@ -1,0 +1,66 @@
+{
+  "version": "0.13-candidate-v0.4-development-lock-v0.1",
+  "status": "locked_before_first_development_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4_fresh_development",
+  "dataset": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+    "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+    "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd",
+    "bytes": 53602,
+    "rows": 198,
+    "counts": {
+      "total": 198,
+      "route_known": 132,
+      "non_route": 66,
+      "strong_arbitration": 44,
+      "support_arbitration": 44,
+      "fallback_identity_all22": 44,
+      "outside_current_22": 22,
+      "route_unresolved": 22,
+      "near_domain_not_current_route": 22
+    }
+  },
+  "frozenRuntime": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+    "sha256": "f9cc4a4010f97d2585d95e075ec3c701703b48f84d5dd8d4a4acd0d8979dc5c4",
+    "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c",
+    "version": "0.13-candidate-v0.4-runtime-lock-v0.1",
+    "fallbackGlobalThreshold": 0.5549057227178391,
+    "semanticActThreshold": 0.5045675974201208,
+    "routeabilityThreshold": 0.7678148573595883,
+    "routeInventoryCount": 22
+  },
+  "governingDesign": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+    "sha256": "23e61966697973cf8300117435d1f99e1cb0239d1dccabee83301aeba4a2f1bd",
+    "gitBlobSha": "cc2f830118a5ee4e6fc22cb4ddcc78427f286d18"
+  },
+  "governingDataContract": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+    "sha256": "1b0b07b0455e7b29a68edc1b1d0e72ed9f8be21ba5617dca6e0f67a7a3aa8013",
+    "gitBlobSha": "0f5f4b863689dda83fada81aa2a5cad45647b73e"
+  },
+  "generation": {
+    "generatorPath": "scripts/generate-liuyao-semantic-v013-candidate-v04-development.mjs",
+    "generatorSha256": "774b86845d507868b1a98b0ac44ba958f33bb467abd1e89816c444811f1db382",
+    "verifierPath": "scripts/verify-liuyao-semantic-v013-candidate-v04-development.mjs",
+    "verifierSha256": "9e79064489534c1db6be573c5c9d347ebce4cc9547926e0273f57aa36966dd81",
+    "encoderScoringPerformedBeforeSeal": false
+  },
+  "isolation": {
+    "exactAndNearDuplicateAuditRequired": true,
+    "v04TrainingCalibrationOverlapForbidden": true,
+    "candidateV03DevelopmentOverlapForbidden": true,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "traditionalLiuYaoFeaturesUsed": false
+  },
+  "immutability": {
+    "datasetMutationAfterSealForbidden": true,
+    "wordingMutationAfterScoringForbidden": true,
+    "rowAddRemoveAfterSealForbidden": true,
+    "thresholdOrModelTuningFromThisCohortForbidden": true,
+    "failureMustBePreservedAsImmutableEvidence": true
+  },
+  "nextAction": "run_first_frozen_candidate_v04_development_scoring_without_mutating_dataset_or_runtime"
+}
