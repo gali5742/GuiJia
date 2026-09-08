@@ -54,6 +54,9 @@ jobs:
       - name: Relation Target Normalized Input regression
         run: node tests/bazi-contextual-force-party-relation-target-normalized-input-tests.js
 
+      - name: Generic Target-Level Resolver regression
+        run: node tests/bazi-contextual-force-party-generic-target-level-resolver-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
