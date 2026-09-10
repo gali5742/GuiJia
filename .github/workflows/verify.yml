@@ -63,6 +63,9 @@ jobs:
       - name: Effect Authorization Normalized Input regression
         run: node tests/bazi-contextual-force-party-effect-authorization-normalized-input-tests.js
 
+      - name: Effect-Type Authorization Source Capability Audit regression
+        run: node tests/bazi-contextual-force-party-effect-type-authorization-source-capability-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
