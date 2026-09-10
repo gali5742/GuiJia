@@ -107,8 +107,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.28'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.28');
+if (!bootstrap.includes("const VERSION = '0.29'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.29');
 }
 
 const requiredTail = Object.freeze([
@@ -159,7 +159,10 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-source-scoped-sequential-composition.js',
     'js/bazi-contextual-force-party-counterfactual-path-pair-contract.js',
     'js/bazi-contextual-force-party-counterfactual-path-pair-profile.js',
-    'js/bazi-contextual-force-party-counterfactual-path-pair.js'
+    'js/bazi-contextual-force-party-counterfactual-path-pair.js',
+    'js/bazi-contextual-force-party-effect-authorization-normalized-input-contract.js',
+    'js/bazi-contextual-force-party-effect-authorization-normalized-input-profile.js',
+    'js/bazi-contextual-force-party-effect-authorization-normalized-input.js'
 ]);
 let previousTailIndex = -1;
 for (const relative of requiredTail) {
