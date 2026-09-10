@@ -1,0 +1,1166 @@
+{
+  "version": "0.13-candidate-v0.4-development-failure-diagnostic-v0.1",
+  "status": "immutable_failure_diagnosis_from_committed_first_development_report",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.4",
+  "provenance": {
+    "sourceReport": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-report-v0.1.json",
+      "gitBlobSha": "13d73d9ddd44e3ed3187d0b153a5ea316eaf9d91",
+      "sha256": "2eaffc34641ea013e27843a1a8fa17efe575d20aa677960df9777a58f91988db",
+      "commit": "4493321a90dfffa71c1d1bfd60a376e941faa8cb"
+    },
+    "sealedDevelopment": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.lock.json",
+      "datasetSha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "sealCommit": "8fa9a4e50ebe500c6f28144b0158fd1e3baf273f"
+    },
+    "runtimeLock": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-runtime.lock.json",
+      "gitBlobSha": "32ffdfbd4c0364b22f4f49f450c861cb39a0624c"
+    },
+    "design": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-design-v0.1.json",
+      "gitBlobSha": "cc2f830118a5ee4e6fc22cb4ddcc78427f286d18"
+    }
+  },
+  "policy": {
+    "rerunsEncoder": false,
+    "invokesModel": false,
+    "readsIndependentEvaluation": false,
+    "readsSealedBlindEvaluation": false,
+    "mutatesCandidateV04": false,
+    "mutatesDevelopmentCohort": false,
+    "mutatesThresholds": false,
+    "sourceIsCommittedFirstDevelopmentReportOnly": true
+  },
+  "frozenPromotionGates": {
+    "minimumKnownExactRoute": 0.8,
+    "minimumAcceptedRouteAccuracy": 0.98,
+    "maximumOverallFalseRouteActivation": 0.05,
+    "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+    "requireNoStructuralPathCollapse": true
+  },
+  "sourceReportSummary": {
+    "rows": 198,
+    "known": 132,
+    "nonRoute": 66,
+    "knownExact": 96,
+    "knownExactRoute": 0.7272727272727273,
+    "acceptedKnown": 100,
+    "acceptedKnownExact": 96,
+    "acceptedRouteAccuracy": 0.96,
+    "nonRouteFalseRouteActivations": 10,
+    "nonRouteFalseRouteActivation": 0.15151515151515152,
+    "nonRouteNoRouteActivationSafety": 0.8484848484848485,
+    "routerTop1KnownExact": 0.8560606060606061,
+    "routerTop2KnownRecall": 0.946969696969697,
+    "attrition": {
+      "semanticActEligible": 132,
+      "semanticActRejected": 0,
+      "routeabilityAccepted": 119,
+      "routeabilityRejected": 13,
+      "fallbackReached": 49,
+      "fallbackSelected": 28,
+      "fallbackZeroAdmission": 7,
+      "fallbackMultipleAdmission": 14,
+      "selectionSelected": 100,
+      "selectionUnresolved": 19,
+      "scopeHardVeto": 0,
+      "wrongAcceptedKnown": 4
+    },
+    "fallbackRecovery": {
+      "exactKnownViaFallback": 24,
+      "exactKnownViaFallbackExpectedOutsideRouterTop2": 0,
+      "fallbackExpectedRows": 44,
+      "fallbackExpectedRowsExact": 29
+    },
+    "byKnownPath": {
+      "strong_arbitration": {
+        "n": 44,
+        "finalExact": 37,
+        "finalExactRate": 0.8409090909090909,
+        "accepted": 37,
+        "acceptedRate": 0.8409090909090909,
+        "expectedPathPreserved": 28,
+        "expectedPathPreservedRate": 0.6363636363636364
+      },
+      "support_arbitration": {
+        "n": 44,
+        "finalExact": 30,
+        "finalExactRate": 0.6818181818181818,
+        "accepted": 31,
+        "acceptedRate": 0.7045454545454546,
+        "expectedPathPreserved": 20,
+        "expectedPathPreservedRate": 0.45454545454545453
+      },
+      "fallback_identity_all22": {
+        "n": 44,
+        "finalExact": 29,
+        "finalExactRate": 0.6590909090909091,
+        "accepted": 32,
+        "acceptedRate": 0.7272727272727273,
+        "expectedPathPreserved": 14,
+        "expectedPathPreservedRate": 0.3181818181818182
+      }
+    },
+    "byNonRouteSubtype": {
+      "outside_current_22": {
+        "n": 22,
+        "falseRouteActivations": 1,
+        "falseRouteActivation": 0.045454545454545456,
+        "noRouteActivationSafety": 0.9545454545454546,
+        "semanticActIneligible": 0,
+        "routeabilityAccepted": 1,
+        "fallbackReached": 1
+      },
+      "route_unresolved": {
+        "n": 22,
+        "falseRouteActivations": 9,
+        "falseRouteActivation": 0.4090909090909091,
+        "noRouteActivationSafety": 0.5909090909090909,
+        "semanticActIneligible": 0,
+        "routeabilityAccepted": 17,
+        "fallbackReached": 13
+      },
+      "near_domain_not_current_route": {
+        "n": 22,
+        "falseRouteActivations": 0,
+        "falseRouteActivation": 0,
+        "noRouteActivationSafety": 1,
+        "semanticActIneligible": 22,
+        "routeabilityAccepted": 0,
+        "fallbackReached": 0
+      }
+    }
+  },
+  "headline": {
+    "knownExactRoute": 0.7272727272727273,
+    "acceptedRouteAccuracy": 0.96,
+    "overallFalseRouteActivation": 0.15151515151515152,
+    "maxFalseRouteActivationPerSubtype": 0.4090909090909091,
+    "noStructuralPathCollapse": true,
+    "checks": {
+      "knownExactRoute": false,
+      "acceptedRouteAccuracy": false,
+      "overallFalseRouteActivation": false,
+      "perSubtypeFalseActivation": false,
+      "noStructuralPathCollapse": true
+    },
+    "readyForCandidateLock": false
+  },
+  "totals": {
+    "rows": 198,
+    "known": 132,
+    "nonRoute": 66,
+    "knownExact": 96,
+    "knownNonExact": 36,
+    "acceptedKnown": 100,
+    "wrongAcceptedKnown": 4,
+    "nonRouteFalseActivations": 10
+  },
+  "knownFailureCauses": {
+    "fallback_multiple_admissions": 12,
+    "fallback_reject_all": 7,
+    "routeability_reject": 13,
+    "wrong_route_accepted": 4
+  },
+  "byKnownPath": {
+    "strong_arbitration": {
+      "n": 44,
+      "exact": 37,
+      "exactRate": 0.8409090909090909,
+      "accepted": 37,
+      "wrongAccepted": 0,
+      "acceptedRouteAccuracy": 1,
+      "semanticActRejects": 0,
+      "routeabilityRejects": 4,
+      "fallbackReached": 0,
+      "fallbackSelected": 0,
+      "fallbackRejectAll": 0,
+      "fallbackMultipleAdmissions": 0,
+      "selectionUnresolved": 3,
+      "scopeHardVeto": 0
+    },
+    "support_arbitration": {
+      "n": 44,
+      "exact": 30,
+      "exactRate": 0.6818181818181818,
+      "accepted": 31,
+      "wrongAccepted": 1,
+      "acceptedRouteAccuracy": 0.967741935483871,
+      "semanticActRejects": 0,
+      "routeabilityRejects": 5,
+      "fallbackReached": 0,
+      "fallbackSelected": 0,
+      "fallbackRejectAll": 0,
+      "fallbackMultipleAdmissions": 0,
+      "selectionUnresolved": 8,
+      "scopeHardVeto": 0
+    },
+    "fallback_identity_all22": {
+      "n": 44,
+      "exact": 29,
+      "exactRate": 0.6590909090909091,
+      "accepted": 32,
+      "wrongAccepted": 3,
+      "acceptedRouteAccuracy": 0.90625,
+      "semanticActRejects": 0,
+      "routeabilityRejects": 4,
+      "fallbackReached": 0,
+      "fallbackSelected": 0,
+      "fallbackRejectAll": 0,
+      "fallbackMultipleAdmissions": 0,
+      "selectionUnresolved": 8,
+      "scopeHardVeto": 0
+    }
+  },
+  "knownMissesByExpectedRoute": {
+    "borrow_money": {
+      "misses": 2,
+      "causes": {
+        "wrong_route_accepted": 2
+      }
+    },
+    "business_operation": {
+      "misses": 3,
+      "causes": {
+        "routeability_reject": 3
+      }
+    },
+    "commercial_transaction": {
+      "misses": 1,
+      "causes": {
+        "fallback_reject_all": 1
+      }
+    },
+    "debt_collection": {
+      "misses": 3,
+      "causes": {
+        "fallback_multiple_admissions": 2,
+        "wrong_route_accepted": 1
+      }
+    },
+    "debt_repayment": {
+      "misses": 1,
+      "causes": {
+        "fallback_multiple_admissions": 1
+      }
+    },
+    "income_bonus": {
+      "misses": 1,
+      "causes": {
+        "routeability_reject": 1
+      }
+    },
+    "inventory_purchase": {
+      "misses": 3,
+      "causes": {
+        "fallback_multiple_admissions": 1,
+        "routeability_reject": 2
+      }
+    },
+    "inventory_sale": {
+      "misses": 3,
+      "causes": {
+        "fallback_multiple_admissions": 2,
+        "routeability_reject": 1
+      }
+    },
+    "investment_liquidation": {
+      "misses": 2,
+      "causes": {
+        "fallback_multiple_admissions": 2
+      }
+    },
+    "investment_position_decision": {
+      "misses": 4,
+      "causes": {
+        "fallback_multiple_admissions": 2,
+        "fallback_reject_all": 1,
+        "routeability_reject": 1
+      }
+    },
+    "investment_price_trend": {
+      "misses": 2,
+      "causes": {
+        "fallback_reject_all": 1,
+        "wrong_route_accepted": 1
+      }
+    },
+    "investment_profit": {
+      "misses": 2,
+      "causes": {
+        "fallback_reject_all": 2
+      }
+    },
+    "item_purchase": {
+      "misses": 2,
+      "causes": {
+        "fallback_multiple_admissions": 1,
+        "routeability_reject": 1
+      }
+    },
+    "lend_money": {
+      "misses": 1,
+      "causes": {
+        "fallback_reject_all": 1
+      }
+    },
+    "marital_relationship": {
+      "misses": 2,
+      "causes": {
+        "fallback_multiple_admissions": 1,
+        "routeability_reject": 1
+      }
+    },
+    "partnership": {
+      "misses": 1,
+      "causes": {
+        "routeability_reject": 1
+      }
+    },
+    "receive_item": {
+      "misses": 1,
+      "causes": {
+        "fallback_reject_all": 1
+      }
+    },
+    "relationship_development": {
+      "misses": 2,
+      "causes": {
+        "routeability_reject": 2
+      }
+    }
+  },
+  "wrongAcceptedKnown": [
+    {
+      "id": "V013-V04-D-082",
+      "text": "我关注的投资标的最近波动加大，想单独问行情",
+      "expectedRoute": "investment_price_trend",
+      "expectedCandidatePath": "support_arbitration",
+      "failureCause": "wrong_route_accepted",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6545280939318551,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8017934514482039,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-099",
+      "text": "眼下缺的这笔周转钱能不能借到",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_identity_all22",
+      "failureCause": "wrong_route_accepted",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6740528089697048,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8125765648646199,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-100",
+      "text": "我最近需要的这笔钱有没有机会从别人那里借来",
+      "expectedRoute": "borrow_money",
+      "expectedCandidatePath": "fallback_identity_all22",
+      "failureCause": "wrong_route_accepted",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.7040015986311315,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8158195419175263,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-104",
+      "text": "一直拖着没收回的款项后面还能不能拿到",
+      "expectedRoute": "debt_collection",
+      "expectedCandidatePath": "fallback_identity_all22",
+      "failureCause": "wrong_route_accepted",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.683077354974199,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8111660577137163,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "debt_collection",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "receive_item",
+        "reasonCode": "unique_confirmed_candidate"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "receive_item",
+        "reasonCode": "unique_confirmed_candidate"
+      }
+    }
+  ],
+  "byNonRouteSubtype": {
+    "outside_current_22": {
+      "n": 22,
+      "falseActivations": 1,
+      "falseActivationRate": 0.045454545454545456,
+      "semanticActRejected": 0,
+      "routeabilityRejectedAfterEligible": 21,
+      "falseActivationSources": {
+        "fallback_identity_all22": 1
+      },
+      "activatedRoutes": {
+        "investment_suitability": 1
+      }
+    },
+    "route_unresolved": {
+      "n": 22,
+      "falseActivations": 9,
+      "falseActivationRate": 0.4090909090909091,
+      "semanticActRejected": 0,
+      "routeabilityRejectedAfterEligible": 5,
+      "falseActivationSources": {
+        "arbitration_strong": 3,
+        "arbitration_support": 1,
+        "fallback_identity_all22": 5
+      },
+      "activatedRoutes": {
+        "business_operation": 1,
+        "income_bonus": 1,
+        "income_salary": 1,
+        "investment_position_decision": 1,
+        "investment_price_trend": 1,
+        "investment_profit": 1,
+        "lend_money": 1,
+        "marriage_match": 1,
+        "partnership": 1
+      }
+    },
+    "near_domain_not_current_route": {
+      "n": 22,
+      "falseActivations": 0,
+      "falseActivationRate": 0,
+      "semanticActRejected": 22,
+      "routeabilityRejectedAfterEligible": 0,
+      "falseActivationSources": {},
+      "activatedRoutes": {}
+    }
+  },
+  "falseRouteActivations": [
+    {
+      "id": "V013-V04-D-144",
+      "text": "这次装修按照现方案推进是否合适",
+      "nonRouteSubtype": "outside_current_22",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.7519192342378017,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.773422042037217,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_suitability",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-157",
+      "text": "这个生意相关的事情后面会怎样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5955647453884865,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7842493642714425,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-161",
+      "text": "我和朋友之间这笔钱的事后面如何",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6352702996989258,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8098576130814836,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-164",
+      "text": "我和合伙人目前这件事后面会怎么样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6873502392426125,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "partnership",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7889219845137094,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "partnership",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "partnership",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    },
+    {
+      "id": "V013-V04-D-165",
+      "text": "这份投资现在的情况最后会如何",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6810873633829576,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8304275463707759,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-166",
+      "text": "基金这件事情接下来会不会有变化",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.734929522576387,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7743940341537998,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-167",
+      "text": "股票这里我现在该怎么办",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5947902640550186,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7863182135284178,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-169",
+      "text": "工资这件事接下来会有什么变化",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6468200411985129,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "income_salary",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7637301597004001,
+        "reasonCode": "confirmed_strong_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "income_salary",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "income_salary",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    },
+    {
+      "id": "V013-V04-D-170",
+      "text": "奖金相关的事情最后会怎么样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_support",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5798398527476213,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "income_bonus",
+        "strength": "support"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7491679812450621,
+        "reasonCode": "confirmed_support_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "income_bonus",
+        "reasonCode": "unique_confirmed_candidate"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "income_bonus",
+        "reasonCode": "unique_confirmed_candidate"
+      }
+    },
+    {
+      "id": "V013-V04-D-175",
+      "text": "结婚这件事情之后会怎么发展",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5534996396916935,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "marriage_match",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7613751361647687,
+        "reasonCode": "confirmed_strong_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "marriage_match",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    }
+  ],
+  "routeUnresolvedFalseActivations": [
+    {
+      "id": "V013-V04-D-157",
+      "text": "这个生意相关的事情后面会怎样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5955647453884865,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7842493642714425,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "business_operation",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-161",
+      "text": "我和朋友之间这笔钱的事后面如何",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6352702996989258,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8098576130814836,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "lend_money",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-164",
+      "text": "我和合伙人目前这件事后面会怎么样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6873502392426125,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "partnership",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7889219845137094,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "partnership",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "partnership",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    },
+    {
+      "id": "V013-V04-D-165",
+      "text": "这份投资现在的情况最后会如何",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6810873633829576,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.8304275463707759,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_profit",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-166",
+      "text": "基金这件事情接下来会不会有变化",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.734929522576387,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7743940341537998,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_price_trend",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-167",
+      "text": "股票这里我现在该怎么办",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "fallback_identity_all22",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5947902640550186,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": null,
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7863182135284178,
+        "reasonCode": "frozen_v02_execution_score_accept"
+      },
+      "fallbackIdentity": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "selection": {
+        "status": "selected",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "investment_position_decision",
+        "reasonCode": "fallback_identity_all22_unique_admission"
+      }
+    },
+    {
+      "id": "V013-V04-D-169",
+      "text": "工资这件事接下来会有什么变化",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.6468200411985129,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "income_salary",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7637301597004001,
+        "reasonCode": "confirmed_strong_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "income_salary",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "income_salary",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    },
+    {
+      "id": "V013-V04-D-170",
+      "text": "奖金相关的事情最后会怎么样",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_support",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5798398527476213,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "income_bonus",
+        "strength": "support"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7491679812450621,
+        "reasonCode": "confirmed_support_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "income_bonus",
+        "reasonCode": "unique_confirmed_candidate"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "income_bonus",
+        "reasonCode": "unique_confirmed_candidate"
+      }
+    },
+    {
+      "id": "V013-V04-D-175",
+      "text": "结婚这件事情之后会怎么发展",
+      "nonRouteSubtype": "route_unresolved",
+      "source": "arbitration_strong",
+      "semanticAct": {
+        "status": "eligible",
+        "probability": 0.5534996396916935,
+        "threshold": 0.5045675974201208
+      },
+      "arbitration": {
+        "routeId": "marriage_match",
+        "strength": "strong"
+      },
+      "routeability": {
+        "disposition": "route_known",
+        "probability": 0.7613751361647687,
+        "reasonCode": "confirmed_strong_rescue"
+      },
+      "fallbackIdentity": null,
+      "selection": {
+        "status": "selected",
+        "routeId": "marriage_match",
+        "reasonCode": "strong_arbitration_confirmed"
+      },
+      "final": {
+        "disposition": "route_known",
+        "routeId": "marriage_match",
+        "reasonCode": "strong_arbitration_confirmed"
+      }
+    }
+  ],
+  "candidateV03DirectionalComparison": {
+    "cohortLevelDirectionalOnly": true,
+    "pairedRowComparison": false,
+    "candidateV03Signals": {
+      "knownMisses": 28,
+      "allKnownMissesOnFallbackHead": true,
+      "routeabilityRejects": 9,
+      "fallbackRejectAll": 14,
+      "fallbackMultipleAdmissions": 5,
+      "fallbackExpectedRouteAbsentFromRouterTop2": 8,
+      "wrongAcceptedKnownRoute": 0,
+      "nearDomainFalseActivations": 9,
+      "nearDomainDirectArbitrationLeaks": 7,
+      "nearDomainFallbackLeaks": 2,
+      "strongPathPositiveRegression": "44/44",
+      "supportPathPositiveRegression": "44/44",
+      "acceptedKnownPrecision": 1
+    },
+    "candidateV04Signals": {
+      "knownMisses": 36,
+      "wrongAcceptedKnown": 4,
+      "overallNonRouteFalseActivations": 10,
+      "nearDomainFalseActivations": 0,
+      "routeUnresolvedFalseActivations": 9,
+      "strongExact": 37,
+      "supportExact": 30,
+      "fallbackExact": 29
+    }
+  },
+  "diagnosis": {
+    "failureIsMultiSurface": true,
+    "structuralPathCollapseObserved": false,
+    "dominantNonRouteFailureSubtype": {
+      "subtype": "route_unresolved",
+      "falseActivations": 9,
+      "rate": 0.4090909090909091
+    },
+    "nearDomainInformationProcedureSafetyObserved": true,
+    "routeUnresolvedSafetyIsDominant": true,
+    "knownRecallBelowGate": true,
+    "acceptedPrecisionBelowGate": true,
+    "overallSafetyBelowGate": true,
+    "subtypeSafetyBelowGate": true,
+    "sameVersionRetuneAuthorized": false
+  },
+  "nextAction": "freeze_candidate_v05_design_from_this_diagnosis_before_any_new_training_calibration_threshold_or_runtime_change"
+}
