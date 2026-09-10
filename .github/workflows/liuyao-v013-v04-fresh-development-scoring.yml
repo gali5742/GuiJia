@@ -1,0 +1,76 @@
+name: LiuYao Candidate v0.4 Fresh Development Scoring
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/run-liuyao-semantic-v013-candidate-v04-development-eval.mjs'
+      - 'data/liuyao-semantic-v013-candidate-v04-development.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-runtime.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json'
+      - 'data/liuyao-semantic-frozen-dependencies-v0.2.json'
+      - 'data/liuyao-semantic-routeability-v0.2-execution-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-model.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-fallback-identity-v02-threshold.lock.json'
+      - 'js/liuyao-semantic-route-evidence-v01.js'
+      - 'js/liuyao-semantic-route-evidence-v02.js'
+      - 'js/liuyao-semantic-route-evidence-v03.js'
+      - 'js/liuyao-semantic-route-arbitration-v011.js'
+      - 'js/liuyao-semantic-route-arbitration-v012.js'
+      - 'js/liuyao-semantic-route-compatibility-v01.js'
+      - 'js/liuyao-semantic-route-compatibility-v02.js'
+      - 'js/liuyao-semantic-route-compatibility-v03.js'
+      - 'js/liuyao-semantic-act-eligibility-v01.js'
+      - 'js/liuyao-semantic-routeability-v05-execution-v01.js'
+      - 'js/liuyao-semantic-fallback-identity-scorer-v02.js'
+      - 'js/liuyao-semantic-fallback-identity-v02.js'
+      - 'js/liuyao-semantic-route-selection-v05.js'
+      - 'js/liuyao-semantic-finalization-v01.js'
+      - 'js/liuyao-semantic-candidate-v04-runtime-v01.js'
+      - '.github/workflows/liuyao-v013-v04-fresh-development-scoring.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  score-fresh-development:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Re-verify sealed cohort before scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v04-development.mjs
+      - name: Install pinned Transformers.js
+        run: npm install --no-save --package-lock=false @huggingface/transformers@4.2.0
+      - name: Run first frozen Candidate v0.4 development scoring
+        env:
+          DEVELOPMENT_SEAL_COMMIT: 8fa9a4e50ebe500c6f28144b0158fd1e3baf273f
+        run: node scripts/run-liuyao-semantic-v013-candidate-v04-development-eval.mjs
+      - name: Commit immutable development report
+        shell: bash
+        run: |
+          REPORT='data/liuyao-semantic-v013-candidate-v04-development-report-v0.1.json'
+          if [ -z "$(git status --porcelain -- "$REPORT")" ]; then
+            echo 'Development report already matches this frozen scoring run.'
+          else
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add "$REPORT"
+            git commit -m 'test(liuyao): record Candidate v0.4 fresh development result'
+            git push origin HEAD:liuyao-semantic-v013-core
+          fi
+      - name: Enforce frozen promotion decision
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const path = 'data/liuyao-semantic-v013-candidate-v04-development-report-v0.1.json';
+          const report = JSON.parse(fs.readFileSync(path, 'utf8'));
+          console.log(JSON.stringify({ status:report.status, checks:report.checks, readyForCandidateLock:report.readyForCandidateLock }, null, 2));
+          if (report.readyForCandidateLock !== true) process.exit(1);
+          NODE
