@@ -1,0 +1,104 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-boundary-review-v0.1",
+  "status": "design_input_frozen_from_candidate_v04_failure_evidence",
+  "scope": "liuyao_semantic_route_sufficiency_before_current22_route_admission",
+  "sources": {
+    "correctedFailureDiagnostic": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.2.json",
+      "gitBlobSha": "af0a3a3710211b3bf84bfcfe7f46648687b560ea",
+      "commit": "ac1454440bd33363ce5dad2e9493f158a369776c",
+      "allowedUse": "architecture_and_label_boundary_diagnosis_only"
+    },
+    "candidateV04Development": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd",
+      "allowedUse": "sealed_failure_evidence_and_row_id_reference_only_not_training_or_wording_generation"
+    },
+    "candidateV04DataContract": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-data-contract-v0.1.json",
+      "gitBlobSha": "0f5f4b863689dda83fada81aa2a5cad45647b73e"
+    }
+  },
+  "observedFailureBoundary": {
+    "semanticActKnownRetention": "132/132",
+    "semanticActNearDomainInformationProcedureBlocking": "22/22",
+    "routeUnresolvedFalseActivation": "9/22",
+    "routeUnresolvedFalseActivationSources": {
+      "arbitration_strong": 3,
+      "arbitration_support": 1,
+      "fallback_identity_all22": 5
+    },
+    "interpretation": "Semantic Act correctly distinguishes divination act from information/procedure act, but does not and should not decide whether an eligible divination request contains enough route-defining semantics. Route-unresolved leakage occurs both before and inside Fallback, so a Fallback-only fix cannot close the safety surface."
+  },
+  "labelBoundaryDecision": {
+    "supportRouteKnown": {
+      "definition": "eligible divination act with enough anchored modern-language semantics to identify one current-22 route even when a fresh explicit future-outcome predicate is not present",
+      "minimumSemanticEvidence": [
+        "a concrete self/transaction/object/relationship referent or role context",
+        "a route-defining topic, predicate, decision target, state dimension or role direction",
+        "no unresolved competing current-22 interpretation after those semantics are considered"
+      ]
+    },
+    "routeUnresolved": {
+      "definition": "eligible divination act whose domain/topic may be recognizable but whose modern-language semantics are insufficient to safely identify exactly one current-22 route",
+      "signals": [
+        "domain noun or route-family noun plus generic predicate such as this matter, situation, problem, what will happen",
+        "missing role direction in paired routes such as borrow versus lend or collect versus repay",
+        "missing action/decision dimension in route families such as investment profit versus price trend versus suitability versus position decision versus liquidation",
+        "missing purchase-versus-receipt or relationship-stage distinction",
+        "multiple current-22 interpretations remain plausible"
+      ]
+    },
+    "notEnoughByItself": [
+      "a current-22 domain noun",
+      "a route-family keyword",
+      "Semantic Act eligibility",
+      "Router Top1 or Top2",
+      "Routeability probability",
+      "strong/support lexical Arbitration trigger without sufficient route semantics"
+    ],
+    "borderlineFamiliesRequiringFreshContrastives": [
+      "business_operation versus generic business matter",
+      "income_salary versus generic salary matter",
+      "income_bonus versus generic bonus matter",
+      "partnership versus generic partner matter",
+      "marriage_match versus generic marriage matter",
+      "borrow_money versus lend_money",
+      "debt_collection versus debt_repayment",
+      "investment_profit versus investment_price_trend versus investment_suitability versus investment_position_decision versus investment_liquidation",
+      "item_purchase versus receive_item",
+      "relationship_development versus marriage_match versus marital_relationship"
+    ]
+  },
+  "newComponentBoundary": {
+    "name": "Route Sufficiency",
+    "responsibility": "decide whether an already Semantic-Act-eligible modern-language divination request contains enough semantics for current-22 route admission",
+    "mustNot": [
+      "select or rank a route",
+      "use traditional LiuYao 六亲, 世应, 用神 or Rule Registry output",
+      "replace Semantic Act Eligibility",
+      "use Router TopK as a sufficiency label",
+      "treat a domain noun alone as sufficient"
+    ],
+    "output": [
+      "route_semantics_sufficient",
+      "route_semantics_insufficient"
+    ],
+    "runtimeMeaning": {
+      "route_semantics_sufficient": "continue to Evidence, Arbitration, Routeability and Fallback",
+      "route_semantics_insufficient": "stop current-22 route admission and return route_unresolved without executing Arbitration rescue or Fallback Identity"
+    }
+  },
+  "trainingGovernance": {
+    "candidateV04DevelopmentRowsTrainingEligible": false,
+    "candidateV04DevelopmentRowsCalibrationEligible": false,
+    "candidateV04FailureTextsMayBeCopiedOrParaphrased": false,
+    "failureEvidenceAllowedUse": "coverage categories and architecture diagnosis only",
+    "freshTrainingRequired": true,
+    "freshCalibrationRequired": true,
+    "contrastiveSameDomainVocabularyRequired": true,
+    "oneGlobalThresholdOnly": true
+  },
+  "decision": "route_sufficiency_component_required_before_any_new_candidate_route_admission",
+  "nextAction": "freeze_candidate_v05_design_with_route_sufficiency_as_pre_arbitration_safety_gate"
+}

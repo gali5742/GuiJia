@@ -1,0 +1,28 @@
+name: LiuYao Candidate v0.5 Design Lock
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v05-design-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-boundary-review-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v05-design.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.2.json'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v05-design.mjs'
+      - '.github/workflows/liuyao-v013-v05-design-lock.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-design-lock:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify frozen Candidate v0.5 design and bindings
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-design.mjs

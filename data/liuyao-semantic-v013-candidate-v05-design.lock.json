@@ -1,0 +1,44 @@
+{
+  "version": "0.13-candidate-v0.5-design-lock-v0.1",
+  "status": "locked_before_v05_training_calibration_or_encoder_scoring",
+  "scope": "liuyao_semantic_decision_stack_v0.13_candidate_v0.5_design",
+  "design": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-design-v0.1.json",
+    "gitBlobSha": "77ed639b92a152783f589d7697dc54eec283e4d0"
+  },
+  "routeSufficiencyBoundaryReview": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-boundary-review-v0.1.json",
+    "gitBlobSha": "a9b21fcd76a69577f3cf6f14ba4c871cbe762f87"
+  },
+  "sourceFailureDiagnostic": {
+    "path": "data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.2.json",
+    "gitBlobSha": "af0a3a3710211b3bf84bfcfe7f46648687b560ea",
+    "commit": "ac1454440bd33363ce5dad2e9493f158a369776c"
+  },
+  "frozenChangeSet": [
+    "Route Sufficiency v0.1 pre-Arbitration gate",
+    "Fallback Identity v0.3 all-22 retrain/recalibration",
+    "Selection v0.6 no-Arbitration conflict-safe admission"
+  ],
+  "explicitlyNotChanged": [
+    "Semantic Act v0.1",
+    "Evidence v0.3",
+    "Arbitration v0.12",
+    "Compatibility v0.3",
+    "Routeability v0.5 execution threshold 0.7678148573595883",
+    "Router model and TopK",
+    "Scope cutoff 0.4319473801404805",
+    "Finalization v0.1",
+    "current-22 inventory",
+    "traditional LiuYao TR/MR"
+  ],
+  "governance": {
+    "candidateV04DevelopmentUsedAsTrainingRows": false,
+    "candidateV04DevelopmentUsedAsCalibrationRows": false,
+    "candidateV04FailureWordingUsedForGeneration": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "v05EncoderScoringBeforeThisLock": false
+  },
+  "nextAction": "freeze_candidate_v05_route_sufficiency_data_and_training_calibration_contract"
+}

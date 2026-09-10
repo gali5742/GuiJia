@@ -1,0 +1,303 @@
+{
+  "version": "0.13-candidate-v0.5-design-v0.1",
+  "status": "design_frozen_before_v05_training_calibration_or_runtime_change",
+  "scope": "liuyao_semantic_decision_stack_v0.13",
+  "sourceFailureEvidence": {
+    "correctedDiagnostic": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.2.json",
+      "gitBlobSha": "af0a3a3710211b3bf84bfcfe7f46648687b560ea",
+      "commit": "ac1454440bd33363ce5dad2e9493f158a369776c",
+      "allowedUse": "architecture_and_coverage_diagnosis_only",
+      "trainingEligible": false,
+      "calibrationEligible": false,
+      "thresholdSelectionEligible": false
+    },
+    "routeSufficiencyBoundaryReview": {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-boundary-review-v0.1.json",
+      "gitBlobSha": "a9b21fcd76a69577f3cf6f14ba4c871cbe762f87",
+      "allowedUse": "design_semantics_only_not_row_source"
+    }
+  },
+  "candidateV04": {
+    "promotionStatus": "failed_fresh_development",
+    "mutationAllowed": false,
+    "candidateLockAllowed": false,
+    "developmentRescoreForRetuningAllowed": false,
+    "developmentRowsMayEnterV05Training": false,
+    "developmentRowsMayEnterV05Calibration": false,
+    "developmentRowsMayDetermineV05Thresholds": false,
+    "failureReportAndDiagnosticsRemainImmutableEvidence": true
+  },
+  "observedV04Failure": {
+    "knownExact": "96/132",
+    "knownExactRoute": 0.7272727272727273,
+    "acceptedKnown": 100,
+    "wrongAcceptedKnown": 4,
+    "acceptedRouteAccuracy": 0.96,
+    "nonRouteFalseActivations": "10/66",
+    "overallFalseRouteActivation": 0.15151515151515152,
+    "routeUnresolvedFalseActivations": "9/22",
+    "routeUnresolvedFalseActivation": 0.4090909090909091,
+    "nearDomainInformationProcedureFalseActivations": "0/22",
+    "knownFailureCauses": {
+      "routeability_reject": 13,
+      "fallback_reject_all": 7,
+      "fallback_multiple_admissions": 12,
+      "wrong_route_accepted": 4
+    },
+    "routeUnresolvedLeakSources": {
+      "arbitration_strong": 3,
+      "arbitration_support": 1,
+      "fallback_identity_all22": 5
+    },
+    "wrongAcceptedArchitectureSignals": {
+      "fallback_family_confusion_rows": [
+        "V013-V04-D-082",
+        "V013-V04-D-099",
+        "V013-V04-D-100"
+      ],
+      "selection_conflict_row": "V013-V04-D-104",
+      "selectionConflictMeaning": "Fallback uniquely admitted the expected debt_collection route, but Selection v0.5 chose a different compatibility-confirmed Router candidate; this is an integration conflict, not evidence that the Fallback route was absent."
+    }
+  },
+  "designPrinciple": {
+    "strategy": "minimal_attributable_multi_surface_revision",
+    "reason": "Candidate v0.4 exposes three separable promoted-gate failure surfaces that cannot be repaired by one threshold: eligible-but-route-insufficient safety leakage before both Arbitration and Fallback; Fallback Identity recall/precision family confusion; and no-arbitration Selection allowing Router/Compatibility to override or bypass Fallback identity admission. Routeability recall is real but remains deferred so the next fresh development can attribute these three changes before spending another model revision.",
+    "sameVersionRetuningForbidden": true
+  },
+  "changeNow": [
+    "add Route Sufficiency v0.1 after Semantic Act Eligibility and before Evidence/Arbitration rescue",
+    "train Fallback Identity v0.3 from scratch under the same all-22 independent-head architecture with fresh role-direction and confusable-family coverage",
+    "replace Selection v0.5 with conflict-safe Selection v0.6 so no-arbitration routing requires a unique Fallback admission and Router candidates cannot independently override that identity decision"
+  ],
+  "explicitlyDeferred": [
+    "Semantic Act Eligibility retraining or threshold retuning",
+    "Evidence v0.3 lexical expansion",
+    "Arbitration v0.12 positive-route rule expansion",
+    "Compatibility v0.3 semantic expansion",
+    "Routeability model retraining",
+    "Routeability threshold retuning",
+    "below-threshold Fallback rescue",
+    "Router model retraining",
+    "Router TopK or margin tuning",
+    "Scope hard-veto retuning",
+    "Finalization v0.1 strong-scope-bypass Compatibility-v0.2 cleanup",
+    "current-22 route inventory expansion",
+    "traditional LiuYao Rule Registry or TR/MR changes"
+  ],
+  "plannedRuntime": {
+    "order": [
+      "normalized_question",
+      "frozen_encoder",
+      "Semantic_Act_v0.1",
+      "Route_Sufficiency_v0.1",
+      "Evidence_v0.3",
+      "Arbitration_v0.12",
+      "Compatibility_v0.3",
+      "Routeability_v0.5_execution_corrected_threshold",
+      "Fallback_Identity_v0.3",
+      "Selection_v0.6",
+      "Finalization_v0.1"
+    ],
+    "semanticActEligibility": {
+      "version": "v0.1",
+      "change": "none",
+      "reason": "v0.4 fresh development retained 132/132 known rows and blocked 22/22 near-domain information/procedure rows"
+    },
+    "routeSufficiency": {
+      "version": "v0.1",
+      "position": "after_semantic_act_eligible_before_evidence_and_arbitration",
+      "responsibility": "decide whether an eligible modern-language divination request contains enough route-defining semantics to safely enter current-22 route admission",
+      "labels": [
+        "route_semantics_sufficient",
+        "route_semantics_insufficient"
+      ],
+      "model": {
+        "initialArchitecture": "one_binary_logistic_head_over_frozen_512_dimension_encoder_vector",
+        "encoderRetraining": false,
+        "oneGlobalThresholdOnly": true,
+        "routeSpecificThresholds": false
+      },
+      "hardBehavior": [
+        "Semantic Act ineligible remains non_route before Route Sufficiency",
+        "Route Sufficiency insufficient returns route_unresolved and prevents Arbitration rescue, Routeability route admission and Fallback Identity",
+        "Route Sufficiency sufficient only grants permission to continue and never selects or ranks a route",
+        "domain nouns and route-family keywords alone may not satisfy the gate",
+        "Router Top1/Top2 and Routeability probability may not be used as sufficiency labels"
+      ],
+      "forbiddenFeatures": [
+        "traditional LiuYao 六亲",
+        "世应",
+        "用神",
+        "Rule Registry output",
+        "Observation Rule output"
+      ]
+    },
+    "evidence": {
+      "version": "v0.3",
+      "change": "none"
+    },
+    "arbitration": {
+      "version": "v0.12",
+      "change": "none",
+      "newPrecondition": "Route Sufficiency v0.1 must be sufficient before Arbitration may rescue or select a semantic route"
+    },
+    "compatibility": {
+      "version": "v0.3",
+      "change": "none"
+    },
+    "routeability": {
+      "version": "v0.5_execution_corrected_threshold",
+      "threshold": 0.7678148573595883,
+      "change": "none",
+      "knownResidualRisk": "13 Candidate v0.4 known rows were rejected by Routeability; this remains explicit residual risk for Candidate v0.5 rather than being mixed into the same revision"
+    },
+    "fallbackIdentity": {
+      "version": "v0.3",
+      "appliesOnlyWhen": "Semantic Act eligible AND Route Sufficiency sufficient AND Arbitration null AND Routeability route_known",
+      "candidateUniverse": "all_current_22_routes",
+      "routerTop1Top2": "diagnostic_provenance_only_not_candidate_restriction",
+      "model": {
+        "type": "22 independent one-vs-rest binary logistic heads over the frozen 512-dimensional encoder vector",
+        "trainFromScratch": true,
+        "legacyV02WeightsReusable": false,
+        "algorithm": "retain deterministic full-batch one-vs-rest logistic contract unless a pre-training versioned contract is frozen before the first encoder pass",
+        "thresholdPolicy": "exactly_one_global_fallback_admission_threshold",
+        "routeSpecificThresholds": false
+      },
+      "requiredFreshCoverage": [
+        "borrow versus lend role direction",
+        "debt collection versus debt repayment role direction",
+        "investment profit versus price trend versus suitability versus position decision versus liquidation",
+        "inventory purchase versus inventory sale versus item purchase versus receive item",
+        "relationship development versus marriage match versus marital relationship",
+        "fresh eligible-but-route-insufficient hard negatives across confusable current-22 families",
+        "route paraphrases whose correct identity does not depend on Router Top2 membership"
+      ],
+      "decisionContract": [
+        "score all current 22 heads",
+        "admit every head at or above the one global threshold",
+        "exactly one admitted route produces selected",
+        "zero or multiple admitted routes produce route_unresolved",
+        "Router rank or margin may not break multiple admission"
+      ]
+    },
+    "selection": {
+      "version": "v0.6",
+      "changes": [
+        "preserve strong/support Arbitration priority after Route Sufficiency passes",
+        "when Arbitration is null, Router Top1/Top2 and Compatibility may provide diagnostics but may not independently produce a final route",
+        "when Arbitration is null, exactly one Fallback Identity v0.3 admission is required before Selection can select a route",
+        "if a uniquely admitted Fallback route conflicts with a distinct compatibility-confirmed Router candidate, return route_unresolved with a dedicated fallback_router_conflict reason instead of allowing Router override",
+        "if Fallback admission is zero or multiple, Selection remains route_unresolved",
+        "never synthesize a route absent from Arbitration or unique Fallback admission"
+      ]
+    },
+    "finalization": {
+      "version": "v0.1",
+      "change": "none",
+      "scopeHardVetoCutoff": 0.4319473801404805
+    }
+  },
+  "developmentLifecycle": {
+    "phaseA_routeSufficiency": [
+      "freeze fresh Route Sufficiency training and calibration data contract before any encoder scoring",
+      "generate fresh contrastive training/calibration rows without copying or paraphrasing Candidate v0.4 development wording",
+      "train and lock Route Sufficiency weights",
+      "select and lock one global sufficiency threshold on the frozen calibration split"
+    ],
+    "phaseB_fallbackV03": [
+      "after Route Sufficiency lock, freeze Fallback v0.3 training/calibration contract and reachability membership",
+      "reuse only historically training-eligible corpora plus fresh v0.3 augmentation; Candidate v0.4 development remains forbidden",
+      "train all 22 heads from scratch and lock weights before threshold calibration",
+      "calibrate exactly one global Fallback threshold under all-22 exact-one admission",
+      "lock threshold before integrated Candidate v0.5 development construction"
+    ],
+    "phaseC_selectionAndRuntime": [
+      "implement Selection v0.6 conflict-safe no-arbitration contract",
+      "integrate exact Candidate v0.5 runtime order",
+      "lock runtime modules and thresholds before fresh development"
+    ],
+    "phaseD_freshDevelopment": [
+      "build a new fresh integrated development cohort only after all Candidate v0.5 component/runtime locks",
+      "audit exact and near-duplicate isolation against all Candidate v0.5 training/calibration and Candidate v0.4 development",
+      "seal and commit development cohort before first encoder scoring",
+      "run exactly one frozen development evaluation for promotion decision"
+    ]
+  },
+  "freshDataPolicy": {
+    "routeSufficiencyTraining": {
+      "required": true,
+      "fresh": true,
+      "mustCover": [
+        "sufficient strong-route questions",
+        "sufficient support-style topic-state questions",
+        "sufficient fallback-style paraphrases",
+        "eligible but route-insufficient generic-domain questions",
+        "role-direction ambiguity",
+        "same-domain contrastive pairs with sufficient and insufficient semantics"
+      ]
+    },
+    "routeSufficiencyCalibration": {
+      "required": true,
+      "separateFromTraining": true,
+      "oneGlobalThresholdOnly": true,
+      "selectionPrinciple": "first satisfy predeclared insufficient false-pass safety, then maximize sufficient retention; exact numeric feasibility contract must be frozen before training"
+    },
+    "fallbackIdentityV03Training": {
+      "required": true,
+      "freshAugmentationRequired": true,
+      "mayReusePriorTrainingEligibleCorpora": true,
+      "candidateV04DevelopmentRowsForbidden": true
+    },
+    "fallbackIdentityV03Calibration": {
+      "required": true,
+      "separateFromTraining": true,
+      "candidateUniverse": "all_current_22_routes",
+      "oneGlobalThresholdOnly": true,
+      "routeSpecificThresholdsForbidden": true
+    },
+    "forbiddenSources": [
+      "Candidate v0.4 198-row development corpus as training/calibration examples",
+      "Candidate v0.4 development report rows as wording sources",
+      "Candidate v0.4 failure diagnostic rows as wording sources",
+      "Candidate v0.1 or v0.2 independent evaluation",
+      "any unread Candidate v0.3 or later independent evaluation",
+      "all sealed blind evaluation corpora",
+      "new-theme literature research corpora reserved for route expansion"
+    ]
+  },
+  "freshDevelopmentPolicy": {
+    "required": true,
+    "requiredCoverage": [
+      "strong Arbitration positive regression after Route Sufficiency",
+      "support Arbitration positive regression after Route Sufficiency",
+      "pure Fallback Identity known routes across all 22 routes",
+      "Route Sufficiency sufficient/insufficient contrastives",
+      "outside_current_22 non-route",
+      "route_unresolved non-route with generic predicates and role-direction ambiguity",
+      "near_domain_not_current_route information/procedure acts"
+    ],
+    "promotionGates": {
+      "minimumKnownExactRoute": 0.8,
+      "minimumAcceptedRouteAccuracy": 0.98,
+      "maximumOverallFalseRouteActivation": 0.05,
+      "maximumFalseRouteActivationPerNonRouteSubtype": 0.05,
+      "requireNoStructuralPathCollapse": true
+    },
+    "noPostHocTuning": true
+  },
+  "independentEvaluationPolicy": {
+    "readBeforeDevelopmentPass": false,
+    "readBeforeCandidateLock": false,
+    "candidateLockRequiredBeforeFreshIndependent": true,
+    "freshPostLockIndependentRequired": true,
+    "sameVersionRetuneAfterIndependent": false
+  },
+  "traditionalLiuYaoBoundary": {
+    "modified": false,
+    "semanticLayerMaySelectTraditionalUseGod": false,
+    "semanticLayerMayModifyTRMR": false
+  },
+  "nextAction": "freeze_candidate_v05_route_sufficiency_data_and_training_calibration_contract_before_any_v05_encoder_scoring"
+}
