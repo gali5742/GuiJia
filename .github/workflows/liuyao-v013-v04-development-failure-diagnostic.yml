@@ -1,0 +1,50 @@
+name: LiuYao Candidate v0.4 Development Failure Diagnosis
+
+on:
+  push:
+    branches:
+      - liuyao-semantic-v013-core
+    paths:
+      - 'scripts/analyze-liuyao-semantic-v013-candidate-v04-development-failure.mjs'
+      - 'data/liuyao-semantic-v013-candidate-v04-development-report-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-development.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-runtime.lock.json'
+      - 'data/liuyao-semantic-v013-candidate-v04-design-v0.1.json'
+      - '.github/workflows/liuyao-v013-v04-development-failure-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Analyze committed first development failure
+        run: node scripts/analyze-liuyao-semantic-v013-candidate-v04-development-failure.mjs
+      - name: Verify deterministic diagnosis
+        shell: bash
+        run: |
+          OUT='data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.1.json'
+          BEFORE="$(sha256sum "$OUT" | cut -d' ' -f1)"
+          node scripts/analyze-liuyao-semantic-v013-candidate-v04-development-failure.mjs
+          AFTER="$(sha256sum "$OUT" | cut -d' ' -f1)"
+          test "$BEFORE" = "$AFTER"
+          echo "diagnostic_sha256=$AFTER"
+      - name: Commit immutable failure diagnosis
+        shell: bash
+        run: |
+          OUT='data/liuyao-semantic-v013-candidate-v04-development-failure-diagnostic-v0.1.json'
+          if [ -z "$(git status --porcelain -- "$OUT")" ]; then
+            echo 'Failure diagnosis already matches committed first-development report.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$OUT"
+          git commit -m 'test(liuyao): record Candidate v0.4 development failure diagnosis'
+          git push origin HEAD:liuyao-semantic-v013-core
