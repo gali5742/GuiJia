@@ -1,0 +1,1868 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-training-v0.1",
+  "status": "sealed_training_data",
+  "sealed": true,
+  "contractPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-contract-v0.1.json",
+  "contractSha256": "4ac019c622c0d142cb2fe14ad7d87f4f2c06cf824cd3018d7fe2a7e50b20fd1c",
+  "policy": {
+    "fresh": true,
+    "literalAuthoring": true,
+    "encoderScoringPerformed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV04FailureWordingUsedForGeneration": false,
+    "useForWeightTraining": true,
+    "useForThresholdSelection": false
+  },
+  "rows": [
+    {
+      "id": "V013-V05-RS-T-01-1-S",
+      "text": "家里今年的整体财运能否从紧张转为宽裕？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-1",
+      "style": "strong",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-01-1-I",
+      "text": "想为家里的钱占一问，这方面到底是个什么局面？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": "overall_financial_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-01-2-S",
+      "text": "占问我的财运，关注的是整年所有收入和支出合起来的状况。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-2",
+      "style": "support",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-01-2-I",
+      "text": "我心里挂着财运这件事，但还没想清具体要看哪一方面。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": "overall_financial_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-01-3-S",
+      "text": "不单看哪一笔款，我想知道未来半年自己的经济处境会改善吗。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-01-3-I",
+      "text": "未来半年和钱有关的事会怎样，我暂时说不清是哪件事。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "general_finances",
+      "contrastGroup": "V013-V05-RS-T-01-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "financial_fortune"
+      ],
+      "missingDimension": "overall_financial_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-1-S",
+      "text": "我的修鞋铺还在营业，下一季经营能否走出冷清？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-1",
+      "style": "strong",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-1-I",
+      "text": "修鞋铺这边有个生意问题，下一季这事会如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": "ongoing_operation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-2-S",
+      "text": "这卦问我开的早餐档日常经营状态，关注客源与持续营业。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-2",
+      "style": "support",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-2-I",
+      "text": "这卦问早餐档的生意，我尚未讲明具体指哪件事情。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": "ongoing_operation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-3-S",
+      "text": "继续守着这间社区打印店做日常生意，后面会越做越稳吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-02-3-I",
+      "text": "我和社区打印店之间有件事，想占占后续怎样。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "business",
+      "contrastGroup": "V013-V05-RS-T-02-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "business_operation"
+      ],
+      "missingDimension": "ongoing_operation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-1-S",
+      "text": "我与酒店正在议价的一单桌布供货，能否签下这笔交易？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-1",
+      "style": "strong",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-1-I",
+      "text": "我与酒店有件桌布生意，想问这件事的前景。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": "deal_completion",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-2-S",
+      "text": "占问正在洽谈的展柜买卖能不能成交，双方还没签合同。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-2",
+      "style": "support",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-2-I",
+      "text": "占问展柜买卖的事情，双方各自的情况我还没说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": "deal_completion",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-3-S",
+      "text": "对面口头同意订我制作的灯架，这一单会真的谈成吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-03-3-I",
+      "text": "我想占一占那批灯架的买卖，后面究竟如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-03-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "commercial_transaction"
+      ],
+      "missingDimension": "deal_completion",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-1-S",
+      "text": "我经营的杂货铺要补进一批保温杯作库存，这次进货会顺利吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-1",
+      "style": "strong",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-1-I",
+      "text": "杂货铺有一批保温杯的货事，想占占会怎样。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": "stock_acquisition",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-2-S",
+      "text": "为文具店补货占问，我要从批发商购入练习本用于零售。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-2",
+      "style": "support",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-2-I",
+      "text": "为文具店的练习本占问，眼下还没说明打算做什么。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": "stock_acquisition",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-3-S",
+      "text": "店里准备添一批雨伞摆上货架，买进来补库存合适吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-04-3-I",
+      "text": "店里这批雨伞有件事拿不定主意，结果会如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-04-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_purchase"
+      ],
+      "missingDimension": "stock_acquisition",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-1-S",
+      "text": "库房里剩下的童装由我拿去零售，下月能否卖掉积货？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-1",
+      "style": "strong",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-1-I",
+      "text": "库房里那批童装让我挂心，下月这件事会如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": "stock_disposal",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-2-S",
+      "text": "问书店手头滞销挂历的出货情况，关注将现有库存卖给顾客。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-2",
+      "style": "support",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-2-I",
+      "text": "问书店挂历有关的事情，关注什么我还没有交代。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": "stock_disposal",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-3-S",
+      "text": "这些旧款灯泡已经压在我的货架上，我能把它们出售出去吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-05-3-I",
+      "text": "我手边有一批旧款灯泡，想占一卦看接下来的事。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "trade_inventory",
+      "contrastGroup": "V013-V05-RS-T-05-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "inventory_sale"
+      ],
+      "missingDimension": "stock_disposal",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-1-S",
+      "text": "我缺修屋资金，向表姐请求借给我五千元会获准吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-1",
+      "style": "strong",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-1-I",
+      "text": "表姐和我谈到五千元借款，这件事会有什么进展？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-1",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-2-S",
+      "text": "占问我向信用社借入一笔周转款的申请能否得到批准。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-2",
+      "style": "support",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-2-I",
+      "text": "占问与信用社有关的周转款，但还没交代谁向谁借。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-2",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-3-S",
+      "text": "钱现在不够，我打算请同学把一笔款借给我，能借到吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-06-3-I",
+      "text": "同学与我有笔借钱的事情，暂时没说明双方的方向。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-06-3",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "borrow_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-1-S",
+      "text": "学弟要借我的积蓄付租金，我把钱借出去给他妥当吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-1",
+      "style": "strong",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-1-I",
+      "text": "学弟和我有笔付租金的借款，想看这件事的走向。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-1",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-2-S",
+      "text": "我问向同事出借自有资金是否合宜，借款人是同事而不是我。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-2",
+      "style": "support",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-2-I",
+      "text": "我问同事间的借贷是否妥当，还没有指出我在其中是哪方。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-2",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-3-S",
+      "text": "弟弟希望用我存着的钱应急，我现在借给弟弟会顺吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-07-3-I",
+      "text": "弟弟与我谈了笔应急款，想占一卦但没有说明谁给谁。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "credit_direction",
+      "contrastGroup": "V013-V05-RS-T-07-3",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "lend_money"
+      ],
+      "missingDimension": "borrower_vs_lender",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-1-S",
+      "text": "承包商还欠我尾款，我催他偿付后能把钱收回来吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-1",
+      "style": "strong",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-1-I",
+      "text": "承包商与我有尾款问题，想问这笔债往后如何。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-1",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-2-S",
+      "text": "我作债权人问朋友欠我的货款何时归还，款是我要收的。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-2",
+      "style": "support",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-2-I",
+      "text": "我问朋友间这笔货款债务，但还没讲我是要收还是要付。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-2",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-3-S",
+      "text": "那笔钱去年由我借给姨夫，今后他会归还到我的账户吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-08-3-I",
+      "text": "我与姨夫有笔旧借款，今后这笔钱会是怎样的局面？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-08-3",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_collection"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-1-S",
+      "text": "我尚欠家具店分期款，今年能由我把欠款全还清吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-1",
+      "style": "strong",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-1-I",
+      "text": "我与家具店的分期款还有事情，今年那笔债会如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-1",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-2-S",
+      "text": "占问我的助学借款偿还进程，欠款在我名下，由我逐期归还。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-2",
+      "style": "support",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-2-I",
+      "text": "占问助学借款一事，欠款与我怎样关联尚未具体说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-2",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-3-S",
+      "text": "钱是我从叔叔那里借来的，往后能凑够款把债还给他吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-09-3-I",
+      "text": "叔叔和我之间有借款挂着，往后这事情能有个什么结果？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "debt_direction",
+      "contrastGroup": "V013-V05-RS-T-09-3",
+      "style": "role_direction_ambiguity",
+      "routeCoverage": [
+        "debt_repayment"
+      ],
+      "missingDimension": "creditor_vs_debtor",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-1-S",
+      "text": "我和堂兄共同经营陶艺工作室，这段合伙能配合长久吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-1",
+      "style": "strong",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-1-I",
+      "text": "我和堂兄之间有陶艺工作室的事，后面会变成什么样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": "joint_cooperation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-2-S",
+      "text": "占问我与同窗共同出资办项目的合作关系能否保持稳定。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-2",
+      "style": "support",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-2-I",
+      "text": "占问同窗和一个项目的问题，我与他的关联还没说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": "joint_cooperation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-3-S",
+      "text": "我与她打算各出一半资金一起做手工摊，两人携手会顺畅吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-10-3-I",
+      "text": "我与她谈到手工摊的事情，眼下究竟该看哪个方面还不清楚。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "partnership",
+      "contrastGroup": "V013-V05-RS-T-10-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "partnership"
+      ],
+      "missingDimension": "joint_cooperation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-1-S",
+      "text": "我已投进这只债券基金，到本年结束实际盈亏会为正吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-1",
+      "style": "strong",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-1-I",
+      "text": "我在关注这只债券基金，本年结束这事会变成什么样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-2-S",
+      "text": "问现有投资给我带来的赚赔结果，只看个人投入的收益。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-2",
+      "style": "support",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-2-I",
+      "text": "问现有投资这方面的情况，目前尚未指明要看哪一项。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-3-S",
+      "text": "我买了这只宽基基金，持有的这笔资金最后能替我赚到钱吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-11-3-I",
+      "text": "我买的宽基基金有个问题，想占后续但还没说清问题是什么。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-11-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_profit"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-1-S",
+      "text": "想占这只银行股下一月报价涨还是跌，只问市场价格方向。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-1",
+      "style": "strong",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-1-I",
+      "text": "想占这只银行股下一月会怎样，但还没明确观察哪个方面。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-2-S",
+      "text": "本卦关注铜期货的价格趋势，看交易价格是走高还是走低。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-2",
+      "style": "support",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-2-I",
+      "text": "本卦关注铜期货这件事，具体目标或观察维度尚未说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-3-S",
+      "text": "我看着黄金报价，随后几周它的市场售价会向上行吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-12-3-I",
+      "text": "黄金相关的这件事让我疑惑，随后几周这方面会是什么结果？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-12-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_price_trend"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-1-S",
+      "text": "我从未持有这只成长基金，现在开始投入它对我适宜吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-1",
+      "style": "strong",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-1-I",
+      "text": "我在考虑这只成长基金，想看我与它的事会如何。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-2-S",
+      "text": "此卦问首次参与这项投资是否适合我的处境，尚未入场。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-2",
+      "style": "support",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-2-I",
+      "text": "此卦问这项投资与我的关联，只说投资还没提出所问目标。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-3-S",
+      "text": "我还没有买这只指数产品，把资金投进去这个选择适不适合我？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-13-3-I",
+      "text": "我与这只指数产品有件事情，资金方面的目标还没有明确。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-13-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_suitability"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-1-S",
+      "text": "我已有这只科技股仓位，留着现有股份还是减掉一半更合宜？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-1",
+      "style": "strong",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-1-I",
+      "text": "我已有这只科技股，接下来这件事究竟会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-2-S",
+      "text": "占现有基金仓位的调整决策，选择维持份额或追加一部分。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-2",
+      "style": "support",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-2-I",
+      "text": "占现有基金的事情，尚未说明关注什么变化或决定。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-3-S",
+      "text": "我手上这笔证券已经买入，眼下应该增持一点还是守住数量？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-14-3-I",
+      "text": "我手上这笔证券已经买入，眼下相关事情的结局如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-14-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_position_decision"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-1-S",
+      "text": "我准备卖光手里这只矿业股退出投资，哪时清仓能顺利？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-1",
+      "style": "strong",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-1-I",
+      "text": "手里这只矿业股有件事需要占问，哪时会有个结果？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-2-S",
+      "text": "关注现有基金全部赎回并结束这项投资，询问退出能否完成。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-2",
+      "style": "support",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-2-I",
+      "text": "关注现有基金的后续，询问的具体操作或状态还没有交代。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-3-S",
+      "text": "我想把持有的证券一张不留地卖掉离场，现在彻底退出合适吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-15-3-I",
+      "text": "我想占持有证券的一件事，现在这个局面会有什么走向？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "investment_dimension",
+      "contrastGroup": "V013-V05-RS-T-15-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "investment_liquidation"
+      ],
+      "missingDimension": "investment_state_or_action",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-1-S",
+      "text": "我在餐馆工作的本月工资，会按说好的发薪日到账吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-1",
+      "style": "strong",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-1-I",
+      "text": "餐馆和我有一件工资方面的事，本月这事会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": "salary_arrival_or_amount",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-2-S",
+      "text": "此卦问我受雇做设计所得薪资，关注下期工资实际能领到多少。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-2",
+      "style": "support",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-2-I",
+      "text": "此卦问设计工作的工资问题，但尚未交代我想问的是哪个问题。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": "salary_arrival_or_amount",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-3-S",
+      "text": "厂里每月发给我的劳动报酬，下回会比上月增加吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-16-3-I",
+      "text": "厂里发给我的劳动报酬这件事，下回究竟如何还想占占。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-16-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_salary"
+      ],
+      "missingDimension": "salary_arrival_or_amount",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-1-S",
+      "text": "单位年底要评绩效奖，我会获发这笔额外奖金吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-1",
+      "style": "strong",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-1-I",
+      "text": "单位年底的绩效奖有件事让我挂心，最后这事如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": "bonus_award_or_arrival",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-2-S",
+      "text": "问部门季度奖金的发放，关注我是否能领到工资之外的奖励款。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-2",
+      "style": "support",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-2-I",
+      "text": "问部门季度奖金有关的情况，究竟在问什么还没有说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": "bonus_award_or_arrival",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-3-S",
+      "text": "公司说有超额业绩奖励，我今年能拿到属于我的那份吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-17-3-I",
+      "text": "公司的超额业绩奖励让我惦记，今年这件事会是怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "employment_income",
+      "contrastGroup": "V013-V05-RS-T-17-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "income_bonus"
+      ],
+      "missingDimension": "bonus_award_or_arrival",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-1-S",
+      "text": "朋友承诺赠给我的相机还未送来，我能按时收到这件礼物吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-1",
+      "style": "strong",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-1-I",
+      "text": "朋友和我的相机有一件事未了，我想占这件东西的后续。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-2-S",
+      "text": "此问关注寄给我的旧唱片实物能否到手，物品正在邮递途中。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-2",
+      "style": "support",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-2-I",
+      "text": "此问关注旧唱片这件东西，涉及什么动作或目标尚未说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-3-S",
+      "text": "家人替我保管的箱子正在送回，我会顺利拿到手吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-18-3-I",
+      "text": "我与家人谈到那个箱子，想占问事情结果但未交代要做什么。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-18-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "receive_item"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-1-S",
+      "text": "我想付款买一台投影仪自己用，这次购买决定妥当吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-1",
+      "style": "strong",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-1-I",
+      "text": "我想为一台投影仪占一问，这件东西有关的事会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-2-S",
+      "text": "本卦问购入家用除湿机是否合宜，由我付款购买自用。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-2",
+      "style": "support",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-2-I",
+      "text": "本卦问家用除湿机的问题，尚未说清我准备对它做什么。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-3-S",
+      "text": "我打算花钱购置一辆折叠车供自己骑，买下它会满意吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-19-3-I",
+      "text": "我打算问折叠车的一件事，最终是什么情形呢？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "item_direction",
+      "contrastGroup": "V013-V05-RS-T-19-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "item_purchase"
+      ],
+      "missingDimension": "purchase_vs_receipt",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-1-S",
+      "text": "我和刚认识的女生还没恋爱，两人的感情接下来会更亲近吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-1",
+      "style": "strong",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-1-I",
+      "text": "我和刚认识的女生有感情方面的事，接下来究竟会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": "relationship_stage_or_target",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-2-S",
+      "text": "占问尚未谈婚的恋爱关系升温情况，关注相处是否更亲密。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-2",
+      "style": "support",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-2-I",
+      "text": "占问感情关系的一件事情，还没有明确关系阶段或询问目标。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": "relationship_stage_or_target",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-3-S",
+      "text": "我们目前只是约会往来，今后会从朋友发展为恋人吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-20-3-I",
+      "text": "我们有些往来，感情这件事今后会发生什么呢？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-20-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "relationship_development"
+      ],
+      "missingDimension": "relationship_stage_or_target",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-1-S",
+      "text": "我和相亲对象尚未结婚，这段姻缘能促成婚事吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-1",
+      "style": "strong",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-1-I",
+      "text": "我和相亲对象有婚姻方面的事，这段事情会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": "marriage_formation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-2-S",
+      "text": "此卦看未婚的我与女友能否建立婚姻，所问目标是成婚。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-2",
+      "style": "support",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-2-I",
+      "text": "此卦看我与女友的婚姻事项，具体目标还没有说明。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": "marriage_formation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-3-S",
+      "text": "双方家长在商量婚期，我和他最终会成为夫妻吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-21-3-I",
+      "text": "双方家长提过婚姻有关的事，我和他的事情最后如何？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-21-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marriage_match"
+      ],
+      "missingDimension": "marriage_formation",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-1-S",
+      "text": "我与丈夫已经结婚多年，往后夫妻感情会恢复和睦吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-1",
+      "style": "strong",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-1-I",
+      "text": "我与丈夫的婚姻有件事情悬着，往后这件事会怎样？",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-1",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": "existing_marriage_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-2-S",
+      "text": "这一卦看现有夫妻关系的相处状态，我与妻子已经登记结婚。",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-2",
+      "style": "support",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-2-I",
+      "text": "这一卦看我与妻子婚姻方面的问题，尚未说清关注哪个维度。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-2",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": "existing_marriage_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-3-S",
+      "text": "我们是已有婚姻的夫妻，现在常争执，以后的婚内关系能变好吗？",
+      "label": "route_semantics_sufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-3",
+      "style": "fallback",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": null,
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    },
+    {
+      "id": "V013-V05-RS-T-22-3-I",
+      "text": "我们是夫妻，婚姻里有个问题，想占以后这方面会如何。",
+      "label": "route_semantics_insufficient",
+      "split": "training",
+      "domainFamily": "relationship_stage",
+      "contrastGroup": "V013-V05-RS-T-22-3",
+      "style": "generic_domain_or_missing_dimension",
+      "routeCoverage": [
+        "marital_relationship"
+      ],
+      "missingDimension": "existing_marriage_state",
+      "provenance": "fresh_v05_individually_authored_modern_language_contrasts"
+    }
+  ],
+  "sealedBeforeFirstEncoderScoring": true
+}

@@ -1,0 +1,338 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-contamination-audit-v0.1",
+  "status": "pass_encoder_free_data_audit",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-contract-v0.1.json",
+    "sha256": "4ac019c622c0d142cb2fe14ad7d87f4f2c06cf824cd3018d7fe2a7e50b20fd1c",
+    "gitBlobSha": "6472e2e10f53775aaea2f6333a9668037dd4b60a"
+  },
+  "counts": {
+    "training": {
+      "rows": 132,
+      "labels": {
+        "route_semantics_sufficient": 66,
+        "route_semantics_insufficient": 66
+      },
+      "styles": {
+        "strong": 22,
+        "generic_domain_or_missing_dimension": 54,
+        "support": 22,
+        "fallback": 22,
+        "role_direction_ambiguity": 12
+      },
+      "coverage": {
+        "financial_fortune": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "business_operation": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "commercial_transaction": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "inventory_purchase": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "inventory_sale": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "borrow_money": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "lend_money": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "debt_collection": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "debt_repayment": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "partnership": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_profit": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_price_trend": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_suitability": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_position_decision": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_liquidation": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "income_salary": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "income_bonus": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "receive_item": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "item_purchase": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "relationship_development": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "marriage_match": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "marital_relationship": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        }
+      }
+    },
+    "calibration": {
+      "rows": 88,
+      "labels": {
+        "route_semantics_sufficient": 44,
+        "route_semantics_insufficient": 44
+      },
+      "styles": {
+        "support": 22,
+        "generic_domain_or_missing_dimension": 36,
+        "fallback": 22,
+        "role_direction_ambiguity": 8
+      },
+      "coverage": {
+        "financial_fortune": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "business_operation": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "commercial_transaction": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "inventory_purchase": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "inventory_sale": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "borrow_money": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "lend_money": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "debt_collection": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "debt_repayment": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "partnership": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_profit": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_price_trend": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_suitability": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_position_decision": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_liquidation": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "income_salary": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "income_bonus": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "receive_item": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "item_purchase": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "relationship_development": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "marriage_match": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "marital_relationship": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        }
+      }
+    }
+  },
+  "contrastPairs": 110,
+  "duplicateAudit": {
+    "exactDuplicates": 0,
+    "crossSplitNearDuplicates": 0,
+    "historicalExactOverlap": 0,
+    "historicalNearOverlap": 0,
+    "crossSplitMaximum": 0.21212121212121213,
+    "historicalMaximum": 0.2608695652173913,
+    "crossSplitPairs": 11616,
+    "historicalComparisons": 605440
+  },
+  "historyBindings": [
+    {
+      "path": "data/liuyao-semantic-route-training-v0.1.json",
+      "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+      "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b",
+      "auditStrings": 241,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+      "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810",
+      "auditStrings": 255,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+      "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217",
+      "auditStrings": 48,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+      "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d",
+      "auditStrings": 210,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+      "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e",
+      "auditStrings": 64,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+      "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a",
+      "auditStrings": 157,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+      "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd",
+      "auditStrings": 136,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+      "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000",
+      "auditStrings": 223,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+      "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777",
+      "auditStrings": 132,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+      "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4",
+      "auditStrings": 66,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359",
+      "auditStrings": 198,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+      "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b",
+      "auditStrings": 704,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+      "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e",
+      "auditStrings": 120,
+      "mode": "automated lexical audit only; never model input"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd",
+      "auditStrings": 198,
+      "mode": "automated exact/trigram comparison only; never expose wording to generator or terminal; never use as training/calibration"
+    }
+  ],
+  "protectedIsolation": {
+    "method": "explicit source allowlist plus forbidden-name rejection; independent/blind/reserved research excluded without content read",
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV04FailureWordingUsedForGeneration": false,
+    "candidateV04DevelopmentRead": "automated audit only; no wording exposed or used as source"
+  },
+  "encoderScoringOccurred": false,
+  "semanticParaphraseLimit": "lexical checks do not prove absence of all semantic paraphrases; authors must not copy or paraphrase historical text"
+}

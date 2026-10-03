@@ -1,0 +1,2728 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-data-lock-v0.1",
+  "status": "locked_before_first_v05_encoder_scoring",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-contract-v0.1.json",
+      "sha256": "4ac019c622c0d142cb2fe14ad7d87f4f2c06cf824cd3018d7fe2a7e50b20fd1c",
+      "gitBlobSha": "6472e2e10f53775aaea2f6333a9668037dd4b60a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-authoring-v0.1.json",
+      "sha256": "bd26b312f545efefe9110e9242990473f89b67ca547f9d7ad24ec8e2eb24cdf8",
+      "gitBlobSha": "4ea5eaaeef6ff92fa06583dbbd03f882e89c5ee0"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+      "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+      "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+      "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+      "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-contamination-audit-v0.1.json",
+      "sha256": "54ab97276d3cf10e1a47f3b56c65ce221b4a9efba62eca6aa02b002f3f02335f",
+      "gitBlobSha": "fdcf361e77e90142a833a02b972d2c0cab1dfb52"
+    },
+    {
+      "path": "scripts/generate-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-data.mjs",
+      "sha256": "67bebbb081263a34894d59dc422d81d257b80245cc1028fba49f9fb178479afe",
+      "gitBlobSha": "efcd4022e4f21a63cbe4d1e219cab48bfb70483d"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-data.mjs",
+      "sha256": "3d8b04639298574a484977188a3d30f6cac013bffc70e5cf9075e15375bae4dd",
+      "gitBlobSha": "8623300bd6c0b66f4bd19fdd5071e15dc2851c19"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/seal-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-data.mjs",
+      "sha256": "e6f8e0fc3910aef52c257c9043d22b3f90176ac8099233ed564005e284590774",
+      "gitBlobSha": "5e713ac85c4cf3d7a81847a7bfbe792f5c513fd0"
+    },
+    {
+      "path": "js/liuyao-semantic-route-sufficiency-model-v01.js",
+      "sha256": "d7e1fec4421bbde5cb3af112bd61ebb6bbeeeef37eaa6a1cc9a1c2b3ccb17ed0",
+      "gitBlobSha": "77259ed6e92429699b422fb25f2fde1fd3224c60"
+    }
+  ],
+  "counts": {
+    "training": {
+      "rows": 132,
+      "labels": {
+        "route_semantics_sufficient": 66,
+        "route_semantics_insufficient": 66
+      },
+      "styles": {
+        "strong": 22,
+        "generic_domain_or_missing_dimension": 54,
+        "support": 22,
+        "fallback": 22,
+        "role_direction_ambiguity": 12
+      },
+      "coverage": {
+        "financial_fortune": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "business_operation": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "commercial_transaction": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "inventory_purchase": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "inventory_sale": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "borrow_money": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "lend_money": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "debt_collection": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "debt_repayment": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "partnership": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_profit": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_price_trend": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_suitability": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_position_decision": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "investment_liquidation": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "income_salary": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "income_bonus": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "receive_item": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "item_purchase": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "relationship_development": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "marriage_match": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        },
+        "marital_relationship": {
+          "route_semantics_sufficient": 3,
+          "route_semantics_insufficient": 3
+        }
+      }
+    },
+    "calibration": {
+      "rows": 88,
+      "labels": {
+        "route_semantics_sufficient": 44,
+        "route_semantics_insufficient": 44
+      },
+      "styles": {
+        "support": 22,
+        "generic_domain_or_missing_dimension": 36,
+        "fallback": 22,
+        "role_direction_ambiguity": 8
+      },
+      "coverage": {
+        "financial_fortune": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "business_operation": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "commercial_transaction": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "inventory_purchase": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "inventory_sale": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "borrow_money": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "lend_money": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "debt_collection": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "debt_repayment": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "partnership": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_profit": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_price_trend": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_suitability": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_position_decision": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "investment_liquidation": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "income_salary": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "income_bonus": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "receive_item": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "item_purchase": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "relationship_development": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "marriage_match": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        },
+        "marital_relationship": {
+          "route_semantics_sufficient": 2,
+          "route_semantics_insufficient": 2
+        }
+      }
+    }
+  },
+  "duplicateAudit": {
+    "exactDuplicates": 0,
+    "crossSplitNearDuplicates": 0,
+    "historicalExactOverlap": 0,
+    "historicalNearOverlap": 0,
+    "crossSplitMaximum": 0.21212121212121213,
+    "historicalMaximum": 0.2608695652173913,
+    "crossSplitPairs": 11616,
+    "historicalComparisons": 605440
+  },
+  "membership": {
+    "training": [
+      {
+        "id": "V013-V05-RS-T-01-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-01-1",
+        "normalizedTextSha256": "b760f4a9061760d1d8b5529d6be02b28575b5318059c9b1b709998d387899ad5"
+      },
+      {
+        "id": "V013-V05-RS-T-01-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-01-1",
+        "normalizedTextSha256": "d249bcfd2fb49b6ceaa472e8a54de0534ea2d743243ec97be26c530fc637ad94"
+      },
+      {
+        "id": "V013-V05-RS-T-01-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-01-2",
+        "normalizedTextSha256": "56094330bf6520d87105744da0e22e0329724617a484f4e616f96739438d63a7"
+      },
+      {
+        "id": "V013-V05-RS-T-01-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-01-2",
+        "normalizedTextSha256": "19b774982d8116407a3a970ccea4303efd9b9279998d53059bb317f1ed4c89e4"
+      },
+      {
+        "id": "V013-V05-RS-T-01-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-01-3",
+        "normalizedTextSha256": "43b32bce714b04fa07921f26c292a3e1a0cb877adcde0875dd26053fb6b10615"
+      },
+      {
+        "id": "V013-V05-RS-T-01-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-01-3",
+        "normalizedTextSha256": "ab9916026fac9dd60ef9a95bd3652d0eb8f866d36dc4cf71099f9003633ce4be"
+      },
+      {
+        "id": "V013-V05-RS-T-02-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-02-1",
+        "normalizedTextSha256": "66cecdbd1c5df03f50c6d83a3c4852f0088a147b4de03c16df235e3abb7396f6"
+      },
+      {
+        "id": "V013-V05-RS-T-02-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-02-1",
+        "normalizedTextSha256": "8586ff06bbf9f6411041c6ed085b653034ef42633cb0cea265a07e95032acb75"
+      },
+      {
+        "id": "V013-V05-RS-T-02-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-02-2",
+        "normalizedTextSha256": "79a827d2562f6017e954c64a41d38b032837f8401e8a04c1c1b3d94c7750246d"
+      },
+      {
+        "id": "V013-V05-RS-T-02-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-02-2",
+        "normalizedTextSha256": "38f2b3dac5c967468cb86906348b4784a48fd11462e3de77a0197fe0af297085"
+      },
+      {
+        "id": "V013-V05-RS-T-02-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-02-3",
+        "normalizedTextSha256": "21d129c666b8959ec34ae2d395f9a329f39ab957827f19469755bdb6c36fd6b9"
+      },
+      {
+        "id": "V013-V05-RS-T-02-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-02-3",
+        "normalizedTextSha256": "f593a0e1470cb632d1680862afd3b4e02de61242b73a4ee04957aa3f00e3323b"
+      },
+      {
+        "id": "V013-V05-RS-T-03-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-03-1",
+        "normalizedTextSha256": "cbfefdb24fdcdb7a9b7a907068912d319ed4a07df0e9493b91a92e6c1f7f8e9e"
+      },
+      {
+        "id": "V013-V05-RS-T-03-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-03-1",
+        "normalizedTextSha256": "bc146425ec5add02cc0e323afa71b182175a5e6527e8c456e0f692d05fbf2f62"
+      },
+      {
+        "id": "V013-V05-RS-T-03-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-03-2",
+        "normalizedTextSha256": "195a4aff7c1372574eceb767fb78f2d6f470abaf499f4d5988ed3995d5d1db6b"
+      },
+      {
+        "id": "V013-V05-RS-T-03-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-03-2",
+        "normalizedTextSha256": "a5b9d34b783516d49df70e3c73ec318f563d84c33fea6fe6b5619e3f76adae7c"
+      },
+      {
+        "id": "V013-V05-RS-T-03-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-03-3",
+        "normalizedTextSha256": "ec280d7af62ad450dd4ac2d8d28a1112a2b689c749e099ce1a14fa2896c46cbc"
+      },
+      {
+        "id": "V013-V05-RS-T-03-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-03-3",
+        "normalizedTextSha256": "6921fe387e101641020cadef4fd404adcd28ee4fb0fa4d4d09e3fb9678a812d8"
+      },
+      {
+        "id": "V013-V05-RS-T-04-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-04-1",
+        "normalizedTextSha256": "32e5ba20202c2075e8287edcacaa411145190fee7a14f56e0dc613428661bdfb"
+      },
+      {
+        "id": "V013-V05-RS-T-04-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-04-1",
+        "normalizedTextSha256": "e9539eb3ec1e4e4b104ac3e6d145a82f977bb74cc58fb817d9cff22bda5b28bf"
+      },
+      {
+        "id": "V013-V05-RS-T-04-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-04-2",
+        "normalizedTextSha256": "138bcda2a918a79b2f7ca76b5cbb8a039865652740601886bad81b05d726c7e8"
+      },
+      {
+        "id": "V013-V05-RS-T-04-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-04-2",
+        "normalizedTextSha256": "530714e4d0b3ec35741e93c7f64c6bcf6c79572f5e0f379579e9c213754c63b4"
+      },
+      {
+        "id": "V013-V05-RS-T-04-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-04-3",
+        "normalizedTextSha256": "af4af3978874b69c7a0ba4cffb8c7d11fa73b4e971d551b703f111ea3bf3ade4"
+      },
+      {
+        "id": "V013-V05-RS-T-04-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-04-3",
+        "normalizedTextSha256": "099248b1fdc6765606bf2622354788abebe820288c4e27e7be262af3c078c301"
+      },
+      {
+        "id": "V013-V05-RS-T-05-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-05-1",
+        "normalizedTextSha256": "1a033b7dbe23caa4d46b67d95a5e16843ff2cbbe54fc4cd3887d9032cf081fbc"
+      },
+      {
+        "id": "V013-V05-RS-T-05-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-05-1",
+        "normalizedTextSha256": "dd5b4ef9b681524bd83234ff5d4092a954fc1e8c82f66d6f6a8fcdf704c1a9eb"
+      },
+      {
+        "id": "V013-V05-RS-T-05-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-05-2",
+        "normalizedTextSha256": "e541abfcd949ff1f094a9d02a7c607bdbdb2e7f32dc52d3013dd952f747d06f2"
+      },
+      {
+        "id": "V013-V05-RS-T-05-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-05-2",
+        "normalizedTextSha256": "c597ad61db394f8651d3b9738706c9e9d0ce82ec962226243523e9362ffd4564"
+      },
+      {
+        "id": "V013-V05-RS-T-05-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-05-3",
+        "normalizedTextSha256": "e333e7fd15246d217948b227ac29b6f02a9b5c86b2ed6a7e4ad5deb66b02eead"
+      },
+      {
+        "id": "V013-V05-RS-T-05-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-05-3",
+        "normalizedTextSha256": "7f72fcf057c7099b4ce56b4636235911599994c93c141c139fd75983cec1adda"
+      },
+      {
+        "id": "V013-V05-RS-T-06-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-06-1",
+        "normalizedTextSha256": "c3c017e746b719120dd719b82e19cdd9172f8045a0eeab54947ae8773a7431ba"
+      },
+      {
+        "id": "V013-V05-RS-T-06-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-06-1",
+        "normalizedTextSha256": "8226aa5ed909fbe7e3e1619cca8f1b58ddb790452b470b22aa6394d4e778b764"
+      },
+      {
+        "id": "V013-V05-RS-T-06-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-06-2",
+        "normalizedTextSha256": "7107b8ebfcd964e9887d5fce11b074613af983b7b3756befdadd561c00c69190"
+      },
+      {
+        "id": "V013-V05-RS-T-06-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-06-2",
+        "normalizedTextSha256": "cf6a87145cad225065aae2004fd024a47ace5c778b3794ee48092fb9e8970046"
+      },
+      {
+        "id": "V013-V05-RS-T-06-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-06-3",
+        "normalizedTextSha256": "afa160ca57720f7d2404913a83f1417605e5b00250fb83af67d522f97164eb1d"
+      },
+      {
+        "id": "V013-V05-RS-T-06-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-06-3",
+        "normalizedTextSha256": "a0db2ecbdc5d35e33b88edb33b3c5222075a0e9e857703d0104e01e955c9ad6e"
+      },
+      {
+        "id": "V013-V05-RS-T-07-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-07-1",
+        "normalizedTextSha256": "348583c047bb3f8f41c960c552d2032d345f0f919d1f8157779d6618074b1de9"
+      },
+      {
+        "id": "V013-V05-RS-T-07-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-07-1",
+        "normalizedTextSha256": "48e8b9db1f693faa074d7ff9f31c1f4046b376d5615d87b13e961f08131eb695"
+      },
+      {
+        "id": "V013-V05-RS-T-07-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-07-2",
+        "normalizedTextSha256": "1828aca6d80aefcb625c8ee61819899d41d7fae201531eccb6a7e0a4dacb7499"
+      },
+      {
+        "id": "V013-V05-RS-T-07-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-07-2",
+        "normalizedTextSha256": "4f14535e0b4a01982db3b743338bedd4e042c247f1e9a13756c967f2e0145245"
+      },
+      {
+        "id": "V013-V05-RS-T-07-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-07-3",
+        "normalizedTextSha256": "3550ef6692f9dcd1d14b6fa21b4aed86a191413ff714f2099a1f7537b42fd42e"
+      },
+      {
+        "id": "V013-V05-RS-T-07-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-07-3",
+        "normalizedTextSha256": "ff6de718a4cf03ad183858f4d5338905542daa8aaf10525f712704f1ff2b36d4"
+      },
+      {
+        "id": "V013-V05-RS-T-08-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-08-1",
+        "normalizedTextSha256": "87ccc36a46a6f203e11e09cf8666ea179a34e5b29b19923a9fe5f2abfe75bef1"
+      },
+      {
+        "id": "V013-V05-RS-T-08-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-08-1",
+        "normalizedTextSha256": "d4d9f7fe30c795eb6d001856178ecded98a7d38d55d20d7476b938610ab28bb8"
+      },
+      {
+        "id": "V013-V05-RS-T-08-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-08-2",
+        "normalizedTextSha256": "ec4ed4253f745df69006304a07d59daa968f33bb7f0d293bb2ccc4497fc05f92"
+      },
+      {
+        "id": "V013-V05-RS-T-08-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-08-2",
+        "normalizedTextSha256": "ce9a4514c89a566c462deb657c2e1b776e0f6621181151269546b02e73a2d244"
+      },
+      {
+        "id": "V013-V05-RS-T-08-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-08-3",
+        "normalizedTextSha256": "c1f4180814092b57712e647ffd4b561f17186ad61ddbcd9acba7dd43868283c5"
+      },
+      {
+        "id": "V013-V05-RS-T-08-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-08-3",
+        "normalizedTextSha256": "ee217ca6f0d903226ad13e24607129d40a20ad5622e25a255c2e303bedf54f2b"
+      },
+      {
+        "id": "V013-V05-RS-T-09-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-09-1",
+        "normalizedTextSha256": "1b9df048e8dc217f1160fd0c8e7b4ca7ec85cb38f6ab751f8b1477b160822bb3"
+      },
+      {
+        "id": "V013-V05-RS-T-09-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-09-1",
+        "normalizedTextSha256": "78b313bbbee5c8f918116a4e5f958eb2cd3058d43eae3c9c971bda2818ce09ec"
+      },
+      {
+        "id": "V013-V05-RS-T-09-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-09-2",
+        "normalizedTextSha256": "c90213ddd9eb5c310171cd8c7a86006bb4f9b8020d014be0e8337e7f4269331c"
+      },
+      {
+        "id": "V013-V05-RS-T-09-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-09-2",
+        "normalizedTextSha256": "041fa8e4921d3ef7d79897b950339c988e2bfd8833d2893fd0397527a1d6cf32"
+      },
+      {
+        "id": "V013-V05-RS-T-09-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-09-3",
+        "normalizedTextSha256": "038ea17bda98a348266228ebcd5b8f9b1cccd8e7453f37db3cb448941de14384"
+      },
+      {
+        "id": "V013-V05-RS-T-09-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-T-09-3",
+        "normalizedTextSha256": "ac654bf7a44a20ae81a5fbe612949b2544738a2c991c317553c2b42432946245"
+      },
+      {
+        "id": "V013-V05-RS-T-10-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-10-1",
+        "normalizedTextSha256": "86879b9e7776968e225999326b34f8ac29b51289ba491310fedf14e7f88eb1ff"
+      },
+      {
+        "id": "V013-V05-RS-T-10-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-10-1",
+        "normalizedTextSha256": "ac77c7f3a075f6406bc1579b292e3beb6f72076469f6ab330d7db103a871bcd9"
+      },
+      {
+        "id": "V013-V05-RS-T-10-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-10-2",
+        "normalizedTextSha256": "24adc86a57c73488635010223a0907374d462a6f1f56c36e1ba9414158893a1c"
+      },
+      {
+        "id": "V013-V05-RS-T-10-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-10-2",
+        "normalizedTextSha256": "4e77bad39bb2dd32ecec8fe17aa000d23d30b8d1755340c05da44b740e388ba6"
+      },
+      {
+        "id": "V013-V05-RS-T-10-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-10-3",
+        "normalizedTextSha256": "db657ed55f3627b6a952b1fd87e1c433758601e92443bf56ed27025c91d56bea"
+      },
+      {
+        "id": "V013-V05-RS-T-10-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-10-3",
+        "normalizedTextSha256": "9344e57f65d613b3b5ddc5c5f9dba884b8bffbc7a7aa915c21e0bf6a0662f8a0"
+      },
+      {
+        "id": "V013-V05-RS-T-11-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-11-1",
+        "normalizedTextSha256": "6169c113d2b9734ab3c3cb7b98420004a5b0b468bdc21549c7c26214a033eab5"
+      },
+      {
+        "id": "V013-V05-RS-T-11-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-11-1",
+        "normalizedTextSha256": "63235655c323668b42e3aa98d9051d59e6f51f3da282150a36bc0e732148c308"
+      },
+      {
+        "id": "V013-V05-RS-T-11-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-11-2",
+        "normalizedTextSha256": "20c92febe3b8d1a3d705359af55c973d322dcc8f132aaefcde713a3a7108e488"
+      },
+      {
+        "id": "V013-V05-RS-T-11-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-11-2",
+        "normalizedTextSha256": "e6f4fa5831e75637c0b25252330fd4e0b571c406f2a8ad8c14a258c6d63e1239"
+      },
+      {
+        "id": "V013-V05-RS-T-11-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-11-3",
+        "normalizedTextSha256": "f161ac37bb2cd91e8a0ee5be5ea416b37771fcf234969c9b1dd2eb375f698ae8"
+      },
+      {
+        "id": "V013-V05-RS-T-11-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-11-3",
+        "normalizedTextSha256": "aaa6666d6c2bc11fbd36f1b85bcb81b1b1f92a6ae517caa045939f659007a828"
+      },
+      {
+        "id": "V013-V05-RS-T-12-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-12-1",
+        "normalizedTextSha256": "e1cd90e7e6e7ae0c4072fe7ec50a75cacd69fc790bf6f453129484a54c9e6061"
+      },
+      {
+        "id": "V013-V05-RS-T-12-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-12-1",
+        "normalizedTextSha256": "3331ecd5cfef081cff4530056b161f7f5136f6160489d284dc55cefce3961784"
+      },
+      {
+        "id": "V013-V05-RS-T-12-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-12-2",
+        "normalizedTextSha256": "f83ba97a23c1f78a6627bac5e110c91a721da3e673979503745f89d5b86777bf"
+      },
+      {
+        "id": "V013-V05-RS-T-12-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-12-2",
+        "normalizedTextSha256": "6b9b7d7f0e93e774513926a3bc4f192511ef801dea0a2ae21ca939bea2dd833a"
+      },
+      {
+        "id": "V013-V05-RS-T-12-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-12-3",
+        "normalizedTextSha256": "9a9a6309fe4da81562ad0bc119fb14803d89f93f7175f5dc2823df3e8f36f719"
+      },
+      {
+        "id": "V013-V05-RS-T-12-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-12-3",
+        "normalizedTextSha256": "f7b0ed5ae18512ea1023d012cb91892551db8e91a8b4af06b3370b609046d4fe"
+      },
+      {
+        "id": "V013-V05-RS-T-13-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-13-1",
+        "normalizedTextSha256": "3d3241e79a605dc9e20fb90f6c9a05f93ca9fa1cb0cb462e204c418028c9ac14"
+      },
+      {
+        "id": "V013-V05-RS-T-13-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-13-1",
+        "normalizedTextSha256": "7e5b098a5ff9e71076888e2eb28faf3195461c2709449bc94becdc0484fce692"
+      },
+      {
+        "id": "V013-V05-RS-T-13-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-13-2",
+        "normalizedTextSha256": "d3bb95001848a94abc17783ec7bbcc10ed4f62311b9a66789b24e0032e80acd5"
+      },
+      {
+        "id": "V013-V05-RS-T-13-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-13-2",
+        "normalizedTextSha256": "29c0eea0e0336ea3934be1a096bac505a42fb6810a462abb1a8c16ef99fcfc2d"
+      },
+      {
+        "id": "V013-V05-RS-T-13-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-13-3",
+        "normalizedTextSha256": "dd6b9a55d956751300b88cebcb63f3f12b7c3136c4afc8a2a7164d311c326567"
+      },
+      {
+        "id": "V013-V05-RS-T-13-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-13-3",
+        "normalizedTextSha256": "da4c7dd4d77a7640930b2dadd5fcf977ceb6e659e49960b159bd4799b3b158de"
+      },
+      {
+        "id": "V013-V05-RS-T-14-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-14-1",
+        "normalizedTextSha256": "d6a46f51dfdc91bdcd25142ffa06d5771a9b5e220d40cd3a4082648cf838302d"
+      },
+      {
+        "id": "V013-V05-RS-T-14-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-14-1",
+        "normalizedTextSha256": "e84ce40682efe6d82d9f1a0c30a826d3e8b0a1c19370559f2bb19a81694ea8c1"
+      },
+      {
+        "id": "V013-V05-RS-T-14-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-14-2",
+        "normalizedTextSha256": "24f48821a2e4a7e7d62c08c60e152247e711d4d24c197fb59a8e04bcea9c91db"
+      },
+      {
+        "id": "V013-V05-RS-T-14-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-14-2",
+        "normalizedTextSha256": "f44663871472a646b8dc0d8bfcefac739face56a4a438058dc4fe80683676b07"
+      },
+      {
+        "id": "V013-V05-RS-T-14-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-14-3",
+        "normalizedTextSha256": "e9c598aac5c63442105068da69cccbe9f621347fb11a32db6c6205d75371b772"
+      },
+      {
+        "id": "V013-V05-RS-T-14-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-14-3",
+        "normalizedTextSha256": "4796c8af277295eccec191a5abb8f3aa97bfd8a1c460cc8d885ebb68e5df4139"
+      },
+      {
+        "id": "V013-V05-RS-T-15-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-15-1",
+        "normalizedTextSha256": "7c4b9b660494fe68d38ebfaf7468720993a4f4bfb9dcb762eaafdf34612fa5fe"
+      },
+      {
+        "id": "V013-V05-RS-T-15-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-15-1",
+        "normalizedTextSha256": "1021478aa1ffe903fa9c502cd18e7d8ed417d69b5809f17069e9432a8396ea61"
+      },
+      {
+        "id": "V013-V05-RS-T-15-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-15-2",
+        "normalizedTextSha256": "4f721290f6ca3d0ae51708afe369467bf6554aa0b02608596ca907bdc223fd2b"
+      },
+      {
+        "id": "V013-V05-RS-T-15-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-15-2",
+        "normalizedTextSha256": "ecaa62b264c355be87074e4c847210e90ef56bc3a66973504a91a42c3856eec2"
+      },
+      {
+        "id": "V013-V05-RS-T-15-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-15-3",
+        "normalizedTextSha256": "0be28af596a8cb4c573f1c7516b805befb5cf251038dfe090a8caa22a30561b2"
+      },
+      {
+        "id": "V013-V05-RS-T-15-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-15-3",
+        "normalizedTextSha256": "5680a9a448ae8ab4bbde742aed0810ecb4e4ca7aaec5cdae58fb4a0506b11626"
+      },
+      {
+        "id": "V013-V05-RS-T-16-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-16-1",
+        "normalizedTextSha256": "3e41c67fa9e2b59b727bf506945905dba503b1e1515c44757a00dbe82b265016"
+      },
+      {
+        "id": "V013-V05-RS-T-16-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-16-1",
+        "normalizedTextSha256": "9fdd30500391c0b75426ea8a429fce0bd05d7e48111bc8d9b5ebf75b6a65d1d4"
+      },
+      {
+        "id": "V013-V05-RS-T-16-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-16-2",
+        "normalizedTextSha256": "739c1fbad3f9d88ccf5f7000bc75655511d781f8258f699c99c65ec08bf4a309"
+      },
+      {
+        "id": "V013-V05-RS-T-16-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-16-2",
+        "normalizedTextSha256": "540ff8c81affe97f548863c7a5edaa138143f765a723ce4469dc02af5b270671"
+      },
+      {
+        "id": "V013-V05-RS-T-16-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-16-3",
+        "normalizedTextSha256": "3933cc07e163019be37f9433831eae1c9ebef9448a564f434b01bea6f5dbfaac"
+      },
+      {
+        "id": "V013-V05-RS-T-16-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-16-3",
+        "normalizedTextSha256": "92598340e0e4725ad69fb0ed87f118fb6710f0c9ab691c5c03baba2893ead92f"
+      },
+      {
+        "id": "V013-V05-RS-T-17-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-17-1",
+        "normalizedTextSha256": "d4192676b079a82ecafc6f858a9b8b191a440a71fa0ae2c68c0458ba8407242f"
+      },
+      {
+        "id": "V013-V05-RS-T-17-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-17-1",
+        "normalizedTextSha256": "ce6b9433fdcfe5d7fe8187f3e7ee3a2c06968e79fc5a9e0ffd1d9d5443045df8"
+      },
+      {
+        "id": "V013-V05-RS-T-17-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-17-2",
+        "normalizedTextSha256": "e611065a459656442585ca3ca4d392190f12ca8a01034e254fcf7e5fe458dab4"
+      },
+      {
+        "id": "V013-V05-RS-T-17-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-17-2",
+        "normalizedTextSha256": "fccb511537f089c72e7345bfa84a62394f3b3866508bbf460562f848a26c3e49"
+      },
+      {
+        "id": "V013-V05-RS-T-17-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-17-3",
+        "normalizedTextSha256": "695876232bf68e36cb4f854f8167da7f1fecc1ec81d793ec139a4debeb24419c"
+      },
+      {
+        "id": "V013-V05-RS-T-17-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-17-3",
+        "normalizedTextSha256": "7d42aaf0fb309d54c0367a4a3ef2a103891ed65c6693367be3a253c5c8588027"
+      },
+      {
+        "id": "V013-V05-RS-T-18-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-18-1",
+        "normalizedTextSha256": "03a763a1295671f68d8e062029afdb1cf409e845127174a3e503bfc2927e92bb"
+      },
+      {
+        "id": "V013-V05-RS-T-18-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-18-1",
+        "normalizedTextSha256": "2e7ed19de8e5dc1067a8a2774557e926d01f6114e7b8c4b86357d190328b9d80"
+      },
+      {
+        "id": "V013-V05-RS-T-18-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-18-2",
+        "normalizedTextSha256": "e9befe3bff79ee2b998fd10f9c35e899b8712cd44a26229514be7383fb581ffb"
+      },
+      {
+        "id": "V013-V05-RS-T-18-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-18-2",
+        "normalizedTextSha256": "b4ea65433a47429bd25d1bf3b78aa6a1d0a194c54b893d7d1562841c4c0e6afb"
+      },
+      {
+        "id": "V013-V05-RS-T-18-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-18-3",
+        "normalizedTextSha256": "0350ca462a6496f456c887f3db33e7d96885b6aff7b87877aee79d2cb51e8218"
+      },
+      {
+        "id": "V013-V05-RS-T-18-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-18-3",
+        "normalizedTextSha256": "f21457cd3b0916f601c94269683d8647f6c537c00188e8c6b4986d7ab76874c7"
+      },
+      {
+        "id": "V013-V05-RS-T-19-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-19-1",
+        "normalizedTextSha256": "e30772275ea34b60b3c06e9de0d85275b4a1f8e4a7fa9b538b52fdb77c796ffa"
+      },
+      {
+        "id": "V013-V05-RS-T-19-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-19-1",
+        "normalizedTextSha256": "0bb955456f46c88a41989cef8177a413f51d1a6ee8c55f3eb6b2bcdfd54a5d23"
+      },
+      {
+        "id": "V013-V05-RS-T-19-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-19-2",
+        "normalizedTextSha256": "d6315febfe13d573edac606b6667b1a83577daca1e576b0cbf52fb002fccff86"
+      },
+      {
+        "id": "V013-V05-RS-T-19-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-19-2",
+        "normalizedTextSha256": "d64879d763504b4bec02cd6fe1a55e39a86371704cf397391b1f4cd6470ce450"
+      },
+      {
+        "id": "V013-V05-RS-T-19-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-19-3",
+        "normalizedTextSha256": "caf96c4b55b1051b14598247aa041ff557dbcee85ca9089ec1c97a302594a1c0"
+      },
+      {
+        "id": "V013-V05-RS-T-19-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-19-3",
+        "normalizedTextSha256": "658108342238b1f7590a21b283acb124384c69dccc9d118e1aa06edb08c7736f"
+      },
+      {
+        "id": "V013-V05-RS-T-20-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-20-1",
+        "normalizedTextSha256": "e0ef35e7cf75951e4bddf56bd9fce5aa38baea393f1a1ca87f794e1c7c39d347"
+      },
+      {
+        "id": "V013-V05-RS-T-20-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-20-1",
+        "normalizedTextSha256": "a60b731fecc53f0385b2e49227c2558815306303d2732770a63b86d8e79f184a"
+      },
+      {
+        "id": "V013-V05-RS-T-20-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-20-2",
+        "normalizedTextSha256": "73c7e78a7a8c090b6e94295a74b077db33a443617cf2f0f5cba1f9606c73f747"
+      },
+      {
+        "id": "V013-V05-RS-T-20-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-20-2",
+        "normalizedTextSha256": "68089ee3726cdefeea014e9ff29dc91b36b4aa1687be24e1615c2117219bc8f5"
+      },
+      {
+        "id": "V013-V05-RS-T-20-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-20-3",
+        "normalizedTextSha256": "5f3368d18a1b28caefd3be5d5e10f46a1bb8e203e90348ef8d5ca61d7198602b"
+      },
+      {
+        "id": "V013-V05-RS-T-20-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-20-3",
+        "normalizedTextSha256": "6c560105daa780d9b4704b47e6c21d17f914b62aa7e235025b6a6bad023c919a"
+      },
+      {
+        "id": "V013-V05-RS-T-21-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-21-1",
+        "normalizedTextSha256": "37a7347e292ff4ea39150c3ce08a5226580d7d435ecd7211c2e66197e28273be"
+      },
+      {
+        "id": "V013-V05-RS-T-21-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-21-1",
+        "normalizedTextSha256": "ecb4ed25f22501ef7270bb75869867e6490e86509f14279de37435453eedc724"
+      },
+      {
+        "id": "V013-V05-RS-T-21-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-21-2",
+        "normalizedTextSha256": "37850ab4c678a0fec35844fe055129feb8227225b40946bd88cd7e0ebd69e309"
+      },
+      {
+        "id": "V013-V05-RS-T-21-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-21-2",
+        "normalizedTextSha256": "69525460325b667c894156349ad07b230d5d799025711370a59f0ec706fd3215"
+      },
+      {
+        "id": "V013-V05-RS-T-21-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-21-3",
+        "normalizedTextSha256": "7d12447c4ce78e225f2d0ea5a97f90fbe05245c012a6e73fb1fa64823ec17838"
+      },
+      {
+        "id": "V013-V05-RS-T-21-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-21-3",
+        "normalizedTextSha256": "c79d4366539dee3e9c14e1618737acf3d1cb8dd65457da6339ab3d418cfc9017"
+      },
+      {
+        "id": "V013-V05-RS-T-22-1-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "strong",
+        "contrastGroup": "V013-V05-RS-T-22-1",
+        "normalizedTextSha256": "38004aca0adbae2245f93e0819f062d8feb44c2e9142e49032878273cc2becc6"
+      },
+      {
+        "id": "V013-V05-RS-T-22-1-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-22-1",
+        "normalizedTextSha256": "1b390e251ae91cfb3be84d5d8e4e83366ff8946fbbd2eec23642e20e24860778"
+      },
+      {
+        "id": "V013-V05-RS-T-22-2-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-T-22-2",
+        "normalizedTextSha256": "525234314caea21e6fa2c1114fcc44dfd86ac462b5151b7406c445a088e4266b"
+      },
+      {
+        "id": "V013-V05-RS-T-22-2-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-22-2",
+        "normalizedTextSha256": "40e157c7f7b42e0323f172f2fc1ddefc2941b5a0ac34b29e73f041ed3c75981e"
+      },
+      {
+        "id": "V013-V05-RS-T-22-3-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-T-22-3",
+        "normalizedTextSha256": "1a740247101360a610e1fb65f8c4faf1da7a1f137d27bdedff32f2ee48cabe98"
+      },
+      {
+        "id": "V013-V05-RS-T-22-3-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-T-22-3",
+        "normalizedTextSha256": "d81a3d1fb1b340386da5c9c0993f0156043b9b31819d0bf6573976b02250e465"
+      }
+    ],
+    "calibration": [
+      {
+        "id": "V013-V05-RS-C-01-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-01-4",
+        "normalizedTextSha256": "065ecb1a6ba4979de1c77dd4093820a47c65715f058139d6ca169ad5142672be"
+      },
+      {
+        "id": "V013-V05-RS-C-01-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-01-4",
+        "normalizedTextSha256": "5d8cfae7c6a2aea235854f712c250ef168c14bf7892e9e131fdf0a3fb37bb58a"
+      },
+      {
+        "id": "V013-V05-RS-C-01-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-01-5",
+        "normalizedTextSha256": "6bcfee23d2c4093e433f953a6f15e62c942374aed8443bc5289645c60060ce31"
+      },
+      {
+        "id": "V013-V05-RS-C-01-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "general_finances",
+        "routeCoverage": [
+          "financial_fortune"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-01-5",
+        "normalizedTextSha256": "bfe939f1defdf1b9a2b05c37c8b9c168322ab50af6213c4f63bca2c5523d8eb7"
+      },
+      {
+        "id": "V013-V05-RS-C-02-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-02-4",
+        "normalizedTextSha256": "cd70c14c48637d5466ac2b0f6ff7f8e9cebbf2032cb7c95d2a004b079deafa20"
+      },
+      {
+        "id": "V013-V05-RS-C-02-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-02-4",
+        "normalizedTextSha256": "b2dcfa0ef456b29f31b616b9bb0bb351eb7c1dd17b8a1106a4a2835dad56e92a"
+      },
+      {
+        "id": "V013-V05-RS-C-02-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-02-5",
+        "normalizedTextSha256": "48ff5583045d5b778aa509d1442a626690f153a039df6fc8c348d614984091c7"
+      },
+      {
+        "id": "V013-V05-RS-C-02-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "business",
+        "routeCoverage": [
+          "business_operation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-02-5",
+        "normalizedTextSha256": "0c5f693e9d0c36632e68da5edab9a1c970db6616b898ad34835d176dac59f508"
+      },
+      {
+        "id": "V013-V05-RS-C-03-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-03-4",
+        "normalizedTextSha256": "82ebda7f39c44a8579dad260a36dd6b2ba26dccdc51e9c87f697e37393c64d04"
+      },
+      {
+        "id": "V013-V05-RS-C-03-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-03-4",
+        "normalizedTextSha256": "9c9b1bab05656f96dec4ee223a38acf07e75d448e46489eaf9e1aa7219bb4fd7"
+      },
+      {
+        "id": "V013-V05-RS-C-03-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-03-5",
+        "normalizedTextSha256": "2b0500be3a90b4043b711a59138c18d5c074a459b81253b3cd8fa9a1d5ebf355"
+      },
+      {
+        "id": "V013-V05-RS-C-03-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "commercial_transaction"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-03-5",
+        "normalizedTextSha256": "c8f06c75380654c3e13422054dc58d7c48278ba9329d4f6ee6449e4e6763855e"
+      },
+      {
+        "id": "V013-V05-RS-C-04-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-04-4",
+        "normalizedTextSha256": "3d9762c29da9c3302ec689e8f14eed24262ea93375f8e2301ecec136d75284c8"
+      },
+      {
+        "id": "V013-V05-RS-C-04-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-04-4",
+        "normalizedTextSha256": "e9b1022fd0f5a6c34391417b94cb7cfb6854e5ad5a58b4b24fda9c9cbf862b70"
+      },
+      {
+        "id": "V013-V05-RS-C-04-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-04-5",
+        "normalizedTextSha256": "48fbe36e1a0bc9c1763883d3c6eea426d8a3acefd1d7ecf8cdc2c5772f1d2fdc"
+      },
+      {
+        "id": "V013-V05-RS-C-04-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-04-5",
+        "normalizedTextSha256": "35d8d4da02a8926cda30111f11663a29b3b5d7a4e7d987131c0064b3e1d17832"
+      },
+      {
+        "id": "V013-V05-RS-C-05-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-05-4",
+        "normalizedTextSha256": "0c79d69b5fd9e324e1e73abe7dd10f5c1104db5c552a1f445ccffbc76c6a5b2f"
+      },
+      {
+        "id": "V013-V05-RS-C-05-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-05-4",
+        "normalizedTextSha256": "2a2885bb8bf25ff38ec10132a7c56873e1b8631e70c8ac8d3baa320240b10cf6"
+      },
+      {
+        "id": "V013-V05-RS-C-05-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-05-5",
+        "normalizedTextSha256": "16c356fbf0753cdbd491769e88087075bd3a3bb62f2f68ef88721eb32f95e345"
+      },
+      {
+        "id": "V013-V05-RS-C-05-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "trade_inventory",
+        "routeCoverage": [
+          "inventory_sale"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-05-5",
+        "normalizedTextSha256": "dac1dda233ddc748344a041e4f7561b503d50339de33d69ad85a22f4ee67d24b"
+      },
+      {
+        "id": "V013-V05-RS-C-06-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-06-4",
+        "normalizedTextSha256": "f08057aeca39efbee40a38e0a2a3da8d2d363fe7b3843d9e37207b65a21b7e00"
+      },
+      {
+        "id": "V013-V05-RS-C-06-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-06-4",
+        "normalizedTextSha256": "5d65f7b90377bd09f70e3bd8dfebed6837673f6010ac46c4ebac448ff3b1988f"
+      },
+      {
+        "id": "V013-V05-RS-C-06-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-06-5",
+        "normalizedTextSha256": "76da786bde382e1fe365b9d3363cee72c086e931cb735628aa17559f55b75622"
+      },
+      {
+        "id": "V013-V05-RS-C-06-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "borrow_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-06-5",
+        "normalizedTextSha256": "765eaf463594d774ad22ae34b2fb0970e77cf7a7cf2a44c19d9268c77931b99a"
+      },
+      {
+        "id": "V013-V05-RS-C-07-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-07-4",
+        "normalizedTextSha256": "82961f38031325ed2db0ecceae83a89a2363bc64ba08176731e03599918000e4"
+      },
+      {
+        "id": "V013-V05-RS-C-07-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-07-4",
+        "normalizedTextSha256": "d1bfd774b9b1c3625aed5fdf2cfe521577a989347439c5a55464e345537545d8"
+      },
+      {
+        "id": "V013-V05-RS-C-07-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-07-5",
+        "normalizedTextSha256": "3e84150becbafb2e129add24ac584a1c625aad266b3dd58f155dbc2120160021"
+      },
+      {
+        "id": "V013-V05-RS-C-07-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "credit_direction",
+        "routeCoverage": [
+          "lend_money"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-07-5",
+        "normalizedTextSha256": "f63b62ebf93178f5a2d3687045d051e89e11e162dcced9f031f59c0c744789f8"
+      },
+      {
+        "id": "V013-V05-RS-C-08-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-08-4",
+        "normalizedTextSha256": "7072a495925d07377289931d71a9740708a4f2ca2aae420d768eb266e7e488b1"
+      },
+      {
+        "id": "V013-V05-RS-C-08-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-08-4",
+        "normalizedTextSha256": "ed56bd3915ae5ed3e3f941366ed9aca29270fd1f74fc29ee935097b56a6103e9"
+      },
+      {
+        "id": "V013-V05-RS-C-08-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-08-5",
+        "normalizedTextSha256": "6f7f045f3a6118484caa8f4b75671e5740c9f3f42f31dfd119b37c7a59d7c6ad"
+      },
+      {
+        "id": "V013-V05-RS-C-08-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_collection"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-08-5",
+        "normalizedTextSha256": "d7faff17232fc7060ffae40d1d93edc6870feec3a15e56068e9121dbf202882d"
+      },
+      {
+        "id": "V013-V05-RS-C-09-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-09-4",
+        "normalizedTextSha256": "1bc59fcdd1c3c594e43eb335d15111a4169a795185924218ac024a95d8a8a1f1"
+      },
+      {
+        "id": "V013-V05-RS-C-09-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-09-4",
+        "normalizedTextSha256": "91cdb6035b816fd0740acfd60a31dfa7e081c9af67bd300c18b44ea9533adf0c"
+      },
+      {
+        "id": "V013-V05-RS-C-09-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-09-5",
+        "normalizedTextSha256": "82251b2e89ee7a63bb7fab1ae0855bfdb7034d7c070ab04488ac781f87d7c113"
+      },
+      {
+        "id": "V013-V05-RS-C-09-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "debt_direction",
+        "routeCoverage": [
+          "debt_repayment"
+        ],
+        "style": "role_direction_ambiguity",
+        "contrastGroup": "V013-V05-RS-C-09-5",
+        "normalizedTextSha256": "e0ebc910fb8f0b24d4a64c854c372f7432856ec408f8497fd59ad5132fbfca62"
+      },
+      {
+        "id": "V013-V05-RS-C-10-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-10-4",
+        "normalizedTextSha256": "415030e51c1b585a627ae80cf6a42c935c70aeb56290c8928e5ed51e90a0b6be"
+      },
+      {
+        "id": "V013-V05-RS-C-10-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-10-4",
+        "normalizedTextSha256": "500476f787aa1b661df053daea52e89484056a81038de0010d7983f6ba37b9b8"
+      },
+      {
+        "id": "V013-V05-RS-C-10-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-10-5",
+        "normalizedTextSha256": "a09bc29d8dce22dc72d27bfd83f26ba5d4ecf2bf5ce2e325cc19cc8877be09fc"
+      },
+      {
+        "id": "V013-V05-RS-C-10-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "partnership",
+        "routeCoverage": [
+          "partnership"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-10-5",
+        "normalizedTextSha256": "7a21598daaced06872fa05db78974e2ca389c95566be89aa8c871777e8d2f888"
+      },
+      {
+        "id": "V013-V05-RS-C-11-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-11-4",
+        "normalizedTextSha256": "8689e246314466b091c84c1a3e7ade10f56b634af51b15ccfbee4e3e78adbac8"
+      },
+      {
+        "id": "V013-V05-RS-C-11-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-11-4",
+        "normalizedTextSha256": "a010a1da9c59b7a6e9cd5583c072d6db05967efe1cfe2a11e39098ccebec303d"
+      },
+      {
+        "id": "V013-V05-RS-C-11-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-11-5",
+        "normalizedTextSha256": "2d725099a506b8846f4c7f97cf1c44fc9537f7d761b627253e9902614f1c60ac"
+      },
+      {
+        "id": "V013-V05-RS-C-11-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_profit"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-11-5",
+        "normalizedTextSha256": "eb7828eb6640946e042764a54bd1087d1cf28e54fd2469f426a61faaa0995da1"
+      },
+      {
+        "id": "V013-V05-RS-C-12-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-12-4",
+        "normalizedTextSha256": "e60bc2468d478bdfe58727020da2391e83f18d4da76adf4239065df8e56fd3a0"
+      },
+      {
+        "id": "V013-V05-RS-C-12-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-12-4",
+        "normalizedTextSha256": "d0de7a41ed618363d0b8da7d08f1ae24235ac999c67c4741bd68f18232351fd2"
+      },
+      {
+        "id": "V013-V05-RS-C-12-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-12-5",
+        "normalizedTextSha256": "3dfbf05263af3270cd580763d5e12f20b5aff7def8b36e1c6b57c44c66437618"
+      },
+      {
+        "id": "V013-V05-RS-C-12-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_price_trend"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-12-5",
+        "normalizedTextSha256": "7d62212cd8e47dc07d27c17a3ffa58b259fa1a52c1853311d8aecb4a3fe89a96"
+      },
+      {
+        "id": "V013-V05-RS-C-13-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-13-4",
+        "normalizedTextSha256": "fc08c6af5297d6a1c9f4cf457a4e428e169fac75fdc511bf97cc82ba33481671"
+      },
+      {
+        "id": "V013-V05-RS-C-13-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-13-4",
+        "normalizedTextSha256": "863cbdc9db44f56c771705621349e202fc5e54ee2cbd7929839a14b05d38997a"
+      },
+      {
+        "id": "V013-V05-RS-C-13-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-13-5",
+        "normalizedTextSha256": "8dbd11821121b1ae44fc3124fa8ba4035350053ef7d89c84ac460a27037998ae"
+      },
+      {
+        "id": "V013-V05-RS-C-13-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_suitability"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-13-5",
+        "normalizedTextSha256": "9ce40b9e901475628d76494e5e96b19cffda349592c69a177848f02cc22950c7"
+      },
+      {
+        "id": "V013-V05-RS-C-14-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-14-4",
+        "normalizedTextSha256": "18fa254b17343816b48089e4538c9893e06bd6b933536f79b3cc06fe22861824"
+      },
+      {
+        "id": "V013-V05-RS-C-14-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-14-4",
+        "normalizedTextSha256": "6968cfc4399352a048f8c5de18ec54112dd20055b47d34c5bb30c5b075cf9cf5"
+      },
+      {
+        "id": "V013-V05-RS-C-14-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-14-5",
+        "normalizedTextSha256": "32b83d1e6dad6c6ec378c541bc6f31afe46af3dc77d93605f528ff544618c6c9"
+      },
+      {
+        "id": "V013-V05-RS-C-14-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_position_decision"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-14-5",
+        "normalizedTextSha256": "ae064b0c4457a09abf2ecb94606a05de49391c048e11c1187c6d5eeed13509e5"
+      },
+      {
+        "id": "V013-V05-RS-C-15-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-15-4",
+        "normalizedTextSha256": "664b423d8126b47535643f1cce71bee53ff79fa60c574b7760c3457459e37383"
+      },
+      {
+        "id": "V013-V05-RS-C-15-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-15-4",
+        "normalizedTextSha256": "d6b0b89caaf693f5aeb3739af5823d04b69f47125e8154989ef19e50f7337b71"
+      },
+      {
+        "id": "V013-V05-RS-C-15-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-15-5",
+        "normalizedTextSha256": "bec1c5be296f912c79693c8a95d8c17595fb9c0a04db20409655c17c7282e4d0"
+      },
+      {
+        "id": "V013-V05-RS-C-15-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "investment_dimension",
+        "routeCoverage": [
+          "investment_liquidation"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-15-5",
+        "normalizedTextSha256": "93abcee48560e4032b8f6a8f8f819d8242a8f6b9f4ba5d66999afebee3f56260"
+      },
+      {
+        "id": "V013-V05-RS-C-16-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-16-4",
+        "normalizedTextSha256": "f111f25c6ede46878e339f7d1c28111aa1613ed4e5378f292dda1c0d00fb3c5f"
+      },
+      {
+        "id": "V013-V05-RS-C-16-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-16-4",
+        "normalizedTextSha256": "93ae4dc6abf19c5c223d2a3f30d37a283e783703808ab52034368853c976a2dc"
+      },
+      {
+        "id": "V013-V05-RS-C-16-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-16-5",
+        "normalizedTextSha256": "8fd05bf0a726163cf5ed62da8d7e8495f5fb93067054b0bbd702ba185fe4619a"
+      },
+      {
+        "id": "V013-V05-RS-C-16-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_salary"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-16-5",
+        "normalizedTextSha256": "d839ddc4f6915a924663636e61869162693b7fe953c3154dd8384d24ec5f9392"
+      },
+      {
+        "id": "V013-V05-RS-C-17-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-17-4",
+        "normalizedTextSha256": "ed3845a419f36163839b7e22a9cdd3eaf73f83b7165874eed207855c851ddbca"
+      },
+      {
+        "id": "V013-V05-RS-C-17-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-17-4",
+        "normalizedTextSha256": "86ebe7aac0aeb8338ba5dffbf4ab747636d58d39bbc6082d91554bf1d163abfc"
+      },
+      {
+        "id": "V013-V05-RS-C-17-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-17-5",
+        "normalizedTextSha256": "9e13b61b5092b93c0c65f221ab2c1a5f4df83e471f6a0e88f72d0904b07ddf03"
+      },
+      {
+        "id": "V013-V05-RS-C-17-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "employment_income",
+        "routeCoverage": [
+          "income_bonus"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-17-5",
+        "normalizedTextSha256": "1b3a727448b4d3cc31c7846307208081ace7eb6dfacd4b4b1a4744752f6d22fb"
+      },
+      {
+        "id": "V013-V05-RS-C-18-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-18-4",
+        "normalizedTextSha256": "2d8a3d3880e0af448f57548558da9df86f288c093b4625e58aa838e33c37b0be"
+      },
+      {
+        "id": "V013-V05-RS-C-18-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-18-4",
+        "normalizedTextSha256": "fb7764e6d739c14923d22f9b8da7b2b8c50d0bbf43efd9620568806097b61483"
+      },
+      {
+        "id": "V013-V05-RS-C-18-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-18-5",
+        "normalizedTextSha256": "47e0225103222af85b97eb502110223d2049847f6e6caa5a81eb1cf6ce50b0eb"
+      },
+      {
+        "id": "V013-V05-RS-C-18-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "receive_item"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-18-5",
+        "normalizedTextSha256": "b00d15082b10a96b87e7b41d6679b196bc25fe23b294bf0ed3f4e33313fc14f1"
+      },
+      {
+        "id": "V013-V05-RS-C-19-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-19-4",
+        "normalizedTextSha256": "8e94628da7aa9984ba7196ca5d2c21aa97fbf894cbf782646e96034bc74dda3f"
+      },
+      {
+        "id": "V013-V05-RS-C-19-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-19-4",
+        "normalizedTextSha256": "2a49a49c02aeda03945f304ef38a7cdb56cf0d5827e209b6495b130b05d1f074"
+      },
+      {
+        "id": "V013-V05-RS-C-19-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-19-5",
+        "normalizedTextSha256": "cf96d235c60be9107d470dccfab2beff481b2230892929bc9b5c5ccf8bee703a"
+      },
+      {
+        "id": "V013-V05-RS-C-19-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "item_direction",
+        "routeCoverage": [
+          "item_purchase"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-19-5",
+        "normalizedTextSha256": "593c5dbc52eb27c654c8f34979bc6dcc40e7423c89f14b6e1f849585979e3406"
+      },
+      {
+        "id": "V013-V05-RS-C-20-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-20-4",
+        "normalizedTextSha256": "d665d63b82ecdba95be3f7f8a9c35e75fde7a47e48cfcfcd983033944f89e2e9"
+      },
+      {
+        "id": "V013-V05-RS-C-20-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-20-4",
+        "normalizedTextSha256": "46a7f0af6238dff066ab173939bac10fed18564f2eeca0aa7c350a10ca6de5fe"
+      },
+      {
+        "id": "V013-V05-RS-C-20-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-20-5",
+        "normalizedTextSha256": "ab6c03ae8dd3107b606f1074d51d60b7b6bcdfcc4a6494ee84fd3eb6f7db21c9"
+      },
+      {
+        "id": "V013-V05-RS-C-20-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "relationship_development"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-20-5",
+        "normalizedTextSha256": "9adc69d2676949b033e660802a5632af229a78da4376ecfbb028d58f0ce0c79d"
+      },
+      {
+        "id": "V013-V05-RS-C-21-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-21-4",
+        "normalizedTextSha256": "309df6ab2d6a22177462def9646bcf198070ce144adac4c249c2d2cf89992c33"
+      },
+      {
+        "id": "V013-V05-RS-C-21-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-21-4",
+        "normalizedTextSha256": "332793c67d6bf94f57f1ba5c8abc4df7dd7de8067758946beeb5cc864510dcd4"
+      },
+      {
+        "id": "V013-V05-RS-C-21-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-21-5",
+        "normalizedTextSha256": "b53a6cc0e0f505e5514689f1bdc511e088b5f3eb3c47d895a9d44d8df869b787"
+      },
+      {
+        "id": "V013-V05-RS-C-21-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marriage_match"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-21-5",
+        "normalizedTextSha256": "390afffe3fcc8264e4208b32098fe25c43c543531951b274992954f46420b575"
+      },
+      {
+        "id": "V013-V05-RS-C-22-4-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "support",
+        "contrastGroup": "V013-V05-RS-C-22-4",
+        "normalizedTextSha256": "3acd9c65866c5b4f98da566e395ff91ca79a8ffa8aad38a89323fa62635bceec"
+      },
+      {
+        "id": "V013-V05-RS-C-22-4-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-22-4",
+        "normalizedTextSha256": "368cac4e93eac66eab10345b81c9ce9216e4d13dc78c93f88885f42a6c34bddc"
+      },
+      {
+        "id": "V013-V05-RS-C-22-5-S",
+        "label": "route_semantics_sufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "fallback",
+        "contrastGroup": "V013-V05-RS-C-22-5",
+        "normalizedTextSha256": "513bf4c7c5bc42ad476c737e0aa869f9495a3f675ff72acbdedd51294f7495ba"
+      },
+      {
+        "id": "V013-V05-RS-C-22-5-I",
+        "label": "route_semantics_insufficient",
+        "domainFamily": "relationship_stage",
+        "routeCoverage": [
+          "marital_relationship"
+        ],
+        "style": "generic_domain_or_missing_dimension",
+        "contrastGroup": "V013-V05-RS-C-22-5",
+        "normalizedTextSha256": "fb20b97f6ab7a35d6a17ba5393f805f8f72c81eb697d3a59ad0936d5c2e6493a"
+      }
+    ]
+  },
+  "frozenCalibration": {
+    "weightsLockedAndCommittedBeforeCalibrationScoring": true,
+    "source": "sealed calibration corpus only",
+    "calibrationMayTrainWeights": false,
+    "oneGlobalThresholdOnly": true,
+    "routeSpecificOrFamilyThresholdsAllowed": false,
+    "maximumInsufficientFalsePass": 0.05,
+    "minimumSufficientRetention": 0.9,
+    "selectionOrder": [
+      "discard regimes with insufficient false-pass > 0.05 or sufficient retention < 0.90",
+      "maximize sufficient retention among feasible regimes",
+      "then minimize insufficient false-pass",
+      "then choose higher representative threshold"
+    ],
+    "regimes": "all distinct prediction regimes from probabilities with >= admission; candidate thresholds 0, each probability, 1",
+    "thresholdWithinSelectedRegime": "midpoint of highest rejected and lowest admitted probability; empty boundaries 0/1; assert identical prediction signature",
+    "perFamilyMetrics": "diagnostic only; no per-family threshold tuning",
+    "infeasibleBehavior": "freeze failed report, no component lock, no relabel, resplit, hard-row deletion, gate relaxation or same-version repair"
+  },
+  "governance": {
+    "v05EncoderScoringBeforeSeal": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "candidateV04FailureWordingUsedForGeneration": false,
+    "traditionalFeaturesUsed": false
+  },
+  "nextAction": "require_seal_commit_and_successful_data_ci_before_first_route_sufficiency_training"
+}
