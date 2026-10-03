@@ -1,0 +1,559 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-data-training-contract-v0.1",
+  "status": "frozen_before_data_generation_and_first_v05_encoder_scoring",
+  "scope": "liuyao_semantic_route_sufficiency_v0.1",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-design-v0.1.json",
+    "sha256": "93cf4918cb386fe942aa65f762c3ffb31907418bed7f11d4aac73bb5fc4d6dae",
+    "gitBlobSha": "77ed639b92a152783f589d7697dc54eec283e4d0"
+  },
+  "designLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-design.lock.json",
+    "sha256": "a8af8a1fd5c30b71b4fbb7a150e34fa84ebab8dad0e52ce340dc2455edbd53b8",
+    "gitBlobSha": "ced92cd38c03c78b4882d76e7f71e30a0357520d"
+  },
+  "boundaryBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-boundary-review-v0.1.json",
+    "sha256": "d47fed85f4612196678511caabcee4951f14b8d156a9b2fce8a569001551738e",
+    "gitBlobSha": "a9b21fcd76a69577f3cf6f14ba4c871cbe762f87"
+  },
+  "routeInventoryBinding": {
+    "path": "data/liuyao-semantic-route-inventory-v0.2.json",
+    "sha256": "69b13d3316e34a67214c674a9bd43967222cfddda5a290e3a8de50aa5b66760c",
+    "gitBlobSha": "d2a95614f06bb057eadeca039d81ea795be2af62"
+  },
+  "authoringBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-authoring-v0.1.json",
+    "sha256": "bd26b312f545efefe9110e9242990473f89b67ca547f9d7ad24ec8e2eb24cdf8",
+    "gitBlobSha": "4ea5eaaeef6ff92fa06583dbbd03f882e89c5ee0"
+  },
+  "labels": [
+    "route_semantics_sufficient",
+    "route_semantics_insufficient"
+  ],
+  "rowSchema": {
+    "required": [
+      "id",
+      "text",
+      "label",
+      "split",
+      "domainFamily",
+      "contrastGroup",
+      "style",
+      "routeCoverage",
+      "missingDimension",
+      "provenance"
+    ],
+    "modelInputFields": [
+      "text"
+    ],
+    "modelTargetFields": [
+      "label"
+    ],
+    "allOtherFields": "diagnostic_only_never_encoder_or_model_features"
+  },
+  "labelBoundary": {
+    "positive": "eligible divination request with a concrete referent and route-defining topic, predicate, state, decision or role direction leaving no plausible competing current22 route",
+    "negative": "eligible divination request missing the route-defining state/action/role dimension even if domain words or a concrete referent are present",
+    "routerOrRouteabilityLabelsAllowed": false,
+    "traditionalFeaturesAllowed": false
+  },
+  "splitPolicy": {
+    "membership": "literal authoring indices 0,1,2 training; 3,4 calibration; never shuffled or resplit",
+    "training": {
+      "rows": 132,
+      "perLabel": 66,
+      "pairsPerRoute": 3,
+      "positiveStyles": {
+        "strong": 22,
+        "support": 22,
+        "fallback": 22
+      }
+    },
+    "calibration": {
+      "rows": 88,
+      "perLabel": 44,
+      "pairsPerRoute": 2,
+      "positiveStyles": {
+        "support": 22,
+        "fallback": 22
+      }
+    },
+    "contrastGroupsCrossSplit": false
+  },
+  "coverageMatrix": [
+    {
+      "routeId": "financial_fortune",
+      "domainFamily": "general_finances",
+      "missingDimension": "overall_financial_state",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "business_operation",
+      "domainFamily": "business",
+      "missingDimension": "ongoing_operation",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "commercial_transaction",
+      "domainFamily": "trade_inventory",
+      "missingDimension": "deal_completion",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "inventory_purchase",
+      "domainFamily": "trade_inventory",
+      "missingDimension": "stock_acquisition",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "inventory_sale",
+      "domainFamily": "trade_inventory",
+      "missingDimension": "stock_disposal",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "borrow_money",
+      "domainFamily": "credit_direction",
+      "missingDimension": "borrower_vs_lender",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "lend_money",
+      "domainFamily": "credit_direction",
+      "missingDimension": "borrower_vs_lender",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "debt_collection",
+      "domainFamily": "debt_direction",
+      "missingDimension": "creditor_vs_debtor",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "debt_repayment",
+      "domainFamily": "debt_direction",
+      "missingDimension": "creditor_vs_debtor",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "partnership",
+      "domainFamily": "partnership",
+      "missingDimension": "joint_cooperation",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "investment_profit",
+      "domainFamily": "investment_dimension",
+      "missingDimension": "investment_state_or_action",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "investment_price_trend",
+      "domainFamily": "investment_dimension",
+      "missingDimension": "investment_state_or_action",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "investment_suitability",
+      "domainFamily": "investment_dimension",
+      "missingDimension": "investment_state_or_action",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "investment_position_decision",
+      "domainFamily": "investment_dimension",
+      "missingDimension": "investment_state_or_action",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "investment_liquidation",
+      "domainFamily": "investment_dimension",
+      "missingDimension": "investment_state_or_action",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "income_salary",
+      "domainFamily": "employment_income",
+      "missingDimension": "salary_arrival_or_amount",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "income_bonus",
+      "domainFamily": "employment_income",
+      "missingDimension": "bonus_award_or_arrival",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "receive_item",
+      "domainFamily": "item_direction",
+      "missingDimension": "purchase_vs_receipt",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "item_purchase",
+      "domainFamily": "item_direction",
+      "missingDimension": "purchase_vs_receipt",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "relationship_development",
+      "domainFamily": "relationship_stage",
+      "missingDimension": "relationship_stage_or_target",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "marriage_match",
+      "domainFamily": "relationship_stage",
+      "missingDimension": "marriage_formation",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    },
+    {
+      "routeId": "marital_relationship",
+      "domainFamily": "relationship_stage",
+      "missingDimension": "existing_marriage_state",
+      "training": {
+        "sufficient": 3,
+        "insufficient": 3
+      },
+      "calibration": {
+        "sufficient": 2,
+        "insufficient": 2
+      }
+    }
+  ],
+  "generationPolicy": {
+    "literalHandAuthoredPairsOnly": true,
+    "templatesOrSynonymExpansionAllowed": false,
+    "noEncoderOrRouterFeedback": true,
+    "readAllowlist": [
+      "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-contract-v0.1.json",
+      "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-authoring-v0.1.json",
+      "data/liuyao-semantic-route-inventory-v0.2.json"
+    ],
+    "model": "Codex (GPT-6-based session; exact variant unavailable; GPT-6.1 Sol not claimed)",
+    "failureRowsUsedForWording": false
+  },
+  "duplicatePolicy": {
+    "normalization": "NFKC + lower-case + remove whitespace and punctuation/symbols",
+    "exactDuplicates": "forbidden within corpus, across splits and against audit-only history",
+    "nearDuplicateMetric": "character trigram Jaccard",
+    "maximumCrossSplitSimilarityExclusive": 0.82,
+    "maximumHistoricalSimilarityExclusive": 0.84,
+    "withinSplitContrastPairs": "opposite-label minimal contrasts permitted; no cross-split exceptions",
+    "limits": "lexical checks do not prove absence of all semantic paraphrases; authors must not copy or paraphrase historical text"
+  },
+  "contaminationPolicy": {
+    "historyAuditOnly": [
+      {
+        "path": "data/liuyao-semantic-route-training-v0.1.json",
+        "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+        "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+        "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+        "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+        "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+        "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+        "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+        "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+        "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+        "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+      },
+      {
+        "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+        "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+        "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a"
+      },
+      {
+        "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+        "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+        "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+        "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+        "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+        "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+        "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+        "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+        "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+        "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+        "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+        "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+        "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+        "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+        "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e"
+      }
+    ],
+    "candidateV04DevelopmentAuditOnly": {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd",
+      "allowedUse": "automated exact/trigram comparison only; never expose wording to generator or terminal; never use as training/calibration"
+    },
+    "noReadNamePattern": "independent|blind|diagnostic|diagnosis|report|literature|research|next-topic|next-five",
+    "protectedIsolation": "no content read, no text-comparison for independent/blind/reserved research",
+    "noDevelopmentOrFailureWordingSource": true
+  },
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "correctedFrozenDependenciesBinding": {
+    "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+    "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9",
+    "gitBlobSha": "255b2cca09a82608ea8cbf45f06f4f3cff153801"
+  },
+  "algorithm": {
+    "path": "js/liuyao-semantic-route-sufficiency-model-v01.js",
+    "sha256": "d7e1fec4421bbde5cb3af112bd61ebb6bbeeeef37eaa6a1cc9a1c2b3ccb17ed0",
+    "gitBlobSha": "77259ed6e92429699b422fb25f2fde1fd3224c60",
+    "type": "single_binary_logistic_head",
+    "trainFromScratch": true,
+    "initialWeights": "Float32Array(512) zeros",
+    "initialBias": 0,
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "learningRateAtEpoch": "0.42 / (1 + epoch * 0.01)",
+    "optimizer": "deterministic_full_batch_gradient_descent",
+    "classBalancing": {
+      "sufficientTotalWeight": 0.5,
+      "insufficientTotalWeight": 0.5
+    },
+    "weightRegularization": "l2",
+    "biasRegularization": "none",
+    "hyperparameterSearchAllowed": false,
+    "legacyWeightsReusable": false
+  },
+  "calibrationBoundary": {
+    "weightsLockedAndCommittedBeforeCalibrationScoring": true,
+    "source": "sealed calibration corpus only",
+    "calibrationMayTrainWeights": false,
+    "oneGlobalThresholdOnly": true,
+    "routeSpecificOrFamilyThresholdsAllowed": false,
+    "maximumInsufficientFalsePass": 0.05,
+    "minimumSufficientRetention": 0.9,
+    "selectionOrder": [
+      "discard regimes with insufficient false-pass > 0.05 or sufficient retention < 0.90",
+      "maximize sufficient retention among feasible regimes",
+      "then minimize insufficient false-pass",
+      "then choose higher representative threshold"
+    ],
+    "regimes": "all distinct prediction regimes from probabilities with >= admission; candidate thresholds 0, each probability, 1",
+    "thresholdWithinSelectedRegime": "midpoint of highest rejected and lowest admitted probability; empty boundaries 0/1; assert identical prediction signature",
+    "perFamilyMetrics": "diagnostic only; no per-family threshold tuning",
+    "infeasibleBehavior": "freeze failed report, no component lock, no relabel, resplit, hard-row deletion, gate relaxation or same-version repair"
+  },
+  "sealPolicy": {
+    "deterministic": true,
+    "trainingAndCalibrationTogether": true,
+    "recordHashesBlobsMembershipCountsAndAudits": true,
+    "encoderScoringBeforeSeal": false,
+    "firstScoringRequires": "bot seal commit AND data seal CI success on GitHub; local verification alone insufficient"
+  },
+  "governance": {
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "v05EncoderScoringBeforeContract": false,
+    "candidateV04FailureWordingUsedForGeneration": false,
+    "traditionalFeaturesUsed": false
+  },
+  "outputPolicy": {
+    "trainingPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+    "calibrationPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+    "dataLockPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data.lock.json",
+    "contaminationAuditPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-contamination-audit-v0.1.json",
+    "modelPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+    "weightsLockPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+    "calibrationReportPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-calibration-report.json",
+    "thresholdLockPath": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json"
+  },
+  "nextAction": "generate_verify_and_ci_seal_data_before_any_encoder_scoring"
+}
