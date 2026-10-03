@@ -1,0 +1,35 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-v0.1-threshold-lock-v0.1",
+  "status": "component_locked_after_frozen_calibration",
+  "modelBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+    "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+    "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+  },
+  "weightsLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+    "sha256": "cff69bc0c8cfc4b5da30ff01482248d35aeb390db29499e7ebfffd3dc9e73c68",
+    "gitBlobSha": "642f123a6a515247da725b1381538d6bcf3ef980"
+  },
+  "reportBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-calibration-report.json",
+    "sha256": "cde40772f111359cfd19258a7cdf3da2a80837debbad643760eae3ed37dd8581",
+    "gitBlobSha": "520cac0a84daa25f4a58110f87f64fad77df720c"
+  },
+  "executionContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.2.json",
+    "sha256": "ce05856f24f24134deb825718ec086c77163364d5e1eb67e4d6747848d9a153a",
+    "gitBlobSha": "2068cfd97f47042a6258e4bae9947554caab7b54"
+  },
+  "dataLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data.lock.json",
+    "sha256": "1cfba8e2726922459a29ea8e713c02fcb39138f11a51c0e8c0a4d334d7f416f6",
+    "gitBlobSha": "c8bec0fe9b388913e29fc12e0e38f5fbfe573d77"
+  },
+  "threshold": 0.45004286319719417,
+  "oneGlobalThresholdOnly": true,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "integratedCandidateV05RuntimeBuilt": false,
+  "nextAction": "freeze_fallback_identity_v03_fresh_data_contract_only_after_owner_stage_report"
+}
