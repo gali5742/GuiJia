@@ -1,0 +1,128 @@
+name: LiuYao v0.13-v0.5 Route Sufficiency Train and Lock
+
+on:
+  push:
+    branches: [liuyao-semantic-v013-core]
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.1.json'
+      - 'scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-lib.mjs'
+      - 'scripts/train-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-weights.mjs'
+      - 'scripts/calibrate-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.mjs'
+      - 'scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs'
+      - 'tests/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration-tests.mjs'
+      - '.github/workflows/liuyao-v013-v05-route-sufficiency-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: liuyao-v013-v05-route-sufficiency-training
+  cancel-in-progress: false
+
+jobs:
+  train-and-lock:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ONNXRUNTIME_NODE_INSTALL: skip
+      GUIJIA_TRANSFORMERS_PACKAGE_DIR: ${{ runner.temp }}/route-sufficiency-runtime/node_modules/@huggingface/transformers
+      GUIJIA_ENCODER_CACHE_DIR: ${{ runner.temp }}/route-sufficiency-encoder-cache
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: liuyao-semantic-v013-core
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Capture immutable training base
+        run: echo "RS_TRAIN_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Confirm committed seal and successful data CI before first encoder scoring
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs --preflight
+      - name: Test predeclared calibration selection without encoder scoring
+        run: node tests/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration-tests.mjs
+      - name: Install pinned CPU encoder runtime outside checkout
+        run: npm install --prefix "$RUNNER_TEMP/route-sufficiency-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+      - name: Train weights on sealed training membership only
+        run: node scripts/train-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-weights.mjs
+      - name: Verify weights before any calibration encoder pass
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs --weights
+      - name: Commit and push weights before calibration
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json \
+            data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(liuyao): lock v0.5 route sufficiency weights'
+            git fetch origin liuyao-semantic-v013-core
+            if ! git diff --quiet "$RS_TRAIN_BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+              'data/liuyao-semantic-v013-candidate-v05-*' \
+              data/liuyao-semantic-route-inventory-v0.2.json \
+              data/liuyao-semantic-embedding-execution-contract-v0.1.json \
+              data/liuyao-semantic-frozen-dependencies-v0.2.json \
+              js/liuyao-semantic-route-sufficiency-model-v01.js \
+              'scripts/*liuyao-semantic-v013-candidate-v05-route-sufficiency*' \
+              'tests/*liuyao-semantic-v013-candidate-v05-route-sufficiency*' \
+              .github/workflows/liuyao-v013-v05-route-sufficiency-train.yml; then
+              echo 'Sufficiency inputs changed during training; refusing stale weights push.'
+              exit 1
+            fi
+            git rebase origin/liuyao-semantic-v013-core
+            node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs --weights
+            git push origin HEAD:liuyao-semantic-v013-core
+          fi
+          git diff --exit-code
+          echo "RS_CALIB_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Calibrate exactly one global threshold with committed frozen weights
+        id: calibrate
+        continue-on-error: true
+        run: node scripts/calibrate-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.mjs
+      - name: Replay and verify calibration result without encoder rerun
+        if: always() && steps.calibrate.outcome != 'skipped'
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs
+      - name: Preserve immutable calibration success or failure
+        if: always() && steps.calibrate.outcome != 'skipped'
+        run: |
+          set -euo pipefail
+          REPORT=data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-calibration-report.json
+          LOCK=data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json
+          test -f "$REPORT"
+          node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs
+          git add "$REPORT"
+          if [ -f "$LOCK" ]; then git add "$LOCK"; fi
+          if ! git diff --cached --quiet; then
+            if [ "${{ steps.calibrate.outcome }}" = 'success' ]; then
+              git commit -m 'chore(liuyao): lock v0.5 route sufficiency global threshold'
+            else
+              git commit -m 'test(liuyao): preserve v0.5 route sufficiency calibration failure'
+            fi
+            git fetch origin liuyao-semantic-v013-core
+            if ! git diff --quiet "$RS_CALIB_BASE_SHA"..origin/liuyao-semantic-v013-core -- \
+              'data/liuyao-semantic-v013-candidate-v05-*' \
+              data/liuyao-semantic-route-inventory-v0.2.json \
+              data/liuyao-semantic-embedding-execution-contract-v0.1.json \
+              data/liuyao-semantic-frozen-dependencies-v0.2.json \
+              js/liuyao-semantic-route-sufficiency-model-v01.js \
+              'scripts/*liuyao-semantic-v013-candidate-v05-route-sufficiency*' \
+              'tests/*liuyao-semantic-v013-candidate-v05-route-sufficiency*' \
+              .github/workflows/liuyao-v013-v05-route-sufficiency-train.yml; then
+              echo 'Sufficiency inputs changed during calibration; refusing stale result push.'
+              exit 1
+            fi
+            git rebase origin/liuyao-semantic-v013-core
+            node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs
+            git push origin HEAD:liuyao-semantic-v013-core
+          fi
+          git diff --exit-code
+          git show -s --format='%H %s'
+      - name: Reject component lock if frozen calibration gates failed
+        if: steps.calibrate.outcome != 'success'
+        run: |
+          echo 'Calibration failed or did not execute. No Fallback, integrated runtime, or fresh Candidate development may begin.'
+          exit 1
