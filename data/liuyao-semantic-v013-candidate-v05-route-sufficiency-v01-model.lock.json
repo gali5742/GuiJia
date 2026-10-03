@@ -1,0 +1,25 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-v0.1-weights-lock-v0.1",
+  "status": "weights_locked_before_threshold_calibration",
+  "modelBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+    "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+    "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+  },
+  "executionContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.2.json",
+    "sha256": "ce05856f24f24134deb825718ec086c77163364d5e1eb67e4d6747848d9a153a",
+    "gitBlobSha": "2068cfd97f47042a6258e4bae9947554caab7b54"
+  },
+  "dataLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data.lock.json",
+    "sha256": "1cfba8e2726922459a29ea8e713c02fcb39138f11a51c0e8c0a4d334d7f416f6",
+    "gitBlobSha": "c8bec0fe9b388913e29fc12e0e38f5fbfe573d77"
+  },
+  "parametersSha256": "d6c71b91443e6d938b0535a5e7464e413cdf77160e3c765855795e18064fed17",
+  "trainingRows": 132,
+  "calibrationEncoderInvocationsBeforeWeightsLock": 0,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "nextAction": "commit_weights_then_calibrate_one_global_threshold_on_sealed_calibration"
+}
