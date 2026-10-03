@@ -66,6 +66,9 @@ jobs:
       - name: Effect-Type Authorization Source Capability Audit regression
         run: node tests/bazi-contextual-force-party-effect-type-authorization-source-capability-tests.js
 
+      - name: Registered Motif Authorization Matcher regression
+        run: node tests/bazi-contextual-force-party-registered-motif-authorization-matcher-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
