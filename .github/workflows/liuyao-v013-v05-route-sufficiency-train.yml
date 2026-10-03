@@ -5,6 +5,7 @@ on:
     branches: [liuyao-semantic-v013-core]
     paths:
       - 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.2.json'
       - 'scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-lib.mjs'
       - 'scripts/train-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-weights.mjs'
       - 'scripts/calibrate-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.mjs'
@@ -28,8 +29,6 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       ONNXRUNTIME_NODE_INSTALL: skip
-      GUIJIA_TRANSFORMERS_PACKAGE_DIR: ${{ runner.temp }}/route-sufficiency-runtime/node_modules/@huggingface/transformers
-      GUIJIA_ENCODER_CACHE_DIR: ${{ runner.temp }}/route-sufficiency-encoder-cache
     steps:
       - uses: actions/checkout@v5
         with:
@@ -39,7 +38,10 @@ jobs:
         with:
           node-version: '22'
       - name: Capture immutable training base
-        run: echo "RS_TRAIN_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+        run: |
+          echo "RS_TRAIN_BASE_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/route-sufficiency-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/route-sufficiency-encoder-cache" >> "$GITHUB_ENV"
       - name: Confirm committed seal and successful data CI before first encoder scoring
         run: node scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs --preflight
       - name: Test predeclared calibration selection without encoder scoring

@@ -1,0 +1,173 @@
+{
+  "version": "0.13-candidate-v0.5-route-sufficiency-execution-contract-v0.2",
+  "status": "frozen_after_data_ci_pass_before_first_encoder_scoring",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-contract-v0.1.json",
+      "sha256": "4ac019c622c0d142cb2fe14ad7d87f4f2c06cf824cd3018d7fe2a7e50b20fd1c",
+      "gitBlobSha": "6472e2e10f53775aaea2f6333a9668037dd4b60a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-data.lock.json",
+      "sha256": "1cfba8e2726922459a29ea8e713c02fcb39138f11a51c0e8c0a4d334d7f416f6",
+      "gitBlobSha": "c8bec0fe9b388913e29fc12e0e38f5fbfe573d77"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+      "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+      "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+      "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+      "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33"
+    },
+    {
+      "path": "js/liuyao-semantic-route-sufficiency-model-v01.js",
+      "sha256": "d7e1fec4421bbde5cb3af112bd61ebb6bbeeeef37eaa6a1cc9a1c2b3ccb17ed0",
+      "gitBlobSha": "77259ed6e92429699b422fb25f2fde1fd3224c60"
+    },
+    {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+      "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+    },
+    {
+      "path": "data/liuyao-semantic-frozen-dependencies-v0.2.json",
+      "sha256": "58bf137a7de167e2e71baffa474e8eed7d92ea11fd6ad6460b66591ad52441e9",
+      "gitBlobSha": "255b2cca09a82608ea8cbf45f06f4f3cff153801"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-lib.mjs",
+      "sha256": "2e68cc6e73cc8375b093b3a67f22ded5baec66dea60a9651913ebfd1aa2c8447",
+      "gitBlobSha": "20f108920f4488f86e556d183fca64cd879573ca"
+    },
+    {
+      "path": "scripts/train-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-weights.mjs",
+      "sha256": "6c371facdb1bef813a31a48e05223301066a6ff06c248cb6d1e4440c3526108c",
+      "gitBlobSha": "c5f012b58ebc9ee204b0d2b543edc2556bd383af"
+    },
+    {
+      "path": "scripts/calibrate-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.mjs",
+      "sha256": "cadfa25a7536bc5176cbda09d7f577d7974d52fc60caf45c7751d51847830d46",
+      "gitBlobSha": "c2871a913cb514fcfe126204fe7800a571a7df0f"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.mjs",
+      "sha256": "c29fa66b2ff8cfd7a8d305201ea748d19d141bb661deb7d90166635f11287ec1",
+      "gitBlobSha": "ddee4768013bb0fff38e60361eadd3822e588092"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration-tests.mjs",
+      "sha256": "1aaa99ca4d6e6bc0bf85bd07258f9d960c6e30c1431ec46facf9785a93f4bfee",
+      "gitBlobSha": "6a3dbb5691f20dbb13f0f858f922ecf8350bb165"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v05-route-sufficiency-train.yml",
+      "sha256": "b8f0708745468748390e92ff3be5cd818926bd825bd8ae7c8370079f2320a48a",
+      "gitBlobSha": "dc72471839ca93778bb3e1ade31eaa3364ecdc69"
+    }
+  ],
+  "dataSeal": {
+    "commit": "45f8d1492c660f73026d32aecb8b9738ebd4bed8",
+    "author": "github-actions[bot]"
+  },
+  "dataCI": {
+    "runId": 37097153707,
+    "workflowPath": ".github/workflows/liuyao-v013-v05-route-sufficiency-data.yml",
+    "headSha": "04f925061773ca26001a49e833c7f19efe162fc1",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/gali5742/GuiJia/actions/runs/37097153707"
+  },
+  "dataTrainingCalibrationContractUnchanged": true,
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "algorithm": {
+    "path": "js/liuyao-semantic-route-sufficiency-model-v01.js",
+    "sha256": "d7e1fec4421bbde5cb3af112bd61ebb6bbeeeef37eaa6a1cc9a1c2b3ccb17ed0",
+    "gitBlobSha": "77259ed6e92429699b422fb25f2fde1fd3224c60",
+    "type": "single_binary_logistic_head",
+    "trainFromScratch": true,
+    "initialWeights": "Float32Array(512) zeros",
+    "initialBias": 0,
+    "hyperparameters": {
+      "epochs": 360,
+      "learningRate": 0.42,
+      "l2": 0.0015
+    },
+    "learningRateAtEpoch": "0.42 / (1 + epoch * 0.01)",
+    "optimizer": "deterministic_full_batch_gradient_descent",
+    "classBalancing": {
+      "sufficientTotalWeight": 0.5,
+      "insufficientTotalWeight": 0.5
+    },
+    "weightRegularization": "l2",
+    "biasRegularization": "none",
+    "hyperparameterSearchAllowed": false,
+    "legacyWeightsReusable": false
+  },
+  "calibrationBoundary": {
+    "weightsLockedAndCommittedBeforeCalibrationScoring": true,
+    "source": "sealed calibration corpus only",
+    "calibrationMayTrainWeights": false,
+    "oneGlobalThresholdOnly": true,
+    "routeSpecificOrFamilyThresholdsAllowed": false,
+    "maximumInsufficientFalsePass": 0.05,
+    "minimumSufficientRetention": 0.9,
+    "selectionOrder": [
+      "discard regimes with insufficient false-pass > 0.05 or sufficient retention < 0.90",
+      "maximize sufficient retention among feasible regimes",
+      "then minimize insufficient false-pass",
+      "then choose higher representative threshold"
+    ],
+    "regimes": "all distinct prediction regimes from probabilities with >= admission; candidate thresholds 0, each probability, 1",
+    "thresholdWithinSelectedRegime": "midpoint of highest rejected and lowest admitted probability; empty boundaries 0/1; assert identical prediction signature",
+    "perFamilyMetrics": "diagnostic only; no per-family threshold tuning",
+    "infeasibleBehavior": "freeze failed report, no component lock, no relabel, resplit, hard-row deletion, gate relaxation or same-version repair"
+  },
+  "executionPolicy": {
+    "runtime": "Node 22, Transformers.js 4.2.0, CPU ONNX",
+    "optionalGpuPackages": "ONNXRUNTIME_NODE_INSTALL=skip (official supported flag; CPU binaries included in verified npm tarball)",
+    "normalizationBeforeEncoder": "String(text).trim()",
+    "textsPerCall": 1,
+    "trainingCalls": 132,
+    "calibrationCalls": 88,
+    "weightsCommittedBeforeCalibration": true,
+    "reportReplay": "retain calibration vectors, exact row membership and head probabilities; recompute probabilities and threshold without encoder execution",
+    "sameVersionRetrainingOrRecalibration": false
+  },
+  "governance": {
+    "v05EncoderScoringBeforeDataSeal": false,
+    "v05EncoderScoringBeforeDataCIPass": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "developmentUsedForTuning": false,
+    "traditionalFeaturesUsed": false
+  },
+  "actualAuthoringModel": "Codex (GPT-6-based session; exact variant unavailable; GPT-6.1 Sol not claimed)",
+  "supersedes": {
+    "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.1.json",
+    "sha256": "1a345b1a7f4882b3a58fc0f6713a279d95a534ab81404befbdc754a960434368",
+    "gitBlobSha": "ed77b98b22c0bdcd446117d7051396af4be2548c",
+    "reason": "GitHub rejected job-level runner.temp before scheduling any jobs; paths now initialized using RUNNER_TEMP in shell steps",
+    "failedRunId": 37097768910,
+    "failedRunUrl": "https://github.com/gali5742/GuiJia/actions/runs/37097768910",
+    "jobsExecuted": 0,
+    "encoderCalls": 0,
+    "dataOrAlgorithmOrGatesChanged": false
+  }
+}

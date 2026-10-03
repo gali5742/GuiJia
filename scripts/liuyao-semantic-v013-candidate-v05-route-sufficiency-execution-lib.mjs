@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { root, read, json, binding, hashBytes, equal, assert, exists, verify } from './liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs';
 
-export const executionPath = 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.1.json';
+export const executionPath = 'data/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-contract-v0.2.json';
 const git = args => execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
 export function committed(p) {
   assert(git(['rev-parse',`HEAD:${p}`]) === binding(p).gitBlobSha, `Uncommitted scoring input: ${p}`);
