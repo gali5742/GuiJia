@@ -81,7 +81,7 @@ test('full ordered research closure installs R7 without defining global semantic
     assert(real.baziContextualForcePartyRegisteredMotifAuthorizationMatcher?.installed, 'R7 runtime missing');
     const contract = apiFor(real).CONTRACT;
     assert(contract.registeredMotifIds.length === 3 && contract.genericEffectTypeAuthorizationResolverDefined === false, 'registry/global boundary lost');
-    assert(real.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 3, 'production registry was changed by synthetic tests');
+    assert(real.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 5, 'research source registry was changed by synthetic tests');
 });
 test('research extension host preserves legacy wrappers, registration order and idempotency', () => {
     const context = { GuiJia:{ baziStrengthSynthesis:{ buildStrengthSynthesis:() => ({ trace:['base'] }) } } };

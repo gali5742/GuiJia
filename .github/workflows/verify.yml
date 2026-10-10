@@ -69,6 +69,9 @@ jobs:
       - name: Registered Motif Authorization Matcher regression
         run: node tests/bazi-contextual-force-party-registered-motif-authorization-matcher-tests.js
 
+      - name: Source Visible Motif Calibration regression
+        run: node tests/bazi-contextual-force-party-source-visible-motif-calibration-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

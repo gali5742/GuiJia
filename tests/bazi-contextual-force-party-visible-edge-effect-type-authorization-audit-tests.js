@@ -109,10 +109,11 @@ test('source matrix 明确记录 positive realized-but-unmapped pattern', () => 
     assert(record.matchedMotifIds.length === 0, '该 pattern 不应命中现有 Party motif');
 });
 
-test('当前 raw opposition / mediation motif 尚无 positive direct-source end-to-end calibration', () => {
+test('真实 opposition 正例不等于全部 raw visible motif 校准完成', () => {
     assert(sourceApi.RAW_VISIBLE_MOTIFS.length === 2, 'raw visible motif 数量异常');
-    assert(sourceApi.POSITIVE_AUTHORIZED_DIRECT_PATTERNS.length === 0, '当前不应已有 positive authorized direct calibration');
-    assert(sourceApi.CONTRACT.positiveAuthorizedDirectPatternObserved === false, 'calibration flag 应为 false');
+    assert(sourceApi.POSITIVE_AUTHORIZED_DIRECT_PATTERNS.length === 1, '应有一个真实 positive authorized direct calibration');
+    assert(sourceApi.CONTRACT.positiveAuthorizedDirectPatternObserved === true, '应记录已观察正例');
+    assert(sourceApi.CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === false, '不得把单一 opposition 正例提升成全部 motif coverage');
 });
 
 test('generic visible mapping blocker 被细化为 authorization audit + calibration blocker', () => {

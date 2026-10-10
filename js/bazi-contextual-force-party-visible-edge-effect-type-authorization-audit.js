@@ -85,6 +85,7 @@
             unresolvedRealizationEdgeCount:unresolved.length,
             positiveCrossVisibleRealizationCapability:CONTRACT.positiveCrossVisibleRealizationCapability === true,
             positiveAuthorizedDirectPatternObserved:CONTRACT.positiveAuthorizedDirectPatternObserved === true,
+            allRawVisibleMotifsPositiveCalibrationObserved:CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === true,
             knownMotifAuthorizationModelDefined:true,
             genericVisibleEdgeEffectTypeResolverDefined:false,
             currentRegistryNoMatchIsSemanticRejection:false,
@@ -145,9 +146,11 @@
         id:'SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-KNOWN-MOTIF-END-TO-END-CALIBRATION',
         kind:'validation',
         scope:'known-raw-visible-motif-positive-end-to-end-calibration',
-        status:audit.positiveAuthorizedDirectPatternObserved ? 'resolved' : 'unresolved',
-        statement:audit.positiveAuthorizedDirectPatternObserved
-            ? '当前 direct-source realization registry 已存在至少一条正向 cross-visible edge，可端到端命中已登记 raw Party motif。'
+        status:audit.allRawVisibleMotifsPositiveCalibrationObserved ? 'resolved' : 'unresolved',
+        statement:audit.allRawVisibleMotifsPositiveCalibrationObserved
+            ? '当前 direct-source realization registry 已覆盖全部已登记 raw Party motif 的 positive calibration。'
+            : audit.positiveAuthorizedDirectPatternObserved
+                ? '已有真实 positive cross-visible pattern 命中部分已登记 raw Party motif；其余 motif 的校准继续 unresolved。'
             : '当前已有正向 cross-visible realization，但 direct-source registry 尚没有一条正向 edge 能端到端命中已登记的 raw opposition / mediation motif；effect-type mapping 仍缺 executable calibration case。',
         boundary:'Calibration gap 不是允许用合成 edge 或五行常识补齐来源；也不撤销现有 motif 的文本授权。',
         dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-EFFECT-TYPE-AUTHORIZATION-AUDIT']
@@ -166,7 +169,7 @@
                 calibrationDependency.id
             ])),
             resolvedByClaimIds:Object.freeze([]),
-            statement:`Visible-edge authorization 已审计：当前盘 cross-visible edge ${audit.edgeCount} 条，其中 realized ${audit.realizedEdgeCount}、当前 motif 已授权 ${audit.realizedAuthorizedEdgeCount}、realized 但未映射 ${audit.realizedUnmappedEdgeCount}。现有来源仍未定义 generic generation/restraint → Party effect type resolver，且 known raw motif 缺正向端到端 calibration。`,
+            statement:`Visible-edge authorization 已审计：当前盘 cross-visible edge ${audit.edgeCount} 条，其中 realized ${audit.realizedEdgeCount}、当前 motif 已授权 ${audit.realizedAuthorizedEdgeCount}、realized 但未映射 ${audit.realizedUnmappedEdgeCount}。现有来源仍未定义 generic generation/restraint → Party effect type resolver；known raw motif 的完整 calibration 须独立检查。`,
             boundary:'不得把 realized edge 数量、function shape、十神角色或当前 registry no-match 转换成 generic effect type；no-match 也不是 semantic rejection。'
         });
     };
