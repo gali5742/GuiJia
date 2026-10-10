@@ -72,6 +72,9 @@ jobs:
       - name: Source Visible Motif Calibration regression
         run: node tests/bazi-contextual-force-party-source-visible-motif-calibration-tests.js
 
+      - name: Source Position Provenance Consumer regression
+        run: node tests/bazi-contextual-force-party-source-position-provenance-consumer-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

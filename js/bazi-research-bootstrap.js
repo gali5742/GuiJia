@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.31';
+    const VERSION = '0.32';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -146,7 +146,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartyEffectTypeAuthorizationSourceCapabilityAudit', src:'./js/bazi-contextual-force-party-effect-type-authorization-source-capability-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRegisteredMotifAuthorizationMatcherContract', src:'./js/bazi-contextual-force-party-registered-motif-authorization-matcher-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRegisteredMotifAuthorizationMatcherProfile', src:'./js/bazi-contextual-force-party-registered-motif-authorization-matcher-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartyRegisteredMotifAuthorizationMatcher', src:'./js/bazi-contextual-force-party-registered-motif-authorization-matcher.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartyRegisteredMotifAuthorizationMatcher', src:'./js/bazi-contextual-force-party-registered-motif-authorization-matcher.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePositionProvenanceConsumerContract', src:'./js/bazi-contextual-force-party-source-position-provenance-consumer-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePositionProvenanceConsumerProfile', src:'./js/bazi-contextual-force-party-source-position-provenance-consumer-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePositionProvenanceConsumer', src:'./js/bazi-contextual-force-party-source-position-provenance-consumer.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
