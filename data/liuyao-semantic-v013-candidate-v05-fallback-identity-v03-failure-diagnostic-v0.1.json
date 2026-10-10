@@ -1,0 +1,1159 @@
+{
+  "version": "0.13-candidate-v0.5-fallback-identity-v0.3-failure-diagnostic-v0.1",
+  "status": "immutable_read_only_diagnosis_of_preserved_probabilities",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration-report.json",
+      "sha256": "79e25e0bf63fffe72c7166cfce4e93777b75c84668fa75c451366ee2c3f880ea",
+      "gitBlobSha": "6467ab23d13dd08d33e51c6834a6519b07898068"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-model.lock.json",
+      "sha256": "348a257a78389d4ea7be70465d3fcf8ed974cb399d39c94ba81318486b53f7ca",
+      "gitBlobSha": "ef3b32b31ae4b869f5a7c223bc6fa332e29c47f1"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-data.lock.json",
+      "sha256": "760ed205509aed91d554e280ac409b995b74ed6d8ca5c545fa119fdbe9c68fc9",
+      "gitBlobSha": "723ecb8293dbc324282533b83ad0866a045b6ebe"
+    }
+  ],
+  "knownRows": 66,
+  "rankCounts": {
+    "1": 57,
+    "2": 5,
+    "3": 4
+  },
+  "perRowCorrectlyRanked": 57,
+  "maximumGlobalExactKnown": 38,
+  "maximumGlobalExactKnownUnderPrecisionAndSafety": 2,
+  "separableHeads": 3,
+  "confusionPairs": {
+    "financial_fortune->income_salary": 1,
+    "financial_fortune->business_operation": 1,
+    "financial_fortune->investment_profit": 1,
+    "business_operation->partnership": 1,
+    "business_operation->financial_fortune": 1,
+    "business_operation->inventory_purchase": 1,
+    "commercial_transaction->inventory_purchase": 1,
+    "commercial_transaction->item_purchase": 1,
+    "commercial_transaction->partnership": 1,
+    "inventory_purchase->inventory_sale": 2,
+    "inventory_purchase->commercial_transaction": 1,
+    "inventory_sale->inventory_purchase": 3,
+    "borrow_money->lend_money": 3,
+    "lend_money->borrow_money": 3,
+    "debt_collection->debt_repayment": 2,
+    "debt_collection->receive_item": 1,
+    "debt_repayment->debt_collection": 3,
+    "partnership->commercial_transaction": 1,
+    "partnership->marital_relationship": 1,
+    "partnership->relationship_development": 1,
+    "investment_profit->investment_liquidation": 1,
+    "investment_profit->financial_fortune": 1,
+    "investment_profit->business_operation": 1,
+    "investment_liquidation->investment_position_decision": 2,
+    "investment_liquidation->investment_profit": 1,
+    "investment_suitability->item_purchase": 1,
+    "investment_suitability->investment_profit": 1,
+    "investment_suitability->investment_position_decision": 1,
+    "investment_position_decision->investment_liquidation": 1,
+    "investment_position_decision->item_purchase": 1,
+    "investment_position_decision->investment_suitability": 1,
+    "investment_price_trend->financial_fortune": 2,
+    "investment_price_trend->investment_position_decision": 1,
+    "income_salary->income_bonus": 1,
+    "income_salary->receive_item": 1,
+    "income_salary->financial_fortune": 1,
+    "income_bonus->borrow_money": 1,
+    "income_bonus->income_salary": 2,
+    "receive_item->item_purchase": 1,
+    "receive_item->income_bonus": 2,
+    "item_purchase->lend_money": 1,
+    "item_purchase->inventory_purchase": 2,
+    "relationship_development->marriage_match": 2,
+    "relationship_development->marital_relationship": 1,
+    "marriage_match->relationship_development": 2,
+    "marriage_match->marital_relationship": 1,
+    "marital_relationship->relationship_development": 1,
+    "marital_relationship->marriage_match": 2
+  },
+  "perHead": {
+    "financial_fortune": {
+      "positiveCount": 3,
+      "positiveMin": 0.6218329860165267,
+      "positiveMax": 0.6566725332031552,
+      "negativeMax": 0.6094670828025452,
+      "allRawCalibrationSeparable": true
+    },
+    "business_operation": {
+      "positiveCount": 3,
+      "positiveMin": 0.5511261359977644,
+      "positiveMax": 0.6374924320681167,
+      "negativeMax": 0.5717155763191529,
+      "allRawCalibrationSeparable": false
+    },
+    "commercial_transaction": {
+      "positiveCount": 3,
+      "positiveMin": 0.6520401503849446,
+      "positiveMax": 0.7249745674844412,
+      "negativeMax": 0.6130670124591093,
+      "allRawCalibrationSeparable": true
+    },
+    "inventory_purchase": {
+      "positiveCount": 3,
+      "positiveMin": 0.6562737398563608,
+      "positiveMax": 0.7157705332120999,
+      "negativeMax": 0.7134106168685659,
+      "allRawCalibrationSeparable": false
+    },
+    "inventory_sale": {
+      "positiveCount": 3,
+      "positiveMin": 0.5254437761627246,
+      "positiveMax": 0.7640096831783862,
+      "negativeMax": 0.5917651696317232,
+      "allRawCalibrationSeparable": false
+    },
+    "borrow_money": {
+      "positiveCount": 3,
+      "positiveMin": 0.5702465808207985,
+      "positiveMax": 0.6584649409174732,
+      "negativeMax": 0.6583725404886112,
+      "allRawCalibrationSeparable": false
+    },
+    "lend_money": {
+      "positiveCount": 3,
+      "positiveMin": 0.7074159525667834,
+      "positiveMax": 0.7698814308972997,
+      "negativeMax": 0.7709314291999457,
+      "allRawCalibrationSeparable": false
+    },
+    "debt_collection": {
+      "positiveCount": 3,
+      "positiveMin": 0.6448118424436085,
+      "positiveMax": 0.7786510810081354,
+      "negativeMax": 0.6497660043636815,
+      "allRawCalibrationSeparable": false
+    },
+    "debt_repayment": {
+      "positiveCount": 3,
+      "positiveMin": 0.5905054464662962,
+      "positiveMax": 0.7242260728979355,
+      "negativeMax": 0.6402499219173938,
+      "allRawCalibrationSeparable": false
+    },
+    "partnership": {
+      "positiveCount": 3,
+      "positiveMin": 0.6389567237545452,
+      "positiveMax": 0.7304332807316466,
+      "negativeMax": 0.7218165007608034,
+      "allRawCalibrationSeparable": false
+    },
+    "investment_profit": {
+      "positiveCount": 3,
+      "positiveMin": 0.45294214143491723,
+      "positiveMax": 0.7032360821721263,
+      "negativeMax": 0.6084062088259455,
+      "allRawCalibrationSeparable": false
+    },
+    "investment_liquidation": {
+      "positiveCount": 3,
+      "positiveMin": 0.5449198606781606,
+      "positiveMax": 0.748694037094385,
+      "negativeMax": 0.5604954910913063,
+      "allRawCalibrationSeparable": false
+    },
+    "investment_suitability": {
+      "positiveCount": 3,
+      "positiveMin": 0.5502942056459104,
+      "positiveMax": 0.642770827591297,
+      "negativeMax": 0.5777668218705089,
+      "allRawCalibrationSeparable": false
+    },
+    "investment_position_decision": {
+      "positiveCount": 3,
+      "positiveMin": 0.5102504979581541,
+      "positiveMax": 0.7529220658639205,
+      "negativeMax": 0.5794944787292193,
+      "allRawCalibrationSeparable": false
+    },
+    "investment_price_trend": {
+      "positiveCount": 3,
+      "positiveMin": 0.48767984874080894,
+      "positiveMax": 0.6429093970899984,
+      "negativeMax": 0.6932187147507983,
+      "allRawCalibrationSeparable": false
+    },
+    "income_salary": {
+      "positiveCount": 3,
+      "positiveMin": 0.46301460569098435,
+      "positiveMax": 0.6336353871088934,
+      "negativeMax": 0.6835594153327019,
+      "allRawCalibrationSeparable": false
+    },
+    "income_bonus": {
+      "positiveCount": 3,
+      "positiveMin": 0.6240688281743588,
+      "positiveMax": 0.7678077387616161,
+      "negativeMax": 0.6861461130328482,
+      "allRawCalibrationSeparable": false
+    },
+    "receive_item": {
+      "positiveCount": 3,
+      "positiveMin": 0.5685630472915099,
+      "positiveMax": 0.650500336227103,
+      "negativeMax": 0.5929468043025627,
+      "allRawCalibrationSeparable": false
+    },
+    "item_purchase": {
+      "positiveCount": 3,
+      "positiveMin": 0.47417692563731956,
+      "positiveMax": 0.6957602822416674,
+      "negativeMax": 0.5361916429967398,
+      "allRawCalibrationSeparable": false
+    },
+    "relationship_development": {
+      "positiveCount": 3,
+      "positiveMin": 0.7117533301886131,
+      "positiveMax": 0.7544745723365094,
+      "negativeMax": 0.6806646156952622,
+      "allRawCalibrationSeparable": true
+    },
+    "marriage_match": {
+      "positiveCount": 3,
+      "positiveMin": 0.6316502256229273,
+      "positiveMax": 0.7747773347153464,
+      "negativeMax": 0.7002803358850913,
+      "allRawCalibrationSeparable": false
+    },
+    "marital_relationship": {
+      "positiveCount": 3,
+      "positiveMin": 0.6504498427452099,
+      "positiveMax": 0.7349788229326195,
+      "negativeMax": 0.6673173958031569,
+      "allRawCalibrationSeparable": false
+    }
+  },
+  "rows": [
+    {
+      "id": "V013-V05-FI-C-K-01-1",
+      "expectedRoute": "financial_fortune",
+      "expectedProbability": 0.6566725332031552,
+      "strongestOther": {
+        "route": "income_salary",
+        "probability": 0.38810376076758457
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.38810376076758457,
+        "upperInclusive": 0.6566725332031552
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-01-2",
+      "expectedRoute": "financial_fortune",
+      "expectedProbability": 0.6556495943522818,
+      "strongestOther": {
+        "route": "business_operation",
+        "probability": 0.4563068654393846
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4563068654393846,
+        "upperInclusive": 0.6556495943522818
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-01-3",
+      "expectedRoute": "financial_fortune",
+      "expectedProbability": 0.6218329860165267,
+      "strongestOther": {
+        "route": "investment_profit",
+        "probability": 0.5135449430088171
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5135449430088171,
+        "upperInclusive": 0.6218329860165267
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-02-1",
+      "expectedRoute": "business_operation",
+      "expectedProbability": 0.6374924320681167,
+      "strongestOther": {
+        "route": "partnership",
+        "probability": 0.4804015803972224
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4804015803972224,
+        "upperInclusive": 0.6374924320681167
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-02-2",
+      "expectedRoute": "business_operation",
+      "expectedProbability": 0.575612437322399,
+      "strongestOther": {
+        "route": "financial_fortune",
+        "probability": 0.45939354110411124
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.45939354110411124,
+        "upperInclusive": 0.575612437322399
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-02-3",
+      "expectedRoute": "business_operation",
+      "expectedProbability": 0.5511261359977644,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.48534895203822626
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.48534895203822626,
+        "upperInclusive": 0.5511261359977644
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-03-1",
+      "expectedRoute": "commercial_transaction",
+      "expectedProbability": 0.7176064004752585,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.4509042777180194
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4509042777180194,
+        "upperInclusive": 0.7176064004752585
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-03-2",
+      "expectedRoute": "commercial_transaction",
+      "expectedProbability": 0.6520401503849446,
+      "strongestOther": {
+        "route": "item_purchase",
+        "probability": 0.4890002609676522
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4890002609676522,
+        "upperInclusive": 0.6520401503849446
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-03-3",
+      "expectedRoute": "commercial_transaction",
+      "expectedProbability": 0.7249745674844412,
+      "strongestOther": {
+        "route": "partnership",
+        "probability": 0.5422547418824698
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5422547418824698,
+        "upperInclusive": 0.7249745674844412
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-04-1",
+      "expectedRoute": "inventory_purchase",
+      "expectedProbability": 0.6637087454669693,
+      "strongestOther": {
+        "route": "inventory_sale",
+        "probability": 0.5411605539830491
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5411605539830491,
+        "upperInclusive": 0.6637087454669693
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-04-2",
+      "expectedRoute": "inventory_purchase",
+      "expectedProbability": 0.7157705332120999,
+      "strongestOther": {
+        "route": "inventory_sale",
+        "probability": 0.5489295450692445
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5489295450692445,
+        "upperInclusive": 0.7157705332120999
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-04-3",
+      "expectedRoute": "inventory_purchase",
+      "expectedProbability": 0.6562737398563608,
+      "strongestOther": {
+        "route": "commercial_transaction",
+        "probability": 0.5102963791209135
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5102963791209135,
+        "upperInclusive": 0.6562737398563608
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-05-1",
+      "expectedRoute": "inventory_sale",
+      "expectedProbability": 0.6476571581176559,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.4787163202014883
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4787163202014883,
+        "upperInclusive": 0.6476571581176559
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-05-2",
+      "expectedRoute": "inventory_sale",
+      "expectedProbability": 0.5254437761627246,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.6266650582868044
+      },
+      "expectedRank": 3,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-05-3",
+      "expectedRoute": "inventory_sale",
+      "expectedProbability": 0.7640096831783862,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.6108867250422402
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6108867250422402,
+        "upperInclusive": 0.7640096831783862
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-06-1",
+      "expectedRoute": "borrow_money",
+      "expectedProbability": 0.583446637697896,
+      "strongestOther": {
+        "route": "lend_money",
+        "probability": 0.6278666464061586
+      },
+      "expectedRank": 2,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-06-2",
+      "expectedRoute": "borrow_money",
+      "expectedProbability": 0.6584649409174732,
+      "strongestOther": {
+        "route": "lend_money",
+        "probability": 0.6438715424355879
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6438715424355879,
+        "upperInclusive": 0.6584649409174732
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-06-3",
+      "expectedRoute": "borrow_money",
+      "expectedProbability": 0.5702465808207985,
+      "strongestOther": {
+        "route": "lend_money",
+        "probability": 0.7709314291999457
+      },
+      "expectedRank": 2,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-07-1",
+      "expectedRoute": "lend_money",
+      "expectedProbability": 0.7698814308972997,
+      "strongestOther": {
+        "route": "borrow_money",
+        "probability": 0.6391977323382493
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6391977323382493,
+        "upperInclusive": 0.7698814308972997
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-07-2",
+      "expectedRoute": "lend_money",
+      "expectedProbability": 0.7074159525667834,
+      "strongestOther": {
+        "route": "borrow_money",
+        "probability": 0.6583725404886112
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6583725404886112,
+        "upperInclusive": 0.7074159525667834
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-07-3",
+      "expectedRoute": "lend_money",
+      "expectedProbability": 0.7634764559411292,
+      "strongestOther": {
+        "route": "borrow_money",
+        "probability": 0.5618893514910956
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5618893514910956,
+        "upperInclusive": 0.7634764559411292
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-08-1",
+      "expectedRoute": "debt_collection",
+      "expectedProbability": 0.7786510810081354,
+      "strongestOther": {
+        "route": "debt_repayment",
+        "probability": 0.600553619405493
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.600553619405493,
+        "upperInclusive": 0.7786510810081354
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-08-2",
+      "expectedRoute": "debt_collection",
+      "expectedProbability": 0.7218251051647717,
+      "strongestOther": {
+        "route": "debt_repayment",
+        "probability": 0.5034018165568579
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5034018165568579,
+        "upperInclusive": 0.7218251051647717
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-08-3",
+      "expectedRoute": "debt_collection",
+      "expectedProbability": 0.6448118424436085,
+      "strongestOther": {
+        "route": "receive_item",
+        "probability": 0.5346847714820302
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5346847714820302,
+        "upperInclusive": 0.6448118424436085
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-09-1",
+      "expectedRoute": "debt_repayment",
+      "expectedProbability": 0.6857729751703575,
+      "strongestOther": {
+        "route": "debt_collection",
+        "probability": 0.622666463033956
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.622666463033956,
+        "upperInclusive": 0.6857729751703575
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-09-2",
+      "expectedRoute": "debt_repayment",
+      "expectedProbability": 0.5905054464662962,
+      "strongestOther": {
+        "route": "debt_collection",
+        "probability": 0.6216207660952465
+      },
+      "expectedRank": 3,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-09-3",
+      "expectedRoute": "debt_repayment",
+      "expectedProbability": 0.7242260728979355,
+      "strongestOther": {
+        "route": "debt_collection",
+        "probability": 0.5950417711390249
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5950417711390249,
+        "upperInclusive": 0.7242260728979355
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-10-1",
+      "expectedRoute": "partnership",
+      "expectedProbability": 0.6900282255635557,
+      "strongestOther": {
+        "route": "commercial_transaction",
+        "probability": 0.4653920594767377
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4653920594767377,
+        "upperInclusive": 0.6900282255635557
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-10-2",
+      "expectedRoute": "partnership",
+      "expectedProbability": 0.6389567237545452,
+      "strongestOther": {
+        "route": "marital_relationship",
+        "probability": 0.4130083769412464
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4130083769412464,
+        "upperInclusive": 0.6389567237545452
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-10-3",
+      "expectedRoute": "partnership",
+      "expectedProbability": 0.7304332807316466,
+      "strongestOther": {
+        "route": "relationship_development",
+        "probability": 0.4830565288738207
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4830565288738207,
+        "upperInclusive": 0.7304332807316466
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-11-1",
+      "expectedRoute": "investment_profit",
+      "expectedProbability": 0.5582205840350869,
+      "strongestOther": {
+        "route": "investment_liquidation",
+        "probability": 0.5028824310659287
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5028824310659287,
+        "upperInclusive": 0.5582205840350869
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-11-2",
+      "expectedRoute": "investment_profit",
+      "expectedProbability": 0.45294214143491723,
+      "strongestOther": {
+        "route": "financial_fortune",
+        "probability": 0.531083351479746
+      },
+      "expectedRank": 3,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-11-3",
+      "expectedRoute": "investment_profit",
+      "expectedProbability": 0.7032360821721263,
+      "strongestOther": {
+        "route": "business_operation",
+        "probability": 0.46768859288209547
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.46768859288209547,
+        "upperInclusive": 0.7032360821721263
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-12-1",
+      "expectedRoute": "investment_liquidation",
+      "expectedProbability": 0.748694037094385,
+      "strongestOther": {
+        "route": "investment_position_decision",
+        "probability": 0.46869682946844143
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.46869682946844143,
+        "upperInclusive": 0.748694037094385
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-12-2",
+      "expectedRoute": "investment_liquidation",
+      "expectedProbability": 0.5449198606781606,
+      "strongestOther": {
+        "route": "investment_profit",
+        "probability": 0.510670058402143
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.510670058402143,
+        "upperInclusive": 0.5449198606781606
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-12-3",
+      "expectedRoute": "investment_liquidation",
+      "expectedProbability": 0.7078792784286633,
+      "strongestOther": {
+        "route": "investment_position_decision",
+        "probability": 0.5794944787292193
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5794944787292193,
+        "upperInclusive": 0.7078792784286633
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-13-1",
+      "expectedRoute": "investment_suitability",
+      "expectedProbability": 0.5502942056459104,
+      "strongestOther": {
+        "route": "item_purchase",
+        "probability": 0.5361916429967398
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5361916429967398,
+        "upperInclusive": 0.5502942056459104
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-13-2",
+      "expectedRoute": "investment_suitability",
+      "expectedProbability": 0.642770827591297,
+      "strongestOther": {
+        "route": "investment_profit",
+        "probability": 0.4925131423902907
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4925131423902907,
+        "upperInclusive": 0.642770827591297
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-13-3",
+      "expectedRoute": "investment_suitability",
+      "expectedProbability": 0.5954732348073577,
+      "strongestOther": {
+        "route": "investment_position_decision",
+        "probability": 0.5750500915538155
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5750500915538155,
+        "upperInclusive": 0.5954732348073577
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-14-1",
+      "expectedRoute": "investment_position_decision",
+      "expectedProbability": 0.7529220658639205,
+      "strongestOther": {
+        "route": "investment_liquidation",
+        "probability": 0.5239316253200265
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5239316253200265,
+        "upperInclusive": 0.7529220658639205
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-14-2",
+      "expectedRoute": "investment_position_decision",
+      "expectedProbability": 0.5102504979581541,
+      "strongestOther": {
+        "route": "item_purchase",
+        "probability": 0.44291298307396604
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.44291298307396604,
+        "upperInclusive": 0.5102504979581541
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-14-3",
+      "expectedRoute": "investment_position_decision",
+      "expectedProbability": 0.6982636324732577,
+      "strongestOther": {
+        "route": "investment_suitability",
+        "probability": 0.4057821144395237
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4057821144395237,
+        "upperInclusive": 0.6982636324732577
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-15-1",
+      "expectedRoute": "investment_price_trend",
+      "expectedProbability": 0.6429093970899984,
+      "strongestOther": {
+        "route": "financial_fortune",
+        "probability": 0.42375282299305667
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.42375282299305667,
+        "upperInclusive": 0.6429093970899984
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-15-2",
+      "expectedRoute": "investment_price_trend",
+      "expectedProbability": 0.48767984874080894,
+      "strongestOther": {
+        "route": "investment_position_decision",
+        "probability": 0.49086664791027945
+      },
+      "expectedRank": 2,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-15-3",
+      "expectedRoute": "investment_price_trend",
+      "expectedProbability": 0.5950775577693772,
+      "strongestOther": {
+        "route": "financial_fortune",
+        "probability": 0.5074672619006705
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5074672619006705,
+        "upperInclusive": 0.5950775577693772
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-16-1",
+      "expectedRoute": "income_salary",
+      "expectedProbability": 0.6336353871088934,
+      "strongestOther": {
+        "route": "income_bonus",
+        "probability": 0.5033983427964266
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5033983427964266,
+        "upperInclusive": 0.6336353871088934
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-16-2",
+      "expectedRoute": "income_salary",
+      "expectedProbability": 0.46301460569098435,
+      "strongestOther": {
+        "route": "receive_item",
+        "probability": 0.567187543472765
+      },
+      "expectedRank": 3,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-16-3",
+      "expectedRoute": "income_salary",
+      "expectedProbability": 0.5718536414487617,
+      "strongestOther": {
+        "route": "financial_fortune",
+        "probability": 0.4948333535104823
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4948333535104823,
+        "upperInclusive": 0.5718536414487617
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-17-1",
+      "expectedRoute": "income_bonus",
+      "expectedProbability": 0.7678077387616161,
+      "strongestOther": {
+        "route": "borrow_money",
+        "probability": 0.4686869703657635
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4686869703657635,
+        "upperInclusive": 0.7678077387616161
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-17-2",
+      "expectedRoute": "income_bonus",
+      "expectedProbability": 0.6240688281743588,
+      "strongestOther": {
+        "route": "income_salary",
+        "probability": 0.6538502386048806
+      },
+      "expectedRank": 2,
+      "uniqueCorrectThresholdInterval": null
+    },
+    {
+      "id": "V013-V05-FI-C-K-17-3",
+      "expectedRoute": "income_bonus",
+      "expectedProbability": 0.6995832046898932,
+      "strongestOther": {
+        "route": "income_salary",
+        "probability": 0.37971522030763183
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.37971522030763183,
+        "upperInclusive": 0.6995832046898932
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-18-1",
+      "expectedRoute": "receive_item",
+      "expectedProbability": 0.650500336227103,
+      "strongestOther": {
+        "route": "item_purchase",
+        "probability": 0.4064286197667966
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4064286197667966,
+        "upperInclusive": 0.650500336227103
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-18-2",
+      "expectedRoute": "receive_item",
+      "expectedProbability": 0.5958503372035471,
+      "strongestOther": {
+        "route": "income_bonus",
+        "probability": 0.4593647133110966
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4593647133110966,
+        "upperInclusive": 0.5958503372035471
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-18-3",
+      "expectedRoute": "receive_item",
+      "expectedProbability": 0.5685630472915099,
+      "strongestOther": {
+        "route": "income_bonus",
+        "probability": 0.4257856685380449
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4257856685380449,
+        "upperInclusive": 0.5685630472915099
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-19-1",
+      "expectedRoute": "item_purchase",
+      "expectedProbability": 0.47417692563731956,
+      "strongestOther": {
+        "route": "lend_money",
+        "probability": 0.39666249683487864
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.39666249683487864,
+        "upperInclusive": 0.47417692563731956
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-19-2",
+      "expectedRoute": "item_purchase",
+      "expectedProbability": 0.6957602822416674,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.47926400335519453
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.47926400335519453,
+        "upperInclusive": 0.6957602822416674
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-19-3",
+      "expectedRoute": "item_purchase",
+      "expectedProbability": 0.559358495082967,
+      "strongestOther": {
+        "route": "inventory_purchase",
+        "probability": 0.4149443784797047
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.4149443784797047,
+        "upperInclusive": 0.559358495082967
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-20-1",
+      "expectedRoute": "relationship_development",
+      "expectedProbability": 0.7138055443923195,
+      "strongestOther": {
+        "route": "marriage_match",
+        "probability": 0.5514197789666588
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5514197789666588,
+        "upperInclusive": 0.7138055443923195
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-20-2",
+      "expectedRoute": "relationship_development",
+      "expectedProbability": 0.7544745723365094,
+      "strongestOther": {
+        "route": "marriage_match",
+        "probability": 0.7002803358850913
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.7002803358850913,
+        "upperInclusive": 0.7544745723365094
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-20-3",
+      "expectedRoute": "relationship_development",
+      "expectedProbability": 0.7117533301886131,
+      "strongestOther": {
+        "route": "marital_relationship",
+        "probability": 0.6370212493470945
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6370212493470945,
+        "upperInclusive": 0.7117533301886131
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-21-1",
+      "expectedRoute": "marriage_match",
+      "expectedProbability": 0.6507329993608221,
+      "strongestOther": {
+        "route": "relationship_development",
+        "probability": 0.47838095177354784
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.47838095177354784,
+        "upperInclusive": 0.6507329993608221
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-21-2",
+      "expectedRoute": "marriage_match",
+      "expectedProbability": 0.7747773347153464,
+      "strongestOther": {
+        "route": "relationship_development",
+        "probability": 0.6806646156952622
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.6806646156952622,
+        "upperInclusive": 0.7747773347153464
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-21-3",
+      "expectedRoute": "marriage_match",
+      "expectedProbability": 0.6316502256229273,
+      "strongestOther": {
+        "route": "marital_relationship",
+        "probability": 0.5476464326165241
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5476464326165241,
+        "upperInclusive": 0.6316502256229273
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-22-1",
+      "expectedRoute": "marital_relationship",
+      "expectedProbability": 0.7021604964932926,
+      "strongestOther": {
+        "route": "relationship_development",
+        "probability": 0.5782415464653656
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5782415464653656,
+        "upperInclusive": 0.7021604964932926
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-22-2",
+      "expectedRoute": "marital_relationship",
+      "expectedProbability": 0.7349788229326195,
+      "strongestOther": {
+        "route": "marriage_match",
+        "probability": 0.5923253863797614
+      },
+      "expectedRank": 1,
+      "uniqueCorrectThresholdInterval": {
+        "lowerExclusive": 0.5923253863797614,
+        "upperInclusive": 0.7349788229326195
+      }
+    },
+    {
+      "id": "V013-V05-FI-C-K-22-3",
+      "expectedRoute": "marital_relationship",
+      "expectedProbability": 0.6504498427452099,
+      "strongestOther": {
+        "route": "marriage_match",
+        "probability": 0.6589895252002044
+      },
+      "expectedRank": 2,
+      "uniqueCorrectThresholdInterval": null
+    }
+  ],
+  "interpretation": {
+    "rankingErrors": "9/66 known rows lack any threshold interval for unique correct admission",
+    "globalThresholdCoordination": "57/66 rank correctly but at most 38/66 intervals overlap under one threshold",
+    "perHeadOverlap": "19/22 heads have raw positive/negative score overlap",
+    "trainingConvergence": "not established by saved artifacts; no training loss or optimizer sweep was performed",
+    "perRouteThresholds": "forbidden; descriptive ranges are not calibration parameters"
+  },
+  "permittedNextRevision": {
+    "architecture": "retain22_independent_logistic_heads_one_global_threshold",
+    "proposal": "version training schedule/regularization and negative loss weighting; use fresh augmentation and fresh raw calibration; no experiment on old calibration",
+    "gates": "retain all v0.3 numeric feasibility gates"
+  },
+  "governance": {
+    "encoderInvocations": 0,
+    "newHeadScoring": false,
+    "questionWordingRead": false,
+    "trainingOrCalibrationRowsCreated": false,
+    "thresholdSelected": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "postHocRepair": false
+  },
+  "nextAction": "new_candidate_v06_design_and_fallback_v04_contract_before_fresh_data_seal_and_encoder_scoring"
+}
