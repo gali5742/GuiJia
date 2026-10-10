@@ -75,6 +75,9 @@ jobs:
       - name: Source Position Provenance Consumer regression
         run: node tests/bazi-contextual-force-party-source-position-provenance-consumer-tests.js
 
+      - name: Source Position Path Condition Matcher regression
+        run: node tests/bazi-contextual-force-party-source-position-path-condition-matcher-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
