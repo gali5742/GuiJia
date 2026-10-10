@@ -84,6 +84,9 @@ jobs:
       - name: Source Path Target Annotation regression
         run: node tests/bazi-contextual-force-party-source-path-target-annotation-tests.js
 
+      - name: Source Instance Target Calibration regression
+        run: node tests/bazi-contextual-force-party-source-instance-target-calibration-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
