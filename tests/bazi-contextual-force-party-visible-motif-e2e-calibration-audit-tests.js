@@ -80,11 +80,11 @@ function collectKeys(value, keys = new Set()) {
 test('Visible Motif E2E Calibration Source/Audit v0.1 安装且不修改 realization registry', () => {
     assert(sourceApi?.installed && auditApi?.installed, 'source/audit 未安装');
     assert(sourceApi.CONTRACT.mutatesVisibleStemRealizationRegistry === false, '不得修改 realization registry');
-    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 3, 'direct realization patterns 不应增加');
+    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 5, 'audit 不得另外增加 direct realization patterns');
 });
 
 test('opposition 四个完整命例都有制杀语义，但全部缺唯一 visible target', () => {
-    const cases = sourceApi.CASES_BY_MOTIF[sourceApi.MOTIF_IDS.OPPOSITION];
+    const cases = sourceApi.CASES_BY_MOTIF[sourceApi.MOTIF_IDS.OPPOSITION].filter((item) => !item.calibrationEligible);
     assert(cases.length === 4, '应审计四个食神制杀命例');
     cases.forEach((item) => {
         assert(item.sourceExplicitOutcome === true, `${item.id} 应有 explicit outcome`);
@@ -120,15 +120,15 @@ test('contract 拒绝 group split、cross-scope substitution 与 elemental fill-
     assert(c.groupTargetSplitAuthorized === false, '不得拆 group target');
     assert(c.crossScopeAsRawVisibleCalibration === false, '不得跨 scope 冒充 raw visible');
     assert(c.elementalShapeFillsMissingOutcome === false, '不得由五行补 realization');
-    assert(c.oppositionCalibrationStatus.startsWith('unresolved-') && c.mediationCalibrationStatus.startsWith('unresolved-'), '两 motif 应保持 unresolved');
+    assert(c.oppositionCalibrationStatus === 'exact-source-visible-e2e-calibration-observed' && c.mediationCalibrationStatus.startsWith('unresolved-'), 'opposition 来源合格，mediation 应保持 unresolved');
 });
 
 test('机器依赖拆为 source audit + opposition + mediation + total calibration', () => {
     const synthesis = synthesisFor(), deps = depMap(synthesis);
     const audit = synthesis.contextualForcePartyVisibleMotifE2ECalibrationSourceAudit;
-    assert(audit?.oppositionCalibrationResolved === false && audit?.mediationCalibrationResolved === false, '两 motif 不得 resolved');
+    assert(audit?.oppositionCalibrationResolved === true && audit?.mediationCalibrationResolved === false, '只允许 opposition 校准 resolved');
     assert(deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-MOTIF-E2E-CALIBRATION-SOURCE-AUDIT']?.status === 'resolved', 'source audit 应 resolved');
-    assert(deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-OPPOSITION-E2E-CALIBRATION']?.status === 'unresolved', 'opposition 应 unresolved');
+    assert(deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-OPPOSITION-E2E-CALIBRATION']?.status === 'resolved', 'opposition 应 resolved');
     assert(deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-MEDIATION-E2E-CALIBRATION']?.status === 'unresolved', 'mediation 应 unresolved');
     const total = deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-KNOWN-MOTIF-END-TO-END-CALIBRATION'];
     assert(total?.status === 'unresolved', 'total calibration 应 unresolved');

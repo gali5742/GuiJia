@@ -199,7 +199,7 @@ test('Source/Contract Audit 不引入 numeric/scalar/threshold/ranking 或 reali
     );
     const keys = collectKeys({ contract:c, audit });
     ['forceScore','memberScore','classificationScore','numericWeight','thresholdValue','majorityResult','rankingResult','finalStrength'].forEach((key) => assert(!keys.has(key), `不应出现 ${key}`));
-    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 3, 'realization registry 不应增加');
+    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 5, 'target audit 不应额外增加 realization registry');
 });
 
 test('研究 bootstrap 顺序为 Collective Target Source/Audit → Relation Target Level Source/Audit', () => {

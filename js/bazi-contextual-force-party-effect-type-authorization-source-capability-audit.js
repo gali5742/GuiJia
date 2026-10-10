@@ -44,6 +44,7 @@
             actorToActorMaximumLevel:reusableActorToActor?.maximumCurrentAuthorizationLevel || null,
             actorToActorRegisteredAuthorityCount:reusableActorToActor?.authorityIds?.length || 0,
             actorToActorPositiveDirectCalibrationObserved:reusableActorToActor?.positiveDirectCalibrationObserved === true,
+            actorToActorAllRawVisibleMotifsCalibrated:reusableActorToActor?.allRawVisibleMotifsCalibrated === true,
             currentNormalizedAuthorityCoverageComplete:normalizedAudit?.providedSourceRecordCoverageComplete === true,
             narrowActorToActorMotifResolverCandidate:reusableActorToActor?.maximumCurrentAuthorizationLevel === GENERALIZATION_LEVELS.REGISTERED_MOTIF_FAMILY,
             collectiveMotifTransferAuthorized:false,

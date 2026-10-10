@@ -20,7 +20,15 @@
         const cases = CASES_BY_MOTIF[motifId] || [];
         const eligible = cases.filter((item) => item.calibrationEligible);
         const positiveDirectMatches = (authorizationSource.POSITIVE_AUTHORIZED_DIRECT_PATTERNS || [])
-            .filter((item) => (item.matchedMotifIds || []).includes(motifId));
+            .filter((item) => (item.matchedMotifIds || []).includes(motifId))
+            .filter((pattern) => eligible.some((item) =>
+                item.realizationPatternId === pattern.patternId
+                && item.chartKey === pattern.chartKey
+                && item.functionType === pattern.functionType
+                && item.sourceExplicitOutcome === true && item.targetSpecificActorResolved === true
+                && item.sourceActorKeys.length === 1 && item.targetActorKeys.length === 1
+                && item.sourceActorKeys[0] === pattern.sourceActorKey
+                && item.targetActorKeys[0] === pattern.targetActorKey));
         const unresolvedCases = cases.filter((item) => !item.calibrationEligible);
         return Object.freeze({
             motifId,
@@ -50,7 +58,11 @@
             id:'CF-PARTY-VISIBLE-MOTIF-E2E-CALIBRATION-AUDIT-V01',
             version:VERSION,
             ruleId:RULE_ID,
-            status:'source-audited-known-visible-motif-e2e-calibration-unresolved',
+            status:opposition.calibrationResolved && mediation.calibrationResolved
+                ? 'source-audited-known-visible-motif-e2e-calibration-resolved'
+                : opposition.calibrationResolved || mediation.calibrationResolved
+                    ? 'source-audited-known-visible-motif-e2e-calibration-partial'
+                    : 'source-audited-known-visible-motif-e2e-calibration-unresolved',
             sourceContract:CONTRACT,
             motifRecords:Object.freeze({ opposition, mediation }),
             allTargetMotifsResolved:opposition.calibrationResolved && mediation.calibrationResolved,
@@ -86,8 +98,8 @@
         sourceEffectIds:Object.freeze([]),
         sourceRefs:Object.freeze([]),
         sourceRegistryEvidenceIds:sourceEvidenceIds,
-        rationale:'《滴天髓阐微·官杀》的“食神制杀格”与“杀重用印格”已逐命例检查 actor scope。文本语义可以继续授权 opposition / mediation taxonomy，但现有命例不足以形成唯一 visible source→visible target 的 exact-source positive calibration。',
-        boundary:'Source audit resolved 只表示“为什么不能校准”已经被机器化；不等于 opposition / mediation calibration resolved，也不得新增 synthetic realization edge。'
+        rationale:'《官杀》九例与《干支总论》新增正例均按 actor scope 检查；opposition 已具备 exact-source 壬→丙 calibration，mediation 仍缺合格 visible pair。来源命例必须与机器 pattern 的 ID、chart、两端、function 同时一致。',
+        boundary:'Source audit resolved 不等于所有 motif calibration resolved；不得新增 synthetic realization edge。'
     });
 
     const makeDependency = ({ id, kind = 'validation', scope, status, statement, boundary, dependsOnDependencyIds = [], resolvedByClaimIds = [] }) => Object.freeze({
@@ -109,7 +121,7 @@
         id:'SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-MOTIF-E2E-CALIBRATION-SOURCE-AUDIT',
         scope:'known-raw-visible-motif-exact-source-calibration-provenance-audit',
         status:'resolved',
-        statement:'Known raw visible motif 的《滴天髓阐微·官杀》命例 provenance 已按 source actor、target actor、scope 与 explicit outcome 逐项审计。',
+        statement:'Known raw visible motif 的《滴天髓阐微·官杀／干支总论》命例 provenance 已按 source actor、target actor、scope 与 explicit outcome 逐项审计。',
         boundary:'Source provenance 审计完成不代表 exact-source positive calibration 已成立。',
         dependsOnDependencyIds:['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-EFFECT-TYPE-AUTHORIZATION-AUDIT'],
         resolvedByClaimIds:['SC-CONTEXTUAL-FORCE-PARTY-VISIBLE-MOTIF-E2E-CALIBRATION-SOURCE-AUDIT']
@@ -143,7 +155,7 @@
         status:audit.allTargetMotifsResolved ? 'resolved' : 'unresolved',
         statement:audit.allTargetMotifsResolved
             ? '当前 raw opposition / mediation motifs 均已完成 exact-source actor-specific positive calibration。'
-            : 'Known raw visible motif calibration 已拆分审计：opposition 与 mediation 当前都缺完整 actor-specific positive calibration；语义 motif 授权保留，但 executable calibration blocker 继续存在。',
+            : `Known raw visible motif calibration 已拆分审计：opposition ${audit.oppositionCalibrationResolved ? '已校准' : '未校准'}，mediation ${audit.mediationCalibrationResolved ? '已校准' : '未校准'}；每一 motif 均须独立通过来源与机器 pattern gate。`,
         boundary:'总 calibration 不通过计数、投票或“至少一个 motif 已校准”来折中；每一 motif 都必须独立满足来源与机器 realization gate。',
         dependsOnDependencyIds:[sourceAuditDependency.id,oppositionDependency.id,mediationDependency.id]
     });
@@ -157,7 +169,7 @@
             ruleId:RULE_ID,
             dependsOnDependencyIds:freezeArray(unique([...(current.dependsOnDependencyIds || []), totalDependency.id])),
             resolvedByClaimIds:Object.freeze([]),
-            statement:'Visible-edge effect-type authorization 已有 pattern-specific contract；进一步审计确认，当前 opposition / mediation 的原典命例仍不足以形成 actor-specific positive end-to-end calibration。generic generation/restraint → Party effect type resolver 继续未定义。',
+            statement:'Visible-edge effect-type authorization 已有 pattern-specific contract；opposition 的新增正例完成 exact-source 校准，mediation 仍 unresolved。generic generation/restraint → Party effect type resolver 继续未定义。',
             boundary:'Known motif calibration 即使日后全部 resolved，也只校准已登记 motif，不会自动解决 generic visible-edge mapping。'
         });
     };
@@ -169,11 +181,23 @@
         const sourceAuditDependency = buildSourceAuditDependency();
         const oppositionDependency = buildOppositionDependency(audit.motifRecords.opposition, sourceAuditDependency);
         const mediationDependency = buildMediationDependency(audit.motifRecords.mediation, sourceAuditDependency);
-        const totalDependency = buildTotalCalibrationDependency(audit, sourceAuditDependency, oppositionDependency, mediationDependency);
+        // Later collective/path audits reuse the legacy opposition ID for broader prerequisites.
+        // Preserve an explicit actor-pair calibration dependency without resolving those scopes.
+        const actorPairOppositionDependency = Object.freeze({
+            ...oppositionDependency,
+            id:'SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-ACTOR-PAIR-OPPOSITION-E2E-CALIBRATION',
+            sourcePatternIds:audit.motifRecords.opposition.existingPositiveDirectPatternIds,
+            sourceCaseIds:audit.motifRecords.opposition.sourceEligibleCalibrationCaseIds,
+            boundary:'该依赖只表示来源合格的 exact visible actor pair 校准；不解除 legacy opposition ID 后续承载的 collective/competing-path coverage blocker。'
+        });
+        const total = buildTotalCalibrationDependency(audit, sourceAuditDependency, oppositionDependency, mediationDependency);
+        const totalDependency = Object.freeze({ ...total,
+            dependsOnDependencyIds:freezeArray(unique([...total.dependsOnDependencyIds,actorPairOppositionDependency.id])) });
         const genericVisible = rebuildGenericVisibleMapping(base, audit, totalDependency);
         const replacedDependencyIds = new Set([
             sourceAuditDependency.id,
             oppositionDependency.id,
+            actorPairOppositionDependency.id,
             mediationDependency.id,
             totalDependency.id,
             genericVisible.id
@@ -183,6 +207,7 @@
             ...(base.dependencies || []).filter((item) => !replacedDependencyIds.has(item.id)),
             sourceAuditDependency,
             oppositionDependency,
+            actorPairOppositionDependency,
             mediationDependency,
             totalDependency,
             genericVisible
@@ -203,7 +228,7 @@
             sufficiency,
             boundaries:Object.freeze([
                 ...(base.boundaries || []),
-                'Known Raw Visible Motif E2E Calibration Source Audit v0.1 已逐例冻结 opposition / mediation 无法形成 exact-source actor-specific calibration 的 provenance 原因。',
+                'Known Raw Visible Motif E2E Calibration Source Audit v0.2 保留九个原有 provenance blocker，并登记一个来源合格的 opposition 正例。',
                 '食神制杀命例中的多个可见七杀 target 不得被拆成 synthetic target-specific edges。',
                 '杀重用印命例中的 branch/hidden mediation 不得冒充 raw visible edge；唯一 visible 杀→印形状缺少明确 relation outcome 时也不得用五行常识补齐。',
                 '本层不修改 Visible Stem Function Realization registry，不新增 realized edge，不改变 known motif taxonomy。',

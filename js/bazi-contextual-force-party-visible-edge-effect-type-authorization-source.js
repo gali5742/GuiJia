@@ -67,6 +67,11 @@
         .filter((item) => item.matchedMotifIds.length > 0));
     const POSITIVE_UNMAPPED_DIRECT_PATTERNS = freezeArray(POSITIVE_DIRECT_CROSS_VISIBLE_PATTERNS
         .filter((item) => item.matchedMotifIds.length === 0));
+    const CALIBRATED_RAW_MOTIF_IDS = freezeArray(RAW_VISIBLE_MOTIFS
+        .filter((motif) => POSITIVE_AUTHORIZED_DIRECT_PATTERNS.some((pattern) => pattern.matchedMotifIds.includes(motif.id)))
+        .map((motif) => motif.id));
+    const UNCALIBRATED_RAW_MOTIF_IDS = freezeArray(RAW_VISIBLE_MOTIFS
+        .filter((motif) => !CALIBRATED_RAW_MOTIF_IDS.includes(motif.id)).map((motif) => motif.id));
 
     const EVIDENCE = Object.freeze([
         Object.freeze({
@@ -89,10 +94,10 @@
         }),
         Object.freeze({
             id:'CF-VEA-E04',
-            kind:'current-raw-visible-motifs-lack-direct-positive-calibration-match',
+            kind:'current-raw-visible-motif-positive-calibration-coverage',
             motifIds:freezeArray(RAW_VISIBLE_MOTIFS.map((item) => item.id)),
             matchedPositivePatternIds:freezeArray(POSITIVE_AUTHORIZED_DIRECT_PATTERNS.map((item) => item.patternId)),
-            semanticImpact:'当前 direct-source realization registry 尚未提供一个同时命中 raw visible Party motif 的正向命例，用于端到端校准 opposition / mediation 的 executable mapping。'
+            semanticImpact:`当前 raw visible motif 已有 ${CALIBRATED_RAW_MOTIF_IDS.length} 类命中真实 positive direct-source pattern，尚有 ${UNCALIBRATED_RAW_MOTIF_IDS.length} 类未校准；单例或单一 motif 的进展不代表完整 family coverage。`
         })
     ]);
 
@@ -115,6 +120,9 @@
         knownRawVisibleMotifs:freezeArray(RAW_VISIBLE_MOTIFS.map((item) => item.id)),
         positiveCrossVisibleRealizationCapability:POSITIVE_DIRECT_CROSS_VISIBLE_PATTERNS.length > 0,
         positiveAuthorizedDirectPatternObserved:POSITIVE_AUTHORIZED_DIRECT_PATTERNS.length > 0,
+        calibratedRawMotifIds:CALIBRATED_RAW_MOTIF_IDS,
+        uncalibratedRawMotifIds:UNCALIBRATED_RAW_MOTIF_IDS,
+        allRawVisibleMotifsPositiveCalibrationObserved:RAW_VISIBLE_MOTIFS.length > 0 && UNCALIBRATED_RAW_MOTIF_IDS.length === 0,
         genericVisibleEdgeEffectTypeResolverDefined:false,
         numericAggregation:false,
         numericWeights:false,
@@ -134,6 +142,8 @@
         POSITIVE_DIRECT_CROSS_VISIBLE_PATTERNS,
         POSITIVE_AUTHORIZED_DIRECT_PATTERNS,
         POSITIVE_UNMAPPED_DIRECT_PATTERNS,
+        CALIBRATED_RAW_MOTIF_IDS,
+        UNCALIBRATED_RAW_MOTIF_IDS,
         EVIDENCE,
         FINDINGS,
         CONTRACT,

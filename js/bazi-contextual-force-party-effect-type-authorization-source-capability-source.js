@@ -42,6 +42,7 @@
             authorityIds:freezeArray((relationEffectContract.MOTIFS || []).map((item) => item.id)),
             requiredInputAuthority:'registered-source-backed-motif + independently-resolved target-specific realization',
             positiveDirectCalibrationObserved:visibleAuthorizationSource.CONTRACT.positiveAuthorizedDirectPatternObserved === true,
+            allRawVisibleMotifsCalibrated:visibleAuthorizationSource.CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === true,
             boundary:'只允许命中已登记 actor→actor motif family；不得由任意十神对、generation/restraint/peer shape 或 source wording 自行扩张 registry。'
         }),
         [normalizedContract.IDENTITY_SHAPES.ACTOR_TO_GROUP]:Object.freeze({
@@ -162,7 +163,7 @@
     });
 
     const BLOCKERS_TO_GLOBAL_RESOLVER = freezeArray([
-        Object.freeze({ id:'CF-EASC-B01', key:'positive-actor-to-actor-motif-execution-calibration', resolved:visibleAuthorizationSource.CONTRACT.positiveAuthorizedDirectPatternObserved === true, statement:'actor→actor registered motif family 仍需要真实 direct-source positive calibration；文本授权与 executable calibration 不应混为一层。' }),
+        Object.freeze({ id:'CF-EASC-B01', key:'positive-actor-to-actor-motif-execution-calibration', resolved:visibleAuthorizationSource.CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === true, statement:'actor→actor raw registered motif family 的完整 positive calibration 要求每一 motif 各自有真实来源命例；至少一例或一类已观察不能解除全局 blocker。augmentation 还须另行保留 affiliation identity gate。' }),
         Object.freeze({ id:'CF-EASC-B02', key:'position-provenance-resolver', resolved:modernSupportSource.CONTRACT.relationPositionProvenanceResolverDefined === true, statement:'position provenance 已被来源证明重要，但 resolver 尚未定义。' }),
         Object.freeze({ id:'CF-EASC-B03', key:'competing-relation-path-resolver', resolved:modernSupportSource.CONTRACT.competingRelationPathResolverDefined === true, statement:'competing relation paths 已被来源证明存在，但 resolver 尚未定义。' }),
         Object.freeze({ id:'CF-EASC-B04', key:'cross-endpoint-semantic-generalization', resolved:false, statement:'actor→group / group→actor 仍停在 exact-source authorization，尚无 source-backed motif transfer rule。' }),

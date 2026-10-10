@@ -7,9 +7,10 @@
     const baziCore = GuiJia.baziCore || {};
     const relationEffectContract = GuiJia.baziContextualForcePartyRelationEffectContract || null;
     const authorizationSource = GuiJia.baziContextualForcePartyVisibleEdgeEffectTypeAuthorizationSource || null;
-    if (!relationEffectContract || !authorizationSource || !baziCore.shiShenMap) return;
+    const realizationSource = GuiJia.baziVisibleStemFunctionRealizationSource || null;
+    if (!relationEffectContract || !authorizationSource || !realizationSource || !baziCore.shiShenMap) return;
 
-    const VERSION = '0.1';
+    const VERSION = '0.2';
     const RULE_ID = 'BAZI-STRENGTH-CONTEXTUAL-FORCE-PARTY-VISIBLE-MOTIF-E2E-CALIBRATION-SOURCE-AUDIT-001';
     const freezeArray = (items = []) => Object.freeze([...items]);
     const freezeCase = (item = {}) => Object.freeze({
@@ -31,7 +32,7 @@
         title:'《滴天髓阐微》',
         locator:'通神论 · 官杀 · 二曰杀重用印格／三曰食神制杀格',
         sourceRole:'ren-commentary-case-evidence',
-        sourceUrl:'https://zh.wikisource.org/zh-hans/滴天髓阐微'
+        sourceUrl:realizationSource.DTS_SOURCE.sourceUrl
     });
 
     const actorKey = (kind = 'visible', pillarIndex = 0, gan = '') => `${kind}:${pillarIndex}:${gan}`;
@@ -177,8 +178,42 @@
         });
     };
 
+    const QUALIFIED_POSITIVE_CASES = freezeArray([
+        enrichCase(freezeCase({
+            id:'CF-VMEC-OPP-CASE-05', motifId:MOTIF_IDS.OPPOSITION,
+            gans:['壬','丙','庚','庚'], zhis:['申','午','午','辰'],
+            sourceTerm:'用壬制杀，天干之同志者',
+            sourceLocator:'通神论 · 干支总论 · 左右贵乎同志',
+            sourceProvenance:realizationSource.DTS_SOURCE,
+            realizationPatternId:'DTS-VISIBLE-REALIZATION-REN-RESTRAINS-BING-001',
+            sourceActorKeys:[actorKey('visible',0,'壬')],
+            targetActorKeys:[actorKey('visible',1,'丙')],
+            functionType:'restraint',
+            sourceExplicitOutcome:true,
+            targetSpecificActorResolved:true,
+            calibrationEligible:true,
+            blockerReasons:[],
+            statement:'庚日主，年干壬为食神、月干丙为七杀。原文点名丙火之杀、用壬制杀，并明确天干 scope；唯一壬→丙 visible pair 可校准 opposition。辰土之化另属地支，不转写成该 actor pair 的 mediation。'
+        }))
+    ]);
+
+    const BOUNDARY_CASES = freezeArray([
+        enrichCase(freezeCase({
+            id:'CF-VMEC-OPP-BOUNDARY-01', motifId:MOTIF_IDS.OPPOSITION,
+            gans:['壬','丙','庚','戊'], zhis:['午','午','申','寅'],
+            sourceTerm:'壬水亦紧制杀……壬水坐午之绝地，敌杀无力',
+            sourceLocator:'通神论 · 干支总论 · 左右贵乎同志 · 比较命例',
+            sourceActorKeys:[actorKey('visible',0,'壬')],
+            targetActorKeys:[actorKey('visible',1,'丙')],
+            functionType:'restraint', sourceExplicitOutcome:false,
+            targetSpecificActorResolved:true, calibrationEligible:false,
+            blockerReasons:['qualitative-weakness-does-not-resolve-binary-realization'],
+            statement:'原文同时称紧制杀与敌杀无力。仅凭无力不能判定该 restraint 完全未发生；不登记 realized 或 not-realized pattern，也不复制相邻正例结论。'
+        }))
+    ]);
+
     const CASES_BY_MOTIF = Object.freeze({
-        [MOTIF_IDS.OPPOSITION]:freezeArray(OPPOSITION_CASES.map(enrichCase)),
+        [MOTIF_IDS.OPPOSITION]:freezeArray([...OPPOSITION_CASES.map(enrichCase), ...QUALIFIED_POSITIVE_CASES]),
         [MOTIF_IDS.MEDIATION]:freezeArray(MEDIATION_CASES.map(enrichCase))
     });
 
@@ -193,7 +228,7 @@
         Object.freeze({
             id:'CF-VMEC-E01', kind:'opposition-case-family-is-explicit-but-target-ambiguous',
             motifId:MOTIF_IDS.OPPOSITION,
-            caseIds:freezeArray(CASES_BY_MOTIF[MOTIF_IDS.OPPOSITION].map((item) => item.id)),
+            caseIds:freezeArray(OPPOSITION_CASES.map((item) => item.id)),
             semanticImpact:'《官杀》“食神制杀格”四个命例都明确存在制杀语义，但每个命例的可见七杀 actor 都不止一个；原文不支持把群体“制杀”拆成某一条或多条 target-specific realized edge。'
         }),
         Object.freeze({
@@ -206,11 +241,17 @@
             id:'CF-VMEC-E03', kind:'semantic-motif-authority-does-not-equal-exact-actor-calibration',
             motifIds:freezeArray([MOTIF_IDS.OPPOSITION,MOTIF_IDS.MEDIATION]),
             semanticImpact:'现有文本足以继续授权 opposition / mediation taxonomy，但 exact-source executable calibration 还必须满足 visible source、visible target、唯一 actor identity 与明确 relation outcome；缺任一项都不能补造 realization pattern。'
+        }),
+        Object.freeze({
+            id:'CF-VMEC-E04', kind:'exact-source-visible-opposition-positive-calibration',
+            motifId:MOTIF_IDS.OPPOSITION,
+            caseIds:freezeArray(QUALIFIED_POSITIVE_CASES.map((item) => item.id)),
+            semanticImpact:'《干支总论》壬申 丙午 庚午 庚辰命例有唯一 visible 食神壬→七杀丙，原文明确天干之用壬制杀；只校准该 exact chart，不授权相邻弱制杀比较例或其地支化杀。'
         })
     ]);
 
     const FINDINGS = Object.freeze([
-        Object.freeze({ id:'CF-VMEC-F01', key:'opposition-exact-source-visible-e2e-calibration', status:'not-observed', value:false, evidenceIds:Object.freeze(['CF-VMEC-E01','CF-VMEC-E03']) }),
+        Object.freeze({ id:'CF-VMEC-F01', key:'opposition-exact-source-visible-e2e-calibration', status:'observed', value:true, evidenceIds:Object.freeze(['CF-VMEC-E04']) }),
         Object.freeze({ id:'CF-VMEC-F02', key:'mediation-exact-source-visible-e2e-calibration', status:'not-observed', value:false, evidenceIds:Object.freeze(['CF-VMEC-E02','CF-VMEC-E03']) }),
         Object.freeze({ id:'CF-VMEC-F03', key:'group-target-language-may-be-split-into-target-specific-edges', status:'rejected', value:false, evidenceIds:Object.freeze(['CF-VMEC-E01','CF-VMEC-E03']) }),
         Object.freeze({ id:'CF-VMEC-F04', key:'cross-scope-mediation-may-calibrate-raw-visible-edge', status:'rejected', value:false, evidenceIds:Object.freeze(['CF-VMEC-E02','CF-VMEC-E03']) }),
@@ -240,7 +281,7 @@
         majorityVoting:false,
         scalarCollapse:false,
         finalStrengthMapping:false,
-        statement:'《滴天髓阐微·官杀》已经提供食神制杀与杀印相生／化杀的完整四柱命例，但现有命例仍不足以生成 raw visible Party motif 的 target-specific exact-source realization calibration：opposition 的制杀对象均为多个可见七杀 actor；mediation 则主要跨到地支印绶，或存在多个可见七杀 source，或缺少对唯一 visible 杀→印 pair 的明确 realization 叙述。'
+        statement:'《官杀》原有九个命例仍有 actor/scope/outcome blocker；新增《干支总论》唯一壬→丙天干制杀正例只校准 opposition。raw visible mediation 与全部已登记 motif 的完整校准仍未闭合。'
     });
 
     GuiJia.baziContextualForcePartyVisibleMotifE2ECalibrationSource = Object.freeze({
@@ -251,6 +292,8 @@
         SOURCE,
         OPPOSITION_CASES,
         MEDIATION_CASES,
+        QUALIFIED_POSITIVE_CASES,
+        BOUNDARY_CASES,
         CASES_BY_MOTIF,
         EVIDENCE,
         FINDINGS,

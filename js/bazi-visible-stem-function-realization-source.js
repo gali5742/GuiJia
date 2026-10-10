@@ -9,12 +9,19 @@
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     const baseRealizationApi = GuiJia.baziVisibleStemFunctionRealization || null;
 
-    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.1';
+    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.2';
     const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_RULE_ID = 'BAZI-STRENGTH-VISIBLE-STEM-FUNCTION-REALIZATION-SOURCE-001';
 
     const sourceRealizationStates = Object.freeze({
         REALIZED_IN_SOURCE_CONTEXT:'realized-in-source-context',
         NOT_REALIZED_IN_SOURCE_CONTEXT:'not-realized-in-source-context'
+    });
+
+    const DTS_SOURCE = Object.freeze({
+        title:'《滴天髓阐微》',
+        sourceUrl:'https://zh.wikisource.org/zh-hans/%E6%BB%B4%E5%A4%A9%E9%AB%93%E9%97%A1%E5%BE%AE',
+        revisionId:2600158,
+        retrievedOn:'2026-10-10'
     });
 
     const SOURCE_BASIS = Object.freeze([
@@ -35,6 +42,18 @@
             chart:'丁丑 癸卯 乙卯 己卯',
             term:'时干己土临绝，不能去其癸水',
             supports:Object.freeze(['visible-ji-to-visible-gui-restraint-not-realized'])
+        }),
+        Object.freeze({
+            source:'《滴天髓阐微·干支总论》左右贵乎同志命例',
+            chart:'壬申 丙午 庚午 庚辰',
+            term:'用壬制杀，天干之同志者',
+            supports:Object.freeze(['visible-ren-to-visible-bing-restraint-realized'])
+        }),
+        Object.freeze({
+            source:'《滴天髓阐微·何知章》何知其人贱命例',
+            chart:'丁卯 甲辰 辛亥 癸巳',
+            term:'癸水克丁，亥水冲巳，似乎制杀有情，不知春水休囚，木火并旺，不但不能克火',
+            supports:Object.freeze(['visible-gui-to-visible-ding-restraint-not-realized'])
         })
     ]);
 
@@ -70,6 +89,36 @@
             functionType:'restraint',
             realizationState:sourceRealizationStates.NOT_REALIZED_IN_SOURCE_CONTEXT,
             sourceTerm:'时干己土临绝，不能去其癸水',
+            scope:'exact-source-case-only'
+        }),
+        Object.freeze({
+            id:'DTS-VISIBLE-REALIZATION-REN-RESTRAINS-BING-001',
+            chartKey:'壬申|丙午|庚午|庚辰',
+            relationScope:'cross-visible-actor',
+            sourceActorKey:'visible:0:壬',
+            targetActorKey:'visible:1:丙',
+            functionType:'restraint',
+            realizationState:sourceRealizationStates.REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'用壬制杀，天干之同志者',
+            sourceCitation:'《滴天髓阐微·干支总论》左右贵乎同志命例',
+            sourceProvenance:DTS_SOURCE,
+            sourceContext:'此丙火之杀虽旺，壬水之根亦固，日主有比肩之助，辰土之生，谓身杀两停。用壬制杀，天干之同志者；地支之同志者，辰土也，一制一化，可谓有情。',
+            endpointBinding:'原文分别点名壬水、丙火之杀，并明确把用壬制杀归于天干；四柱只有年干壬和月干丙两个对应 visible actor。地支辰土之化另属 branch scope，不合并到该 edge。',
+            scope:'exact-source-case-only'
+        }),
+        Object.freeze({
+            id:'DTS-VISIBLE-REALIZATION-GUI-RESTRAINS-DING-002',
+            chartKey:'丁卯|甲辰|辛亥|癸巳',
+            relationScope:'cross-visible-actor',
+            sourceActorKey:'visible:3:癸',
+            targetActorKey:'visible:0:丁',
+            functionType:'restraint',
+            realizationState:sourceRealizationStates.NOT_REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'癸水克丁，亥水冲巳，似乎制杀有情，不知春水休囚，木火并旺，不但不能克火',
+            sourceCitation:'《滴天髓阐微·何知章》何知其人贱命例',
+            sourceProvenance:DTS_SOURCE,
+            sourceContext:'此春金逢火，理宜印化杀，财星坏印，癸水克丁，亥水冲巳，似乎制杀有情，不知春水休囚，木火并旺，不但不能克火，反去生木泄金；财官本可荣身，而日空不能胜任，虽心专必欲求之。',
+            endpointBinding:'癸水克丁点名唯一时干癸→年干丁；后文似乎／不知／不但不能克火否定该制杀结果。亥冲巳另属 branch relation；反去生木不自动生成 reverse effect 或其他 effect type。',
             scope:'exact-source-case-only'
         })
     ]);
@@ -168,7 +217,10 @@
             sourcePatternId:pattern.id,
             sourceEvidenceRuleId:VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_RULE_ID,
             sourceEvidenceKind:'direct-source-relation-outcome',
-            sourceCitation:'《滴天髓阐微·八格》命例',
+            sourceCitation:pattern.sourceCitation || '《滴天髓阐微·八格》命例',
+            sourceProvenance:pattern.sourceProvenance || null,
+            sourceContext:pattern.sourceContext || null,
+            endpointBinding:pattern.endpointBinding || null,
             sourceTerm:pattern.sourceTerm,
             relationFromDayMaster:existingRecord?.relationFromDayMaster || null,
             flow:existingRecord?.flow || (pattern.relationScope === 'daymaster-related' ? null : 'cross-actor-directed'),
@@ -392,6 +444,7 @@
         VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION,
         VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_RULE_ID,
         sourceRealizationStates,
+        DTS_SOURCE,
         SOURCE_BASIS,
         DIRECT_SOURCE_PATTERNS,
         CONTRACT,
