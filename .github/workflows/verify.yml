@@ -87,6 +87,9 @@ jobs:
       - name: Source Instance Target Calibration regression
         run: node tests/bazi-contextual-force-party-source-instance-target-calibration-tests.js
 
+      - name: Source Officer Killer Effect Calibration regression
+        run: node tests/bazi-contextual-force-party-source-officer-killer-effect-calibration-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
