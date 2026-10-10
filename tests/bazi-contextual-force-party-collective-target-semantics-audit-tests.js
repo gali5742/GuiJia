@@ -163,7 +163,7 @@ test('known motif total calibration 与 generic visible mapping 继续 unresolve
 });
 
 test('既有 realization registry 与 realized-but-unmapped proof case 不变', () => {
-    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 5, 'collective audit 不得额外新增 realization pattern');
+    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 6, 'collective audit 不得额外新增 realization pattern');
     const synthesis = synthesisFor(['丁','癸','乙','己'], ['丑','卯','卯','卯']);
     const target = synthesis.contextualForcePartyVisibleEdgeEffectTypeAuthorizationAudit.records
         .find((item) => item.sourceActorKey === 'visible:1:癸' && item.targetActorKey === 'visible:0:丁');
