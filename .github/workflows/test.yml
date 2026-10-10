@@ -1,33 +1,86 @@
-name: Test and vendor verification
+name: Candidate v0.7 Fallback v0.5 literal data seal
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: liuyao-v013-v07-fallback-identity-v05-data-seal
+  cancel-in-progress: false
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  seal-literal-data:
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - uses: actions/checkout@v5
         with:
-          node-version: "22"
-
-      - name: Core regression tests
-        run: npm test
-
-      - name: Build same-origin vendor site
-        run: node scripts/build-pages-site.mjs
-
-      - name: Verify vendor bytes and lunar smoke test
-        run: node scripts/verify-vendor.mjs .site
-
-      - name: Verify static Pages artifact
-        run: node scripts/verify-static-site.mjs .site deployed
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify isolated registered CI entry and frozen source tree
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-ci-source.mjs --ci-bootstrap
+          echo "V07_DATA_INPUT_SHA=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - name: Checkout exact frozen development source instead of the CI wrapper
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.V07_DATA_INPUT_SHA }}
+          fetch-depth: 0
+      - name: Verify frozen Candidate design and data policy
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-design.mjs
+      - name: Generate literal corpora without encoder or model loading
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/generate-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs
+      - name: Verify complete raw membership, roles and contamination
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --committed-inputs
+      - name: Exercise data-governance failure cases
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node --test tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-tests.mjs
+      - name: Preserve conditional policy and evaluation isolation checks
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node --test tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Seal training, augmentation and entire raw calibration together
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/seal-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --committed-inputs
+      - name: Verify deterministic regeneration and immutable reseal
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --require-seal --committed-inputs
+          node scripts/generate-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs
+          node scripts/seal-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --committed-inputs
+      - name: Commit seal without overwriting parallel semantic work
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-training-augmentation.json \
+            data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-training.json \
+            data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration.json \
+            data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-contamination-audit-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.lock.json
+          git commit -m 'test(liuyao): seal v0.7 fallback v0.5 fresh literal data [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            'data/liuyao-semantic-*'
+            'js/liuyao-semantic-*'
+            'scripts/*liuyao-semantic-v013-candidate-*'
+            'tests/*liuyao-semantic-v013-candidate-*'
+            '.github/workflows/liuyao-v013-*'
+          )
+          if ! git diff --quiet "$V07_DATA_INPUT_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Semantic inputs changed during CI; refusing stale seal push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --require-seal --committed-inputs
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Confirm committed complete seal
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git diff --exit-code
+          git show -s --format='%H %s'
+          node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.mjs --require-seal --committed-inputs
