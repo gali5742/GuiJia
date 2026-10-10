@@ -112,9 +112,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('Direct Source Function Realization v0.2 只授权 exact-source edge outcome', () => {
+test('Direct Source Function Realization v0.3 只授权 exact-source edge outcome', () => {
     assert(api?.installed === true, 'Direct Source Function Realization 模块未安装');
-    assert(api.VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION === '0.2', '版本异常');
+    assert(api.VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION === '0.3', '版本异常');
     assert(api.CONTRACT.directSourceExactCaseOnly === true, '必须 exact-source-only');
     assert(api.CONTRACT.elementalRelationAloneDoesNotCreateEdge === true, '五行字面关系不得单独造 edge');
     assert(api.CONTRACT.bearingAloneDoesNotResolveEdge === true, 'bearing 不得单独解决 edge');

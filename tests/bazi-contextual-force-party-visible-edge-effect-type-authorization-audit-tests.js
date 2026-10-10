@@ -109,11 +109,11 @@ test('source matrix 明确记录 positive realized-but-unmapped pattern', () => 
     assert(record.matchedMotifIds.length === 0, '该 pattern 不应命中现有 Party motif');
 });
 
-test('真实 opposition 正例不等于全部 raw visible motif 校准完成', () => {
+test('真实 opposition / mediation 正例分别覆盖当前两类 raw visible motif', () => {
     assert(sourceApi.RAW_VISIBLE_MOTIFS.length === 2, 'raw visible motif 数量异常');
-    assert(sourceApi.POSITIVE_AUTHORIZED_DIRECT_PATTERNS.length === 1, '应有一个真实 positive authorized direct calibration');
+    assert(sourceApi.POSITIVE_AUTHORIZED_DIRECT_PATTERNS.length === 2, '应有两个真实 positive authorized direct calibration');
     assert(sourceApi.CONTRACT.positiveAuthorizedDirectPatternObserved === true, '应记录已观察正例');
-    assert(sourceApi.CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === false, '不得把单一 opposition 正例提升成全部 motif coverage');
+    assert(sourceApi.CONTRACT.allRawVisibleMotifsPositiveCalibrationObserved === true, '应有两类已登记 raw motif 的各自校准');
 });
 
 test('generic visible mapping blocker 被细化为 authorization audit + calibration blocker', () => {
@@ -122,7 +122,7 @@ test('generic visible mapping blocker 被细化为 authorization audit + calibra
     const calibration = deps['SD-CONTEXTUAL-FORCE-PARTY-VISIBLE-EDGE-KNOWN-MOTIF-END-TO-END-CALIBRATION'];
     const generic = deps['SD-CONTEXTUAL-FORCE-PARTY-RELATION-EFFECT-GENERIC-VISIBLE-EDGE-MAPPING'];
     assert(auditDep?.status === 'resolved', 'authorization audit 应 resolved');
-    assert(calibration?.status === 'unresolved', 'known motif calibration 应 unresolved');
+    assert(calibration?.status === 'resolved', '当前两类 raw known motif 各自校准应 resolved');
     assert(generic?.status === 'unresolved', 'generic visible mapping 必须继续 unresolved');
     assert(generic.dependsOnDependencyIds.includes(auditDep.id), 'generic mapping 缺 authorization audit 依赖');
     assert(generic.dependsOnDependencyIds.includes(calibration.id), 'generic mapping 缺 calibration 依赖');

@@ -9,7 +9,7 @@
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     const baseRealizationApi = GuiJia.baziVisibleStemFunctionRealization || null;
 
-    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.2';
+    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.3';
     const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_RULE_ID = 'BAZI-STRENGTH-VISIBLE-STEM-FUNCTION-REALIZATION-SOURCE-001';
 
     const sourceRealizationStates = Object.freeze({
@@ -54,6 +54,12 @@
             chart:'丁卯 甲辰 辛亥 癸巳',
             term:'癸水克丁，亥水冲巳，似乎制杀有情，不知春水休囚，木火并旺，不但不能克火',
             supports:Object.freeze(['visible-gui-to-visible-ding-restraint-not-realized'])
+        }),
+        Object.freeze({
+            source:'《滴天髓阐微·通关》命例',
+            chart:'癸酉 甲子 丁卯 丙午',
+            term:'此造天干地支皆杀生印，印生身',
+            supports:Object.freeze(['visible-gui-to-visible-jia-generation-realized'])
         })
     ]);
 
@@ -119,6 +125,21 @@
             sourceProvenance:DTS_SOURCE,
             sourceContext:'此春金逢火，理宜印化杀，财星坏印，癸水克丁，亥水冲巳，似乎制杀有情，不知春水休囚，木火并旺，不但不能克火，反去生木泄金；财官本可荣身，而日空不能胜任，虽心专必欲求之。',
             endpointBinding:'癸水克丁点名唯一时干癸→年干丁；后文似乎／不知／不但不能克火否定该制杀结果。亥冲巳另属 branch relation；反去生木不自动生成 reverse effect 或其他 effect type。',
+            scope:'exact-source-case-only'
+        }),
+        Object.freeze({
+            id:'DTS-VISIBLE-REALIZATION-GUI-GENERATES-JIA-001',
+            chartKey:'癸酉|甲子|丁卯|丙午',
+            relationScope:'cross-visible-actor',
+            sourceActorKey:'visible:0:癸',
+            targetActorKey:'visible:1:甲',
+            functionType:'generation',
+            realizationState:sourceRealizationStates.REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'此造天干地支皆杀生印，印生身',
+            sourceCitation:'《滴天髓阐微·通关》命例',
+            sourceProvenance:DTS_SOURCE,
+            sourceContext:'此造天干地支皆杀生印，印生身，时归禄旺，尤妙四冲反为四助，金见水克木而生水，水见木不克火而生木，此自然不隔不占，无阻节之物。',
+            endpointBinding:'原文明确把杀生印同时落在天干与地支。丁日主的天干只有年干癸为七杀、月干甲为正印，故天干 clause 唯一绑定癸→甲；地支杀印关系仍属独立 branch scope，不创建其 hidden/member edges。',
             scope:'exact-source-case-only'
         })
     ]);

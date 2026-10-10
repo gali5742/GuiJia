@@ -81,7 +81,7 @@ test('full ordered research closure installs R7 without defining global semantic
     assert(real.baziContextualForcePartyRegisteredMotifAuthorizationMatcher?.installed, 'R7 runtime missing');
     const contract = apiFor(real).CONTRACT;
     assert(contract.registeredMotifIds.length === 3 && contract.genericEffectTypeAuthorizationResolverDefined === false, 'registry/global boundary lost');
-    assert(real.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 5, 'research source registry was changed by synthetic tests');
+    assert(real.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 6, 'research source registry was changed by synthetic tests');
 });
 test('research extension host preserves legacy wrappers, registration order and idempotency', () => {
     const context = { GuiJia:{ baziStrengthSynthesis:{ buildStrengthSynthesis:() => ({ trace:['base'] }) } } };
@@ -210,14 +210,14 @@ function makeResult(g, chartKey) {
         dayMasterEvidence:bazi.buildDayMasterEvidence(pillars, monthSeason, internalRelations, dayGan),
         matchedLiterature:[], lunarStr:'测试农历', solarStr:'测试时间', ruleSummary:'测试口径' };
 }
-test('real source chart traverses the full synthesis chain without unlocking R6 blockers', () => {
+test('real source chart traverses the full synthesis chain while remaining R6 blockers stay closed', () => {
     const output = real.baziInterpretation.buildBaziInterpretation(makeResult(real, '丁丑|癸卯|乙卯|己卯'));
     const synthesis = output.semanticModel.strengthSynthesis;
     const audit = synthesis.contextualForcePartyRegisteredMotifAuthorizationMatcher;
     assert(audit && audit.evaluatedRelationCount === 2 && audit.unmappedRelationCount === 2, 'real relations missing');
     assert(audit.results.some((r) => r.execution.executionState === 'realized-relation-currently-unmapped'), 'real positive unmapped missing');
     assert(audit.results.some((r) => r.execution.executionState === 'not-realized-generic-relation-effect'), 'real negative missing');
-    assert(synthesis.contextualForcePartyEffectTypeAuthorizationSourceCapabilityAudit.unresolvedGlobalResolverBlockerCount === 5, 'R6 blockers falsely resolved');
+    assert(synthesis.contextualForcePartyEffectTypeAuthorizationSourceCapabilityAudit.unresolvedGlobalResolverBlockerCount === 4, 'remaining R6 blockers falsely resolved');
     assert(synthesis.sufficiency.status === 'insufficient', 'final assessment unlocked');
     assert(synthesis.dependencies.find((d) => d.id === 'SD-CONTEXTUAL-FORCE-PARTY-GENERIC-EFFECT-TYPE-AUTHORIZATION-RESOLVER').status === 'unresolved', 'global resolver unlocked');
 });
