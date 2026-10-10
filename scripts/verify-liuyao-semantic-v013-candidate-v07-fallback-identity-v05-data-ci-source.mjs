@@ -1,0 +1,13 @@
+import {execFileSync} from 'node:child_process';
+import {root,contract,read,binding,assert} from './liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-lib.mjs';
+const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+const {implementation}=contract({requireCommitted:true});
+assert(process.argv.includes('--ci-bootstrap'),'Registered isolated CI entry proof required');
+assert(git(['diff','--name-only','HEAD^','HEAD'])===implementation.isolatedEntryPath,'CI wrapper may change only its entry file');
+const workflow=read(implementation.workflowPath).toString('utf8');
+const start=workflow.indexOf('\non:\n'),end=workflow.indexOf('\npermissions:',start);
+assert(start>0&&end>start,'Workflow structure drift');
+const wrapper=workflow.slice(0,start)+'\non:\n  workflow_dispatch:\n'+workflow.slice(end);
+assert(read(implementation.isolatedEntryPath).toString('utf8')===wrapper,'CI wrapper differs from frozen data workflow');
+for(const b of implementation.bindings)assert(git(['rev-parse',`HEAD^:${b.path}`])===b.gitBlobSha,`Data input differs from committed source: ${b.path}`);
+console.log(JSON.stringify({status:'committed_data_source_and_isolated_entry_verified',sourceCommit:git(['rev-parse','HEAD^']),wrapperCommit:git(['rev-parse','HEAD']),encoderInvocations:0}));
