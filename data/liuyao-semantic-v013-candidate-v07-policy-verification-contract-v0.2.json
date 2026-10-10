@@ -1,0 +1,47 @@
+{
+  "version": "0.13-candidate-v0.7-policy-verification-contract-v0.2",
+  "status": "verification_runtime_correction_only_before_corrected_CI",
+  "designSourceCommit": "0a2ea45bce1eea8c337b615422690f1385adaa1b",
+  "originalFailedCI": {
+    "runId": 38057486762,
+    "headSha": "f6f572e032c9103f7b8bce7e437a90b08b71dc97",
+    "stage": "checkout_before_any_policy_check",
+    "reason": "job_level_NODE_OPTIONS_preloads_guard_before_checkout_creates_the_guard_file",
+    "encoderInvocations": 0
+  },
+  "correctedWorkflowPath": ".github/workflows/liuyao-v013-v07-fallback-identity-v05-policy-v0.2.yml",
+  "isolatedEntryPath": ".github/workflows/test.yml",
+  "bootstrapPolicy": "isolated_CI_commit_has_input_commit_as_parent_and_changes_only_existing_registered_CI_entry; wrapper_exactly_derived_from_corrected_workflow; no_merge_to_development_branch",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-design.lock.json",
+      "sha256": "fef072e72502893a599095ba5a3302aa7382a768b99d79d88b9f8c1142191028",
+      "gitBlobSha": "a592f5a559f4e8215cfb5bfb3249d3dd7635846c"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v07-fallback-identity-v05-policy.yml",
+      "sha256": "cea448d959faa1d74b1d5e2d0b6c84b1fa999caac2754c3815a22b8d7b9f3d08",
+      "gitBlobSha": "ab50046754acd9f47570d339682c1ee61443100d"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v07-fallback-identity-v05-policy-v0.2.yml",
+      "sha256": "6158ce418200cacac4b1ee53739c0a1f3ca4794cab3d8e7f8aeedf7b8621406b",
+      "gitBlobSha": "1ed24834d904e4c17ea1a301e3154e33cf844e01"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v07-policy-ci-v0.2.mjs",
+      "sha256": "0dbe2979b1522a1f79bf29dae78c7a9850ebc7f04a820baa45f72606acbaf28b",
+      "gitBlobSha": "be5b9fe85263ec6103bdc2e38200315fa297daa8"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    }
+  ],
+  "semanticPolicyChange": false,
+  "dataOrMembershipChange": false,
+  "encoderInvocations": 0,
+  "evaluationReadAllowed": false,
+  "activation": "NODE_OPTIONS_only_in_shell_steps_after_checkout_not_in_action_bootstrap_environment"
+}

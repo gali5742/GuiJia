@@ -164,7 +164,11 @@ and stream rejection without opening real evaluation data. This is a
 regression guard for these checks, not an OS sandbox. Full `npm test` and
 the default shared push CI are not used again in this phase. Push commits
 use `[skip ci]` to prevent those legacy validators; the **required dedicated
-policy workflow is explicitly dispatched and must actually pass**.
+policy checks are explicitly dispatched through the registered `test.yml`
+entry on an isolated CI ref and must actually pass**. The new standalone
+workflow was not registered by the skipped push and direct dispatch returned
+404. The isolated ref changes only the CI entry; its policy source tree
+matches its development-branch parent. No CI wrapper is merged back.
 
 ## Preservation and verification
 
@@ -186,7 +190,23 @@ coverage, global admission, no Sufficiency bypass, empty-denominator
 handling and the evaluation-read guard. Design/contract/baseline bindings
 and immutable metadata diagnosis pass under the same guard.
 
-Commit and real dedicated CI evidence are recorded below after execution.
+Design/contract/policy freeze commit:
+`0a2ea45bce1eea8c337b615422690f1385adaa1b`.
+
+The first isolated CI wrapper commit was
+`f6f572e032c9103f7b8bce7e437a90b08b71dc97`.
+[CI 38057486762](https://github.com/gali5742/GuiJia/actions/runs/38057486762)
+failed at checkout before any policy test: job-level `NODE_OPTIONS` preloaded
+the guard while checkout had not created the guard file. Encoder/evaluation
+calls were zero and the checks were skipped; this is not a policy-test PASS.
+
+The immutable v0.1 workflow remains bound by the design lock. A new **v0.2**
+verification workflow activates the guard only in shell checks after checkout.
+Its verification-only contract binds both workflows and the original design
+lock, records the failure, and requires proof that the isolated CI commit
+changes only `test.yml` and that the entry exactly derives from the corrected
+workflow. It changes no model, gate, label, membership or calibration policy.
+Corrected CI evidence is recorded below after execution.
 
 ## Added files
 
@@ -201,6 +221,9 @@ Commit and real dedicated CI evidence are recorded below after execution.
 - `scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs`
 - `tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs`
 - `.github/workflows/liuyao-v013-v07-fallback-identity-v05-policy.yml`
+- `.github/workflows/liuyao-v013-v07-fallback-identity-v05-policy-v0.2.yml`
+- `data/liuyao-semantic-v013-candidate-v07-policy-verification-contract-v0.2.json`
+- `scripts/verify-liuyao-semantic-v013-candidate-v07-policy-ci-v0.2.mjs`
 - This owner report.
 
 Next legal action: author and seal the 550 allocated fresh literals and
