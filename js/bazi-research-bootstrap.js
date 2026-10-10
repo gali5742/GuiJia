@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.33';
+    const VERSION = '0.34';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -152,7 +152,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourcePositionProvenanceConsumer', src:'./js/bazi-contextual-force-party-source-position-provenance-consumer.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourcePositionPathConditionMatcherContract', src:'./js/bazi-contextual-force-party-source-position-path-condition-matcher-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourcePositionPathConditionMatcherProfile', src:'./js/bazi-contextual-force-party-source-position-path-condition-matcher-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourcePositionPathConditionMatcher', src:'./js/bazi-contextual-force-party-source-position-path-condition-matcher.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePositionPathConditionMatcher', src:'./js/bazi-contextual-force-party-source-position-path-condition-matcher.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePathParticipantBindingContract', src:'./js/bazi-contextual-force-party-source-path-participant-binding-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePathParticipantBindingProfile', src:'./js/bazi-contextual-force-party-source-path-participant-binding-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourcePathParticipantBinding', src:'./js/bazi-contextual-force-party-source-path-participant-binding.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
