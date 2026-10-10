@@ -80,6 +80,11 @@ const allGlobalKeys = bootstrapDependencies.map((item) => item.globalKey);
 const allModulePaths = bootstrapDependencies.map(({ src }) => src.replace(/^\.\//, '').replace(/\?.*$/, ''));
 const duplicateGlobalKeys = allGlobalKeys.filter((key, index) => allGlobalKeys.indexOf(key) !== index);
 const duplicateModulePaths = allModulePaths.filter((modulePath, index) => allModulePaths.indexOf(modulePath) !== index);
+const synthesisIndex = allGlobalKeys.indexOf('baziStrengthSynthesis');
+const extensionHostIndex = allGlobalKeys.indexOf('baziResearchSynthesisExtensions');
+if (extensionHostIndex !== synthesisIndex + 1 || extensionHostIndex <= 0) {
+    errors.push('bazi-research-bootstrap.js: research synthesis extension host must follow the base synthesis');
+}
 if (duplicateGlobalKeys.length) errors.push(`bazi-research-bootstrap.js: duplicate globalKey(s): ${[...new Set(duplicateGlobalKeys)].join(', ')}`);
 if (duplicateModulePaths.length) errors.push(`bazi-research-bootstrap.js: duplicate dependency module(s): ${[...new Set(duplicateModulePaths)].join(', ')}`);
 
@@ -107,8 +112,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.30'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.30');
+if (!bootstrap.includes("const VERSION = '0.31'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.31');
 }
 
 const requiredTail = Object.freeze([
@@ -164,7 +169,10 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-effect-authorization-normalized-input-profile.js',
     'js/bazi-contextual-force-party-effect-authorization-normalized-input.js',
     'js/bazi-contextual-force-party-effect-type-authorization-source-capability-source.js',
-    'js/bazi-contextual-force-party-effect-type-authorization-source-capability-audit.js'
+    'js/bazi-contextual-force-party-effect-type-authorization-source-capability-audit.js',
+    'js/bazi-contextual-force-party-registered-motif-authorization-matcher-contract.js',
+    'js/bazi-contextual-force-party-registered-motif-authorization-matcher-profile.js',
+    'js/bazi-contextual-force-party-registered-motif-authorization-matcher.js'
 ]);
 let previousTailIndex = -1;
 for (const relative of requiredTail) {
