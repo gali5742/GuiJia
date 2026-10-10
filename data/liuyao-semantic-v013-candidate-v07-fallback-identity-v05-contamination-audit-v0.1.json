@@ -1,0 +1,321 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-data-audit-v0.1",
+  "status": "pass_encoder_free_data_audit",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-contract-v0.1.json",
+    "sha256": "e3471a8eceac49446f90ae9deecd31ffdc9e8e14f47afe3816976f0b8d1d5b40",
+    "gitBlobSha": "36d11413163c5bc0d282599ce404f48de7e3abcd"
+  },
+  "authoringBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json",
+    "sha256": "b1e843d01fe2c215a8dd3758a6e5c29bfbedfc2274908515c516d8130709cced",
+    "gitBlobSha": "563563b6cb003b493abbebbaa469f14aac861041"
+  },
+  "counts": {
+    "augmentation": {
+      "rows": 242,
+      "known": 176,
+      "nonRoute": 66,
+      "byRoute": {
+        "financial_fortune": 8,
+        "business_operation": 8,
+        "commercial_transaction": 8,
+        "inventory_purchase": 8,
+        "inventory_sale": 8,
+        "borrow_money": 8,
+        "lend_money": 8,
+        "debt_collection": 8,
+        "debt_repayment": 8,
+        "partnership": 8,
+        "investment_profit": 8,
+        "investment_liquidation": 8,
+        "investment_suitability": 8,
+        "investment_position_decision": 8,
+        "investment_price_trend": 8,
+        "income_salary": 8,
+        "income_bonus": 8,
+        "receive_item": 8,
+        "item_purchase": 8,
+        "relationship_development": 8,
+        "marriage_match": 8,
+        "marital_relationship": 8
+      },
+      "bySubtype": {
+        "known": 176,
+        "route_unresolved": 22,
+        "near_domain_not_current_route": 22,
+        "outside_current_22": 22
+      },
+      "byRoleSafetyGroup": {
+        "credit_direction": 4,
+        "debt_direction": 4
+      },
+      "byStyle": {
+        "role_explicit": 44,
+        "semantic_paraphrase": 88,
+        "boundary_contrast": 44,
+        "independently_authored_non_route": 66
+      }
+    },
+    "training": {
+      "rows": 1698,
+      "known": 1289,
+      "nonRoute": 409,
+      "byRoute": {
+        "financial_fortune": 59,
+        "business_operation": 72,
+        "commercial_transaction": 62,
+        "inventory_purchase": 53,
+        "inventory_sale": 54,
+        "borrow_money": 62,
+        "lend_money": 54,
+        "debt_collection": 54,
+        "debt_repayment": 56,
+        "partnership": 60,
+        "investment_profit": 61,
+        "investment_liquidation": 61,
+        "investment_suitability": 54,
+        "investment_position_decision": 60,
+        "investment_price_trend": 54,
+        "income_salary": 59,
+        "income_bonus": 53,
+        "receive_item": 54,
+        "item_purchase": 56,
+        "relationship_development": 67,
+        "marriage_match": 65,
+        "marital_relationship": 59
+      },
+      "bySubtype": {
+        "historical_known": 1113,
+        "historical_nonroute": 343,
+        "known": 176,
+        "route_unresolved": 22,
+        "near_domain_not_current_route": 22,
+        "outside_current_22": 22
+      },
+      "byRoleSafetyGroup": {
+        "credit_direction": 8,
+        "debt_direction": 8
+      },
+      "byStyle": {
+        "historical_training_only": 1456,
+        "role_explicit": 44,
+        "semantic_paraphrase": 88,
+        "boundary_contrast": 44,
+        "independently_authored_non_route": 66
+      }
+    },
+    "calibration": {
+      "rows": 308,
+      "known": 176,
+      "nonRoute": 132,
+      "byRoute": {
+        "financial_fortune": 8,
+        "business_operation": 8,
+        "commercial_transaction": 8,
+        "inventory_purchase": 8,
+        "inventory_sale": 8,
+        "borrow_money": 8,
+        "lend_money": 8,
+        "debt_collection": 8,
+        "debt_repayment": 8,
+        "partnership": 8,
+        "investment_profit": 8,
+        "investment_liquidation": 8,
+        "investment_suitability": 8,
+        "investment_position_decision": 8,
+        "investment_price_trend": 8,
+        "income_salary": 8,
+        "income_bonus": 8,
+        "receive_item": 8,
+        "item_purchase": 8,
+        "relationship_development": 8,
+        "marriage_match": 8,
+        "marital_relationship": 8
+      },
+      "bySubtype": {
+        "known": 176,
+        "route_unresolved": 44,
+        "near_domain_not_current_route": 44,
+        "outside_current_22": 44
+      },
+      "byRoleSafetyGroup": {
+        "credit_direction": 8,
+        "debt_direction": 8
+      },
+      "byStyle": {
+        "role_explicit": 44,
+        "semantic_paraphrase": 88,
+        "boundary_contrast": 44,
+        "independently_authored_non_route": 132
+      }
+    }
+  },
+  "duplicateAudit": {
+    "exactDuplicates": 0,
+    "crossSplitNearDuplicates": 0,
+    "freshHistoricalExactOverlap": 0,
+    "freshHistoricalNearOverlap": 0,
+    "crossSplitMaximum": 0.18181818181818182,
+    "historicalMaximum": 0.2727272727272727,
+    "crossSplitPairs": 522984,
+    "historicalComparisons": 2033900
+  },
+  "historyBindings": [
+    {
+      "path": "data/liuyao-semantic-route-training-v0.1.json",
+      "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+      "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b",
+      "auditStrings": 241,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+      "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810",
+      "auditStrings": 255,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+      "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217",
+      "auditStrings": 48,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+      "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d",
+      "auditStrings": 210,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+      "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e",
+      "auditStrings": 64,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+      "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a",
+      "auditStrings": 157,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+      "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd",
+      "auditStrings": 136,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+      "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000",
+      "auditStrings": 223,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+      "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777",
+      "auditStrings": 132,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+      "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4",
+      "auditStrings": 66,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359",
+      "auditStrings": 198,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+      "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b",
+      "auditStrings": 704,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+      "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e",
+      "auditStrings": 120,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd",
+      "auditStrings": 198,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+      "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+      "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371",
+      "auditStrings": 132,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+      "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+      "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33",
+      "auditStrings": 88,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training-augmentation.json",
+      "sha256": "1fdcb6839859cb273b40113559c2aa02289884b180483983261848cb530940c6",
+      "gitBlobSha": "a4386f823161c02c5f5e41bfdc30605ea8028d82",
+      "auditStrings": 198,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+      "sha256": "14e4daefc08cfdefcebcc53dec04b8c1466d91ecd99ca79897223ee60035599e",
+      "gitBlobSha": "9483acd17cd747acd7ee91a2c97a4d961687be49",
+      "auditStrings": 132,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-training-augmentation.json",
+      "sha256": "f8436ebaa96644f438beb9269d61b96d59671a23b14094784a4d19653b66118f",
+      "gitBlobSha": "f4abaedbb1b10e59ce6eb05da34586fe1b8d064d",
+      "auditStrings": 242,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-calibration.json",
+      "sha256": "249a6b37ac69272e3c923fca0e1572d1f9a72b19162fd6d11453730115c47093",
+      "gitBlobSha": "6c2b746e9a22dfec5dca870b74a45dd8f0ed9018",
+      "auditStrings": 154,
+      "mode": "automated_exact_trigram_comparator_only_no_wording_output_or_authoring_source"
+    }
+  ],
+  "protectedIsolation": {
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "noDirectoryWalk": true,
+    "candidateV04DevelopmentRead": "automated_comparator_only_no_wording_output",
+    "historicalIncidentPreserved": {
+      "path": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+      "sha256": "ed76f74848de36b1e8a4d5b37c3eed47d050cb294f3acde2c63abbc2a54852cc",
+      "gitBlobSha": "175fba5cbc301f8459c0e01129b48cc32297e60b"
+    }
+  },
+  "encoderInvocations": 0,
+  "modelScoringOccurred": false,
+  "conditionalMembershipSelected": false
+}

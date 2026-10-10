@@ -1,0 +1,2438 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-fresh-training-v0.1",
+  "sealed": true,
+  "status": "sealed_training",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-contract-v0.1.json",
+    "sha256": "e3471a8eceac49446f90ae9deecd31ffdc9e8e14f47afe3816976f0b8d1d5b40",
+    "gitBlobSha": "36d11413163c5bc0d282599ce404f48de7e3abcd"
+  },
+  "authoringBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json",
+    "sha256": "b1e843d01fe2c215a8dd3758a6e5c29bfbedfc2274908515c516d8130709cced",
+    "gitBlobSha": "563563b6cb003b493abbebbaa469f14aac861041"
+  },
+  "rows": [
+    {
+      "id": "V013-V07-FI-T-K-01-01",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "想占问我整个冬季的财运，所有进账和花销合起来会是怎样的局面？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-02",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "退休后的头一年，我整体的钱财运势能否比工作最后一年宽裕？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-03",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "搬回故乡开始生活，未来九个月我的各项收入扣去支出能有结余吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-04",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "不针对某份工作或某个项目，我明年全部钱款的来去会呈现改善吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-05",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我准备占一卦看自己的经济境况，接下来的一个季度能不能逐渐松快？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-06",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "今年已经过半，剩下这些月份我所有收入来源合在一起还会攒下钱吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-07",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这次只问我一人的总体财况，既不是选投资也不是算工资，来年能有起色吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-01-08",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "最近好几种进账都有变化，想看三个月内总的钱财趋势，不单看哪一笔，能转好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-01",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "经营中的街角烘焙店，下个季度的营业状况能恢复到正常盈利吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-02",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我负责的一家修鞋铺已经开业，今冬经营业绩会不会有所起色？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-03",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在每天来我这儿修车的人不多，过完春节这门买卖还能持续带来收入吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-04",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家里那间小食堂已经在做，未来半年客人和收成能撑得住日常成本吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-05",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我自己的洗护门店开了八个月，往后六周的进账是否能逐渐稳定？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-06",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "旧厂房里这家打印工作室仍在营业，年末之前这摊事的经营能转顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-07",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问谁来一起干，我只占已经独立运转的花店，明年经营能否站稳？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-02-08",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "小店货物已经备齐，这次不问某次进货，而问整间文具店的经营能否好起来？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-01",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "公司跟酒店谈的一批床品供货交易，最后能不能达成合同？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-02",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我作为卖方与买家商谈一台旧工业烤箱，这次商业成交能否落实？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-03",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "对方还未接受我厂的报价，这份给园区配桌椅的订单最后会签下来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-04",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "一位采购主管正与我谈定制包装的价款，双方这次约定能不能真正敲定？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-05",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们已经见过两次，围绕这套商用设备的买卖，下周能谈成吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-06",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "客户要买本公司的展台组件，但关键价目还悬着，最终是否肯与我们成交？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-07",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我不占整间企业的营业趋势，只问正在协商的这一份商用照明销售订单能否成立？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-03-08",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "还没有产生逾期应收款，这次就是谈买卖，眼前那份清洁设备的交易能谈妥吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-01",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我给零售摊位进一批保温杯用于转卖，这次进货能带来合适的收益吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-02",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "文具门店准备从厂家采购整箱笔记本补货，现在进货划算吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-03",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我的摊位快没有围巾可卖了，此时把新款成批拿进来是否有利于后续销路？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-04",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "为了让店铺继续卖茶具，我想向批发商拿一批套装，眼下补这批存货妥当吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-05",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "仓里剩下的雨具不够营业，我现在花一笔钱添入待售货品，之后会值得吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-06",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我做小百货零售，考虑把灯串大批买来摆上货架，这样备货能不能合适？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-07",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这些餐盒是拿来店里卖的，不是自己用，我这周从供货方购入一百套是否合宜？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-04-08",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我尚未订下要转卖的运动袜，这次占的是备入商品的选择，不是清仓，进这批合适吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-01",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "仓库积压的那批围裙，下个月能不能作为商品卖出去？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-02",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我店里现存的节日灯饰，年底前的销售能否消化掉大部分库存？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-03",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在货架上那批水杯压着资金，往后的六个星期会有人买到让我回本吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-04",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "去年留下的待售绒毯一直没动静，接下来一个月能不能从店里卖出？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-05",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我手里的露营锅具都已进仓，春季开市之后这些货能够卖得动吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-06",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那一箱箱运动头带是店铺库存，夏天来之前有机会陆续找到买主吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-07",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不打算再进一批，我只占现存的雨鞋库存能不能在雨季卖掉并收回资金？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-05-08",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这不是我个人闲置物件，而是待售商品，手头那批办公台灯的销路会改善吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-01",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我向姨妈借一笔钱交培训费，她会不会同意把款借给我？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-02",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "正在申请由合作社贷给我的周转金，这次借款能否获批到账？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-03",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "车子维修急需资金，我请同事从他的积蓄拿一部分给我暂用，对方会答应吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-04",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我现在钱不够支付店面押金，想靠叔叔先垫给我一笔，能不能得到他的支持？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-05",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "准备办展览的现金缺口还没补上，我求一位朋友暂时提供资金给我，到时能办成吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-06",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我要买生产工具但手头不足，已经问姐姐是否肯先给我周转，最后钱会到我这里吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-07",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是我出钱给别人，而是我资金短缺申请别人借给我，这次从邻居那里借到款的希望大吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-06-08",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "目前还没拿到这笔新款，我问向信用社融资能否批准，不是还旧债，这次能成功吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-01",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "同事想向我借钱办事，我把这笔钱借给他是否稳妥？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-02",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "表弟来找我借一笔开业资金，这次我出借给他有利吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-03",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我的存款里有一笔闲钱，邻居希望拿去暂用，现在交给他会不会让我受损？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-04",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "朋友自己手头不足，求我从积蓄拨一些给她周转，我这样把款提供出去合适吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-05",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "一位熟人要用我的钱先付房租，我站在提供资金的一方，此刻答应是否值得？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-06",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "妹妹说需要资金办证件，我若把自己这一笔交她使用，这个决定能妥当吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-07",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是我找人借入，实际是对方求我出钱，这一次把钱借到他手里会不会可靠？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-07-08",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "钱还没有交出去，我问是否该同意朋友的借款请求，不是追回旧款，这样出借好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-01",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "装修公司欠我的设计费已经逾期，我这次催收能把钱收回来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-02",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "之前借给堂妹的钱到了约定日期，她本月能否还到我手里？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-03",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我已把款垫给合作单位，他们迟迟没有付回，这回追讨能拿回全部金额吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-04",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "客户已经拿走货物却还欠我尾款，往后三周这笔应付我的款能归到我账户吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-05",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "一位旧同事拿过我的周转金仍没归还，现在我要回自己的那部分能否成功？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-06",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我替房东垫付的维修费没有返还，这笔钱原本应回到我这里，年底前能拿到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-07",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是申请别人借钱给我，过去我已提供过款项，这次向欠我钱的人要回资金能办成吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-08-08",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我不是需要付款的债务人，款是对方欠我的，当前催要那笔咨询费能不能到账？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-01",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我欠姐姐的借款就要到期，这个月能不能按期还清？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-02",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我作为债务人尚欠供应商货款，年底前能否偿清这笔债？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-03",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "之前亲戚把一笔资金给我周转，现在应由我拿钱还给他们，我能凑齐全部款项吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-04",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我使用过银行的信用贷款，后面的三个月能否把剩下的本金全部交还？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-05",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那次朋友先替我付了押金，资金已经给我使用，这回我能把属于他的金额如数送回吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-06",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "租赁设备的钱是我这边一直未付齐，我能否在约定日将欠对方的部分全部付掉？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-07",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我不是等别人还我款，而是我已经负债，这次把欠老板的那一笔清偿掉能办到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-09-08",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问新的贷款能否审批，我只占现有的欠款是否能由我按期限偿还完毕，能做到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-01",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我与两位朋友合伙做摄影工作室，这个合作关系能否长久顺利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-02",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "准备和学姐共同经营旅店，这次合伙对我们双方会不会有利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-03",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们三个人打算各出一部分资金一起做手作品牌，彼此共同做这件事能配合好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-04",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我考虑与一位旧同事分担经营和收益，双方绑定起来持续做项目是否妥当？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-05",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我的技术加上他的渠道，想把责任和成果一起承担，这种一起干的关系能成立并稳定吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-06",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家人与我正在议定共同投入、共同做经营，之后双方能不能保持良好的协作？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-07",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我不问单独店铺的业绩，只问是否适合跟这位朋友合伙承担经营和收益，关系能顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-10-08",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是谈一份货物买卖合同，而是长期一起做事业，和表姐的合伙能否可靠？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-01",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我投资持有的这只债券基金，半年后的净收益能不能为正？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-02",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "把积蓄投进那家公司的份额，今后一年这项投资会不会盈利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-03",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我已经将资金放进这个证券组合，来年所得扣去投入和费用能多出一些吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-04",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这笔为获得回报而投入的资金已经生效，等到持有期结束我会收到超出成本的部分吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-05",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我的钱在一项商业份额里待了半年，接下来能不能给我带来实际的赚头？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-06",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这次只想占我那笔基金投入的回报，结算时自己的本金之外还能多拿到钱吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-07",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问屏幕上的报价升跌，我看的是买入及费用都扣除后这笔证券投资能否挣钱？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-11-08",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我已经参与这一项目，不问要不要加入，只问所投资金最终能否产生盈利，能赚吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-01",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我持有的银行股若在下周卖出，兑现这次投资能否顺利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-02",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "准备赎回手里的混合基金，把投资变为现金，现在操作合适吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-03",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我已经有这只证券的份额，想在本月结束前不再留着而收回资金，这样退出会顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-04",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那项资本投入目前仍在我名下，我打算将全部份额交割出去换回钱，结果能满意吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-05",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "已经持有两年的基金不想继续放着了，此刻把全部投入取回到现金状态能办好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-06",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我想结束现在的证券持有，收回对应的资金到日常账户，这个时点退出妥当吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-07",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问货架商品能不能卖掉，而是卖出我已持有的债券投资收回现金，这次退出顺利吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-12-08",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我已决定完全退出而非调整比例，问手中这项投资的出售兑现能否办成，能做到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-01",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "尚未买入的宽基基金适合我参与吗，考虑我的风险承受能力现在投资合宜吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-02",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "想用闲置资金投资一家小型企业，在我的现有条件下这项投资是否值得进入？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-03",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我还没有把钱放到那项资产里，以我目前资金用途和能够承受的波动，加入它对我合适吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-04",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这项资本安排正在考虑阶段，我想看用自己的储蓄参与进去是不是一个适宜的选择？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-05",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我关心自己能不能承受该项目的回报与损失，尚未投入，现在成为投资人妥当吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-06",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "眼前有一个用资金换取后续回报的机会，以我的经济条件选择参与是否适合？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-07",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是占买一件自用物品，我考虑的是未参与的基金投资对我的情况是否适宜，进入好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-13-08",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我没有这项资产的存量份额，这次不是调仓，只问初次投入这个项目是否与我相称？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-01",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我已持有这只指数基金，现在加仓还是减仓对我的投资安排更合适？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-02",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "账户中现有的科技股仓位，该继续持有还是减少一些份额才妥当？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-03",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这项证券已在我资产里占一部分，我正拿不准保留的比例，后面保持原量会比增加更好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-04",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我已经参与那只基金，想重新安排投在里面的钱数，是多放一点还是收回一点更有利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-05",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现有债券资产的占比让我犹豫，接下来维持目前规模而不缩小会不会适宜？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-06",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我的资金已分一部分放在这项投资里，现在想看把所占比例调大或调小哪种更好？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-07",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问彻底清仓能否成交，我还会保留投资，只是在现有持有上选择增减份额，增加好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-14-08",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我已买入不是初次参与，这次只占仓位安排能否调整得更合适，是维持还是收缩好？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-01",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这只光伏股票未来一个月的市场价格，整体会向上还是向下？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-02",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我关注的铜期货报价，下一季度的价格趋势能继续抬高吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-03",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那只上市证券每天都有市场成交价，接下来的四周标出的数字会比眼下更高吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-04",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我一直看这项金融资产的市价，进入冬季后它每份的报价水平有望往上走吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-05",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "交易市场给这只基金报出的单位数值，往后六十天会呈现持续回落吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-06",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "屏幕上这只股票当前的成交数字在变化，月底再看时整体水平能上一个台阶吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-07",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我并不占自己的成本与盈利，只看这只证券在市场上的价格未来会不会走高？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-15-08",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不用决定该持有多少，我只想占这一金融资产的报价走势，接下来的价格会向哪边发展？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-01",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我在研究所的固定月薪，今年下一次调薪能否增加？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-02",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "单位应发给我的四月份工资，这个月能否按时到账？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-03",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我每个月为这份工作拿到的一笔固定报酬，转正之后金额会比试用期多吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-04",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "公司按照任职合同给我的日常那份收入，后面的半年能不能稳定交到我手上？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-05",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我靠岗位工作取得的固定月度钱款，明春还能如常领取到完整数额吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-06",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "目前人事正在调整待遇，我每月正常工作对应的那一份报酬有机会提高吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-07",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问年终额外奖励，我只占平时每月岗位工资能否在新一年有所增长？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-16-08",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我不占整个人的综合财运，这次就是单位固定发给我的月度薪酬能否到账，能收到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-01",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "今年绩效考核结束后的那笔奖金，我能不能拿到预期数额？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-02",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "公司承诺的年终奖，年前会不会发到我的工资账户？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-03",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "项目获奖后单位说会给团队一笔额外的钱，我的那一份最后能分到吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-04",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "部门完成目标可以多领一份奖励，我在正常月度报酬以外有机会收到这笔吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-05",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "医院准备为优秀员工发特别款项，我这回能不能在平时收入之外拿到一份？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-06",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这次庆功后公司另给做成项目的人发钱，我作为参与者的那份奖励能兑现吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-07",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是每月固定工资，这次只占完成季度业绩后额外发放的奖励金额能否到我手里？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-17-08",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不占项目投资的利润，我是员工，想看工作完成后单位另外给的奖金今年能不能领到？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-01",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我已经买下的绘图板在运输途中，这周能不能顺利收到货？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-02",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "朋友寄给我的礼盒还没到，这次收取物件能否完整无损？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-03",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "新购的空气净化器商家已发出，我期待拿到它，最后到我住处的过程会顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-04",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那台打字机已经由卖家交出去运送，未来三天这个包裹能来到我手里吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-05",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我等的是订好并在路上的床头柜，按约定日期会出现在我家门口吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-06",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家人把我的旧相机装箱送来，我能不能在假期前真正拿到这件东西？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-07",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "钱已经付完、买不买也已决定，我这次只占刚发出的电饭锅能不能收到，不是选购，好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-18-08",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这不是店铺等待销售的存货，而是我个人已订物件，那个帐篷包裹会按时到达吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-01",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我想为自己买一把电子琴，这次购买是否值得？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-02",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "给家里购置一台洗碗机，现在买这件自用电器合适吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-03",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我为了日常通勤看中一辆折叠自行车，还没付款，把它买下来会是合宜的选择吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-04",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家里需要办公用的显示器，若选择眼前这一款带回来自用，对我会不会划算？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-05",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我想让自己使用一把新的人体工学椅，这回花钱把它买回去是否适宜？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-06",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那副望远镜是准备留给我观察鸟类的，此刻下定决定取来使用会值得吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-07",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是给门店批量进货，我自己需要一个烤面包机，占这次自用购买能否买得满意？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-19-08",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我尚未下单也没等待配送，只问是否值得现在购入这台家用投影仪，买吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-01",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我与刚认识的那位同龄人互有好感，接下来恋爱关系会不会进一步发展？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-02",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "正在交往但尚未谈婚事，我和女友这半年感情能否更亲近？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-03",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们还没成为情侣，却经常私下见面，彼此心里的亲近之后会继续增加吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-04",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我和他只是互相欣赏的约会对象，还没有共同生活计划，后面两个人的情意会加深吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-05",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "她最近开始主动和我聊天，我关心彼此喜欢与来往的进展，未来一段时间会更靠近吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-06",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们仍在彼此了解阶段，想看这份相互吸引能不能长成更稳定的亲密联系？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-07",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不涉及正式成婚，我只占未婚的我与这位约会对象的感情走向，后面能发展好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-20-08",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我们不是已有婚姻的夫妻，只是恋爱中一对，这段感情的亲密程度会提升吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-01",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我和未婚的对象正在商量结婚，这桩婚事最终能不能成？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-02",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这位相亲对象与我能否正式缔结婚姻，成为夫妻？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-03",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们目前都没有婚姻关系，想看两人的生活最后能不能以正式配偶的身份合到一起？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-04",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我和她正在谈是否成家，未来一年能从交往走到法律认可的夫妻关系吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-05",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "双方家庭已经知道我们准备组建共同家庭，这件正式成为一对配偶的事能办下来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-06",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们还未登记，正打算把各自的生活结合为婚姻，最终能不能实现？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-07",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不只是问约会感情升温，我问的是彼此尚未结婚的人能否最终成婚，这桩婚配会成吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-21-08",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我们没有既有夫妻关系，这次只占准备缔结的新婚姻能否落实，不问婚后经营，能成吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-01",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我与已经结婚八年的丈夫，这段婚姻关系明年能否稳定和睦？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-02",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我们是合法夫妻，近来常有争执，今后的婚姻相处能不能改善？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-03",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "两个人早已完成登记并共同生活，后面的日子彼此能否在这个家里更相互理解？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-04",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我和已成家的另一半相处有些疏远，现在这份夫妻联系今后还能恢复亲近吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-05",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们从婚礼到现在已有数年，想看两人在同一家庭内的情感关系以后能不能安稳？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-06",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这一个已经组成的家庭中，我与配偶的互动渐冷，往后的夫妻感情会转暖吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-07",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问未婚时的婚事能否办成，我们已是夫妻，只占既有婚姻的关系能不能变好？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-K-22-08",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我们也不是刚开始约会的恋人，这次占结婚多年的两位配偶的相处走向，能和睦吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-01",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "independently_authored_non_route",
+      "text": "我和阿澄正在谈一笔临时周转的资金，双方都参与其中，这件事到月末能落实吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-02",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "independently_authored_non_route",
+      "text": "乡里的熟人和我之间有个借用款项的约定还没定好，未来这场资金安排会顺利吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-03",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "independently_authored_non_route",
+      "text": "关于我与同学提到的那笔借贷，两边的角色暂未谈清，这回最终能不能办成？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-04",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "independently_authored_non_route",
+      "text": "我牵涉的那次短期借款协商还在继续，具体由哪边拿钱还没确定，接下来结果好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-05",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "independently_authored_non_route",
+      "text": "我同旧搭档之间还有一笔未了的债款，这次这件到期款项的事能不能解决？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-06",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "independently_authored_non_route",
+      "text": "两个人那场到期债务纠纷我也在里面，至于钱该回哪方仍没说定，年底前能平顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-07",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "independently_authored_non_route",
+      "text": "我和一位亲戚的欠款事项尚未理顺，没说清谁应付谁，现在这件事能处理好么？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-08",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "independently_authored_non_route",
+      "text": "我参与的债款清结安排还有两方在商量，后面能不能把这宗债务事项谈妥？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-09",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想占一下我这回参与的门店事情，后面的变化会对我有好结果吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-10",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我手上有个和朋友一起谈的生意话题，尚不明确具体要做哪一步，之后能顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-11",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "单位涉及我个人的固定薪酬那件事，暂时不谈增加还是发放，未来如何？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-12",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我有一个年底奖励相关的问题，但还说不清在问哪一方面，接下来会好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-13",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我们几个参与的事业事项还有许多细节未定，这个与伙伴有关的事情后续能顺吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-14",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我和那位对象有个关于以后家庭的事情，具体是相处还是成家还没决定，这件事能好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-15",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "账户里的那项投资让我想占一卦，暂时没指定要问价格、收益或操作，之后会怎样？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-16",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "围绕我那笔资金有一个待考虑的决定，具体目标仍未定，往后的事能好起来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-17",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "手边有一个厨房电器相关的事情，买还是收到都还没说清，能不能顺利？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-18",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我和她有关的那件私下的事情还没讲具体，只想占以后会不会好些？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-19",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我这周有一件跟纸箱里的货有关的事，没定要采购或出售，接下来会有好变化吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-20",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我们谈到的那间小店问题还很笼统，没有确定是交易、经营还是合作，现在能问结果好吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-21",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "最近让我犹豫的就是一个钱款事项，既没讲来处也没讲去处，未来处理会顺利吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-1-22",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "这段时间我有件重要事想看走向，背景还未讲明，过些日子能有满意的结果吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-01",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想知道进销存软件里的期初库存应该填在哪个页面，请说明操作路径。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-02",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "能解释零售商品采购单与到货验收单之间有什么区别吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-03",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "请告诉我给借款收据编号时一般要记录哪些字段，不是在占款能否借到。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-04",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想学习出借人与借款人在合同中怎么写各自姓名，请给书写格式。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-05",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "应收债款的发票号码怎样在账簿里保存，请提供整理步骤。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-06",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "清偿债务后需要保存什么凭证，我只是问资料归档要求。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-07",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "为什么基金交易记录有认购和申购两种名称，请解释名词。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-08",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "公司年终奖励在报表中通常归哪个会计科目，请作知识说明。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-09",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "工资明细表显示的税前与税后各指什么，我想弄懂这两个概念。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-10",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "开一家小铺常见的营业执照办理步骤有哪些，请列出流程。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-11",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "投资份额的持仓比例是如何计算的，请讲计算方法而不是预测走势。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-12",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "证券行情页的成交量和成交额有什么差别，请介绍含义。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-13",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "商用设备交易的合同要写哪几类条款，我想了解文件结构。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-14",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "给自用电器办理保修通常要留哪些证明，请说明售后流程。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-15",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "包裹上显示转运中心是什么意思，请解释物流状态用语。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-16",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "两个人结婚登记预约时需要准备哪些材料，我只问办理指南。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-17",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "怎样把夫妻共同支出的账目分门别类，我想学记账方法。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-18",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "请说明合伙企业与有限公司在责任承担上的制度区别。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-19",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想看恋爱沟通中倾听和复述的差别，请给概念解释。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-20",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "为什么商店盘点会有账实不符，我问的是常见原因和检查方法。",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-21",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "如果把债款凭证按到期月建索引，后面查阅文件会不会更省时间？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-2-22",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想给工资资料加一列发放日期，这样做成表格以后检索能更方便吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-01",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我下个月参加的驾驶证路考能不能通过，想占这个考试结果？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-02",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "准备申请研究生课程，自己能否在这次学校录取中成功？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-03",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我报名参加的半程马拉松，比赛当天能不能顺利跑完？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-04",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "想占护照续办申请，这次证件手续能否在行程前办好？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-05",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "周末外出到山里露营，天气能不能适合我们出行？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-06",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我丢在图书馆的围巾，这几天能不能找到原物？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-07",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "这次申请租下一间住处，房东最后会不会同意租给我？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-08",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我写完的小说投稿给杂志，能不能被编辑采用？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-09",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我准备参与社区的岗位竞选，这次选举能不能胜出？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-10",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "想占我为邻里噪音提起的诉讼，最后裁判能否支持我的主张？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-11",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我向公司申请转到另一个城市工作，这次调动能否获批？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-12",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "参加合唱团的甄选，自己能不能被选入正式成员？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-13",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我提交的居留许可延期材料，这次行政审批能顺利通过吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-14",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "家里的猫走失在附近，接下来一星期有希望找回来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-15",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "准备去一座海岛旅行，这趟行程能不能按计划平安完成？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-16",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我今年要参加的教师资格面试，这次面试结果能不能合格？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-17",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "给孩子申请转入另一所学校，这一回转学手续能否成功？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-18",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我计划参加市民摄影比赛，那件作品能有机会获奖吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-19",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我家申请的户口地址变更，月底前能不能办理完成？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-20",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "自行车钥匙不知放在哪儿，这个月还能不能找回那串钥匙？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-21",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "我想占公司应聘的岗位面试，自己这回会不会被录用？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    },
+    {
+      "id": "V013-V07-FI-T-N-3-22",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "independently_authored_non_route",
+      "text": "这次递交给市政的停车许可申请，最终能够审批下来吗？",
+      "split": "training",
+      "source": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json"
+    }
+  ],
+  "sealedBeforeFirstCandidateV07EncoderScoring": true
+}
