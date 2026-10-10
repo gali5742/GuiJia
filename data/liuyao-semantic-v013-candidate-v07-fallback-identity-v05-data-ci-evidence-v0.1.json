@@ -1,0 +1,136 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-data-CI-evidence-v0.1",
+  "status": "actual_data_CI_success_and_bot_membership_seal_proven",
+  "sourceCommit": "4169c97e81584902e98e0f4eccb47f2bd2f62456",
+  "sealCommit": "7d1567185af3876b66f33d27451ada42b4d22bec",
+  "CI": {
+    "id": 38066388981,
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38066388981",
+    "head_sha": "f5c41a39a53b57369485bf14d02906fffb3db342",
+    "head_branch": "codex/v07-data-ci-4169c97e",
+    "event": "workflow_dispatch",
+    "path": ".github/workflows/test.yml",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify isolated registered CI entry and frozen source tree",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Checkout exact frozen development source instead of the CI wrapper",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify frozen Candidate design and data policy",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Generate literal corpora without encoder or model loading",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify complete raw membership, roles and contamination",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Exercise data-governance failure cases",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve conditional policy and evaluation isolation checks",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Seal training, augmentation and entire raw calibration together",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify deterministic regeneration and immutable reseal",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Commit seal without overwriting parallel semantic work",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Confirm committed complete seal",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Checkout exact frozen development source instead of the CI wrapper",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-implementation-contract-v0.1.json",
+      "sha256": "b0c5d2ca81111bd1ae26e4f87421d221494fe161d54abd83c647a1183e5525d5",
+      "gitBlobSha": "fefd9a82b911eaa4841580142573751054486217"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.lock.json",
+      "sha256": "d2943cc1646c2eaeb99f7836bd7ae9fc82afcee98f125e9a759ba02ce733912f",
+      "gitBlobSha": "5ec517bb98e3fe096493625e2887ecf2885fe5dd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-contamination-audit-v0.1.json",
+      "sha256": "39bd0c5907ee34b34621d649ded22c5d3b13d632bd30df110d40d165e3e4731f",
+      "gitBlobSha": "c40b5f31b601874fa64a5a3705945caa93d1509b"
+    }
+  ],
+  "isolatedEntryOnlyDifference": ".github/workflows/test.yml",
+  "originalDevelopmentEntryChanged": false,
+  "testsPassed": 18,
+  "encoderInvocations": 0,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "priorIncidentPreserved": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+  "upstreamConditionalMembershipSelected": false,
+  "weightsTrained": false,
+  "thresholdSelected": false,
+  "nextAction": "freeze_execution_contract_with_real_CI_and_seal_ancestry_then_audit308_raw_upstream_exposure_before_weights"
+}

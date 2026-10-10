@@ -113,7 +113,21 @@ with a CI bot commit. The original development-branch `test.yml` is
 unchanged. Stale semantic-input changes stop the seal push; unrelated
 parallel work is preserved by rebase.
 
-Actual CI/source/seal evidence is recorded below once execution completes.
+Literal source/tooling freeze commit:
+`4169c97e81584902e98e0f4eccb47f2bd2f62456`.
+Isolated CI wrapper commit:
+`f5c41a39a53b57369485bf14d02906fffb3db342`, on
+`codex/v07-data-ci-4169c97e`.
+[Actual data-seal CI 38066388981](https://github.com/gali5742/GuiJia/actions/runs/38066388981)
+completed **SUCCESS**. All 18 tests, full raw membership/contamination
+verification, deterministic generation/reseal and bot seal commit/push
+completed successfully. The five generated seal artifacts were added by
+the bot in commit `7d15671` and replayed locally with committed-input proof.
+Full SHA, API step evidence and artifact bindings are saved in
+`data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-ci-evidence-v0.1.json`.
+Local untracked preseal corpora were archived outside the checkout before
+fast-forwarding to the real bot seal; they were not committed as the seal.
+Real encoder calls in this data phase remain **0**.
 
 ## Next gate
 
@@ -147,6 +161,7 @@ TR/MR and BaZi/KB assets remain unchanged.
 - `tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-tests.mjs`
 - `.github/workflows/liuyao-v013-v07-fallback-identity-v05-data.yml`
 - This report.
+- `data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-ci-evidence-v0.1.json`
 
 The bot seal adds the full training corpus, fresh augmentation, raw
 calibration corpus, contamination audit and complete data membership lock.
