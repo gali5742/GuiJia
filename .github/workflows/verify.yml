@@ -81,6 +81,9 @@ jobs:
       - name: Source Path Participant Binding regression
         run: node tests/bazi-contextual-force-party-source-path-participant-binding-tests.js
 
+      - name: Source Path Target Annotation regression
+        run: node tests/bazi-contextual-force-party-source-path-target-annotation-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
