@@ -1,0 +1,22 @@
+import test from 'node:test';
+import strict from 'node:assert/strict';
+import vm from 'node:vm';
+import {read,json,equal} from '../scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs';
+const ctx={console,Math,JSON,Set,Map,Array,Object,Number,Float32Array,Float64Array};ctx.window=ctx;ctx.globalThis=ctx;vm.createContext(ctx);
+vm.runInContext(read('js/liuyao-semantic-fallback-identity-model-v02.js').toString(),ctx);
+const api=ctx.GuiJia.liuyaoSemanticFallbackIdentityModelV02,c=json('data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data-contract-v0.1.json');
+const vector=x=>{const v=new Float32Array(512);v[0]=x;return v;};
+const rows=[{text:'synthetic positive one',expectedRoute:'borrow_money'},{text:'synthetic positive two',expectedRoute:'borrow_money'},{text:'synthetic family negative',expectedRoute:'lend_money'},{text:'synthetic nonroute negative',expectedRoute:null},{text:'synthetic other negative',expectedRoute:'financial_fortune'}];
+const vectors=[vector(1),vector(1),vector(-1),vector(-1),vector(-1)];
+test('new schedule and family/negative multipliers match frozen contract',()=>{strict.ok(equal(api.hyperparameters,c.algorithm.hyperparameters));strict.ok(equal(api.confusableFamilies,c.algorithm.confusableFamilies));strict.ok(equal(api.lossMultipliers,c.algorithm.lossMultipliers));strict.equal(api.learningRateDecay,.002);});
+test('same-family negative gets 4; outside family gets 1; nonroute gets 4',()=>{strict.equal(api.negativeMultiplier('borrow_money','lend_money'),4);strict.equal(api.negativeMultiplier('borrow_money','income_salary'),1);strict.equal(api.negativeMultiplier('borrow_money',null),4);});
+test('multiple shared families do not compound weights',()=>strict.equal(api.negativeMultiplier('investment_profit','investment_price_trend'),4));
+test('positive label cannot be silently given negative weight',()=>strict.throws(()=>api.negativeMultiplier('borrow_money','borrow_money'),/negative/));
+test('synthetic full-batch training separates signs with balanced total class weights',()=>{
+  const h=api.trainHead('borrow_money',rows,vectors);
+  strict.equal(h.positiveCount,2);strict.equal(h.negativeCount,3);strict.equal(h.negativeCoefficientTotal,9);
+  strict.ok(h.weightedTrainingLoss<Math.log(2));strict.ok(api.probability(h,vector(1))>.7);strict.ok(api.probability(h,vector(-1))<.3);
+});
+test('scratch training is deterministic and ignores diagnostic metadata',()=>{const a=api.trainHead('borrow_money',rows,vectors),b=api.trainHead('borrow_money',rows.map(x=>({...x,routerRank:1,style:'irrelevant'})),vectors);strict.deepEqual(Array.from(a.weights),Array.from(b.weights));strict.equal(a.bias,b.bias);});
+test('optimizer override or nonfinite vector rejected before training',()=>{strict.throws(()=>api.trainHead('borrow_money',rows,vectors,{epochs:360}),/drift/);const bad=vectors.map(v=>Float32Array.from(v));bad[0][2]=NaN;strict.throws(()=>api.trainHead('borrow_money',rows,bad),/finite vector/);});
+test('encoder and old model architecture are untouched; all22 targets pinned',()=>{strict.equal(api.vectorSize,512);strict.ok(equal(api.routeIds,c.routes));strict.equal(api.biasRegularized,false);});
