@@ -1,0 +1,55 @@
+import {execFileSync} from 'node:child_process';
+import {json,binding,equal,assert,root} from './liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs';
+import {policy,subtypes} from './liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs';
+const prefix='data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05';
+const designPath='data/liuyao-semantic-v013-candidate-v07-design-v0.1.json';
+const contractPath=`${prefix}-data-contract-v0.1.json`;
+const baseline='f381a8e0368413c90f1617bff191eb531b3324fb';
+const git=args=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+const d=json(designPath),c=json(contractPath),l=json('data/liuyao-semantic-v013-candidate-v07-design.lock.json');
+const parent=json('data/liuyao-semantic-v013-candidate-v06-design-v0.1.json');
+const old=json('data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data-contract-v0.1.json');
+assert(d.version==='0.13-candidate-v0.7-design-v0.1'&&d.fallbackVersion==='v0.5'&&d.changeScope==='Fallback_calibration_responsibility_and_fresh_data_only','New revision identity required');
+assert(d.status==='schema_and_policy_frozen_before_fresh_authoring_and_candidate_v07_encoder_scoring'&&c.status==='schema_counts_labels_splits_policy_frozen_before_fresh_authoring_and_encoder_scoring','Pre-authoring freeze missing');
+assert(c.branch==='liuyao-semantic-v013-core'&&d.branch===c.branch&&d.baselineCommit===baseline&&c.baselineCommit===baseline,'Branch/baseline drift');
+git(['merge-base','--is-ancestor',baseline,'HEAD']);
+for(const b of l.bindings)assert(equal(binding(b.path),b),`Design/code binding drift: ${b.path}`);
+assert(l.bindings.some(b=>b.path===designPath)&&l.bindings.some(b=>b.path===contractPath),'Design and contract must both be locked');
+assert(equal(l.predecessorImmutableBindings,d.predecessorImmutableBindings)&&equal(l.upstreamBindings,d.frozenUpstreamBindings),'Preservation lock mismatch');
+for(const b of [...l.predecessorImmutableBindings,...l.upstreamBindings]) {
+  assert(equal(binding(b.path),b),`Frozen predecessor/upstream drift: ${b.path}`);
+  assert(git(['rev-parse',`${baseline}:${b.path}`])===b.gitBlobSha,`Baseline preservation proof missing: ${b.path}`);
+}
+assert(equal(c.designBinding,binding(designPath))&&equal(c.responsibilityReviewBinding,d.responsibilityReview),'Review/design binding drift');
+assert(equal(d.parentDesign,binding('data/liuyao-semantic-v013-candidate-v06-design-v0.1.json')),'Parent design drift');
+assert(equal(c.calibration,d.calibration)&&equal(c.calibration.policy,policy),'Calibration policy drift');
+assert(equal(c.algorithm,old.algorithm)&&equal(d.algorithm,parent.algorithm)&&equal(c.encoderExecution,old.encoderExecution),'Architecture/optimizer/encoder must remain unchanged');
+assert(equal(c.routes,old.routes)&&c.routes.length===22&&new Set(c.routes).size===22,'All22 inventory drift');
+assert(equal(c.rowSchema,old.rowSchema),'Text-only training target boundary drift');
+assert(equal(c.upstream.bindings,old.upstream.bindings)&&d.upstreamRouteSufficiencyThreshold===.45004286319719417&&d.routeabilityThreshold===.7678148573595883&&d.scopeCutoff===.4319473801404805,'Frozen upstream threshold/binding drift');
+for(const k of ['selection','freshDevelopmentPolicy','independentEvaluationPolicy','traditionalBoundary'])assert(equal(d[k],parent[k]),`Frozen future scope drift: ${k}`);
+const expectedRuntime=structuredClone(parent.retainedRuntimePlan);
+expectedRuntime.order=expectedRuntime.order.map(x=>x.replace('Fallback_Identity_v0.4','Fallback_Identity_v0.5'));
+expectedRuntime.fallbackIdentity.version='v0.5';expectedRuntime.fallbackIdentity.model.legacyV04WeightsReusable=false;
+assert(equal(d.retainedRuntimePlan,expectedRuntime),'Runtime behavior changed beyond component version');
+const t=c.training,cal=c.calibration;
+assert(t.historicalRows===1456&&t.historicalKnown===1113&&t.historicalNonRoute===343&&t.rows===1698&&t.known===1289&&t.nonRoute===409&&t.freshRows===242&&t.freshKnown===176&&t.freshNonRoute===66,'Training counts drift');
+assert(equal(t.historicalBinding,binding(old.outputs.training))&&equal(t.historicalSealBinding,binding(old.outputs.dataLock))&&t.onlyTrainMembers&&!t.oldWeightsReusable&&!t.oldCalibrationVectorsReusableForTraining,'Historical training eligibility drift');
+assert(cal.rawRows===308&&cal.rawKnown===176&&cal.rawNonRoute===132&&cal.knownPerRoute===8&&cal.nonRoutePerSubtype===44&&cal.rawRoleGroupRows===8,'Fresh raw calibration counts drift');
+assert(cal.oneGlobalThresholdOnly&&cal.scoreAll22Heads&&!cal.perRouteOrFamilyThresholds,'Global all22 policy drift');
+const plan=c.authoringPlan;
+function allocation(split,negativePerSubtype) {
+  const rows=[];
+  c.routes.forEach((route,i)=>{for(let j=1;j<=8;j++)rows.push({id:`V013-V07-FI-${split}-K-${String(i+1).padStart(2,'0')}-${String(j).padStart(2,'0')}`,expectedRoute:route,subtype:'known',roleSafetyGroup:null,style:j<=2?'role_explicit':j<=6?'semantic_paraphrase':'boundary_contrast'});});
+  const n=split==='T'?4:8;
+  subtypes.forEach((subtype,i)=>{for(let j=1;j<=negativePerSubtype;j++)rows.push({id:`V013-V07-FI-${split}-N-${i+1}-${String(j).padStart(2,'0')}`,expectedRoute:null,subtype,roleSafetyGroup:i===0?(j<=n?'credit_direction':j<=2*n?'debt_direction':null):null,style:'independently_authored_non_route'});});
+  return rows;
+}
+assert(plan.freshLiteralCount===550&&plan.statusAtFreeze==='not_authored_no_texts_in_this_contract'&&equal(plan.allocatedTraining,allocation('T',22))&&equal(plan.allocatedRawCalibration,allocation('C',44)),'Frozen IDs, split or coverage drift');
+assert(new Set([...plan.allocatedTraining,...plan.allocatedRawCalibration].map(x=>x.id)).size===550,'Allocated membership ID collision');
+assert(c.sealPolicy.noEncoderBeforeDataCI&&c.sealPolicy.noFallbackScoringBeforeWeightCommit&&c.sealPolicy.noMembershipReplenishmentAfterUpstreamAudit,'Seal/exposure lifecycle drift');
+assert(l.notADataMembershipSeal&&l.notAComponentLock&&l.encoderInvocations===0&&d.governance.encoderInvocationsAtFreeze===0&&d.governance.thresholdAtFreeze===null&&!d.governance.oldCalibrationVectorsUsedForTrainingOrThresholdSearch,'No scoring/lock claim allowed at design freeze');
+assert(!d.governance.independentEvaluationRead&&d.governance.sealedBlindEvaluationRead&&d.governance.historicalBlindReadIncident&&c.governance.noIndependentOrBlindRead,'Evaluation read incident must be recorded, not erased');
+assert(equal(d.governance.historicalBlindReadIncident,c.governance.historicalBlindReadIncident)&&equal(binding(d.governance.historicalBlindReadIncident.path),d.governance.historicalBlindReadIncident),'Read incident binding drift');
+assert(l.bindings.some(b=>b.path==='scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'),'Future evaluation read guard must be locked');
+console.log(JSON.stringify({status:'design_and_schema_policy_verified_not_a_corpus_seal_or_component_lock',allocatedFreshLiteralRows:550,plannedRawCalibrationRows:308,plannedTrainingRows:1698,preservedBindings:l.predecessorImmutableBindings.length,encoderInvocations:0}));

@@ -1,0 +1,235 @@
+{
+  "version": "0.13-candidate-v0.6-fallback-identity-v0.4-responsibility-review-v0.1",
+  "status": "read_only_architecture_review_preserved_component_failure",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-calibration-report.json",
+      "sha256": "1acc4ee416ab8bcbc018adf56e4a1df8e4231c9cfafef5d017eaf52e0a1dcb4b",
+      "gitBlobSha": "e49e29167451b38e3990b32ee63683c4417c8d39"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-reachability-audit-v0.1.json",
+      "sha256": "7e82ed9376b4b18366f502213c7ed039c7de897bff82bb5214da3a0e68a6726b",
+      "gitBlobSha": "99693c3baa79be08ad911f30a9963292a28441e7"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-reachability.lock.json",
+      "sha256": "57bff4d944689ce74455c82c2a47ecfd519e4a9eff7eccb5a1054a82d472b437",
+      "gitBlobSha": "4d39ea1a8188f803595339ac03edd67201e01324"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data.lock.json",
+      "sha256": "c09154c6a56b35c235d25d391897ca944ebac93fcfef702dae0ecd152f080efa",
+      "gitBlobSha": "514f43efb275b88ef44ac836fda741773d411b66"
+    }
+  ],
+  "rawRows": 154,
+  "conditionalRows": 41,
+  "conditionalKnown": 39,
+  "conditionalNonRoute": 2,
+  "zeroConditionalExposureRoutes": [
+    "lend_money",
+    "income_bonus",
+    "marriage_match"
+  ],
+  "publishedRawDiagnostic": {
+    "threshold": 0.6347075635992827,
+    "role": "published_raw_regime_only_never_adopted",
+    "known": {
+      "n": 88,
+      "accepted": 72,
+      "correct": 72,
+      "wrongAccepted": 0,
+      "exactRetention": 0.8181818181818182,
+      "acceptedAccuracy": 1
+    },
+    "nonRoute": {
+      "n": 66,
+      "accepted": 21,
+      "falseActivation": 0.3181818181818182
+    },
+    "nonRouteActivationByFirstStage": {
+      "sufficiency_blocked": 4,
+      "reaches_fallback": 2,
+      "semantic_act_blocked": 14,
+      "arbitration_selected": 1
+    },
+    "rows": [
+      {
+        "id": "V013-V06-FI-C-N-1-01",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "standaloneSelectedRoute": "lend_money",
+        "firstStage": "sufficiency_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-1-03",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "standaloneSelectedRoute": "lend_money",
+        "firstStage": "sufficiency_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-1-04",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "standaloneSelectedRoute": "lend_money",
+        "firstStage": "reaches_fallback"
+      },
+      {
+        "id": "V013-V06-FI-C-N-1-13",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "investment_suitability",
+        "firstStage": "sufficiency_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-1-21",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "business_operation",
+        "firstStage": "reaches_fallback"
+      },
+      {
+        "id": "V013-V06-FI-C-N-1-22",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "income_salary",
+        "firstStage": "sufficiency_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-03",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "commercial_transaction",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-04",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "inventory_purchase",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-05",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "inventory_sale",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-07",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "borrow_money",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-08",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "debt_collection",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-10",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "partnership",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-11",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "investment_profit",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-12",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "investment_liquidation",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-14",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "investment_position_decision",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-15",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "investment_price_trend",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-16",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "income_salary",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-17",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "income_bonus",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-18",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "receive_item",
+        "firstStage": "semantic_act_blocked"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-20",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "relationship_development",
+        "firstStage": "arbitration_selected"
+      },
+      {
+        "id": "V013-V06-FI-C-N-2-21",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "standaloneSelectedRoute": "marriage_match",
+        "firstStage": "semantic_act_blocked"
+      }
+    ]
+  },
+  "upstreamNonRouteArbitration": [
+    {
+      "id": "V013-V06-FI-C-N-2-20",
+      "routeId": "relationship_development",
+      "strength": "strong",
+      "semanticActEligible": true,
+      "sufficiencyAccepted": true
+    }
+  ],
+  "findings": [
+    "18 of 21 standalone non-route activations are blocked by Act/Sufficiency before Fallback; one takes the Arbitration branch.",
+    "Both conditionally reachable non-route rows activate at the published raw diagnostic, including credit direction ambiguity; changing metric scope alone does not establish safety.",
+    "Three heads have no conditional known exposure; this cohort cannot support all22 conditional calibration.",
+    "One procedural non-route reaches strong Arbitration; a Fallback-only metric cannot cover this upstream path risk.",
+    "Training loss and rank statistics do not prove convergence, linear incapacity or independent generalization."
+  ],
+  "governance": {
+    "encoderInvocations": 0,
+    "newHeadScoring": false,
+    "conditionalThresholdSearch": false,
+    "thresholdSelected": false,
+    "oldFailureStatusChanged": false,
+    "questionWordingReadByThisScript": false,
+    "calibrationVectorsUsed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false
+  },
+  "nextAction": "freeze_new_candidate_v07_fallback_v05_conditional_identity_plus_all_raw_path_safety_contract_before_fresh_authoring"
+}

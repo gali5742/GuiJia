@@ -1,0 +1,4339 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-data-contract-v0.1",
+  "status": "schema_counts_labels_splits_policy_frozen_before_fresh_authoring_and_encoder_scoring",
+  "branch": "liuyao-semantic-v013-core",
+  "baselineCommit": "f381a8e0368413c90f1617bff191eb531b3324fb",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-design-v0.1.json",
+    "sha256": "d4816cb04bac5e2dda75571f33723ba13acd8251804e9d8c8d0409a032871113",
+    "gitBlobSha": "bea5b1dc0a98ef2ef55b9b69da727f37f676698b"
+  },
+  "responsibilityReviewBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-responsibility-review-v0.1.json",
+    "sha256": "9a49c64610d2182d3c3121bf288ba2a2dfd5e9bda0e7c003cf0e4bcf40c5f71e",
+    "gitBlobSha": "a0b1bca29b46b6d20b79652061ca211089b9f41b"
+  },
+  "routes": [
+    "financial_fortune",
+    "business_operation",
+    "commercial_transaction",
+    "inventory_purchase",
+    "inventory_sale",
+    "borrow_money",
+    "lend_money",
+    "debt_collection",
+    "debt_repayment",
+    "partnership",
+    "investment_profit",
+    "investment_liquidation",
+    "investment_suitability",
+    "investment_position_decision",
+    "investment_price_trend",
+    "income_salary",
+    "income_bonus",
+    "receive_item",
+    "item_purchase",
+    "relationship_development",
+    "marriage_match",
+    "marital_relationship"
+  ],
+  "rowSchema": {
+    "modelInputFields": [
+      "text"
+    ],
+    "modelTargetFields": [
+      "expectedRoute"
+    ],
+    "metadataNeverFeatures": [
+      "id",
+      "source",
+      "subtype",
+      "style",
+      "roleSafetyGroup"
+    ]
+  },
+  "labels": {
+    "known": "one_unambiguous_current22_route",
+    "nonRoute": "expectedRoute_null; raw_subtype_and_role_group_preserved",
+    "noPseudoLabels": "Router_TopK_scores_TR_MR_and_upstream_scores_never_generate_targets"
+  },
+  "training": {
+    "historicalBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-training.json",
+      "sha256": "edd434baaa8daf29956215f942ac3ac4f213dada2fa7c47b1e45fdbee4c18a78",
+      "gitBlobSha": "2113833b73dd471b22322d691c25353fbd86eb9b"
+    },
+    "historicalSealBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data.lock.json",
+      "sha256": "c09154c6a56b35c235d25d391897ca944ebac93fcfef702dae0ecd152f080efa",
+      "gitBlobSha": "514f43efb275b88ef44ac836fda741773d411b66"
+    },
+    "historicalRows": 1456,
+    "historicalKnown": 1113,
+    "historicalNonRoute": 343,
+    "historicalEligibility": "all_members_are_prior_train_only_and_remain_excluded_from_new_calibration",
+    "freshRows": 242,
+    "freshKnown": 176,
+    "freshNonRoute": 66,
+    "freshKnownPerRoute": 8,
+    "freshNonRoutePerSubtype": 22,
+    "freshRoleGroupRows": 4,
+    "rows": 1698,
+    "known": 1289,
+    "nonRoute": 409,
+    "onlyTrainMembers": true,
+    "oldWeightsReusable": false,
+    "oldCalibrationVectorsReusableForTraining": false
+  },
+  "calibration": {
+    "rawRows": 308,
+    "rawKnown": 176,
+    "rawNonRoute": 132,
+    "knownPerRoute": 8,
+    "nonRoutePerSubtype": 44,
+    "rawRoleGroupRows": 8,
+    "thresholdMembership": "all_fresh_raw_sealed_rows_with_reachesFallback_true_under_frozen_upstream_before_weight_training",
+    "selectionInputs": "conditional_labels_and_all22_probabilities; full_raw_path_safety_is_a_mandatory_feasibility_constraint",
+    "rawMembership": "all308_rows_remain_sealed_and_scored_for_stress_and_path_safety; no_posthoc_deletion_or_relabeling",
+    "policy": {
+      "minimumKnownExact": 0.8,
+      "minimumAcceptedKnownAccuracy": 0.98,
+      "maximumNonRouteFalseActivation": 0.05,
+      "maximumEachObservedSubtypeFalseActivation": 0.05,
+      "maximumEachRoleSafetyGroupFalseActivation": 0.05,
+      "maximumRawPathFalseActivation": 0.05,
+      "maximumEachRawSubtypePathFalseActivation": 0.05,
+      "maximumEachRawRolePathFalseActivation": 0.05,
+      "minimumConditionalKnownPerRoute": 2,
+      "minimumConditionalNonRoute": 8,
+      "minimumConditionalUnresolved": 8,
+      "minimumConditionalRoleGroup": 2
+    },
+    "policyBinding": {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    "exposureGate": "all22_conditional_known>=2; conditional_nonroute>=8; conditional_unresolved>=8; each_credit_debt_group>=2; fail_before_weights_if_missing",
+    "conditionalZeroSubtype": "report_null_not_estimable_never_claim_subtype_pass; only_observed_subtypes_constrain_conditional_metrics; every_raw_subtype_is_mandatory_for_path_safety",
+    "rawSafety": "conservative_potential_selection_after_Act_Suff_unsupported_Arbitration_and_Routeability; count_Arbitration_strong_support_or_unique_reachable_Fallback; no_credit_for_Router_conflict_or_Finalization_Scope",
+    "rawKnownPathMetrics": "diagnostic_only_not_an_integrated_recall_or_accuracy_claim",
+    "oneGlobalThresholdOnly": true,
+    "scoreAll22Heads": true,
+    "perRouteOrFamilyThresholds": false,
+    "candidatePolicy": "0_0.5_1_all_distinct_raw_head_probabilities_and_adjacent_midpoints; deduplicate_all_raw_admission_signatures_keep_highest_representative",
+    "objective": [
+      "maximize_conditional_known_exact_retention",
+      "minimize_conditional_nonroute_false_activation",
+      "minimize_maximum_observed_conditional_subtype_false_activation",
+      "higher_global_threshold_representative"
+    ],
+    "rawStandaloneStressGates": "diagnostic_not_the_component_lock_objective; full_raw_stress_metrics_remain_visible_even_if_upstream_blocks_rows",
+    "noFeasibleThreshold": "immutable_failure_report_no_threshold_lock_stop_before_Phase_C_no_same_version_retry",
+    "upstreamMembershipFreeze": "commit_all_raw_vectors_upstream_decisions_and_complete_conditional_ids_and_exposure_status_before_weight_training",
+    "cachedVectors": "reuse_only_after_new_weight_commit_for_Fallback_scoring_never_for_training_or_hyperparameter_choice",
+    "proofBoundary": "component_and_conservative_path_safety_only; full_fresh_integrated_development_and_post_lock_independent_required"
+  },
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "algorithm": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "trainFromScratch": true,
+    "legacyWeightsReusable": false,
+    "hyperparameters": {
+      "epochs": 1800,
+      "learningRate": 0.42,
+      "l2": 0.00025
+    },
+    "learningRateDecay": 0.002,
+    "learningRateSchedule": "0.42/(1+epoch*0.002)",
+    "classBalancing": "each_head_positive_total_0.5_negative_total_0.5_after_coefficient_normalization",
+    "lossMultipliers": {
+      "sameConfusableFamily": 4,
+      "nonRoute": 4,
+      "other": 1
+    },
+    "confusableFamilies": [
+      [
+        "financial_fortune",
+        "income_salary",
+        "income_bonus",
+        "investment_profit",
+        "investment_price_trend"
+      ],
+      [
+        "business_operation",
+        "partnership",
+        "commercial_transaction"
+      ],
+      [
+        "inventory_purchase",
+        "inventory_sale",
+        "item_purchase",
+        "receive_item",
+        "commercial_transaction"
+      ],
+      [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      [
+        "relationship_development",
+        "marriage_match",
+        "marital_relationship"
+      ]
+    ],
+    "negativeCoefficientPolicy": "nonroute4; otherwise4_if_any_shared_frozen_family_else1; no_multiplication_for_multiple_shared_families; negative_total_weight_normalized_to0.5",
+    "features": [
+      "text_only_frozen_encoder_vector"
+    ],
+    "targets": [
+      "expectedRoute_only"
+    ],
+    "metadataWeightsUsed": false,
+    "biasRegularized": false,
+    "initialWeights": "all_zero_float32",
+    "gradients": "float64",
+    "checkpointOrHyperparameterSweep": false,
+    "optimizerChoiceBasis": "one_prespecified_versioned_hypothesis_from_architecture_diagnosis; no_old_vector_training_or_hyperparameter_search; convergence_not_claimed"
+  },
+  "upstream": {
+    "bindings": [
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+        "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+        "gitBlobSha": "864d63dd23d56722a7d1cede553a6c8f123bedb0"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+        "sha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+        "gitBlobSha": "36eb8b252bf680650d49e4ac2b4e6ce5fecb6b69"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+        "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+        "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+        "sha256": "cff69bc0c8cfc4b5da30ff01482248d35aeb390db29499e7ebfffd3dc9e73c68",
+        "gitBlobSha": "642f123a6a515247da725b1381538d6bcf3ef980"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json",
+        "sha256": "14983f13fbae669d1bf5c3eacc3b7d3749785c16c4961169fb77d7b78989dad6",
+        "gitBlobSha": "0b001fb4e7e5f338b41540ae3599defacc979969"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+        "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+        "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+        "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+        "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v01.js",
+        "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078",
+        "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v02.js",
+        "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35",
+        "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v03.js",
+        "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5",
+        "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f"
+      },
+      {
+        "path": "js/liuyao-semantic-route-arbitration-v011.js",
+        "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6",
+        "gitBlobSha": "04f0b45b2ea529342275aeb28c29a00e707af5bb"
+      },
+      {
+        "path": "js/liuyao-semantic-route-arbitration-v012.js",
+        "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60",
+        "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44"
+      }
+    ],
+    "policy": "SemanticAct eligible AND RouteSuff sufficient AND unsupportedTargets empty AND Arbitration null AND Routeability accepted",
+    "routeSufficiencyThreshold": 0.45004286319719417,
+    "routeabilityThreshold": 0.7678148573595883,
+    "RouterLoaded": false,
+    "integratedRuntime": false,
+    "conditionalMembership": "exactly all reachesFallback IDs committed before weight training; no fallback scores influence this set; raw set retained entirely for stress and path safety"
+  },
+  "duplicatePolicy": {
+    "maximumCrossSplitSimilarityExclusive": 0.82,
+    "maximumHistoricalSimilarityExclusive": 0.84,
+    "normalization": "NFKC_lowercase_remove_whitespace_punctuation_symbols",
+    "limits": "exact and trigram audits cannot prove absence of every semantic paraphrase; separate authoring no-copy rule applies"
+  },
+  "contaminationPolicy": {
+    "auditOnlySources": [
+      {
+        "path": "data/liuyao-semantic-route-training-v0.1.json",
+        "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+        "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+        "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+        "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+        "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+        "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+        "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+        "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+      },
+      {
+        "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+        "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+        "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+      },
+      {
+        "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+        "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+        "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a"
+      },
+      {
+        "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+        "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+        "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+        "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+        "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+        "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+        "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+        "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+        "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+        "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+        "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+        "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+        "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+        "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+        "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+        "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+        "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+        "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+        "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+        "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+        "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training-augmentation.json",
+        "sha256": "1fdcb6839859cb273b40113559c2aa02289884b180483983261848cb530940c6",
+        "gitBlobSha": "a4386f823161c02c5f5e41bfdc30605ea8028d82"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+        "sha256": "14e4daefc08cfdefcebcc53dec04b8c1466d91ecd99ca79897223ee60035599e",
+        "gitBlobSha": "9483acd17cd747acd7ee91a2c97a4d961687be49"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-training-augmentation.json",
+        "sha256": "f8436ebaa96644f438beb9269d61b96d59671a23b14094784a4d19653b66118f",
+        "gitBlobSha": "f4abaedbb1b10e59ce6eb05da34586fe1b8d064d"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-calibration.json",
+        "sha256": "249a6b37ac69272e3c923fca0e1572d1f9a72b19162fd6d11453730115c47093",
+        "gitBlobSha": "6c2b746e9a22dfec5dca870b74a45dd8f0ed9018"
+      }
+    ],
+    "noReadNamePattern": "independent|blind|diagnostic|diagnosis|report|literature|research|next-topic|next-five",
+    "developmentAllowedUse": "automated_comparator_only_no_wording_exposure_or_generation",
+    "failedV03Calibration": "automated_exact_trigram_comparator_only; no_wording_exposed_or_used_for_generation_or_training",
+    "priorCalibrationPolicy": "no_prior_calibration_or_failure_wording_as_source_or_training; automated_comparator_only_after_fresh_literals_authored; errors_only_ids_and_similarity",
+    "exposureRecord": "Old v02 manifest wording was accidentally printed during protocol inspection. Full npm test also automatically read historical blind and prior independent diagnostic artifacts; see bound incident. No fresh texts were authored and no exposed or protected wording is a permitted source. v0.13 independent evaluation corpora were excluded by the legacy validators; blind-read aggregate NO is not claimed."
+  },
+  "authoringPlan": {
+    "statusAtFreeze": "not_authored_no_texts_in_this_contract",
+    "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json",
+    "freshLiteralCount": 550,
+    "allocatedTraining": [
+      {
+        "id": "V013-V07-FI-T-K-01-01",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-02",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-03",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-04",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-05",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-06",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-07",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-01-08",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-01",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-02",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-03",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-04",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-05",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-06",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-07",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-02-08",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-01",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-02",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-03",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-04",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-05",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-06",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-07",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-03-08",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-01",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-02",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-03",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-04",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-05",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-06",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-07",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-04-08",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-01",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-02",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-03",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-04",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-05",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-06",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-07",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-05-08",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-01",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-02",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-03",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-04",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-05",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-06",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-07",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-06-08",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-01",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-02",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-03",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-04",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-05",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-06",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-07",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-07-08",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-01",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-02",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-03",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-04",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-05",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-06",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-07",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-08-08",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-01",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-02",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-03",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-04",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-05",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-06",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-07",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-09-08",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-01",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-02",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-03",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-04",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-05",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-06",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-07",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-10-08",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-01",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-02",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-03",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-04",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-05",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-06",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-07",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-11-08",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-01",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-02",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-03",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-04",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-05",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-06",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-07",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-12-08",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-01",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-02",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-03",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-04",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-05",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-06",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-07",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-13-08",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-01",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-02",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-03",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-04",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-05",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-06",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-07",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-14-08",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-01",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-02",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-03",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-04",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-05",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-06",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-07",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-15-08",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-01",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-02",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-03",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-04",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-05",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-06",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-07",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-16-08",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-01",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-02",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-03",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-04",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-05",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-06",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-07",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-17-08",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-01",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-02",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-03",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-04",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-05",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-06",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-07",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-18-08",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-01",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-02",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-03",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-04",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-05",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-06",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-07",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-19-08",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-01",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-02",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-03",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-04",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-05",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-06",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-07",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-20-08",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-01",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-02",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-03",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-04",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-05",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-06",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-07",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-21-08",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-01",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-02",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-03",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-04",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-05",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-06",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-07",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-K-22-08",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-01",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-02",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-03",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-04",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-05",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-06",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-07",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-08",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-09",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-10",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-11",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-12",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-13",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-14",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-15",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-16",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-17",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-18",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-19",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-20",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-21",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-1-22",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-01",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-02",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-03",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-04",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-05",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-06",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-07",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-08",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-09",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-10",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-11",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-12",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-13",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-14",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-15",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-16",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-17",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-18",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-19",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-20",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-21",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-2-22",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-01",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-02",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-03",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-04",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-05",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-06",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-07",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-08",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-09",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-10",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-11",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-12",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-13",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-14",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-15",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-16",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-17",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-18",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-19",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-20",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-21",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-T-N-3-22",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      }
+    ],
+    "allocatedRawCalibration": [
+      {
+        "id": "V013-V07-FI-C-K-01-01",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-02",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-03",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-04",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-05",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-06",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-07",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-01-08",
+        "expectedRoute": "financial_fortune",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-01",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-02",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-03",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-04",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-05",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-06",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-07",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-02-08",
+        "expectedRoute": "business_operation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-01",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-02",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-03",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-04",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-05",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-06",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-07",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-03-08",
+        "expectedRoute": "commercial_transaction",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-01",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-02",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-03",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-04",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-05",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-06",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-07",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-04-08",
+        "expectedRoute": "inventory_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-01",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-02",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-03",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-04",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-05",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-06",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-07",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-05-08",
+        "expectedRoute": "inventory_sale",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-01",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-02",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-03",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-04",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-05",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-06",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-07",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-06-08",
+        "expectedRoute": "borrow_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-01",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-02",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-03",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-04",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-05",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-06",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-07",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-07-08",
+        "expectedRoute": "lend_money",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-01",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-02",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-03",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-04",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-05",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-06",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-07",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-08-08",
+        "expectedRoute": "debt_collection",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-01",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-02",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-03",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-04",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-05",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-06",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-07",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-09-08",
+        "expectedRoute": "debt_repayment",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-01",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-02",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-03",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-04",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-05",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-06",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-07",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-10-08",
+        "expectedRoute": "partnership",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-01",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-02",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-03",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-04",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-05",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-06",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-07",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-11-08",
+        "expectedRoute": "investment_profit",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-01",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-02",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-03",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-04",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-05",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-06",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-07",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-12-08",
+        "expectedRoute": "investment_liquidation",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-01",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-02",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-03",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-04",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-05",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-06",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-07",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-13-08",
+        "expectedRoute": "investment_suitability",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-01",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-02",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-03",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-04",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-05",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-06",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-07",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-14-08",
+        "expectedRoute": "investment_position_decision",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-01",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-02",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-03",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-04",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-05",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-06",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-07",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-15-08",
+        "expectedRoute": "investment_price_trend",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-01",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-02",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-03",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-04",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-05",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-06",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-07",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-16-08",
+        "expectedRoute": "income_salary",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-01",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-02",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-03",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-04",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-05",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-06",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-07",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-17-08",
+        "expectedRoute": "income_bonus",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-01",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-02",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-03",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-04",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-05",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-06",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-07",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-18-08",
+        "expectedRoute": "receive_item",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-01",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-02",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-03",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-04",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-05",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-06",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-07",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-19-08",
+        "expectedRoute": "item_purchase",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-01",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-02",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-03",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-04",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-05",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-06",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-07",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-20-08",
+        "expectedRoute": "relationship_development",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-01",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-02",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-03",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-04",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-05",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-06",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-07",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-21-08",
+        "expectedRoute": "marriage_match",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-01",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-02",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "role_explicit"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-03",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-04",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-05",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-06",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "semantic_paraphrase"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-07",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-K-22-08",
+        "expectedRoute": "marital_relationship",
+        "subtype": "known",
+        "roleSafetyGroup": null,
+        "style": "boundary_contrast"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-01",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-02",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-03",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-04",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-05",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-06",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-07",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-08",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "credit_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-09",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-10",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-11",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-12",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-13",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-14",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-15",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-16",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-17",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-18",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-19",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-20",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-21",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-22",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-23",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-24",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-25",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-26",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-27",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-28",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-29",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-30",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-31",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-32",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-33",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-34",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-35",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-36",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-37",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-38",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-39",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-40",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-41",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-42",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-43",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-44",
+        "expectedRoute": null,
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-01",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-02",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-03",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-04",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-05",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-06",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-07",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-08",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-09",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-10",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-11",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-12",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-13",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-14",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-15",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-16",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-17",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-18",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-19",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-20",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-21",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-22",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-23",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-24",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-25",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-26",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-27",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-28",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-29",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-30",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-31",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-32",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-33",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-34",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-35",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-36",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-37",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-38",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-39",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-40",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-41",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-42",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-43",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-44",
+        "expectedRoute": null,
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-01",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-02",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-03",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-04",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-05",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-06",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-07",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-08",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-09",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-10",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-11",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-12",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-13",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-14",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-15",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-16",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-17",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-18",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-19",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-20",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-21",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-22",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-23",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-24",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-25",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-26",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-27",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-28",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-29",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-30",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-31",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-32",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-33",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-34",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-35",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-36",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-37",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-38",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-39",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-40",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-41",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-42",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-43",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      },
+      {
+        "id": "V013-V07-FI-C-N-3-44",
+        "expectedRoute": null,
+        "subtype": "outside_current_22",
+        "roleSafetyGroup": null,
+        "style": "independently_authored_non_route"
+      }
+    ],
+    "authoringRule": "individual_literal_questions_from_route_categories_and_role_boundaries_only_no_old_question_copy_paraphrase_or_score_directed_generation",
+    "knownStyleCountsPerRoute": {
+      "role_explicit": 2,
+      "semantic_paraphrase": 4,
+      "boundary_contrast": 2
+    },
+    "styleRole": "coverage_metadata_only; paraphrase_style_is_not_a_guarantee_of_reachability; exposure_verified_before_training"
+  },
+  "sealPolicy": {
+    "requiredOrder": [
+      "frozen_design_contract_policy",
+      "authoring_generator_verifier_and_seal_workflow_committed",
+      "CI_generated_raw_and_training_corpora_audit_and_complete_ordered_text_hash_membership",
+      "successful_data_CI_confirmed",
+      "new_execution_contract_with_real_data_CI_and_seal_ancestry",
+      "upstream_audit_exposure_and_vector_cache_committed",
+      "only_if_exposure_pass_train1698_rows_zero_initialized",
+      "commit_all22_weights",
+      "score_all308_cached_raw_vectors_once",
+      "conditional_threshold_search_with_mandatory_full_raw_path_safety",
+      "immutable_pass_or_fail_report"
+    ],
+    "sealBinds": [
+      "this_contract",
+      "design_and_design_lock",
+      "literal_authoring",
+      "all_generator_verifier_sealer_libraries",
+      "workflow",
+      "training_augmentation",
+      "training",
+      "raw_calibration",
+      "contamination_audit",
+      "all_ordered_ids_labels_roles_normalized_text_hashes"
+    ],
+    "noEncoderBeforeDataCI": true,
+    "noFallbackScoringBeforeWeightCommit": true,
+    "noMembershipReplenishmentAfterUpstreamAudit": true,
+    "insufficientExposure": "commit_immutable_exposure_failure_stop_before_weights_no_same_version_authoring_patch"
+  },
+  "outputs": {
+    "augmentation": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-training-augmentation.json",
+    "training": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-training.json",
+    "calibration": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration.json",
+    "audit": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-contamination-audit-v0.1.json",
+    "dataLock": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.lock.json",
+    "reachability": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability-audit-v0.1.json",
+    "reachabilityLock": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability.lock.json",
+    "model": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-model.json",
+    "weightsLock": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-model.lock.json",
+    "report": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-report.json",
+    "thresholdLock": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-threshold.lock.json"
+  },
+  "governance": {
+    "noExistingFilesModified": true,
+    "oldFailuresRemainFailures": true,
+    "noIntegratedRuntimeBeforeComponentLock": true,
+    "noIndependentOrBlindRead": true,
+    "futureChecksMustPreloadEvaluationReadGuard": {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    "historicalBlindReadIncident": {
+      "path": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+      "sha256": "ed76f74848de36b1e8a4d5b37c3eed47d050cb294f3acde2c63abbc2a54852cc",
+      "gitBlobSha": "175fba5cbc301f8459c0e01129b48cc32297e60b"
+    },
+    "freshIntegratedDevelopmentStillRequired": true,
+    "actualEncoderInvocationsAtContractFreeze": 0,
+    "newWeightsAtFreeze": false,
+    "thresholdAtFreeze": null
+  },
+  "nextAction": "author550_fresh_literals_under_frozen_contract_add_generator_verifier_and_seal_workflow_commit_then_CI_seal_before_any_encoder"
+}

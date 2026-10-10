@@ -1,0 +1,38 @@
+name: Candidate v0.7 Fallback v0.5 design and calibration policy
+
+on:
+  push:
+    branches: [liuyao-semantic-v013-core]
+    paths:
+      - 'data/liuyao-semantic-v013-candidate-v07-design*'
+      - 'data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data-contract-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-responsibility-review-v0.1.json'
+      - 'data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json'
+      - 'scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+      - 'scripts/*liuyao-semantic-v013-candidate-v07-fallback-identity-v05*'
+      - 'scripts/diagnose-liuyao-semantic-v013-candidate-v06-fallback-identity-v04-responsibility.mjs'
+      - 'tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs'
+      - '.github/workflows/liuyao-v013-v07-fallback-identity-v05-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-design-policy:
+    runs-on: ubuntu-24.04
+    env:
+      NODE_OPTIONS: '--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify immutable metadata review
+        run: node scripts/diagnose-liuyao-semantic-v013-candidate-v06-fallback-identity-v04-responsibility.mjs --verify
+      - name: Exercise conditional and full-raw safety boundaries with synthetic inputs
+        run: node --test tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Verify frozen design, contract and predecessor bindings without encoder
+        run: node scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-design.mjs

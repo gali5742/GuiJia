@@ -1,0 +1,43 @@
+{
+  "version": "0.13-candidate-v0.7-regression-read-incident-v0.1",
+  "status": "recorded_governance_deviation_no_model_or_data_scoring",
+  "trigger": "Agent invoked npm test before auditing transitive data reads; command exited 0 but does not validate adherence to the no-read boundary",
+  "automatedProtectedReads": [
+    "data/liuyao-contextual-object-role-blind-eval-v0.2.json",
+    "data/liuyao-entity-typing-blind-eval-v0.1.json",
+    "data/liuyao-next-topic-inventory-v0.1.json",
+    "data/liuyao-next-topic-literature-research-policy-v0.1.json",
+    "data/liuyao-semantic-decision-stack-v0.11-sealed-blind-v0.1-preuse-patch.json",
+    "data/liuyao-semantic-decision-stack-v0.11-sealed-blind-v0.1.json",
+    "data/liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1-preuse-patch.json",
+    "data/liuyao-semantic-decision-stack-v0.12-sealed-blind-v0.1.json",
+    "data/liuyao-semantic-route-blind-eval-v0.2-seal-patch.json",
+    "data/liuyao-semantic-route-blind-eval-v0.2.json",
+    "data/liuyao-semantic-v013-candidate-v01-independent-diagnostic.json",
+    "data/liuyao-semantic-v013-candidate-v02-independent-diagnostic-v0.1.json"
+  ],
+  "evidence": [
+    "verify-liuyao-semantic-responsibility-audit.mjs imports both legacy sealed-blind verifiers",
+    "verify-liuyao-semantic-decision-stack-v011-sealed-blind-v01.mjs scans liuyao JSON excluding decision-stack >=12",
+    "verify-liuyao-semantic-decision-stack-v012-sealed-blind-v01.mjs scans liuyao JSON excluding decision-stack >=13"
+  ],
+  "historicalSealedBlindRead": true,
+  "priorIndependentDiagnosticArtifactsRead": true,
+  "v013IndependentEvaluationCorporaRead": false,
+  "independentCorpusExclusionEvidence": "both data-directory scans exclude the v0.13 decision-stack independent-eval paths; no direct reference to those corpora in the executed checks",
+  "questionWordingExposedToAuthoring": false,
+  "encoderInvocations": 0,
+  "newWeightTraining": false,
+  "newFallbackProbabilityScoring": false,
+  "priorFailuresChanged": false,
+  "newFreshQuestionsAuthored": false,
+  "remediation": [
+    "Do not use npm test or the default shared push CI in this Candidate phase",
+    "Preload committed evaluation/research filesystem read guard in dedicated targeted CI",
+    "Use skip-ci push commits and explicitly dispatch required dedicated workflow",
+    "Never claim aggregate blind-read NO for this phase; legacy blind read YES and independent-eval corpus read NO are distinct",
+    "Old blind, independent diagnostics and research metadata never become training, fresh-authoring or threshold sources"
+  ],
+  "corpusExposureElsewhere": "Old v02 calibration manifest wording was accidentally printed during protocol inspection; no fresh authoring was performed and it is forbidden as a source",
+  "promotionEvidence": false
+}
