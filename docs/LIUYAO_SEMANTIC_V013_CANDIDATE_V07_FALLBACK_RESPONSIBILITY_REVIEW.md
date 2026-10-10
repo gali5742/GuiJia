@@ -206,7 +206,21 @@ Its verification-only contract binds both workflows and the original design
 lock, records the failure, and requires proof that the isolated CI commit
 changes only `test.yml` and that the entry exactly derives from the corrected
 workflow. It changes no model, gate, label, membership or calibration policy.
-Corrected CI evidence is recorded below after execution.
+The v0.2 verification source commit is
+`5cacf55569d27938e06c1b23aef06459cc34d281`.
+The corrected isolated CI commit is
+`f8aad3b84b40910b8a655c5cdfc7019c7f90d20a`, on
+`codex/v07-policy-ci-5cacf555`.
+[Dedicated CI 38057674947](https://github.com/gali5742/GuiJia/actions/runs/38057674947)
+completed **SUCCESS**. Checkout, Node setup, immutable metadata review,
+the 10 synthetic policy tests, design/contract/predecessor binding verification
+and isolated-CI-entry/source-tree proof all completed successfully. The exact
+API run/step evidence and input bindings are saved in
+`data/liuyao-semantic-v013-candidate-v07-policy-ci-evidence-v0.2.json`.
+No default shared regression workflow was dispatched in this corrected run.
+No encoder or protected evaluation/research-data read occurred in these
+dedicated checks. Neither isolated CI branch is merged into the development
+branch. Its original `test.yml` is unchanged.
 
 ## Added files
 
@@ -223,6 +237,7 @@ Corrected CI evidence is recorded below after execution.
 - `.github/workflows/liuyao-v013-v07-fallback-identity-v05-policy.yml`
 - `.github/workflows/liuyao-v013-v07-fallback-identity-v05-policy-v0.2.yml`
 - `data/liuyao-semantic-v013-candidate-v07-policy-verification-contract-v0.2.json`
+- `data/liuyao-semantic-v013-candidate-v07-policy-ci-evidence-v0.2.json`
 - `scripts/verify-liuyao-semantic-v013-candidate-v07-policy-ci-v0.2.mjs`
 - This owner report.
 

@@ -1,0 +1,106 @@
+{
+  "version": "0.13-candidate-v0.7-policy-ci-evidence-v0.2",
+  "status": "dedicated_design_and_schema_policy_CI_passed_not_data_seal_or_component_lock",
+  "branch": "liuyao-semantic-v013-core",
+  "designFreezeCommit": "0a2ea45bce1eea8c337b615422690f1385adaa1b",
+  "verificationSourceCommit": "5cacf55569d27938e06c1b23aef06459cc34d281",
+  "CI": {
+    "id": 38057674947,
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38057674947",
+    "head_sha": "f8aad3b84b40910b8a655c5cdfc7019c7f90d20a",
+    "head_branch": "codex/v07-policy-ci-5cacf555",
+    "path": ".github/workflows/test.yml",
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "jobSteps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify immutable metadata review",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Exercise conditional and full-raw safety boundaries with synthetic inputs",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify frozen design, contract and predecessor bindings without encoder",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify isolated CI entry and unchanged policy source tree",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-design.lock.json",
+      "sha256": "fef072e72502893a599095ba5a3302aa7382a768b99d79d88b9f8c1142191028",
+      "gitBlobSha": "a592f5a559f4e8215cfb5bfb3249d3dd7635846c"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-policy-verification-contract-v0.2.json",
+      "sha256": "b4c78648e3a28832dff3688f2aed00e3e180a5b543165bd1ba524537421b9bae",
+      "gitBlobSha": "f7f44058b0e131b3d6e722af8172fe24e0905ffd"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v07-fallback-identity-v05-policy-v0.2.yml",
+      "sha256": "6158ce418200cacac4b1ee53739c0a1f3ca4794cab3d8e7f8aeedf7b8621406b",
+      "gitBlobSha": "1ed24834d904e4c17ea1a301e3154e33cf844e01"
+    }
+  ],
+  "verifiedCITreeDifference": [
+    ".github/workflows/test.yml"
+  ],
+  "CIWrapperMergedToDevelopmentBranch": false,
+  "syntheticPolicyTestCount": 10,
+  "realEncoderInvocations": 0,
+  "newWeights": false,
+  "selectedThreshold": null,
+  "freshCorporaAuthored": false,
+  "freshMembershipSeal": false,
+  "independentOrBlindDataReadByDedicatedCI": false,
+  "legacyReadIncident": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+  "previousStartupFailure": {
+    "runId": 38057486762,
+    "conclusion": "failure",
+    "policyChecksExecuted": false
+  },
+  "oldFailedCalibrationStatusChanged": false,
+  "promotionClaimed": false,
+  "nextAction": "fresh_literal_authoring_generator_and_membership_seal_with_successful_data_CI_before_upstream_exposure_audit"
+}
