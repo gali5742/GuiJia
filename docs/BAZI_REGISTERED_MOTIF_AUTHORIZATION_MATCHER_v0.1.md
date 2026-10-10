@@ -10,6 +10,7 @@ R7 adds a finite actor-to-actor authorization matcher after R6. It consumes inde
 - Opposition and mediation reuse the existing raw-motif membership gates and record construction. Augmentation additionally requires one consistent upstream affiliation record and retains its identity and evidence.
 - An authorized record enters R5 normalization before R4 execution. A valid realized edge without a motif remains `realized-relation-currently-unmapped`; a valid negative edge remains `not-realized-generic-relation-effect`.
 - Invalid provenance is unresolved and cannot execute either a supplied positive or a supplied negative outcome.
+- R5 normalization rejection is also unresolved; matcher authorization cannot bypass normalization through a fallback input.
 - Collective, branch and hidden endpoints are outside this matcher. Existing collective effect records are untouched; no group is split into member effects.
 - Matcher results are a separate research view, not additional force units. No membership, strength, relative dominance or final assessment is inferred.
 

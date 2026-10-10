@@ -16,7 +16,7 @@ const test = (name, fn) => {
     try { fn(); passed++; console.log(`✓ ${name}`); }
     catch (error) { failed++; console.error(`✗ ${name}\n  ${error.stack}`); }
 };
-function load(syntheticPatterns = null, duplicateMotif = false) {
+function load(syntheticPatterns = null, duplicateMotif = false, staleNormalization = false) {
     const context = { console, setTimeout, clearTimeout, Date, Math, JSON, Intl, Solar };
     context.window = context;
     context.globalThis = context;
@@ -33,6 +33,11 @@ function load(syntheticPatterns = null, duplicateMotif = false) {
             if (duplicateMotif) {
                 const api = context.GuiJia.baziContextualForcePartyRelationEffectContract;
                 context.GuiJia.baziContextualForcePartyRelationEffectContract = Object.freeze({ ...api, MOTIFS:Object.freeze([...api.MOTIFS, { ...api.MOTIFS[1], id:'TEST-DUPLICATE-AUTHORITY' }]) });
+            }
+            if (staleNormalization) {
+                const api = context.GuiJia.baziContextualForcePartyRelationEffectContract;
+                context.GuiJia.baziContextualForcePartyRelationEffectContract = Object.freeze({ ...api,
+                    MOTIFS:Object.freeze(api.MOTIFS.map((motif, index) => index === 1 ? { ...motif, id:'TEST-NOT-IN-R5-REGISTRY' } : motif)) });
             }
         }
         run(entry.file);
@@ -175,6 +180,13 @@ test('multiple registry authorities fail closed instead of selecting first', () 
     const g = load(patterns, true);
     const result = apiFor(g).evaluateInput(inputFor(g, patterns[0]));
     assert(result.match.blockerReasons.includes('registered-motif-authority-conflict'), 'conflicting authorities selected');
+});
+test('R5 normalization rejection cannot be bypassed by matcher fallback', () => {
+    const g = load(patterns, false, true);
+    const result = apiFor(g).evaluateInput(inputFor(g, patterns[0]));
+    assert(result.match.matchState === 'matched-registered-source-backed-motif', 'test must reach normalization after matching');
+    assert(result.normalized.normalizationState === 'unresolved-effect-authorization-input', 'stale R5 registry did not reject');
+    assert(result.execution.executionState === 'unresolved-generic-relation-effect' && !result.execution.realized, 'normalization failure bypassed');
 });
 test('duplicate direct-source pattern identity fails closed', () => {
     const g = load([...patterns, patterns[0]]);

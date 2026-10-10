@@ -114,6 +114,8 @@
     const evaluateInput = (input = {}, index = 0) => {
         const match = matchAuthorization(input, index);
         const normalized = match.sourceRecord ? normalization.normalizeActorToActor(match.sourceRecord, index) : null;
+        const normalizedInput = normalized ? normalization.toExecutionInput(normalized) : null;
+        const blocked = match.matchState === MATCH_STATES.UNRESOLVED || (normalized !== null && normalizedInput === null);
         const edge = input.edge || {};
         // Invalid provenance must not retain a supplied positive/negative realization in execution.
         const fallback = Object.freeze({
@@ -121,11 +123,11 @@
             sourceEndpoint:Object.freeze({ type:'actor', actorKey:edge.sourceActorKey || null, cardinality:1, scope:'visible-stem' }),
             targetResolution:execution.targetResolutionForActor(edge.targetActorKey || '', 'visible-stem'),
             relationIdentity:Object.freeze({ id:edge.id || null, functionType:edge.functionType || null, directed:edge.directed === true }),
-            realizationState:match.matchState === MATCH_STATES.UNRESOLVED ? 'unresolved' : edge.realizationState,
-            authorization:match.authorization
+            realizationState:blocked ? 'unresolved' : edge.realizationState,
+            authorization:blocked ? Object.freeze({ state:AUTHORIZATION_STATES.UNRESOLVED, sourceBacked:false,
+                relationTypes:Object.freeze([]), authorityIds:Object.freeze([]), sourceEvidenceIds:Object.freeze([]) }) : match.authorization
         });
-        const executionInput = normalized ? normalization.toExecutionInput(normalized) : fallback;
-        return Object.freeze({ match, normalized, execution:execution.executeRelationEffect(executionInput || fallback) });
+        return Object.freeze({ match, normalized, execution:execution.executeRelationEffect(normalizedInput || fallback) });
     };
     const buildProfile = (semanticModel = {}, synthesis = {}) => {
         const chartKey = realization.buildStructuredChartKey(semanticModel, synthesis) || '';
@@ -135,12 +137,13 @@
         const results = freezeArray(edges.map((edge, index) => evaluateInput({ edge, inventory, chartKey, affiliationRecords }, index)));
         return Object.freeze({
             status:!results.length ? 'registered-motif-matcher-not-applicable'
-                : results.some((item) => item.match.matchState === MATCH_STATES.UNRESOLVED) ? 'registered-motif-matcher-partial' : 'registered-motif-matcher-evaluated',
+                : results.some((item) => item.execution.executionState === 'unresolved-generic-relation-effect') ? 'registered-motif-matcher-partial' : 'registered-motif-matcher-evaluated',
             results,
             evaluatedRelationCount:results.length,
             matchedRelationCount:results.filter((item) => item.match.matchState === MATCH_STATES.MATCHED).length,
             unmappedRelationCount:results.filter((item) => item.match.matchState === MATCH_STATES.UNMAPPED).length,
             unresolvedRelationCount:results.filter((item) => item.match.matchState === MATCH_STATES.UNRESOLVED).length,
+            normalizationFailureCount:results.filter((item) => item.normalized && item.normalized.normalizationState !== 'resolved-source-backed-effect-authorization-input').length,
             positiveSourceCalibrationIntroduced:false,
             genericEffectTypeAuthorizationResolverDefined:false,
             broaderSourceCoverageProven:false,
