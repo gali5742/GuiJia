@@ -1,0 +1,450 @@
+{
+  "version": "0.13-candidate-v0.8-arbitration-review-v0.1",
+  "status": "frozen_pretraining_failure_with_same_raw_set_paired_arbitration_diagnostic",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-reachability-audit-v0.1.json",
+      "sha256": "07b083d620127544afc6822da279c8ad803619bd376302dbd577f6eec97805da",
+      "gitBlobSha": "072aa1c586a4a3654aac222ddd153ddbd41a2b6b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-reachability.lock.json",
+      "sha256": "a67f1aedc5c3da258bcdde38b33a5c83d3b28ab9f1e94432b52e9aca1f817aff",
+      "gitBlobSha": "00c9da3e54c01fd90041d9a9f6fd85ee716e83d4"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-exposure-report-v0.1.json",
+      "sha256": "03c410a97bb0f6b71ac34aa53aea4989c47b1c8f3172a9cec9ad4889fdae033b",
+      "gitBlobSha": "8884029bec6d008aca169ac07849b40d32124e34"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v012.js",
+      "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60",
+      "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v013.js",
+      "sha256": "0e4107b70f2e567aaadb5908f74f51dbb1e032a1d511e0d3abeed61f3165f7dd",
+      "gitBlobSha": "6c3b4e1f1492e26f01d13d261f5232423b4582b2"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v08-arbitration-review.mjs",
+      "sha256": "9da1d33451ef7230f86bd2890e72700857fe2646fa2fb5b7ca75ab98dcd9000d",
+      "gitBlobSha": "60c5243a5fa3e78019ffecf312d846bab30a44dc"
+    }
+  ],
+  "sameRawMembership": true,
+  "comparisonBasis": "cached legacy v0.12 decisions versus authorized v0.13 decisions on exactly the same 308 v0.8 raw rows; not cross-version dataset rate comparison",
+  "legacy": {
+    "safetyLowerBound": {
+      "status": "frozen_raw_path_safety_proven_infeasible_before_weight_training",
+      "policyBindingRole": "unchanged frozen policy; post-audit proof of necessary safety condition, not a replacement exposure or threshold gate",
+      "nonRoute": {
+        "n": 132,
+        "fixedArbitrationActivations": 10,
+        "minimumPossibleFalseActivation": 0.07575757575757576,
+        "status": "observed"
+      },
+      "bySubtype": {
+        "route_unresolved": {
+          "n": 44,
+          "fixedArbitrationActivations": 9,
+          "minimumPossibleFalseActivation": 0.20454545454545456,
+          "status": "observed"
+        },
+        "near_domain_not_current_route": {
+          "n": 44,
+          "fixedArbitrationActivations": 1,
+          "minimumPossibleFalseActivation": 0.022727272727272728,
+          "status": "observed"
+        },
+        "outside_current_22": {
+          "n": 44,
+          "fixedArbitrationActivations": 0,
+          "minimumPossibleFalseActivation": 0,
+          "status": "observed"
+        }
+      },
+      "byRoleSafetyGroup": {
+        "credit_direction": {
+          "n": 8,
+          "fixedArbitrationActivations": 0,
+          "minimumPossibleFalseActivation": 0,
+          "status": "observed"
+        },
+        "debt_direction": {
+          "n": 8,
+          "fixedArbitrationActivations": 3,
+          "minimumPossibleFalseActivation": 0.375,
+          "status": "observed"
+        }
+      },
+      "violations": [
+        {
+          "gate": "maximumRawPathFalseActivation",
+          "group": "all_non_route",
+          "n": 132,
+          "fixedArbitrationActivations": 10,
+          "lowerBound": 0.07575757575757576,
+          "maximum": 0.05
+        },
+        {
+          "gate": "maximumEachRawSubtypePathFalseActivation",
+          "group": "route_unresolved",
+          "n": 44,
+          "fixedArbitrationActivations": 9,
+          "lowerBound": 0.20454545454545456,
+          "maximum": 0.05
+        },
+        {
+          "gate": "maximumEachRawRolePathFalseActivation",
+          "group": "debt_direction",
+          "n": 8,
+          "fixedArbitrationActivations": 3,
+          "lowerBound": 0.375,
+          "maximum": 0.05
+        }
+      ],
+      "anyFallbackWeightsAndThresholdCanSatisfyFrozenRawPathSafety": false,
+      "proof": "For each raw non-route row, the frozen safety policy counts permitted unsupported-free Arbitration as a possible selection independently of all Fallback weights and thresholds. Fallback adds only nonnegative selections on other rows. Therefore full-raw path false activation is at least the counted Arbitration fraction. Router conflict, Scope and Finalization receive no safety credit under the frozen policy.",
+      "fixedNonRouteArbitration": [
+        {
+          "id": "V013-V08-FI-C-N-1-10",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": "debt_direction",
+          "selectedRoute": "debt_repayment",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-11",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": "debt_direction",
+          "selectedRoute": "debt_repayment",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-14",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": "debt_direction",
+          "selectedRoute": "debt_repayment",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-17",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "inventory_purchase",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-19",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "item_purchase",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-21",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "investment_profit",
+          "strength": "support"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-28",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "financial_fortune",
+          "strength": "support"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-29",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "investment_profit",
+          "strength": "support"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-40",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "relationship_development",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-2-09",
+          "subtype": "near_domain_not_current_route",
+          "roleSafetyGroup": null,
+          "selectedRoute": "relationship_development",
+          "strength": "strong"
+        }
+      ],
+      "encoderInvocations": 0,
+      "fallbackWeightsRead": false,
+      "fallbackProbabilitiesScored": false,
+      "thresholdSearchPerformed": false,
+      "integratedRuntimeEvaluated": false,
+      "exposureResultOverridden": false,
+      "numericGatesChanged": false,
+      "sameVersionDataRepairAllowed": false
+    },
+    "knownArbitration": {
+      "n": 176,
+      "selected": 62,
+      "correct": 58,
+      "wrongSelected": 4
+    }
+  },
+  "current": {
+    "safetyLowerBound": {
+      "status": "frozen_raw_path_safety_proven_infeasible_before_weight_training",
+      "policyBindingRole": "unchanged frozen policy; post-audit proof of necessary safety condition, not a replacement exposure or threshold gate",
+      "nonRoute": {
+        "n": 132,
+        "fixedArbitrationActivations": 2,
+        "minimumPossibleFalseActivation": 0.015151515151515152,
+        "status": "observed"
+      },
+      "bySubtype": {
+        "route_unresolved": {
+          "n": 44,
+          "fixedArbitrationActivations": 2,
+          "minimumPossibleFalseActivation": 0.045454545454545456,
+          "status": "observed"
+        },
+        "near_domain_not_current_route": {
+          "n": 44,
+          "fixedArbitrationActivations": 0,
+          "minimumPossibleFalseActivation": 0,
+          "status": "observed"
+        },
+        "outside_current_22": {
+          "n": 44,
+          "fixedArbitrationActivations": 0,
+          "minimumPossibleFalseActivation": 0,
+          "status": "observed"
+        }
+      },
+      "byRoleSafetyGroup": {
+        "credit_direction": {
+          "n": 8,
+          "fixedArbitrationActivations": 0,
+          "minimumPossibleFalseActivation": 0,
+          "status": "observed"
+        },
+        "debt_direction": {
+          "n": 8,
+          "fixedArbitrationActivations": 1,
+          "minimumPossibleFalseActivation": 0.125,
+          "status": "observed"
+        }
+      },
+      "violations": [
+        {
+          "gate": "maximumEachRawRolePathFalseActivation",
+          "group": "debt_direction",
+          "n": 8,
+          "fixedArbitrationActivations": 1,
+          "lowerBound": 0.125,
+          "maximum": 0.05
+        }
+      ],
+      "anyFallbackWeightsAndThresholdCanSatisfyFrozenRawPathSafety": false,
+      "proof": "For each raw non-route row, the frozen safety policy counts permitted unsupported-free Arbitration as a possible selection independently of all Fallback weights and thresholds. Fallback adds only nonnegative selections on other rows. Therefore full-raw path false activation is at least the counted Arbitration fraction. Router conflict, Scope and Finalization receive no safety credit under the frozen policy.",
+      "fixedNonRouteArbitration": [
+        {
+          "id": "V013-V08-FI-C-N-1-11",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": "debt_direction",
+          "selectedRoute": "debt_repayment",
+          "strength": "strong"
+        },
+        {
+          "id": "V013-V08-FI-C-N-1-19",
+          "subtype": "route_unresolved",
+          "roleSafetyGroup": null,
+          "selectedRoute": "item_purchase",
+          "strength": "strong"
+        }
+      ],
+      "encoderInvocations": 0,
+      "fallbackWeightsRead": false,
+      "fallbackProbabilitiesScored": false,
+      "thresholdSearchPerformed": false,
+      "integratedRuntimeEvaluated": false,
+      "exposureResultOverridden": false,
+      "numericGatesChanged": false,
+      "sameVersionDataRepairAllowed": false
+    },
+    "knownArbitration": {
+      "n": 176,
+      "selected": 45,
+      "correct": 44,
+      "wrongSelected": 1
+    }
+  },
+  "authorization": {
+    "removedNonRouteSelections": [
+      "V013-V08-FI-C-N-1-10",
+      "V013-V08-FI-C-N-1-14",
+      "V013-V08-FI-C-N-1-17",
+      "V013-V08-FI-C-N-1-21",
+      "V013-V08-FI-C-N-1-28",
+      "V013-V08-FI-C-N-1-29",
+      "V013-V08-FI-C-N-1-40",
+      "V013-V08-FI-C-N-2-09"
+    ],
+    "denialReasons": {
+      "authorized_current_route_target": 47,
+      "no_base_candidate": 160,
+      "no_route_specific_current_target_permission": 24,
+      "information_or_procedure_purpose": 1
+    }
+  },
+  "pretrainingViolations": [
+    {
+      "gate": "minimumConditionalKnownPerRoute",
+      "route": "relationship_development",
+      "observed": 1,
+      "required": 2
+    },
+    {
+      "gate": "maximumEachRawRolePathFalseActivation",
+      "group": "debt_direction",
+      "n": 8,
+      "fixedArbitrationActivations": 1,
+      "lowerBound": 0.125,
+      "maximum": 0.05
+    }
+  ],
+  "conditionalMembership": [
+    "V013-V08-FI-C-K-01-03",
+    "V013-V08-FI-C-K-01-04",
+    "V013-V08-FI-C-K-01-05",
+    "V013-V08-FI-C-K-01-06",
+    "V013-V08-FI-C-K-01-08",
+    "V013-V08-FI-C-K-02-02",
+    "V013-V08-FI-C-K-02-08",
+    "V013-V08-FI-C-K-03-05",
+    "V013-V08-FI-C-K-03-06",
+    "V013-V08-FI-C-K-04-01",
+    "V013-V08-FI-C-K-04-04",
+    "V013-V08-FI-C-K-04-05",
+    "V013-V08-FI-C-K-04-06",
+    "V013-V08-FI-C-K-04-07",
+    "V013-V08-FI-C-K-04-08",
+    "V013-V08-FI-C-K-05-01",
+    "V013-V08-FI-C-K-05-03",
+    "V013-V08-FI-C-K-05-04",
+    "V013-V08-FI-C-K-05-06",
+    "V013-V08-FI-C-K-05-07",
+    "V013-V08-FI-C-K-05-08",
+    "V013-V08-FI-C-K-06-03",
+    "V013-V08-FI-C-K-06-04",
+    "V013-V08-FI-C-K-06-05",
+    "V013-V08-FI-C-K-06-06",
+    "V013-V08-FI-C-K-06-07",
+    "V013-V08-FI-C-K-06-08",
+    "V013-V08-FI-C-K-07-03",
+    "V013-V08-FI-C-K-07-04",
+    "V013-V08-FI-C-K-07-05",
+    "V013-V08-FI-C-K-07-06",
+    "V013-V08-FI-C-K-07-07",
+    "V013-V08-FI-C-K-07-08",
+    "V013-V08-FI-C-K-08-03",
+    "V013-V08-FI-C-K-08-05",
+    "V013-V08-FI-C-K-08-06",
+    "V013-V08-FI-C-K-08-07",
+    "V013-V08-FI-C-K-08-08",
+    "V013-V08-FI-C-K-09-03",
+    "V013-V08-FI-C-K-09-04",
+    "V013-V08-FI-C-K-09-05",
+    "V013-V08-FI-C-K-09-06",
+    "V013-V08-FI-C-K-09-07",
+    "V013-V08-FI-C-K-09-08",
+    "V013-V08-FI-C-K-10-04",
+    "V013-V08-FI-C-K-10-05",
+    "V013-V08-FI-C-K-10-06",
+    "V013-V08-FI-C-K-10-08",
+    "V013-V08-FI-C-K-11-01",
+    "V013-V08-FI-C-K-11-03",
+    "V013-V08-FI-C-K-11-04",
+    "V013-V08-FI-C-K-11-05",
+    "V013-V08-FI-C-K-11-06",
+    "V013-V08-FI-C-K-11-07",
+    "V013-V08-FI-C-K-11-08",
+    "V013-V08-FI-C-K-12-03",
+    "V013-V08-FI-C-K-12-04",
+    "V013-V08-FI-C-K-12-05",
+    "V013-V08-FI-C-K-12-06",
+    "V013-V08-FI-C-K-12-08",
+    "V013-V08-FI-C-K-13-03",
+    "V013-V08-FI-C-K-13-04",
+    "V013-V08-FI-C-K-13-05",
+    "V013-V08-FI-C-K-13-06",
+    "V013-V08-FI-C-K-13-07",
+    "V013-V08-FI-C-K-13-08",
+    "V013-V08-FI-C-K-14-03",
+    "V013-V08-FI-C-K-14-05",
+    "V013-V08-FI-C-K-14-06",
+    "V013-V08-FI-C-K-14-07",
+    "V013-V08-FI-C-K-14-08",
+    "V013-V08-FI-C-K-15-03",
+    "V013-V08-FI-C-K-15-04",
+    "V013-V08-FI-C-K-15-05",
+    "V013-V08-FI-C-K-15-06",
+    "V013-V08-FI-C-K-15-07",
+    "V013-V08-FI-C-K-15-08",
+    "V013-V08-FI-C-K-16-05",
+    "V013-V08-FI-C-K-16-06",
+    "V013-V08-FI-C-K-16-08",
+    "V013-V08-FI-C-K-17-04",
+    "V013-V08-FI-C-K-17-05",
+    "V013-V08-FI-C-K-17-06",
+    "V013-V08-FI-C-K-17-08",
+    "V013-V08-FI-C-K-18-04",
+    "V013-V08-FI-C-K-18-05",
+    "V013-V08-FI-C-K-18-07",
+    "V013-V08-FI-C-K-18-08",
+    "V013-V08-FI-C-K-19-03",
+    "V013-V08-FI-C-K-19-05",
+    "V013-V08-FI-C-K-19-07",
+    "V013-V08-FI-C-K-19-08",
+    "V013-V08-FI-C-K-20-04",
+    "V013-V08-FI-C-K-21-05",
+    "V013-V08-FI-C-K-21-06",
+    "V013-V08-FI-C-K-21-08",
+    "V013-V08-FI-C-K-22-04",
+    "V013-V08-FI-C-K-22-08",
+    "V013-V08-FI-C-N-1-01",
+    "V013-V08-FI-C-N-1-04",
+    "V013-V08-FI-C-N-1-08",
+    "V013-V08-FI-C-N-1-10",
+    "V013-V08-FI-C-N-1-13",
+    "V013-V08-FI-C-N-1-14",
+    "V013-V08-FI-C-N-1-17",
+    "V013-V08-FI-C-N-1-21",
+    "V013-V08-FI-C-N-1-23",
+    "V013-V08-FI-C-N-1-25",
+    "V013-V08-FI-C-N-1-27",
+    "V013-V08-FI-C-N-1-28",
+    "V013-V08-FI-C-N-1-29",
+    "V013-V08-FI-C-N-1-33",
+    "V013-V08-FI-C-N-1-34",
+    "V013-V08-FI-C-N-1-36",
+    "V013-V08-FI-C-N-1-40",
+    "V013-V08-FI-C-N-3-39"
+  ],
+  "encoderInvocations": 0,
+  "fallbackWeightsRead": false,
+  "fallbackScoresRead": false,
+  "trainingPerformed": false,
+  "thresholdSearchPerformed": false,
+  "integratedRuntimeEvaluated": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "reservedResearchRead": false,
+  "priorReadIncidentPreserved": true,
+  "sameVersionRepairAllowed": false,
+  "nextAction": "preserve_v08_failure; any explicit_missing_role_or_multiple_current_target_policy_change_requires_new_version_and_fresh_frozen_data; no_Phase_C"
+}
