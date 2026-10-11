@@ -1,0 +1,549 @@
+{
+  "version": "0.1-literal-targeted-boundary-authoring",
+  "generation": "individually_authored_literal_questions_no_template_expansion",
+  "oldFailureWordingUsed": false,
+  "encoderFeedbackObserved": false,
+  "labelsFixedBeforeScoring": true,
+  "rows": [
+    {
+      "id": "BPROBE01-K-01",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "我是缺周转金的店主，想向老同学借一笔钱撑过装修期，他这回会借给我吗？"
+    },
+    {
+      "id": "BPROBE01-K-02",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "家里的学费差七千，钱要由姨妈借给我，开口后这笔借款能得到吗？"
+    },
+    {
+      "id": "BPROBE01-K-03",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "月底要交房租，自己的钱暂时不够，找小梁凑一笔周转能凑上吗？"
+    },
+    {
+      "id": "BPROBE01-K-04",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "急需先垫一笔运费，银行那里递交的贷款申请会给我放款吗？"
+    },
+    {
+      "id": "BPROBE01-K-05",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "想问爸爸肯不肯把他存着的那笔钱先借给我，等我发工资再还？"
+    },
+    {
+      "id": "BPROBE01-K-06",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "小赵是提供资金的人，我是拿钱应急的人；这次借钱能成吗，不问以后怎么还？"
+    },
+    {
+      "id": "BPROBE01-K-07",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "表妹来找我借钱，我是拿出积蓄的一方，把这一万元借给她靠不靠谱？"
+    },
+    {
+      "id": "BPROBE01-K-08",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "同事想让我借给他搬家的费用，这笔钱从我账户转给他作为借款，合适吗？"
+    },
+    {
+      "id": "BPROBE01-K-09",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "朋友说先用我的存款周转三个月，我答应把钱给他暂用会不会惹麻烦？"
+    },
+    {
+      "id": "BPROBE01-K-10",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "外甥想用我闲着的五千块当本钱，我借出这笔钱的决定妥当吗？"
+    },
+    {
+      "id": "BPROBE01-K-11",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "阿林需要钱，我准备帮他垫一笔，他以后还我；现在帮这个忙适不适宜？"
+    },
+    {
+      "id": "BPROBE01-K-12",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "group": "credit_direction_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "我手头并不缺钱，是别人来向我求借；问的是我出借给他好不好，并非能否借来？"
+    },
+    {
+      "id": "BPROBE01-K-13",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "前租客还欠我两个月租金，我是收款的人，再联系他追这笔钱有用吗？"
+    },
+    {
+      "id": "BPROBE01-K-14",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "修车费一直没给我，客户是欠钱的人，这回催他补付能拿回来吗？"
+    },
+    {
+      "id": "BPROBE01-K-15",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "替同学垫的那笔票款拖到现在，我找他要回垫付的钱有希望吗？"
+    },
+    {
+      "id": "BPROBE01-K-16",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "货已经交给买家半年，对方仍少付一截，我这次追着结尾款能到账吗？"
+    },
+    {
+      "id": "BPROBE01-K-17",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "叔叔答应退还我以前借给他的三千元，这个月终于能还到我手上吗？"
+    },
+    {
+      "id": "BPROBE01-K-18",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "不是我要偿债，是对方一直欠我；我想看这次把旧欠款讨回来会怎样？"
+    },
+    {
+      "id": "BPROBE01-K-19",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "旅行时我借了同事的钱，我是欠钱的人，开春能把欠他的数目还干净吗？"
+    },
+    {
+      "id": "BPROBE01-K-20",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "进货时拖欠了厂家的尾款，这次由我付款，能赶在约定期限前结清吗？"
+    },
+    {
+      "id": "BPROBE01-K-21",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "还差朋友的一笔学费借款，年终之前我能筹足钱归还给他吗？"
+    },
+    {
+      "id": "BPROBE01-K-22",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "上次救急用了姐姐的钱，我承诺分两次还她，这个偿付安排能兑现吗？"
+    },
+    {
+      "id": "BPROBE01-K-23",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "自己借的那笔消费贷款进入最后几期，接下来能按时付完吗？"
+    },
+    {
+      "id": "BPROBE01-K-24",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "group": "debt_direction_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "我没有向人追账的事，欠款责任在我身上，只问我能否把这笔旧债还掉？"
+    },
+    {
+      "id": "BPROBE01-K-25",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "这间面包店由我亲自经营，想看下半年整个门店的营业能不能稳住？"
+    },
+    {
+      "id": "BPROBE01-K-26",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "我负责一家照相馆的日常业务，开学之后整间店的生意走势怎么样？"
+    },
+    {
+      "id": "BPROBE01-K-27",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "修理铺开了两个季度客人不多，往后半年能做得热闹起来吗？"
+    },
+    {
+      "id": "BPROBE01-K-28",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "搬到新街区后的早餐摊，以后的生意会逐步转好吗？"
+    },
+    {
+      "id": "BPROBE01-K-29",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "这家花艺工作室继续做下去，业务和营业收入能比目前更稳定吗？"
+    },
+    {
+      "id": "BPROBE01-K-30",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "我问的是自己经营的茶馆整体开得顺不顺，不是投入某笔资本的回报多少？"
+    },
+    {
+      "id": "BPROBE01-K-31",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "我只是给朋友的配送项目出资，没有参与经营，这笔投资最终能赚到钱吗？"
+    },
+    {
+      "id": "BPROBE01-K-32",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "role_explicit",
+      "roleSafetyGroup": null,
+      "text": "我是购买项目份额的出资人，去年投进光伏项目的资本今年有没有利润？"
+    },
+    {
+      "id": "BPROBE01-K-33",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "认购的那份小企业股权已经持有一年，这笔投入结束时收益会怎么样？"
+    },
+    {
+      "id": "BPROBE01-K-34",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "投到停车场改造项目里的十万元，到结算时能获得回报吗？"
+    },
+    {
+      "id": "BPROBE01-K-35",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "natural_paraphrase",
+      "roleSafetyGroup": null,
+      "text": "那笔持有中的基金投资，这一整轮最后能为我带来多少盈利？"
+    },
+    {
+      "id": "BPROBE01-K-36",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "group": "business_investment_known",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null,
+      "text": "不问企业每天的经营，我作为外部出资人只想看自己的投资有没有赚头？"
+    },
+    {
+      "id": "BPROBE01-N-01",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "亲戚提起周三那笔借款大概有眉目，我只听到这点消息，这件借钱的事最后能落实吗？"
+    },
+    {
+      "id": "BPROBE01-N-02",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "两个人商量临时拆借一笔，尚没说由哪方给钱，我想占这笔周转会怎样？"
+    },
+    {
+      "id": "BPROBE01-N-03",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "最近家里在说借一万元的安排，但出钱和拿钱的人还不清楚，这事顺不顺？"
+    },
+    {
+      "id": "BPROBE01-N-04",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "那份借款约定还在讨论，谁借给谁没有确认，我想问这一笔借贷稳不稳？"
+    },
+    {
+      "id": "BPROBE01-N-05",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "小陈和小吴之间的借钱安排没说明资金方向，我关心这件事后来会不会成？"
+    },
+    {
+      "id": "BPROBE01-N-06",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "credit_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "text": "有笔应急资金准备以借款方式挪动，但尚不清楚我是借入还是借出，能看结果吗？"
+    },
+    {
+      "id": "BPROBE01-N-07",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "那张旧账单一直搁着，我还没弄明白谁欠哪方，这回清账能有进展吗？"
+    },
+    {
+      "id": "BPROBE01-N-08",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "一笔拖了两年的尾款年后打算处理，债权人和还款人尚未核实，这件事能解决吗？"
+    },
+    {
+      "id": "BPROBE01-N-09",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "账本上那五千元的欠款还在对数，我是收钱还是付钱暂不确定，结账会顺吗？"
+    },
+    {
+      "id": "BPROBE01-N-10",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "有张借据快到期，可现在没说归还责任在哪个人身上，这笔债怎么发展？"
+    },
+    {
+      "id": "BPROBE01-N-11",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "双方都说对方欠着钱，究竟谁应当还款还在争论，年底处理旧债会有结果吗？"
+    },
+    {
+      "id": "BPROBE01-N-12",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "debt_direction_missing",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "text": "打算把那笔陈年欠款了结，不过收款与偿付的身份还没有说明，能办妥吗？"
+    },
+    {
+      "id": "BPROBE01-N-13",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "亲戚那个工坊既是生意又有我一笔投入，我还没分清要占哪一面，只问它后来好吗？"
+    },
+    {
+      "id": "BPROBE01-N-14",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "我们说的农产品项目牵扯经营和出资，我要看的具体结果没定，这事前景怎么样？"
+    },
+    {
+      "id": "BPROBE01-N-15",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "有人说该看店里业务，也有人说该看资本回报，我没选占问目标，这个安排最后如何？"
+    },
+    {
+      "id": "BPROBE01-N-16",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "手头的作坊项目能不能成还让我犹豫，可我没有确定是问营业还是投入的钱，怎么走？"
+    },
+    {
+      "id": "BPROBE01-N-17",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "这次聊的是那间店，我要问自己的投资结果还是店的营业状况还没想好，往后顺吗？"
+    },
+    {
+      "id": "BPROBE01-N-18",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "business_investment_underspecified",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "一桩经营项目也带着投资款，但关心的究竟哪项结果尚未交代，能先看这件事好吗？"
+    },
+    {
+      "id": "BPROBE01-N-19",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "我想同时占向叔叔借款能否成功，以及替朋友追讨旧欠款能否拿回，两件分别会怎么样？"
+    },
+    {
+      "id": "BPROBE01-N-20",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "一边要把欠姐姐的钱还清，一边准备借自己的存款给同事，我想一起问这两个结果？"
+    },
+    {
+      "id": "BPROBE01-N-21",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "我要看面馆以后的生意，也要看另一笔基金投资的收益，两件事分别顺不顺？"
+    },
+    {
+      "id": "BPROBE01-N-22",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "能同时看客户欠我的尾款能否收回，以及我向银行申请的贷款能否放下来吗？"
+    },
+    {
+      "id": "BPROBE01-N-23",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "想占我这笔项目投资有没有利润，另外也想占我借钱给邻居妥不妥，这两个目标各怎样？"
+    },
+    {
+      "id": "BPROBE01-N-24",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "group": "multiple_active_goals",
+      "style": "natural_unresolved",
+      "roleSafetyGroup": null,
+      "text": "我关心店里的营业会不会好转，又关心欠朋友的钱能否按期归还，请把两件都看一下？"
+    }
+  ]
+}
