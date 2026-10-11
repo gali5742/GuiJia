@@ -1,33 +1,83 @@
-name: Test and vendor verification
+name: Candidate v0.8 Fallback v0.6 upstream exposure audit
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  actions: read
+
+concurrency:
+  group: liuyao-v013-v08-fallback-identity-v06-upstream-audit
+  cancel-in-progress: false
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  frozen-upstream-exposure:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ONNXRUNTIME_NODE_INSTALL: skip
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - uses: actions/checkout@v5
         with:
-          node-version: "22"
-
-      - name: Core regression tests
-        run: npm test
-
-      - name: Build same-origin vendor site
-        run: node scripts/build-pages-site.mjs
-
-      - name: Verify vendor bytes and lunar smoke test
-        run: node scripts/verify-vendor.mjs .site
-
-      - name: Verify static Pages artifact
-        run: node scripts/verify-static-site.mjs .site deployed
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify isolated registered entry and committed execution source
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v08-ci-source.mjs --execution
+          echo "V08_AUDIT_INPUT_SHA=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - name: Checkout exact frozen audit source
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.V08_AUDIT_INPUT_SHA }}
+          fetch-depth: 0
+      - name: Verify complete seal and actual successful data CI before encoding
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs --preflight
+      - name: Check cache integrity, exposure stop and frozen policy
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node --test tests/liuyao-semantic-v013-candidate-v08-pretraining-tests.mjs tests/liuyao-semantic-route-arbitration-v013-tests.mjs tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Install pinned public encoder runtime outside checkout
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/guijia-v08-audit-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/guijia-v08-audit-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/guijia-v08-audit-encoder-cache" >> "$GITHUB_ENV"
+      - name: Encode all 308 sealed raw rows once and audit frozen upstream
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/audit-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs
+      - name: Replay upstream, entire raw membership and frozen exposure with zero new encoder calls
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs
+      - name: Commit immutable vectors, membership and exposure before any weight training
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-reachability-audit-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-exposure-report-v0.1.json \
+            data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-reachability.lock.json
+          git commit -m 'test(liuyao): seal v0.8 full raw upstream and both pretraining gates before weights [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          PROTECTED_PATHS=(
+            'data/liuyao-semantic-*'
+            'js/liuyao-semantic-*'
+            'scripts/*liuyao-semantic-v013-candidate-*'
+            'tests/*liuyao-semantic-v013-candidate-*'
+            '.github/workflows/liuyao-v013-*'
+          )
+          if ! git diff --quiet "$V08_AUDIT_INPUT_SHA"..origin/liuyao-semantic-v013-core -- "${PROTECTED_PATHS[@]}"; then
+            echo 'Semantic inputs changed during audit; refusing stale evidence push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/verify-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs --committed
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Confirm committed evidence and clean worktree
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs --committed
+      - name: Reject weight training if coverage or raw safety lower bound fails
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v08-fallback-identity-v06-upstream.mjs --committed --require-training-permission
