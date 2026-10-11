@@ -1,0 +1,3207 @@
+{
+  "version": "0.13-candidate-v0.11-data-contract-v0.1",
+  "status": "schema_counts_labels_order_and_scope_frozen_before_literal_authoring",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-design-v0.1.json",
+    "sha256": "34e8b37b9596358e4002d5996e9b0e24fb6d691e1feda381ce9b5aa79f47e77b",
+    "gitBlobSha": "52f61b368fb6a633b3cf6d094db4cfe414d4d603"
+  },
+  "designLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-design.lock.json",
+    "sha256": "c083fb20ff77ce2fcbcafe8e8d1c828912c79e61c44cef23a907a6a5decba8c0",
+    "gitBlobSha": "75ab6e7f493211e721c2a1b89994a691990fd003"
+  },
+  "routes": [
+    "financial_fortune",
+    "business_operation",
+    "commercial_transaction",
+    "inventory_purchase",
+    "inventory_sale",
+    "borrow_money",
+    "lend_money",
+    "debt_collection",
+    "debt_repayment",
+    "partnership",
+    "investment_profit",
+    "investment_liquidation",
+    "investment_suitability",
+    "investment_position_decision",
+    "investment_price_trend",
+    "income_salary",
+    "income_bonus",
+    "receive_item",
+    "item_purchase",
+    "relationship_development",
+    "marriage_match",
+    "marital_relationship"
+  ],
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "algorithm": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v03.js",
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "trainFromScratch": true,
+    "legacyWeightsReusable": false,
+    "hyperparameters": {
+      "l2": 0.00025,
+      "maxIterations": 1000,
+      "gradientInfinityTolerance": 1e-07,
+      "memory": 10,
+      "armijo": 0.0001,
+      "backtrackFactor": 0.5,
+      "initialStep": 1,
+      "minStep": 1e-12,
+      "maxLineSearchSteps": 50
+    },
+    "classBalancing": "each_head_positive_total_0.5_negative_total_0.5_after_coefficient_normalization",
+    "lossMultipliers": {
+      "sameConfusableFamily": 4,
+      "nonRoute": 4,
+      "other": 1
+    },
+    "confusableFamilies": [
+      [
+        "financial_fortune",
+        "income_salary",
+        "income_bonus",
+        "investment_profit",
+        "investment_price_trend"
+      ],
+      [
+        "business_operation",
+        "partnership",
+        "commercial_transaction"
+      ],
+      [
+        "inventory_purchase",
+        "inventory_sale",
+        "item_purchase",
+        "receive_item",
+        "commercial_transaction"
+      ],
+      [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      [
+        "relationship_development",
+        "marriage_match",
+        "marital_relationship"
+      ]
+    ],
+    "negativeCoefficientPolicy": "nonroute4; otherwise4_if_any_shared_frozen_family_else1; no_multiplication_for_multiple_shared_families; negative_total_weight_normalized_to0.5",
+    "features": [
+      "text_only_frozen_encoder_vector"
+    ],
+    "targets": [
+      "expectedRoute_only"
+    ],
+    "metadataWeightsUsed": false,
+    "biasRegularized": false,
+    "initialWeights": "all_zero_float64",
+    "gradients": "float64",
+    "checkpointOrHyperparameterSweep": false,
+    "optimizerChoiceBasis": "single_prespecified_hypothesis_after_train_only_exact_fixed_cache_reproduction_no_stationary_heads; no_calibration_feedback_or_sweep",
+    "objectivePath": "js/liuyao-semantic-fallback-objective-v01.js",
+    "optimizer": "LBFGS_with_Armijo_backtracking",
+    "parameters": "float64_including_bias",
+    "stopRule": "every_head_gradient_infinity_norm_at_most_1e-7; otherwise_preserve_nonconvergence_and_stop_before_calibration"
+  },
+  "upstream": {
+    "bindings": [
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+        "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+        "gitBlobSha": "864d63dd23d56722a7d1cede553a6c8f123bedb0"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+        "sha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+        "gitBlobSha": "36eb8b252bf680650d49e4ac2b4e6ce5fecb6b69"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+        "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+        "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+        "sha256": "cff69bc0c8cfc4b5da30ff01482248d35aeb390db29499e7ebfffd3dc9e73c68",
+        "gitBlobSha": "642f123a6a515247da725b1381538d6bcf3ef980"
+      },
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json",
+        "sha256": "14983f13fbae669d1bf5c3eacc3b7d3749785c16c4961169fb77d7b78989dad6",
+        "gitBlobSha": "0b001fb4e7e5f338b41540ae3599defacc979969"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+        "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+        "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c"
+      },
+      {
+        "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+        "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+        "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v01.js",
+        "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078",
+        "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v02.js",
+        "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35",
+        "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0"
+      },
+      {
+        "path": "js/liuyao-semantic-route-evidence-v03.js",
+        "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5",
+        "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f"
+      },
+      {
+        "path": "js/liuyao-semantic-route-arbitration-v011.js",
+        "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6",
+        "gitBlobSha": "04f0b45b2ea529342275aeb28c29a00e707af5bb"
+      },
+      {
+        "path": "js/liuyao-semantic-route-arbitration-v012.js",
+        "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60",
+        "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44"
+      },
+      {
+        "path": "js/liuyao-semantic-route-arbitration-v013.js",
+        "sha256": "0e4107b70f2e567aaadb5908f74f51dbb1e032a1d511e0d3abeed61f3165f7dd",
+        "gitBlobSha": "6c3b4e1f1492e26f01d13d261f5232423b4582b2"
+      }
+    ],
+    "policy": "SemanticAct eligible AND RouteSuff sufficient AND unsupportedTargets empty AND Arbitration null AND Routeability accepted",
+    "routeSufficiencyThreshold": 0.45004286319719417,
+    "routeabilityThreshold": 0.7678148573595883,
+    "RouterLoaded": false,
+    "integratedRuntime": false,
+    "conditionalMembership": "exactly all reachesFallback IDs committed before weight training; no fallback scores influence this set; raw set retained entirely for stress and path safety",
+    "newArbitrationPath": "js/liuyao-semantic-route-arbitration-v014.js"
+  },
+  "training": {
+    "rows": 2028,
+    "known": 1553,
+    "nonRoute": 475,
+    "sourceRows": 2028,
+    "sourceKnown": 1553,
+    "sourceNonRoute": 475,
+    "sourceBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    "sourceLockBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+      "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+      "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+    },
+    "vectorCacheBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+      "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+      "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+    },
+    "vectorCacheLockBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache-v0.2.lock.json",
+      "sha256": "314b7945d1172b35229d97e8a7fee0d9896caf25fdd2219c5f944a92c23b87da",
+      "gitBlobSha": "0bdb82886a05dad8e246258274d0f92e1ca26b9d"
+    },
+    "freshSupplementRows": 0
+  },
+  "calibration": {
+    "rows": 396,
+    "known": 264,
+    "nonRoute": 132,
+    "knownPerRoute": 12,
+    "nonRoutePerSubtype": 44,
+    "creditDirection": 8,
+    "debtDirection": 8,
+    "knownStyles": {
+      "role_explicit": 2,
+      "semantic_paraphrase": 8,
+      "boundary_contrast": 2
+    },
+    "countChoice": "same_balanced396_raw_allocation_frozen_before_fresh_wording_and_scoring"
+  },
+  "authoringPath": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-authoring-v0.1.json",
+  "allocatedRawCalibration": [
+    {
+      "id": "V013-V11-FI-C-K-01-01",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-02",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-03",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-04",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-05",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-06",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-07",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-08",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-09",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-10",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-11",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-01-12",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-01",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-02",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-03",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-04",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-05",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-06",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-07",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-08",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-09",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-10",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-11",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-02-12",
+      "expectedRoute": "business_operation",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-01",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-02",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-03",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-04",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-05",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-06",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-07",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-08",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-09",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-10",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-11",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-03-12",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-01",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-02",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-03",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-04",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-05",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-06",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-07",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-08",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-09",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-10",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-11",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-04-12",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-01",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-02",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-03",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-04",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-05",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-06",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-07",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-08",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-09",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-10",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-11",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-05-12",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-01",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-02",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-03",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-04",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-05",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-06",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-07",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-08",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-09",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-10",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-11",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-06-12",
+      "expectedRoute": "borrow_money",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-01",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-02",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-03",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-04",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-05",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-06",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-07",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-08",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-09",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-10",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-11",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-07-12",
+      "expectedRoute": "lend_money",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-01",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-02",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-03",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-04",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-05",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-06",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-07",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-08",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-09",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-10",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-11",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-08-12",
+      "expectedRoute": "debt_collection",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-01",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-02",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-03",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-04",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-05",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-06",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-07",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-08",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-09",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-10",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-11",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-09-12",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-01",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-02",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-03",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-04",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-05",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-06",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-07",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-08",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-09",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-10",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-11",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-10-12",
+      "expectedRoute": "partnership",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-01",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-02",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-03",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-04",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-05",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-06",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-07",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-08",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-09",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-10",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-11",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-11-12",
+      "expectedRoute": "investment_profit",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-01",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-02",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-03",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-04",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-05",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-06",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-07",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-08",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-09",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-10",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-11",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-12-12",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-01",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-02",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-03",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-04",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-05",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-06",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-07",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-08",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-09",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-10",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-11",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-13-12",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-01",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-02",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-03",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-04",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-05",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-06",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-07",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-08",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-09",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-10",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-11",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-14-12",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-01",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-02",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-03",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-04",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-05",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-06",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-07",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-08",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-09",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-10",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-11",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-15-12",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-01",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-02",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-03",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-04",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-05",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-06",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-07",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-08",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-09",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-10",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-11",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-16-12",
+      "expectedRoute": "income_salary",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-01",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-02",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-03",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-04",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-05",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-06",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-07",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-08",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-09",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-10",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-11",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-17-12",
+      "expectedRoute": "income_bonus",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-01",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-02",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-03",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-04",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-05",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-06",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-07",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-08",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-09",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-10",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-11",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-18-12",
+      "expectedRoute": "receive_item",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-01",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-02",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-03",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-04",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-05",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-06",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-07",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-08",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-09",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-10",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-11",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-19-12",
+      "expectedRoute": "item_purchase",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-01",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-02",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-03",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-04",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-05",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-06",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-07",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-08",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-09",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-10",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-11",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-20-12",
+      "expectedRoute": "relationship_development",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-01",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-02",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-03",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-04",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-05",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-06",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-07",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-08",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-09",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-10",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-11",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-21-12",
+      "expectedRoute": "marriage_match",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-01",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-02",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "role_explicit",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-03",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-04",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-05",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-06",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-07",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-08",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-09",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-10",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "semantic_paraphrase",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-11",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-K-22-12",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known_route",
+      "style": "boundary_contrast",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-01",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-02",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-03",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-04",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-05",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-06",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-07",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-08",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "credit_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-09",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-10",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-11",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-12",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-13",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-14",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-15",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-16",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": "debt_direction"
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-17",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-18",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-19",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-20",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-21",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-22",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-23",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-24",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-25",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-26",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-27",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-28",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-29",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-30",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-31",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-32",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-33",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-34",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-35",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-36",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-37",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-38",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-39",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-40",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-41",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-42",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-43",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-1-44",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-01",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-02",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-03",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-04",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-05",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-06",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-07",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-08",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-09",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-10",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-11",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-12",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-13",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-14",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-15",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-16",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-17",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-18",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-19",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-20",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-21",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-22",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-23",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-24",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-25",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-26",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-27",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-28",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-29",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-30",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-31",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-32",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-33",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-34",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-35",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-36",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-37",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-38",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-39",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-40",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-41",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-42",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-43",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-2-44",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-01",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-02",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-03",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-04",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-05",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-06",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-07",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-08",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-09",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-10",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-11",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-12",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-13",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-14",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-15",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-16",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-17",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-18",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-19",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-20",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-21",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-22",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-23",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-24",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-25",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-26",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-27",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-28",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-29",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-30",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-31",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-32",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-33",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-34",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-35",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-36",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-37",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-38",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-39",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-40",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-41",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-42",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-43",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    },
+    {
+      "id": "V013-V11-FI-C-N-3-44",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "style": "non_route",
+      "roleSafetyGroup": null
+    }
+  ],
+  "outputs": {
+    "training": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-training.json",
+    "calibration": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-calibration.json",
+    "audit": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-contamination-audit-v0.1.json",
+    "dataLock": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data.lock.json",
+    "reachability": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-reachability-audit-v0.1.json",
+    "reachabilityLock": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-reachability.lock.json",
+    "exposure": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-exposure-report-v0.1.json",
+    "model": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-model.json",
+    "weightsLock": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-model.lock.json",
+    "report": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-calibration-report.json",
+    "thresholdLock": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-threshold.lock.json"
+  },
+  "duplicatePolicy": {
+    "maximumCrossSplitSimilarityExclusive": 0.82,
+    "maximumHistoricalSimilarityExclusive": 0.84,
+    "normalization": "NFKC_lowercase_remove_whitespace_punctuation_symbols",
+    "limits": "exact and trigram audits cannot prove absence of every semantic paraphrase; separate authoring no-copy rule applies"
+  },
+  "auditOnlySources": [
+    {
+      "path": "data/liuyao-semantic-route-training-v0.1.json",
+      "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+      "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+      "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+      "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+      "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+      "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+      "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+      "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+      "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+      "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+      "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+      "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+      "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+      "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+      "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+      "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+      "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training-augmentation.json",
+      "sha256": "1fdcb6839859cb273b40113559c2aa02289884b180483983261848cb530940c6",
+      "gitBlobSha": "a4386f823161c02c5f5e41bfdc30605ea8028d82"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+      "sha256": "14e4daefc08cfdefcebcc53dec04b8c1466d91ecd99ca79897223ee60035599e",
+      "gitBlobSha": "9483acd17cd747acd7ee91a2c97a4d961687be49"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-training-augmentation.json",
+      "sha256": "f8436ebaa96644f438beb9269d61b96d59671a23b14094784a4d19653b66118f",
+      "gitBlobSha": "f4abaedbb1b10e59ce6eb05da34586fe1b8d064d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-calibration.json",
+      "sha256": "249a6b37ac69272e3c923fca0e1572d1f9a72b19162fd6d11453730115c47093",
+      "gitBlobSha": "6c2b746e9a22dfec5dca870b74a45dd8f0ed9018"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration.json",
+      "sha256": "d3c6926883a8d982b4e8d7b3dd1d30df66076cdfb52bbce483381224166c6de6",
+      "gitBlobSha": "84ff42aaf18c8e53bcf58fbc1bdb172a6af289fc"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json",
+      "sha256": "b1e843d01fe2c215a8dd3758a6e5c29bfbedfc2274908515c516d8130709cced",
+      "gitBlobSha": "563563b6cb003b493abbebbaa469f14aac861041"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-calibration.json",
+      "sha256": "22dd589521b2c191ead1dd99f70f17979423bcb132b461943ce24301c8914182",
+      "gitBlobSha": "8f07e017e90719a31aeee4504dea9ef36b8d1c31"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-authoring-v0.1.json",
+      "sha256": "bcdf98195e8fa074fdd8c6370913a247cf91387e5702b95e17064aa0056097fb",
+      "gitBlobSha": "fc785180e37051f1517318dce2a3012e812e3a0a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-calibration.json",
+      "sha256": "e3509ed5aec1fa2d05c0e6863122758365feed27b273280eac58c4cebde6735d",
+      "gitBlobSha": "edc5d84dbc297848b9f4cf022b91ef7e14730e4f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-authoring-v0.1.json",
+      "sha256": "40591520124d3f037814c6eb755aba7158a432592fc83acbb617868e1ea4858f",
+      "gitBlobSha": "1d5bd2feb6be1591aa7d10b007cdff31864b807f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-calibration.json",
+      "sha256": "37042adfe74a894a13b03005622e5706da57b6ced82023ed8025ce71cce3af85",
+      "gitBlobSha": "d3ce3477547b7d1022a10623af9f4d136a262607"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-authoring-v0.1.json",
+      "sha256": "2b5fc9b297726cd12ee1a5a6f3057ab4be19017be6fe983a6f18eaf322f0ba7d",
+      "gitBlobSha": "7e98172b9b3abb1a30a5b4f85d1d662c8e9646e3"
+    }
+  ],
+  "forbiddenNamePattern": "independent|blind|literature|research|next-topic|next-five",
+  "modelInputFields": [
+    "text"
+  ],
+  "modelTargetFields": [
+    "expectedRoute"
+  ],
+  "noEncoderBeforeDataCI": true,
+  "noSameVersionRepairAfterAudit": true,
+  "priorIncidentBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+    "sha256": "ed76f74848de36b1e8a4d5b37c3eed47d050cb294f3acde2c63abbc2a54852cc",
+    "gitBlobSha": "175fba5cbc301f8459c0e01129b48cc32297e60b"
+  },
+  "frozenArbitrationBinding": {
+    "path": "js/liuyao-semantic-route-arbitration-v014.js",
+    "sha256": "a6976ebcf37a7f3e60ae3303f0319b7b1a6b7d621bbf354441fe3e5cdd500041",
+    "gitBlobSha": "9f1da7b9f94704df4493bc7d81377a96210d24aa"
+  }
+}

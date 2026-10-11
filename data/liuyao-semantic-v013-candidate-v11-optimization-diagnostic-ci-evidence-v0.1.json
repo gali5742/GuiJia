@@ -1,0 +1,184 @@
+{
+  "status": "both_actual_ci_failed_original_loss_consistency_gate_preserved",
+  "runs": [
+    {
+      "runId": 38135073215,
+      "url": "https://github.com/gali5742/GuiJia/actions/runs/38135073215",
+      "status": "completed",
+      "conclusion": "failure",
+      "headSha": "33c75bbc389e82e540680520c8c59b831fa8b8ca",
+      "workflowPath": ".github/workflows/test.yml",
+      "jobs": [
+        {
+          "name": "train-only-diagnostic",
+          "conclusion": "failure",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prove isolated committed diagnostic source",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify train-only membership and analytic objective",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install pinned public encoder outside checkout",
+              "conclusion": "success"
+            },
+            {
+              "name": "Encode sealed training only and evaluate fixed old-head gradients",
+              "conclusion": "failure"
+            },
+            {
+              "name": "Replay immutable training cache without new encoder calls",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Seal train-only cache and diagnostic without modifying old weights",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Confirm committed training-only diagnostic",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v5",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "runId": 38135295259,
+      "url": "https://github.com/gali5742/GuiJia/actions/runs/38135295259",
+      "status": "completed",
+      "conclusion": "failure",
+      "headSha": "a7c8e2f578e96cb8d1d3858f539d79f7e7884812",
+      "workflowPath": ".github/workflows/test.yml",
+      "jobs": [
+        {
+          "name": "train-only-diagnostic",
+          "conclusion": "failure",
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/setup-node@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Prove isolated committed diagnostic source",
+              "conclusion": "success"
+            },
+            {
+              "name": "Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Verify train-only membership and analytic objective",
+              "conclusion": "success"
+            },
+            {
+              "name": "Install pinned public encoder outside checkout",
+              "conclusion": "success"
+            },
+            {
+              "name": "Encode sealed training only and evaluate fixed old-head gradients",
+              "conclusion": "success"
+            },
+            {
+              "name": "Replay immutable training cache without new encoder calls",
+              "conclusion": "success"
+            },
+            {
+              "name": "Seal train-only cache and diagnostic without modifying old weights",
+              "conclusion": "success"
+            },
+            {
+              "name": "Confirm committed training-only diagnostic",
+              "conclusion": "success"
+            },
+            {
+              "name": "Preserve original loss consistency gate after publishing evidence",
+              "conclusion": "failure"
+            },
+            {
+              "name": "Post Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Post Run actions/setup-node@v5",
+              "conclusion": "skipped"
+            },
+            {
+              "name": "Post Run actions/checkout@v5",
+              "conclusion": "success"
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "encoderInvocations": 4056,
+  "firstRunEncoderInvocations": 2028,
+  "secondRunEncoderInvocations": 2028,
+  "reportBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-report-v0.2.json",
+    "sha256": "4a005f78a307da0fa69f3381e51c883bde7c0be2e60e9393c0b12495c6972573",
+    "gitBlobSha": "63969f2bb51a1f842e452f957b1863cec4783d6f"
+  },
+  "cacheBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+    "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+    "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+  },
+  "cacheSealCommit": "6dfc1a2a1cec709e18f2a0b10382fd81e270aa8f",
+  "fixedCacheReproductionBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-reproduction-report-v0.1.json",
+    "sha256": "024f72507a6408ebf35bfeaa5afeb0fd4349d45a1bb5514c769be5b91d2b4670",
+    "gitBlobSha": "4b5a976096fa07a3b887bb738b4465cc2020c6ed"
+  },
+  "fixedCacheReproductionEncoderInvocations": 0,
+  "originalGateOverridden": false,
+  "originalTrainingVectorsAvailable": false,
+  "rootCauseOfCrossEncodingDriftProven": false
+}

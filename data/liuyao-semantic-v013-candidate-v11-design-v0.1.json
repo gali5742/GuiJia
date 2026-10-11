@@ -1,0 +1,311 @@
+{
+  "version": "0.13-candidate-v0.11-design-v0.1",
+  "status": "frozen_before_new_solver_weights_fresh_calibration_wording_or_scores",
+  "baselineCommit": "805e5f46b3f2989e99fed15e9dd3b2d7078f20e5",
+  "changeScope": "optimizer_only_same_convex_training_objective_and_train_only_membership",
+  "hypothesis": "Converging the unchanged weighted convex objective on a single sealed training-vector cache may improve identity separation; training convergence does not imply fresh calibration success.",
+  "algorithm": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v03.js",
+    "type": "22_independent_one_vs_rest_binary_logistic_heads",
+    "trainFromScratch": true,
+    "legacyWeightsReusable": false,
+    "hyperparameters": {
+      "l2": 0.00025,
+      "maxIterations": 1000,
+      "gradientInfinityTolerance": 1e-07,
+      "memory": 10,
+      "armijo": 0.0001,
+      "backtrackFactor": 0.5,
+      "initialStep": 1,
+      "minStep": 1e-12,
+      "maxLineSearchSteps": 50
+    },
+    "classBalancing": "each_head_positive_total_0.5_negative_total_0.5_after_coefficient_normalization",
+    "lossMultipliers": {
+      "sameConfusableFamily": 4,
+      "nonRoute": 4,
+      "other": 1
+    },
+    "confusableFamilies": [
+      [
+        "financial_fortune",
+        "income_salary",
+        "income_bonus",
+        "investment_profit",
+        "investment_price_trend"
+      ],
+      [
+        "business_operation",
+        "partnership",
+        "commercial_transaction"
+      ],
+      [
+        "inventory_purchase",
+        "inventory_sale",
+        "item_purchase",
+        "receive_item",
+        "commercial_transaction"
+      ],
+      [
+        "borrow_money",
+        "lend_money",
+        "debt_collection",
+        "debt_repayment"
+      ],
+      [
+        "investment_profit",
+        "investment_liquidation",
+        "investment_suitability",
+        "investment_position_decision",
+        "investment_price_trend"
+      ],
+      [
+        "relationship_development",
+        "marriage_match",
+        "marital_relationship"
+      ]
+    ],
+    "negativeCoefficientPolicy": "nonroute4; otherwise4_if_any_shared_frozen_family_else1; no_multiplication_for_multiple_shared_families; negative_total_weight_normalized_to0.5",
+    "features": [
+      "text_only_frozen_encoder_vector"
+    ],
+    "targets": [
+      "expectedRoute_only"
+    ],
+    "metadataWeightsUsed": false,
+    "biasRegularized": false,
+    "initialWeights": "all_zero_float64",
+    "gradients": "float64",
+    "checkpointOrHyperparameterSweep": false,
+    "optimizerChoiceBasis": "single_prespecified_hypothesis_after_train_only_exact_fixed_cache_reproduction_no_stationary_heads; no_calibration_feedback_or_sweep",
+    "objectivePath": "js/liuyao-semantic-fallback-objective-v01.js",
+    "optimizer": "LBFGS_with_Armijo_backtracking",
+    "parameters": "float64_including_bias",
+    "stopRule": "every_head_gradient_infinity_norm_at_most_1e-7; otherwise_preserve_nonconvergence_and_stop_before_calibration"
+  },
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "frozenBindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "gitBlobSha": "864d63dd23d56722a7d1cede553a6c8f123bedb0"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+      "sha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+      "gitBlobSha": "36eb8b252bf680650d49e4ac2b4e6ce5fecb6b69"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+      "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+      "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+      "sha256": "cff69bc0c8cfc4b5da30ff01482248d35aeb390db29499e7ebfffd3dc9e73c68",
+      "gitBlobSha": "642f123a6a515247da725b1381538d6bcf3ef980"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json",
+      "sha256": "14983f13fbae669d1bf5c3eacc3b7d3749785c16c4961169fb77d7b78989dad6",
+      "gitBlobSha": "0b001fb4e7e5f338b41540ae3599defacc979969"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+      "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v01.js",
+      "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078",
+      "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v02.js",
+      "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35",
+      "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v03.js",
+      "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5",
+      "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v011.js",
+      "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6",
+      "gitBlobSha": "04f0b45b2ea529342275aeb28c29a00e707af5bb"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v012.js",
+      "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60",
+      "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v013.js",
+      "sha256": "0e4107b70f2e567aaadb5908f74f51dbb1e032a1d511e0d3abeed61f3165f7dd",
+      "gitBlobSha": "6c3b4e1f1492e26f01d13d261f5232423b4582b2"
+    },
+    {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+      "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+      "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+      "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-bound.mjs",
+      "sha256": "c33e55b71ea55a7ca478bce8869e501f2bf02ce2d4189295eccf0fb643c434d5",
+      "gitBlobSha": "f9a098f93a3cdd8ef3ccc160c223223d58e1c315"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    {
+      "path": "data/liuyao-semantic-route-inventory-v0.2.json",
+      "sha256": "69b13d3316e34a67214c674a9bd43967222cfddda5a290e3a8de50aa5b66760c",
+      "gitBlobSha": "d2a95614f06bb057eadeca039d81ea795be2af62"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-regression-read-incident-v0.1.json",
+      "sha256": "ed76f74848de36b1e8a4d5b37c3eed47d050cb294f3acde2c63abbc2a54852cc",
+      "gitBlobSha": "175fba5cbc301f8459c0e01129b48cc32297e60b"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v014.js",
+      "sha256": "a6976ebcf37a7f3e60ae3303f0319b7b1a6b7d621bbf354441fe3e5cdd500041",
+      "gitBlobSha": "9f1da7b9f94704df4493bc7d81377a96210d24aa"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-ci-evidence-v0.1.json",
+      "sha256": "83bd47aad2c713c07ffe254fc92e176c31968aa84bdd5cb05cd29760ea645848",
+      "gitBlobSha": "8819f64c9676667dd8f10e30ac61f83ec0be6a64"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-reproduction-contract-v0.1.json",
+      "sha256": "9925c24f5ba756b631a41fa0711938a946524dba09950a2e8033b29af4418e00",
+      "gitBlobSha": "e557d313b15e1f8181118b4769cba0eecee796ac"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-reproduction-report-v0.1.json",
+      "sha256": "024f72507a6408ebf35bfeaa5afeb0fd4349d45a1bb5514c769be5b91d2b4670",
+      "gitBlobSha": "4b5a976096fa07a3b887bb738b4465cc2020c6ed"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+      "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+      "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache-v0.2.lock.json",
+      "sha256": "314b7945d1172b35229d97e8a7fee0d9896caf25fdd2219c5f944a92c23b87da",
+      "gitBlobSha": "0bdb82886a05dad8e246258274d0f92e1ca26b9d"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-objective-v01.js",
+      "sha256": "6e28b70d5731374a307ec5ca936095615c4b7f4081045a670c46b551e9dfb3c7",
+      "gitBlobSha": "94210a19827bd52d3305da896069c4daf1ccc267"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+      "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+      "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+    }
+  ],
+  "training": {
+    "rows": 2028,
+    "known": 1553,
+    "nonRoute": 475,
+    "reusedTrainOnlyRows": 2028,
+    "newLiteralRows": 0,
+    "trainFromZero": true,
+    "oldWeightsReusable": false,
+    "calibrationRowsUsedForTraining": 0,
+    "trainingEncoderInvocations": 0,
+    "vectorCacheBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+      "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+      "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+    },
+    "vectorCacheLockBinding": {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache-v0.2.lock.json",
+      "sha256": "314b7945d1172b35229d97e8a7fee0d9896caf25fdd2219c5f944a92c23b87da",
+      "gitBlobSha": "0bdb82886a05dad8e246258274d0f92e1ca26b9d"
+    }
+  },
+  "calibration": {
+    "rows": 396,
+    "known": 264,
+    "nonRoute": 132,
+    "knownPerRoute": 12,
+    "nonRoutePerSubtype": 44,
+    "creditDirection": 8,
+    "debtDirection": 8,
+    "knownStyles": {
+      "role_explicit": 2,
+      "semantic_paraphrase": 8,
+      "boundary_contrast": 2
+    },
+    "countChoice": "same_balanced396_raw_allocation_frozen_before_fresh_wording_and_scoring"
+  },
+  "governance": {
+    "oldVersionsImmutable": true,
+    "originalLossConsistencyGateStillFailed": true,
+    "fixedCacheControlDoesNotOverrideOriginalGate": true,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "noSameVersionRepair": true,
+    "noSweep": true,
+    "phaseCAllowedOnlyAfterComponentLocks": true
+  },
+  "executionOrder": [
+    "freeze_design_and_allocation",
+    "author_fresh396_literal_questions",
+    "freeze_implementation",
+    "actual_data_ci_and_seal",
+    "freeze_upstream_contract",
+    "actual396_encoder_calls_and_gate",
+    "commit_all_conditional_members_before_weights",
+    "freeze_training_contract",
+    "train_all22_from_zero_on_sealed2028_vectors",
+    "require_all22_stationarity_and_commit_weights_before_scores",
+    "calibrate_all396_cached_raw_vectors_frozen_policy",
+    "preserve_pass_or_failure_without_same_version_repair"
+  ],
+  "runtimeClaim": "Codex GPT-6-based session; exact variant unavailable; GPT-6.1 Sol not claimed",
+  "pageId": null
+}
