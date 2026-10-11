@@ -1,0 +1,460 @@
+{
+  "version": "0.1-fixed-existing-evidence-role-target-development-probe",
+  "status": "labels_metrics_projection_and_stop_rule_frozen_before_literal_wording_or_outputs",
+  "date": "2026-10-12",
+  "timezone": "Asia/Tokyo",
+  "baselineCommit": "503e68efc9066124b22ea3ab3c3480d302ab4d27",
+  "scope": "28 freshly authored development questions; inspect frozen V03 evidence via an explicitly defined lossy projection, not a new NLP model or original production routing",
+  "rows": 28,
+  "allocation": [
+    {
+      "id": "RTEX-01",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-02",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-03",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-04",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-05",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-06",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-07",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-08",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-09",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-10",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-11",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-12",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-13",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-14",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-15",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-16",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "unspecified",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-17",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-18",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-19",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-20",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-21",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-22",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        },
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-23",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-24",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-25",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "other_subject"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-26",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "other_subject"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-27",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ]
+    },
+    {
+      "id": "RTEX-28",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ]
+    }
+  ],
+  "projectionRules": [
+    {
+      "field": "directions",
+      "tag": "funds_inward",
+      "goal": {
+        "intent": "new_credit",
+        "role": "self_receives"
+      }
+    },
+    {
+      "field": "directions",
+      "tag": "funds_outward",
+      "goal": {
+        "intent": "new_credit",
+        "role": "self_provides"
+      }
+    },
+    {
+      "field": "currentTargets",
+      "tag": "debt_collection",
+      "goal": {
+        "intent": "existing_debt",
+        "role": "self_creditor"
+      }
+    },
+    {
+      "field": "directions",
+      "tag": "debtor_outward",
+      "goal": {
+        "intent": "existing_debt",
+        "role": "self_debtor"
+      }
+    },
+    {
+      "field": "events",
+      "tag": "business_operation",
+      "goal": {
+        "intent": "business_operation",
+        "role": "unknown"
+      }
+    },
+    {
+      "field": "currentTargets",
+      "tag": "profit",
+      "requires": {
+        "field": "domains",
+        "tag": "investment"
+      },
+      "goal": {
+        "intent": "investment_return",
+        "role": "unknown"
+      }
+    }
+  ],
+  "projectionLimits": [
+    "Flat evidence tags have no per-goal participant binding, spans, current/background exclusion, or primary-goal inventory.",
+    "Mapping a direction tag to a self-role is an assumption of this diagnostic projection, not evidence of correct participant extraction.",
+    "Projected facts remain unverified with empty semantic spans; no invented spans or manual_annotation labels.",
+    "Comparison uses multisets; two active goals of one intent must not collapse.",
+    "third_party gold other_subject is diagnostic only, never passed as a supported gate role."
+  ],
+  "metrics": [
+    "exact intent/role multiset",
+    "exact intent-only multiset",
+    "missing and extra intent counts",
+    "missing and extra intent/role facts",
+    "contradictory asserted money roles among same-intent gold goals",
+    "unknown-role assertion rows",
+    "group results including all four multi-goal rows",
+    "all unverified packets block both branches"
+  ],
+  "decisionRule": {
+    "maximumFirstOutputRuns": 1,
+    "sameVersionFeedbackRepairAllowed": false,
+    "minimumForFurtherAutomaticExtractionConsideration": {
+      "all28Exact": true,
+      "all4MultipleExact": true,
+      "zeroContradictoryRoleRows": true,
+      "zeroUnknownRoleAssertionRows": true
+    },
+    "ifAnyFailure": "stop automatic-extraction advancement; prefer explicit user confirmation; retain failures without regex repair",
+    "ifNoFailure": "only consider separately validated extraction; 28 development rows do not justify automatic permissions"
+  },
+  "frozenBindings": [
+    {
+      "path": "js/liuyao-semantic-route-evidence-v01.js",
+      "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078",
+      "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v02.js",
+      "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35",
+      "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v03.js",
+      "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5",
+      "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+      "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+      "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+    },
+    {
+      "path": "js/liuyao-semantic-role-target-gate-v01.js",
+      "sha256": "2b678498a6111077489334503d2cdb4fc3a17529204e80bd72769af24f855df9",
+      "gitBlobSha": "29340b9e0ec42671506becd1c2c8fe1c2a65809f"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    }
+  ],
+  "auditComparators": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-authoring.json",
+      "sha256": "def43ac70d5aad23a9864117fdca4973dc3b68e951fc401bc9880c7992f72fec",
+      "gitBlobSha": "eaf3b18df58c3b105ff05d4bad0b04e12b49c5d6"
+    }
+  ],
+  "duplicatePolicy": {
+    "normalization": "NFKC_lowercase_remove_whitespace_punctuation_symbols",
+    "similarity": "character_trigram_jaccard",
+    "maximumExclusive": 0.82,
+    "coverage": "only fresh internal, sealed TRAIN2028 and previous boundary development60; not all historical wordings",
+    "failure": "preserve failure and stop before first outputs; do not repair same version"
+  },
+  "authoringPath": "data/liuyao-semantic-role-target-extraction-probe-v0.1-authoring.json",
+  "executionPath": "data/liuyao-semantic-role-target-extraction-probe-v0.1-execution.json",
+  "reportPath": "data/liuyao-semantic-role-target-extraction-probe-v0.1-report.json",
+  "failurePath": "data/liuyao-semantic-role-target-extraction-probe-v0.1-audit-failure.json",
+  "governance": {
+    "trainingFits": 0,
+    "encoderInvocations": 0,
+    "thresholdSearch": false,
+    "formalComponentsChanged": false,
+    "productionIntegrated": false,
+    "componentPass": false,
+    "phaseCAllowed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "sameAuthorAndLabeler": true,
+    "independentValidation": false,
+    "priorFailuresPreserved": true
+  }
+}
