@@ -1,0 +1,219 @@
+{
+  "version": "0.1-small-boundary-responsibility-review",
+  "status": "stop_optimizer_as_primary_direction_prioritize_roles_targets_and_abstention",
+  "postHocAnalysis": true,
+  "prespecifiedOutcome": "optimizer_hypothesis_not_supported_under_prespecified_boundary_rule",
+  "prespecifiedChecks": {
+    "knownUniqueCorrectImproves": true,
+    "knownUniqueAcceptedPrecisionDoesNotDecline": false,
+    "nonRouteUniqueActivationDoesNotIncrease": true,
+    "conservativeNonRouteSelectionDoesNotIncrease": true
+  },
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-design.json",
+      "sha256": "058f470e11d0bce14d5b1c28c2d3163022f578d6f2e452fbcf182082a5df49dc",
+      "gitBlobSha": "1c06e4b1aa6330107ffef0c9619108b1977bb4ce"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-execution.json",
+      "sha256": "369232744bc7264aa7b6f08b48883eb3c56837fa3edf79b84e07dabbf94b17da",
+      "gitBlobSha": "a0c60e38b6b950570540df51cd48754e5b1f1f4e"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-authoring.json",
+      "sha256": "def43ac70d5aad23a9864117fdca4973dc3b68e951fc401bc9880c7992f72fec",
+      "gitBlobSha": "eaf3b18df58c3b105ff05d4bad0b04e12b49c5d6"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-data-audit.json",
+      "sha256": "406136b15cff296b4670251cd32770e813f06c41c61124e8f953870e182c13cb",
+      "gitBlobSha": "1bfc1cc4aa7e84a97eac6b4450baf889441f91c0"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-cache.json",
+      "sha256": "cf622170287536f17d6be4dc8b207d397fb8330d8f7dd9cce3a1547ac1f1eb7d",
+      "gitBlobSha": "64560a46183597ae7b4f1e14d6f25f736822fb66"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-report.json",
+      "sha256": "7555e4dfa10fa689c3e1b1854c55f06eefc628772d0be568ffdf83d1f0e6709e",
+      "gitBlobSha": "394b73e8a95573c84f943ea239a0a3642e3af574"
+    },
+    {
+      "path": "data/liuyao-semantic-boundary-probe-v0.1-ci-evidence.json",
+      "sha256": "0497d9e17587dd9c107e8d3ba70daa8a1004b4ce53ebe7fc93d7c580a2a0c3a2",
+      "gitBlobSha": "4de8cbc58e6ced273476e20199a90e757f38222e"
+    }
+  ],
+  "pairedKnown": {
+    "gainedCorrectIds": [
+      "BPROBE01-K-01",
+      "BPROBE01-K-02",
+      "BPROBE01-K-04",
+      "BPROBE01-K-07",
+      "BPROBE01-K-08",
+      "BPROBE01-K-16",
+      "BPROBE01-K-19",
+      "BPROBE01-K-21",
+      "BPROBE01-K-22",
+      "BPROBE01-K-25",
+      "BPROBE01-K-31",
+      "BPROBE01-K-32"
+    ],
+    "lostCorrectIds": [
+      "BPROBE01-K-34"
+    ],
+    "newWrongUniqueSelections": [
+      {
+        "id": "BPROBE01-K-05",
+        "group": "credit_direction_known",
+        "expectedRoute": "borrow_money",
+        "reachesFallback": true,
+        "oldAdmitted": [
+          "lend_money",
+          "debt_collection",
+          "debt_repayment"
+        ],
+        "newAdmitted": [
+          "lend_money"
+        ],
+        "oldSelected": null,
+        "newSelected": "lend_money",
+        "oldPotentialPath": {
+          "route": null,
+          "source": "fallback_if_unique"
+        },
+        "newPotentialPath": {
+          "route": "lend_money",
+          "source": "fallback_if_unique"
+        }
+      },
+      {
+        "id": "BPROBE01-K-20",
+        "group": "debt_direction_known",
+        "expectedRoute": "debt_repayment",
+        "reachesFallback": true,
+        "oldAdmitted": [
+          "debt_collection",
+          "debt_repayment"
+        ],
+        "newAdmitted": [
+          "debt_collection"
+        ],
+        "oldSelected": null,
+        "newSelected": "debt_collection",
+        "oldPotentialPath": {
+          "route": null,
+          "source": "fallback_if_unique"
+        },
+        "newPotentialPath": {
+          "route": "debt_collection",
+          "source": "fallback_if_unique"
+        }
+      }
+    ]
+  },
+  "nonRoute": {
+    "rawRows": 24,
+    "reachesFallback": 19,
+    "newPotentialSelections": 9,
+    "unchangedFixedArbitrationSelections": [
+      {
+        "id": "BPROBE01-N-19",
+        "group": "multiple_active_goals",
+        "expectedRoute": null,
+        "reachesFallback": false,
+        "oldAdmitted": [
+          "debt_collection"
+        ],
+        "newAdmitted": [
+          "debt_collection"
+        ],
+        "oldSelected": "debt_collection",
+        "newSelected": "debt_collection",
+        "oldPotentialPath": {
+          "route": "borrow_money",
+          "source": "frozen_Arbitration"
+        },
+        "newPotentialPath": {
+          "route": "borrow_money",
+          "source": "frozen_Arbitration"
+        }
+      },
+      {
+        "id": "BPROBE01-N-22",
+        "group": "multiple_active_goals",
+        "expectedRoute": null,
+        "reachesFallback": false,
+        "oldAdmitted": [
+          "borrow_money",
+          "debt_collection"
+        ],
+        "newAdmitted": [
+          "borrow_money",
+          "debt_collection"
+        ],
+        "oldSelected": null,
+        "newSelected": null,
+        "oldPotentialPath": {
+          "route": "debt_collection",
+          "source": "frozen_Arbitration"
+        },
+        "newPotentialPath": {
+          "route": "debt_collection",
+          "source": "frozen_Arbitration"
+        }
+      }
+    ],
+    "newStandaloneUniqueIdsFromPriorAbstention": [
+      "BPROBE01-N-01",
+      "BPROBE01-N-02",
+      "BPROBE01-N-06",
+      "BPROBE01-N-10"
+    ],
+    "stoppedStandaloneUniqueIds": [
+      "BPROBE01-N-04",
+      "BPROBE01-N-08",
+      "BPROBE01-N-09",
+      "BPROBE01-N-20",
+      "BPROBE01-N-24"
+    ]
+  },
+  "interpretation": [
+    "Optimization increases admission but does not resolve directional interpretation or safe abstention on these targeted new questions.",
+    "Two prior multiple-admission known questions became confidently wrong single selections.",
+    "Two fixed Arbitration selections on multiple-goal questions cannot be repaired by changing fallback heads or their threshold.",
+    "Binary upstream sufficiency allowed19_of24 deliberately unresolved inputs into fallback.",
+    "Small targeted same-author development probe has no statistical power or scope for population generalization claims.",
+    "Fixed0.5 diagnostic does not establish feasibility or infeasibility of other thresholds."
+  ],
+  "nextResearchContractDraft": {
+    "notImplemented": true,
+    "primaryTarget": "require explicit single active question target and required participant roles consistently before either Arbitration or Fallback selection",
+    "roleRequirements": {
+      "borrow_money": "questioner_receives_new_borrowed_funds",
+      "lend_money": "questioner_provides_new_borrowed_funds",
+      "debt_collection": "questioner_is_creditor_of_existing_debt",
+      "debt_repayment": "questioner_is_debtor_of_existing_debt"
+    },
+    "unresolvedAction": "request_one_role_or_primary_target_clarification_instead_of_selecting_a_route",
+    "scope": "design_and_small_diagnostic_prototype_only; frozen_production_chain_and_all22_business_thresholds_remain_unchanged",
+    "avoid": "adding_phrase_specific_rules_to_patch_this_probe; refitting_heads_or_searching_thresholds"
+  },
+  "governance": {
+    "originalDataAndHeadsImmutable": true,
+    "sameVersionRepair": false,
+    "newTrainingFits": 0,
+    "thresholdSearch": false,
+    "additionalEncoderInvocations": 0,
+    "componentPass": false,
+    "phaseCAllowed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "priorReadIncidentsPreserved": true,
+    "modelVariant": "Codex GPT-6-based session; exact variant unavailable; GPT-6.1 Sol not claimed",
+    "pageId": null
+  }
+}

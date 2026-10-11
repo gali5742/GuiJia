@@ -1,0 +1,111 @@
+{
+  "version": "0.1-small-boundary-ci-evidence",
+  "status": "actual_diagnostic_execution_succeeded_direction_support_condition_not_met",
+  "runId": 38144431596,
+  "url": "https://github.com/gali5742/GuiJia/actions/runs/38144431596",
+  "actualConclusion": "success",
+  "actualStatus": "completed",
+  "sourceCommit": "abe50646d8995eeef4b8403fc645cbe719c08ed2",
+  "wrapperCommit": "55e50138b724d21a31bf362a6e610f24ca27eee6",
+  "workflowPath": ".github/workflows/test.yml",
+  "frozenWorkflowBinding": {
+    "path": ".github/workflows/liuyao-semantic-boundary-probe-v01.yml",
+    "sha256": "03e0660db3f3caabfae9d9522efa488026f01d56297f335503e17afa8002ef95",
+    "gitBlobSha": "78822954519a4829220832c9723c4cef4c737514"
+  },
+  "executionBinding": {
+    "path": "data/liuyao-semantic-boundary-probe-v0.1-execution.json",
+    "sha256": "369232744bc7264aa7b6f08b48883eb3c56837fa3edf79b84e07dabbf94b17da",
+    "gitBlobSha": "a0c60e38b6b950570540df51cd48754e5b1f1f4e"
+  },
+  "cacheBinding": {
+    "path": "data/liuyao-semantic-boundary-probe-v0.1-cache.json",
+    "sha256": "cf622170287536f17d6be4dc8b207d397fb8330d8f7dd9cce3a1547ac1f1eb7d",
+    "gitBlobSha": "64560a46183597ae7b4f1e14d6f25f736822fb66"
+  },
+  "reportBinding": {
+    "path": "data/liuyao-semantic-boundary-probe-v0.1-report.json",
+    "sha256": "7555e4dfa10fa689c3e1b1854c55f06eefc628772d0be568ffdf83d1f0e6709e",
+    "gitBlobSha": "394b73e8a95573c84f943ea239a0a3642e3af574"
+  },
+  "sealCommit": "a377ff10d67674ed09c18c0bfbe70f67cdd2f781",
+  "jobs": [
+    {
+      "name": "bounded-paired-diagnostic",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prove isolated committed diagnostic source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Replay contamination audit and test frozen upstream permissions",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned encoder outside checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Encode sixty frozen questions once and score both immutable all22 controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Replay full membership, upstream and paired scores with zero new encoding",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve diagnostic result without retraining or semantic repair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify committed diagnostic and clean checkout",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 22,
+    "passed": 22,
+    "failed": 0
+  },
+  "encoderInvocations": 60,
+  "newTrainingFits": 0,
+  "thresholdsSearched": 0,
+  "localCommittedReplay": "all60_members_upstream_all22_paired_scores_and_prespecified_rule_verified_without_encoder_or_fit",
+  "componentPassClaimed": false,
+  "integratedPassClaimed": false
+}
