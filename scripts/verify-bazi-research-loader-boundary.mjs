@@ -112,8 +112,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.39'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.39');
+if (!bootstrap.includes("const VERSION = '0.40'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.40');
 }
 
 const requiredTail = Object.freeze([
@@ -196,7 +196,10 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-source-officer-killer-nonrealization.js',
     'js/bazi-contextual-force-party-transformed-source-blade-identity-audit-contract.js',
     'js/bazi-contextual-force-party-transformed-source-blade-identity-audit-profile.js',
-    'js/bazi-contextual-force-party-transformed-source-blade-identity-audit.js'
+    'js/bazi-contextual-force-party-transformed-source-blade-identity-audit.js',
+    'js/bazi-contextual-force-party-transformation-result-identity-contract.js',
+    'js/bazi-contextual-force-party-transformation-result-identity-profile.js',
+    'js/bazi-contextual-force-party-transformation-result-identity.js'
 ]);
 let previousTailIndex = -1;
 for (const relative of requiredTail) {
