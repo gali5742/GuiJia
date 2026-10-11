@@ -1,0 +1,30 @@
+{
+  "version": "0.13-candidate-v0.9-fallback-v0.7-weights-lock-v0.1",
+  "status": "weights_locked_before_any_fallback_calibration_scores",
+  "modelBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.json",
+    "sha256": "0e1cf9222d943a0cce040cc4f0054577e6c2be1ceb78cfa6dc0a5aed2d7e132f",
+    "gitBlobSha": "ca067d3494030c52ab71497bdd2a90ceb81c5066"
+  },
+  "trainingExecutionBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-training-execution-contract-v0.1.json",
+    "sha256": "9fe0135acb112651430341a3fc98d32579f398a0cc4e4a03f96c87d046f7c201",
+    "gitBlobSha": "4cebc28884c12648ae3dfd0e5c2e6b280a67958d"
+  },
+  "dataLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.lock.json",
+    "sha256": "8adf14d1d2edd05e567f71bf5587bbd53124fe5c589120028ef8b46fd858a0f8",
+    "gitBlobSha": "caa747b20500a7bb5f283025c876d42d4c1b0d0d"
+  },
+  "reachabilityLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-reachability.lock.json",
+    "sha256": "3cb693ccf53bc5b939d975bd41d481900529d41336ad5bce24c92ca28322bdae",
+    "gitBlobSha": "a742d2f04c79288e4ab546f99537f672de00a379"
+  },
+  "parametersSha256": "b4fd5e03aafcac295b38fff3af463c453f99b2e49e2e07a54ebf63ed2752e2a2",
+  "trainingRows": 1698,
+  "headCount": 22,
+  "thresholdSelected": false,
+  "calibrationProbabilitiesScored": false,
+  "legacyWeightsReused": false
+}
