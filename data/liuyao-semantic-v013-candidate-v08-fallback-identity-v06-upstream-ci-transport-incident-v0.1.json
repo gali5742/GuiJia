@@ -1,0 +1,94 @@
+{
+  "version": "0.13-candidate-v0.8-upstream-CI-transport-incident-v0.1",
+  "status": "preserved_infrastructure_failure_after_encoding_before_bot_cache_commit",
+  "CI": {
+    "id": 38115691756,
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "c01810b50cf45e598ed38b27e90ee7c7daae524c",
+    "head_branch": "codex/v08-upstream-ci-89c6fd9c",
+    "path": ".github/workflows/test.yml",
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38115691756"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify isolated registered entry and committed execution source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Checkout exact frozen audit source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify complete seal and actual successful data CI before encoding",
+      "conclusion": "success"
+    },
+    {
+      "name": "Check cache integrity, exposure stop and frozen policy",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install pinned public encoder runtime outside checkout",
+      "conclusion": "success"
+    },
+    {
+      "name": "Encode all 308 sealed raw rows once and audit frozen upstream",
+      "conclusion": "success"
+    },
+    {
+      "name": "Replay upstream, entire raw membership and frozen exposure with zero new encoder calls",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Commit immutable vectors, membership and exposure before any weight training",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Confirm committed evidence and clean worktree",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Reject weight training if coverage or raw safety lower bound fails",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Checkout exact frozen audit source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "encoderInvocations": 308,
+  "cachePublished": false,
+  "newWeightsTrained": false,
+  "calibrationScoringOccurred": false,
+  "cause": "precommit replay CLI default required outputs in HEAD; the generated cache was still untracked; missing --uncommitted-outputs in workflow replay step",
+  "repairScope": "new versioned CI transport workflow uses uncommitted replay before bot commit, committed replay afterwards; all semantics data labels numeric gates and frozen execution inputs unchanged",
+  "futureSuccessfulAuditRequiresAdditionalEncoderInvocations": 308,
+  "semanticFeedbackUsedForRepair": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "priorReadIncidentPreserved": true
+}
