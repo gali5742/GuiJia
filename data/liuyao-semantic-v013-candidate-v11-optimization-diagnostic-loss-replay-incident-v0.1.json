@@ -1,0 +1,95 @@
+{
+  "version": "0.13-candidate-v0.11-diagnostic-loss-replay-incident-v0.1",
+  "status": "original_diagnostic_failed_loss_reconstruction_before_cache_publication",
+  "sourceCommit": "9ea7294280ad04de55d2e290b1bf82fb1fe703fe",
+  "CI": {
+    "id": 38135073215,
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "33c75bbc389e82e540680520c8c59b831fa8b8ca",
+    "head_branch": "codex/v11-diagnostic-ci-9ea72942",
+    "event": "workflow_dispatch",
+    "path": ".github/workflows/test.yml",
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38135073215"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Prove isolated committed diagnostic source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify train-only membership and analytic objective",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install pinned public encoder outside checkout",
+      "conclusion": "success"
+    },
+    {
+      "name": "Encode sealed training only and evaluate fixed old-head gradients",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Replay immutable training cache without new encoder calls",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Seal train-only cache and diagnostic without modifying old weights",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Confirm committed training-only diagnostic",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "originalContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-contract-v0.1.json",
+    "sha256": "b02d7fa0d2a5a1211bb29eede4b275d408928a8f93e8be73c96f4a9e9ed2c5da",
+    "gitBlobSha": "3e85218cfd32c3ebfa2664d39864935318023fc6"
+  },
+  "encoderInvocationsCompleted": 2028,
+  "encoderCompletionProof": "Actual failed step log reports trainingEncoderInvocations:2028,total:2028 before Training objective reconstruction drift at diagnostics.",
+  "cacheWrittenOnRunnerButNotPublished": true,
+  "newWeightsTrained": false,
+  "calibrationQuestionsRead": false,
+  "calibrationVectorsRead": false,
+  "mathematicalControl": {
+    "syntheticFrozenV02TrainHeadLoss": 0.05344286409416514,
+    "replayedObjectiveLoss": 0.05344286409416514,
+    "difference": 0
+  },
+  "cause": "Loss mismatch on newly encoded real training vectors; magnitude and cause were not retained by original exception. Synthetic objective matches frozen trainer exactly. No original-training stationarity inference is justified yet.",
+  "remedy": "Versioned diagnostic transport publishes cache and exact per-head mismatch before enforcing the identical 1e-6 loss gate. No objective, class weighting, model, training rows, encoder or tolerance is changed."
+}
