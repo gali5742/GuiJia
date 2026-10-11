@@ -123,6 +123,9 @@ jobs:
       - name: Source Branch Restraint Nonrealization regression
         run: node tests/bazi-contextual-force-party-source-branch-restraint-nonrealization-tests.js
 
+      - name: Source Seal Obstruction Contrast regression
+        run: node tests/bazi-contextual-force-party-source-seal-obstruction-contrast-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
