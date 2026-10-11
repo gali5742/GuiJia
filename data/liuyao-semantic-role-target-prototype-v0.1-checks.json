@@ -1,0 +1,72 @@
+{
+  "version": "0.1-role-target-local-validation",
+  "date": "2026-10-12",
+  "timezone": "Asia/Tokyo",
+  "status": "standalone_interface_checked_not_raw_language_evaluation",
+  "implementationCommit": "72efa7c85ba36d3cb62ece611cb3a6ace924d6ff",
+  "tests": {
+    "runner": "node --test tests/liuyao-semantic-role-target-gate-v01-tests.mjs",
+    "executed": 22,
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0
+  },
+  "runtime": {
+    "nodeVersion": "v22.23.3",
+    "platform": "linux"
+  },
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-role-target-prototype-v0.1-contract.json",
+      "sha256": "425d75d3b0adf7cebd7d0cbdcfaf5ae50fd6348577cf5892cbb3e507003f2d51",
+      "gitBlobSha": "3c1344528fd79fbe49f5c64f6e724843651ba04e"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-prototype-v0.1-demonstrations.json",
+      "sha256": "5e6b8472421732549366485ff62674187a8d3856bbc511bd5186547a9d87c5ba",
+      "gitBlobSha": "234f50b81f70b69b08bc7f09d0d62743b878d731"
+    },
+    {
+      "path": "js/liuyao-semantic-role-target-gate-v01.js",
+      "sha256": "2b678498a6111077489334503d2cdb4fc3a17529204e80bd72769af24f855df9",
+      "gitBlobSha": "29340b9e0ec42671506becd1c2c8fe1c2a65809f"
+    },
+    {
+      "path": "scripts/demo-liuyao-semantic-role-target-v01.mjs",
+      "sha256": "fc0f92d4e2a61e4aa6484f406726a64d29b8ac33aee12f3f86a8989b8d98a87e",
+      "gitBlobSha": "7776b5324c1d77ad0b886f8c15c6a66c6def9a09"
+    },
+    {
+      "path": "tests/liuyao-semantic-role-target-gate-v01-tests.mjs",
+      "sha256": "e3765cb237936cc30173ec0446b65d8329002b5ef6ca79dafb884d3c1b1b2b86",
+      "gitBlobSha": "775f6cde711f0692203f3c54c88c7afee0ae5191"
+    },
+    {
+      "path": "docs/LIUYAO_SEMANTIC_ROLE_TARGET_PROTOTYPE_V01.md",
+      "sha256": "b28e04f05d1b23ca0744a7f988df5b46107fff4990858c30b49f593eaa584a86",
+      "gitBlobSha": "f11dbddaedd9eb27f51ce9327a0fdf18eb405153"
+    }
+  ],
+  "demonstrations": {
+    "type": "post_feedback_manual_annotation_and_simulated_user_confirmation",
+    "cases": 4,
+    "semanticAccuracyMeasured": false
+  },
+  "governance": {
+    "newTrainingFits": 0,
+    "newEncoderInvocations": 0,
+    "thresholdSearch": false,
+    "productionIntegrated": false,
+    "formalComponentsChanged": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "previousFailuresPreserved": true,
+    "componentPassClaimed": false,
+    "phaseCAllowed": false
+  },
+  "actualCloudCIExecuted": false,
+  "rawLanguageExtractionImplemented": false,
+  "productionIntegrated": false,
+  "nextAction": "validate_role_and_active_target_extraction_with_separate_small_fresh_development_inputs_before_production_integration"
+}

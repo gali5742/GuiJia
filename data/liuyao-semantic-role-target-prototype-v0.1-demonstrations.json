@@ -1,0 +1,460 @@
+{
+  "version": "0.1-role-target-interface-demonstrations",
+  "status": "interface_regressions_and_user_confirmation_flow_verified",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-role-target-prototype-v0.1-contract.json",
+    "sha256": "425d75d3b0adf7cebd7d0cbdcfaf5ae50fd6348577cf5892cbb3e507003f2d51",
+    "gitBlobSha": "3c1344528fd79fbe49f5c64f6e724843651ba04e"
+  },
+  "moduleBinding": {
+    "path": "js/liuyao-semantic-role-target-gate-v01.js",
+    "sha256": "2b678498a6111077489334503d2cdb4fc3a17529204e80bd72769af24f855df9",
+    "gitBlobSha": "29340b9e0ec42671506becd1c2c8fe1c2a65809f"
+  },
+  "scriptBinding": {
+    "path": "scripts/demo-liuyao-semantic-role-target-v01.mjs",
+    "sha256": "fc0f92d4e2a61e4aa6484f406726a64d29b8ac33aee12f3f86a8989b8d98a87e",
+    "gitBlobSha": "7776b5324c1d77ad0b886f8c15c6a66c6def9a09"
+  },
+  "sourceCommit": "72efa7c85ba36d3cb62ece611cb3a6ace924d6ff",
+  "regressions": [
+    {
+      "id": "BPROBE01-K-05",
+      "demonstrationType": "post_feedback_manual_fact_regression_not_raw_extraction_evaluation",
+      "manualPacket": {
+        "questionId": "BPROBE01-K-05",
+        "questionText": "想问爸爸肯不肯把他存着的那笔钱先借给我，等我发工资再还？",
+        "revision": 0,
+        "goalInventorySource": "manual_annotation",
+        "goals": [
+          {
+            "id": "borrow",
+            "label": "问爸爸能否借钱给我",
+            "intent": {
+              "value": "new_credit",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 2,
+                  "end": 19
+                }
+              ]
+            },
+            "role": {
+              "value": "self_receives",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 2,
+                  "end": 19
+                }
+              ]
+            }
+          }
+        ],
+        "primaryGoalId": null,
+        "answers": []
+      },
+      "candidateSource": "Fallback",
+      "previousSelection": {
+        "route": "lend_money",
+        "source": "fallback_if_unique"
+      },
+      "gateOutcome": {
+        "status": "abstain",
+        "reason": "candidate_conflicts_with_confirmed_role_or_target",
+        "primaryGoalId": "borrow",
+        "confirmedRoute": "borrow_money",
+        "selectedRoute": null,
+        "permissions": {
+          "roleAndTargetConfirmed": true,
+          "mayRunArbitration": true,
+          "mayRunFallback": true,
+          "maySelectRoute": false
+        }
+      }
+    },
+    {
+      "id": "BPROBE01-K-20",
+      "demonstrationType": "post_feedback_manual_fact_regression_not_raw_extraction_evaluation",
+      "manualPacket": {
+        "questionId": "BPROBE01-K-20",
+        "questionText": "进货时拖欠了厂家的尾款，这次由我付款，能赶在约定期限前结清吗？",
+        "revision": 0,
+        "goalInventorySource": "manual_annotation",
+        "goals": [
+          {
+            "id": "repay",
+            "label": "问自己能否结清欠厂家的尾款",
+            "intent": {
+              "value": "existing_debt",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 3,
+                  "end": 18
+                }
+              ]
+            },
+            "role": {
+              "value": "self_debtor",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 3,
+                  "end": 18
+                }
+              ]
+            }
+          }
+        ],
+        "primaryGoalId": null,
+        "answers": []
+      },
+      "candidateSource": "Fallback",
+      "previousSelection": {
+        "route": "debt_collection",
+        "source": "fallback_if_unique"
+      },
+      "gateOutcome": {
+        "status": "abstain",
+        "reason": "candidate_conflicts_with_confirmed_role_or_target",
+        "primaryGoalId": "repay",
+        "confirmedRoute": "debt_repayment",
+        "selectedRoute": null,
+        "permissions": {
+          "roleAndTargetConfirmed": true,
+          "mayRunArbitration": true,
+          "mayRunFallback": true,
+          "maySelectRoute": false
+        }
+      }
+    },
+    {
+      "id": "BPROBE01-N-19",
+      "demonstrationType": "post_feedback_manual_fact_regression_not_raw_extraction_evaluation",
+      "manualPacket": {
+        "questionId": "BPROBE01-N-19",
+        "questionText": "我想同时占向叔叔借款能否成功，以及替朋友追讨旧欠款能否拿回，两件分别会怎么样？",
+        "revision": 0,
+        "goalInventorySource": "manual_annotation",
+        "goals": [
+          {
+            "id": "borrow",
+            "label": "向叔叔借款能否成功",
+            "intent": {
+              "value": "new_credit",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 5,
+                  "end": 14
+                }
+              ]
+            },
+            "role": {
+              "value": "unknown",
+              "source": "unverified",
+              "evidence": []
+            }
+          },
+          {
+            "id": "collect",
+            "label": "替朋友追讨欠款能否拿回",
+            "intent": {
+              "value": "existing_debt",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 17,
+                  "end": 29
+                }
+              ]
+            },
+            "role": {
+              "value": "unknown",
+              "source": "unverified",
+              "evidence": []
+            }
+          }
+        ],
+        "primaryGoalId": null,
+        "answers": []
+      },
+      "candidateSource": "Arbitration",
+      "previousSelection": {
+        "route": "borrow_money",
+        "source": "frozen_Arbitration"
+      },
+      "gateOutcome": {
+        "status": "clarify",
+        "reason": "primary_goal",
+        "confirmedRoute": null,
+        "selectedRoute": null,
+        "permissions": {
+          "roleAndTargetConfirmed": false,
+          "mayRunArbitration": false,
+          "mayRunFallback": false,
+          "maySelectRoute": false
+        },
+        "clarification": {
+          "id": "BPROBE01-N-19:0:primary_goal:scope",
+          "kind": "primary_goal",
+          "goalId": null,
+          "text": "你提到了不止一件事，这次先看哪一件？",
+          "options": [
+            {
+              "id": "borrow",
+              "text": "向叔叔借款能否成功"
+            },
+            {
+              "id": "collect",
+              "text": "替朋友追讨欠款能否拿回"
+            },
+            {
+              "id": "unsure",
+              "text": "暂时还不能确定"
+            }
+          ],
+          "binding": "{\"questionId\":\"BPROBE01-N-19\",\"questionText\":\"我想同时占向叔叔借款能否成功，以及替朋友追讨旧欠款能否拿回，两件分别会怎么样？\",\"revision\":0,\"goalInventorySource\":\"manual_annotation\",\"goals\":[{\"id\":\"borrow\",\"label\":\"向叔叔借款能否成功\",\"intent\":{\"value\":\"new_credit\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":5,\"end\":14}]},\"role\":{\"value\":\"unknown\",\"source\":\"unverified\",\"evidence\":[]}},{\"id\":\"collect\",\"label\":\"替朋友追讨欠款能否拿回\",\"intent\":{\"value\":\"existing_debt\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":17,\"end\":29}]},\"role\":{\"value\":\"unknown\",\"source\":\"unverified\",\"evidence\":[]}}],\"primaryGoalId\":null,\"answers\":[]}"
+        }
+      }
+    },
+    {
+      "id": "BPROBE01-N-22",
+      "demonstrationType": "post_feedback_manual_fact_regression_not_raw_extraction_evaluation",
+      "manualPacket": {
+        "questionId": "BPROBE01-N-22",
+        "questionText": "能同时看客户欠我的尾款能否收回，以及我向银行申请的贷款能否放下来吗？",
+        "revision": 0,
+        "goalInventorySource": "manual_annotation",
+        "goals": [
+          {
+            "id": "collect",
+            "label": "客户欠我的款能否收回",
+            "intent": {
+              "value": "existing_debt",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 4,
+                  "end": 15
+                }
+              ]
+            },
+            "role": {
+              "value": "self_creditor",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 4,
+                  "end": 15
+                }
+              ]
+            }
+          },
+          {
+            "id": "borrow",
+            "label": "银行申请的贷款能否放下来",
+            "intent": {
+              "value": "new_credit",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 18,
+                  "end": 32
+                }
+              ]
+            },
+            "role": {
+              "value": "self_receives",
+              "source": "manual_annotation",
+              "evidence": [
+                {
+                  "start": 18,
+                  "end": 32
+                }
+              ]
+            }
+          }
+        ],
+        "primaryGoalId": null,
+        "answers": []
+      },
+      "candidateSource": "Arbitration",
+      "previousSelection": {
+        "route": "debt_collection",
+        "source": "frozen_Arbitration"
+      },
+      "gateOutcome": {
+        "status": "clarify",
+        "reason": "primary_goal",
+        "confirmedRoute": null,
+        "selectedRoute": null,
+        "permissions": {
+          "roleAndTargetConfirmed": false,
+          "mayRunArbitration": false,
+          "mayRunFallback": false,
+          "maySelectRoute": false
+        },
+        "clarification": {
+          "id": "BPROBE01-N-22:0:primary_goal:scope",
+          "kind": "primary_goal",
+          "goalId": null,
+          "text": "你提到了不止一件事，这次先看哪一件？",
+          "options": [
+            {
+              "id": "collect",
+              "text": "客户欠我的款能否收回"
+            },
+            {
+              "id": "borrow",
+              "text": "银行申请的贷款能否放下来"
+            },
+            {
+              "id": "unsure",
+              "text": "暂时还不能确定"
+            }
+          ],
+          "binding": "{\"questionId\":\"BPROBE01-N-22\",\"questionText\":\"能同时看客户欠我的尾款能否收回，以及我向银行申请的贷款能否放下来吗？\",\"revision\":0,\"goalInventorySource\":\"manual_annotation\",\"goals\":[{\"id\":\"collect\",\"label\":\"客户欠我的款能否收回\",\"intent\":{\"value\":\"existing_debt\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":4,\"end\":15}]},\"role\":{\"value\":\"self_creditor\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":4,\"end\":15}]}},{\"id\":\"borrow\",\"label\":\"银行申请的贷款能否放下来\",\"intent\":{\"value\":\"new_credit\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":18,\"end\":32}]},\"role\":{\"value\":\"self_receives\",\"source\":\"manual_annotation\",\"evidence\":[{\"start\":18,\"end\":32}]}}],\"primaryGoalId\":null,\"answers\":[]}"
+        }
+      }
+    }
+  ],
+  "userConfirmationDialogue": {
+    "before": {
+      "questionId": "dialogue-synthetic",
+      "questionText": "关于这笔新借款，我想先确认本次占问的方向。",
+      "revision": 0,
+      "goalInventorySource": "unverified",
+      "goals": [],
+      "primaryGoalId": null,
+      "answers": []
+    },
+    "prompt": {
+      "status": "clarify",
+      "reason": "primary_question",
+      "confirmedRoute": null,
+      "selectedRoute": null,
+      "permissions": {
+        "roleAndTargetConfirmed": false,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false
+      },
+      "clarification": {
+        "id": "dialogue-synthetic:0:primary_question:scope",
+        "kind": "primary_question",
+        "goalId": null,
+        "text": "这次你主要想问哪一件事？",
+        "options": [
+          {
+            "id": "borrow_money",
+            "text": "我向别人借钱，能否借到？"
+          },
+          {
+            "id": "lend_money",
+            "text": "我把钱借给别人，是否合适？"
+          },
+          {
+            "id": "debt_collection",
+            "text": "别人欠我钱，能否收回？"
+          },
+          {
+            "id": "debt_repayment",
+            "text": "我欠别人钱，能否还清？"
+          },
+          {
+            "id": "business_operation",
+            "text": "自己的生意经营会怎样？"
+          },
+          {
+            "id": "investment_profit",
+            "text": "投入的资本有没有收益？"
+          },
+          {
+            "id": "outside_scope",
+            "text": "这次问的是其他事情"
+          },
+          {
+            "id": "unsure",
+            "text": "暂时还不能确定"
+          }
+        ],
+        "binding": "{\"questionId\":\"dialogue-synthetic\",\"questionText\":\"关于这笔新借款，我想先确认本次占问的方向。\",\"revision\":0,\"goalInventorySource\":\"unverified\",\"goals\":[],\"primaryGoalId\":null,\"answers\":[]}"
+      }
+    },
+    "simulatedUserChoice": "borrow_money",
+    "after": {
+      "questionId": "dialogue-synthetic",
+      "questionText": "关于这笔新借款，我想先确认本次占问的方向。",
+      "revision": 1,
+      "goalInventorySource": "user_confirmed",
+      "goals": [
+        {
+          "id": "confirmed-goal-1",
+          "label": "我向别人借钱，能否借到？",
+          "intent": {
+            "value": "new_credit",
+            "source": "user_confirmed",
+            "evidence": [],
+            "confirmationId": "dialogue-synthetic:0:primary_question:scope"
+          },
+          "role": {
+            "value": "self_receives",
+            "source": "user_confirmed",
+            "evidence": [],
+            "confirmationId": "dialogue-synthetic:0:primary_question:scope"
+          }
+        }
+      ],
+      "primaryGoalId": "confirmed-goal-1",
+      "answers": [
+        {
+          "id": "dialogue-synthetic:0:primary_question:scope",
+          "kind": "primary_question",
+          "goalId": null,
+          "optionId": "borrow_money",
+          "source": "user_confirmed",
+          "confirmedValues": [
+            "new_credit",
+            "self_receives"
+          ]
+        }
+      ]
+    },
+    "assessment": {
+      "status": "ready",
+      "reason": "confirmed_single_target_and_required_role",
+      "primaryGoalId": "confirmed-goal-1",
+      "confirmedRoute": "borrow_money",
+      "selectedRoute": null,
+      "permissions": {
+        "roleAndTargetConfirmed": true,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false
+      }
+    }
+  },
+  "limits": {
+    "rawLanguageExtractionImplemented": false,
+    "manualAnnotationSupplied": true,
+    "simulatedAnswersAreNotRealUserResponses": true,
+    "regressionsArePostFeedback": true,
+    "freshSemanticAccuracyMeasured": false
+  },
+  "governance": {
+    "newTrainingFits": 0,
+    "newEncoderInvocations": 0,
+    "thresholdSearch": false,
+    "productionIntegrated": false,
+    "formalComponentsChanged": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "previousFailuresPreserved": true,
+    "componentPassClaimed": false,
+    "phaseCAllowed": false
+  }
+}
