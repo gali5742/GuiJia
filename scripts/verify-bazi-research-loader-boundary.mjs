@@ -112,8 +112,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.47'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.47');
+if (!bootstrap.includes("const VERSION = '0.48'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.48');
 }
 
 const requiredTail = Object.freeze([
@@ -220,7 +220,10 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-source-branch-mediation-calibration.js',
     'js/bazi-contextual-force-party-source-mediation-noncommunication-contract.js',
     'js/bazi-contextual-force-party-source-mediation-noncommunication-profile.js',
-    'js/bazi-contextual-force-party-source-mediation-noncommunication.js'
+    'js/bazi-contextual-force-party-source-mediation-noncommunication.js',
+    'js/bazi-contextual-force-party-source-branch-restraint-nonrealization-contract.js',
+    'js/bazi-contextual-force-party-source-branch-restraint-nonrealization-profile.js',
+    'js/bazi-contextual-force-party-source-branch-restraint-nonrealization.js'
 ]);
 let previousTailIndex = -1;
 for (const relative of requiredTail) {
