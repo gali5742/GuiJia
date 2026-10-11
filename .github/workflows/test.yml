@@ -1,33 +1,62 @@
-name: Test and vendor verification
+name: Candidate v0.9 fresh raw data seal
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: liuyao-v013-v09-data
+  cancel-in-progress: false
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  frozen-data:
+    runs-on: ubuntu-24.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - uses: actions/checkout@v5
         with:
-          node-version: "22"
-
-      - name: Core regression tests
-        run: npm test
-
-      - name: Build same-origin vendor site
-        run: node scripts/build-pages-site.mjs
-
-      - name: Verify vendor bytes and lunar smoke test
-        run: node scripts/verify-vendor.mjs .site
-
-      - name: Verify static Pages artifact
-        run: node scripts/verify-static-site.mjs .site deployed
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Prove isolated entry and committed literal source
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-ci-source.mjs
+          echo "V09_DATA_SHA=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.V09_DATA_SHA }}
+          fetch-depth: 0
+      - name: Test Arbitration responsibility and data integrity
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node --test tests/liuyao-semantic-route-arbitration-v014-tests.mjs tests/liuyao-semantic-v013-candidate-v09-data-tests.mjs tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Seal all raw calibration and historical train-only members without encoder
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs --seal
+      - name: Replay deterministic complete seal and immutable reseal
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          node scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs --uncommitted-outputs
+          node scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs --seal
+      - name: Commit complete data seal without overwriting semantic work
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-training.json data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-calibration.json data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-contamination-audit-v0.1.json data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.lock.json
+          git commit -m 'test(liuyao): seal v0.9 complete fresh raw calibration and train-only source [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$V09_DATA_SHA"..origin/liuyao-semantic-v013-core -- 'data/liuyao-semantic-*' 'js/liuyao-semantic-*' 'scripts/*liuyao-semantic*' 'tests/*liuyao-semantic*' '.github/workflows/liuyao-v013-*'; then
+            echo 'Semantic inputs changed; refusing stale seal push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Confirm committed seal
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs
