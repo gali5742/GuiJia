@@ -252,6 +252,33 @@
         });
     };
 
+    const normalizeExactActorPair = (input, context = {}, index = 0) => {
+        const sourceFamily = SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_CASE;
+        const family = SOURCE_FAMILY_REGISTRY[sourceFamily];
+        // Late lookup is intentional: R5 loads before the finite R15 source validator.
+        const validator = GuiJia[family.validatorGlobalKey];
+        if (!validator || validator.RULE_ID !== family.sourceRuleId || validator.CONTRACT?.id !== family.sourceContractId
+            || typeof validator.validateEffectInput !== 'function') {
+            return unresolvedRecord({ sourceFamily,index,issues:['registered-exact-case-validator-unavailable'],identityShape:IDENTITY_SHAPES.ACTOR_TO_ACTOR });
+        }
+        const validation = validator.validateEffectInput(input,context);
+        if (!validation.valid || !validation.record) return unresolvedRecord({ sourceFamily,index,
+            issues:validation.issues || ['exact-source-case-validation-failed'],identityShape:IDENTITY_SHAPES.ACTOR_TO_ACTOR });
+        const record = validation.record;
+        const authorityIds = [record.effectAuthorityId];
+        const evidenceIds = record.sourceRegistryEvidenceIds;
+        const normalized = normalizedRecord({ sourceFamily,sourceRecord:record,index,
+            sourceEndpoint:actorEndpoint(record.sourceActorKey),targetEndpoint:actorEndpoint(record.targetActorKey),
+            relationIdentity:relationIdentity(record),
+            authorization:authorization({ relationType:record.relationType,authorityIds,sourceEvidenceIds:evidenceIds }),
+            provenance:Object.freeze({ ...provenance({ sourceFamily,sourceRecord:record,authorityIds,sourceEvidenceIds:evidenceIds }),
+                identityAuthorityId:record.identityAuthorityId,realizationAuthorityId:record.realizationAuthorityId,
+                sourceAnnotationId:record.sourceAnnotationId,chartKey:record.chartKey,
+                sourceProvenance:record.sourceProvenance,reviewedEffectBasis:record.reviewedEffectBasis })
+        });
+        return Object.freeze({ ...normalized,id:`CF-EANI-EXACT:${record.chartKey}::${record.id}` });
+    };
+
     const targetResolutionFromEndpoint = (endpoint = {}) => {
         if (endpoint.type === ENDPOINT_TYPES.ACTOR) {
             return Object.freeze({
@@ -326,7 +353,7 @@
             relativeDominance:null,
             numericScore:null,
             scalarForce:null,
-            boundary:'Profile 只规整当前三类已验证 source authority；未登记来源、generic function→effect mapping 与 broader source coverage 均不在本层解决。'
+            boundary:'Legacy synthesis records retain their three source adapters; the separate exact actor-pair adapter requires the registered current-chart source validator. No generic function→effect mapping or broader source coverage is defined.'
         });
     };
 
@@ -364,6 +391,7 @@
         normalizeActorToActor,
         normalizeActorToGroup,
         normalizeGroupToActor,
+        normalizeExactActorPair,
         targetResolutionFromEndpoint,
         toExecutionInput,
         compatibleWithExpectedState,

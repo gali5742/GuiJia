@@ -17,7 +17,8 @@
     const SOURCE_FAMILIES = Object.freeze({
         ACTOR_TO_ACTOR_KNOWN_MOTIF:'actor-to-actor-known-motif',
         ACTOR_TO_GROUP_FINITE_OUTCOME:'actor-to-group-finite-outcome',
-        GROUP_TO_ACTOR_FINITE_MEDIATION:'group-to-actor-finite-mediation'
+        GROUP_TO_ACTOR_FINITE_MEDIATION:'group-to-actor-finite-mediation',
+        ACTOR_TO_ACTOR_EXACT_CASE:'actor-to-actor-exact-source-case'
     });
 
     const NORMALIZATION_STATES = Object.freeze({
@@ -28,7 +29,8 @@
     const AUTHORITY_KINDS = Object.freeze({
         KNOWN_MOTIF:'known-source-backed-relation-effect-motif',
         EXACT_COLLECTIVE_OUTCOME:'exact-source-case-collective-outcome',
-        EXACT_COLLECTIVE_MEDIATION:'exact-source-case-collective-source-outcome'
+        EXACT_COLLECTIVE_MEDIATION:'exact-source-case-collective-source-outcome',
+        EXACT_ACTOR_PAIR:'exact-source-case-actor-pair-outcome'
     });
 
     const SOURCE_FAMILY_REGISTRY = Object.freeze({
@@ -45,6 +47,14 @@
             sourceRuleId:actorToGroupContract.RULE_ID,
             authorityKind:AUTHORITY_KINDS.EXACT_COLLECTIVE_OUTCOME,
             sourceRecords:'contextualForcePartyCollectiveRelationEffectRecords'
+        }),
+        [SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_CASE]:Object.freeze({
+            endpointShape:executionContract.IDENTITY_SHAPES.ACTOR_TO_ACTOR,
+            sourceContractId:'BAZI-CONTEXTUAL-FORCE-PARTY-SOURCE-OFFICER-KILLER-EFFECT-CALIBRATION-CONTRACT-001',
+            sourceRuleId:'BAZI-STRENGTH-CONTEXTUAL-FORCE-PARTY-SOURCE-OFFICER-KILLER-EFFECT-CALIBRATION-001',
+            authorityKind:AUTHORITY_KINDS.EXACT_ACTOR_PAIR,
+            sourceRecords:'baziContextualForcePartySourceOfficerKillerEffectCalibrationProfile.validateEffectInput',
+            validatorGlobalKey:'baziContextualForcePartySourceOfficerKillerEffectCalibrationProfile'
         }),
         [SOURCE_FAMILIES.GROUP_TO_ACTOR_FINITE_MEDIATION]:Object.freeze({
             endpointShape:executionContract.IDENTITY_SHAPES.GROUP_TO_ACTOR,
@@ -69,7 +79,7 @@
         normalizationScope:'currently-validated-source-backed-effect-authority-families',
         normalizedAuthorizationTarget:'generic-relation-effect-execution-authorization-v0.1',
         currentSourceFamilies:freezeArray(Object.values(SOURCE_FAMILIES)),
-        currentEndpointShapes:freezeArray(Object.values(SOURCE_FAMILY_REGISTRY).map((item) => item.endpointShape)),
+        currentEndpointShapes:freezeArray([...new Set(Object.values(SOURCE_FAMILY_REGISTRY).map((item) => item.endpointShape))]),
         sourceFamilyRegistry:SOURCE_FAMILY_REGISTRY,
         sourceRecordMustAlreadyBeValidated:true,
         sourceBackedAuthorityRequired:true,
@@ -105,7 +115,7 @@
         scalarCollapse:false,
         finalStrengthMapping:false,
         allowedRelationTypes:freezeArray(executionContract.CONTRACT.allowedRelationTypes || []),
-        statement:'Effect Authorization Normalized Input v0.1 只把已经由各自 source-backed contract 验证过的 actor→actor motif、actor→group exact outcome、group→actor exact mediation authority 规整成 Generic Relation Effect Execution 可消费的统一 authorization schema。规整层只搬运与校验 provenance，不从 function shape、endpoint shape、source wording、case id 或十神角色推导新的 effect type。'
+        statement:'Effect Authorization Normalized Input v0.1 只搬运已由登记来源验证的 motif、collective outcome 或 exact actor-pair case authority。Exact actor-pair 输入必须在调用时重新经过该来源的完整命例、身份、兑现与作用授权校验；规整层不从文字或 function shape 决定作用类型。'
     });
 
     GuiJia.baziContextualForcePartyEffectAuthorizationNormalizedInputContract = Object.freeze({
