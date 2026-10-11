@@ -117,6 +117,9 @@ jobs:
       - name: Source Branch Mediation Calibration regression
         run: node tests/bazi-contextual-force-party-source-branch-mediation-calibration-tests.js
 
+      - name: Source Mediation Noncommunication regression
+        run: node tests/bazi-contextual-force-party-source-mediation-noncommunication-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
