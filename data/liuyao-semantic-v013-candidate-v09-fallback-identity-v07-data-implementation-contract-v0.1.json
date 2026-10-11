@@ -1,0 +1,103 @@
+{
+  "version": "0.13-candidate-v0.9-data-implementation-v0.1",
+  "status": "frozen_data_implementation_before_generation_and_encoder",
+  "bindings": [
+    {
+      "path": ".github/workflows/liuyao-v013-v09-fallback-identity-v07-data.yml",
+      "sha256": "1cdfcb538c74087d0dec09fed190f3b1a81d66189d7023f66bcfe9145ec4b507",
+      "gitBlobSha": "297f2d6ced5c574a4995922289e52ff0931f3936"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data.lock.json",
+      "sha256": "647954eb6c5d772bcbbb022c99ccc1157994fbf3a088080f3e2f582722ba3f3a",
+      "gitBlobSha": "aef170e026c31efd66f9fcddfa376c22fcfb59b6"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-training.json",
+      "sha256": "ec2743cadc337ab2e39d989c70eeed5c6d165e26d95fdc8c4828ac71c9986566",
+      "gitBlobSha": "d45549fce66f967c03f4f1a1b2cd2c97bfc8e27b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-arbitration-implementation-contract-v0.1.json",
+      "sha256": "ca688fe8ec19893355a7d2f4f22c5baf16d845ca8c8116c843680da47ec0679e",
+      "gitBlobSha": "dda85b10a5225756483a883d404a89209ea5600e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-design-v0.1.json",
+      "sha256": "4fa41bebffe7b1a20fc26692a450955743e9224c6ea03e339fffc80fd3422aae",
+      "gitBlobSha": "1034d2d0d4fac247b2618cb28b01c7f759f00723"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-design.lock.json",
+      "sha256": "ffaecd3e2b950bab4b6a3a7226c4463fcf787ad8d33109431ebe6d970eff8f23",
+      "gitBlobSha": "573bd6d0ab375557d2d9265166294f768c18a16d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-authoring-v0.1.json",
+      "sha256": "40591520124d3f037814c6eb755aba7158a432592fc83acbb617868e1ea4858f",
+      "gitBlobSha": "1d5bd2feb6be1591aa7d10b007cdff31864b807f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data-contract-v0.1.json",
+      "sha256": "02c7054497729bdbd7ec6b8e3804ee14a452e3c30be5ca35117c43a0dbaa811f",
+      "gitBlobSha": "2bfe47778c98c0d2b846df1b9991671c21e8b55c"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v014.js",
+      "sha256": "a6976ebcf37a7f3e60ae3303f0319b7b1a6b7d621bbf354441fe3e5cdd500041",
+      "gitBlobSha": "9f1da7b9f94704df4493bc7d81377a96210d24aa"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data-lib.mjs",
+      "sha256": "bab223b0a9a78cdf11d01822fcaab7f08e7d8327a8048c909568a3daada1e189",
+      "gitBlobSha": "1c213b0b248c5d113f299fbda3d6d69269893b29"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.mjs",
+      "sha256": "2b4ed1c1d42945e17d0499c2ee89de04f59dcf08c4de69b5ad1ae875998fe90e",
+      "gitBlobSha": "b42bac9b93dd6cf1c667bb675ea06717415395c9"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v09-ci-source.mjs",
+      "sha256": "1f665d1dd9152d216596f3c65845e0207e16e365fd21147a693c3becbaaac0b0",
+      "gitBlobSha": "76f9d122297227cc8cc432e0f393b7ee3c87b292"
+    },
+    {
+      "path": "tests/liuyao-semantic-route-arbitration-v014-tests.mjs",
+      "sha256": "aeaa99790d1a419cfd01ef524d4e4d330f64f452e54fdc71b8dd3a1a1f5bcc16",
+      "gitBlobSha": "c77c4360273604f6b20f65cdcdef828e0c8ce337"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs",
+      "sha256": "75d3399dd960a612ea32dc0a390687503c78255f0d6228d93f0ecdf44becb709",
+      "gitBlobSha": "45ca67c7854bd437a1cbc3821947c1c2dc0b8646"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v09-data-tests.mjs",
+      "sha256": "72b1db8d727a258b94c940c3406d3a2657498ed109d4ec022d8e2e6c207ebf0e",
+      "gitBlobSha": "631817bec211879d512cfb9004a4637d3df41dc1"
+    }
+  ],
+  "workflowPath": ".github/workflows/liuyao-v013-v09-fallback-identity-v07-data.yml",
+  "isolatedEntryPath": ".github/workflows/test.yml",
+  "encoderInvocations": 0,
+  "newWeightsTrained": false,
+  "freshLiteralRows": 396,
+  "trainOnlyHistoricalRows": 1698,
+  "noSameVersionRepairAfterFeedback": true
+}
