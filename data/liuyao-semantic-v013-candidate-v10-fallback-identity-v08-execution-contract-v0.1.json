@@ -1,0 +1,409 @@
+{
+  "version": "0.13-candidate-v0.10-execution-contract-v0.1",
+  "status": "frozen_audit_only_after_data_ci_before_first_v10_encoder_scoring",
+  "dataSourceCommit": "a3e662ce72143168b477bd992f8e5798aba74c54",
+  "dataSealCommit": "abd2b227ccfe75f6500cce2aeedfa7980d14af4c",
+  "dataCI": {
+    "runId": 38133999189,
+    "headSha": "479e8f8274a9f50765e54096e3b32fa738a209f7",
+    "workflowPath": ".github/workflows/test.yml"
+  },
+  "bindings": [
+    {
+      "path": ".github/workflows/liuyao-v013-v10-fallback-identity-v08-data.yml",
+      "sha256": "25aa0b6cbababb2aaa8bd2efb51d9cb954d519d5b906045f7e03a64057e7222b",
+      "gitBlobSha": "43998bf2ff20b15e0db739468f80c36357200314"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v10-fallback-identity-v08-upstream.yml",
+      "sha256": "b7f22ee62296309e2c30249d9b768402941c318df6df068ccc6af30639188e00",
+      "gitBlobSha": "ec570e08e115ea9fe9ed603f0933b4bcb668c9c2"
+    },
+    {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+      "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-calibration.json",
+      "sha256": "940cc39e4a05dbe7aec18c091db9d70eec5846767acfbc910299a829185749fc",
+      "gitBlobSha": "d689e519e20bbee60d40de143e80ffa2fdfc2fdd"
+    },
+    {
+      "path": "data/liuyao-semantic-fallback-identity-v0.1-training.json",
+      "sha256": "b00ca0c4cc1f819dcaa3b3e72cc10882fec97293aae8fb0e8a4bfbc9334dd38d",
+      "gitBlobSha": "d408b86fd9c4845c5d3e24eb75809f592353ec8a"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.1.json",
+      "sha256": "4005cb5a6d11124e550c585c067c2a33cd8cf2ffa3b7752b11d5d64a55a8cfeb",
+      "gitBlobSha": "59afa07ae982ec16dfff25505f34ffbe9fe5355b"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.2-augmentation.json",
+      "sha256": "2ee469ee5450535d6d85dd97fa22df75028dad7cc09362a8e678e26b941c3884",
+      "gitBlobSha": "bdb294bb6f59e9353ea2b85c9c2bf777e93b8810"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.3-targeted.json",
+      "sha256": "fcff48034d87da823121d7fbd525a679c5bf4b0b9e5587294d769b0f41b3e041",
+      "gitBlobSha": "fc41934c3f84af0c98896636c879b6210f9e7217"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.4-expansion.json",
+      "sha256": "cc702821023f59ec922b44705611efbf1d3ed7c0dd8b19da079cb0820f6ad828",
+      "gitBlobSha": "07906ae4e725bc36988f0005f834499d9b6fb62d"
+    },
+    {
+      "path": "data/liuyao-semantic-route-training-v0.5-targeted-22.json",
+      "sha256": "43a5ea194e025121a4e23cfa6f40a2e625500974a32355c860f4a9c29cc20596",
+      "gitBlobSha": "09e6d5b2f95e14f4f16197160155a771816db75e"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.2-execution-v0.1.json",
+      "sha256": "5ff8a892463c1953c6f3fb86fced25c992b55aeb5e07e9e88de97acf5d06354d",
+      "gitBlobSha": "a6f936cb94ff06bfc38e0788c6f75e3619adf57c"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-calibration.json",
+      "sha256": "79ffadb39906955d392f3587409b0a8817b3b59020493b326a2ca4ced3a4e549",
+      "gitBlobSha": "53448d234f44747fad6ca5940c3d8a6587c12000"
+    },
+    {
+      "path": "data/liuyao-semantic-routeability-v0.3-execution-v0.1.json",
+      "sha256": "20f80cf0e4437e4d52db992b25af1c58e310a3ef9538f72a95afb4c3eda7c039",
+      "gitBlobSha": "69f7b495efaaeadbff7811dc6056262d3ce5bf39"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-development.json",
+      "sha256": "5787dcea81d8e86839aaad17d012c7195def1638d048f404ee0c25e91fb9b213",
+      "gitBlobSha": "c972e5572674d4aa71d337f9517b6eef80c8f7fd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-calibration-v0.4.json",
+      "sha256": "2af69bf187e35296ae07afd96d2469d694cffeb5ad5103ce0fdefd921458b02e",
+      "gitBlobSha": "dc7e9ce2a72edab9db5ec315190831144ced615b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-route-exposure-supplement-v0.1.json",
+      "sha256": "a5caa48ff9681c4f911c1fd4431e1e08de48607da93a2514a1a64ff845c8916d",
+      "gitBlobSha": "dbab878dadb82892b98fd1d2ac90a65edded4c3e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-fallback-identity-training-augmentation.json",
+      "sha256": "ef15c664855d2a75ff988f7296d8b15a2da4f951c39fcd645f6e883b1b0f50d6",
+      "gitBlobSha": "06fa38facc133bb0d46776f22ba1762dcbfa9359"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-calibration.json",
+      "sha256": "7c42a73f0b6a44ea3e7ad23b1af2607337d12419e6a76c636f450e49a1b36ef7",
+      "gitBlobSha": "8d0102c045f64957f484786f1cb256a294aa58a4"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-training.json",
+      "sha256": "c907254783873ca404d7bfc662d84ce325f03b7db84e49ab7fe8161e474b5242",
+      "gitBlobSha": "60c8586360d7b29f375220424a66b018fc752777"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.json",
+      "sha256": "56b61e06f2532545a78bbf4c397db422d498ed91a484d60b6586ffa2a29f9457",
+      "gitBlobSha": "864d63dd23d56722a7d1cede553a6c8f123bedb0"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v04-semantic-act-v01-model.lock.json",
+      "sha256": "32d360d505915494efc04a7702b5ace4434295005ccbc5197f29fe86bf8ee736",
+      "gitBlobSha": "36eb8b252bf680650d49e4ac2b4e6ce5fecb6b69"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-calibration.json",
+      "sha256": "14e4daefc08cfdefcebcc53dec04b8c1466d91ecd99ca79897223ee60035599e",
+      "gitBlobSha": "9483acd17cd747acd7ee91a2c97a4d961687be49"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-fallback-identity-v03-training-augmentation.json",
+      "sha256": "1fdcb6839859cb273b40113559c2aa02289884b180483983261848cb530940c6",
+      "gitBlobSha": "a4386f823161c02c5f5e41bfdc30605ea8028d82"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-calibration.json",
+      "sha256": "8549bdab5473874b4274de64b60266e4c01fc6e1cf24a4dfe7c79f79c46f956d",
+      "gitBlobSha": "011fee775f611a7159044b255d52d65269c85f33"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-training.json",
+      "sha256": "194b292079fbdfd169a6d3dd064edc5fa786ee2b3c0f11d1ac232ef2e2139683",
+      "gitBlobSha": "f543e13370b8d608766d1c8b62d7ace2fcf6e371"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.json",
+      "sha256": "062e4afbca87ccde2fda677900670a67d9673b4da95265b81ae42c35a1230fd8",
+      "gitBlobSha": "87d76e2d8d02573ae9398fa4e3f9dcb4b0599313"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-model.lock.json",
+      "sha256": "cff69bc0c8cfc4b5da30ff01482248d35aeb390db29499e7ebfffd3dc9e73c68",
+      "gitBlobSha": "642f123a6a515247da725b1381538d6bcf3ef980"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v05-route-sufficiency-v01-threshold.lock.json",
+      "sha256": "14983f13fbae669d1bf5c3eacc3b7d3749785c16c4961169fb77d7b78989dad6",
+      "gitBlobSha": "0b001fb4e7e5f338b41540ae3599defacc979969"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-calibration.json",
+      "sha256": "249a6b37ac69272e3c923fca0e1572d1f9a72b19162fd6d11453730115c47093",
+      "gitBlobSha": "6c2b746e9a22dfec5dca870b74a45dd8f0ed9018"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-training-augmentation.json",
+      "sha256": "f8436ebaa96644f438beb9269d61b96d59671a23b14094784a4d19653b66118f",
+      "gitBlobSha": "f4abaedbb1b10e59ce6eb05da34586fe1b8d064d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-authoring-v0.1.json",
+      "sha256": "b1e843d01fe2c215a8dd3758a6e5c29bfbedfc2274908515c516d8130709cced",
+      "gitBlobSha": "563563b6cb003b493abbebbaa469f14aac861041"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration.json",
+      "sha256": "d3c6926883a8d982b4e8d7b3dd1d30df66076cdfb52bbce483381224166c6de6",
+      "gitBlobSha": "84ff42aaf18c8e53bcf58fbc1bdb172a6af289fc"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-authoring-v0.1.json",
+      "sha256": "bcdf98195e8fa074fdd8c6370913a247cf91387e5702b95e17064aa0056097fb",
+      "gitBlobSha": "fc785180e37051f1517318dce2a3012e812e3a0a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-calibration.json",
+      "sha256": "22dd589521b2c191ead1dd99f70f17979423bcb132b461943ce24301c8914182",
+      "gitBlobSha": "8f07e017e90719a31aeee4504dea9ef36b8d1c31"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data.lock.json",
+      "sha256": "647954eb6c5d772bcbbb022c99ccc1157994fbf3a088080f3e2f582722ba3f3a",
+      "gitBlobSha": "aef170e026c31efd66f9fcddfa376c22fcfb59b6"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-training.json",
+      "sha256": "ec2743cadc337ab2e39d989c70eeed5c6d165e26d95fdc8c4828ac71c9986566",
+      "gitBlobSha": "d45549fce66f967c03f4f1a1b2cd2c97bfc8e27b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-authoring-v0.1.json",
+      "sha256": "40591520124d3f037814c6eb755aba7158a432592fc83acbb617868e1ea4858f",
+      "gitBlobSha": "1d5bd2feb6be1591aa7d10b007cdff31864b807f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-calibration.json",
+      "sha256": "e3509ed5aec1fa2d05c0e6863122758365feed27b273280eac58c4cebde6735d",
+      "gitBlobSha": "edc5d84dbc297848b9f4cf022b91ef7e14730e4f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data.lock.json",
+      "sha256": "8adf14d1d2edd05e567f71bf5587bbd53124fe5c589120028ef8b46fd858a0f8",
+      "gitBlobSha": "caa747b20500a7bb5f283025c876d42d4c1b0d0d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-training.json",
+      "sha256": "b058df09a2379ce2dbe63a061703b33c920f101be65ea23e073c84799578e48e",
+      "gitBlobSha": "59935b43b52fe6f639deadea3a6b2566adf4c83e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-design-v0.1.json",
+      "sha256": "3178a55569b8e82d29615ce61ac028605478113e807412afd1aed4a5030d1972",
+      "gitBlobSha": "41320a2be9a35b2f061395938535ed993f9e69eb"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-design.lock.json",
+      "sha256": "6ec2540cfc9a3b1d2ec733be0b984e11675cc946b7e634ee8de0dee353f43c93",
+      "gitBlobSha": "bbf86ad1b798c47c2d5477f5219956dddaf692da"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-authoring-v0.1.json",
+      "sha256": "2b5fc9b297726cd12ee1a5a6f3057ab4be19017be6fe983a6f18eaf322f0ba7d",
+      "gitBlobSha": "7e98172b9b3abb1a30a5b4f85d1d662c8e9646e3"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-calibration.json",
+      "sha256": "37042adfe74a894a13b03005622e5706da57b6ced82023ed8025ce71cce3af85",
+      "gitBlobSha": "d3ce3477547b7d1022a10623af9f4d136a262607"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-contamination-audit-v0.1.json",
+      "sha256": "b539cee7584293ac3f67dcac265d89d42d77494a2eb40ce9f99353126ee87814",
+      "gitBlobSha": "c9a59b1f7029cdf3f665806e4c9d7d1c7e77f155"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-ci-evidence-v0.1.json",
+      "sha256": "4f8f322cc9d2d4a0e07a187b707e75bc9e465bdbe92c610bcdb4cd330c932f64",
+      "gitBlobSha": "306f9a1ec6ded2a44085d18a26d619f33f6d3ff5"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-contract-v0.1.json",
+      "sha256": "e575b0f3b61656ebe930c9bb21c02fcc4495cedbbcf1d0ad90b8848ff820a348",
+      "gitBlobSha": "4eccadc835adeb6c6820a7eeb949e9817875ad1c"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-implementation-contract-v0.1.json",
+      "sha256": "8de6ee84b6277e9d3e82f76ffd031ddbc53595f2cfd445d1e4090dea66106f86",
+      "gitBlobSha": "290217f2c1c805682675374edab0f2906abc1829"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+      "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+      "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training-augmentation.json",
+      "sha256": "2cedca5fd03004b9c18d3983e0558503da36580765d341be50298cdd5583a965",
+      "gitBlobSha": "b8cdd2d4bdf4837d753057c3adc236da9978c2b6"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v011.js",
+      "sha256": "008f7126e05e996c022e002278d45e5111e7ada5cac85b344320fcd552dfe6a6",
+      "gitBlobSha": "04f0b45b2ea529342275aeb28c29a00e707af5bb"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v012.js",
+      "sha256": "aabd3196d55b902ed8605a1085e24c1e952861591105c77ec636a302b428cf60",
+      "gitBlobSha": "d00327959df11e2e4e624c683c74f9f737c1ea44"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v013.js",
+      "sha256": "0e4107b70f2e567aaadb5908f74f51dbb1e032a1d511e0d3abeed61f3165f7dd",
+      "gitBlobSha": "6c3b4e1f1492e26f01d13d261f5232423b4582b2"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v014.js",
+      "sha256": "a6976ebcf37a7f3e60ae3303f0319b7b1a6b7d621bbf354441fe3e5cdd500041",
+      "gitBlobSha": "9f1da7b9f94704df4493bc7d81377a96210d24aa"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v01.js",
+      "sha256": "2ef6f9ac48f261a10fd38ef101f907fad08dc65d0ed20b1b2c535be7df88d078",
+      "gitBlobSha": "7d8e50002908eb4c6e79e74b04aa7a9ce5d71e7b"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v02.js",
+      "sha256": "2ce480be3f6a748ed771ca00dc2c525be66dace0777f820f460ce105b9aa8a35",
+      "gitBlobSha": "bb0158a2600dd6193f8ede303770dd62c374e2f0"
+    },
+    {
+      "path": "js/liuyao-semantic-route-evidence-v03.js",
+      "sha256": "e20978db1653a5154c3b7e240fa9c4ecc35792c8196e6352123fbbe3d944eed5",
+      "gitBlobSha": "f612a06951e136abd00324f2df62a2a288ee165f"
+    },
+    {
+      "path": "scripts/audit-liuyao-semantic-v013-candidate-v10-fallback-identity-v08-upstream.mjs",
+      "sha256": "09efece9792c248ecffa65526b71fd0baccde913dc35436771c766f0a7ad399f",
+      "gitBlobSha": "6e520fe6e2539dd2fc9448fb1eb37510b11abd4c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-lib.mjs",
+      "sha256": "2e68cc6e73cc8375b093b3a67f22ded5baec66dea60a9651913ebfd1aa2c8447",
+      "gitBlobSha": "20f108920f4488f86e556d183fca64cd879573ca"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data-lib.mjs",
+      "sha256": "98f2ddb2ab8dd09a1c7ffb01159c938f1533f37a7fd081973b7b45439f72d846",
+      "gitBlobSha": "7e32cde9f885f1284bcef90271bd9d14cc981b04"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-execution-lib.mjs",
+      "sha256": "a77baff0976c163bcf13b3541b71ebf5c5220734130cb6b1e446a184f83be953",
+      "gitBlobSha": "b55497d252dc03af74e8348e18bc4d8f74369fde"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-bound.mjs",
+      "sha256": "c33e55b71ea55a7ca478bce8869e501f2bf02ce2d4189295eccf0fb643c434d5",
+      "gitBlobSha": "f9a098f93a3cdd8ef3ccc160c223223d58e1c315"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-lib.mjs",
+      "sha256": "9dba385939f5a24930dc0bb459f9b7401e089d524f7977625770c87ff1a8c8fa",
+      "gitBlobSha": "2aa48b19b811e704867321ca1a0d611de4cfecf6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.mjs",
+      "sha256": "180cb7cbdc141ff4d6ae13708e83973155cd13c27c5f0c5b70cccf64fb3f6b4d",
+      "gitBlobSha": "35d656486d4a914a190e6058ed75bd380073b43f"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-execution-lib.mjs",
+      "sha256": "7a8851130cd705478970e56a1f150fa419df4dfc552d77644d56cb4c0c0df6a4",
+      "gitBlobSha": "ecff2f45d8c9e5e46d398d42b4863ed0568e34d5"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v10-ci-source.mjs",
+      "sha256": "fade6143e8d4f38432f115cf84ab15dda29342b7abde8267f76cbf52a73eac09",
+      "gitBlobSha": "800b74b6920d4c0b50744e13089687d3f521a3dd"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v10-fallback-identity-v08-upstream.mjs",
+      "sha256": "59d63ee6785132e7e3e4c9be8fc5ad3058382b926dc2d76d0726146f67e6b8a8",
+      "gitBlobSha": "7c62b634c23e3120064e61658fe64e54b16e07b4"
+    },
+    {
+      "path": "tests/liuyao-semantic-route-arbitration-v014-tests.mjs",
+      "sha256": "aeaa99790d1a419cfd01ef524d4e4d330f64f452e54fdc71b8dd3a1a1f5bcc16",
+      "gitBlobSha": "c77c4360273604f6b20f65cdcdef828e0c8ce337"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs",
+      "sha256": "75d3399dd960a612ea32dc0a390687503c78255f0d6228d93f0ecdf44becb709",
+      "gitBlobSha": "45ca67c7854bd437a1cbc3821947c1c2dc0b8646"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v10-data-tests.mjs",
+      "sha256": "6ecd8fd3ef2c6ccfdbe7b80a2ec66f04423d5f4921bbd95553effc62acb7c278",
+      "gitBlobSha": "2bfdd46a7bbe1e704c74ee42d55900bbac67ac95"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v10-pretraining-tests.mjs",
+      "sha256": "749e6815037719cf96cdf684a9baa8aaf81f72cac835e41af80979f1bcc0af0f",
+      "gitBlobSha": "be8a054bc4a8968ddb658184b0c8446f62213fc2"
+    }
+  ],
+  "numericPolicy": {
+    "minimumKnownExact": 0.8,
+    "minimumAcceptedKnownAccuracy": 0.98,
+    "maximumNonRouteFalseActivation": 0.05,
+    "maximumEachObservedSubtypeFalseActivation": 0.05,
+    "maximumEachRoleSafetyGroupFalseActivation": 0.05,
+    "maximumRawPathFalseActivation": 0.05,
+    "maximumEachRawSubtypePathFalseActivation": 0.05,
+    "maximumEachRawRolePathFalseActivation": 0.05,
+    "minimumConditionalKnownPerRoute": 2,
+    "minimumConditionalNonRoute": 8,
+    "minimumConditionalUnresolved": 8,
+    "minimumConditionalRoleGroup": 2
+  },
+  "encoderInvocationsBeforeFreeze": 0,
+  "plannedEncoderInvocations": 396,
+  "fallbackWeightTrainingAllowed": false,
+  "noSameVersionRepairAfterFeedback": true,
+  "workflowPath": ".github/workflows/liuyao-v013-v10-fallback-identity-v08-upstream.yml",
+  "isolatedEntryPath": ".github/workflows/test.yml",
+  "nextAction": "all_raw_upstream_audit_then_commit_complete_cache_membership_and_both_gates; freeze_separate_training_contract_only_if_both_pass"
+}
