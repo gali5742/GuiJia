@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.44';
+    const VERSION = '0.45';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -185,7 +185,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceBladeOutcomeContrast', src:'./js/bazi-contextual-force-party-source-blade-outcome-contrast.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchOfficerOppositionContract', src:'./js/bazi-contextual-force-party-source-branch-officer-opposition-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchOfficerOppositionProfile', src:'./js/bazi-contextual-force-party-source-branch-officer-opposition-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchOfficerOpposition', src:'./js/bazi-contextual-force-party-source-branch-officer-opposition.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchOfficerOpposition', src:'./js/bazi-contextual-force-party-source-branch-officer-opposition.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchKillerDirectionAuditContract', src:'./js/bazi-contextual-force-party-source-branch-killer-direction-audit-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchKillerDirectionAuditProfile', src:'./js/bazi-contextual-force-party-source-branch-killer-direction-audit-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchKillerDirectionAudit', src:'./js/bazi-contextual-force-party-source-branch-killer-direction-audit.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
