@@ -120,6 +120,9 @@ jobs:
       - name: Source Mediation Noncommunication regression
         run: node tests/bazi-contextual-force-party-source-mediation-noncommunication-tests.js
 
+      - name: Source Branch Restraint Nonrealization regression
+        run: node tests/bazi-contextual-force-party-source-branch-restraint-nonrealization-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

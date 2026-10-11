@@ -24,7 +24,7 @@ The selected clause does not literally name 子 or 卯. Its explicit 地支 scop
 
 The effect is an independently reviewed source-backed inference. Source identity, role/function shape, adjacency, water→wood generation or the old visible motif alone cannot supply the license. Neither branch is replaced with hidden 癸/乙, and no branch expands into members. The canonical direction remains killer→seal; no seal→killer reverse edge is created.
 
-The source's alternative “不克火” statement does not independently create a failed 子→午 edge. No 印→日主 edge, clash outcome, compound effect, party switch, source/target global effectiveness, target removal, beneficial/adverse judgment or final day-master strength is authorized.
+R24's review alone does not create a failed 子→午 edge from the source's alternative “不克火” statement. The later [R26 independent branch restraint review](BAZI_SOURCE_BRANCH_RESTRAINT_NONREALIZATION_v0.1.md) separately establishes its identity, actual wood context and negative realization without inheriting this positive effect license. No 印→日主 edge, clash outcome, compound effect, party switch, source/target global effectiveness, target removal, beneficial/adverse judgment or final day-master strength is authorized by R24.
 
 ## Actual consumers and R5 registration
 
