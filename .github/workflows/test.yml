@@ -1,33 +1,70 @@
-name: Test and vendor verification
+name: Small paired boundary development diagnostic v0.1
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: liuyao-boundary-probe-v01
+  cancel-in-progress: false
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  bounded-paired-diagnostic:
+    runs-on: ubuntu-24.04
+    env:
+      ONNXRUNTIME_NODE_INSTALL: skip
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - uses: actions/checkout@v5
         with:
-          node-version: "22"
-
-      - name: Core regression tests
-        run: npm test
-
-      - name: Build same-origin vendor site
-        run: node scripts/build-pages-site.mjs
-
-      - name: Verify vendor bytes and lunar smoke test
-        run: node scripts/verify-vendor.mjs .site
-
-      - name: Verify static Pages artifact
-        run: node scripts/verify-static-site.mjs .site deployed
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Prove isolated committed diagnostic source
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-boundary-probe-v01.mjs --source
+          echo "BOUNDARY_SOURCE_SHA=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.BOUNDARY_SOURCE_SHA }}
+          fetch-depth: 0
+      - name: Replay contamination audit and test frozen upstream permissions
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          node scripts/liuyao-semantic-boundary-probe-v01.mjs --audit
+          node --test tests/liuyao-semantic-route-arbitration-v014-tests.mjs tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Install pinned encoder outside checkout
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/guijia-boundary-probe-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/guijia-boundary-probe-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/guijia-boundary-probe-encoder-cache" >> "$GITHUB_ENV"
+      - name: Encode sixty frozen questions once and score both immutable all22 controls
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-boundary-probe-v01.mjs --encode
+      - name: Replay full membership, upstream and paired scores with zero new encoding
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-boundary-probe-v01.mjs --uncommitted-output
+      - name: Preserve diagnostic result without retraining or semantic repair
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-boundary-probe-v0.1-cache.json data/liuyao-semantic-boundary-probe-v0.1-report.json
+          git commit -m 'research(liuyao): seal paired boundary diagnostic without production promotion [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$BOUNDARY_SOURCE_SHA"..origin/liuyao-semantic-v013-core -- 'data/liuyao-semantic-*' 'js/liuyao-semantic-*' 'scripts/*liuyao-semantic*' 'tests/*liuyao-semantic*' '.github/workflows/liuyao*'; then
+            echo 'Diagnostic inputs changed; refusing stale result publication.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/liuyao-semantic-boundary-probe-v01.mjs
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Verify committed diagnostic and clean checkout
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-boundary-probe-v01.mjs
