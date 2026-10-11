@@ -1,0 +1,108 @@
+{
+  "version": "0.13-candidate-v0.11-data-ci-evidence-v0.1",
+  "status": "actual_ci_failed_data_audit_before_encoder_or_new_optimizer_weights",
+  "runId": 38136259173,
+  "url": "https://github.com/gali5742/GuiJia/actions/runs/38136259173",
+  "statusActual": "completed",
+  "conclusion": "failure",
+  "headSha": "1cb67537afbce2ceff360b739f11ab4660141faa",
+  "sourceCommit": "60e912e55020a1bb469ef4dc96a210b0ebea9241",
+  "workflowPath": ".github/workflows/test.yml",
+  "frozenWorkflowBinding": {
+    "path": ".github/workflows/liuyao-v013-v11-fallback-identity-v09-data.yml",
+    "sha256": "f64d7068410371f60e02609fd88321f566792f008eac0869de93c0484669ac13",
+    "gitBlobSha": "e4a973e388291dffc67ff784cc6678eb6de44564"
+  },
+  "implementationContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data-implementation-contract-v0.1.json",
+    "sha256": "e1d14bde44fca480af29b68f14800027a746fa8d8b75bfdf2b73bbe1556758c7",
+    "gitBlobSha": "5004b48de6562a0d57f0d8feee301ab3d689e157"
+  },
+  "jobs": [
+    {
+      "name": "frozen-data",
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prove isolated entry and committed literal source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test Arbitration responsibility and data integrity",
+          "conclusion": "success"
+        },
+        {
+          "name": "Seal all raw calibration and historical train-only members without encoder",
+          "conclusion": "failure"
+        },
+        {
+          "name": "Replay deterministic complete seal and immutable reseal",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Commit complete data seal without overwriting semantic work",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Confirm committed seal",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v5",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Post Run actions/checkout@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 39,
+    "passed": 39,
+    "failed": 0
+  },
+  "failure": {
+    "check": "cross_split_trigram_near_duplicate",
+    "trainingMemberId": "V013-V11-FI-T-2009",
+    "calibrationMemberId": "V013-V11-FI-C-N-3-13",
+    "similarity": 0.8888888888888888,
+    "maximumSimilarityExclusive": 0.82,
+    "wordingOmitted": true,
+    "firstObservedFailureOnly": true,
+    "completeAuditPassed": false
+  },
+  "localGuardedReplay": {
+    "status": "same_first_failure_reproduced",
+    "encoderInvocations": 0
+  },
+  "candidateCalibrationEncoderInvocations": 0,
+  "newOptimizerRealHeadsTrained": 0,
+  "dataSealWritten": false,
+  "noSameVersionRepair": true
+}

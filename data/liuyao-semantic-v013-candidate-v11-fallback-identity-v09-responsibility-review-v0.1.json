@@ -1,0 +1,67 @@
+{
+  "version": "0.13-candidate-v0.11-responsibility-review-v0.1",
+  "status": "failed_data_audit_stop_before_new_optimizer_weights",
+  "candidateAllowedToContinue": false,
+  "phaseCAllowed": false,
+  "componentPassClaimed": false,
+  "integratedPassClaimed": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "reservedResearchRead": false,
+  "priorReadIncidentPreserved": true,
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-design-v0.1.json",
+      "sha256": "34e8b37b9596358e4002d5996e9b0e24fb6d691e1feda381ce9b5aa79f47e77b",
+      "gitBlobSha": "52f61b368fb6a633b3cf6d094db4cfe414d4d603"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-design.lock.json",
+      "sha256": "c083fb20ff77ce2fcbcafe8e8d1c828912c79e61c44cef23a907a6a5decba8c0",
+      "gitBlobSha": "75ab6e7f493211e721c2a1b89994a691990fd003"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-ci-evidence-v0.1.json",
+      "sha256": "83bd47aad2c713c07ffe254fc92e176c31968aa84bdd5cb05cd29760ea645848",
+      "gitBlobSha": "8819f64c9676667dd8f10e30ac61f83ec0be6a64"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-reproduction-report-v0.1.json",
+      "sha256": "024f72507a6408ebf35bfeaa5afeb0fd4349d45a1bb5514c769be5b91d2b4670",
+      "gitBlobSha": "4b5a976096fa07a3b887bb738b4465cc2020c6ed"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data-ci-evidence-v0.1.json",
+      "sha256": "2441424a83721eca02d5908f1e0fe0aa7fdcf556617bd3b47f71fed6415400e2",
+      "gitBlobSha": "58a74fc78a48517891750e027ba858bb46e1efa6"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data-audit-failure-v0.1.json",
+      "sha256": "9cb44862af86cd875ff0f305df96accb650a880c8f9e6d2fef620d41558ead23",
+      "gitBlobSha": "c8bf41de1f3f7a7711ebfa182d441c0a466f9d4b"
+    }
+  ],
+  "optimizationDiagnosis": {
+    "headCount": 22,
+    "stationaryHeads": 0,
+    "nonStationaryHeads": 22,
+    "maximumLossReplayDifference": 5.273559366969494e-16,
+    "minimumGradientInfinityNorm": 0.0025061661840539663,
+    "maximumGradientInfinityNorm": 0.0037186961165575102
+  },
+  "diagnosticEncoderInvocations": 4056,
+  "rawCalibrationEncoderInvocations": 0,
+  "newOptimizerTrainingEncoderInvocations": 0,
+  "totalV11EncoderInvocations": 4056,
+  "oldModelLossConsistencyGateStillFailed": true,
+  "oldModelExactOriginalConvergenceProven": false,
+  "fixedCacheReproductionOverridesOldGate": false,
+  "newOptimizerRealTrainingPerformed": false,
+  "newOptimizerConvergenceOrPerformanceClaimed": false,
+  "fullContaminationAuditPassed": false,
+  "dataSealWritten": false,
+  "componentThresholdSelected": false,
+  "sameVersionRepairPerformed": false,
+  "modelVariant": "Codex GPT-6-based session; exact variant unavailable; GPT-6.1 Sol not claimed",
+  "pageId": null
+}

@@ -1,0 +1,46 @@
+{
+  "version": "0.13-candidate-v0.11-data-audit-failure-v0.1",
+  "status": "failed_stop_before_data_seal_and_encoder",
+  "designBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-design-v0.1.json",
+    "sha256": "34e8b37b9596358e4002d5996e9b0e24fb6d691e1feda381ce9b5aa79f47e77b",
+    "gitBlobSha": "52f61b368fb6a633b3cf6d094db4cfe414d4d603"
+  },
+  "dataContractBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data-contract-v0.1.json",
+    "sha256": "331595b18f71adafb1efe5722cbdbed001b6fc98dfc16830612f21a3b31bc864",
+    "gitBlobSha": "d91cdd9e4e743629b4f7cfcaf4c7d88f831acc0c"
+  },
+  "authoringBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-authoring-v0.1.json",
+    "sha256": "ea45c9df197226662c67c9bcec58492cfb969da75622606f5c5adbbfa7b40ac7",
+    "gitBlobSha": "b263494a5ba9e05224035de7f02db66fcc571071"
+  },
+  "ciEvidenceBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-fallback-identity-v09-data-ci-evidence-v0.1.json",
+    "sha256": "2441424a83721eca02d5908f1e0fe0aa7fdcf556617bd3b47f71fed6415400e2",
+    "gitBlobSha": "58a74fc78a48517891750e027ba858bb46e1efa6"
+  },
+  "failure": {
+    "check": "cross_split_trigram_near_duplicate",
+    "trainingMemberId": "V013-V11-FI-T-2009",
+    "calibrationMemberId": "V013-V11-FI-C-N-3-13",
+    "similarity": 0.8888888888888888,
+    "maximumSimilarityExclusive": 0.82,
+    "wordingOmitted": true,
+    "firstObservedFailureOnly": true,
+    "completeAuditPassed": false
+  },
+  "retainedRawAuthoringRows": 396,
+  "trainingRowsProposed": 2028,
+  "calibrationRowsRemoved": 0,
+  "wordingEditedAfterFailure": false,
+  "thresholdRelaxed": false,
+  "oldFrozenInputsChanged": false,
+  "encoderInvocations": 0,
+  "upstreamAuditPerformed": false,
+  "newOptimizerWeightTrainingPerformed": false,
+  "calibrationPerformed": false,
+  "thresholdLockExists": false,
+  "nextAction": "stop_v11_without_same_version_repair; prospective_v12_must_freeze_before_fresh_literal_calibration_authoring; retain_single_optimizer_hypothesis_without_performance_claim"
+}
