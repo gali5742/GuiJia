@@ -1,0 +1,90 @@
+name: Candidate v0.9 Fallback v0.7 frozen training and calibration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: liuyao-v013-v09-fallback-training
+  cancel-in-progress: false
+
+jobs:
+  frozen-training-calibration:
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ONNXRUNTIME_NODE_INSTALL: skip
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Verify isolated entry and committed training source
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-training-ci-source.mjs
+          echo "V09_TRAIN_SOURCE_SHA=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - name: Checkout exact frozen training source
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ env.V09_TRAIN_SOURCE_SHA }}
+          fetch-depth: 0
+      - name: Prove committed gates and successful upstream CI before training
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs --preflight
+      - name: Test frozen threshold responsibility and admission behavior
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node --test tests/liuyao-semantic-v013-candidate-v09-calibration-tests.mjs tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs
+      - name: Install pinned encoder runtime outside checkout
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/guijia-v09-training-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/guijia-v09-training-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/guijia-v09-training-cache" >> "$GITHUB_ENV"
+      - name: Encode sealed train-only members and train all22 heads from zero
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/train-liuyao-semantic-v013-candidate-v09-fallback-identity-v07.mjs
+      - name: Verify weights before first calibration score
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs --weights --uncommitted-outputs
+      - name: Commit weights before any Fallback calibration scoring
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.json data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.lock.json
+          git commit -m 'chore(liuyao): lock v0.9 all22 zero-initialized weights before scores [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$V09_TRAIN_SOURCE_SHA"..origin/liuyao-semantic-v013-core -- 'data/liuyao-semantic-*' 'js/liuyao-semantic-*' 'scripts/*liuyao-semantic*' 'tests/*liuyao-semantic*' '.github/workflows/liuyao-v013-*'; then
+            echo 'Frozen semantic inputs changed; refusing stale weights push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs --weights
+          git push origin HEAD:liuyao-semantic-v013-core
+          echo "V09_WEIGHT_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+      - name: Score all raw cached vectors and calibrate one global threshold
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/calibrate-liuyao-semantic-v013-candidate-v09-fallback-identity-v07.mjs
+      - name: Replay success or failure without new encoder calls
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs --uncommitted-outputs
+      - name: Preserve immutable calibration success or failure
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          REPORT=data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-calibration-report.json
+          LOCK=data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-threshold.lock.json
+          git add "$REPORT"
+          if [ -f "$LOCK" ]; then git add "$LOCK"; fi
+          git commit -m 'test(liuyao): seal v0.9 immutable frozen global calibration result [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$V09_WEIGHT_SHA"..origin/liuyao-semantic-v013-core -- 'data/liuyao-semantic-*' 'js/liuyao-semantic-*' 'scripts/*liuyao-semantic*' 'tests/*liuyao-semantic*' '.github/workflows/liuyao-v013-*'; then
+            echo 'Frozen semantic inputs changed; refusing stale calibration push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Require component lock before Phase C
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/verify-liuyao-semantic-v013-candidate-v09-fallback-identity-v07-model.mjs --require-component-lock
