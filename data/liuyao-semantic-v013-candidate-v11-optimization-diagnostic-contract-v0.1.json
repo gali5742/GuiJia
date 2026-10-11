@@ -1,0 +1,183 @@
+{
+  "version": "0.13-candidate-v0.11-train-only-optimization-diagnostic-contract-v0.1",
+  "status": "frozen_train_only_stationarity_diagnostic_before_encoder_feedback",
+  "baselineCommit": "9ae28713a8deb229dd831f4cf642368ca67b4f5d",
+  "trainingRows": 2028,
+  "routes": [
+    "financial_fortune",
+    "business_operation",
+    "commercial_transaction",
+    "inventory_purchase",
+    "inventory_sale",
+    "borrow_money",
+    "lend_money",
+    "debt_collection",
+    "debt_repayment",
+    "partnership",
+    "investment_profit",
+    "investment_liquidation",
+    "investment_suitability",
+    "investment_position_decision",
+    "investment_price_trend",
+    "income_salary",
+    "income_bonus",
+    "receive_item",
+    "item_purchase",
+    "relationship_development",
+    "marriage_match",
+    "marital_relationship"
+  ],
+  "trainingBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+    "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+    "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+  },
+  "trainingLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+    "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+    "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+  },
+  "modelBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-model.json",
+    "sha256": "66f48b5f9b0d96a0b41ab653b90b89c5320bfc593679102bfc79df4e9945ecf9",
+    "gitBlobSha": "b8e67967619e0842e66e3e1f9e005380d7b69b67"
+  },
+  "oldWeightCommit": "d4fa32184128a52fa20f0fef26c1fe4ed6ee7749",
+  "algorithmBinding": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+    "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+    "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+  },
+  "objectiveBinding": {
+    "path": "js/liuyao-semantic-fallback-objective-v01.js",
+    "sha256": "6e28b70d5731374a307ec5ca936095615c4b7f4081045a670c46b551e9dfb3c7",
+    "gitBlobSha": "94210a19827bd52d3305da896069c4daf1ccc267"
+  },
+  "encoderExecution": {
+    "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+    "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+    "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5",
+    "modelId": "Xenova/bge-small-zh-v1.5",
+    "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+    "transformersJsVersion": "4.2.0",
+    "dtype": "q8",
+    "vectorSize": 512,
+    "pooling": "mean",
+    "normalize": true,
+    "canonicalTextsPerEncoderCall": 1,
+    "multiTextFeatureExtractionBatchForbidden": true,
+    "encoderRetraining": false
+  },
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-contract-v0.1.json",
+      "sha256": "e575b0f3b61656ebe930c9bb21c02fcc4495cedbbcf1d0ad90b8848ff820a348",
+      "gitBlobSha": "4eccadc835adeb6c6820a7eeb949e9817875ad1c"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+      "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+      "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-model.json",
+      "sha256": "66f48b5f9b0d96a0b41ab653b90b89c5320bfc593679102bfc79df4e9945ecf9",
+      "gitBlobSha": "b8e67967619e0842e66e3e1f9e005380d7b69b67"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-model.lock.json",
+      "sha256": "c566e7a75c3a091bd793fb692c73b89a7d0605aef3863fc4dae95c10860cb6e7",
+      "gitBlobSha": "ba192cb9a029749a5e0a84ca45803a4019712ff2"
+    },
+    {
+      "path": "data/liuyao-semantic-embedding-execution-contract-v0.1.json",
+      "sha256": "d8f831fe3b81c13773539fc7459b659d7960c748ee0907a63b43a5f753545aa7",
+      "gitBlobSha": "f8ecd4edac2d69b1dd6519e7fd7ca041222ee0a5"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+      "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+      "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-objective-v01.js",
+      "sha256": "6e28b70d5731374a307ec5ca936095615c4b7f4081045a670c46b551e9dfb3c7",
+      "gitBlobSha": "94210a19827bd52d3305da896069c4daf1ccc267"
+    },
+    {
+      "path": "tests/liuyao-semantic-fallback-objective-v01-tests.mjs",
+      "sha256": "eba616adfc74cfecc6aa211e1777bdaafa4ab722d781e13b6f61d4c95e5d7d45",
+      "gitBlobSha": "3166eaf251139ae151eaa551d0481acd1b775328"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs",
+      "sha256": "7c0d13c35a8c355b498fcf9a367b8feb5851e7998988aaa839f082c36fca6ef0",
+      "gitBlobSha": "1aae1f8c10cb9a26cba0a7f37a4e6a5370b58684"
+    },
+    {
+      "path": ".github/workflows/liuyao-v013-v11-optimization-diagnostic.yml",
+      "sha256": "371a4e0f1551e192b1d354f65baa89bc591ab72bae3f9112ef9bef01b4ca1684",
+      "gitBlobSha": "f2f182cc6b001bf4e32186c3db0832aa5a5d7557"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-lib.mjs",
+      "sha256": "9dba385939f5a24930dc0bb459f9b7401e089d524f7977625770c87ff1a8c8fa",
+      "gitBlobSha": "2aa48b19b811e704867321ca1a0d611de4cfecf6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-execution-lib.mjs",
+      "sha256": "a77baff0976c163bcf13b3541b71ebf5c5220734130cb6b1e446a184f83be953",
+      "gitBlobSha": "b55497d252dc03af74e8348e18bc4d8f74369fde"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v06-fallback-identity-v04-data-lib.mjs",
+      "sha256": "98f2ddb2ab8dd09a1c7ffb01159c938f1533f37a7fd081973b7b45439f72d846",
+      "gitBlobSha": "7e32cde9f885f1284bcef90271bd9d14cc981b04"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-execution-lib.mjs",
+      "sha256": "2e68cc6e73cc8375b093b3a67f22ded5baec66dea60a9651913ebfd1aa2c8447",
+      "gitBlobSha": "20f108920f4488f86e556d183fca64cd879573ca"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    }
+  ],
+  "stationarityInfinityTolerance": 1e-7,
+  "lossReplayTolerance": 0.000001,
+  "weightTrainingAllowed": false,
+  "calibrationInputsAllowed": false,
+  "newEncoderInvocationsPlanned": 2028,
+  "outputs": {
+    "cache": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.1.json",
+    "report": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-report-v0.1.json",
+    "lock": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache.lock.json"
+  },
+  "workflowPath": ".github/workflows/liuyao-v013-v11-optimization-diagnostic.yml",
+  "testsPassed": 6,
+  "governance": {
+    "trainingOnly": true,
+    "oldWeightsModified": false,
+    "oldWeightsOnlyStationarityDiagnostic": true,
+    "calibrationQuestionsRead": false,
+    "calibrationVectorsRead": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "noHyperparameterOrCheckpointSweep": true,
+    "priorReadIncidentPreserved": true
+  },
+  "interpretation": "A nonzero training gradient proves the fixed old head is not stationary for this convex objective at the prespecified tolerance; it does not prove a new optimizer will pass fresh calibration or that the encoder is sufficiently separable."
+}

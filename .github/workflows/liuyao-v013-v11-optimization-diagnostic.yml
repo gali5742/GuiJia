@@ -1,0 +1,70 @@
+name: Candidate v0.11 train-only optimization diagnostic
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: liuyao-v013-v11-optimization-diagnostic
+  cancel-in-progress: false
+
+jobs:
+  train-only-diagnostic:
+    runs-on: ubuntu-24.04
+    env:
+      ONNXRUNTIME_NODE_INSTALL: skip
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Prove isolated committed diagnostic source
+        run: |
+          set -euo pipefail
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs --source
+          echo "V11_DIAGNOSTIC_SOURCE=$(git rev-parse HEAD^)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.V11_DIAGNOSTIC_SOURCE }}
+          fetch-depth: 0
+      - name: Verify train-only membership and analytic objective
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs --preflight
+          node --test tests/liuyao-semantic-fallback-objective-v01-tests.mjs
+      - name: Install pinned public encoder outside checkout
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/guijia-v11-diagnostic-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/guijia-v11-diagnostic-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/guijia-v11-diagnostic-cache" >> "$GITHUB_ENV"
+      - name: Encode sealed training only and evaluate fixed old-head gradients
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs --encode
+      - name: Replay immutable training cache without new encoder calls
+        run: NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs --uncommitted-outputs
+      - name: Seal train-only cache and diagnostic without modifying old weights
+        run: |
+          set -euo pipefail
+          export NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.1.json data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-report-v0.1.json data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache.lock.json
+          git commit -m 'test(liuyao): seal v0.11 train-only stationarity diagnostic before new weights [skip ci]'
+          git fetch origin liuyao-semantic-v013-core
+          if ! git diff --quiet "$V11_DIAGNOSTIC_SOURCE"..origin/liuyao-semantic-v013-core -- 'data/liuyao-semantic-*' 'js/liuyao-semantic-*' 'scripts/*liuyao-semantic*' 'tests/*liuyao-semantic*' '.github/workflows/liuyao-v013-*'; then
+            echo 'Semantic inputs changed; refusing stale diagnostic push.'
+            exit 1
+          fi
+          git rebase origin/liuyao-semantic-v013-core
+          node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs
+          git push origin HEAD:liuyao-semantic-v013-core
+      - name: Confirm committed training-only diagnostic
+        run: |
+          set -euo pipefail
+          git diff --exit-code
+          NODE_OPTIONS='--require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs' node scripts/liuyao-semantic-v013-candidate-v11-optimization-diagnostic.mjs
