@@ -1,0 +1,174 @@
+{
+  "version": "0.13-candidate-v0.10-training-ci-evidence-v0.1",
+  "status": "actual_ci_failed_only_component_gate_calibration_failure_preserved",
+  "sourceCommit": "408d6b60e51570fcbc341b4817f4d5031a51a1f4",
+  "weightCommit": "d4fa32184128a52fa20f0fef26c1fe4ed6ee7749",
+  "calibrationCommit": "f8f3679a66536841afde5ab4b6a6eaa4ee8a2a68",
+  "CI": {
+    "id": 38134255524,
+    "status": "completed",
+    "conclusion": "failure",
+    "head_sha": "66b159af7e8911ac07c603d1ca10b2874296e830",
+    "head_branch": "codex/v10-train-ci-408d6b60",
+    "event": "workflow_dispatch",
+    "path": ".github/workflows/test.yml",
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38134255524"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify isolated entry and committed training source",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Checkout exact frozen training source",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Prove committed gates and successful upstream CI before training",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test frozen threshold responsibility and admission behavior",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install pinned encoder runtime outside checkout",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Encode sealed train-only members and train all22 heads from zero",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify weights before first calibration score",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Commit weights before any Fallback calibration scoring",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Score all raw cached vectors and calibrate one global threshold",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Replay success or failure without new encoder calls",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve immutable calibration success or failure",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Require component lock before Phase C",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Post Checkout exact frozen training source",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training-execution-contract-v0.1.json",
+      "sha256": "c7eff24295084218db58e0b05d63fdfc375f285619fb3eb476c945b3e7f62057",
+      "gitBlobSha": "3abde3ace8bda589c73ab3a848e0a6325e2143d2"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-model.json",
+      "sha256": "66f48b5f9b0d96a0b41ab653b90b89c5320bfc593679102bfc79df4e9945ecf9",
+      "gitBlobSha": "b8e67967619e0842e66e3e1f9e005380d7b69b67"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-model.lock.json",
+      "sha256": "c566e7a75c3a091bd793fb692c73b89a7d0605aef3863fc4dae95c10860cb6e7",
+      "gitBlobSha": "ba192cb9a029749a5e0a84ca45803a4019712ff2"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-calibration-report.json",
+      "sha256": "38d7eaab37e8ec6a1eb72fcf64005a9ff6361568f5b8de0c7026f5a63d26dc2e",
+      "gitBlobSha": "3017cb3fecdaecc249b7be6e01007d174da96024"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-reachability-audit-v0.1.json",
+      "sha256": "bc68d9e2ba3c04356666fbd5d858f72ade770939a01f17f02f39a41bd3e5ad8b",
+      "gitBlobSha": "f340949f86a83896416fffd07572365df8c9b568"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-reachability.lock.json",
+      "sha256": "3e7994b686f3fda5adc580e8db9e32e7b6e5d14a7fa5c649f0496e0651acb162",
+      "gitBlobSha": "a7083381ed2444052143e0b91344e31d4b05ca30"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-exposure-report-v0.1.json",
+      "sha256": "87c5b372fe63166e07409d7227a747c0dab771ba84895580e4597dc029d431e0",
+      "gitBlobSha": "a90a5595ded0e6458a8464ab8c833b6abb92ec75"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-posttraining-responsibility-review-v0.1.json",
+      "sha256": "e8504bd63aa9cf0c31a2bafd2ce323dda282a61e940eea817426e47ef138e6ee",
+      "gitBlobSha": "6dd13f7d61bd15eeada09f92fd5fed7ac71dc7db"
+    }
+  ],
+  "testsPassed": 15,
+  "headCount": 22,
+  "zeroInitialized": true,
+  "trainingEncoderInvocations": 2028,
+  "rawAuditEncoderInvocations": 396,
+  "totalCandidateEncoderInvocations": 2424,
+  "calibrationEncoderInvocations": 0,
+  "posttrainingDiagnosticEncoderInvocations": 0,
+  "upstreamGatesPassed": true,
+  "calibrationStatus": "calibration_failed_no_feasible_global_threshold",
+  "selectedThreshold": null,
+  "feasibleRegimes": 0,
+  "weightsCommittedBeforeScores": true,
+  "committedFullCalibrationReplayPassedLocally": true,
+  "phaseCEntered": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "priorIncidentPreserved": true
+}
