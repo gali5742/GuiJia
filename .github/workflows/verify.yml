@@ -102,6 +102,9 @@ jobs:
       - name: Source Blade Target Calibration regression
         run: node tests/bazi-contextual-force-party-source-blade-target-calibration-tests.js
 
+      - name: Source Blade Relation Realization regression
+        run: node tests/bazi-contextual-force-party-source-blade-relation-realization-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
