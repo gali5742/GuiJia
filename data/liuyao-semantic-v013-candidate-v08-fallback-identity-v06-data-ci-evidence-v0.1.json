@@ -1,0 +1,102 @@
+{
+  "version": "0.13-candidate-v0.8-data-ci-evidence-v0.1",
+  "status": "actual_data_ci_success_and_bot_seal_proven",
+  "sourceCommit": "a5c9efe9d3528192b87d5f377d43434a3525d48c",
+  "sealCommit": "55cd93cc26a7c2b123741f30125efea2c73f9c42",
+  "CI": {
+    "id": 38115535440,
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "37eec207009365d31dc384a1c4679fe004ed5009",
+    "head_branch": "codex/v08-data-ci-a5c9efe9",
+    "event": "workflow_dispatch",
+    "path": ".github/workflows/test.yml",
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38115535440"
+  },
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Prove isolated entry and committed literal source",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test Arbitration responsibility and data integrity",
+      "conclusion": "success"
+    },
+    {
+      "name": "Seal all raw calibration and historical train-only members without encoder",
+      "conclusion": "success"
+    },
+    {
+      "name": "Replay deterministic complete seal and immutable reseal",
+      "conclusion": "success"
+    },
+    {
+      "name": "Commit complete data seal without overwriting semantic work",
+      "conclusion": "success"
+    },
+    {
+      "name": "Confirm committed seal",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v5",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-training.json",
+      "sha256": "ec2743cadc337ab2e39d989c70eeed5c6d165e26d95fdc8c4828ac71c9986566",
+      "gitBlobSha": "d45549fce66f967c03f4f1a1b2cd2c97bfc8e27b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-calibration.json",
+      "sha256": "22dd589521b2c191ead1dd99f70f17979423bcb132b461943ce24301c8914182",
+      "gitBlobSha": "8f07e017e90719a31aeee4504dea9ef36b8d1c31"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-contamination-audit-v0.1.json",
+      "sha256": "22018433d8986a88a140f4699f4d3a5f01a3e39a143b8c022cf3919b8dc4565f",
+      "gitBlobSha": "30d7615813b69eabd2a69b6b7206a8fb4ec544e3"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data.lock.json",
+      "sha256": "647954eb6c5d772bcbbb022c99ccc1157994fbf3a088080f3e2f582722ba3f3a",
+      "gitBlobSha": "aef170e026c31efd66f9fcddfa376c22fcfb59b6"
+    }
+  ],
+  "testsPassed": 23,
+  "encoderInvocations": 0,
+  "weightsTrained": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "priorIncidentPreserved": true
+}

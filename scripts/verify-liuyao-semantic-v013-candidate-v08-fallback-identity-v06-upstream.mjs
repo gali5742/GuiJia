@@ -1,0 +1,3 @@
+import {preflight,verifyAudit} from './liuyao-semantic-v013-candidate-v08-fallback-identity-v06-execution-lib.mjs';
+if(process.argv.includes('--preflight')){preflight();console.log(JSON.stringify({status:'frozen_inputs_and_real_data_ci_verified',encoderInvocations:0}));}
+else{const {gates}=verifyAudit({requireCommitted:!process.argv.includes('--uncommitted-outputs')});console.log(JSON.stringify({status:gates.status,eligibleToTrain:gates.eligibleToTrain,coverage:gates.coverage,safetyLowerBound:gates.safetyLowerBound.nonRoute,safetyViolations:gates.safetyLowerBound.violations,newEncoderInvocations:0,weightsTrained:false}));if(process.argv.includes('--require-training-permission')&&!gates.eligibleToTrain)process.exitCode=2;}
