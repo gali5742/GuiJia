@@ -1,0 +1,91 @@
+{
+  "version": "0.13-candidate-v0.8-data-implementation-v0.1",
+  "status": "frozen_data_implementation_before_generation_and_encoder",
+  "bindings": [
+    {
+      "path": ".github/workflows/liuyao-v013-v08-fallback-identity-v06-data.yml",
+      "sha256": "536a87a803a805aa4ba086593f73bbbe82b466ad60ef465c8b0392c279bcd60e",
+      "gitBlobSha": "64f29ced523adb14d8afa7d5cddf0f7ac02dba6c"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.lock.json",
+      "sha256": "d2943cc1646c2eaeb99f7836bd7ae9fc82afcee98f125e9a759ba02ce733912f",
+      "gitBlobSha": "5ec517bb98e3fe096493625e2887ecf2885fe5dd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-training.json",
+      "sha256": "08cebd8978c97a45c23ced91e3c15a98f5949ba06c4079a680ec08eff71579c3",
+      "gitBlobSha": "41639677cc160c3ea088b5913269cf9ee4bc3b17"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-design-v0.1.json",
+      "sha256": "ad4d51402cfe340eeb03669658d0c3cfa3c11d48a91676bc9260fe58029df116",
+      "gitBlobSha": "d9b3f2a3adce06364fedd1ee085d85ef39503811"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-design.lock.json",
+      "sha256": "1b05a2b3a08bae10c7280adc03a6e41e7cffa5968a618ba51453ce359f609a30",
+      "gitBlobSha": "c2bdeca13bcade402649da8d9ae8814643003fd3"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-authoring-v0.1.json",
+      "sha256": "bcdf98195e8fa074fdd8c6370913a247cf91387e5702b95e17064aa0056097fb",
+      "gitBlobSha": "fc785180e37051f1517318dce2a3012e812e3a0a"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data-contract-v0.1.json",
+      "sha256": "034dd62a169faa8c133fd3da86a5285017572ef01dc1a944deeba5c10a5cca02",
+      "gitBlobSha": "89dd1bdaef18f56a7abce6d29e9a9e2091f015bd"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data-lib.mjs",
+      "sha256": "6c91de3379ee156c6e90734194c6188788e976ad3545d00267385e217d8028ba",
+      "gitBlobSha": "572c50b87d605a168062ddeda61bd663ed60d288"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v08-fallback-identity-v06-data.mjs",
+      "sha256": "3024abe778b66a9022f6c43df3372375a39e9e6d69ad5f9dc2551cc8575278e5",
+      "gitBlobSha": "4aabf50f32423cb832774d1f423992ad0577b6ab"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v08-ci-source.mjs",
+      "sha256": "b882710ab93c3e0176469682168dd050115fe78404622be90f27a19122e304a6",
+      "gitBlobSha": "b9c68f29590fe506012b9c09a20d12d8e6735934"
+    },
+    {
+      "path": "tests/liuyao-semantic-route-arbitration-v013-tests.mjs",
+      "sha256": "4b5d08ac84450eab9c88f35c5f8f9e4d26b3fc416ee0580bfb90dd35d5b4d149",
+      "gitBlobSha": "4dd9745e13d75ce822733de35ddff8a972f5e023"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-policy-tests.mjs",
+      "sha256": "75d3399dd960a612ea32dc0a390687503c78255f0d6228d93f0ecdf44becb709",
+      "gitBlobSha": "45ca67c7854bd437a1cbc3821947c1c2dc0b8646"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v08-data-tests.mjs",
+      "sha256": "e16aedbc02f3cfe111ca51de1d8af0e06dbc15d03310f48082e0e6bbfe22b7ed",
+      "gitBlobSha": "9a23605646e69a58fcf666c45d5a51404751e042"
+    }
+  ],
+  "workflowPath": ".github/workflows/liuyao-v013-v08-fallback-identity-v06-data.yml",
+  "isolatedEntryPath": ".github/workflows/test.yml",
+  "encoderInvocations": 0,
+  "newWeightsTrained": false,
+  "sourceWording": "308 individually authored new literals; 1698 previously sealed training members reused as train-only source; old failed calibration comparator-only"
+}

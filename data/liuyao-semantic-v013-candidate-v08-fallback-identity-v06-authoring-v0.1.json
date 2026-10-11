@@ -1,0 +1,2476 @@
+{
+  "version": "0.13-candidate-v0.8-literal-calibration-authoring-v0.1",
+  "generation": "individually_authored_literal_texts_no_template_expansion_no_model_feedback",
+  "schemaCommit": "5f34fd9",
+  "rows": [
+    {
+      "id": "V013-V08-FI-C-K-01-01",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我想问入冬以后总体钱财状况能否转好？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-02",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "家庭接下来几个月的整体收支会有盈余吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-03",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "来年开头手里的钱会比现在宽松些吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-04",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这阵子各项进账加在一起，钱包是鼓起来还是瘪下去？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-05",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "春节前个人可支配的钱还能剩下多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-06",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "下一个季度全部收入与开销相抵，我的经济余地怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-07",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不挑某一项买卖，我只想知道今后一段日子的财运。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-01-08",
+      "expectedRoute": "financial_fortune",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "把工资和偶尔的外快一并算上，未来资金宽裕程度怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-01",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "新开的面馆能否一直经营得下去？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-02",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我的网店明年会不会从亏本转为赚钱？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-03",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这家修鞋铺还能撑过淡季吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-04",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "近期开张的烘焙坊能长久做下去吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-05",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这个社区洗衣铺后面的营收够不够覆盖日常成本？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-06",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我办的培训工作室往后生存状况怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-07",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问单笔订单，只问整家小店下一季的经营表现。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-02-08",
+      "expectedRoute": "business_operation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这个维修摊子还有没有持续做下去的空间？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-01",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "正在商谈的这笔采购合同能否签成？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-02",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "客户这次的批发订单会不会敲定？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-03",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "买家与我谈到最后的那桩买卖能落地吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-04",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "双方还在议价，这宗生意最后有没有成交的希望？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-05",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我与供货方协商的那份交易最终办得成吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-06",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "准备交付的这一个商务项目能顺利达成约定吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-07",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不谈整家公司的经营，只问眼前这一单最终结果。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-03-08",
+      "expectedRoute": "commercial_transaction",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这宗商品买卖的谈判有没有机会走到正式成交？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-01",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "仓库这次补货能否按期全部入库？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-02",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "为了旺季进的这批商品能不能顺利到齐？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-03",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "铺子预备补上的那些货能如愿备齐吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-04",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "货架空了，我这回向厂家拿货有没有阻碍？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-05",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "计划添上的经营存货能完整送到仓里吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-06",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "门店下一轮备货最终能落实多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-07",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问卖不卖得掉，而是问这轮库存补充能不能办妥。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-04-08",
+      "expectedRoute": "inventory_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "为后续零售准备的这批货能按安排补进来吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-01",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "积在库里的旧款衣服能否卖完？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-02",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这批存货月底前会不会全部出清？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-03",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "架上压了很久的商品这次能卖出去多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-04",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "库存里的滞销鞋还能找到接手的买家吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-05",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "一直占着仓位的那批货可以消化掉吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-06",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "剩余经营商品能在换季之前售出去吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-07",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不考虑重新进货，只问现有积货能否清掉。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-05-08",
+      "expectedRoute": "inventory_sale",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "打算处理掉的尾货最后能离开库房吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-01",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我向姐姐借一笔周转款能不能借到？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-02",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我申请的经营贷款这回能否放下来？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-03",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家中有资金缺口，找亲人暂时垫钱能办成吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-04",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我要从外面筹一笔应急款，这钱拿得到吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-05",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我这边缺钱，熟人愿不愿意先提供那笔款给我用？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-06",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "作为资金接收方，这次申请援助的钱能落实吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-07",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是借钱给别人，我是要借入资金渡过眼前困难。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-06-08",
+      "expectedRoute": "borrow_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我需要别人先出这笔钱，最后会有人给我吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-01",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "亲戚向我借款，我该不该把钱借给他？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-02",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我准备出借一笔款给邻居，这件事能否顺利？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-03",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "朋友急用钱，想让我暂时提供资金，这样做合适吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-04",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "对方希望用我的积蓄周转，我把款交给他好不好？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-05",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我是出钱的一方，向别人提供这笔临时资金是否妥当？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-06",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "同学要从我这里拿应急的钱，我能放心支持吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-07",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是我要借入，而是我拿现有的钱帮助别人周转。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-07-08",
+      "expectedRoute": "lend_money",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我把一笔闲钱暂时交给有困难的人用，结果会怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-01",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "客户拖欠我的应收货款能不能收回？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-02",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我借出去的旧款这一回能否追回来？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-03",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "别人还欠我一笔钱，这次追讨能到手多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-04",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我是债权人，迟迟没给我的那笔款能要回来吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-05",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "此前替熟人垫付的金额能重新回到我手里吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-06",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "对方承诺归还我的旧账，最后能兑现吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-07",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问给人新借款，而是问已有债权能不能兑现。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-08-08",
+      "expectedRoute": "debt_collection",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "早些时候出去的钱如今轮到别人归还，能入账吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-01",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我欠银行的消费贷能不能全部还清？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-02",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我这边的信用卡债务年底前能否结清？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-03",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我是欠款人，接下来的现金够把旧债偿付完吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-04",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "还压在我名下的借款能在约定期限内还掉吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-05",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我对外的欠账能否从账面彻底消除？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-06",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "轮到我给债主付钱，这次能如数履行吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-07",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问别人还我钱，只问我自己的偿债能否完成。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-09-08",
+      "expectedRoute": "debt_repayment",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我负担的这笔旧欠款还有机会清偿干净吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-01",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我与朋友合伙办小店会不会合作顺利？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-02",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这回和搭档共同经营能否长久维持？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-03",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "两个人一起干的事业还能和气推进吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-04",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "准备与熟人共同出资办事，这个组合的前景怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-05",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我和另一位经营者联合做项目，双方配合得起来吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-06",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这次协作伙伴能否与我一同把事业做稳？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-07",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问某单交易，只问与这位搭档共同做事的结果。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-10-08",
+      "expectedRoute": "partnership",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我与另一人共享投入和经营责任，这段合作走得远吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-01",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "买下的债券基金会不会产生正收益？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-02",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这项股权投资最后能否赚钱？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-03",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "资金放进这个标的以后还能挣到利润吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-04",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我参与的新能源项目扣除成本之后有钱可赚吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-05",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "投出去的本金最终能带回额外的钱吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-06",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "持有这份资产的经济回报会落在哪个水平？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-07",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问报价怎么走，只问我这笔投入最终赚不赚。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-11-08",
+      "expectedRoute": "investment_profit",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "就算短期起伏不定，这项投资的净回报还能转正吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-01",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "手里的基金这次赎回能否顺利到账？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-02",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "全部卖出这份持仓的套现计划会不会完成？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-03",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我准备把整个投资退出，资金取回会受阻吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-04",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "那些证券想一次处理干净，最后能变成现金吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-05",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "手上这一份金融资产能在需要时全部换回现款吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-06",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "不再继续持有了，我彻底退出这笔投入能办妥吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-07",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是小幅调仓，我想问整个仓位退出来的结果。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-12-08",
+      "expectedRoute": "investment_liquidation",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "计划把已投下去的钱全部撤出，最后能收成现金吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-01",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "新的指数基金适不适合我投入？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-02",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "眼前这个投资标的值不值得参与？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-03",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "把积蓄安排到这个项目上，对我是否合适？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-04",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我与这种风险的金融资产是不是匹配？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-05",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在这个入场机会对我的情况有利还是不利？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-06",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "考虑参与朋友的股权计划，我这样做妥当吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-07",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "尚未投入，不预测价格，只问这个选择与我合不合。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-13-08",
+      "expectedRoute": "investment_suitability",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "这笔可用资金放到拟选的投资里，是不是合适的去处？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-01",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我持有的股票要不要继续加仓？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-02",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "手上的基金现在是否应该减仓？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-03",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "已经在里面的钱，是保留原份额还是减少一些更好？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-04",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "既有持有量接下来怎么调才妥当？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-05",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在这份证券资产，我维持不动还是增添一点？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-06",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "针对手头已有的投入规模，应该扩大还是收缩？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-07",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不准备彻底退出，只想决定现有仓位的调整方向。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-14-08",
+      "expectedRoute": "investment_position_decision",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "既然已经参与这个标的，往后保留多大份额比较合适？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-01",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这只基金后面的净值会不会上行？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-02",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "持仓股票接下来价格是否走低？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-03",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这项证券资产到下个月报价会偏强还是偏弱？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-04",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "交易屏幕上的这个品种往后会抬高价位吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-05",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "该金融标的未来一段时间的行情走向如何？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-06",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我关注的资产在市场上的估价还会回落多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-07",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问我个人赚多少，只问标的本身的价格方向。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-15-08",
+      "expectedRoute": "investment_price_trend",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "继续观察这只证券，接下来它的市场价会往哪边走？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-01",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我的固定工资今年能否再提高？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-02",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "下次调薪会不会增加我的月薪？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-03",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "每月稳定拿到的那份劳动报酬会有改善吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-04",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "公司往后给我的基础薪资能上调多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-05",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "靠工作固定获得的钱下一阶段是多还是少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-06",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这份岗位定期给我的收入还能抬高吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-07",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不算额外奖励，只想知道基本薪酬之后的变化。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-16-08",
+      "expectedRoute": "income_salary",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "雇主下一个周期支付给我的固定报酬状况怎样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-01",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "年底绩效奖金能否如约发下来？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-02",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我这回的项目奖励会不会兑现？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-03",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "平常收入之外的那笔考核奖励最后能拿到多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-04",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "上司承诺的额外激励款能落到我手里吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-05",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这次达标后应有的奖励钱究竟能给我多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-06",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "年度评价对应的那份额外收入有没有机会取得？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-07",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是固定工资，我只关心这轮工作奖励的结果。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-17-08",
+      "expectedRoute": "income_bonus",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "公司按成绩另给的一笔钱，轮到我时能拿到吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-01",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "已寄出的快递包裹能不能送到我这里？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-02",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "订好的那台设备本周能否收到？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-03",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "路上的相机最后会按时到我手里吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-04",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "厂家发走的商品能在指定日子交到我这边吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-05",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "等待交付的那件东西到手会不会出岔子？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-06",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我盼着的实物还能在约定时间见到吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-07",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "早已完成付款，不问买得值不值，只问东西能否送达。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-18-08",
+      "expectedRoute": "receive_item",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "对方已经把货送上路了，这次我能平安接到吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-01",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "这台投影仪值不值得现在买下？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-02",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "准备购入的平板适不适合我日常使用？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-03",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我正在挑的摄像机花钱入手妥当吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-04",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "想添一件空气净化器，这次购置会满意吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-05",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "眼前这款智能手表拿来自己用是不是好选择？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-06",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家里要添置显示器，选这一台之后会后悔吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-07",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问物流到货，只问是否应花钱买这件实物。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-19-08",
+      "expectedRoute": "item_purchase",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "拿现有预算换这个数码设备，购买决定怎么样？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-01",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我向喜欢的人表白会不会被接受？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-02",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我和暧昧对象能否正式在一起？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-03",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "彼此还没明确身份，这段感情有没有推进的机会？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-04",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我与心仪之人往后能发展成情侣吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-05",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在只是相互有好感，能走到公开恋爱的阶段吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-06",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这段还没定下来的亲密关系之后会更进一步吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-07",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不问结婚，只想知道恋爱关系能不能确立。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-20-08",
+      "expectedRoute": "relationship_development",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "相互认识后的感情联系能顺着心意向前走吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-01",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我和伴侣这次婚事能否办成？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-02",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "两个人计划的领证结婚会不会顺利？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-03",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "我们能从相伴走到正式成为夫妻吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-04",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "家里正在商议的亲事最后可以定下来吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-05",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "这段交往能否迎来婚约落实的那一天？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-06",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "预备共同走入婚姻，这个约定能兑现吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-07",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是单问恋爱发展，我关心婚事能否落定。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-21-08",
+      "expectedRoute": "marriage_match",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "双方打算成家，这次能结为正式夫妻吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-01",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我与丈夫的夫妻关系能否重新和睦？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-02",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "role_explicit",
+      "text": "我和妻子的婚后感情会不会改善？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-03",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "已经成家的我们还能恢复彼此信任吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-04",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "现在这段既有婚姻还能平稳维持吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-05",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "夫妻之间长期的紧张气氛有机会缓和吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-06",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "semantic_paraphrase",
+      "text": "结婚多年的这段关系接下来会走到怎样的状态？"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-07",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "不是问能否举行婚礼，只问眼下婚姻的相处结果。"
+    },
+    {
+      "id": "V013-V08-FI-C-K-22-08",
+      "expectedRoute": "marital_relationship",
+      "subtype": "known",
+      "roleSafetyGroup": null,
+      "style": "boundary_contrast",
+      "text": "我与配偶以后还能过得融洽一点吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-01",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "资金往来的事情能顺利吗？没说明是谁把钱交给谁。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-02",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "有一宗借款安排，问结果，但借入借出的角色尚未确定。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-03",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "这回借钱会怎样，我还没说清付款方和接款方。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-04",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "谈的是临时资金周转，谁提供款项暂时无法确认。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-05",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "贷款相关的这件事有希望吗？我没交代申请人是谁。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-06",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "互相商量了借款，只问事情成败却没指定出资的一侧。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-07",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "请看借款的走向，当前句子不含借方和贷方的身份。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-08",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "credit_direction",
+      "style": "literal_negative",
+      "text": "一笔钱准备暂时转交使用，但还不能区分哪方借给哪方。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-09",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "旧债的事会不会了结？没有说明谁负有偿付责任。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-10",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "欠款最终处理得怎样，我未交代债权与债务两方。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-11",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "这笔债务能顺利结清吗？欠款人和收款人暂未指定。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-12",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "有一宗还钱的事需要问结果，主语还没有说清楚。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-13",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "结算旧账能不能成，谁应把钱给谁仍不明确。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-14",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "双方正在处理一笔债务，问题没有确定应收还是应付。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-15",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "欠的钱最终能结掉吗？尚不知道问的是哪一方的责任。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-16",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": "debt_direction",
+      "style": "literal_negative",
+      "text": "旧欠账的结果如何，当前叙述没有可识别的偿付方向。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-17",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我同时想问进货和卖库存，暂时不能选其中一件。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-18",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "工资到账与奖项发放都想问，当前没有主要目标。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-19",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "买下相机好不好还是送货顺不顺，我没有定问题。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-20",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我想了解感情，但恋爱建立与婚事落实都还在考虑。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-21",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这件投资到底问收益还是市场价，我还没选定。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-22",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "生意的事情会怎样，我既没说整店经营也没说具体买卖。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-23",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "正在谈的一笔资金安排，投入还是退出都还没定。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-24",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "眼前的货要进来还是出掉，问题尚未指定动作。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-25",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这段关系能成吗？没有说是商业搭档还是感情对象。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-26",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "有件事需要花钱，想看结果，但用途没有交代。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-27",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这个项目怎么样，我还没说是合作、投资还是交易。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-28",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "资金状况如何，既可能问个人收支也可能问店铺营收。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-29",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "想问股票后续，但收益、价格与持有量三个目标尚未分开。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-30",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "目前有两宗交易，没确定要预测哪一单。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-31",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "关于工作里的收入问题，基础薪酬还是额外奖励还不清楚。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-32",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我说到一段婚姻相关安排，尚未明确婚前还是婚后。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-33",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "希望看款项结果，但新借款和旧款返还还没区分。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-34",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "有一批实物的问题，是否购买与是否收到均可能是目标。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-35",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这次说的生意只是泛称，具体当前结果未给出。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-36",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "两个人有来往，没说明资金、合作还是感情联系。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-37",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "一个金额的结果想知道，尚无款项性质与流向。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-38",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "钱的事有很多层，我没有指出要看其中哪一层。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-39",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这件安排的成败如何，我还没给出路线目标。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-40",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "一项计划想看好坏，投入规模和收益目标混在一起。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-41",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我与对方商量某事，但约定性质没有说出来。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-42",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "有关货品的问法尚未完成，实际动作暂时空缺。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-43",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这回的收入事项有两种来源，没有选主要的一项。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-1-44",
+      "expectedRoute": null,
+      "subtype": "route_unresolved",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "事情最终怎样，目前只提供了宽泛主题没有具体目标。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-01",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "基金净值采用的估算方法叫什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-02",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "股票价格资料里的复权含义请解释。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-03",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "办理赎回所需材料应列出哪些？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-04",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "申请借款的受理步骤如何安排？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-05",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "欠款结清后怎样领取注销证明？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-06",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "合伙登记需要提供什么证件？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-07",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "结婚登记材料有哪些格式要求？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-08",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "夫妻共有财产的法律权益怎么解释？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-09",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "恋爱一词和暧昧一词有何区别？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-10",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "仓库入库的记账公式应该怎样写？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-11",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "处理存货后会计核算的科目有哪些？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-12",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "工资条社保扣款的计算公式是什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-13",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "项目奖金评审采用的规定有哪些？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-14",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "邮寄相机需要什么包装材料？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-15",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "购买电脑所需发票条款怎么规定？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-16",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "门店营业许可的申请条件是什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-17",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "交易合同里的法律责任如何区分？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-18",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "个人收支核算应该怎么记账？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-19",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "为借出的款项写收据需要哪些要素？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-20",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "债权追索的受理流程如何规定？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-21",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "投资账户开户的手续要怎么完成？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-22",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "加仓操作教程能否逐步介绍？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-23",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "证券报价的涨跌幅计算公式如何使用？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-24",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "固定薪资和奖励金的税率有何区别？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-25",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "货物送达签收后如何填写会计单据？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-26",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "物流服务的收费标准是什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-27",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "基金清仓委托的术语含义请解释。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-28",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "库存盘点差异的核算规定有哪些？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-29",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "供应商资质证明的申请步骤怎样走？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-30",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "共同经营协议的条款应该解释哪些责任？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-31",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "银行卡办理借贷业务需要什么证件？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-32",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "信用卡还款的手续费标准是多少？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-33",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "夫妻离婚的登记材料有哪些规定？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-34",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "给合伙企业记账应该按什么会计规则？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-35",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "股票持有份额的计算公式怎样表达？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-36",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "报酬支付明细的会计核算是什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-37",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "交付设备后的保修条款如何解释？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-38",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "相机买卖合同里的法律权益怎么划分？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-39",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "奖金发放所需的申报材料有哪些？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-40",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "借入款在会计账本中应该怎么核算？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-41",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "清掉积货的票据归档流程怎样操作？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-42",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "婚约相关术语的定义请作介绍。"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-43",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "普通商户的资金流水如何按规定核算？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-2-44",
+      "expectedRoute": null,
+      "subtype": "near_domain_not_current_route",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "债务人身份和债权人身份的区别是什么？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-01",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "下周郊外野餐那天会下雨吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-02",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这趟跨省火车能按时抵达车站吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-03",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "今年的外语资格考试我能通过吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-04",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "申请的大学交换名额会轮到我吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-05",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "准备提交的学术论文能被刊物接受吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-06",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "搬到新住处后交通方便吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-07",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "遗失的图书馆借书卡还能找到吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-08",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "下个月的长跑比赛我能完成全程吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-09",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "申请的旅行签证能顺利取得吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-10",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "学校安排的宿舍申请会得到批准吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-11",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这次应聘能不能拿到录用通知？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-12",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "部门调整后我会调到哪一个岗位？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-13",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "篮球队的选拔我能进入最终名单吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-14",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "家里的走失猫能平安回来吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-15",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "提交的专利申请能获得授权吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-16",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "租住公寓的搬迁安排会如期完成吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-17",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "庭院里种下的树苗明年能长好吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-18",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这次摄影作品能入围展览吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-19",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我准备参加的志愿活动能排到名额吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-20",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "出国进修的申请有没有被接受的希望？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-21",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "春游预订的航班会不会延误？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-22",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "关于地界的诉讼会怎样裁判？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-23",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "驾照科目三这回能不能考过？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-24",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我能在报名截止前办妥参赛资格吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-25",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "即将举办的音乐会会不会取消？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-26",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "联系亲友的书信能否及时寄到？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-27",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "今年参加的公务员面试有希望吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-28",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我报的绘画课程能顺利开班吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-29",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "屋顶维修工作能在雨季前完成吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-30",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "这次露营的道路会不会封闭？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-31",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "遗忘在车上的钥匙能找回吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-32",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "团队参加的辩论赛能够晋级吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-33",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "报名的游泳训练能坚持学完吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-34",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "明年我是否有机会迁居到外地？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-35",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我能在图书评选中获得读者奖吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-36",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "学期末的毕业设计能通过答辩吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-37",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "对社区管理的投诉会得到回复吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-38",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "孩子申请的课外社团名额能落实吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-39",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我养的盆栽在这个冬季能存活吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-40",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "长途骑行计划可以按既定路线完成吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-41",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "预订的旅馆到时候还有空房吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-42",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "我参加的业余围棋比赛胜算如何？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-43",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "亲友团聚的行程能按期成行吗？"
+    },
+    {
+      "id": "V013-V08-FI-C-N-3-44",
+      "expectedRoute": null,
+      "subtype": "outside_current_22",
+      "roleSafetyGroup": null,
+      "style": "literal_negative",
+      "text": "学校图书采购的建议能被采纳吗？"
+    }
+  ],
+  "wordingCreatedBeforeContaminationAudit": true,
+  "encoderScoringObserved": false,
+  "oldFailureWordingUsed": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false
+}
