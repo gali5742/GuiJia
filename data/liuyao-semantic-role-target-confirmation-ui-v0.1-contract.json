@@ -1,0 +1,70 @@
+{
+  "version": "0.1-confirmation-first-interactive-prototype",
+  "date": "2026-10-12",
+  "timezone": "Asia/Tokyo",
+  "baselineCommit": "205e07cdbc26c00a30de39b1a15a1708682873ca",
+  "scope": "standalone local confirmation page; explicit user actions only; no production integration",
+  "requirements": [
+    "Use frozen gate API to create each confirmed goal and role from an explicit choice.",
+    "Full goal inventory remains unverified until user confirms the list.",
+    "Multiple confirmed goals require a separate primary-goal choice.",
+    "Retain duplicate intent goals as distinct instances with optional user labels.",
+    "Question edits invalidate the entire session immediately.",
+    "List edits and removals invalidate inventory confirmation, primary focus and candidate outcome.",
+    "Stale or tampered clarification requests must fail.",
+    "User unsure or outside-scope selections stop the session.",
+    "Unknown source facts never grant either branch permission.",
+    "Simulated candidate is chosen separately from confirmed facts; never derive candidate from confirmed route.",
+    "Keep candidate checks in a clearly labeled simulation panel, separate from user confirmation.",
+    "Do not render question text or labels as HTML; no persistence or remote calls.",
+    "Verify actual browser behavior and narrow HTTP asset serving; never serve or load evaluation data."
+  ],
+  "verification": [
+    "Single target plus list confirmation",
+    "Multiple goals plus explicit primary focus",
+    "Duplicate intent goals remain distinguishable",
+    "Unsure and outside-scope exits",
+    "Question editing invalidates all confirmations",
+    "List editing, removal and stale responses invalidate results",
+    "Both branches reject conflicting role candidates",
+    "Frozen upstream permissions and all22 fallback scoring preserved",
+    "Keyboard operation and narrow viewport",
+    "Injected markup stays text; no extra network resources"
+  ],
+  "frozenBindings": [
+    {
+      "path": "js/liuyao-semantic-role-target-gate-v01.js",
+      "sha256": "2b678498a6111077489334503d2cdb4fc3a17529204e80bd72769af24f855df9",
+      "gitBlobSha": "29340b9e0ec42671506becd1c2c8fe1c2a65809f"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+      "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+      "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-review.json",
+      "sha256": "f6b0b4f4dd998698d9a53e6472b89c6fc8b75a069d99207220a718d4b05b0556",
+      "gitBlobSha": "e60d4c2afd72660d2147b2f3d3cf494d02a8ef6a"
+    }
+  ],
+  "governance": {
+    "rawLanguageExtraction": false,
+    "newTrainingFits": 0,
+    "newEncoderInvocations": 0,
+    "thresholdSearch": false,
+    "formalComponentsChanged": false,
+    "productionIntegrated": false,
+    "componentPass": false,
+    "phaseCAllowed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "browserActionsAreFixturesNotActualUserStudy": true
+  }
+}
