@@ -1,0 +1,13 @@
+{
+  "version": "0.1-confirmation-demo-cli-start-readiness",
+  "status": "normal_cli_server_functional_requests_passed",
+  "port": 8787,
+  "assetsByteVerified": 6,
+  "rootServesDemo": true,
+  "headWorks": true,
+  "unlistedPathStatus": 404,
+  "postStatus": 405,
+  "serverCommand": "node scripts/serve-liuyao-semantic-confirmation-demo-v01.mjs",
+  "guardPreloadedForNode": true,
+  "serverReadsOnlyAllowlistedAssets": true
+}

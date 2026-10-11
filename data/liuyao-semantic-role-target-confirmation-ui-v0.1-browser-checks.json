@@ -1,0 +1,95 @@
+{
+  "version": "0.1-confirmation-ui-real-browser-checks",
+  "status": "all_directed_browser_checks_passed",
+  "completedAtUTC": "2026-10-11T16:55:00.463Z",
+  "runtime": {
+    "node": "v22.23.3",
+    "browser": "Chromium 151.0.7922.173"
+  },
+  "checks": [
+    {
+      "name": "initial_page_and_allowlisted_asset_server",
+      "status": "passed"
+    },
+    {
+      "name": "goal_choice_does_not_confirm_inventory_or_enable_candidates",
+      "status": "passed"
+    },
+    {
+      "name": "six_supported_choices_preserve_role_and_goal_confirmation_proofs",
+      "status": "passed"
+    },
+    {
+      "name": "multiple_targets_require_explicit_primary_focus",
+      "status": "passed"
+    },
+    {
+      "name": "duplicate_intent_goals_keep_distinct_labels_and_instances",
+      "status": "passed"
+    },
+    {
+      "name": "conflicting_candidates_blocked_in_both_branches_without_replacement",
+      "status": "passed"
+    },
+    {
+      "name": "matching_synthetic_candidates_and_frozen_upstream_permissions",
+      "status": "passed"
+    },
+    {
+      "name": "candidate_change_discards_previous_simulation_result",
+      "status": "passed"
+    },
+    {
+      "name": "editing_and_removing_goals_require_inventory_reconfirmation",
+      "status": "passed"
+    },
+    {
+      "name": "question_edit_immediately_clears_existing_confirmations_and_outcome",
+      "status": "passed"
+    },
+    {
+      "name": "unsure_and_outside_scope_exits_stop_without_looping",
+      "status": "passed"
+    },
+    {
+      "name": "labels_and_questions_remain_text_and_nothing_is_persisted",
+      "status": "passed"
+    },
+    {
+      "name": "keyboard_confirmation_and_ready_state_focus",
+      "status": "passed"
+    },
+    {
+      "name": "mobile_layout_multiple_goals_and_full_confirmation",
+      "status": "passed"
+    },
+    {
+      "name": "no_javascript_errors_or_unexpected_network_requests",
+      "status": "passed"
+    }
+  ],
+  "passed": 15,
+  "failed": 0,
+  "skipped": 0,
+  "servedAssets": [
+    "demos/liuyao-role-target-confirmation.html",
+    "demos/liuyao-role-target-confirmation.css",
+    "demos/liuyao-role-target-confirmation.js",
+    "js/liuyao-semantic-fallback-identity-model-v02.js",
+    "js/liuyao-semantic-role-target-gate-v01.js",
+    "js/liuyao-semantic-confirmation-session-v01.js"
+  ],
+  "testedEntryModes": [
+    "allowlisted_HTTP"
+  ],
+  "directFileLaunch": "blocked_by_browser_administrator_policy",
+  "javascriptErrors": [],
+  "unexpectedRequests": [],
+  "source": "actual_local_browser_actions_on_synthetic_interaction_fixtures",
+  "realUserStudy": false,
+  "naturalLanguageAccuracyMeasured": false,
+  "realClassifierExecuted": false,
+  "encoderInvocations": 0,
+  "productionIntegrated": false,
+  "cloudCIExecuted": false
+}

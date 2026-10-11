@@ -1,0 +1,19 @@
+{
+  "version": "0.1-confirmation-demo-runtime-diagnosis",
+  "observations": [
+    {
+      "operation": "initial browser disabled-state check",
+      "outcome": "Playwright isDisabled() on the fieldset returned false; native fieldset.disabled was true and the descendant submit control was actually disabled.",
+      "correction": "Check the native fieldset property plus real submit-button disabled behavior; assertions remain enforced."
+    },
+    {
+      "operation": "optional direct local HTML file launch",
+      "outcome": "blocked_by_browser_administrator_policy",
+      "error": "page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR",
+      "applicationReadiness": "HTTP interaction checks passed; direct file launch is not claimed.",
+      "nextAction": "Use an allowlisted HTTP demo server; do not change browser policy or retry the blocked file mode."
+    }
+  ],
+  "browserPolicyChanged": false,
+  "productionIntegrated": false
+}

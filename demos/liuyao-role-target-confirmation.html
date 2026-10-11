@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ee">
+  <title>龟甲 · 占问确认原型</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="liuyao-role-target-confirmation.css">
+  <script defer src="../js/liuyao-semantic-fallback-identity-model-v02.js"></script>
+  <script defer src="../js/liuyao-semantic-role-target-gate-v01.js"></script>
+  <script defer src="../js/liuyao-semantic-confirmation-session-v01.js"></script>
+  <script defer src="liuyao-role-target-confirmation.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="brand"><span>龟甲 <span class="brand-divider">/</span> 占问确认</span><span class="badge">交互原型</span></header>
+    <main>
+      <div class="intro"><p class="eyebrow">先把问题说清楚</p><h1>这次，你最想问哪件事？</h1><p>写下问题，再确认要看的目标。提到几件事时，先列出，再选一件。</p></div>
+      <div class="workspace">
+        <div class="main-column">
+          <section class="card" aria-labelledby="question-heading">
+            <h2 id="question-heading"><span class="step">01</span> 写下问题</h2>
+            <form id="question-form">
+              <label for="question-text">你想问什么？</label>
+              <textarea id="question-text" rows="4" maxlength="2000" required placeholder="用自己的话描述这件事，包括谁涉及其中、你最关心什么。"></textarea>
+              <p class="hint">这页支持自己的借贷、欠款、经营及资本收益。替别人问款项或其他问题，可以在下一步选择“其他事情”。</p>
+              <button class="primary" type="submit" id="begin-confirmation">开始确认</button>
+            </form>
+          </section>
+          <section class="card" id="confirmation-panel" hidden aria-labelledby="confirmation-heading">
+            <h2 id="confirmation-heading" tabindex="-1"><span class="step">02</span> <span id="phase-heading">列出要问的目标</span></h2>
+            <p id="prompt-text"></p>
+            <div id="collection-help"><p class="hint">点击一项，确认并加入清单。可以继续添加，最后确认清单。</p><label for="goal-label">给这件事取个短名 <span class="optional">（可选）</span></label><input id="goal-label" maxlength="80" placeholder="方便区分不同款项或事情"></div>
+            <div id="choices" class="choices" role="group" aria-label="确认目标选项"></div>
+            <button class="primary finish" type="button" id="finish-inventory" disabled>清单完整，确认这些目标</button>
+          </section>
+        </div>
+        <aside class="card ledger" aria-labelledby="ledger-heading">
+          <div class="ledger-top"><h2 id="ledger-heading">本次确认清单</h2><span id="goal-count" class="count">0</span></div>
+          <p id="empty-list" class="hint">尚未确认目标。请先写下问题，再亲自选择要问的事情。</p>
+          <ol id="goal-list"></ol>
+          <div id="status" class="status" role="status" aria-live="polite" tabindex="-1">等待输入问题</div>
+          <p id="confirmation-summary" class="hint"></p>
+          <button type="button" id="edit-inventory" class="secondary" hidden>修改目标清单</button>
+        </aside>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+      <details class="card developer-panel" id="candidate-panel">
+        <summary>接口检查（模拟候选）</summary>
+        <p class="hint">这里使用手工候选与模拟上游条件，检查确认约束。未运行分类器，不产生占断；不会根据确认目标自动改写候选。</p>
+        <form id="candidate-form">
+          <fieldset id="candidate-controls" disabled><legend>完成目标确认后可检查</legend><div class="simulation-fields">
+            <div><label for="candidate-branch">候选分支</label><select id="candidate-branch"><option value="Fallback">Fallback</option><option value="Arbitration">Arbitration</option></select></div>
+            <div><label for="candidate-route">独立选择候选</label><select id="candidate-route"></select></div>
+            <div><label for="upstream-condition">模拟上游条件</label><select id="upstream-condition"><option value="allowed">上游允许</option><option value="act_blocked">Semantic Act 阻止</option><option value="sufficiency_blocked">Sufficiency 阻止</option><option value="unsupported">存在不支持的目标</option><option value="routeability_blocked">Routeability 阻止</option><option value="multiple_admission">Fallback 两头接纳</option></select></div>
+          </div><button type="submit" class="secondary">检查候选</button></fieldset>
+        </form>
+        <p id="candidate-result" class="hint" role="status" aria-live="polite">尚未检查候选。</p>
+        <details><summary>查看当前确认记录</summary><pre id="confirmation-record">尚无确认记录。</pre></details>
+      </details>
+    </main>
+    <footer>本地交互原型 · 问句与选择仅保存在本页内存中 · 刷新后清空</footer>
+  </div>
+  <noscript><p>请启用 JavaScript 以进行目标确认。</p></noscript>
+</body>
+</html>

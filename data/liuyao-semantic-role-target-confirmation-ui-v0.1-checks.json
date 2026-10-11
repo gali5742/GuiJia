@@ -1,0 +1,109 @@
+{
+  "version": "0.1-confirmation-ui-local-validation",
+  "status": "directed_state_browser_and_startup_checks_passed",
+  "date": "2026-10-12",
+  "timezone": "Asia/Tokyo",
+  "node": "22.23.3",
+  "checks": [
+    {
+      "command": "node --test tests/liuyao-semantic-confirmation-session-v01-tests.mjs tests/liuyao-semantic-role-target-gate-v01-tests.mjs",
+      "passed": 34,
+      "failed": 0,
+      "newSessionTests": 12,
+      "frozenGateTests": 22
+    },
+    {
+      "command": "node --import /workspace/.guijia-setup/browser-runtime.mjs scripts/check-liuyao-semantic-confirmation-ui-v01.mjs",
+      "browserChecksPassed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "node scripts/serve-liuyao-semantic-confirmation-demo-v01.mjs",
+      "status": "started_and_functional_HTTP_requests_byte_verified",
+      "assets": 6
+    },
+    {
+      "status": "all_four_frozen_bindings_unchanged"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-role-target-confirmation-ui-v0.1-contract.json",
+      "sha256": "e7109c93e4efd1a5159d56d17473e720fd7e3d7c0ddaa3c02d48cc90c604c485",
+      "gitBlobSha": "7b5845bcdec48913a9291159c68e245e6a3ff64d"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-confirmation-ui-v0.1-browser-checks.json",
+      "sha256": "7688c88d49293a9d6156b7f7b4020c4bd09eaec45fbbf1f3308d9046af50fa57",
+      "gitBlobSha": "e293debd3fb927beb8ae17ad9e6e87b3699fc77c"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-confirmation-ui-v0.1-startup-checks.json",
+      "sha256": "9a52673fdef559b09be8d789d3889844daff0fff86f14143fbe4d8ef407d4c11",
+      "gitBlobSha": "acac7b5dd5f6c20a48d94ce77310b49a0efd8190"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-confirmation-ui-v0.1-runtime-notes.json",
+      "sha256": "1bde5790588c1d69ea4ff4c03a9fdf16e3e8749beaab29893840fe8ce03af72d",
+      "gitBlobSha": "3d8be99315423cf85ea1f147fad82e9f20f0d374"
+    },
+    {
+      "path": "demos/liuyao-role-target-confirmation.html",
+      "sha256": "6215b2da5102d06ad352faf52ed5a92329400611ab46332092a073aec3be374c",
+      "gitBlobSha": "0c3cf3989f482cd2c671f72a208f10057a063e96"
+    },
+    {
+      "path": "demos/liuyao-role-target-confirmation.css",
+      "sha256": "953c57dcd320e4b106fd8493f4e8a867ac960b59a1abb430079a002472fdbaa9",
+      "gitBlobSha": "5cb4c8b00f546ab05f4d32b0f063327f2afcade8"
+    },
+    {
+      "path": "demos/liuyao-role-target-confirmation.js",
+      "sha256": "a73acc10093afde7e757fbb90af2cd09f304df18c7f721be6dbea1deb6ad7ea5",
+      "gitBlobSha": "831721beb86f5d6be725de31131e0c4cf655585b"
+    },
+    {
+      "path": "js/liuyao-semantic-confirmation-session-v01.js",
+      "sha256": "e0d9470158fb7c03c43eb0c4f42ac5708410da7822fd682843a21ad96b57a2d0",
+      "gitBlobSha": "337fffda1732ad33ea0b01e3a8abd909ca023680"
+    },
+    {
+      "path": "scripts/serve-liuyao-semantic-confirmation-demo-v01.mjs",
+      "sha256": "ee669c6509a9358eb2a69e9191145e3955afca2582e110ebab4c686b6ce03f13",
+      "gitBlobSha": "86e1d6781ea2c479d74327e06a71530975488e8f"
+    },
+    {
+      "path": "scripts/check-liuyao-semantic-confirmation-ui-v01.mjs",
+      "sha256": "cfd113bd33b1f73001a222bb5482d3dc109224492e6260f497e015fd70088ef5",
+      "gitBlobSha": "9a12cb29ec4ace9f07be6f4b2ab27bf3df4638a1"
+    },
+    {
+      "path": "tests/liuyao-semantic-confirmation-session-v01-tests.mjs",
+      "sha256": "7450ca3b759e1036123da95b0128d86b3861515cf059f4056c926cd4ceb6edd8",
+      "gitBlobSha": "7404536a7ec9101822fabea65cd571d7e51072dd"
+    },
+    {
+      "path": "docs/LIUYAO_SEMANTIC_CONFIRMATION_UI_V01.md",
+      "sha256": "875430a77094c56d14345da81176224ea9162b65ef345d06b9ce06f05396ec6d",
+      "gitBlobSha": "f815bd816884b6a758b6e245da3a02d58a674831"
+    }
+  ],
+  "directFileEntry": "blocked_by_browser_administrator_policy_not_claimed_as_passed",
+  "startupRequiresHTTP": true,
+  "productionIntegrated": false,
+  "realUserStudy": false,
+  "naturalLanguageAccuracyMeasured": false,
+  "newEncoderInvocations": 0,
+  "newTrainingFits": 0,
+  "thresholdSearch": false,
+  "cloudCIExecuted": false,
+  "componentPass": false,
+  "phaseCAllowed": false,
+  "protectedEvaluationRead": false,
+  "priorFailuresPreserved": true
+}
