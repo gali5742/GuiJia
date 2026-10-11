@@ -18,7 +18,8 @@
         ACTOR_TO_ACTOR_KNOWN_MOTIF:'actor-to-actor-known-motif',
         ACTOR_TO_GROUP_FINITE_OUTCOME:'actor-to-group-finite-outcome',
         GROUP_TO_ACTOR_FINITE_MEDIATION:'group-to-actor-finite-mediation',
-        ACTOR_TO_ACTOR_EXACT_CASE:'actor-to-actor-exact-source-case'
+        ACTOR_TO_ACTOR_EXACT_CASE:'actor-to-actor-exact-source-case',
+        ACTOR_TO_ACTOR_EXACT_BRANCH_CASE:'actor-to-actor-exact-source-branch-case'
     });
 
     const NORMALIZATION_STATES = Object.freeze({
@@ -62,6 +63,14 @@
             sourceRuleId:groupToActorContract.RULE_ID,
             authorityKind:AUTHORITY_KINDS.EXACT_COLLECTIVE_MEDIATION,
             sourceRecords:'contextualForcePartyCollectiveMediationEffectRecords'
+        }),
+        [SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_BRANCH_CASE]:Object.freeze({
+            endpointShape:executionContract.IDENTITY_SHAPES.ACTOR_TO_ACTOR,
+            sourceContractId:'BAZI-CONTEXTUAL-FORCE-PARTY-SOURCE-BRANCH-OFFICER-OPPOSITION-CONTRACT-001',
+            sourceRuleId:'BAZI-STRENGTH-CONTEXTUAL-FORCE-PARTY-SOURCE-BRANCH-OFFICER-OPPOSITION-001',
+            authorityKind:AUTHORITY_KINDS.EXACT_ACTOR_PAIR,
+            sourceRecords:'baziContextualForcePartySourceBranchOfficerOppositionProfile.validateEffectInput',
+            validatorGlobalKey:'baziContextualForcePartySourceBranchOfficerOppositionProfile'
         })
     });
 

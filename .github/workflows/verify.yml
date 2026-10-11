@@ -108,6 +108,9 @@ jobs:
       - name: Source Blade Outcome Contrast regression
         run: node tests/bazi-contextual-force-party-source-blade-outcome-contrast-tests.js
 
+      - name: Source Branch Officer Opposition regression
+        run: node tests/bazi-contextual-force-party-source-branch-officer-opposition-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
