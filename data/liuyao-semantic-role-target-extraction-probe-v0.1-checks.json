@@ -1,0 +1,85 @@
+{
+  "version": "0.1-local-role-target-extraction-diagnostic-checks",
+  "runtime": "Node.js 22.23.3",
+  "date": "2026-10-12",
+  "timezone": "Asia/Tokyo",
+  "status": "directed_local_checks_passed_diagnostic_semantic_criteria_not_met",
+  "guardPreloaded": true,
+  "checks": [
+    {
+      "command": "node --test tests/liuyao-semantic-role-target-extraction-probe-v01-tests.mjs tests/liuyao-semantic-role-target-gate-v01-tests.mjs",
+      "tests": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    {
+      "command": "node scripts/liuyao-semantic-role-target-extraction-probe-v01.mjs --verify",
+      "status": "complete_report_replay_exact",
+      "firstOutputRuns": 1,
+      "newEncoderInvocations": 0
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "status": "all_prefrozen_source_bindings_unchanged"
+    },
+    {
+      "status": "all_13_failed_members_classified_exactly_once"
+    },
+    {
+      "status": "unverified_facts_block_both_branches",
+      "rows": 28,
+      "branchChecks": 56,
+      "upstreamAndScores": "synthetic_interface_fixtures"
+    }
+  ],
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-contract.json",
+      "sha256": "37cc5a5e53682716354a78ef641d6d23dc9d35606aa294662175b4c6eba10afe",
+      "gitBlobSha": "21c985ad61f9e492d19a3682cbf9435e646be038"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-execution.json",
+      "sha256": "3b6ede1695a6b50322397c08376014f0a1ab1bbc56f6389a38126563a313e35b",
+      "gitBlobSha": "8353a186463cdfd6d0cd9d6d7d1c465139a3fffb"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-authoring.json",
+      "sha256": "b9dd81a00ae440cd9aabe11f6b5273e382b16b09187f5a5aa5d53753ae5bb656",
+      "gitBlobSha": "cf7be315aebfef8f514e7a3501b04ea24d4ff6b5"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-report.json",
+      "sha256": "cb7a6bb45b5788a6bb4eaea66f13102d5eef635d6f1ea3e6552dbde7f37e58cf",
+      "gitBlobSha": "1b6c33e1a3a33d2e921b5a20661a89e792d7be7d"
+    },
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-review.json",
+      "sha256": "f6b0b4f4dd998698d9a53e6472b89c6fc8b75a069d99207220a718d4b05b0556",
+      "gitBlobSha": "e60d4c2afd72660d2147b2f3d3cf494d02a8ef6a"
+    },
+    {
+      "path": "scripts/liuyao-semantic-role-target-extraction-probe-v01.mjs",
+      "sha256": "a29d633fdf3f14c7c88ff2e2e519ca67bb38a8007d795b54e0f7da34d3bfa441",
+      "gitBlobSha": "ae1f7da5113ee70bff2e8d21a0afacd4ebc21d25"
+    },
+    {
+      "path": "tests/liuyao-semantic-role-target-extraction-probe-v01-tests.mjs",
+      "sha256": "8cd9419009f41af6261256af92017b976132d61ac76fb3cbd46a81fd690c24df",
+      "gitBlobSha": "a097e26e95be6266a25a07b2b17e520217a0f58a"
+    },
+    {
+      "path": "docs/LIUYAO_SEMANTIC_ROLE_TARGET_EXTRACTION_PROBE_V01_REPORT.md",
+      "sha256": "b6be78bc2952468a94ae9c04c30a73bbcf394d2508346e60d5fe2dcef9d39a1a",
+      "gitBlobSha": "10c54df68b3c9ebeec82036e68d7a10c9c3f489a"
+    }
+  ],
+  "cloudCIExecuted": false,
+  "componentPass": false,
+  "phaseCAllowed": false,
+  "independentValidation": false,
+  "productionIntegrated": false
+}

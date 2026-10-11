@@ -1,0 +1,85 @@
+{
+  "version": "0.1-post-output-error-responsibility-review",
+  "reportBinding": {
+    "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-report.json",
+    "sha256": "cb7a6bb45b5788a6bb4eaea66f13102d5eef635d6f1ea3e6552dbde7f37e58cf",
+    "gitBlobSha": "1b6c33e1a3a33d2e921b5a20661a89e792d7be7d"
+  },
+  "failedRows": 13,
+  "eachFailureClassifiedExactlyOnce": true,
+  "categories": [
+    {
+      "ids": [
+        "RTEX-02",
+        "RTEX-27"
+      ],
+      "stage": "missing_direction_evidence",
+      "finding": "A named relative lends to the questioner, but no funds_inward tag is produced.",
+      "nextRequirement": "Bind lender and recipient across verb order and references."
+    },
+    {
+      "ids": [
+        "RTEX-05"
+      ],
+      "stage": "conflicting_raw_direction_tags",
+      "finding": "Collection question emits both creditor_inward and debtor_outward; 我还能...欠款 matches the broad debtor pattern.",
+      "nextRequirement": "Distinguish 还 as still/can from repayment; bind who owes whom."
+    },
+    {
+      "ids": [
+        "RTEX-14"
+      ],
+      "stage": "unknown_role_not_preserved",
+      "finding": "Question explicitly cannot distinguish creditor from debtor; raw debtor_outward becomes a self_debtor assertion through the fixed projection.",
+      "nextRequirement": "Preserve unknown and ask direction instead of choosing one mentioned alternative."
+    },
+    {
+      "ids": [
+        "RTEX-13",
+        "RTEX-15",
+        "RTEX-16"
+      ],
+      "stage": "empty_tags_do_not_express_structured_uncertainty",
+      "finding": "No projected facts; this fails full-structure matching, but does not itself assert a wrong role or authorize a route.",
+      "nextRequirement": "Represent the known event and missing dimension; maintain abstention when the target itself is undecided."
+    },
+    {
+      "ids": [
+        "RTEX-17",
+        "RTEX-18",
+        "RTEX-20"
+      ],
+      "stage": "projection_promotes_background_into_current_goals",
+      "finding": "Global direction tags include correct mentions of historical borrowing/repayment. The diagnostic projection has no active/background binding and promotes them into current goals.",
+      "nextRequirement": "Attach event and role evidence to a clause and explicit current goal. Do not call a correct background tag a wrong raw fact."
+    },
+    {
+      "ids": [
+        "RTEX-25",
+        "RTEX-26"
+      ],
+      "stage": "projection_assumes_questioner_for_third_party",
+      "finding": "Flat tags have no per-goal subject binding. Mapping them to self-role misattributes third-party funds; this assumption is in the adapter, not an explicit subject claim by the frozen extractor.",
+      "nextRequirement": "Confirm whose funds are being asked about; preserve third-party scope escape."
+    },
+    {
+      "ids": [
+        "RTEX-28"
+      ],
+      "stage": "missing_current_debt_reference_and_historical_projection",
+      "finding": "Historical outward lending is tagged; the current debt-collection reference is not. Projecting the historical direction produces a new-credit goal.",
+      "nextRequirement": "Resolve 那笔 and its current collection goal; avoid promoting historical transfer to a new loan."
+    }
+  ],
+  "interpretation": {
+    "projectionExactnessIsNotProductionRoutingAccuracy": true,
+    "all4MultiGoalRowsExact": "Useful narrow evidence; does not establish completeness on other questions, goal association, or primary focus.",
+    "fiveContradictoryRoleRows": "One conflicting role tag, one unknown-direction assertion, one extra background debtor goal, and two third-party self assumptions. Do not describe all five as role reversals.",
+    "ambiguityZeroOfFourExact": "Three empty projected results plus one debtor assertion. Empty results remain blocked and are not unsafe selections.",
+    "observedClarification": "28 initial primary-question prompts; no real user responses, completion rates, or time burden measured.",
+    "sameAuthorInspectedExtractorSource": "Informed development probe; not blind or independent evaluation."
+  },
+  "decision": "Preserve all first outputs; do not patch frozen regexes or tune on these 28 rows. Use explicit confirmation before any route permission. A later extractor must expose subject, event instance, evidence spans, active/background state and uncertainty.",
+  "componentPass": false,
+  "phaseCAllowed": false
+}

@@ -1,0 +1,1906 @@
+{
+  "version": "0.1-fixed-existing-evidence-role-target-diagnostic-report",
+  "contractBinding": {
+    "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-contract.json",
+    "sha256": "37cc5a5e53682716354a78ef641d6d23dc9d35606aa294662175b4c6eba10afe",
+    "gitBlobSha": "21c985ad61f9e492d19a3682cbf9435e646be038"
+  },
+  "executionBinding": {
+    "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-execution.json",
+    "sha256": "3b6ede1695a6b50322397c08376014f0a1ab1bbc56f6389a38126563a313e35b",
+    "gitBlobSha": "8353a186463cdfd6d0cd9d6d7d1c465139a3fffb"
+  },
+  "authoringBinding": {
+    "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-authoring.json",
+    "sha256": "b9dd81a00ae440cd9aabe11f6b5273e382b16b09187f5a5aa5d53753ae5bb656",
+    "gitBlobSha": "cf7be315aebfef8f514e7a3501b04ea24d4ff6b5"
+  },
+  "implementationCommit": "8f3c9a836bc1aae826ba9aeeb8bb79fa6173e192",
+  "dataAudit": {
+    "exactDuplicates": 0,
+    "nearDuplicates": 0,
+    "internalPairs": 378,
+    "internalMaximum": 0.22448979591836735,
+    "comparators": [
+      {
+        "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+        "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+        "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e",
+        "rows": 2028,
+        "pairs": 56784,
+        "maximum": 0.2727272727272727,
+        "mode": "automated_comparison_only_no_wording_output"
+      },
+      {
+        "path": "data/liuyao-semantic-boundary-probe-v0.1-authoring.json",
+        "sha256": "def43ac70d5aad23a9864117fdca4973dc3b68e951fc401bc9880c7992f72fec",
+        "gitBlobSha": "eaf3b18df58c3b105ff05d4bad0b04e12b49c5d6",
+        "rows": 60,
+        "pairs": 1680,
+        "maximum": 0.1836734693877551,
+        "mode": "automated_comparison_only_no_wording_output"
+      }
+    ],
+    "historicalCoverage": "only fresh internal, sealed TRAIN2028 and previous boundary development60; not all historical wordings",
+    "independentValidation": false
+  },
+  "rows": [
+    {
+      "id": "RTEX-01",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我向银行申请的经营贷，审批后这周能放款吗？",
+        "domains": [
+          "business"
+        ],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-02",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "装修款还差一截，想让堂哥借一笔钱给我，他肯答应吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "new_credit:self_receives"
+        ],
+        "extraFacts": [],
+        "missingIntents": [
+          "new_credit"
+        ],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-03",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "室友找我借三千元周转，我借给他是否妥当？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "funds_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-04",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "这次由我出借款项给邻居，他是否会按约定归还？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "funds_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-05",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "前客户欠我的服务费迟迟不付，我还能把这笔欠款收回吗？",
+        "domains": [
+          "commerce"
+        ],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward",
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [],
+        "extraFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "missingIntents": [],
+        "extraIntents": [
+          "existing_debt"
+        ],
+        "contradictoryRoleFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-06",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "去年我给徒弟垫了工具费，已经约定这是他欠我的钱；我这月能要回吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-07",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我欠朋友的那笔钱，月底能还清吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-08",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "信用卡欠款归我偿还，下期账单前能全部结清吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-09",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我独自经营的咖啡店，接下来一个季度能扭亏为盈吗？",
+        "domains": [
+          "business"
+        ],
+        "events": [
+          "business_operation"
+        ],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-10",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我是网店店主，想问今年的经营状况能否稳定下来？",
+        "domains": [
+          "business"
+        ],
+        "events": [
+          "business_operation"
+        ],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-11",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我持有的债券基金，下半年能给我带来正收益吗？",
+        "domains": [
+          "investment"
+        ],
+        "events": [],
+        "objects": [
+          "investment_asset"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [
+          "profit"
+        ],
+        "background": [],
+        "currentTargets": [
+          "profit"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-12",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "那笔由我投入的黄金ETF资金，到年底会不会赚钱？",
+        "domains": [
+          "investment"
+        ],
+        "events": [],
+        "objects": [
+          "investment_asset"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [
+          "profit"
+        ],
+        "background": [],
+        "currentTargets": [
+          "profit"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-13",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "一笔新借款还在商量，双方没有说定谁提供资金，成不成能先看吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "new_credit:unknown"
+        ],
+        "extraFacts": [],
+        "missingIntents": [
+          "new_credit"
+        ],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-14",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "一笔旧债准备结算，但我不清楚自己是债权人还是欠款人，这事能处理好吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward",
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": true,
+        "missingFacts": [
+          "existing_debt:unknown"
+        ],
+        "extraFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "unknownRoleAssertions": [
+          {
+            "intent": "existing_debt",
+            "role": "self_debtor"
+          }
+        ],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-15",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "这次贷款还没确定出借方和收款方，我的资金方向也没定，最终能落实吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "new_credit:unknown"
+        ],
+        "extraFacts": [],
+        "missingIntents": [
+          "new_credit"
+        ],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-16",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "unspecified",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "有一笔钱牵涉我的店铺和投资，但还没选定要问经营还是资本收益，我应先看哪件？",
+        "domains": [
+          "business",
+          "investment"
+        ],
+        "events": [],
+        "objects": [
+          "investment_asset"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [
+          "profit"
+        ],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "unspecified:unknown"
+        ],
+        "extraFacts": [],
+        "missingIntents": [
+          "unspecified"
+        ],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-17",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "之前向同事借钱是背景；这次只问我欠的信用卡款能不能还清，不问新的借款。",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "debtor_outward",
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [],
+        "extraFacts": [
+          "new_credit:self_receives"
+        ],
+        "missingIntents": [],
+        "extraIntents": [
+          "new_credit"
+        ],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-18",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "去年向家人借的启动资金已经结清，不占问那次借款；现在只问便利店本季能否盈利。",
+        "domains": [
+          "business"
+        ],
+        "events": [
+          "business_operation"
+        ],
+        "objects": [],
+        "directions": [
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [
+          "profit"
+        ],
+        "background": [],
+        "currentTargets": [
+          "profit"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [],
+        "extraFacts": [
+          "new_credit:self_receives"
+        ],
+        "missingIntents": [],
+        "extraIntents": [
+          "new_credit"
+        ],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-19",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "基金收益这次不问，也不看价格；现在仅问我向银行申请的贷款能否批下来。",
+        "domains": [
+          "investment"
+        ],
+        "events": [],
+        "objects": [
+          "investment_asset"
+        ],
+        "directions": [
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [
+          "profit",
+          "price_trend"
+        ],
+        "background": [],
+        "currentTargets": [
+          "price_trend"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-20",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我还清房贷的事已经结束，这次不问还款；只问客户欠我的货款能不能追回。",
+        "domains": [
+          "commerce"
+        ],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward",
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [],
+        "extraFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "missingIntents": [],
+        "extraIntents": [
+          "existing_debt"
+        ],
+        "contradictoryRoleFacts": [
+          "existing_debt:self_debtor"
+        ],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-21",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我既想问向姐姐借钱能否借到，也想问租客欠我的租金能否讨回，两件都要看。",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward",
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-22",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        },
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "分别问我经营的餐馆本月能否盈利，以及我投资的指数基金今年能否赚钱，两件请各自判断。",
+        "domains": [
+          "business",
+          "investment"
+        ],
+        "events": [
+          "business_operation"
+        ],
+        "objects": [
+          "investment_asset"
+        ],
+        "directions": [],
+        "relations": [],
+        "goals": [
+          "profit"
+        ],
+        "background": [],
+        "currentTargets": [
+          "profit"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        },
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-23",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我向哥哥借钱能否拿到，以及我把另一笔钱借给朋友是否合适，两笔新借款都想问。",
+        "domains": [],
+        "events": [
+          "delivery"
+        ],
+        "objects": [],
+        "directions": [
+          "funds_outward",
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [
+          "suitability"
+        ],
+        "background": [],
+        "currentTargets": [
+          "receipt"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-24",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "客户欠我的应收款能否收回，同时我欠姐姐的钱能否还清？两笔旧账都要看。",
+        "domains": [
+          "commerce"
+        ],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward",
+          "debtor_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": true,
+        "exactIntents": true,
+        "missingFacts": [],
+        "extraFacts": [],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-25",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "other_subject"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "我替表妹问，她向银行申请的贷款能否批下来？钱归她使用，也由她偿还，与我无关。",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "funds_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": true,
+        "missingFacts": [
+          "new_credit:other_subject"
+        ],
+        "extraFacts": [
+          "new_credit:self_receives"
+        ],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [
+          "new_credit:self_receives"
+        ],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": [
+          {
+            "intent": "new_credit",
+            "role": "self_receives"
+          }
+        ]
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-26",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "other_subject"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "弟弟有笔债权，是他同事欠他的钱。我只替他问能不能收回，收款人不是我。",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "creditor_inward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [
+          "debt_collection"
+        ],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": true,
+        "missingFacts": [
+          "existing_debt:other_subject"
+        ],
+        "extraFacts": [
+          "existing_debt:self_creditor"
+        ],
+        "missingIntents": [],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [
+          "existing_debt:self_creditor"
+        ],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": [
+          {
+            "intent": "existing_debt",
+            "role": "self_creditor"
+          }
+        ]
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-27",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "姨妈说愿意出钱借给我，这次的借款我来收；她能在周五把款转来吗？",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "new_credit:self_receives"
+        ],
+        "extraFacts": [],
+        "missingIntents": [
+          "new_credit"
+        ],
+        "extraIntents": [],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    },
+    {
+      "id": "RTEX-28",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "evidence": {
+        "version": "0.3-dev",
+        "text": "上月同事从我这里借走了一笔钱；那笔是他的欠款，我现在只问能不能要回。",
+        "domains": [],
+        "events": [],
+        "objects": [],
+        "directions": [
+          "funds_outward"
+        ],
+        "relations": [],
+        "goals": [],
+        "background": [],
+        "currentTargets": [],
+        "unsupportedTargets": []
+      },
+      "projectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "metrics": {
+        "exactFacts": false,
+        "exactIntents": false,
+        "missingFacts": [
+          "existing_debt:self_creditor"
+        ],
+        "extraFacts": [
+          "new_credit:self_provides"
+        ],
+        "missingIntents": [
+          "existing_debt"
+        ],
+        "extraIntents": [
+          "new_credit"
+        ],
+        "contradictoryRoleFacts": [],
+        "unknownRoleAssertions": [],
+        "thirdPartySelfAssertions": []
+      },
+      "permissionCheck": {
+        "branchesChecked": [
+          "Fallback",
+          "Arbitration"
+        ],
+        "status": "clarify",
+        "reason": "primary_question",
+        "selectedRoute": null,
+        "mayRunArbitration": false,
+        "mayRunFallback": false,
+        "maySelectRoute": false,
+        "upstreamAndScores": "synthetic_permissive_interface_fixture"
+      }
+    }
+  ],
+  "result": {
+    "status": "fixed_evidence_projection_not_sufficient_for_role_and_active_goal_extraction",
+    "all": {
+      "n": 28,
+      "exactFacts": 15,
+      "exactIntents": 18,
+      "missingExpectedFactRows": 9,
+      "extraFactRows": 8,
+      "missingActiveIntentRows": 6,
+      "extraActiveIntentRows": 5,
+      "contradictoryRoleRows": 5,
+      "unknownRoleAssertionRows": 1,
+      "thirdPartySelfAssertionRows": 2,
+      "bothBranchesBlockedPendingConfirmation": 28
+    },
+    "byGroup": {
+      "single_money": {
+        "n": 8,
+        "exactFacts": 6,
+        "exactIntents": 6,
+        "missingExpectedFactRows": 1,
+        "extraFactRows": 1,
+        "missingActiveIntentRows": 1,
+        "extraActiveIntentRows": 1,
+        "contradictoryRoleRows": 1,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 8
+      },
+      "single_nonmoney": {
+        "n": 4,
+        "exactFacts": 4,
+        "exactIntents": 4,
+        "missingExpectedFactRows": 0,
+        "extraFactRows": 0,
+        "missingActiveIntentRows": 0,
+        "extraActiveIntentRows": 0,
+        "contradictoryRoleRows": 0,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 4
+      },
+      "ambiguity": {
+        "n": 4,
+        "exactFacts": 0,
+        "exactIntents": 1,
+        "missingExpectedFactRows": 4,
+        "extraFactRows": 1,
+        "missingActiveIntentRows": 3,
+        "extraActiveIntentRows": 0,
+        "contradictoryRoleRows": 1,
+        "unknownRoleAssertionRows": 1,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 4
+      },
+      "background_or_negation": {
+        "n": 4,
+        "exactFacts": 1,
+        "exactIntents": 1,
+        "missingExpectedFactRows": 0,
+        "extraFactRows": 3,
+        "missingActiveIntentRows": 0,
+        "extraActiveIntentRows": 3,
+        "contradictoryRoleRows": 1,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 4
+      },
+      "multiple_active": {
+        "n": 4,
+        "exactFacts": 4,
+        "exactIntents": 4,
+        "missingExpectedFactRows": 0,
+        "extraFactRows": 0,
+        "missingActiveIntentRows": 0,
+        "extraActiveIntentRows": 0,
+        "contradictoryRoleRows": 0,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 4
+      },
+      "third_party": {
+        "n": 2,
+        "exactFacts": 0,
+        "exactIntents": 2,
+        "missingExpectedFactRows": 2,
+        "extraFactRows": 2,
+        "missingActiveIntentRows": 0,
+        "extraActiveIntentRows": 0,
+        "contradictoryRoleRows": 2,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 2,
+        "bothBranchesBlockedPendingConfirmation": 2
+      },
+      "coreference": {
+        "n": 2,
+        "exactFacts": 0,
+        "exactIntents": 0,
+        "missingExpectedFactRows": 2,
+        "extraFactRows": 1,
+        "missingActiveIntentRows": 2,
+        "extraActiveIntentRows": 1,
+        "contradictoryRoleRows": 0,
+        "unknownRoleAssertionRows": 0,
+        "thirdPartySelfAssertionRows": 0,
+        "bothBranchesBlockedPendingConfirmation": 2
+      }
+    },
+    "furtherExtractionCriteria": {
+      "all28Exact": false,
+      "all4MultipleExact": true,
+      "zeroContradictoryRoleRows": false,
+      "zeroUnknownRoleAssertionRows": false
+    },
+    "nextAction": "stop automatic-extraction advancement; prefer explicit user confirmation; retain failures without regex repair",
+    "automaticPermissionAllowed": false,
+    "firstOutputRuns": 1,
+    "encoderInvocations": 0,
+    "trainingFits": 0,
+    "thresholdSearch": false,
+    "clarificationObservation": "All 28 unverified packets request one primary-question confirmation. No actual user responses or burden measurement.",
+    "productionRoutingAccuracyMeasured": false,
+    "independentValidation": false,
+    "componentPass": false,
+    "phaseCAllowed": false
+  },
+  "governance": {
+    "trainingFits": 0,
+    "encoderInvocations": 0,
+    "thresholdSearch": false,
+    "formalComponentsChanged": false,
+    "productionIntegrated": false,
+    "componentPass": false,
+    "phaseCAllowed": false,
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "sameAuthorAndLabeler": true,
+    "independentValidation": false,
+    "priorFailuresPreserved": true
+  }
+}
