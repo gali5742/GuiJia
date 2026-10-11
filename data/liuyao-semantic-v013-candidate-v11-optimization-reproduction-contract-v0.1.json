@@ -1,0 +1,122 @@
+{
+  "version": "0.13-candidate-v0.11-optimization-reproduction-contract-v0.1",
+  "status": "frozen_before_train_only_zero_initialization_reproduction",
+  "baselineCommit": "6dfc1a2a1cec709e18f2a0b10382fd81e270aa8f",
+  "trainingBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+    "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+    "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+  },
+  "cacheBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+    "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+    "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+  },
+  "cacheLockBinding": {
+    "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache-v0.2.lock.json",
+    "sha256": "314b7945d1172b35229d97e8a7fee0d9896caf25fdd2219c5f944a92c23b87da",
+    "gitBlobSha": "0bdb82886a05dad8e246258274d0f92e1ca26b9d"
+  },
+  "algorithmBinding": {
+    "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+    "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+    "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+  },
+  "objectiveBinding": {
+    "path": "js/liuyao-semantic-fallback-objective-v01.js",
+    "sha256": "6e28b70d5731374a307ec5ca936095615c4b7f4081045a670c46b551e9dfb3c7",
+    "gitBlobSha": "94210a19827bd52d3305da896069c4daf1ccc267"
+  },
+  "routes": [
+    "financial_fortune",
+    "business_operation",
+    "commercial_transaction",
+    "inventory_purchase",
+    "inventory_sale",
+    "borrow_money",
+    "lend_money",
+    "debt_collection",
+    "debt_repayment",
+    "partnership",
+    "investment_profit",
+    "investment_liquidation",
+    "investment_suitability",
+    "investment_position_decision",
+    "investment_price_trend",
+    "income_salary",
+    "income_bonus",
+    "receive_item",
+    "item_purchase",
+    "relationship_development",
+    "marriage_match",
+    "marital_relationship"
+  ],
+  "hyperparameters": {
+    "epochs": 1800,
+    "learningRate": 0.42,
+    "l2": 0.00025
+  },
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-training.json",
+      "sha256": "b5e71a8c1773602bebf5151b6610bfc04659cebbf1c0fb570fb7b019bd2bc7e9",
+      "gitBlobSha": "78b792a615c048b7bb804997628f8cb0e4fe703e"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data.lock.json",
+      "sha256": "b8f5242c8502ca5d0c9fb38dcb2bccf973052dd7990de8e2171445c4b1feb005",
+      "gitBlobSha": "b59c1cee677945c55267b9e4feb95aa3e11cea41"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-training-cache-v0.2.json",
+      "sha256": "be177eba7a85a99b20fc46af1f5f97624836e3cf158a017cab8ee834b6d46426",
+      "gitBlobSha": "a993805795c9f33d79a2bc33639da6a3593272de"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-cache-v0.2.lock.json",
+      "sha256": "314b7945d1172b35229d97e8a7fee0d9896caf25fdd2219c5f944a92c23b87da",
+      "gitBlobSha": "0bdb82886a05dad8e246258274d0f92e1ca26b9d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v11-optimization-diagnostic-report-v0.2.json",
+      "sha256": "4a005f78a307da0fa69f3381e51c883bde7c0be2e60e9393c0b12495c6972573",
+      "gitBlobSha": "63969f2bb51a1f842e452f957b1863cec4783d6f"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-identity-model-v02.js",
+      "sha256": "4414342a48a6446296a394a2a20ab5762e3b9c7649882f60bdce08ae0fe03f74",
+      "gitBlobSha": "f52746d78985c15f89c070ca0d0d8e45ac9b5492"
+    },
+    {
+      "path": "js/liuyao-semantic-fallback-objective-v01.js",
+      "sha256": "6e28b70d5731374a307ec5ca936095615c4b7f4081045a670c46b551e9dfb3c7",
+      "gitBlobSha": "94210a19827bd52d3305da896069c4daf1ccc267"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v11-optimization-reproduction.mjs",
+      "sha256": "4751b87ff421d25e9eeb78132e2a194b55e57735b9bb376cabd71277e3d387fa",
+      "gitBlobSha": "1a88e03dafac80ddc4ec929456dbcf1b4f151e82"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v10-fallback-identity-v08-data-lib.mjs",
+      "sha256": "9dba385939f5a24930dc0bb459f9b7401e089d524f7977625770c87ff1a8c8fa",
+      "gitBlobSha": "2aa48b19b811e704867321ca1a0d611de4cfecf6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v05-route-sufficiency-data-lib.mjs",
+      "sha256": "eb6449f93bf07fa88a1ca92b353049e8bc8a9793b5dc992c7b6d56101fb656d1",
+      "gitBlobSha": "a2efb3738604cf98f8248ab4c543c34026e7e8f6"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs",
+      "sha256": "75b5022d8cdf1a16a14514fef8e5c5e5d89ec49104d438dd16b7c1c9bf9acb66",
+      "gitBlobSha": "f4be7df3e1bf6b3ae0a0c9a9f12dc808233373b0"
+    }
+  ],
+  "stationarityInfinityTolerance": 1e-7,
+  "lossReplayTolerance": 1e-12,
+  "encoderInvocations": 0,
+  "calibrationInputsAllowed": false,
+  "outputPath": "data/liuyao-semantic-v013-candidate-v11-optimization-reproduction-report-v0.1.json",
+  "interpretation": "This separate fixed-cache control reproduces the unchanged old optimizer from zero, allowing exact within-run loss and gradient checks. It does not repair the earlier cross-encoding loss gate or select a calibration threshold."
+}
