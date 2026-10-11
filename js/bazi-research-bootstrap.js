@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.42';
+    const VERSION = '0.43';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -179,7 +179,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceBladeTargetCalibration', src:'./js/bazi-contextual-force-party-source-blade-target-calibration.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBladeRelationRealizationContract', src:'./js/bazi-contextual-force-party-source-blade-relation-realization-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBladeRelationRealizationProfile', src:'./js/bazi-contextual-force-party-source-blade-relation-realization-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceBladeRelationRealization', src:'./js/bazi-contextual-force-party-source-blade-relation-realization.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBladeRelationRealization', src:'./js/bazi-contextual-force-party-source-blade-relation-realization.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBladeOutcomeContrastContract', src:'./js/bazi-contextual-force-party-source-blade-outcome-contrast-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBladeOutcomeContrastProfile', src:'./js/bazi-contextual-force-party-source-blade-outcome-contrast-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBladeOutcomeContrast', src:'./js/bazi-contextual-force-party-source-blade-outcome-contrast.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
