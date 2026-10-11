@@ -99,6 +99,9 @@ jobs:
       - name: Transformation Result Identity Contract regression
         run: node tests/bazi-contextual-force-party-transformation-result-identity-tests.js
 
+      - name: Source Blade Target Calibration regression
+        run: node tests/bazi-contextual-force-party-source-blade-target-calibration-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
