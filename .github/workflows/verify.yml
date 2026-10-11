@@ -114,6 +114,9 @@ jobs:
       - name: Source Branch Killer Direction Audit regression
         run: node tests/bazi-contextual-force-party-source-branch-killer-direction-audit-tests.js
 
+      - name: Source Branch Mediation Calibration regression
+        run: node tests/bazi-contextual-force-party-source-branch-mediation-calibration-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

@@ -254,7 +254,7 @@
 
     const normalizeRegisteredExactPair = (input, context, index, sourceFamily) => {
         const family = SOURCE_FAMILY_REGISTRY[sourceFamily];
-        // Late lookup is intentional: R5 loads before the finite R15/R22 source validators.
+        // Late lookup is intentional: R5 loads before the finite R15/R22/R24 source validators.
         const validator = GuiJia[family.validatorGlobalKey];
         if (!validator || validator.RULE_ID !== family.sourceRuleId || validator.CONTRACT?.id !== family.sourceContractId
             || typeof validator.validateEffectInput !== 'function') {
@@ -282,6 +282,8 @@
         normalizeRegisteredExactPair(input,context,index,SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_CASE);
     const normalizeExactBranchPair = (input, context = {}, index = 0) =>
         normalizeRegisteredExactPair(input,context,index,SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_BRANCH_CASE);
+    const normalizeExactBranchMediationPair = (input, context = {}, index = 0) =>
+        normalizeRegisteredExactPair(input,context,index,SOURCE_FAMILIES.ACTOR_TO_ACTOR_EXACT_BRANCH_MEDIATION);
 
     const targetResolutionFromEndpoint = (endpoint = {}) => {
         if (endpoint.type === ENDPOINT_TYPES.ACTOR) {
@@ -397,6 +399,7 @@
         normalizeGroupToActor,
         normalizeExactActorPair,
         normalizeExactBranchPair,
+        normalizeExactBranchMediationPair,
         targetResolutionFromEndpoint,
         toExecutionInput,
         compatibleWithExpectedState,

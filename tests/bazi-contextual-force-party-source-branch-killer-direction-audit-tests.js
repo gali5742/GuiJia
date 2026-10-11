@@ -204,7 +204,7 @@ test('caller effect hints in context do not change actual clause outcome',() => 
 });
 test('R5 does not register or normalize the unlicensed R23 input',() => {
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 5 && !contract.DIRECTION_REVIEW.r5SourceFamilyRegistered
+    assert(!Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID) && !contract.DIRECTION_REVIEW.r5SourceFamilyRegistered
         && c.CONTRACT.currentEndpointShapes.length === 3 && c.ACTOR_TO_ACTOR_MOTIFS.length === 3,'family broadened');
     assert(normalizer.toExecutionInput(normalizer.normalizeExactBranchPair(input(),actualContext())) === null
         && normalizer.toExecutionInput(normalizer.normalizeExactActorPair(input(),actualContext())) === null,'borrowed R22 or R15 family');

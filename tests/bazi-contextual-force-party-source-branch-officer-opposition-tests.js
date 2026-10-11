@@ -217,9 +217,9 @@ test('finite review coverage and runtime counters are independent',() => {
     assert(q.finiteSourceEffectCoverageComplete && q.result.status === STATES.UNRESOLVED && q.resolvedRuntimeEffectCount === 0
         && !q.broaderSourceCoverageComplete && !q.genericBranchRestraintEffectMappingDefined,'static validation became runtime success');
 });
-test('R5 has five source families with the original three endpoint shapes and motifs',() => {
+test('R5 retains the registered opposition family and original endpoint shapes and motifs',() => {
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 5 && c.CONTRACT.currentEndpointShapes.length === 3
+    assert(Object.values(c.SOURCE_FAMILY_REGISTRY).filter((f) => f.sourceRuleId === api.RULE_ID).length === 1 && c.CONTRACT.currentEndpointShapes.length === 3
         && c.ACTOR_TO_ACTOR_MOTIFS.length === 3 && typeof normalizer.normalizeRegisteredExactPair === 'undefined','generic adapter or shape expanded');
     assert(g.baziContextualForcePartyRelationEffectContract.MOTIFS.length === 3
         && !g.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.some((p) => [CHART,COMPARISON].includes(p.chartKey)),'legacy registry expanded');
