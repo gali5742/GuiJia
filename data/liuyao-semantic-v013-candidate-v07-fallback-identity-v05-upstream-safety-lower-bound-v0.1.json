@@ -1,0 +1,210 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-upstream-safety-lower-bound-v0.1",
+  "status": "post_audit_necessary_condition_proof_no_new_model_or_threshold",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability-audit-v0.1.json",
+      "sha256": "ad4fa826351c58cabc72b7d314e67bbf1f371abe5eb110bac63510bca117a3fb",
+      "gitBlobSha": "fa9b9b32873d091586b2241048bf10d4baca073f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability.lock.json",
+      "sha256": "f5dfbff20639a253fe5efdb3d0b80568261a53d52a59fd2934c28b5491927b0c",
+      "gitBlobSha": "af2e49f79c8b154fcb4d233a06f9d8d68e21bb9b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-exposure-report-v0.1.json",
+      "sha256": "dc1a39beb99da797c2147933aa22354da74819081e422a506b6050a5d13fa808",
+      "gitBlobSha": "c47989bd0c63f34374162e58639185d4796a2ebd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-execution-contract-v0.1.json",
+      "sha256": "8c18c2878f264b121981c30f6b2fb09dac796eefb7386fbb0b94b9e76a7a9ba5",
+      "gitBlobSha": "66af07cf393e30d4afeae3d0743cb42e1f993c10"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-calibration-policy.mjs",
+      "sha256": "18ab526bd20be018cb22d49fedd4ad958136aadb1bf6cebcd5c5cbbc4184974e",
+      "gitBlobSha": "07732492f889ce223ea83d8b3a20b2298ecae09c"
+    },
+    {
+      "path": "scripts/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-bound.mjs",
+      "sha256": "c33e55b71ea55a7ca478bce8869e501f2bf02ce2d4189295eccf0fb643c434d5",
+      "gitBlobSha": "f9a098f93a3cdd8ef3ccc160c223223d58e1c315"
+    },
+    {
+      "path": "scripts/verify-liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-bound.mjs",
+      "sha256": "a40816d2dfb8125b589e9ba4a49e0201268046f06ae8798433de18cda069077c",
+      "gitBlobSha": "592e12d4c8aa80f3d6bc68becf726183ebdda1f5"
+    },
+    {
+      "path": "tests/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-bound-tests.mjs",
+      "sha256": "014605f637d1abc2aef97e7952303f9a65cb91ab96b1b052f7333f0709c60971",
+      "gitBlobSha": "e3162590646b0a2be942a3aa13ab5d5398ede881"
+    }
+  ],
+  "upstreamExposureStatus": "exposure_passed",
+  "result": {
+    "status": "frozen_raw_path_safety_proven_infeasible_before_weight_training",
+    "policyBindingRole": "unchanged frozen policy; post-audit proof of necessary safety condition, not a replacement exposure or threshold gate",
+    "nonRoute": {
+      "n": 132,
+      "fixedArbitrationActivations": 9,
+      "minimumPossibleFalseActivation": 0.06818181818181818,
+      "status": "observed"
+    },
+    "bySubtype": {
+      "route_unresolved": {
+        "n": 44,
+        "fixedArbitrationActivations": 3,
+        "minimumPossibleFalseActivation": 0.06818181818181818,
+        "status": "observed"
+      },
+      "near_domain_not_current_route": {
+        "n": 44,
+        "fixedArbitrationActivations": 6,
+        "minimumPossibleFalseActivation": 0.13636363636363635,
+        "status": "observed"
+      },
+      "outside_current_22": {
+        "n": 44,
+        "fixedArbitrationActivations": 0,
+        "minimumPossibleFalseActivation": 0,
+        "status": "observed"
+      }
+    },
+    "byRoleSafetyGroup": {
+      "credit_direction": {
+        "n": 8,
+        "fixedArbitrationActivations": 0,
+        "minimumPossibleFalseActivation": 0,
+        "status": "observed"
+      },
+      "debt_direction": {
+        "n": 8,
+        "fixedArbitrationActivations": 1,
+        "minimumPossibleFalseActivation": 0.125,
+        "status": "observed"
+      }
+    },
+    "violations": [
+      {
+        "gate": "maximumRawPathFalseActivation",
+        "group": "all_non_route",
+        "n": 132,
+        "fixedArbitrationActivations": 9,
+        "lowerBound": 0.06818181818181818,
+        "maximum": 0.05
+      },
+      {
+        "gate": "maximumEachRawSubtypePathFalseActivation",
+        "group": "route_unresolved",
+        "n": 44,
+        "fixedArbitrationActivations": 3,
+        "lowerBound": 0.06818181818181818,
+        "maximum": 0.05
+      },
+      {
+        "gate": "maximumEachRawSubtypePathFalseActivation",
+        "group": "near_domain_not_current_route",
+        "n": 44,
+        "fixedArbitrationActivations": 6,
+        "lowerBound": 0.13636363636363635,
+        "maximum": 0.05
+      },
+      {
+        "gate": "maximumEachRawRolePathFalseActivation",
+        "group": "debt_direction",
+        "n": 8,
+        "fixedArbitrationActivations": 1,
+        "lowerBound": 0.125,
+        "maximum": 0.05
+      }
+    ],
+    "anyFallbackWeightsAndThresholdCanSatisfyFrozenRawPathSafety": false,
+    "proof": "For each raw non-route row, the frozen safety policy counts permitted unsupported-free Arbitration as a possible selection independently of all Fallback weights and thresholds. Fallback adds only nonnegative selections on other rows. Therefore full-raw path false activation is at least the counted Arbitration fraction. Router conflict, Scope and Finalization receive no safety credit under the frozen policy.",
+    "fixedNonRouteArbitration": [
+      {
+        "id": "V013-V07-FI-C-N-1-12",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": "debt_direction",
+        "selectedRoute": "debt_repayment",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-31",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "selectedRoute": "marital_relationship",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-1-32",
+        "subtype": "route_unresolved",
+        "roleSafetyGroup": null,
+        "selectedRoute": "investment_price_trend",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-08",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "investment_price_trend",
+        "strength": "support"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-23",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "inventory_purchase",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-24",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "inventory_sale",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-32",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "income_salary",
+        "strength": "support"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-36",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "partnership",
+        "strength": "strong"
+      },
+      {
+        "id": "V013-V07-FI-C-N-2-39",
+        "subtype": "near_domain_not_current_route",
+        "roleSafetyGroup": null,
+        "selectedRoute": "relationship_development",
+        "strength": "strong"
+      }
+    ],
+    "encoderInvocations": 0,
+    "fallbackWeightsRead": false,
+    "fallbackProbabilitiesScored": false,
+    "thresholdSearchPerformed": false,
+    "integratedRuntimeEvaluated": false,
+    "exposureResultOverridden": false,
+    "numericGatesChanged": false,
+    "sameVersionDataRepairAllowed": false
+  },
+  "phaseScope": "Audit and post-audit mathematical necessary-condition proof only. No trained-model calibration report or integrated development pass is claimed.",
+  "governance": {
+    "independentEvaluationRead": false,
+    "sealedBlindEvaluationRead": false,
+    "reservedResearchRead": false,
+    "priorReadIncidentPreserved": true,
+    "wordingModified": false,
+    "upstreamRetuned": false
+  },
+  "nextAction": "preserve_current_candidate_and_review_upstream_arbitration_responsibility_in_a_new_version_before_any_fallback_training"
+}

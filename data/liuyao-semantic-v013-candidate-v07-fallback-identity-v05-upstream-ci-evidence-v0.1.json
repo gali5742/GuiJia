@@ -1,0 +1,156 @@
+{
+  "version": "0.13-candidate-v0.7-fallback-identity-v0.5-upstream-CI-evidence-v0.1",
+  "status": "actual_upstream_audit_ci_success_and_bot_cache_membership_seal_proven",
+  "sourceCommit": "7d6c860eaa29dd8a159387081483fceea60775be",
+  "sealCommit": "02ba3733aff0acf49a6b514b379691fd4a875cca",
+  "CI": {
+    "id": 38114691202,
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "3166c5e3982b8df5c5e1eaf791191963c449f584",
+    "head_branch": "codex/v07-upstream-ci-7d6c860e",
+    "event": "workflow_dispatch",
+    "path": ".github/workflows/test.yml",
+    "html_url": "https://github.com/gali5742/GuiJia/actions/runs/38114691202"
+  },
+  "job": {
+    "id": 114397145933,
+    "name": "frozen-upstream-exposure",
+    "conclusion": "success",
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/checkout@v5",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/setup-node@v5",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Verify isolated registered entry and committed execution source",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Checkout exact frozen audit source",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Verify complete seal and actual successful data CI before encoding",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Check cache integrity, exposure stop and frozen policy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Install pinned public encoder runtime outside checkout",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Encode all 308 sealed raw rows once and audit frozen upstream",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Replay upstream, entire raw membership and frozen exposure with zero new encoder calls",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Commit immutable vectors, membership and exposure before any weight training",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Confirm committed evidence and clean worktree",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Reject weight training if frozen exposure fails",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Checkout exact frozen audit source",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/setup-node@v5",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Post Run actions/checkout@v5",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-execution-contract-v0.1.json",
+      "sha256": "8c18c2878f264b121981c30f6b2fb09dac796eefb7386fbb0b94b9e76a7a9ba5",
+      "gitBlobSha": "66af07cf393e30d4afeae3d0743cb42e1f993c10"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-data.lock.json",
+      "sha256": "d2943cc1646c2eaeb99f7836bd7ae9fc82afcee98f125e9a759ba02ce733912f",
+      "gitBlobSha": "5ec517bb98e3fe096493625e2887ecf2885fe5dd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability-audit-v0.1.json",
+      "sha256": "ad4fa826351c58cabc72b7d314e67bbf1f371abe5eb110bac63510bca117a3fb",
+      "gitBlobSha": "fa9b9b32873d091586b2241048bf10d4baca073f"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-exposure-report-v0.1.json",
+      "sha256": "dc1a39beb99da797c2147933aa22354da74819081e422a506b6050a5d13fa808",
+      "gitBlobSha": "c47989bd0c63f34374162e58639185d4796a2ebd"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-reachability.lock.json",
+      "sha256": "f5dfbff20639a253fe5efdb3d0b80568261a53d52a59fd2934c28b5491927b0c",
+      "gitBlobSha": "af2e49f79c8b154fcb4d233a06f9d8d68e21bb9b"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v07-fallback-identity-v05-upstream-safety-lower-bound-v0.1.json",
+      "sha256": "2740a969f2fa9d25bcdfc30a49b694b00ea0de49c1f26314cf5be89ecf89e882",
+      "gitBlobSha": "a18693fb3942c3d86a2b74a5f02cdb96dc7fd022"
+    }
+  ],
+  "encoderInvocations": 308,
+  "subsequentReplayEncoderInvocations": 0,
+  "testsPassedInActualCI": 18,
+  "postAuditLowerBoundTestsPassedLocally": 5,
+  "postAuditLowerBoundExecutedInEncoderCI": false,
+  "upstreamExposureStatus": "exposure_passed",
+  "conditionalKnown": 93,
+  "conditionalNonRoute": 23,
+  "frozenRawPathSafetyStatus": "frozen_raw_path_safety_proven_infeasible_before_weight_training",
+  "weightsTrained": false,
+  "thresholdSearchPerformed": false,
+  "independentEvaluationRead": false,
+  "sealedBlindEvaluationRead": false,
+  "reservedResearchRead": false,
+  "readScope": "this upstream audit and lower-bound proof phase only; prior frozen regression-read incident preserved",
+  "interpretation": "CI success proves complete raw encoding, cache replay, membership commit and exposure PASS. A separate post-audit mathematical necessary-condition proof shows frozen raw-path safety cannot pass regardless of future Fallback weights or threshold. No trained calibration result or integrated pass is claimed."
+}
