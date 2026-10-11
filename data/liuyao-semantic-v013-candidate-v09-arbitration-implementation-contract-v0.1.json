@@ -1,0 +1,37 @@
+{
+  "version": "0.13-candidate-v0.9-arbitration-implementation-v0.1",
+  "status": "implementation_bound_after_spec_before_fresh_wording_and_encoder_feedback",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-design-v0.1.json",
+      "sha256": "4fa41bebffe7b1a20fc26692a450955743e9224c6ea03e339fffc80fd3422aae",
+      "gitBlobSha": "1034d2d0d4fac247b2618cb28b01c7f759f00723"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-design.lock.json",
+      "sha256": "ffaecd3e2b950bab4b6a3a7226c4463fcf787ad8d33109431ebe6d970eff8f23",
+      "gitBlobSha": "573bd6d0ab375557d2d9265166294f768c18a16d"
+    },
+    {
+      "path": "data/liuyao-semantic-v013-candidate-v09-fallback-identity-v07-data-contract-v0.1.json",
+      "sha256": "02c7054497729bdbd7ec6b8e3804ee14a452e3c30be5ca35117c43a0dbaa811f",
+      "gitBlobSha": "2bfe47778c98c0d2b846df1b9991671c21e8b55c"
+    },
+    {
+      "path": "js/liuyao-semantic-route-arbitration-v014.js",
+      "sha256": "a6976ebcf37a7f3e60ae3303f0319b7b1a6b7d621bbf354441fe3e5cdd500041",
+      "gitBlobSha": "9f1da7b9f94704df4493bc7d81377a96210d24aa"
+    },
+    {
+      "path": "tests/liuyao-semantic-route-arbitration-v014-tests.mjs",
+      "sha256": "aeaa99790d1a419cfd01ef524d4e4d330f64f452e54fdc71b8dd3a1a1f5bcc16",
+      "gitBlobSha": "c77c4360273604f6b20f65cdcdef828e0c8ce337"
+    }
+  ],
+  "arbitrationPath": "js/liuyao-semantic-route-arbitration-v014.js",
+  "module": "liuyaoSemanticRouteArbitrationV014",
+  "testsPassed": 12,
+  "encoderInvocations": 0,
+  "oldDataWordingForImplementationUsed": false,
+  "noSameVersionRetuningAfterFeedback": true
+}
