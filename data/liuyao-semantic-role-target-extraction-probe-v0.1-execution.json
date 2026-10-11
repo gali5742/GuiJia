@@ -1,0 +1,23 @@
+{
+  "status": "implementation_frozen_before_fresh_wording_or_first_outputs",
+  "implementationCommit": "8f3c9a836bc1aae826ba9aeeb8bb79fa6173e192",
+  "bindings": [
+    {
+      "path": "data/liuyao-semantic-role-target-extraction-probe-v0.1-contract.json",
+      "sha256": "37cc5a5e53682716354a78ef641d6d23dc9d35606aa294662175b4c6eba10afe",
+      "gitBlobSha": "21c985ad61f9e492d19a3682cbf9435e646be038"
+    },
+    {
+      "path": "scripts/liuyao-semantic-role-target-extraction-probe-v01.mjs",
+      "sha256": "a29d633fdf3f14c7c88ff2e2e519ca67bb38a8007d795b54e0f7da34d3bfa441",
+      "gitBlobSha": "ae1f7da5113ee70bff2e8d21a0afacd4ebc21d25"
+    },
+    {
+      "path": "tests/liuyao-semantic-role-target-extraction-probe-v01-tests.mjs",
+      "sha256": "8cd9419009f41af6261256af92017b976132d61ac76fb3cbd46a81fd690c24df",
+      "gitBlobSha": "a097e26e95be6266a25a07b2b17e520217a0f58a"
+    }
+  ],
+  "firstOutputRunsAllowed": 1,
+  "sameVersionFeedbackRepairAllowed": false
+}

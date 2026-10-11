@@ -1,0 +1,334 @@
+{
+  "generation": "individually_authored_literal_questions_with_prefixed_labels_before_outputs",
+  "extractorFeedbackObserved": false,
+  "oldFailureWordingUsed": false,
+  "sameAuthorAndLabeler": true,
+  "independentValidation": false,
+  "note": "Labels allocated before literal wording; author has inspected frozen extractor source, so this is an informed development diagnostic, not a blinded evaluation.",
+  "rows": [
+    {
+      "id": "RTEX-01",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "text": "我向银行申请的经营贷，审批后这周能放款吗？"
+    },
+    {
+      "id": "RTEX-02",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "text": "装修款还差一截，想让堂哥借一笔钱给我，他肯答应吗？"
+    },
+    {
+      "id": "RTEX-03",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "text": "室友找我借三千元周转，我借给他是否妥当？"
+    },
+    {
+      "id": "RTEX-04",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "text": "这次由我出借款项给邻居，他是否会按约定归还？"
+    },
+    {
+      "id": "RTEX-05",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "text": "前客户欠我的服务费迟迟不付，我还能把这笔欠款收回吗？"
+    },
+    {
+      "id": "RTEX-06",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "text": "去年我给徒弟垫了工具费，已经约定这是他欠我的钱；我这月能要回吗？"
+    },
+    {
+      "id": "RTEX-07",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "text": "我欠朋友的那笔钱，月底能还清吗？"
+    },
+    {
+      "id": "RTEX-08",
+      "group": "single_money",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "text": "信用卡欠款归我偿还，下期账单前能全部结清吗？"
+    },
+    {
+      "id": "RTEX-09",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "text": "我独自经营的咖啡店，接下来一个季度能扭亏为盈吗？"
+    },
+    {
+      "id": "RTEX-10",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "text": "我是网店店主，想问今年的经营状况能否稳定下来？"
+    },
+    {
+      "id": "RTEX-11",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "text": "我持有的债券基金，下半年能给我带来正收益吗？"
+    },
+    {
+      "id": "RTEX-12",
+      "group": "single_nonmoney",
+      "expectedGoals": [
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "text": "那笔由我投入的黄金 ETF 资金，到年底会不会赚钱？"
+    },
+    {
+      "id": "RTEX-13",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ],
+      "text": "一笔新借款还在商量，双方没有说定谁提供资金，成不成能先看吗？"
+    },
+    {
+      "id": "RTEX-14",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "unknown"
+        }
+      ],
+      "text": "一笔旧债准备结算，但我不清楚自己是债权人还是欠款人，这事能处理好吗？"
+    },
+    {
+      "id": "RTEX-15",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "unknown"
+        }
+      ],
+      "text": "这次贷款还没确定出借方和收款方，我的资金方向也没定，最终能落实吗？"
+    },
+    {
+      "id": "RTEX-16",
+      "group": "ambiguity",
+      "expectedGoals": [
+        {
+          "intent": "unspecified",
+          "role": "unknown"
+        }
+      ],
+      "text": "有一笔钱牵涉我的店铺和投资，但还没选定要问经营还是资本收益，我应先看哪件？"
+    },
+    {
+      "id": "RTEX-17",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "text": "之前向同事借钱是背景；这次只问我欠的信用卡款能不能还清，不问新的借款。"
+    },
+    {
+      "id": "RTEX-18",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        }
+      ],
+      "text": "去年向家人借的启动资金已经结清，不占问那次借款；现在只问便利店本季能否盈利。"
+    },
+    {
+      "id": "RTEX-19",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "text": "基金收益这次不问，也不看价格；现在仅问我向银行申请的贷款能否批下来。"
+    },
+    {
+      "id": "RTEX-20",
+      "group": "background_or_negation",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "text": "我还清房贷的事已经结束，这次不问还款；只问客户欠我的货款能不能追回。"
+    },
+    {
+      "id": "RTEX-21",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "text": "我既想问向姐姐借钱能否借到，也想问租客欠我的租金能否讨回，两件都要看。"
+    },
+    {
+      "id": "RTEX-22",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "business_operation",
+          "role": "unknown"
+        },
+        {
+          "intent": "investment_return",
+          "role": "unknown"
+        }
+      ],
+      "text": "分别问我经营的餐馆本月能否盈利，以及我投资的指数基金今年能否赚钱，两件请各自判断。"
+    },
+    {
+      "id": "RTEX-23",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        },
+        {
+          "intent": "new_credit",
+          "role": "self_provides"
+        }
+      ],
+      "text": "我向哥哥借钱能否拿到，以及我把另一笔钱借给朋友是否合适，两笔新借款都想问。"
+    },
+    {
+      "id": "RTEX-24",
+      "group": "multiple_active",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        },
+        {
+          "intent": "existing_debt",
+          "role": "self_debtor"
+        }
+      ],
+      "text": "客户欠我的应收款能否收回，同时我欠姐姐的钱能否还清？两笔旧账都要看。"
+    },
+    {
+      "id": "RTEX-25",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "other_subject"
+        }
+      ],
+      "text": "我替表妹问，她向银行申请的贷款能否批下来？钱归她使用，也由她偿还，与我无关。"
+    },
+    {
+      "id": "RTEX-26",
+      "group": "third_party",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "other_subject"
+        }
+      ],
+      "text": "弟弟有笔债权，是他同事欠他的钱。我只替他问能不能收回，收款人不是我。"
+    },
+    {
+      "id": "RTEX-27",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "new_credit",
+          "role": "self_receives"
+        }
+      ],
+      "text": "姨妈说愿意出钱借给我，这次的借款我来收；她能在周五把款转来吗？"
+    },
+    {
+      "id": "RTEX-28",
+      "group": "coreference",
+      "expectedGoals": [
+        {
+          "intent": "existing_debt",
+          "role": "self_creditor"
+        }
+      ],
+      "text": "上月同事从我这里借走了一笔钱；那笔是他的欠款，我现在只问能不能要回。"
+    }
+  ]
+}
