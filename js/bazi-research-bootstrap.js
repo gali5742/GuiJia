@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.49';
+    const VERSION = '0.50';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -200,7 +200,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchRestraintNonrealization', src:'./js/bazi-contextual-force-party-source-branch-restraint-nonrealization.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealObstructionContrastContract', src:'./js/bazi-contextual-force-party-source-seal-obstruction-contrast-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealObstructionContrastProfile', src:'./js/bazi-contextual-force-party-source-seal-obstruction-contrast-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceSealObstructionContrast', src:'./js/bazi-contextual-force-party-source-seal-obstruction-contrast.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSealObstructionContrast', src:'./js/bazi-contextual-force-party-source-seal-obstruction-contrast.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAuditContract', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAuditProfile', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAudit', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
