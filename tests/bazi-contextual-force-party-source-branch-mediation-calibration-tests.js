@@ -225,10 +225,10 @@ test('R23 Zi to Shen remains realized unmapped with no reversed executable gener
     assert(normalizer.toExecutionInput(normalizer.normalizeExactBranchMediationPair(r23.inputForCase(),contextFor(R23_CHART))) === null,'R23 inherited R24 family');
     assert(s.contextualForcePartySourceBranchOfficerOpposition.result.execution.effectType === 'anchor-opposition','R22 regressed');
 });
-test('six finite source families retain three endpoint shapes effect vocabulary and motifs',() => {
+test('R29 extension retains three legacy motifs and endpoint shapes alongside its fourth type',() => {
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 6 && c.CONTRACT.currentEndpointShapes.length === 3
-        && c.ACTOR_TO_ACTOR_MOTIFS.length === 3 && c.CONTRACT.allowedRelationTypes.length === 3,'shape motif or vocabulary grew');
+    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 7 && c.CONTRACT.currentEndpointShapes.length === 3
+        && c.ACTOR_TO_ACTOR_MOTIFS.length === 3 && c.CONTRACT.allowedRelationTypes.length === 4,'unexpected family shape motif or vocabulary extension');
     assert(typeof normalizer.normalizeRegisteredExactPair === 'undefined'
         && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === g.baziContextualForcePartySourceBranchKillerDirectionAuditProfile.RULE_ID),'generic family selector or R23 authority added');
 });

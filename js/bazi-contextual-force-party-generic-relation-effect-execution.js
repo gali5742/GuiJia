@@ -57,7 +57,7 @@
         sourceEffectIds:Object.freeze([]),
         sourceRefs:Object.freeze([]),
         sourceRegistryEvidenceIds:freezeArray(audit.knownMotifCalibration?.inputs?.flatMap((item) => item.authorization?.sourceEvidenceIds || []) || []),
-        rationale:'Generic Relation Effect Execution v0.1 已把 endpoint identity、target-level resolution、realization 与 source-backed effect-type authorization 组合成 fail-closed execution kernel；已兑现但未授权的 relation 保持 realized-unmapped，而不是自动判无作用或按五行 shape 补 effect type。',
+        rationale:'Generic Relation Effect Execution v0.2 已把 endpoint identity、target-level resolution、realization 与 source-backed effect-type authorization 组合成 fail-closed execution kernel；已兑现但未授权的 relation 保持 realized-unmapped，而不是自动判无作用或按五行 shape 补 effect type。',
         boundary:'本 claim 只解决 effect execution mechanics，不解决 generic generation/restraint/peer → effect-type mapping、broader relation realization、Relative Dominance、Strength 或 Assessment。'
     });
 
@@ -79,7 +79,7 @@
         id:'SD-CONTEXTUAL-FORCE-PARTY-GENERIC-RELATION-EFFECT-EXECUTION-CONTRACT',
         scope:'authorization-gated-generic-relation-effect-execution-kernel',
         status:'resolved',
-        statement:'Generic Relation Effect Execution v0.1 已定义：只有 actionable target resolution、显式 source endpoint、directed relation identity、已解析 realization 与唯一 source-backed effect-type authorization 同时成立时，才能执行 positive relation effect。',
+        statement:'Generic Relation Effect Execution v0.2 已定义：只有 actionable target resolution、显式 source endpoint、directed relation identity、已解析 realization 与唯一 source-backed effect-type authorization 同时成立时，才能执行 positive relation effect。',
         boundary:'Execution contract resolved 不代表 effect-type mapping resolved；function shape、十神角色、endpoint shape 与 realization 单独都不能授权 effect type。',
         dependsOnDependencyIds:[
             'SD-CONTEXTUAL-FORCE-PARTY-GENERIC-TARGET-LEVEL-RESOLVER-CONTRACT',
@@ -163,7 +163,7 @@
             sufficiency,
             boundaries:Object.freeze([
                 ...(base.boundaries || []),
-                'Generic Relation Effect Execution v0.1 将 target-level、endpoint identity、realization 与 effect-type authorization 分层后再执行 relation effect。',
+                'Generic Relation Effect Execution v0.2 将 target-level、endpoint identity、realization 与 effect-type authorization 分层后再执行 relation effect。',
                 '已兑现但 current registry 未授权的 relation 必须保持 realized-unmapped；no-match 不是 semantic rejection，也不能按 generation/restraint/peer shape 自动补 effect type。',
                 'actor-group endpoint 原样保留，不展开 member effects；group→group 仍未定义。',
                 'not-realized relation 不生成 reverse effect；effect execution 不修改 membership、不建立 transitive closure、不产生 numeric force。',

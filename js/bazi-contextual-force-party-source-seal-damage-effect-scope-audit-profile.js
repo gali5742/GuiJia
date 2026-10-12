@@ -88,6 +88,7 @@
         const oppositionScopeComparisons = EFFECT_SCOPE_REVIEW.oppositionComparisons.map((c) => ({ ...copy(c),
             registeredAuthorityScopeVerified:true,sameSourcePath:false,licenseTransferAuthorized:false }));
         const effectScopeGap = { id:'CF-SSDES-GAP-01',status:'independent-recipient-relative-damage-semantics-unlicensed',
+            authorizationKnowledgeScope:'r28-reviewed-legacy-opposition-authorities-only',
             sourcePathId:path.review.sourcePathId,sourceIdentityAuthorityId:path.review.identityAuthorityId,
             sourceRealizationAuthorityId:path.review.realizationAuthority.id,sourceEvidenceIds:[...EFFECT_SCOPE_REVIEW.sourceEvidenceIds],
             currentRelationTypes:[...registry.CONTRACT.allowedRelationTypes],currentSourceFamilyCount:Object.keys(registry.SOURCE_FAMILY_REGISTRY).length,

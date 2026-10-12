@@ -8,9 +8,10 @@
     const targetResolverContract = GuiJia.baziContextualForcePartyGenericTargetLevelResolverContract || null;
     const relationEffectContract = GuiJia.baziContextualForcePartyRelationEffectContract || null;
     const generalizationSource = GuiJia.baziContextualForcePartyRelationEffectGeneralizationSource || null;
+    const recipientDamageContract = GuiJia.baziContextualForcePartyRecipientSealDamageEffectContract || null;
     if (!endpointContract || !targetResolverContract || !relationEffectContract || !generalizationSource) return;
 
-    const VERSION = '0.1';
+    const VERSION = '0.2';
     const RULE_ID = 'BAZI-STRENGTH-CONTEXTUAL-FORCE-PARTY-GENERIC-RELATION-EFFECT-EXECUTION-001';
     const freezeArray = (items = []) => Object.freeze([...(items || [])]);
 
@@ -91,11 +92,13 @@
         ranking:false,
         scalarCollapse:false,
         finalStrengthMapping:false,
-        allowedRelationTypes:freezeArray(relationEffectContract.CONTRACT.relationTypes || []),
+        allowedRelationTypes:freezeArray([...(relationEffectContract.CONTRACT.relationTypes || []),
+            ...(recipientDamageContract ? [recipientDamageContract.RELATION_TYPE] : [])]),
+        recipientSealDamageContract:recipientDamageContract?.CONTRACT || null,
         supportedEndpointShapes:freezeArray(endpointContract.CONTRACT.knownIdentityShapes || []),
         requiredProvenanceGates:freezeArray(generalizationSource.REQUIRED_PROVENANCE_GATES || []),
         decisionRules:DECISION_RULES,
-        statement:'Generic Relation Effect Execution v0.1 只解决“已有明确 endpoint、relation identity、realization 与 source-backed effect-type authorization 时，如何一致执行 relation effect”。它不从 generation/restraint/peer shape、十神角色、endpoint shape 或 registry no-match 推导 effect type，因此 generic effect-type mapping 继续 unresolved。'
+        statement:'Generic Relation Effect Execution v0.2 只解决“已有明确 endpoint、relation identity、realization 与 source-backed effect-type authorization 时，如何一致执行 relation effect”。它不从 generation/restraint/peer shape、十神角色、endpoint shape 或 registry no-match 推导 effect type，因此 generic effect-type mapping 继续 unresolved。'
     });
 
     GuiJia.baziContextualForcePartyGenericRelationEffectExecutionContract = Object.freeze({

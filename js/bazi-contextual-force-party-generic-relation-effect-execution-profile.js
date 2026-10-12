@@ -226,6 +226,21 @@
         }
         if (!authorization.valid) return makeUnresolved(input, authorization.errors, { sourceEndpoint, targetEndpoint, identityShape });
 
+        // The new recipient type carries bounded semantic scope; legacy anchor effects keep their existing inputs.
+        const damage = CONTRACT.recipientSealDamageContract;
+        let effectScope = null;
+        if (damage && authorization.effectType === damage.relationType) {
+            const supplied = input.effectScope;
+            const expected = { semanticContractId:damage.id,recipientActorKey:targetEndpoint.actorKey,
+                recipientScope:damage.recipientScope,sourceNamedAspect:damage.sourceNamedAspect,extent:damage.extent };
+            if (identityShape !== IDENTITY_SHAPES.ACTOR_TO_ACTOR || targetEndpoint.scope !== damage.recipientScope
+                || !supplied || typeof supplied !== 'object' || Array.isArray(supplied) || Object.keys(supplied).length !== Object.keys(expected).length
+                || !Object.keys(expected).every((k) => Object.hasOwn(supplied,k) && supplied[k] === expected[k])) {
+                return makeUnresolved(input,['recipient-seal-damage-bounded-scope-required'],{ sourceEndpoint,targetEndpoint,identityShape });
+            }
+            effectScope = Object.freeze(expected);
+        }
+
         return Object.freeze({
             inputId:input.id || null,
             executionState:EXECUTION_STATES.REALIZED,
@@ -248,6 +263,7 @@
             relativeDominance:null,
             numericWeight:null,
             scalarForce:null,
+            ...(effectScope ? { effectScope } : {}),
             boundary:'Effect 只挂在原 endpoint identity 上；actor-group 不展开 member effects，effectType 不由 function shape 或 endpoint shape 推导。'
         });
     };

@@ -101,7 +101,7 @@ test('nonrealization evidence remains separate from type authorization and uncha
     const a = evaluate().executionInput.authorization,c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
     assert(a.state === 'effect-authorization-not-applicable' && !a.sourceBacked && !a.relationTypes.length && !a.authorityIds.length
         && a.sourceEvidenceIds.includes('CF-SBRN-REALIZATION-01') && a.sourceEvidenceIds.includes('CF-SBRN-CONTEXT-01'),'negative evidence became effect license');
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 6 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R5 broadened');
+    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 7 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R5 broadened');
     for (const fn of ['normalizeExactActorPair','normalizeExactBranchPair','normalizeExactBranchMediationPair']) {
         assert(normalizer.toExecutionInput(normalizer[fn](input(),actualContext())) === null,'borrowed positive family');
     }
