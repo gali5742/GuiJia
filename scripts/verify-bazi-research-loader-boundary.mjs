@@ -81,6 +81,10 @@ const allModulePaths = bootstrapDependencies.map(({ src }) => src.replace(/^\.\/
 const duplicateGlobalKeys = allGlobalKeys.filter((key, index) => allGlobalKeys.indexOf(key) !== index);
 const duplicateModulePaths = allModulePaths.filter((modulePath, index) => allModulePaths.indexOf(modulePath) !== index);
 const synthesisIndex = allGlobalKeys.indexOf('baziStrengthSynthesis');
+const recipientDamageIndex = allGlobalKeys.indexOf('baziContextualForcePartyRecipientSealDamageEffectContract');
+if (recipientDamageIndex < 0 || recipientDamageIndex + 1 !== allGlobalKeys.indexOf('baziContextualForcePartyGenericRelationEffectExecutionContract')) {
+    errors.push('bazi-research-bootstrap.js: recipient damage semantics must immediately precede the generic execution contract');
+}
 const extensionHostIndex = allGlobalKeys.indexOf('baziResearchSynthesisExtensions');
 if (extensionHostIndex !== synthesisIndex + 1 || extensionHostIndex <= 0) {
     errors.push('bazi-research-bootstrap.js: research synthesis extension host must follow the base synthesis');
@@ -112,8 +116,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.50'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.50');
+if (!bootstrap.includes("const VERSION = '0.51'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.51');
 }
 
 const requiredTail = Object.freeze([
@@ -229,7 +233,10 @@ const requiredTail = Object.freeze([
     'js/bazi-contextual-force-party-source-seal-obstruction-contrast.js',
     'js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-contract.js',
     'js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-profile.js',
-    'js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js'
+    'js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js',
+    'js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-contract.js',
+    'js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-profile.js',
+    'js/bazi-contextual-force-party-source-recipient-seal-damage-calibration.js'
 ]);
 let previousTailIndex = -1;
 for (const relative of requiredTail) {

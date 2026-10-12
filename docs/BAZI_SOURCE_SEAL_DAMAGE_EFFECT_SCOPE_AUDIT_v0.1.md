@@ -2,6 +2,8 @@
 
 R28 audits the missing effect-type authority for R27's source-asserted **month whole 卯→day whole 丑 damage** in **戊辰｜乙卯｜辛丑｜丁酉**. It reuses the complete registered natal source and preserves the realized-unmapped event through actual R27/normalization/R3/R4. The new result identifies a recipient-relative damage semantics gap, rather than guessing an existing anchor effect or deleting the event. Counts: one reused complete chart, zero new charts, zero new effect authorities or R5 families.
 
+Later R29 defines a separate bounded recipient-seal-damage semantic contract and exact authority. R28 remains the prior review of legacy opposition scopes (`authorizationKnowledgeScope: r28-reviewed-legacy-opposition-authorities-only`); its own inputs do not acquire that authority. The new R29 calibration records current exact-path authorization separately. The wiring/counts below describe R28 when introduced; the later registry has seven families and four execution types, with the same three legacy anchor motifs and endpoint shapes.
+
 ## Source and independent review
 
 Primary provenance is unchanged from [R27](BAZI_SOURCE_SEAL_OBSTRUCTION_CONTRAST_v0.1.md): [《滴天髓阐微》通神论 · 二十、通关](https://zh.wikisource.org/zh-hans/%E6%BB%B4%E5%A4%A9%E9%AB%93%E9%97%A1%E5%BE%AE), retrieved 2026-10-12, revision ID unavailable (`null`). R28's independent review date is 2026-10-12; the source is not re-registered under a new case ID.

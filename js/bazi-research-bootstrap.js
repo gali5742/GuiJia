@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.50';
+    const VERSION = '0.51';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -121,6 +121,7 @@
         Object.freeze({ globalKey:'baziContextualForcePartyRelationEndpointIdentityContract', src:'./js/bazi-contextual-force-party-relation-endpoint-identity-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationEndpointIdentityProfile', src:'./js/bazi-contextual-force-party-relation-endpoint-identity-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyRelationEndpointIdentity', src:'./js/bazi-contextual-force-party-relation-endpoint-identity.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartyRecipientSealDamageEffectContract', src:'./js/bazi-contextual-force-party-recipient-seal-damage-effect-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyGenericRelationEffectExecutionContract', src:'./js/bazi-contextual-force-party-generic-relation-effect-execution-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyGenericRelationEffectExecutionProfile', src:'./js/bazi-contextual-force-party-generic-relation-effect-execution-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartyGenericRelationEffectExecution', src:'./js/bazi-contextual-force-party-generic-relation-effect-execution.js?v=13.44.0' }),
@@ -203,7 +204,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealObstructionContrast', src:'./js/bazi-contextual-force-party-source-seal-obstruction-contrast.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAuditContract', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAuditProfile', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAudit', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAudit', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibrationContract', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibrationProfile', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibration', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';

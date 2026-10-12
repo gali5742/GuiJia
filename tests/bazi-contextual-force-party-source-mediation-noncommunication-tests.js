@@ -86,7 +86,7 @@ test('nonrealization evidence is not an R5 effect license',() => {
     assert(a.state === 'effect-authorization-not-applicable' && !a.sourceBacked && !a.relationTypes.length && !a.authorityIds.length
         && a.sourceEvidenceIds.includes('CF-SMNC-REALIZATION-01') && a.sourceEvidenceIds.includes('CF-SMNC-EXCLUDED-01'),'evidence granted type authority');
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 6 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R5 family added');
+    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 7 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R25 acquired an effect family');
     for (const fn of ['normalizeExactActorPair','normalizeExactBranchPair','normalizeExactBranchMediationPair']) {
         assert(normalizer.toExecutionInput(normalizer[fn](input(),actualContext())) === null,'borrowed another family');
     }

@@ -111,9 +111,9 @@ const input = (overrides = {}) => Object.freeze({
 
 const execute = (overrides = {}) => profileApi.executeRelationEffect(input(overrides));
 
-test('Generic Relation Effect Execution v0.1 安装，execution kernel 与 effect-type mapping 明确分层', () => {
+test('Generic Relation Effect Execution v0.2 安装，execution kernel 与 effect-type mapping 明确分层', () => {
     assert(contractApi?.installed && profileApi?.installed && runtimeApi?.installed && typeof extension === 'function', 'contract/profile/runtime extension 未安装');
-    assert(contractApi.VERSION === '0.1', 'version 应为0.1');
+    assert(contractApi.VERSION === '0.2', 'version 应为0.2');
     assert(contractApi.CONTRACT.genericExecutionKernelDefined === true, 'generic execution kernel 应已定义');
     assert(contractApi.CONTRACT.genericEffectTypeMappingDefined === false, 'generic effect-type mapping 不得提前标记完成');
     assert(contractApi.CONTRACT.relationIdentityAloneDefinesEffectType === false && contractApi.CONTRACT.realizationAloneDefinesEffectType === false, 'relation identity/realization 不得单独授权 effect type');

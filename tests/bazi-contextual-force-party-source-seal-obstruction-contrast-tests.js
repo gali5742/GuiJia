@@ -129,7 +129,7 @@ test('other source assertions remain context without an extra support denial or 
 });
 test('R5 cannot normalize an unlicensed damage input through existing positive families',() => {
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 6 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R5 family added');
+    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 7 && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID),'R5 family added');
     for (const fn of ['normalizeExactActorPair','normalizeExactBranchPair','normalizeExactBranchMediationPair']) {
         assert(normalizer.toExecutionInput(normalizer[fn](input(),actualContext())) === null,'borrowed unrelated license');
     }

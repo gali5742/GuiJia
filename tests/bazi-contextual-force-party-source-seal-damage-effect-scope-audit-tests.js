@@ -167,9 +167,10 @@ test('no recipient or license transfers to prior or adjacent natal charts',() =>
         assert(r.status === STATES.NOT_APPLICABLE && r.path === null && r.recipient === null,'chart transfer');
     }
 });
-test('R5 families and vocabulary stay finite and unlicensed damage has no normalization',() => {
+test('R28 audit remains unlicensed after the independent R29 family and typed vocabulary extension',() => {
     const c = g.baziContextualForcePartyEffectAuthorizationNormalizedInputContract;
-    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 6 && c.ACTOR_TO_ACTOR_MOTIFS.length === 3
+    assert(Object.keys(c.SOURCE_FAMILY_REGISTRY).length === 7 && c.ACTOR_TO_ACTOR_MOTIFS.length === 3
+        && !Object.values(c.SOURCE_FAMILY_REGISTRY).some((f) => f.sourceRuleId === api.RULE_ID)
         && c.CONTRACT.currentEndpointShapes.length === 3 && evaluate().effectScopeGap.currentRelationTypes.join() === c.CONTRACT.allowedRelationTypes.join(),'vocabulary widened');
     for (const fn of ['normalizeExactActorPair','normalizeExactBranchPair','normalizeExactBranchMediationPair']) {
         assert(normalizer.toExecutionInput(normalizer[fn](input(),actualContext())) === null,'damage borrowed family');
