@@ -132,6 +132,9 @@ jobs:
       - name: Source Recipient Seal Damage Calibration regression
         run: node tests/bazi-contextual-force-party-source-recipient-seal-damage-calibration-tests.js
 
+      - name: Source Branch Seal Damage Nonrealization regression
+        run: node tests/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

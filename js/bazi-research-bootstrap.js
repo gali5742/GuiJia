@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.51';
+    const VERSION = '0.52';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -207,7 +207,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceSealDamageEffectScopeAudit', src:'./js/bazi-contextual-force-party-source-seal-damage-effect-scope-audit.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibrationContract', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibrationProfile', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibration', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibration', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealizationContract', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealizationProfile', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealization', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
