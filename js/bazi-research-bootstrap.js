@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.53';
+    const VERSION = '0.54';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -213,7 +213,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealization', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReviewContract', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReviewProfile', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReview', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReview', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRelationPathReviewSource', src:'./js/bazi-contextual-force-party-source-relation-path-review-source.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRelationPathReviewProfile', src:'./js/bazi-contextual-force-party-source-relation-path-review-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceRelationPathReview', src:'./js/bazi-contextual-force-party-source-relation-path-review.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
