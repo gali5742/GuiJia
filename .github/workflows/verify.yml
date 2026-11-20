@@ -138,6 +138,9 @@ jobs:
       - name: Source Hidden Seal Target Review regression
         run: node tests/bazi-contextual-force-party-source-hidden-seal-target-review-tests.js
 
+      - name: Source Relation Path Review regression
+        run: node tests/bazi-contextual-force-party-source-relation-path-review-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
