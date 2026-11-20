@@ -135,6 +135,9 @@ jobs:
       - name: Source Branch Seal Damage Nonrealization regression
         run: node tests/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-tests.js
 
+      - name: Source Hidden Seal Target Review regression
+        run: node tests/bazi-contextual-force-party-source-hidden-seal-target-review-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 

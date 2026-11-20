@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.52';
+    const VERSION = '0.53';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -210,7 +210,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceRecipientSealDamageCalibration', src:'./js/bazi-contextual-force-party-source-recipient-seal-damage-calibration.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealizationContract', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-contract.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealizationProfile', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealization', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziContextualForcePartySourceBranchSealDamageNonrealization', src:'./js/bazi-contextual-force-party-source-branch-seal-damage-nonrealization.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReviewContract', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReviewProfile', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziContextualForcePartySourceHiddenSealTargetReview', src:'./js/bazi-contextual-force-party-source-hidden-seal-target-review.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
