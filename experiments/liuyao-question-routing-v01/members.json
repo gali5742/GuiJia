@@ -1,0 +1,922 @@
+{
+  "train": [
+    {
+      "id": "T-single_direct-1",
+      "group": "single_direct",
+      "multi": false,
+      "text": "来年我的经济状况有起色么"
+    },
+    {
+      "id": "T-single_direct-2",
+      "group": "single_direct",
+      "multi": false,
+      "text": "寄售的瓷盘多久有人买走"
+    },
+    {
+      "id": "T-single_direct-3",
+      "group": "single_direct",
+      "multi": false,
+      "text": "我们两人还能处得下去吗"
+    },
+    {
+      "id": "T-single_direct-4",
+      "group": "single_direct",
+      "multi": false,
+      "text": "我申请的绩效奖能批下来嘛"
+    },
+    {
+      "id": "T-single_direct-5",
+      "group": "single_direct",
+      "multi": false,
+      "text": "把这间复印店接下来经营有赚头吗"
+    },
+    {
+      "id": "T-single_direct-6",
+      "group": "single_direct",
+      "multi": false,
+      "text": "我借给邻居的修车费能讨回来么"
+    },
+    {
+      "id": "T-single_direct-7",
+      "group": "single_direct",
+      "multi": false,
+      "text": "再加一成股票仓位划得来吗"
+    },
+    {
+      "id": "T-single_direct-8",
+      "group": "single_direct",
+      "multi": false,
+      "text": "亲戚说给我的旧相机会寄到么"
+    },
+    {
+      "id": "T-single_direct-9",
+      "group": "single_direct",
+      "multi": false,
+      "text": "合伙打理菜圃能长久吗"
+    },
+    {
+      "id": "T-single_direct-10",
+      "group": "single_direct",
+      "multi": false,
+      "text": "银行肯给我的工作室放款吗"
+    },
+    {
+      "id": "T-single_direct-11",
+      "group": "single_direct",
+      "multi": false,
+      "text": "今年底薪有希望往上调吗"
+    },
+    {
+      "id": "T-single_direct-12",
+      "group": "single_direct",
+      "multi": false,
+      "text": "能不能按约把师傅的工钱欠款付清"
+    },
+    {
+      "id": "T-single_direct-13",
+      "group": "single_direct",
+      "multi": false,
+      "text": "羽绒服这次进多少货才卖得动"
+    },
+    {
+      "id": "T-single_direct-14",
+      "group": "single_direct",
+      "multi": false,
+      "text": "这笔旧邮票投资最终赚得到吗"
+    },
+    {
+      "id": "T-single_direct-15",
+      "group": "single_direct",
+      "multi": false,
+      "text": "借给表妹一万元值不值得"
+    },
+    {
+      "id": "T-single_direct-16",
+      "group": "single_direct",
+      "multi": false,
+      "text": "对方家长会同意我们结婚吗"
+    },
+    {
+      "id": "T-single_background-1",
+      "group": "single_background",
+      "multi": false,
+      "text": "虽有门面租金压力，我关心的只有淡季的客流生意。"
+    },
+    {
+      "id": "T-single_background-2",
+      "group": "single_background",
+      "multi": false,
+      "text": "昨天跟伴侣谈过买车，我想知道这段婚姻还能维持多久。"
+    },
+    {
+      "id": "T-single_background-3",
+      "group": "single_background",
+      "multi": false,
+      "text": "仓里堆了货，眼下只占厂里拖我的尾款何时付。"
+    },
+    {
+      "id": "T-single_background-4",
+      "group": "single_background",
+      "multi": false,
+      "text": "理财经理让我买债券，我实际要问的是手里那只基金什么时候卖掉合适。"
+    },
+    {
+      "id": "T-single_background-5",
+      "group": "single_background",
+      "multi": false,
+      "text": "知道孩子在攒钱，我把钱借给他妥不妥当？"
+    },
+    {
+      "id": "T-single_background-6",
+      "group": "single_background",
+      "multi": false,
+      "text": "手表被送修过，我能买到替换的同型号机芯吗？"
+    },
+    {
+      "id": "T-single_background-7",
+      "group": "single_background",
+      "multi": false,
+      "text": "工作室开支照旧，只想问奖金这次会不会落到我头上。"
+    },
+    {
+      "id": "T-single_background-8",
+      "group": "single_background",
+      "multi": false,
+      "text": "见过她家人之后，他和我还会进一步发展么？"
+    },
+    {
+      "id": "T-single_background-9",
+      "group": "single_background",
+      "multi": false,
+      "text": "上半年亏过钱，这回两个人搭伙办展合适么？"
+    },
+    {
+      "id": "T-single_background-10",
+      "group": "single_background",
+      "multi": false,
+      "text": "小舅愿意担保，我这份借款申请过得了吗？"
+    },
+    {
+      "id": "T-single_background-11",
+      "group": "single_background",
+      "multi": false,
+      "text": "出去旅行要花钱，我已经答应还室友的那笔能如期给他吗？"
+    },
+    {
+      "id": "T-single_background-12",
+      "group": "single_background",
+      "multi": false,
+      "text": "上季棉布都清完了，这季我该不该再向厂里订一批？"
+    },
+    {
+      "id": "T-single_background-13",
+      "group": "single_background",
+      "multi": false,
+      "text": "公司搬了办公楼，我的固定工资会不会跟着涨？"
+    },
+    {
+      "id": "T-single_background-14",
+      "group": "single_background",
+      "multi": false,
+      "text": "店面是租的，想占这一架子茶盒能否全部卖出。"
+    },
+    {
+      "id": "T-single_background-15",
+      "group": "single_background",
+      "multi": false,
+      "text": "我没打算加仓，仅问这项投入到期赚不赚钱。"
+    },
+    {
+      "id": "T-single_background-16",
+      "group": "single_background",
+      "multi": false,
+      "text": "家里已经定好日子，只想看看我跟未婚夫能不能成婚。"
+    },
+    {
+      "id": "T-multi_cross-1",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "我准备辞职经营画廊。这家店生意怎样，跟男友又能不能结婚？"
+    },
+    {
+      "id": "T-multi_cross-2",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "押金能从前房东手中收回吗，我向工会借应急款又能批吗？"
+    },
+    {
+      "id": "T-multi_cross-3",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "想知道钨的价格走势，也想知道下周是否有机会涨薪。"
+    },
+    {
+      "id": "T-multi_cross-4",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "两件烦心事，一件是铺里的糖果好卖么，一件是妹妹托人捎来的大衣能到么。"
+    },
+    {
+      "id": "T-multi_cross-5",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "试探问下我的分红能拿多少，再问丈夫和我是否还过得下去。"
+    },
+    {
+      "id": "T-multi_cross-6",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "有人找我周转。这钱该不该借给他，另一个仓库的旧机器现在是不是该买？"
+    },
+    {
+      "id": "T-multi_cross-7",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "我和发小合开工坊合适吗，手上的可转债也该卖了吗"
+    },
+    {
+      "id": "T-multi_cross-8",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "分别占这月的奖金和昨天谈的代销合同能否签成。"
+    },
+    {
+      "id": "T-multi_cross-9",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "我欠经销商的钱能结清么，自己投资的那套房还有收益吗。"
+    },
+    {
+      "id": "T-multi_cross-10",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "春天我的总体财运怎样？和介绍对象有希望进一步吗？"
+    },
+    {
+      "id": "T-multi_cross-11",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "小铺周转找人借钱能借到不，店里新上的水杯能卖光不？"
+    },
+    {
+      "id": "T-multi_cross-12",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "能请你看两项么，股票要不要减仓，还有网店下月生意如何。"
+    },
+    {
+      "id": "T-multi_cross-13",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "姐姐把一箱书送我能收到么；公司欠的报销款有望追回么？"
+    },
+    {
+      "id": "T-multi_cross-14",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "我想知道新进一车山货划不划算，也关心厂里会不会给我发奖金。"
+    },
+    {
+      "id": "T-multi_cross-15",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "新项目发行时值不值得投，我跟合作者的合伙关系又能维持吗"
+    },
+    {
+      "id": "T-multi_cross-16",
+      "group": "multi_cross",
+      "multi": true,
+      "text": "分别问今年能不能娶到她，以及我能不能买到那台二手钢琴。"
+    },
+    {
+      "id": "T-multi_same-1",
+      "group": "multi_same",
+      "multi": true,
+      "text": "欠我的货车运费何时付清，另一家欠的装卸费能拿回几成？"
+    },
+    {
+      "id": "T-multi_same-2",
+      "group": "multi_same",
+      "multi": true,
+      "text": "一号柜台的围裙能卖掉吗？二号柜台的围巾呢？"
+    },
+    {
+      "id": "T-multi_same-3",
+      "group": "multi_same",
+      "multi": true,
+      "text": "南城开的理发室能有生意么，北城那家面包铺的经营又怎样？"
+    },
+    {
+      "id": "T-multi_same-4",
+      "group": "multi_same",
+      "multi": true,
+      "text": "想分开看两个投资的收益，林地那笔有多少，农机租赁那笔会亏吗。"
+    },
+    {
+      "id": "T-multi_same-5",
+      "group": "multi_same",
+      "multi": true,
+      "text": "要借我钱的人有俩。给老林借妥不妥，给老楚借妥不妥？"
+    },
+    {
+      "id": "T-multi_same-6",
+      "group": "multi_same",
+      "multi": true,
+      "text": "想分别占我跟甲搭伙做配送、跟乙搭伙做维修的前景。"
+    },
+    {
+      "id": "T-multi_same-7",
+      "group": "multi_same",
+      "multi": true,
+      "text": "工资方面，总部的岗位今年会涨薪不，分部兼职的固定薪酬会涨不。"
+    },
+    {
+      "id": "T-multi_same-8",
+      "group": "multi_same",
+      "multi": true,
+      "text": "若分开办两笔贷款，贷款中心会批家具那笔吗，学校会批学费那笔吗"
+    },
+    {
+      "id": "T-multi_same-9",
+      "group": "multi_same",
+      "multi": true,
+      "text": "我欠车队的油费还得上吗，欠同学的住宿费也能如期还清吗？"
+    },
+    {
+      "id": "T-multi_same-10",
+      "group": "multi_same",
+      "multi": true,
+      "text": "今年春季绩效奖能到手么？专项创新奖能拿下么？"
+    },
+    {
+      "id": "T-multi_same-11",
+      "group": "multi_same",
+      "multi": true,
+      "text": "两只币的价格分开看，甲币会跌多少，乙币接下来走高吗。"
+    },
+    {
+      "id": "T-multi_same-12",
+      "group": "multi_same",
+      "multi": true,
+      "text": "老物件想收两样，能买到那盏壁灯吗，还能找到合意的旧藤椅吗。"
+    },
+    {
+      "id": "T-multi_same-13",
+      "group": "multi_same",
+      "multi": true,
+      "text": "新店瓷砖要不要进灰色的？另一单红砖要不要订？"
+    },
+    {
+      "id": "T-multi_same-14",
+      "group": "multi_same",
+      "multi": true,
+      "text": "一份是返还的毕业证，另一份是别人寄的纪念册，两件各自能收到么？"
+    },
+    {
+      "id": "T-multi_same-15",
+      "group": "multi_same",
+      "multi": true,
+      "text": "手上的两笔份额想分别看退出时点，茶园项目该何时退，鱼塘项目现在就退合适吗。"
+    },
+    {
+      "id": "T-multi_same-16",
+      "group": "multi_same",
+      "multi": true,
+      "text": "我跟相亲认识的两位分别会如何，跟张先生有发展吗，跟赵先生呢。"
+    }
+  ],
+  "dev": [
+    {
+      "id": "D-S1-1",
+      "group": "direct",
+      "route": "financial_fortune",
+      "multi": false,
+      "text": "明年整年的钱财运势会怎么样？"
+    },
+    {
+      "id": "D-S1-2",
+      "group": "background",
+      "route": "financial_fortune",
+      "multi": false,
+      "text": "去年走得很背，生意如今也已转手，我只想占接下来自己的整体财运。"
+    },
+    {
+      "id": "D-S2-1",
+      "group": "direct",
+      "route": "business_operation",
+      "multi": false,
+      "text": "我开的宠物洗护店往后半年经营状况如何？"
+    },
+    {
+      "id": "D-S2-2",
+      "group": "background",
+      "route": "business_operation",
+      "multi": false,
+      "text": "竞争的摊位又开张了，单看我这个刻章小摊还能不能做下去？"
+    },
+    {
+      "id": "D-S3-1",
+      "group": "direct",
+      "route": "commercial_transaction",
+      "multi": false,
+      "text": "承印这批宣传册的买卖我们谈得成吗？"
+    },
+    {
+      "id": "D-S3-2",
+      "group": "background",
+      "route": "commercial_transaction",
+      "multi": false,
+      "text": "报价已经让了两次，想知道跟民宿谈的布草供货交易能不能成交。"
+    },
+    {
+      "id": "D-S4-1",
+      "group": "direct",
+      "route": "inventory_purchase",
+      "multi": false,
+      "text": "我做批发，现在补一批不锈钢饭盒合算吗？"
+    },
+    {
+      "id": "D-S4-2",
+      "group": "background",
+      "route": "inventory_purchase",
+      "multi": false,
+      "text": "夜市换了摊位，想问作为来季卖货的备货，现在批进一批折扇行不行。"
+    },
+    {
+      "id": "D-S5-1",
+      "group": "direct",
+      "route": "inventory_sale",
+      "multi": false,
+      "text": "积在我这儿的三百箱柚子这月底能出掉吗？"
+    },
+    {
+      "id": "D-S5-2",
+      "group": "background",
+      "route": "inventory_sale",
+      "multi": false,
+      "text": "上游还催我订新款，我只关心库房里上个款式的雨靴能否清出去。"
+    },
+    {
+      "id": "D-S6-1",
+      "group": "direct",
+      "route": "borrow_money",
+      "multi": false,
+      "text": "信用社肯把我缺的装修资金贷给我吗？"
+    },
+    {
+      "id": "D-S6-2",
+      "group": "background",
+      "route": "borrow_money",
+      "multi": false,
+      "text": "房间漏水，再耽搁住不下去，向单位预借一笔维修钱能获准吗？"
+    },
+    {
+      "id": "D-S7-1",
+      "group": "direct",
+      "route": "lend_money",
+      "multi": false,
+      "text": "同事找我借旅费，我该把这个钱借给他么？"
+    },
+    {
+      "id": "D-S7-2",
+      "group": "background",
+      "route": "lend_money",
+      "multi": false,
+      "text": "他自己刚换了新岗位，找我垫两个月房租，我适合借给他吗？"
+    },
+    {
+      "id": "D-S8-1",
+      "group": "direct",
+      "route": "debt_collection",
+      "multi": false,
+      "text": "包工头欠我的安装工钱能要得回来吗？"
+    },
+    {
+      "id": "D-S8-2",
+      "group": "background",
+      "route": "debt_collection",
+      "multi": false,
+      "text": "我搬离老家很久了，当年替邻村剧团垫的服装费还能讨回来吗？"
+    },
+    {
+      "id": "D-S9-1",
+      "group": "direct",
+      "route": "debt_repayment",
+      "multi": false,
+      "text": "年底前我能把欠合租人的搬家款还清吗？"
+    },
+    {
+      "id": "D-S9-2",
+      "group": "background",
+      "route": "debt_repayment",
+      "multi": false,
+      "text": "对方已经停供材料，想知道我本季能不能结清欠他的木料钱。"
+    },
+    {
+      "id": "D-S10-1",
+      "group": "direct",
+      "route": "partnership",
+      "multi": false,
+      "text": "和两位师姐搭伙开翻译社合适吗？"
+    },
+    {
+      "id": "D-S10-2",
+      "group": "background",
+      "route": "partnership",
+      "multi": false,
+      "text": "对方擅长采购，我懂线上销售，咱俩合伙做这门生意能长久吗？"
+    },
+    {
+      "id": "D-S11-1",
+      "group": "direct",
+      "route": "investment_profit",
+      "multi": false,
+      "text": "我投进小水电站的那份钱到期会有利润吗？"
+    },
+    {
+      "id": "D-S11-2",
+      "group": "background",
+      "route": "investment_profit",
+      "multi": false,
+      "text": "先前的南瓜大棚失败了，这次入股储粮仓单看收益怎么样？"
+    },
+    {
+      "id": "D-S12-1",
+      "group": "direct",
+      "route": "investment_liquidation",
+      "multi": false,
+      "text": "我认购的那份仓储信托适合在本月退出变现吗？"
+    },
+    {
+      "id": "D-S12-2",
+      "group": "background",
+      "route": "investment_liquidation",
+      "multi": false,
+      "text": "钱倒不急用，就是想知道手上持有的债基现在是不是赎回的时机。"
+    },
+    {
+      "id": "D-S13-1",
+      "group": "direct",
+      "route": "investment_suitability",
+      "multi": false,
+      "text": "我适合投资朋友刚成立的动画公司吗？"
+    },
+    {
+      "id": "D-S13-2",
+      "group": "background",
+      "route": "investment_suitability",
+      "multi": false,
+      "text": "我对养殖懂得少，拿闲钱投资这家育苗场可行吗？"
+    },
+    {
+      "id": "D-S14-1",
+      "group": "direct",
+      "route": "investment_position_decision",
+      "multi": false,
+      "text": "我该把新能源持仓再增加两成吗？"
+    },
+    {
+      "id": "D-S14-2",
+      "group": "background",
+      "route": "investment_position_decision",
+      "multi": false,
+      "text": "金价刚经历波动，只问我现在手中的黄金仓位要不要减半。"
+    },
+    {
+      "id": "D-S15-1",
+      "group": "direct",
+      "route": "investment_price_trend",
+      "multi": false,
+      "text": "后市白银的交易价格将往哪边走？"
+    },
+    {
+      "id": "D-S15-2",
+      "group": "background",
+      "route": "investment_price_trend",
+      "multi": false,
+      "text": "没有买卖的打算，单纯占一下这只港股接下来一个季度的走势。"
+    },
+    {
+      "id": "D-S16-1",
+      "group": "direct",
+      "route": "income_salary",
+      "multi": false,
+      "text": "岗位重定级后我的月薪能提高吗？"
+    },
+    {
+      "id": "D-S16-2",
+      "group": "background",
+      "route": "income_salary",
+      "multi": false,
+      "text": "团队又走了个人，我接了她的活，下季度我的基本工资能上调吗？"
+    },
+    {
+      "id": "D-S17-1",
+      "group": "direct",
+      "route": "income_bonus",
+      "multi": false,
+      "text": "公司年会发的那笔业绩奖励我有份吗？"
+    },
+    {
+      "id": "D-S17-2",
+      "group": "background",
+      "route": "income_bonus",
+      "multi": false,
+      "text": "这个项目中途换了经理，最初承诺给我的竣工奖金最终能发下来吗？"
+    },
+    {
+      "id": "D-S18-1",
+      "group": "direct",
+      "route": "receive_item",
+      "multi": false,
+      "text": "我托同学捎来的毕业照片能顺利到我手里吗？"
+    },
+    {
+      "id": "D-S18-2",
+      "group": "background",
+      "route": "receive_item",
+      "multi": false,
+      "text": "搬家时把通讯地址换了，馆方赠我的那套展览图录还能寄到吗？"
+    },
+    {
+      "id": "D-S19-1",
+      "group": "direct",
+      "route": "item_purchase",
+      "multi": false,
+      "text": "我能买到已经停售的那款打字机吗？"
+    },
+    {
+      "id": "D-S19-2",
+      "group": "background",
+      "route": "item_purchase",
+      "multi": false,
+      "text": "展商说只剩一个样品，我还有机会买到那面挂钟吗？"
+    },
+    {
+      "id": "D-S20-1",
+      "group": "direct",
+      "route": "relationship_development",
+      "multi": false,
+      "text": "我和刚认识的瑜伽老师有机会发展成恋人吗？"
+    },
+    {
+      "id": "D-S20-2",
+      "group": "background",
+      "route": "relationship_development",
+      "multi": false,
+      "text": "我们之前在同个乐队排练，她后来去了外地，我跟她的感情还有进展吗？"
+    },
+    {
+      "id": "D-S21-1",
+      "group": "direct",
+      "route": "marriage_match",
+      "multi": false,
+      "text": "我和订婚对象今年能顺利结成夫妻吗？"
+    },
+    {
+      "id": "D-S21-2",
+      "group": "background",
+      "route": "marriage_match",
+      "multi": false,
+      "text": "两家父母已经碰过面，我想占我和他的这门亲事能成吗？"
+    },
+    {
+      "id": "D-S22-1",
+      "group": "direct",
+      "route": "marital_relationship",
+      "multi": false,
+      "text": "我跟妻子的夫妻关系能逐渐和好吗？"
+    },
+    {
+      "id": "D-S22-2",
+      "group": "background",
+      "route": "marital_relationship",
+      "multi": false,
+      "text": "我们因为照顾老人分居两地，我只想看这段婚姻接下来会怎么样。"
+    },
+    {
+      "id": "D-multi_cross-1",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "我那套滑雪装备能买到吗，报社欠我的稿费会付吗？"
+    },
+    {
+      "id": "D-multi_cross-2",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "想看看修锁铺旺不旺，再看看自己拿的蓝筹股会涨还是会跌"
+    },
+    {
+      "id": "D-multi_cross-3",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "画材是找朋友垫的。到期我能还上这笔吗，他介绍的批发生意又能不能谈成？"
+    },
+    {
+      "id": "D-multi_cross-4",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "春节能领到值班奖吗？我和小严有希望从朋友变成恋人吗？"
+    },
+    {
+      "id": "D-multi_cross-5",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "化装品样货我有两问：手头这一车好出手么，新款要不要接着进。"
+    },
+    {
+      "id": "D-multi_cross-6",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "关心那家清洁用品厂适合入股么，也关心亲戚送我的留声机会不会顺利收到。"
+    },
+    {
+      "id": "D-multi_cross-7",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "我跟校友合办驾校有前景吗；我向合作社申请的款能借来吗？"
+    },
+    {
+      "id": "D-multi_cross-8",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "年薪今年能突破现在的档位么，另外跟女友领证这事会成么？"
+    },
+    {
+      "id": "D-multi_cross-9",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "占一下整体钱运，还想单占我的杂货店该不该把工服经销权交易签下来。"
+    },
+    {
+      "id": "D-multi_cross-10",
+      "group": "multi_cross",
+      "route": null,
+      "multi": true,
+      "text": "拆开说，我现在该卖掉认购的林权份额吗？年底能还清姑妈的钱吗？"
+    },
+    {
+      "id": "D-multi_same-1",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "印刷社欠我排版费，电台另欠我配音费，这两笔分别能收回几成？"
+    },
+    {
+      "id": "D-multi_same-2",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "想占我的两处生意，海边的旅舍能维持么，城里的洗衣店能盈利经营么。"
+    },
+    {
+      "id": "D-multi_same-3",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "分开看两份收入，助教那边月薪会加吗，编辑的底薪能提高吗？"
+    },
+    {
+      "id": "D-multi_same-4",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "我想分别知道期铜下季价格往哪走，期锌行情又怎样"
+    },
+    {
+      "id": "D-multi_same-5",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "能否找到愿意卖老式暗房灯的商家？另想买的那台放大机也有机会买到吗？"
+    },
+    {
+      "id": "D-multi_same-6",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "两项投入都快到期了，酿酒坊那份能盈利吗，物流园那份能赚到多少？"
+    },
+    {
+      "id": "D-multi_same-7",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "亲家有两对人来牵线，我跟第一个介绍对象能成婚吗，跟第二个呢？"
+    },
+    {
+      "id": "D-multi_same-8",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "借给合唱团伴奏划算吗？借给同团负责灯光的那个人又妥当吗？"
+    },
+    {
+      "id": "D-multi_same-9",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "有没有希望清掉寄在鼓楼的那批毛毡，也想单独看存在车站的毛毯能销完否。"
+    },
+    {
+      "id": "D-multi_same-10",
+      "group": "multi_same",
+      "route": null,
+      "multi": true,
+      "text": "我在想两个独立的搭档组合：跟小顾合作办班前景如何，和小孟一起做培训又有什么结果？"
+    },
+    {
+      "id": "D-unsupported-1",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "单位介绍信应该在哪个窗口盖章？"
+    },
+    {
+      "id": "D-unsupported-2",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "能把复利的计算方法讲一遍吗？"
+    },
+    {
+      "id": "D-unsupported-3",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我有一笔钱的事想问，但说不准牵涉借款还是还款。"
+    },
+    {
+      "id": "D-unsupported-4",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "发票抬头填写的是店名还是个人姓名？"
+    },
+    {
+      "id": "D-unsupported-5",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我和别人有一笔旧账，手边没有资料，具体是谁欠谁我记不清了。"
+    },
+    {
+      "id": "D-unsupported-6",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "想知道一碗燕麦需要煮多少分钟。"
+    },
+    {
+      "id": "D-unsupported-7",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "今天要占楼下一盏路灯什么时候修好。"
+    },
+    {
+      "id": "D-unsupported-8",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我想占家里那台除湿器还能工作几年。"
+    },
+    {
+      "id": "D-unsupported-9",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "想占外地明早会不会起雾。"
+    },
+    {
+      "id": "D-unsupported-10",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我打算换工作，下周技术面试能不能过？"
+    },
+    {
+      "id": "D-unsupported-11",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我先只说跟股票有关，具体想占哪个方面暂时还没想定。"
+    },
+    {
+      "id": "D-unsupported-12",
+      "group": "unsupported",
+      "route": null,
+      "multi": false,
+      "text": "我的寄托在那个项目上，但我到底是想问什么自己也讲不出来。"
+    }
+  ]
+}
