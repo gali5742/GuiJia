@@ -2,7 +2,7 @@ name: Semantic question routing experiment 01
 on:
   push:
     branches: [liuyao-semantic-v013-core]
-    paths: ['experiments/liuyao-question-routing-v01/run.mjs']
+    paths: ['experiments/liuyao-question-routing-v01/run.mjs', '.github/workflows/semantic-question-routing-v01.yml']
 permissions:
   contents: read
 jobs:
@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      NODE_OPTIONS: --require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs
       EXPERIMENT: experiments/liuyao-question-routing-v01
     steps:
       - uses: actions/checkout@v5
@@ -20,21 +19,21 @@ jobs:
         with:
           node-version: '22'
       - name: Check membership and duplicates
-        run: node "$EXPERIMENT/run.mjs" audit
+        run: node --require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs "$EXPERIMENT/run.mjs" audit
       - name: Install pinned encoder
         run: |
           env -u NODE_OPTIONS npm install --prefix "$RUNNER_TEMP/semantic-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
           echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/semantic-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
           echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/encoder-cache" >> "$GITHUB_ENV"
       - name: Train models
-        run: node "$EXPERIMENT/run.mjs" train
+        run: node --require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs "$EXPERIMENT/run.mjs" train
       - uses: actions/upload-artifact@v4
         with:
           name: semantic-routing-weights
           path: semantic-routing-output/weights.json
           if-no-files-found: error
       - name: Evaluate development set
-        run: node "$EXPERIMENT/run.mjs" evaluate
+        run: node --require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs "$EXPERIMENT/run.mjs" evaluate
       - uses: actions/upload-artifact@v4
         with:
           name: semantic-routing-development
