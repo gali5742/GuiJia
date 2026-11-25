@@ -1,0 +1,30 @@
+name: Replay sealed semantic route rankings
+on:
+  push:
+    branches: [liuyao-semantic-v013-core]
+    paths: ['.github/workflows/semantic-routing-rank-replay.yml', 'experiments/liuyao-question-routing-v01/rank-replay.mjs']
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Install pinned encoder
+        run: |
+          npm install --prefix "$RUNNER_TEMP/semantic-runtime" --no-save --package-lock=false --no-audit --no-fund @huggingface/transformers@4.2.0
+          echo "GUIJIA_TRANSFORMERS_PACKAGE_DIR=$RUNNER_TEMP/semantic-runtime/node_modules/@huggingface/transformers" >> "$GITHUB_ENV"
+          echo "GUIJIA_ENCODER_CACHE_DIR=$RUNNER_TEMP/encoder-cache" >> "$GITHUB_ENV"
+      - name: Verify decisions and record rankings
+        run: node --require ./scripts/liuyao-semantic-v013-candidate-v07-evaluation-read-guard.cjs experiments/liuyao-question-routing-v01/rank-replay.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: semantic-route-ranking-replay
+          path: routing-rank-replay.json
+          if-no-files-found: error
