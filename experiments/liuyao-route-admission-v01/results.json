@@ -1,0 +1,1949 @@
+{
+  "source": "a69032793762c55c8985da7e5b029ec9bd014806",
+  "runId": 45568065314,
+  "calibrationBlob": "69514ef148b0ca1edb0ad1246565050374fb07cb",
+  "confirmationBlob": "7527c0a439e9177e826f99d57b23f0b3598c3984",
+  "audit": {
+    "comparisons": 304028,
+    "maximum": 0.22727272727272727
+  },
+  "lock": {
+    "grid": [
+      {
+        "threshold": 0,
+        "correct": 32,
+        "selected": 35,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      },
+      {
+        "threshold": 0.19505378671982246,
+        "correct": 32,
+        "selected": 35,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      },
+      {
+        "threshold": 0.20180963393168125,
+        "correct": 32,
+        "selected": 34,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      },
+      {
+        "threshold": 0.35010482541072496,
+        "correct": 32,
+        "selected": 33,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      },
+      {
+        "threshold": 0.36005557905168145,
+        "correct": 31,
+        "selected": 32,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      },
+      {
+        "threshold": 0.3638543865367481,
+        "correct": 31,
+        "selected": 31,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.4041492824324066,
+        "correct": 30,
+        "selected": 30,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.4710446371749009,
+        "correct": 29,
+        "selected": 29,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5214397958266439,
+        "correct": 28,
+        "selected": 28,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.542685608613444,
+        "correct": 27,
+        "selected": 27,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5534592422553896,
+        "correct": 26,
+        "selected": 26,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5562430874219413,
+        "correct": 25,
+        "selected": 25,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5625754906602766,
+        "correct": 24,
+        "selected": 24,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5743033869404608,
+        "correct": 23,
+        "selected": 23,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.5764529765931491,
+        "correct": 22,
+        "selected": 22,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.596944038849611,
+        "correct": 21,
+        "selected": 21,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6041357630359879,
+        "correct": 20,
+        "selected": 20,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6086308659369307,
+        "correct": 19,
+        "selected": 19,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6309103740073149,
+        "correct": 18,
+        "selected": 18,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6349092659379129,
+        "correct": 17,
+        "selected": 17,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6396363412302172,
+        "correct": 16,
+        "selected": 16,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6595193648277575,
+        "correct": 15,
+        "selected": 15,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6739975003065082,
+        "correct": 14,
+        "selected": 14,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.6749021187146927,
+        "correct": 13,
+        "selected": 13,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7,
+        "correct": 12,
+        "selected": 12,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7063572117616933,
+        "correct": 12,
+        "selected": 12,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7129209799615932,
+        "correct": 11,
+        "selected": 11,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7228680818762898,
+        "correct": 10,
+        "selected": 10,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7346098413117322,
+        "correct": 9,
+        "selected": 9,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.7584579426133817,
+        "correct": 8,
+        "selected": 8,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.8007186525008942,
+        "correct": 7,
+        "selected": 7,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.8206737180778391,
+        "correct": 6,
+        "selected": 6,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.8380349758796184,
+        "correct": 5,
+        "selected": 5,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.8568041923926374,
+        "correct": 4,
+        "selected": 4,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.9108307513361541,
+        "correct": 3,
+        "selected": 3,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.9391053431656732,
+        "correct": 2,
+        "selected": 2,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 0.9513654954155626,
+        "correct": 1,
+        "selected": 1,
+        "near": 0,
+        "outside": 0,
+        "eligible": true
+      },
+      {
+        "threshold": 1,
+        "correct": 0,
+        "selected": 0,
+        "near": 0,
+        "outside": 0,
+        "eligible": false
+      }
+    ],
+    "best": {
+      "threshold": 0.3638543865367481,
+      "correct": 31,
+      "selected": 31,
+      "near": 0,
+      "outside": 0,
+      "eligible": true
+    },
+    "source": "a69032793762c55c8985da7e5b029ec9bd014806",
+    "calibrationBlob": "69514ef148b0ca1edb0ad1246565050374fb07cb"
+  },
+  "calibrationScores": [
+    {
+      "id": "c1",
+      "group": "direct",
+      "expected": "financial_fortune",
+      "top": "financial_fortune",
+      "score": 0.9108307513361541,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.30482703405987194,
+      "legacy": "financial_fortune"
+    },
+    {
+      "id": "c2",
+      "group": "background",
+      "expected": "financial_fortune",
+      "top": "financial_fortune",
+      "score": 0.5743033869404608,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.38780311421689656,
+      "legacy": "financial_fortune"
+    },
+    {
+      "id": "c3",
+      "group": "direct",
+      "expected": "business_operation",
+      "top": "business_operation",
+      "score": 0.5625754906602766,
+      "businessTop": "business_operation",
+      "multiScore": 0.4241994364924952,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "c4",
+      "group": "background",
+      "expected": "business_operation",
+      "top": "unresolved",
+      "score": 0.572772471585833,
+      "businessTop": "business_operation",
+      "multiScore": 0.3365479638955231,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "c5",
+      "group": "direct",
+      "expected": "commercial_transaction",
+      "top": "commercial_transaction",
+      "score": 0.6349092659379129,
+      "businessTop": "commercial_transaction",
+      "multiScore": 0.5087280264483551,
+      "legacy": "commercial_transaction"
+    },
+    {
+      "id": "c6",
+      "group": "background",
+      "expected": "commercial_transaction",
+      "top": "commercial_transaction",
+      "score": 0.7129209799615932,
+      "businessTop": "commercial_transaction",
+      "multiScore": 0.18730343863086307,
+      "legacy": "commercial_transaction"
+    },
+    {
+      "id": "c7",
+      "group": "direct",
+      "expected": "inventory_purchase",
+      "top": "inventory_purchase",
+      "score": 0.8007186525008942,
+      "businessTop": "inventory_purchase",
+      "multiScore": 0.3553247793902089,
+      "legacy": null
+    },
+    {
+      "id": "c8",
+      "group": "background",
+      "expected": "inventory_purchase",
+      "top": "inventory_sale",
+      "score": 0.36005557905168145,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.2597074610548394,
+      "legacy": null
+    },
+    {
+      "id": "c9",
+      "group": "direct",
+      "expected": "inventory_sale",
+      "top": "unresolved",
+      "score": 0.9256652123427181,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.29916878547712034,
+      "legacy": "inventory_sale"
+    },
+    {
+      "id": "c10",
+      "group": "background",
+      "expected": "inventory_sale",
+      "top": "unresolved",
+      "score": 0.7308642122649732,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.7686348646431052,
+      "legacy": null
+    },
+    {
+      "id": "c11",
+      "group": "direct",
+      "expected": "borrow_money",
+      "top": "borrow_money",
+      "score": 0.6041357630359879,
+      "businessTop": "borrow_money",
+      "multiScore": 0.670895313404002,
+      "legacy": "borrow_money"
+    },
+    {
+      "id": "c12",
+      "group": "background",
+      "expected": "borrow_money",
+      "top": "borrow_money",
+      "score": 0.4041492824324066,
+      "businessTop": "borrow_money",
+      "multiScore": 0.5186270885098934,
+      "legacy": null
+    },
+    {
+      "id": "c13",
+      "group": "direct",
+      "expected": "lend_money",
+      "top": "lend_money",
+      "score": 0.596944038849611,
+      "businessTop": "lend_money",
+      "multiScore": 0.7285736984922171,
+      "legacy": null
+    },
+    {
+      "id": "c14",
+      "group": "background",
+      "expected": "lend_money",
+      "top": "lend_money",
+      "score": 0.4710446371749009,
+      "businessTop": "lend_money",
+      "multiScore": 0.2586651245270164,
+      "legacy": "lend_money"
+    },
+    {
+      "id": "c15",
+      "group": "direct",
+      "expected": "debt_collection",
+      "top": "debt_collection",
+      "score": 0.8380349758796184,
+      "businessTop": "debt_collection",
+      "multiScore": 0.5135732314735915,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "c16",
+      "group": "background",
+      "expected": "debt_collection",
+      "top": "debt_collection",
+      "score": 0.3638543865367481,
+      "businessTop": "debt_collection",
+      "multiScore": 0.5632877623286996,
+      "legacy": null
+    },
+    {
+      "id": "c17",
+      "group": "direct",
+      "expected": "debt_repayment",
+      "top": "debt_repayment",
+      "score": 0.6595193648277575,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.32898937438606074,
+      "legacy": "debt_repayment"
+    },
+    {
+      "id": "c18",
+      "group": "background",
+      "expected": "debt_repayment",
+      "top": "debt_repayment",
+      "score": 0.35010482541072496,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.191708600972963,
+      "legacy": "debt_repayment"
+    },
+    {
+      "id": "c19",
+      "group": "direct",
+      "expected": "partnership",
+      "top": "partnership",
+      "score": 0.5214397958266439,
+      "businessTop": "partnership",
+      "multiScore": 0.8576568097986166,
+      "legacy": "partnership"
+    },
+    {
+      "id": "c20",
+      "group": "background",
+      "expected": "partnership",
+      "top": "partnership",
+      "score": 0.5534592422553896,
+      "businessTop": "partnership",
+      "multiScore": 0.7615491785089122,
+      "legacy": "partnership"
+    },
+    {
+      "id": "c21",
+      "group": "direct",
+      "expected": "investment_profit",
+      "top": "investment_profit",
+      "score": 0.6309103740073149,
+      "businessTop": "investment_profit",
+      "multiScore": 0.13020784540858799,
+      "legacy": null
+    },
+    {
+      "id": "c22",
+      "group": "background",
+      "expected": "investment_profit",
+      "top": "investment_profit",
+      "score": 0.6086308659369307,
+      "businessTop": "investment_profit",
+      "multiScore": 0.5634358607602445,
+      "legacy": "investment_profit"
+    },
+    {
+      "id": "c23",
+      "group": "direct",
+      "expected": "investment_liquidation",
+      "top": "lend_money",
+      "score": 0.19505378671982246,
+      "businessTop": "lend_money",
+      "multiScore": 0.37338897826055467,
+      "legacy": null
+    },
+    {
+      "id": "c24",
+      "group": "background",
+      "expected": "investment_liquidation",
+      "top": "investment_position_decision",
+      "score": 0.20180963393168125,
+      "businessTop": "investment_position_decision",
+      "multiScore": 0.10245956505916859,
+      "legacy": null
+    },
+    {
+      "id": "c25",
+      "group": "direct",
+      "expected": "investment_suitability",
+      "top": "unresolved",
+      "score": 0.43600703490252407,
+      "businessTop": "investment_suitability",
+      "multiScore": 0.3771622930560487,
+      "legacy": "investment_suitability"
+    },
+    {
+      "id": "c26",
+      "group": "background",
+      "expected": "investment_suitability",
+      "top": "investment_suitability",
+      "score": 0.8568041923926374,
+      "businessTop": "investment_suitability",
+      "multiScore": 0.4806157367083031,
+      "legacy": "investment_suitability"
+    },
+    {
+      "id": "c27",
+      "group": "direct",
+      "expected": "investment_position_decision",
+      "top": "investment_position_decision",
+      "score": 0.7584579426133817,
+      "businessTop": "investment_position_decision",
+      "multiScore": 0.30347325644733036,
+      "legacy": "investment_position_decision"
+    },
+    {
+      "id": "c28",
+      "group": "background",
+      "expected": "investment_position_decision",
+      "top": "investment_position_decision",
+      "score": 0.7228680818762898,
+      "businessTop": "investment_position_decision",
+      "multiScore": 0.2786777411468849,
+      "legacy": "investment_position_decision"
+    },
+    {
+      "id": "c29",
+      "group": "direct",
+      "expected": "investment_price_trend",
+      "top": "unresolved",
+      "score": 0.36379736129652146,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.4446714750433789,
+      "legacy": "investment_price_trend"
+    },
+    {
+      "id": "c30",
+      "group": "background",
+      "expected": "investment_price_trend",
+      "top": "unresolved",
+      "score": 0.5100172472276917,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.6326621180146091,
+      "legacy": "investment_price_trend"
+    },
+    {
+      "id": "c31",
+      "group": "direct",
+      "expected": "income_salary",
+      "top": "income_salary",
+      "score": 0.9391053431656732,
+      "businessTop": "income_salary",
+      "multiScore": 0.224012670281619,
+      "legacy": "income_salary"
+    },
+    {
+      "id": "c32",
+      "group": "background",
+      "expected": "income_salary",
+      "top": "income_salary",
+      "score": 0.542685608613444,
+      "businessTop": "income_salary",
+      "multiScore": 0.2819867150899733,
+      "legacy": "income_salary"
+    },
+    {
+      "id": "c33",
+      "group": "direct",
+      "expected": "income_bonus",
+      "top": "income_bonus",
+      "score": 0.7346098413117322,
+      "businessTop": "income_bonus",
+      "multiScore": 0.5393916937635387,
+      "legacy": null
+    },
+    {
+      "id": "c34",
+      "group": "background",
+      "expected": "income_bonus",
+      "top": "income_bonus",
+      "score": 0.7063572117616933,
+      "businessTop": "income_bonus",
+      "multiScore": 0.3032455341448172,
+      "legacy": "income_bonus"
+    },
+    {
+      "id": "c35",
+      "group": "direct",
+      "expected": "receive_item",
+      "top": "receive_item",
+      "score": 0.6739975003065082,
+      "businessTop": "receive_item",
+      "multiScore": 0.301161345829064,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "c36",
+      "group": "background",
+      "expected": "receive_item",
+      "top": "receive_item",
+      "score": 0.6749021187146927,
+      "businessTop": "receive_item",
+      "multiScore": 0.7124382426813841,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "c37",
+      "group": "direct",
+      "expected": "item_purchase",
+      "top": "item_purchase",
+      "score": 0.5764529765931491,
+      "businessTop": "item_purchase",
+      "multiScore": 0.45126548109051584,
+      "legacy": "item_purchase"
+    },
+    {
+      "id": "c38",
+      "group": "background",
+      "expected": "item_purchase",
+      "top": "unresolved",
+      "score": 0.3629348524196678,
+      "businessTop": "receive_item",
+      "multiScore": 0.12990349789540992,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "c39",
+      "group": "direct",
+      "expected": "relationship_development",
+      "top": "relationship_development",
+      "score": 0.6396363412302172,
+      "businessTop": "relationship_development",
+      "multiScore": 0.27535562658110274,
+      "legacy": null
+    },
+    {
+      "id": "c40",
+      "group": "background",
+      "expected": "relationship_development",
+      "top": "relationship_development",
+      "score": 0.5562430874219413,
+      "businessTop": "relationship_development",
+      "multiScore": 0.4388669859666245,
+      "legacy": "relationship_development"
+    },
+    {
+      "id": "c41",
+      "group": "direct",
+      "expected": "marriage_match",
+      "top": "unresolved",
+      "score": 0.6121609891621117,
+      "businessTop": "marriage_match",
+      "multiScore": 0.43350850671208563,
+      "legacy": null
+    },
+    {
+      "id": "c42",
+      "group": "background",
+      "expected": "marriage_match",
+      "top": "marriage_match",
+      "score": 0.8206737180778391,
+      "businessTop": "marriage_match",
+      "multiScore": 0.2704049302915272,
+      "legacy": "marriage_match"
+    },
+    {
+      "id": "c43",
+      "group": "direct",
+      "expected": "marital_relationship",
+      "top": "marital_relationship",
+      "score": 0.9513654954155626,
+      "businessTop": "marital_relationship",
+      "multiScore": 0.26997180967592993,
+      "legacy": "marital_relationship"
+    },
+    {
+      "id": "c44",
+      "group": "background",
+      "expected": "marital_relationship",
+      "top": "unresolved",
+      "score": 0.5948547242918587,
+      "businessTop": "marital_relationship",
+      "multiScore": 0.3258731392665901,
+      "legacy": "marital_relationship"
+    },
+    {
+      "id": "c45",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8973128822275539,
+      "businessTop": "partnership",
+      "multiScore": 0.6493911283471986,
+      "legacy": null
+    },
+    {
+      "id": "c46",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "income_bonus",
+      "score": 0.3886733566148815,
+      "businessTop": "income_bonus",
+      "multiScore": 0.6139190026526969,
+      "legacy": "income_bonus"
+    },
+    {
+      "id": "c47",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "borrow_money",
+      "score": 0.6028058507948604,
+      "businessTop": "borrow_money",
+      "multiScore": 0.2480855038705019,
+      "legacy": "borrow_money"
+    },
+    {
+      "id": "c48",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "debt_collection",
+      "score": 0.33001950604727825,
+      "businessTop": "debt_collection",
+      "multiScore": 0.8960478513790638,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "c49",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "receive_item",
+      "score": 0.34600511361425285,
+      "businessTop": "receive_item",
+      "multiScore": 0.7644275811403328,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "c50",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "marital_relationship",
+      "score": 0.3059533440619117,
+      "businessTop": "marital_relationship",
+      "multiScore": 0.7768376337334915,
+      "legacy": null
+    },
+    {
+      "id": "c51",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.17128874723325813,
+      "businessTop": "partnership",
+      "multiScore": 0.8685040180121584,
+      "legacy": null
+    },
+    {
+      "id": "c52",
+      "group": "multi_same",
+      "expected": null,
+      "top": "business_operation",
+      "score": 0.6291667966002861,
+      "businessTop": "business_operation",
+      "multiScore": 0.7889083282030702,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "c53",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.885191803134722,
+      "businessTop": "item_purchase",
+      "multiScore": 0.771540745463521,
+      "legacy": "item_purchase"
+    },
+    {
+      "id": "c54",
+      "group": "multi_same",
+      "expected": null,
+      "top": "partnership",
+      "score": 0.19668080259783752,
+      "businessTop": "partnership",
+      "multiScore": 0.914432267945949,
+      "legacy": null
+    },
+    {
+      "id": "c55",
+      "group": "multi_same",
+      "expected": null,
+      "top": "inventory_sale",
+      "score": 0.5365924158578218,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.24066028427798383,
+      "legacy": null
+    },
+    {
+      "id": "c56",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.49190449193007124,
+      "businessTop": "relationship_development",
+      "multiScore": 0.5324265565708727,
+      "legacy": "relationship_development"
+    },
+    {
+      "id": "c57",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9657844829928135,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.23380043399193262,
+      "legacy": null
+    },
+    {
+      "id": "c58",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8987553712870339,
+      "businessTop": "income_salary",
+      "multiScore": 0.24738967714184146,
+      "legacy": null
+    },
+    {
+      "id": "c59",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.7366245512972094,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.42130178720046246,
+      "legacy": null
+    },
+    {
+      "id": "c60",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.975262126237457,
+      "businessTop": "marriage_match",
+      "multiScore": 0.44982697398967925,
+      "legacy": null
+    },
+    {
+      "id": "c61",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9771277086805067,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.20800772092757555,
+      "legacy": "investment_price_trend"
+    },
+    {
+      "id": "c62",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.7229171156925314,
+      "businessTop": "relationship_development",
+      "multiScore": 0.5872104909690429,
+      "legacy": null
+    },
+    {
+      "id": "c63",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.6211812906196496,
+      "businessTop": "borrow_money",
+      "multiScore": 0.45072210263708057,
+      "legacy": null
+    },
+    {
+      "id": "c64",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.7215165761906341,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.2514946190271948,
+      "legacy": null
+    },
+    {
+      "id": "c65",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9042635282521461,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.4927693136421699,
+      "legacy": null
+    },
+    {
+      "id": "c66",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9939441275114972,
+      "businessTop": "business_operation",
+      "multiScore": 0.47176076413586515,
+      "legacy": null
+    },
+    {
+      "id": "c67",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9649147850131807,
+      "businessTop": "investment_suitability",
+      "multiScore": 0.24086493890712118,
+      "legacy": null
+    },
+    {
+      "id": "c68",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9276056006434095,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.19621472730543718,
+      "legacy": null
+    }
+  ],
+  "confirmationScores": [
+    {
+      "id": "v1",
+      "group": "direct",
+      "expected": "financial_fortune",
+      "top": "financial_fortune",
+      "score": 0.6983233969844852,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.18106032503128644,
+      "legacy": "financial_fortune"
+    },
+    {
+      "id": "v2",
+      "group": "background",
+      "expected": "financial_fortune",
+      "top": "financial_fortune",
+      "score": 0.8662315583669099,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.4803730512729839,
+      "legacy": "financial_fortune"
+    },
+    {
+      "id": "v3",
+      "group": "direct",
+      "expected": "business_operation",
+      "top": "business_operation",
+      "score": 0.8258054626585367,
+      "businessTop": "business_operation",
+      "multiScore": 0.36511464797602516,
+      "legacy": null
+    },
+    {
+      "id": "v4",
+      "group": "background",
+      "expected": "business_operation",
+      "top": "business_operation",
+      "score": 0.38364274864075426,
+      "businessTop": "business_operation",
+      "multiScore": 0.7710371367027424,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "v5",
+      "group": "direct",
+      "expected": "commercial_transaction",
+      "top": "commercial_transaction",
+      "score": 0.809874101543576,
+      "businessTop": "commercial_transaction",
+      "multiScore": 0.6668806335103876,
+      "legacy": "commercial_transaction"
+    },
+    {
+      "id": "v6",
+      "group": "background",
+      "expected": "commercial_transaction",
+      "top": "commercial_transaction",
+      "score": 0.6460280754749866,
+      "businessTop": "commercial_transaction",
+      "multiScore": 0.2820738988090446,
+      "legacy": "commercial_transaction"
+    },
+    {
+      "id": "v7",
+      "group": "direct",
+      "expected": "inventory_purchase",
+      "top": "inventory_purchase",
+      "score": 0.5113799553908922,
+      "businessTop": "inventory_purchase",
+      "multiScore": 0.628621408572393,
+      "legacy": "inventory_purchase"
+    },
+    {
+      "id": "v8",
+      "group": "background",
+      "expected": "inventory_purchase",
+      "top": "inventory_purchase",
+      "score": 0.4883496849968466,
+      "businessTop": "inventory_purchase",
+      "multiScore": 0.39858516403722455,
+      "legacy": null
+    },
+    {
+      "id": "v9",
+      "group": "direct",
+      "expected": "inventory_sale",
+      "top": "inventory_sale",
+      "score": 0.8524689772417551,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.3774256034118552,
+      "legacy": "inventory_sale"
+    },
+    {
+      "id": "v10",
+      "group": "background",
+      "expected": "inventory_sale",
+      "top": "inventory_sale",
+      "score": 0.29881038969024754,
+      "businessTop": "inventory_sale",
+      "multiScore": 0.6874583014235432,
+      "legacy": "inventory_sale"
+    },
+    {
+      "id": "v11",
+      "group": "direct",
+      "expected": "borrow_money",
+      "top": "borrow_money",
+      "score": 0.33540900866237655,
+      "businessTop": "borrow_money",
+      "multiScore": 0.5293168493631791,
+      "legacy": null
+    },
+    {
+      "id": "v12",
+      "group": "background",
+      "expected": "borrow_money",
+      "top": "unresolved",
+      "score": 0.44497798740036754,
+      "businessTop": "borrow_money",
+      "multiScore": 0.6943523234098553,
+      "legacy": null
+    },
+    {
+      "id": "v13",
+      "group": "direct",
+      "expected": "lend_money",
+      "top": "lend_money",
+      "score": 0.7241264016241664,
+      "businessTop": "lend_money",
+      "multiScore": 0.37820100703946935,
+      "legacy": null
+    },
+    {
+      "id": "v14",
+      "group": "background",
+      "expected": "lend_money",
+      "top": "lend_money",
+      "score": 0.7351316894840849,
+      "businessTop": "lend_money",
+      "multiScore": 0.3622425100218379,
+      "legacy": null
+    },
+    {
+      "id": "v15",
+      "group": "direct",
+      "expected": "debt_collection",
+      "top": "unresolved",
+      "score": 0.4777754020183302,
+      "businessTop": "debt_collection",
+      "multiScore": 0.611230934414274,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "v16",
+      "group": "background",
+      "expected": "debt_collection",
+      "top": "debt_collection",
+      "score": 0.35434778146672713,
+      "businessTop": "debt_collection",
+      "multiScore": 0.3061305402484901,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "v17",
+      "group": "direct",
+      "expected": "debt_repayment",
+      "top": "debt_repayment",
+      "score": 0.35000571423791305,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.32317753793555853,
+      "legacy": null
+    },
+    {
+      "id": "v18",
+      "group": "background",
+      "expected": "debt_repayment",
+      "top": "unresolved",
+      "score": 0.36780495353603604,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.599816873074629,
+      "legacy": null
+    },
+    {
+      "id": "v19",
+      "group": "direct",
+      "expected": "partnership",
+      "top": "unresolved",
+      "score": 0.4821415016532459,
+      "businessTop": "partnership",
+      "multiScore": 0.7061462077187627,
+      "legacy": "partnership"
+    },
+    {
+      "id": "v20",
+      "group": "background",
+      "expected": "partnership",
+      "top": "partnership",
+      "score": 0.9452441109692419,
+      "businessTop": "partnership",
+      "multiScore": 0.8659965799290416,
+      "legacy": "partnership"
+    },
+    {
+      "id": "v21",
+      "group": "direct",
+      "expected": "investment_profit",
+      "top": "investment_profit",
+      "score": 0.6318631201353364,
+      "businessTop": "investment_profit",
+      "multiScore": 0.6935578808362864,
+      "legacy": "investment_profit"
+    },
+    {
+      "id": "v22",
+      "group": "background",
+      "expected": "investment_profit",
+      "top": "investment_profit",
+      "score": 0.49649654304145807,
+      "businessTop": "investment_profit",
+      "multiScore": 0.44946365209262196,
+      "legacy": "investment_profit"
+    },
+    {
+      "id": "v23",
+      "group": "direct",
+      "expected": "investment_liquidation",
+      "top": "investment_liquidation",
+      "score": 0.22659600815501146,
+      "businessTop": "investment_liquidation",
+      "multiScore": 0.45504245946548166,
+      "legacy": null
+    },
+    {
+      "id": "v24",
+      "group": "background",
+      "expected": "investment_liquidation",
+      "top": "investment_liquidation",
+      "score": 0.3444196330635352,
+      "businessTop": "investment_liquidation",
+      "multiScore": 0.5497843597681866,
+      "legacy": null
+    },
+    {
+      "id": "v25",
+      "group": "direct",
+      "expected": "investment_suitability",
+      "top": "investment_suitability",
+      "score": 0.429107992849064,
+      "businessTop": "investment_suitability",
+      "multiScore": 0.4207008037992416,
+      "legacy": "investment_suitability"
+    },
+    {
+      "id": "v26",
+      "group": "background",
+      "expected": "investment_suitability",
+      "top": "unresolved",
+      "score": 0.3437403453328387,
+      "businessTop": "investment_suitability",
+      "multiScore": 0.18791063894205984,
+      "legacy": "investment_suitability"
+    },
+    {
+      "id": "v27",
+      "group": "direct",
+      "expected": "investment_position_decision",
+      "top": "investment_position_decision",
+      "score": 0.8454795715919267,
+      "businessTop": "investment_position_decision",
+      "multiScore": 0.30901481426608574,
+      "legacy": "investment_position_decision"
+    },
+    {
+      "id": "v28",
+      "group": "background",
+      "expected": "investment_position_decision",
+      "top": "investment_position_decision",
+      "score": 0.32684249455138126,
+      "businessTop": "investment_position_decision",
+      "multiScore": 0.5801775906309679,
+      "legacy": "investment_position_decision"
+    },
+    {
+      "id": "v29",
+      "group": "direct",
+      "expected": "investment_price_trend",
+      "top": "unresolved",
+      "score": 0.2429653515448785,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.23198723339358446,
+      "legacy": null
+    },
+    {
+      "id": "v30",
+      "group": "background",
+      "expected": "investment_price_trend",
+      "top": "investment_price_trend",
+      "score": 0.34537163681534133,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.4591655929165415,
+      "legacy": null
+    },
+    {
+      "id": "v31",
+      "group": "direct",
+      "expected": "income_salary",
+      "top": "income_salary",
+      "score": 0.8895771042508106,
+      "businessTop": "income_salary",
+      "multiScore": 0.29983658083879144,
+      "legacy": "income_salary"
+    },
+    {
+      "id": "v32",
+      "group": "background",
+      "expected": "income_salary",
+      "top": "unresolved",
+      "score": 0.5711129342939436,
+      "businessTop": "income_salary",
+      "multiScore": 0.25651900740083483,
+      "legacy": "income_salary"
+    },
+    {
+      "id": "v33",
+      "group": "direct",
+      "expected": "income_bonus",
+      "top": "income_bonus",
+      "score": 0.7195175779287363,
+      "businessTop": "income_bonus",
+      "multiScore": 0.425339545446403,
+      "legacy": "income_bonus"
+    },
+    {
+      "id": "v34",
+      "group": "background",
+      "expected": "income_bonus",
+      "top": "income_bonus",
+      "score": 0.713460298230137,
+      "businessTop": "income_bonus",
+      "multiScore": 0.40981312933488073,
+      "legacy": "income_bonus"
+    },
+    {
+      "id": "v35",
+      "group": "direct",
+      "expected": "receive_item",
+      "top": "receive_item",
+      "score": 0.5805472200913617,
+      "businessTop": "receive_item",
+      "multiScore": 0.296988160800961,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "v36",
+      "group": "background",
+      "expected": "receive_item",
+      "top": "unresolved",
+      "score": 0.23023844005640462,
+      "businessTop": "receive_item",
+      "multiScore": 0.5671392824201383,
+      "legacy": null
+    },
+    {
+      "id": "v37",
+      "group": "direct",
+      "expected": "item_purchase",
+      "top": "item_purchase",
+      "score": 0.4162704432715366,
+      "businessTop": "item_purchase",
+      "multiScore": 0.5754964286033545,
+      "legacy": "item_purchase"
+    },
+    {
+      "id": "v38",
+      "group": "background",
+      "expected": "item_purchase",
+      "top": "commercial_transaction",
+      "score": 0.24754177309097045,
+      "businessTop": "commercial_transaction",
+      "multiScore": 0.4079018040397443,
+      "legacy": null
+    },
+    {
+      "id": "v39",
+      "group": "direct",
+      "expected": "relationship_development",
+      "top": "relationship_development",
+      "score": 0.4903658222183869,
+      "businessTop": "relationship_development",
+      "multiScore": 0.4648191566800253,
+      "legacy": null
+    },
+    {
+      "id": "v40",
+      "group": "background",
+      "expected": "relationship_development",
+      "top": "relationship_development",
+      "score": 0.6386593542627402,
+      "businessTop": "relationship_development",
+      "multiScore": 0.3261729796168165,
+      "legacy": null
+    },
+    {
+      "id": "v41",
+      "group": "direct",
+      "expected": "marriage_match",
+      "top": "marriage_match",
+      "score": 0.8307343305863375,
+      "businessTop": "marriage_match",
+      "multiScore": 0.5036204033638463,
+      "legacy": null
+    },
+    {
+      "id": "v42",
+      "group": "background",
+      "expected": "marriage_match",
+      "top": "marriage_match",
+      "score": 0.445769885658314,
+      "businessTop": "marriage_match",
+      "multiScore": 0.7861668444515861,
+      "legacy": "marriage_match"
+    },
+    {
+      "id": "v43",
+      "group": "direct",
+      "expected": "marital_relationship",
+      "top": "marital_relationship",
+      "score": 0.6009267700280756,
+      "businessTop": "marital_relationship",
+      "multiScore": 0.16765219332544432,
+      "legacy": null
+    },
+    {
+      "id": "v44",
+      "group": "background",
+      "expected": "marital_relationship",
+      "top": "marital_relationship",
+      "score": 0.8560329425372346,
+      "businessTop": "marital_relationship",
+      "multiScore": 0.1903440200309857,
+      "legacy": "marital_relationship"
+    },
+    {
+      "id": "v45",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.2737730679712182,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.8996981390005386,
+      "legacy": "debt_repayment"
+    },
+    {
+      "id": "v46",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "debt_collection",
+      "score": 0.33553775825717125,
+      "businessTop": "debt_collection",
+      "multiScore": 0.8404389746270472,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "v47",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.5365040509148613,
+      "businessTop": "receive_item",
+      "multiScore": 0.7597828097517636,
+      "legacy": null
+    },
+    {
+      "id": "v48",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.4448302057318641,
+      "businessTop": "receive_item",
+      "multiScore": 0.8396898718766022,
+      "legacy": "receive_item"
+    },
+    {
+      "id": "v49",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "partnership",
+      "score": 0.4711681219601783,
+      "businessTop": "partnership",
+      "multiScore": 0.8731781429192041,
+      "legacy": null
+    },
+    {
+      "id": "v50",
+      "group": "multi_cross",
+      "expected": null,
+      "top": "financial_fortune",
+      "score": 0.37820665308519225,
+      "businessTop": "financial_fortune",
+      "multiScore": 0.506395060126795,
+      "legacy": null
+    },
+    {
+      "id": "v51",
+      "group": "multi_same",
+      "expected": null,
+      "top": "business_operation",
+      "score": 0.4465673012300829,
+      "businessTop": "business_operation",
+      "multiScore": 0.9109627110483995,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "v52",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.5895098271833732,
+      "businessTop": "lend_money",
+      "multiScore": 0.7632566101848673,
+      "legacy": null
+    },
+    {
+      "id": "v53",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.49728860124170426,
+      "businessTop": "debt_collection",
+      "multiScore": 0.7537699377847709,
+      "legacy": "debt_collection"
+    },
+    {
+      "id": "v54",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.4297928999803168,
+      "businessTop": "investment_liquidation",
+      "multiScore": 0.7513796180770281,
+      "legacy": null
+    },
+    {
+      "id": "v55",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.5740672274017354,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.7741547164291521,
+      "legacy": "investment_price_trend"
+    },
+    {
+      "id": "v56",
+      "group": "multi_same",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.6321036280008004,
+      "businessTop": "partnership",
+      "multiScore": 0.918293455257899,
+      "legacy": "partnership"
+    },
+    {
+      "id": "v57",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9787500716923284,
+      "businessTop": "investment_price_trend",
+      "multiScore": 0.37114811484211013,
+      "legacy": null
+    },
+    {
+      "id": "v58",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9572873035908835,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.20246118872029784,
+      "legacy": null
+    },
+    {
+      "id": "v59",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8001531486241767,
+      "businessTop": "debt_repayment",
+      "multiScore": 0.5670741057990801,
+      "legacy": null
+    },
+    {
+      "id": "v60",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9458045984191368,
+      "businessTop": "marriage_match",
+      "multiScore": 0.11836083552930214,
+      "legacy": null
+    },
+    {
+      "id": "v61",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.42142090755559763,
+      "businessTop": "business_operation",
+      "multiScore": 0.7409757765086035,
+      "legacy": "business_operation"
+    },
+    {
+      "id": "v62",
+      "group": "near",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8673126371110386,
+      "businessTop": "partnership",
+      "multiScore": 0.7162229549426318,
+      "legacy": null
+    },
+    {
+      "id": "v63",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9652830212780897,
+      "businessTop": "income_salary",
+      "multiScore": 0.2779469316440817,
+      "legacy": null
+    },
+    {
+      "id": "v64",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9940051198825858,
+      "businessTop": "business_operation",
+      "multiScore": 0.2998485530884952,
+      "legacy": null
+    },
+    {
+      "id": "v65",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.7827988767860965,
+      "businessTop": "item_purchase",
+      "multiScore": 0.6223257633938618,
+      "legacy": null
+    },
+    {
+      "id": "v66",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8811967525371058,
+      "businessTop": "debt_collection",
+      "multiScore": 0.2977813046909571,
+      "legacy": null
+    },
+    {
+      "id": "v67",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.9887531245453196,
+      "businessTop": "business_operation",
+      "multiScore": 0.4724512478221642,
+      "legacy": null
+    },
+    {
+      "id": "v68",
+      "group": "outside",
+      "expected": null,
+      "top": "unresolved",
+      "score": 0.8308064332819366,
+      "businessTop": "receive_item",
+      "multiScore": 0.2808211322331041,
+      "legacy": null
+    }
+  ],
+  "metrics": {
+    "legacy": {
+      "known": 44,
+      "correct": 26,
+      "selected": 34,
+      "knownWrong": 0,
+      "knownAbstained": 18,
+      "singleSelected": 27,
+      "multiRouted": 7,
+      "earlyMulti": 0,
+      "falseStop": 0,
+      "stopRouteCalls": 0,
+      "calls": 68,
+      "byGroup": {
+        "direct": {
+          "total": 22,
+          "correct": 13,
+          "selected": 13,
+          "earlyStop": 0
+        },
+        "background": {
+          "total": 22,
+          "correct": 13,
+          "selected": 13,
+          "earlyStop": 0
+        },
+        "multi_cross": {
+          "total": 6,
+          "correct": 0,
+          "selected": 3,
+          "earlyStop": 0
+        },
+        "multi_same": {
+          "total": 6,
+          "correct": 0,
+          "selected": 4,
+          "earlyStop": 0
+        },
+        "near": {
+          "total": 6,
+          "correct": 0,
+          "selected": 1,
+          "earlyStop": 0
+        },
+        "outside": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        }
+      }
+    },
+    "original": {
+      "known": 44,
+      "correct": 13,
+      "selected": 13,
+      "knownWrong": 0,
+      "knownAbstained": 31,
+      "singleSelected": 13,
+      "multiRouted": 0,
+      "earlyMulti": 0,
+      "falseStop": 0,
+      "stopRouteCalls": 0,
+      "calls": 68,
+      "byGroup": {
+        "direct": {
+          "total": 22,
+          "correct": 8,
+          "selected": 8,
+          "earlyStop": 0
+        },
+        "background": {
+          "total": 22,
+          "correct": 5,
+          "selected": 5,
+          "earlyStop": 0
+        },
+        "multi_cross": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        },
+        "multi_same": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        },
+        "near": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        },
+        "outside": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        }
+      }
+    },
+    "originalGated": {
+      "known": 44,
+      "correct": 10,
+      "selected": 10,
+      "knownWrong": 0,
+      "knownAbstained": 34,
+      "singleSelected": 10,
+      "multiRouted": 0,
+      "earlyMulti": 12,
+      "falseStop": 21,
+      "stopRouteCalls": 0,
+      "calls": 35,
+      "byGroup": {
+        "direct": {
+          "total": 22,
+          "correct": 6,
+          "selected": 6,
+          "earlyStop": 8
+        },
+        "background": {
+          "total": 22,
+          "correct": 4,
+          "selected": 4,
+          "earlyStop": 9
+        },
+        "multi_cross": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 6
+        },
+        "multi_same": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 6
+        },
+        "near": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 3
+        },
+        "outside": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 1
+        }
+      }
+    },
+    "calibrated": {
+      "known": 44,
+      "correct": 27,
+      "selected": 30,
+      "knownWrong": 0,
+      "knownAbstained": 17,
+      "singleSelected": 27,
+      "multiRouted": 3,
+      "earlyMulti": 0,
+      "falseStop": 0,
+      "stopRouteCalls": 0,
+      "calls": 68,
+      "byGroup": {
+        "direct": {
+          "total": 22,
+          "correct": 16,
+          "selected": 16,
+          "earlyStop": 0
+        },
+        "background": {
+          "total": 22,
+          "correct": 11,
+          "selected": 11,
+          "earlyStop": 0
+        },
+        "multi_cross": {
+          "total": 6,
+          "correct": 0,
+          "selected": 2,
+          "earlyStop": 0
+        },
+        "multi_same": {
+          "total": 6,
+          "correct": 0,
+          "selected": 1,
+          "earlyStop": 0
+        },
+        "near": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        },
+        "outside": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 0
+        }
+      }
+    },
+    "calibratedGated": {
+      "known": 44,
+      "correct": 19,
+      "selected": 19,
+      "knownWrong": 0,
+      "knownAbstained": 25,
+      "singleSelected": 19,
+      "multiRouted": 0,
+      "earlyMulti": 12,
+      "falseStop": 21,
+      "stopRouteCalls": 0,
+      "calls": 35,
+      "byGroup": {
+        "direct": {
+          "total": 22,
+          "correct": 11,
+          "selected": 11,
+          "earlyStop": 8
+        },
+        "background": {
+          "total": 22,
+          "correct": 8,
+          "selected": 8,
+          "earlyStop": 9
+        },
+        "multi_cross": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 6
+        },
+        "multi_same": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 6
+        },
+        "near": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 3
+        },
+        "outside": {
+          "total": 6,
+          "correct": 0,
+          "selected": 0,
+          "earlyStop": 1
+        }
+      }
+    }
+  }
+}
