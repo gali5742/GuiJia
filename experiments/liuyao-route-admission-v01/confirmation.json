@@ -1,0 +1,410 @@
+[
+  {
+    "id": "v1",
+    "group": "direct",
+    "route": "financial_fortune",
+    "text": "退休后的头两年我本人的财运如何？"
+  },
+  {
+    "id": "v2",
+    "group": "background",
+    "route": "financial_fortune",
+    "text": "去年家里的进项起伏挺大，搬回县城后我总体的财运会顺些吗？"
+  },
+  {
+    "id": "v3",
+    "group": "direct",
+    "route": "business_operation",
+    "text": "我开的一人裁缝铺能经营得下去吗？"
+  },
+  {
+    "id": "v4",
+    "group": "background",
+    "route": "business_operation",
+    "text": "楼下新来了同行，想看看我这间烘焙教室今后的经营前景。"
+  },
+  {
+    "id": "v5",
+    "group": "direct",
+    "route": "commercial_transaction",
+    "text": "给博物馆供应展柜这桩买卖，双方能敲定吗？"
+  },
+  {
+    "id": "v6",
+    "group": "background",
+    "route": "commercial_transaction",
+    "text": "对方说还要把报价交给校方，这批课桌的交易本季度能达成吗？"
+  },
+  {
+    "id": "v7",
+    "group": "direct",
+    "route": "inventory_purchase",
+    "text": "现在批点珊瑚绒睡衣回来做秋季货，好销路值得进吗？"
+  },
+  {
+    "id": "v8",
+    "group": "background",
+    "route": "inventory_purchase",
+    "text": "冰柜有空位了，我这小卖部应不应该补一批冷冻点心作库存？"
+  },
+  {
+    "id": "v9",
+    "group": "direct",
+    "route": "inventory_sale",
+    "text": "压在货场的几百根旧枕木能卖出去么？"
+  },
+  {
+    "id": "v10",
+    "group": "background",
+    "route": "inventory_sale",
+    "text": "订单改了配色，我那批已经染好的蓝围巾能不能找到买家清出去？"
+  },
+  {
+    "id": "v11",
+    "group": "direct",
+    "route": "borrow_money",
+    "text": "我能向师兄借到交考务费的那笔钱吗？"
+  },
+  {
+    "id": "v12",
+    "group": "background",
+    "route": "borrow_money",
+    "text": "外地实习要先付押金，找舅妈暂借一个月她会同意么？"
+  },
+  {
+    "id": "v13",
+    "group": "direct",
+    "route": "lend_money",
+    "text": "邻居向我借过冬的饲料款，借给他妥当吗？"
+  },
+  {
+    "id": "v14",
+    "group": "background",
+    "route": "lend_money",
+    "text": "他刚开始跑长途，想向我借点钱买保险，我适宜借出去么？"
+  },
+  {
+    "id": "v15",
+    "group": "direct",
+    "route": "debt_collection",
+    "text": "出版社拖欠我的插图报酬还能收回来吗？"
+  },
+  {
+    "id": "v16",
+    "group": "background",
+    "route": "debt_collection",
+    "text": "我早已经离开协会，他们欠着的那次布展垫款年底前追得到么？"
+  },
+  {
+    "id": "v17",
+    "group": "direct",
+    "route": "debt_repayment",
+    "text": "当初我借来置办音响的钱，明年能不能还清？"
+  },
+  {
+    "id": "v18",
+    "group": "background",
+    "route": "debt_repayment",
+    "text": "食客比预想的少，欠送菜大姐的钱下周能不能由我结掉？"
+  },
+  {
+    "id": "v19",
+    "group": "direct",
+    "route": "partnership",
+    "text": "跟健身房的教练合伙开康体用品店合得来么？"
+  },
+  {
+    "id": "v20",
+    "group": "background",
+    "route": "partnership",
+    "text": "我负责配方她负责配送，这样一起合伙做团餐前景怎样？"
+  },
+  {
+    "id": "v21",
+    "group": "direct",
+    "route": "investment_profit",
+    "text": "我投到民宿改造工程里的那笔钱会有正收益吗？"
+  },
+  {
+    "id": "v22",
+    "group": "background",
+    "route": "investment_profit",
+    "text": "上回看走眼赔过，这次参股冷链货栈，我最后能从中赚到钱吗？"
+  },
+  {
+    "id": "v23",
+    "group": "direct",
+    "route": "investment_liquidation",
+    "text": "那几张收藏级邮资封值得现在卖掉变现吗？"
+  },
+  {
+    "id": "v24",
+    "group": "background",
+    "route": "investment_liquidation",
+    "text": "虽然没有急用钱，我想问长期持有的可交易林地份额如今是不是该退出。"
+  },
+  {
+    "id": "v25",
+    "group": "direct",
+    "route": "investment_suitability",
+    "text": "现在投资无人售货柜这个项目合适吗？"
+  },
+  {
+    "id": "v26",
+    "group": "background",
+    "route": "investment_suitability",
+    "text": "攒了些钱一直放着，想看看投地方戏演出项目对我是否合宜。"
+  },
+  {
+    "id": "v27",
+    "group": "direct",
+    "route": "investment_position_decision",
+    "text": "我手里的电力板块股票要不要降低持仓比例？"
+  },
+  {
+    "id": "v28",
+    "group": "background",
+    "route": "investment_position_decision",
+    "text": "最近行情起伏，我暂时不想换品种，只想看看那笔债券头寸要不要再加。"
+  },
+  {
+    "id": "v29",
+    "group": "direct",
+    "route": "investment_price_trend",
+    "text": "想占咖啡期货到夏初的价格走向。"
+  },
+  {
+    "id": "v30",
+    "group": "background",
+    "route": "investment_price_trend",
+    "text": "我还在做功课没有下单，想知道明年铝价整体会抬头还是下探。"
+  },
+  {
+    "id": "v31",
+    "group": "direct",
+    "route": "income_salary",
+    "text": "按新职级我下一季的底薪能上调吗？"
+  },
+  {
+    "id": "v32",
+    "group": "background",
+    "route": "income_salary",
+    "text": "工作地点换到了机场，每月拿的固定工资接下来能多一点么？"
+  },
+  {
+    "id": "v33",
+    "group": "direct",
+    "route": "income_bonus",
+    "text": "秋季评优后我能拿到那笔评审奖金吗？"
+  },
+  {
+    "id": "v34",
+    "group": "background",
+    "route": "income_bonus",
+    "text": "订单完成得不错，我想看看销售部说的年终奖能不能兑现给我。"
+  },
+  {
+    "id": "v35",
+    "group": "direct",
+    "route": "receive_item",
+    "text": "我能收到阿姨答应留给我的那套银餐具吗？"
+  },
+  {
+    "id": "v36",
+    "group": "background",
+    "route": "receive_item",
+    "text": "师父把刻刀托路过的同乡转给我，它们能顺利到我手上么？"
+  },
+  {
+    "id": "v37",
+    "group": "direct",
+    "route": "item_purchase",
+    "text": "二手市上我能买到中意的法式铜锅吗？"
+  },
+  {
+    "id": "v38",
+    "group": "background",
+    "route": "item_purchase",
+    "text": "卖家说愿意留货，我最终能买下那张心仪的老海报吗？"
+  },
+  {
+    "id": "v39",
+    "group": "direct",
+    "route": "relationship_development",
+    "text": "我和同一个摄影班的男生能从同学变成恋人么？"
+  },
+  {
+    "id": "v40",
+    "group": "background",
+    "route": "relationship_development",
+    "text": "她刚回国，我们俩现在偶尔吃饭，我想占这段感情接下来能进展到哪一步。"
+  },
+  {
+    "id": "v41",
+    "group": "direct",
+    "route": "marriage_match",
+    "text": "我跟经人介绍的对象能结为夫妻么？"
+  },
+  {
+    "id": "v42",
+    "group": "background",
+    "route": "marriage_match",
+    "text": "筹备婚礼时两边亲人有分歧，想问我俩的婚事最终能不能办成。"
+  },
+  {
+    "id": "v43",
+    "group": "direct",
+    "route": "marital_relationship",
+    "text": "想看我和太太今后的婚姻关系。"
+  },
+  {
+    "id": "v44",
+    "group": "background",
+    "route": "marital_relationship",
+    "text": "我丈夫这阵子大半时间在外地照料亲戚，我们夫妻间感情能恢复亲近吗？"
+  },
+  {
+    "id": "v45",
+    "group": "multi_cross",
+    "route": null,
+    "text": "脚踏车厂承诺的奖金能拿到手吗，顺便也想问自己欠铺主的租金能不能还清"
+  },
+  {
+    "id": "v46",
+    "group": "multi_cross",
+    "route": null,
+    "text": "我手上的豆油合约该不该减仓，还有借给师姐的钱何时能追回？"
+  },
+  {
+    "id": "v47",
+    "group": "multi_cross",
+    "route": null,
+    "text": "准备单独占两件：酒肆往后的生意，和未婚妻什么时候能跟我领证。"
+  },
+  {
+    "id": "v48",
+    "group": "multi_cross",
+    "route": null,
+    "text": "我想知道老同学会不会借我摄影器材的押金，也想知道我寄卖的相框能不能卖光。"
+  },
+  {
+    "id": "v49",
+    "group": "multi_cross",
+    "route": null,
+    "text": "跟同事成立合伙企业合适吗，寄往外地的样品供应合同能不能成交？"
+  },
+  {
+    "id": "v50",
+    "group": "multi_cross",
+    "route": null,
+    "text": "打算看看旧电脑买不买得到，另占家里未来三个月总体财运如何。"
+  },
+  {
+    "id": "v51",
+    "group": "multi_same",
+    "route": null,
+    "text": "我在城南的洗鞋点生意会不会好？学校旁那家修伞摊又怎么样？"
+  },
+  {
+    "id": "v52",
+    "group": "multi_same",
+    "route": null,
+    "text": "借给排球队长差旅钱合不合适，另一个向我借学杂费的同学可不可以借？"
+  },
+  {
+    "id": "v53",
+    "group": "multi_same",
+    "route": null,
+    "text": "三轮车铺欠我的修理款收得回来么，社区活动中心那笔印字费又能不能讨回来？"
+  },
+  {
+    "id": "v54",
+    "group": "multi_same",
+    "route": null,
+    "text": "家里有两份想卖掉的投资，分别看看现在是不是时候退出航运债和停车位。"
+  },
+  {
+    "id": "v55",
+    "group": "multi_same",
+    "route": null,
+    "text": "问两个价格往哪走，今年的焦煤期价和今年的棉纱期价各会如何？"
+  },
+  {
+    "id": "v56",
+    "group": "multi_same",
+    "route": null,
+    "text": "邻市想招我去协办陶艺课，本地书画社也想找我搭伙授课，分别合作会怎样？"
+  },
+  {
+    "id": "v57",
+    "group": "near",
+    "route": null,
+    "text": "卖股票的人说要挂限价单，这个词怎么解释？"
+  },
+  {
+    "id": "v58",
+    "group": "near",
+    "route": null,
+    "text": "银行的借据上年化和月息怎么换算？"
+  },
+  {
+    "id": "v59",
+    "group": "near",
+    "route": null,
+    "text": "有人提起我跟房主还有款没清，暂时连谁该给谁都搞不清，只想占这笔。"
+  },
+  {
+    "id": "v60",
+    "group": "near",
+    "route": null,
+    "text": "我在整理登记结婚的材料，照片尺寸应是多少？"
+  },
+  {
+    "id": "v61",
+    "group": "near",
+    "route": null,
+    "text": "可否说明利润表里的营业外收入属于哪一栏。"
+  },
+  {
+    "id": "v62",
+    "group": "near",
+    "route": null,
+    "text": "生意上有件事郁结，想问进货还是想问合伙我暂时讲不清。"
+  },
+  {
+    "id": "v63",
+    "group": "outside",
+    "route": null,
+    "text": "下个月考的公交驾照能不能过？"
+  },
+  {
+    "id": "v64",
+    "group": "outside",
+    "route": null,
+    "text": "社区泳池明天能按时重新开放吗？"
+  },
+  {
+    "id": "v65",
+    "group": "outside",
+    "route": null,
+    "text": "准备报一幅水彩去参展，今年能入选么？"
+  },
+  {
+    "id": "v66",
+    "group": "outside",
+    "route": null,
+    "text": "我失散的那只狸花猫今天能回家吗？"
+  },
+  {
+    "id": "v67",
+    "group": "outside",
+    "route": null,
+    "text": "郊外运动会办的那天会不会下雨？"
+  },
+  {
+    "id": "v68",
+    "group": "outside",
+    "route": null,
+    "text": "我能不能抽到去看音乐节的入场名额？"
+  }
+]
