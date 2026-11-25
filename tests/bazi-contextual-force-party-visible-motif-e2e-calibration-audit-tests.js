@@ -80,7 +80,7 @@ function collectKeys(value, keys = new Set()) {
 test('Visible Motif E2E Calibration Source/Audit v0.1 安装且不修改 realization registry', () => {
     assert(sourceApi?.installed && auditApi?.installed, 'source/audit 未安装');
     assert(sourceApi.CONTRACT.mutatesVisibleStemRealizationRegistry === false, '不得修改 realization registry');
-    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 6, 'audit 不得另外增加 direct realization patterns');
+    assert(GuiJia.baziVisibleStemFunctionRealizationSource.DIRECT_SOURCE_PATTERNS.length === 9, 'audit 不得另外增加 direct realization patterns');
 });
 
 test('opposition 四个完整命例都有制杀语义，但全部缺唯一 visible target', () => {

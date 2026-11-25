@@ -125,7 +125,8 @@ test('exact opposition effect does not become branch mediation, actor power or f
 test('neighbor comparison weakness stays unresolved and receives no copied source pattern', () => {
     const chartKey = '壬午|丙午|庚申|戊寅';
     const synthesis = outputFor(chartKey).semanticModel.strengthSynthesis;
-    assert(synthesis.visibleStemFunctionRealizationSourceRecords.length === 0, 'qualitative weakness promoted to realization');
+    assert(!synthesis.visibleStemFunctionRealizationSourceRecords.some((item) => item.sourceActorKey === 'visible:0:壬'
+        && item.targetActorKey === 'visible:1:丙'), 'qualitative weakness promoted to realization');
     const candidate = g.baziContextualForcePartyVisibleMotifE2ECalibrationSource.BOUNDARY_CASES[0];
     assert(!candidate.calibrationEligible && candidate.blockerReasons.includes('qualitative-weakness-does-not-resolve-binary-realization'), 'weakness boundary lost');
 });

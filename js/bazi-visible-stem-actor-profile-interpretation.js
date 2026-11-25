@@ -8,11 +8,12 @@
 
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
 
-    const VISIBLE_STEM_ACTOR_PROFILE_INTERPRETATION_VERSION = '0.1';
+    const VISIBLE_STEM_ACTOR_PROFILE_INTERPRETATION_VERSION = '0.2';
     const VISIBLE_STEM_ACTOR_PROFILE_INTERPRETATION_RULE_ID = 'BAZI-STRENGTH-VISIBLE-STEM-ACTOR-PROFILE-INTERPRETATION-001';
 
     const interpretationStates = Object.freeze({
-        OUTLET_REALIZED_UNDER_RESTRAINT:'outlet-function-realized-under-restraint-in-source-context'
+        OUTLET_REALIZED_UNDER_RESTRAINT:'outlet-function-realized-under-restraint-in-source-context',
+        PEER_SUPPORT_REALIZED:'peer-support-realized-with-separate-generation-capability-in-source-context'
     });
 
     const resolutionStatuses = Object.freeze({
@@ -24,6 +25,12 @@
 
     const SOURCE_BASIS = Object.freeze([
         Object.freeze({
+            source:'《滴天髓阐微·干支总论》左右贵乎同志前后造比较',
+            chart:'壬申 丙午 庚午 庚辰',
+            terms:Object.freeze(['日主有比肩之助','彼则时干比劫帮身，又可生水']),
+            supports:'时干庚对日主的 peer 扶助已明确兑现；可生水保留为另一个 function 的能力，尚不生成其 realization 或第二份直接扶助贡献。'
+        }),
+        Object.freeze({
             source:'《滴天髓阐微·八格》命例',
             chart:'丁丑 癸卯 乙卯 己卯',
             terms:Object.freeze(['最喜丁火独发，泄其精英', '惜癸水克丁，仍伤秀气']),
@@ -32,6 +39,24 @@
     ]);
 
     const EXACT_PROFILE_PATTERNS = Object.freeze([
+        Object.freeze({
+            id:'DTS-ACTOR-PROFILE-HOUR-GENG-PEER-SUPPORT-001',
+            actorKey:'visible:3:庚',
+            requiredReadinessStatus:'ready-for-actor-profile-interpretation',
+            exactFunctionEntryCount:1,
+            requiredEdges:Object.freeze([
+                Object.freeze({
+                    sourcePatternId:'DTS-PEER-REALIZATION-HOUR-GENG-HELPS-DAYMASTER-001',
+                    participationRole:'peer', functionType:'peer-support',
+                    realizationState:'realized-in-source-context',
+                    semanticRole:'daymaster-peer-support-realization',
+                    peerParticipantActorKeys:Object.freeze(['visible:3:庚','daymaster:2:庚'])
+                })
+            ]),
+            interpretationState:interpretationStates.PEER_SUPPORT_REALIZED,
+            sourceTerms:Object.freeze(['日主有比肩之助','彼则时干比劫帮身，又可生水']),
+            scope:'exact-source-profile-only'
+        }),
         Object.freeze({
             id:'DTS-ACTOR-PROFILE-DING-OUTLET-RESTRAINED-001',
             actorKey:'visible:0:丁',
@@ -78,7 +103,7 @@
         actorGlobalEffectiveState:false,
         genericVisibleEffectiveState:false,
         finalStrengthMapping:false,
-        statement:'本层只解释已经 ready 且命中原典明确组合语义的 actor function profile。v0.1 允许把同一 actor 上多条已兑现 edge 组合成 source-scoped profile semantics，但不把该 semantics 压成 effective / ineffective。',
+        statement:'本层只解释已经 ready 且命中原典明确语义的 actor function profile。v0.2 支持受制泄秀与精确 peer 扶助两类 source profile，peer pattern 要求已知 function 集与来源完全对应；不把 profile semantics 压成 actor effective / ineffective。',
         boundary:'ready 只说明已知 edge 的 realization vocabulary 完整；只有命中 exact-source profile pattern 才可形成 interpretation。未命中、未解析或受阻 profile 均不得由数量、方向、bearing 或五行关系兜底解释。'
     });
 
@@ -89,13 +114,19 @@
         (entry.sourcePatternIds || []).includes(requirement.sourcePatternId)
         && entry.participationRole === requirement.participationRole
         && entry.functionType === requirement.functionType
-        && entry.realizationState === requirement.realizationState;
+        && entry.realizationState === requirement.realizationState
+        && (!requirement.peerParticipantActorKeys || (entry.directed === false
+            && entry.sourceActorKey === null && entry.targetActorKey === null
+            && entry.relationScope === 'daymaster-related' && entry.flow === 'peer-with-daymaster' && entry.strengthMeaning === 'support'
+            && (entry.peerParticipantActorKeys || []).length === 2
+            && requirement.peerParticipantActorKeys.every((key) => (entry.peerParticipantActorKeys || []).includes(key))));
 
     const matchExactProfilePattern = (profile = {}) => {
         if (profile.readinessStatus !== 'ready-for-actor-profile-interpretation') return null;
         return EXACT_PROFILE_PATTERNS.find((pattern) =>
             profile.actorKey === pattern.actorKey
             && profile.readinessStatus === pattern.requiredReadinessStatus
+            && (pattern.exactFunctionEntryCount == null || (profile.functionEntries || []).length === pattern.exactFunctionEntryCount)
             && pattern.requiredEdges.every((requirement) =>
                 (profile.functionEntries || []).some((entry) => entryHasPattern(entry, requirement))
             )
@@ -192,8 +223,10 @@
             matchedEdgeContexts:matchedEdgeContexts(profile, pattern),
             actorGlobalEffectiveState:null,
             genericVisibleEffectiveState:null,
-            statement:'原典同一命例明确说明丁火承担泄秀作用，同时癸水克丁而伤秀；因此只在该 exact source profile 下解释为“泄秀作用已兑现，同时受到直接克制”。',
-            boundary:'该 interpretation 只描述已知 relation edges 的组合语义，不表示丁 actor 全局 effective / ineffective，也不得迁移到其他命局或其他 actor profile。'
+            statement:pattern.interpretationState === interpretationStates.PEER_SUPPORT_REALIZED
+                ? '原典前后造比较明确指认前造时干庚帮身；当前已知 function profile 只有该已兑现 peer support。另述可生水保持能力层语义，不生成另一条已兑现 function。'
+                : '原典同一命例明确说明丁火承担泄秀作用，同时癸水克丁而伤秀；因此只在该 exact source profile 下解释为“泄秀作用已兑现，同时受到直接克制”。',
+            boundary:'该 interpretation 只描述来源明确授权的已知 relation edges，不表示 actor 全局 effective / ineffective，也不得迁移到其他命局或其他 actor profile。'
         });
     };
 
