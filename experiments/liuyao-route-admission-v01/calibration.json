@@ -1,0 +1,410 @@
+[
+  {
+    "id": "c1",
+    "group": "direct",
+    "route": "financial_fortune",
+    "text": "想看今冬我的整体钱运怎么样。"
+  },
+  {
+    "id": "c2",
+    "group": "background",
+    "route": "financial_fortune",
+    "text": "不久前把住处换到了郊区，这一年自己的财运大体会怎样？"
+  },
+  {
+    "id": "c3",
+    "group": "direct",
+    "route": "business_operation",
+    "text": "经营社区里的宠物寄养屋能做起来么？"
+  },
+  {
+    "id": "c4",
+    "group": "background",
+    "route": "business_operation",
+    "text": "房东答应延长租约，眼下想问我那间早餐铺接下来的经营状况。"
+  },
+  {
+    "id": "c5",
+    "group": "direct",
+    "route": "commercial_transaction",
+    "text": "与剧院谈的灯具供应订单能落定吗？"
+  },
+  {
+    "id": "c6",
+    "group": "background",
+    "route": "commercial_transaction",
+    "text": "客户已经看过我们送去的封皮样张，这单精装本的生意能谈下来吗？"
+  },
+  {
+    "id": "c7",
+    "group": "direct",
+    "route": "inventory_purchase",
+    "text": "做干货生意的我适不适合现在批进一批莲子？"
+  },
+  {
+    "id": "c8",
+    "group": "background",
+    "route": "inventory_purchase",
+    "text": "仓库腾出一排架子，想看拿一批夏用凉席来铺货是否合适。"
+  },
+  {
+    "id": "c9",
+    "group": "direct",
+    "route": "inventory_sale",
+    "text": "我库里的儿童雨披到梅雨季能清完么？"
+  },
+  {
+    "id": "c10",
+    "group": "background",
+    "route": "inventory_sale",
+    "text": "有家学校临时撤了采购单，我手里压着的练习册还能顺利卖掉吗？"
+  },
+  {
+    "id": "c11",
+    "group": "direct",
+    "route": "borrow_money",
+    "text": "能从信用互助社借到给货车换轮胎的钱吗？"
+  },
+  {
+    "id": "c12",
+    "group": "background",
+    "route": "borrow_money",
+    "text": "发票还没报下来，想先向工友借两千垫一阵，他会借给我么？"
+  },
+  {
+    "id": "c13",
+    "group": "direct",
+    "route": "lend_money",
+    "text": "发小想找我借开驾校的启动款，这钱借给他合适吗？"
+  },
+  {
+    "id": "c14",
+    "group": "background",
+    "route": "lend_money",
+    "text": "外甥刚租下一个排练厅，托我先借他半年租金，我该答应吗？"
+  },
+  {
+    "id": "c15",
+    "group": "direct",
+    "route": "debt_collection",
+    "text": "前单位欠我的差旅垫付款还收得回么？"
+  },
+  {
+    "id": "c16",
+    "group": "background",
+    "route": "debt_collection",
+    "text": "做横幅的店已经关门了，他们欠我的缝制工钱怎么才能有望要回来？"
+  },
+  {
+    "id": "c17",
+    "group": "direct",
+    "route": "debt_repayment",
+    "text": "我能在明年开春前还清亲戚替我垫的车款吗？"
+  },
+  {
+    "id": "c18",
+    "group": "background",
+    "route": "debt_repayment",
+    "text": "工资比预想的低，我欠修理工的尾款这月底还得上么？"
+  },
+  {
+    "id": "c19",
+    "group": "direct",
+    "route": "partnership",
+    "text": "和街坊合开社区食堂，这个搭档靠谱吗？"
+  },
+  {
+    "id": "c20",
+    "group": "background",
+    "route": "partnership",
+    "text": "我们一个熟悉山货，一个有渠道，能不能搭伙把生意做长？"
+  },
+  {
+    "id": "c21",
+    "group": "direct",
+    "route": "investment_profit",
+    "text": "我入股的洗车站年底能为我带来利润么？"
+  },
+  {
+    "id": "c22",
+    "group": "background",
+    "route": "investment_profit",
+    "text": "去年从债券上赚过钱，今年想问我投在图书仓储的那份有没有回报。"
+  },
+  {
+    "id": "c23",
+    "group": "direct",
+    "route": "investment_liquidation",
+    "text": "手里这笔铁路债现在适合出手兑现吗？"
+  },
+  {
+    "id": "c24",
+    "group": "background",
+    "route": "investment_liquidation",
+    "text": "朋友急着凑首付，我这边只占是否到了卖掉旧基金份额的时候。"
+  },
+  {
+    "id": "c25",
+    "group": "direct",
+    "route": "investment_suitability",
+    "text": "拿闲钱投一家桌游工作室值得吗？"
+  },
+  {
+    "id": "c26",
+    "group": "background",
+    "route": "investment_suitability",
+    "text": "熟人邀我入股育种基地，我希望看看这个标的适不适合我投。"
+  },
+  {
+    "id": "c27",
+    "group": "direct",
+    "route": "investment_position_decision",
+    "text": "要不要把目前持有的白银基金再增持一些？"
+  },
+  {
+    "id": "c28",
+    "group": "background",
+    "route": "investment_position_decision",
+    "text": "最近账上添了闲钱，我想占自己那份指数仓位要不要削减三成。"
+  },
+  {
+    "id": "c29",
+    "group": "direct",
+    "route": "investment_price_trend",
+    "text": "橡胶期货过完春节会涨还是跌？"
+  },
+  {
+    "id": "c30",
+    "group": "background",
+    "route": "investment_price_trend",
+    "text": "研究报告吵得挺厉害，我想占下个月那只航运股的价格方向。"
+  },
+  {
+    "id": "c31",
+    "group": "direct",
+    "route": "income_salary",
+    "text": "今年调到夜班后固定月薪有希望增加么？"
+  },
+  {
+    "id": "c32",
+    "group": "background",
+    "route": "income_salary",
+    "text": "职称刚下来，只关心工资条上的基本薪水会不会上一个台阶。"
+  },
+  {
+    "id": "c33",
+    "group": "direct",
+    "route": "income_bonus",
+    "text": "这次技术突破奖的奖金会发到我手上吗？"
+  },
+  {
+    "id": "c34",
+    "group": "background",
+    "route": "income_bonus",
+    "text": "部门去年取消了津贴，我想问今年自己的季度绩效奖金有没有着落。"
+  },
+  {
+    "id": "c35",
+    "group": "direct",
+    "route": "receive_item",
+    "text": "朋友从窑场给我留的纪念瓷片能交到我手里吗？"
+  },
+  {
+    "id": "c36",
+    "group": "background",
+    "route": "receive_item",
+    "text": "快递地址写的是我以前的宿舍，老师送的作品集我最后能收到么？"
+  },
+  {
+    "id": "c37",
+    "group": "direct",
+    "route": "item_purchase",
+    "text": "个人想买的那把手工小提琴这回有望买到吗？"
+  },
+  {
+    "id": "c38",
+    "group": "background",
+    "route": "item_purchase",
+    "text": "这部绝版相集只在古书市出现过，我还有机会买到一本吗？"
+  },
+  {
+    "id": "c39",
+    "group": "direct",
+    "route": "relationship_development",
+    "text": "我和徒步时认识的姑娘接下来会成为情侣吗？"
+  },
+  {
+    "id": "c40",
+    "group": "background",
+    "route": "relationship_development",
+    "text": "两个人以前只在线上打游戏，我跟她见面后的感情能往前走吗？"
+  },
+  {
+    "id": "c41",
+    "group": "direct",
+    "route": "marriage_match",
+    "text": "这回父母请媒人撮合的亲事能成吗？"
+  },
+  {
+    "id": "c42",
+    "group": "background",
+    "route": "marriage_match",
+    "text": "我们已经订好办酒的饭庄，我和对象最终能如愿登记结婚吗？"
+  },
+  {
+    "id": "c43",
+    "group": "direct",
+    "route": "marital_relationship",
+    "text": "我和丈夫闹过矛盾后夫妻感情会缓和吗？"
+  },
+  {
+    "id": "c44",
+    "group": "background",
+    "route": "marital_relationship",
+    "text": "自从两地工作见面少了，只想看看我和爱人的婚姻往后怎样。"
+  },
+  {
+    "id": "c45",
+    "group": "multi_cross",
+    "route": null,
+    "text": "我能把那笔版权费讨回么，同时也想知道胶片生意会怎样。"
+  },
+  {
+    "id": "c46",
+    "group": "multi_cross",
+    "route": null,
+    "text": "和印厂的采购能成交吗，今年我自己的项目奖金又能不能拿到？"
+  },
+  {
+    "id": "c47",
+    "group": "multi_cross",
+    "route": null,
+    "text": "住房贷款申请能批么，还想占我和女朋友能不能成亲。"
+  },
+  {
+    "id": "c48",
+    "group": "multi_cross",
+    "route": null,
+    "text": "我想分别知道鱼粉要不要再进货，还有旅游公司的欠款我能不能收回来"
+  },
+  {
+    "id": "c49",
+    "group": "multi_cross",
+    "route": null,
+    "text": "看看我那份租赁项目的回报，再看我哥哥送的望远镜能不能收到。"
+  },
+  {
+    "id": "c50",
+    "group": "multi_cross",
+    "route": null,
+    "text": "家里的两件事一块问，婚后感情能否转好、我做外汇的仓位该不该加。"
+  },
+  {
+    "id": "c51",
+    "group": "multi_same",
+    "route": null,
+    "text": "分开问两笔各自拖着的劳务费，展会那笔能结给我么，婚庆公司那笔有戏吗？"
+  },
+  {
+    "id": "c52",
+    "group": "multi_same",
+    "route": null,
+    "text": "海峡这边的门店下季经营如何？码头那边的那一家呢？"
+  },
+  {
+    "id": "c53",
+    "group": "multi_same",
+    "route": null,
+    "text": "我想买一份旧地图和一台唱片清洗机，这两样分别买得到吗？"
+  },
+  {
+    "id": "c54",
+    "group": "multi_same",
+    "route": null,
+    "text": "到期的两项投资一个是蘑菇棚一个是玻璃厂，我想分别看看各自能赚多少"
+  },
+  {
+    "id": "c55",
+    "group": "multi_same",
+    "route": null,
+    "text": "替父亲办的节庆礼盒能卖完么，另放在供销社里的竹编盘子能不能销完？"
+  },
+  {
+    "id": "c56",
+    "group": "multi_same",
+    "route": null,
+    "text": "跟网友见面有无感情进展，跟朋友介绍的小夏又各会如何？"
+  },
+  {
+    "id": "c57",
+    "group": "near",
+    "route": null,
+    "text": "理财书里总说浮盈，究竟怎么定义？"
+  },
+  {
+    "id": "c58",
+    "group": "near",
+    "route": null,
+    "text": "帮我算一下发票上标的折扣是多少钱。"
+  },
+  {
+    "id": "c59",
+    "group": "near",
+    "route": null,
+    "text": "有人跟我说一笔工程款，我还没弄清是我付钱还是他付钱，想占这事。"
+  },
+  {
+    "id": "c60",
+    "group": "near",
+    "route": null,
+    "text": "婚姻登记需要带哪几张证件？"
+  },
+  {
+    "id": "c61",
+    "group": "near",
+    "route": null,
+    "text": "股票里市盈率的计算公式是什么来着？"
+  },
+  {
+    "id": "c62",
+    "group": "near",
+    "route": null,
+    "text": "我跟那人有牵扯，要问钱还是问合作现在也没有定。"
+  },
+  {
+    "id": "c63",
+    "group": "outside",
+    "route": null,
+    "text": "明年的会考能不能拿到甲等？"
+  },
+  {
+    "id": "c64",
+    "group": "outside",
+    "route": null,
+    "text": "我走失的鹦鹉会不会自己飞回笼子？"
+  },
+  {
+    "id": "c65",
+    "group": "outside",
+    "route": null,
+    "text": "这块荒地打井能出水吗？"
+  },
+  {
+    "id": "c66",
+    "group": "outside",
+    "route": null,
+    "text": "比赛那天海边风力会很大么？"
+  },
+  {
+    "id": "c67",
+    "group": "outside",
+    "route": null,
+    "text": "我投去的设计简历这次面试能过吗？"
+  },
+  {
+    "id": "c68",
+    "group": "outside",
+    "route": null,
+    "text": "想知道旧剧院明年是否会翻修。"
+  }
+]
