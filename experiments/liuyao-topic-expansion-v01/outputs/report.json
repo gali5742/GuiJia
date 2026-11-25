@@ -1,0 +1,2021 @@
+{
+  "source": "4ab499c40e1d413f1a7e0ce5f52633f97e1e384e",
+  "runURL": "https://github.com/gali5742/GuiJia/actions/runs/45571078407",
+  "weightsSHA256": "4863905af7179b0562d9c7a7eb617b36fc932557e6f8387901da05d9fd7bb6fa",
+  "audit": {
+    "comparisons": 312774,
+    "maximum": 0.4
+  },
+  "metrics": {
+    "all": {
+      "single": 48,
+      "multi": 20,
+      "known": 37,
+      "oldRoute": 14,
+      "newRoute": 25,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 8,
+        "miss": 3,
+        "correct": 21
+      },
+      "original": {
+        "falseStop": 6,
+        "miss": 6,
+        "correct": 22
+      },
+      "diverse": {
+        "falseStop": 5,
+        "miss": 3,
+        "correct": 22
+      }
+    },
+    "old": {
+      "single": 22,
+      "multi": 4,
+      "known": 22,
+      "oldRoute": 14,
+      "newRoute": 13,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 13
+      },
+      "original": {
+        "falseStop": 1,
+        "miss": 0,
+        "correct": 13
+      },
+      "diverse": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 13
+      }
+    },
+    "exam": {
+      "single": 6,
+      "multi": 0,
+      "known": 6,
+      "oldRoute": 0,
+      "newRoute": 6,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 4
+      },
+      "original": {
+        "falseStop": 1,
+        "miss": 0,
+        "correct": 5
+      },
+      "diverse": {
+        "falseStop": 1,
+        "miss": 0,
+        "correct": 5
+      }
+    },
+    "job": {
+      "single": 6,
+      "multi": 0,
+      "known": 6,
+      "oldRoute": 0,
+      "newRoute": 6,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 4
+      },
+      "original": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 4
+      },
+      "diverse": {
+        "falseStop": 2,
+        "miss": 0,
+        "correct": 4
+      }
+    },
+    "expanded": {
+      "single": 0,
+      "multi": 8,
+      "known": 0,
+      "oldRoute": 0,
+      "newRoute": 0,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 0,
+        "miss": 1,
+        "correct": 0
+      },
+      "original": {
+        "falseStop": 0,
+        "miss": 3,
+        "correct": 0
+      },
+      "diverse": {
+        "falseStop": 0,
+        "miss": 0,
+        "correct": 0
+      }
+    },
+    "near": {
+      "single": 6,
+      "multi": 0,
+      "known": 3,
+      "oldRoute": 0,
+      "newRoute": 0,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 1,
+        "miss": 0,
+        "correct": 0
+      },
+      "original": {
+        "falseStop": 1,
+        "miss": 0,
+        "correct": 0
+      },
+      "diverse": {
+        "falseStop": 0,
+        "miss": 0,
+        "correct": 0
+      }
+    },
+    "travel": {
+      "single": 4,
+      "multi": 4,
+      "known": 0,
+      "oldRoute": 0,
+      "newRoute": 0,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 1,
+        "miss": 2,
+        "correct": 0
+      },
+      "original": {
+        "falseStop": 1,
+        "miss": 2,
+        "correct": 0
+      },
+      "diverse": {
+        "falseStop": 0,
+        "miss": 2,
+        "correct": 0
+      }
+    },
+    "lost": {
+      "single": 4,
+      "multi": 4,
+      "known": 0,
+      "oldRoute": 0,
+      "newRoute": 0,
+      "unsupportedSelected": 0,
+      "baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "correct": 0
+      },
+      "original": {
+        "falseStop": 0,
+        "miss": 1,
+        "correct": 0
+      },
+      "diverse": {
+        "falseStop": 0,
+        "miss": 1,
+        "correct": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "E01",
+      "group": "old",
+      "multi": false,
+      "text": "过完这个冬天我手头能宽裕些吗",
+      "route": "financial_fortune",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "financial_fortune",
+        "extended": "financial_fortune"
+      }
+    },
+    {
+      "id": "E02",
+      "group": "old",
+      "multi": false,
+      "text": "新接手的冲印店明年生意怎样",
+      "route": "business_operation",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "business_operation",
+        "extended": "business_operation"
+      }
+    },
+    {
+      "id": "E03",
+      "group": "old",
+      "multi": false,
+      "text": "工厂报了价，对面学校肯签这份供餐单吗",
+      "route": "commercial_transaction",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E04",
+      "group": "old",
+      "multi": false,
+      "text": "赶在旺季前店里添一批竹篮合适吗",
+      "route": "inventory_purchase",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "inventory_purchase",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "inventory_purchase",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "inventory_purchase",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "inventory_purchase",
+        "extended": "inventory_purchase"
+      }
+    },
+    {
+      "id": "E05",
+      "group": "old",
+      "multi": false,
+      "text": "积在柜台底下的打火机能卖光么",
+      "route": "inventory_sale",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "inventory_sale",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "inventory_sale",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "inventory_sale",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "inventory_sale",
+        "extended": "inventory_sale"
+      }
+    },
+    {
+      "id": "E06",
+      "group": "old",
+      "multi": false,
+      "text": "房租差一截，我向堂哥开口借得到么",
+      "route": "borrow_money",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E07",
+      "group": "old",
+      "multi": false,
+      "text": "邻桌想向我借钱换车，让他拿去合适么",
+      "route": "lend_money",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "lend_money",
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E08",
+      "group": "old",
+      "multi": false,
+      "text": "装修队少付我的那笔灯具钱还能追回来吗",
+      "route": "debt_collection",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "debt_collection",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "debt_collection",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "debt_collection",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "debt_collection",
+        "extended": "debt_collection"
+      }
+    },
+    {
+      "id": "E09",
+      "group": "old",
+      "multi": false,
+      "text": "我欠房东的三个月租金入冬前能补齐么",
+      "route": "debt_repayment",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E10",
+      "group": "old",
+      "multi": false,
+      "text": "我和堂姐共同承包一家印章社配合得好吗",
+      "route": "partnership",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "partnership",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "partnership",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "partnership",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "partnership",
+        "extended": "partnership"
+      }
+    },
+    {
+      "id": "E11",
+      "group": "old",
+      "multi": false,
+      "text": "早先投进去的电影院份额最后能给我赚钱么",
+      "route": "investment_profit",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "investment_profit",
+        "extended": "investment_profit"
+      }
+    },
+    {
+      "id": "E12",
+      "group": "old",
+      "multi": false,
+      "text": "我持有的那份物流园股权现在该转让吗",
+      "route": "investment_liquidation",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E13",
+      "group": "old",
+      "multi": false,
+      "text": "拿积蓄投进冷库建设这个项目值不值",
+      "route": "investment_suitability",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E14",
+      "group": "old",
+      "multi": false,
+      "text": "这只指数基金我已经有了，眼下适合增持么",
+      "route": "investment_position_decision",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "investment_position_decision",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "investment_position_decision",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "investment_position_decision",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "investment_position_decision",
+        "extended": "investment_position_decision"
+      }
+    },
+    {
+      "id": "E15",
+      "group": "old",
+      "multi": false,
+      "text": "铜的行情过年以前还会跌么",
+      "route": "investment_price_trend",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "investment_price_trend",
+        "extended": "investment_price_trend"
+      }
+    },
+    {
+      "id": "E16",
+      "group": "old",
+      "multi": false,
+      "text": "轮岗以后，我每月固定拿的工资有望提高吗",
+      "route": "income_salary",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "income_salary",
+        "extended": "income_salary"
+      }
+    },
+    {
+      "id": "E17",
+      "group": "old",
+      "multi": false,
+      "text": "这一年带徒弟的专项奖励拿得到么",
+      "route": "income_bonus",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "income_bonus",
+        "extended": "income_bonus"
+      }
+    },
+    {
+      "id": "E18",
+      "group": "old",
+      "multi": false,
+      "text": "导师答应送我的那套地图册能到手吗",
+      "route": "receive_item",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E19",
+      "group": "old",
+      "multi": false,
+      "text": "那枚停产的纪念币我还能买到吗",
+      "route": "item_purchase",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E20",
+      "group": "old",
+      "multi": false,
+      "text": "同去听戏的那位和我往后有机会成为恋人吗",
+      "route": "relationship_development",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "relationship_development",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "relationship_development",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "relationship_development",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "relationship_development",
+        "extended": "relationship_development"
+      }
+    },
+    {
+      "id": "E21",
+      "group": "old",
+      "multi": false,
+      "text": "我和相亲认识的小周能走到办婚礼那一步么",
+      "route": "marriage_match",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E22",
+      "group": "old",
+      "multi": false,
+      "text": "丈夫和我暂时分居了，我们的婚姻以后会怎么样",
+      "route": "marital_relationship",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": "marital_relationship",
+        "extended": "marital_relationship"
+      }
+    },
+    {
+      "id": "E23",
+      "group": "old",
+      "multi": true,
+      "text": "人家欠我的木匠工钱能收齐么，我欠师傅的借款还得上么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E24",
+      "group": "old",
+      "multi": true,
+      "text": "柜里的棋盘好卖吗，后屋的风筝好卖吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E25",
+      "group": "old",
+      "multi": true,
+      "text": "房东寄的钥匙到得了吗，厂里会给我涨工资吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E26",
+      "group": "old",
+      "multi": true,
+      "text": "东街的小吃铺有赚头么，我在南街的修鞋铺又如何",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E27",
+      "group": "exam",
+      "multi": false,
+      "text": "我这场注册测绘师资格考试能合格吗",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E28",
+      "group": "exam",
+      "multi": false,
+      "text": "我儿子周末去考船员适任证，他过得了吗",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E29",
+      "group": "exam",
+      "multi": false,
+      "text": "虽然还在找工作，我想知道自己这回消防工程师资格考过线没有",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E30",
+      "group": "exam",
+      "multi": false,
+      "text": "试卷最后一页我没写完，这次司法职业资格考试能过关吗",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E31",
+      "group": "exam",
+      "multi": false,
+      "text": "女儿刚面试回来，她先前参加的执业兽医资格考试能通过么",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E32",
+      "group": "exam",
+      "multi": false,
+      "text": "明天的滑雪指导员考证，我有戏么",
+      "route": "qualification_exam_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E33",
+      "group": "job",
+      "multi": false,
+      "text": "我投递的殡仪馆接线员岗位能拿下吗",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E34",
+      "group": "job",
+      "multi": false,
+      "text": "他们让我回家等电话，周三面过的花店会留下我当店员么",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E35",
+      "group": "job",
+      "multi": false,
+      "text": "有证的人几乎都来应聘了，水厂这次肯招我做化验员么",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E36",
+      "group": "job",
+      "multi": false,
+      "text": "我给报社寄了作品集，还能收到这份美编工作的聘书吗",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E37",
+      "group": "job",
+      "multi": false,
+      "text": "那间琴行愿意雇我当调律师么",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E38",
+      "group": "job",
+      "multi": false,
+      "text": "面包店老板刚联系过我，后厨那个岗位能落到我手里吗",
+      "route": "job_application_outcome",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E39",
+      "group": "expanded",
+      "multi": true,
+      "text": "合唱团会聘我吗，剧院那个售票员工作也会要我吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E40",
+      "group": "expanded",
+      "multi": true,
+      "text": "我去考潜水教练证能过么，儿子考攀岩教练证呢",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E41",
+      "group": "expanded",
+      "multi": true,
+      "text": "我能拿到证券从业考试的合格成绩么，画室会叫我去上班么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E42",
+      "group": "expanded",
+      "multi": true,
+      "text": "我报考的护工资格试过得了吗，门店年奖能领吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E43",
+      "group": "expanded",
+      "multi": true,
+      "text": "这家民宿会请我值夜吗，借出去的装修款有望收回吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E44",
+      "group": "expanded",
+      "multi": true,
+      "text": "我的拳击教练资格考能过吗，我妹妹自己的那场会过吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E45",
+      "group": "expanded",
+      "multi": true,
+      "text": "灯饰厂愿意聘我做库管么，我投的码头搬运工也肯收我么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E46",
+      "group": "expanded",
+      "multi": true,
+      "text": "我在演出公司那次面试能录取吗，另一个笔译资格考会合格吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E47",
+      "group": "near",
+      "multi": false,
+      "text": "交了考务费却取消了考试，这笔退款能从主办方讨回吗",
+      "route": "debt_collection",
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E48",
+      "group": "near",
+      "multi": false,
+      "text": "面试官说入职要自备相机，我只想占那部绝版相机买得到么",
+      "route": "item_purchase",
+      "states": {
+        "baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E49",
+      "group": "near",
+      "multi": false,
+      "text": "儿子申请的艺术高中会准他入学么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E50",
+      "group": "near",
+      "multi": false,
+      "text": "明早的物理小测我会排班里第几名",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E51",
+      "group": "near",
+      "multi": false,
+      "text": "来单位已经两年，我这次能升到科长吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E52",
+      "group": "near",
+      "multi": false,
+      "text": "老师答应下个月寄我一套资格考习题，书会送到吗",
+      "route": "receive_item",
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E53",
+      "group": "travel",
+      "multi": false,
+      "text": "周末飞札幌的那趟飞机能照原定时间起飞吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E54",
+      "group": "travel",
+      "multi": false,
+      "text": "我改乘早班车以后，赶得上那趟渡轮吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E55",
+      "group": "travel",
+      "multi": false,
+      "text": "老同学邀我自驾翻山，周日这趟路能走通吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E56",
+      "group": "travel",
+      "multi": false,
+      "text": "护照今早已经寄到了，我月底这次出境能顺利成行吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E57",
+      "group": "lost",
+      "multi": false,
+      "text": "昨天留在自习室的镜盒还能找回来吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E58",
+      "group": "lost",
+      "multi": false,
+      "text": "我的蓝围脖落在出租车上，后来还有机会找着么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E59",
+      "group": "lost",
+      "multi": false,
+      "text": "搬完家发现硬盘找不到了，它还在旧屋里吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E60",
+      "group": "lost",
+      "multi": false,
+      "text": "我已经去站台问过一次，丢掉的门禁卡能寻回来么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "old": null,
+        "extended": null
+      }
+    },
+    {
+      "id": "E61",
+      "group": "travel",
+      "multi": true,
+      "text": "周一的船会停航吗，周三的回程飞机会晚点吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E62",
+      "group": "travel",
+      "multi": true,
+      "text": "这次进山能准时到营地么，妹妹单独走海线能准时抵达么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E63",
+      "group": "travel",
+      "multi": true,
+      "text": "我办的签证能赶上出发吗，父亲那趟邮轮能照常开吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "E64",
+      "group": "travel",
+      "multi": true,
+      "text": "机场大巴今天开得成吗，明晚去码头的班车会取消吗",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "original": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "diverse": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "E65",
+      "group": "lost",
+      "multi": true,
+      "text": "落在礼堂的保温杯能找到吗，家里找不着的扳手呢",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E66",
+      "group": "lost",
+      "multi": true,
+      "text": "想分开问，我的眼镜还能找回么，阿姨丢的耳环还有下落么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    },
+    {
+      "id": "E67",
+      "group": "lost",
+      "multi": true,
+      "text": "公交上忘的素描本能找回吗，操场边丢的相机呢",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "diverse": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      }
+    },
+    {
+      "id": "E68",
+      "group": "lost",
+      "multi": true,
+      "text": "宿舍那串钥匙还在屋里吗，车上丢的饭卡有人交到失物处么",
+      "route": null,
+      "states": {
+        "baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "original": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "diverse": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      }
+    }
+  ]
+}
