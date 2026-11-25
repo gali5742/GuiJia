@@ -148,8 +148,8 @@ test('runtime alignment reuses existing realization and reports missing, unresol
     const model = modelFor(charts[0]), base = model.strengthSynthesis, result = base.sourceStrengthReview;
     const aligned = claim(result, 'SSR-01-M1').runtimeAlignment;
     assert(aligned.state === 'realization-agrees' && aligned.runtimeRecords.some((item) => item.sourcePatternId === 'DTS-VISIBLE-REALIZATION-REN-RESTRAINS-BING-001'), 'existing source realization not reused');
-    assert(claim(result, 'SSR-01-C1').runtimeAlignment.state === 'runtime-realization-unresolved'
-        && claim(result, 'SSR-01-C1').runtimeAlignment.directed === false, 'peer support became a directed or resolved function');
+    assert(claim(result, 'SSR-01-C1').runtimeAlignment.state === 'realization-agrees'
+        && claim(result, 'SSR-01-C1').runtimeAlignment.directed === false, 'exact peer realization was lost or became directed');
     assert(claim(result, 'SSR-01-C2').runtimeAlignment.state === 'no-runtime-function', 'whole-branch contribution became a visible function');
     assert(claim(result, 'SSR-01-M2').runtimeAlignment.state === 'source-realization-unspecified', 'capability supplied realization');
     const existing = base.visibleStemFunctionRealizationRecords.find((item) => item.sourcePatternId === 'DTS-VISIBLE-REALIZATION-REN-RESTRAINS-BING-001');
@@ -180,6 +180,94 @@ test('source review exposes actual runtime gaps without rewriting contributions 
         assert(base.contextualForcePartyEffectTypeAuthorizationSourceCapabilityAudit.unresolvedGlobalResolverBlockerCount === 4, 'global authorizations expanded');
     }
     assert(modelFor('戊辰|乙卯|辛丑|丁酉').strengthSynthesis.contextualForcePartySourceRecipientSealDamageCalibration.result.execution.effectType === 'recipient-seal-damage', 'R29 authority changed');
+});
+
+test('exact peer support reaches the existing contribution contract through profile interpretation', () => {
+    const base = modelFor(charts[0]).strengthSynthesis;
+    const peer = base.visibleStemDaymasterContributionRecords.find((item) => item.functionType === 'peer-support');
+    assert(peer.resolutionStatus === 'resolved-realized-daymaster-contribution'
+        && peer.contributionState === 'realized-daymaster-contribution-in-source-context', 'verified support stopped before contribution');
+    assert(peer.directed === false && peer.sourceActorKey === null && peer.targetActorKey === null
+        && peer.peerParticipantActorKeys.join() === 'visible:3:庚,daymaster:2:庚', 'peer gained artificial direction');
+    assert(peer.profileInterpretationState === 'peer-support-realized-with-separate-generation-capability-in-source-context', 'source profile qualifier lost');
+    assert(base.visibleStemDaymasterContributionRecords.filter((item) => item.contributionState === 'realized-daymaster-contribution-in-source-context').length === 1, 'modifier or capability duplicated direct contribution');
+    assert(base.visibleStemFunctionRealizationRecords.every((item) => !(item.sourceActorKey === 'visible:3:庚' && item.targetActorKey === 'visible:0:壬')), 'capability became an executable generation');
+    assert(peer.actorGlobalEffectiveState === null && base.sufficiency.status === 'insufficient', 'local support became global force or sufficiency');
+});
+
+test('the contrasted same pair carries realized restraint and absent generation without resolving ineffective restraint', () => {
+    const base = modelFor(charts[1]).strengthSynthesis;
+    const pair = base.visibleStemFunctionRealizationRecords.filter((item) => item.sourceActorKey === 'visible:3:戊' && item.targetActorKey === 'visible:0:壬');
+    assert(pair.length === 2 && pair.some((item) => item.functionType === 'restraint' && item.realizationState === 'realized-in-source-context')
+        && pair.some((item) => item.functionType === 'generation' && item.realizationState === 'not-realized-in-source-context'), 'distinct same-pair functions lost');
+    assert(pair.every((item) => item.relationScope === 'cross-visible-actor' && item.sourceProvenance.retrievedOn === '2026-11-25'), 'modifier provenance lost');
+    assert(base.sourceStrengthReview.assertions.filter((item) => ['SSR-02-M2','SSR-02-M3'].includes(item.claimId))
+        .every((item) => item.runtimeAlignment.state === 'realization-agrees'), 'review no longer matches registered contrast');
+    assert(!base.visibleStemFunctionRealizationRecords.some((item) => item.sourceActorKey === 'visible:0:壬' && item.targetActorKey === 'visible:1:丙'), '无力 generated binary realization');
+    assert(base.visibleStemDaymasterContributionRecords.every((item) => item.functionRealizationState === 'unresolved'), 'cross functions supplied direct contribution');
+});
+
+test('peer source resolution requires one intact unordered directed-function participant pair', () => {
+    const model = modelFor(charts[0]), base = model.strengthSynthesis;
+    const source = g.baziVisibleStemFunctionRealizationSource;
+    const directed = base.visibleStemDirectedFunctionRecords;
+    const peer = directed.find((item) => item.directed === false);
+    const runWith = (items) => source.buildDirectSourceRecords(model, { ...base, visibleStemDirectedFunctionRecords: items })
+        .filter((item) => item.directed === false);
+    const others = directed.filter((item) => item !== peer);
+    assert(runWith([...others, { ...peer, peerParticipants: [...peer.peerParticipants].reverse() }]).length === 1, 'unordered peer rejected');
+    const malformed = [
+        [], [...others, peer, peer],
+        [...others, { ...peer, peerParticipants: [peer.peerParticipants[0], peer.peerParticipants[0]] }],
+        [...others, { ...peer, peerParticipants: [...peer.peerParticipants, peer.peerParticipants[0]] }],
+        [...others, { ...peer, directed: true }],
+        [...others, { ...peer, sourceActor: peer.peerParticipants[0] }],
+        [...others, { ...peer, strengthMeaning: 'restraint' }]
+    ];
+    assert(malformed.every((items) => runWith(items).length === 0), 'damaged peer function accepted');
+    const noMaster = { ...model, strengthEvidence: { ...model.strengthEvidence, dayMaster: null } };
+    assert(source.buildDirectSourceRecords(noMaster, base).length === 0, 'missing daymaster completed from source chart');
+});
+
+test('contrary peer outcomes survive refinement and block profile interpretation', () => {
+    const model = modelFor(charts[0]), base = model.strengthSynthesis;
+    const apiSource = g.baziVisibleStemFunctionRealizationSource;
+    const existing = base.visibleStemFunctionRealizationRecords.find((item) => item.directed === false);
+    const contrary = { ...existing, realizationState: 'not-realized-in-source-context', resolutionStatus: 'resolved-source-function-not-realized' };
+    const altered = { ...base, visibleStemFunctionRealizationRecords: base.visibleStemFunctionRealizationRecords.map((item) => item === existing ? contrary : item) };
+    const sourceRecords = apiSource.buildDirectSourceRecords(model, altered);
+    const refined = apiSource.refineRealizationRecords(model, altered, sourceRecords);
+    const pair = refined.filter((item) => item.directed === false);
+    assert(pair.length === 2 && new Set(pair.map((item) => item.id)).size === 2, 'contrary evidence was replaced or duplicated IDs');
+    const aggregated = g.baziVisibleStemActorInteractionAggregation.extendSynthesis(model, { ...base, visibleStemFunctionRealizationRecords: refined });
+    const composed = g.baziVisibleStemActorFunctionComposition.extendSynthesis(model, aggregated);
+    const interpreted = g.baziVisibleStemActorProfileInterpretation.extendSynthesis(model, composed);
+    const profile = interpreted.visibleStemActorProfileInterpretationRecords.find((item) => item.actorKey === 'visible:3:庚');
+    assert(profile.resolutionStatus === 'blocked-upstream-profile-readiness', 'conflicting peer support interpreted');
+    const contributed = g.baziVisibleStemDaymasterContribution.extendSynthesis(model, interpreted);
+    assert(contributed.visibleStemDaymasterContributionRecords.filter((item) => item.visibleActorKey === 'visible:3:庚')
+        .every((item) => item.contributionState !== 'realized-daymaster-contribution-in-source-context'), 'conflicting profile authorized positive contribution');
+});
+
+test('extra known functions and wrong peer identity cannot inherit the exact profile interpretation', () => {
+    const base = modelFor(charts[0]).strengthSynthesis;
+    const apiProfile = g.baziVisibleStemActorProfileInterpretation;
+    const profile = base.visibleStemActorFunctionProfileRecords.find((item) => item.actorKey === 'visible:3:庚');
+    assert(apiProfile.buildInterpretationRecord(profile).resolutionStatus === 'resolved-exact-source-profile-interpretation', 'valid profile rejected');
+    const entry = profile.functionEntries[0];
+    for (const changed of [
+        { ...profile, functionEntries: [...profile.functionEntries, { ...entry, functionType: 'generation' }] },
+        { ...profile, readinessStatus: 'incomplete-realization-coverage' },
+        { ...profile, functionEntries: [{ ...entry, peerParticipantActorKeys: ['visible:3:庚', 'daymaster:2:辛'] }] },
+        { ...profile, functionEntries: [{ ...entry, directed: true }] },
+        { ...profile, functionEntries: [{ ...entry, sourcePatternIds: [] }] }
+    ]) assert(apiProfile.buildInterpretationRecord(changed).resolutionStatus !== 'resolved-exact-source-profile-interpretation', 'unsupported profile inherited interpretation');
+});
+
+test('near charts retain unresolved peer realization and no positive contribution', () => {
+    const base = modelFor('壬申|丙午|庚午|庚寅').strengthSynthesis;
+    const peer = base.visibleStemDaymasterContributionRecords.find((item) => item.functionType === 'peer-support');
+    assert(peer.functionRealizationState === 'unresolved' && peer.contributionState === 'unresolved-daymaster-contribution', 'peer support generalized by stems');
 });
 
 console.log(`\nSource Strength Review tests: ${passed} passed, ${failed} failed.`);

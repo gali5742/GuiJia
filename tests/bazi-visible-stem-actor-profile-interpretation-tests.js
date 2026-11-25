@@ -115,9 +115,9 @@ function dependencyMap(synthesis) {
     return Object.fromEntries((synthesis.dependencies || []).map((item) => [item.id, item]));
 }
 
-test('Actor Profile Interpretation v0.1 只允许 ready + exact-source profile 进入解释', () => {
+test('Actor Profile Interpretation v0.2 只允许 ready + exact-source profile 进入解释', () => {
     assert(api?.installed === true, 'Actor Profile Interpretation 模块未安装');
-    assert(api.VISIBLE_STEM_ACTOR_PROFILE_INTERPRETATION_VERSION === '0.1', '版本异常');
+    assert(api.VISIBLE_STEM_ACTOR_PROFILE_INTERPRETATION_VERSION === '0.2', '版本异常');
     assert(api.CONTRACT.requiresReadyProfileBeforeInterpretation === true, '必须先满足 profile readiness');
     assert(api.CONTRACT.exactSourcePatternsOnly === true, '只能使用 exact-source profile pattern');
     assert(api.CONTRACT.interpretedProfileDoesNotMeanActorEffective === true, 'interpreted profile 不得等同 actor effective');
@@ -209,8 +209,8 @@ test('只命中一条 required edge 仍不得解释完整 profile motif', () => 
 });
 
 test('Source Basis 与匹配 provenance 保持原命例术语，不伪造 F/D/S sourceRefs', () => {
-    assert(api.SOURCE_BASIS.length === 1, 'v0.1 应只有一条 profile source basis');
-    const basis = api.SOURCE_BASIS[0];
+    assert(api.SOURCE_BASIS.length === 2, 'v0.2 应保留两条独立 profile source basis');
+    const basis = api.SOURCE_BASIS.find((item) => item.chart === '丁丑 癸卯 乙卯 己卯');
     assert(basis.chart === '丁丑 癸卯 乙卯 己卯', 'source basis 命例异常');
     assert(basis.terms.includes('最喜丁火独发，泄其精英'), '缺少泄秀原词');
     assert(basis.terms.includes('惜癸水克丁，仍伤秀气'), '缺少克丁原词');

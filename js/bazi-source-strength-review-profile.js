@@ -98,7 +98,9 @@
         const contributions = records(synthesis.visibleStemDaymasterContributionRecords).map((record) => ({
             id: record.id, sourceActorKey: record.sourceActorKey, targetActorKey: record.targetActorKey,
             functionType: record.functionType, contributionState: record.contributionState,
-            resolutionStatus: record.resolutionStatus, sourcePatternId: record.sourcePatternId
+            resolutionStatus: record.resolutionStatus, sourcePatternId: record.sourcePatternId,
+            directed: record.directed, peerParticipantActorKeys: [...(record.peerParticipantActorKeys || [])],
+            profileInterpretationState: record.profileInterpretationState
         }));
         // Coverage reports are provenance, never a sum of source claims or contribution units.
         return {

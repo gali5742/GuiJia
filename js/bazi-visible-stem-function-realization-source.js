@@ -9,7 +9,7 @@
     const priorSynthesisApi = GuiJia.baziStrengthSynthesis || null;
     const baseRealizationApi = GuiJia.baziVisibleStemFunctionRealization || null;
 
-    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.3';
+    const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_VERSION = '0.4';
     const VISIBLE_STEM_FUNCTION_REALIZATION_SOURCE_RULE_ID = 'BAZI-STRENGTH-VISIBLE-STEM-FUNCTION-REALIZATION-SOURCE-001';
 
     const sourceRealizationStates = Object.freeze({
@@ -25,6 +25,18 @@
     });
 
     const SOURCE_BASIS = Object.freeze([
+        Object.freeze({
+            source:'《滴天髓阐微·干支总论》左右贵乎同志前后造比较',
+            chart:'壬申 丙午 庚午 庚辰',
+            term:'日主有比肩之助；彼则时干比劫帮身，又可生水',
+            supports:Object.freeze(['hour-geng-daymaster-peer-support-realized-without-directed-generation'])
+        }),
+        Object.freeze({
+            source:'《滴天髓阐微·干支总论》左右贵乎同志后造',
+            chart:'壬午 丙午 庚申 戊寅',
+            term:'此则时上枭神克水，而不能生食',
+            supports:Object.freeze(['visible-wu-to-visible-ren-restraint-realized','visible-wu-to-visible-ren-generation-not-realized'])
+        }),
         Object.freeze({
             source:'《滴天髓阐微·八格》命例',
             chart:'丁丑 癸卯 乙卯 己卯',
@@ -63,7 +75,49 @@
         })
     ]);
 
+    const COMPARISON_SOURCE = Object.freeze({ ...DTS_SOURCE, revisionId:null, retrievedOn:'2026-11-25' });
     const DIRECT_SOURCE_PATTERNS = Object.freeze([
+        Object.freeze({
+            id:'DTS-PEER-REALIZATION-HOUR-GENG-HELPS-DAYMASTER-001',
+            chartKey:'壬申|丙午|庚午|庚辰',
+            relationScope:'daymaster-related',
+            directed:false,
+            peerParticipantActorKeys:Object.freeze(['visible:3:庚', 'daymaster:2:庚']),
+            functionType:'peer-support',
+            realizationState:sourceRealizationStates.REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'日主有比肩之助',
+            sourceCitation:'《滴天髓阐微·干支总论》左右贵乎同志前后造比较',
+            sourceProvenance:COMPARISON_SOURCE,
+            sourceContext:'此丙火之杀虽旺，壬水之根亦固，日主有比肩之助，辰土之生，谓身杀两停。彼则时干比劫帮身，又可生水。',
+            endpointBinding:'前造唯一非日干庚为时干庚，后造比较又明确以前造时干比劫帮身指认该参与者。保存为时干庚与日主的无向 peer pair，不建立有向 generation。又可生水只说明另一 function 的能力，不授权其 realization。',
+            scope:'exact-source-case-only'
+        }),
+        Object.freeze({
+            id:'DTS-VISIBLE-REALIZATION-WU-RESTRAINS-REN-001',
+            chartKey:'壬午|丙午|庚申|戊寅',
+            relationScope:'cross-visible-actor',
+            sourceActorKey:'visible:3:戊', targetActorKey:'visible:0:壬', functionType:'restraint',
+            realizationState:sourceRealizationStates.REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'此则时上枭神克水',
+            sourceCitation:'《滴天髓阐微·干支总论》左右贵乎同志后造',
+            sourceProvenance:COMPARISON_SOURCE,
+            sourceContext:'此则壬水坐午之绝地，敌杀无力；彼则时干比劫帮身，又可生水，此则时上枭神克水，而不能生食。',
+            endpointBinding:'此指后造，时上枭神为时干戊，水与食均承接年干壬。前造时干庚的功能不迁移到后造；敌杀无力没有注册为壬→丙 not-realized。',
+            scope:'exact-source-case-only'
+        }),
+        Object.freeze({
+            id:'DTS-VISIBLE-REALIZATION-WU-NOT-GENERATES-REN-001',
+            chartKey:'壬午|丙午|庚申|戊寅',
+            relationScope:'cross-visible-actor',
+            sourceActorKey:'visible:3:戊', targetActorKey:'visible:0:壬', functionType:'generation',
+            realizationState:sourceRealizationStates.NOT_REALIZED_IN_SOURCE_CONTEXT,
+            sourceTerm:'此则时上枭神克水，而不能生食',
+            sourceCitation:'《滴天髓阐微·干支总论》左右贵乎同志后造',
+            sourceProvenance:COMPARISON_SOURCE,
+            sourceContext:'此则壬水坐午之绝地，敌杀无力；彼则时干比劫帮身，又可生水，此则时上枭神克水，而不能生食。',
+            endpointBinding:'食承接庚日主的年干壬食神。不能生食明确否定戊→壬 generation；同一 pair 的 restraint 独立保存，不能作为日主的直接 support 或反向力量。',
+            scope:'exact-source-case-only'
+        }),
         Object.freeze({
             id:'DTS-VISIBLE-REALIZATION-YI-GENERATES-DING-001',
             chartKey:'丁丑|癸卯|乙卯|己卯',
@@ -152,6 +206,9 @@
         directSourceExactCaseOnly:true,
         mayResolveExistingDayMasterEdge:true,
         mayIntroduceSourceExplicitCrossVisibleEdge:true,
+        mayResolveExactSourcePeerPair:true,
+        peerUsesUnorderedParticipantPair:true,
+        peerDoesNotCreateDirectedEndpoints:true,
         elementalRelationAloneDoesNotCreateEdge:true,
         bearingAloneDoesNotResolveEdge:true,
         sourceContextStateIsNotActorGlobalState:true,
@@ -162,7 +219,7 @@
         majorityVoting:false,
         priorityAggregation:false,
         finalStrengthMapping:false,
-        statement:'本层只把原典命例中明确落到 source→target→function 的叙述写成 exact-source realization；既可以细化已有 day-master relation edge，也可以补入原文明确点名的 cross-visible edge。',
+        statement:'本层把原典命例中明确落到 directed source→target→function 或无向 peer participant pair 的叙述写成 exact-source realization；可细化既有 day-master relation，并补入原文明确点名的 cross-visible edge。',
         boundary:'命例外不得仅凭五行相生相克、柱位距离、bearing-supported 或 actor presence 泛化为 realized / not-realized；source-context realization 也不得升级为 actor global effective / ineffective。'
     });
 
@@ -220,19 +277,24 @@
         return Object.freeze([]);
     };
 
+    const participantKeysFor = (pattern = {}) => pattern.directed === false
+        ? pattern.peerParticipantActorKeys || [] : [pattern.sourceActorKey, pattern.targetActorKey];
+    const identityFor = (record = {}) => record.directed === false
+        ? `${record.relationScope}|peer|${unique(record.peerParticipantActorKeys || []).sort().join('|')}|${record.functionType}`
+        : `${record.relationScope}|directed|${record.sourceActorKey}|${record.targetActorKey}|${record.functionType}`;
     const findMatchingRecord = (records = [], pattern = {}) => records.find((record) =>
-        record.directed !== false
-        && record.sourceActorKey === pattern.sourceActorKey
-        && record.targetActorKey === pattern.targetActorKey
-        && record.functionType === pattern.functionType
+        identityFor(record) === identityFor(pattern)
     ) || null;
 
     const makeDirectSourceRecord = (pattern = {}, existingRecord = null, semanticModel = {}, synthesis = {}, index = 0) => {
-        const actorKeys = [pattern.sourceActorKey, pattern.targetActorKey];
+        const actorKeys = participantKeysFor(pattern);
+        const peer = pattern.directed === false;
         const realized = pattern.realizationState === sourceRealizationStates.REALIZED_IN_SOURCE_CONTEXT;
         return Object.freeze({
             ...(existingRecord || {}),
-            id:existingRecord?.id || `VSFRZS-${String(index + 1).padStart(2, '0')}`,
+            id:existingRecord && Object.values(sourceRealizationStates).includes(existingRecord.realizationState)
+                && existingRecord.realizationState !== pattern.realizationState
+                ? `${existingRecord.id}-SOURCE` : existingRecord?.id || `VSFRZS-${String(index + 1).padStart(2, '0')}`,
             relationScope:existingRecord?.relationScope || pattern.relationScope,
             upstreamDirectedFunctionRecordId:existingRecord?.upstreamDirectedFunctionRecordId || null,
             sourcePatternId:pattern.id,
@@ -247,10 +309,10 @@
             flow:existingRecord?.flow || (pattern.relationScope === 'daymaster-related' ? null : 'cross-actor-directed'),
             functionType:pattern.functionType,
             strengthMeaning:existingRecord?.strengthMeaning || null,
-            directed:true,
-            sourceActorKey:pattern.sourceActorKey,
-            targetActorKey:pattern.targetActorKey,
-            peerParticipantActorKeys:Object.freeze([]),
+            directed:!peer,
+            sourceActorKey:peer ? null : pattern.sourceActorKey,
+            targetActorKey:peer ? null : pattern.targetActorKey,
+            peerParticipantActorKeys:freezeArray(peer ? actorKeys : []),
             participantActorKeys:freezeArray(actorKeys),
             participantEffectIds:participantEffectIdsFor(semanticModel, actorKeys),
             reachabilityRecordId:existingRecord?.reachabilityRecordId || null,
@@ -262,10 +324,12 @@
                 : 'resolved-direct-source-function-not-realized',
             actorGlobalEffectiveState:null,
             genericVisibleEffectiveState:null,
-            statement:realized
+            statement:peer
+                ? '原典命例及前后造比较明确说明该 peer pair 的扶助已发生；只保存无向参与者与该命例的 realization。'
+                : realized
                 ? '原典命例明确描述该 source→target function 已实际发生，因此仅在该 exact source context 下记录 realized-in-source-context。'
                 : '原典命例明确描述该 source→target function 未能发生，因此仅在该 exact source context 下记录 not-realized-in-source-context。',
-            boundary:'该结果严格绑定命例、source、target 与 function；不得迁移到其他命局、其他 target，也不得升级为 source actor 的全局 effective / ineffective。'
+            boundary:'该结果严格绑定命例、参与者与 function；不得迁移到其他命局或其他参与者，也不得升级为 actor 的全局 effective / ineffective。'
         });
     };
 
@@ -276,7 +340,14 @@
         const baseRecords = synthesis.visibleStemFunctionRealizationRecords || [];
         return Object.freeze(DIRECT_SOURCE_PATTERNS
             .filter((pattern) => pattern.chartKey === key)
-            .filter((pattern) => actors.has(pattern.sourceActorKey) && actors.has(pattern.targetActorKey))
+            .filter((pattern) => participantKeysFor(pattern).length === 2 && participantKeysFor(pattern).every((actorKey) => actors.has(actorKey)))
+            .filter((pattern) => pattern.directed !== false || (synthesis.visibleStemDirectedFunctionRecords || []).filter((record) =>
+                record.directed === false && record.functionType === pattern.functionType
+                && record.flow === 'peer-with-daymaster' && record.strengthMeaning === 'support'
+                && record.sourceActor === null && record.targetActor === null
+                && (record.peerParticipants || []).length === 2
+                && unique((record.peerParticipants || []).map((actor) => actor.actorKey)).length === 2
+                && participantKeysFor(pattern).every((key) => (record.peerParticipants || []).some((actor) => actor.actorKey === key))).length === 1)
             .map((pattern, index) => makeDirectSourceRecord(
                 pattern,
                 findMatchingRecord(baseRecords, pattern),
@@ -288,20 +359,22 @@
 
     const refineRealizationRecords = (semanticModel = {}, synthesis = {}, sourceRecords = buildDirectSourceRecords(semanticModel, synthesis)) => {
         const replacements = new Map(sourceRecords.map((record) => [
-            `${record.sourceActorKey}|${record.targetActorKey}|${record.functionType}`,
+            identityFor(record),
             record
         ]));
         const consumed = new Set();
         const refined = (synthesis.visibleStemFunctionRealizationRecords || []).map((record) => {
-            if (record.directed === false) return record;
-            const key = `${record.sourceActorKey}|${record.targetActorKey}|${record.functionType}`;
+            const key = identityFor(record);
             const replacement = replacements.get(key);
             if (!replacement) return record;
+            // Keep contrary resolved evidence for the aggregation layer to flag as inconsistent.
+            if (Object.values(sourceRealizationStates).includes(record.realizationState)
+                && record.realizationState !== replacement.realizationState) return record;
             consumed.add(key);
             return replacement;
         });
         sourceRecords.forEach((record) => {
-            const key = `${record.sourceActorKey}|${record.targetActorKey}|${record.functionType}`;
+            const key = identityFor(record);
             if (!consumed.has(key)) refined.push(record);
         });
         return Object.freeze(refined);
@@ -332,6 +405,8 @@
         value:Object.freeze({
             sourceActorKey:record.sourceActorKey,
             targetActorKey:record.targetActorKey,
+            directed:record.directed,
+            peerParticipantActorKeys:freezeArray(record.peerParticipantActorKeys || []),
             functionType:record.functionType,
             realizationState:record.realizationState,
             sourcePatternId:record.sourcePatternId,
