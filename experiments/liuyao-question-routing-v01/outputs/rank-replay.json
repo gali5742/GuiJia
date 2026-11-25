@@ -1,0 +1,3026 @@
+{
+  "baseline": "87124b972b2ce037f72e820d0e472b9d5ab0d5a6",
+  "encoderCalls": 76,
+  "decisionMatches": 228,
+  "weightsSha256": "e5d29fcfa1967f4be207468e233c76fc7faf8bfd10624053055ea73bc0b492b6",
+  "rows": [
+    {
+      "id": "D-S1-1",
+      "group": "direct",
+      "expected": "financial_fortune",
+      "multiScore": 0.1343334146168846,
+      "current": {
+        "first": {
+          "label": "financial_fortune",
+          "score": 0.9661180182813763
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.017037731139068257
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9661180182813763,
+        "firstRoute": "financial_fortune",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "financial_fortune"
+      },
+      "legacy": {
+        "first": {
+          "label": "financial_fortune",
+          "score": 0.9685826168572276
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.39073854947742226
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9685826168572276,
+        "firstRoute": "financial_fortune",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "financial_fortune"
+        ],
+        "selected": "financial_fortune"
+      }
+    },
+    {
+      "id": "D-S1-2",
+      "group": "background",
+      "expected": "financial_fortune",
+      "multiScore": 0.28180852631391495,
+      "current": {
+        "first": {
+          "label": "financial_fortune",
+          "score": 0.5583184125744162
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.17607742089617326
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5583184125744162,
+        "firstRoute": "financial_fortune",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "financial_fortune",
+          "score": 0.7155061302422022
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.4962717456632693
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7155061302422022,
+        "firstRoute": "financial_fortune",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "financial_fortune"
+        ],
+        "selected": "financial_fortune"
+      }
+    },
+    {
+      "id": "D-S2-1",
+      "group": "direct",
+      "expected": "business_operation",
+      "multiScore": 0.1963308344095671,
+      "current": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.9428300228023723
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.04670330740477747
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9428300228023723,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "business_operation"
+      },
+      "legacy": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.9591282166456416
+        },
+        "second": {
+          "label": "financial_fortune",
+          "score": 0.4209924678179346
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9591282166456416,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "business_operation"
+        ],
+        "selected": "business_operation"
+      }
+    },
+    {
+      "id": "D-S2-2",
+      "group": "background",
+      "expected": "business_operation",
+      "multiScore": 0.4949469840359224,
+      "current": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.35347274721334204
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.12511448914363005
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.35347274721334204,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.5232571113244691
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.40889126291593225
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5232571113244691,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "business_operation"
+        ],
+        "selected": "business_operation"
+      }
+    },
+    {
+      "id": "D-S3-1",
+      "group": "direct",
+      "expected": "commercial_transaction",
+      "multiScore": 0.18468284064647375,
+      "current": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.5877745142479632
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.14763647879357716
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5877745142479632,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.6816886991399531
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.29285701508035883
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6816886991399531,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "commercial_transaction"
+        ],
+        "selected": "commercial_transaction"
+      }
+    },
+    {
+      "id": "D-S3-2",
+      "group": "background",
+      "expected": "commercial_transaction",
+      "multiScore": 0.6876117170038545,
+      "current": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.6370238358020959
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.1548110903069951
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6370238358020959,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.8059003245405785
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.24819323497346438
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8059003245405785,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "commercial_transaction"
+        ],
+        "selected": "commercial_transaction"
+      }
+    },
+    {
+      "id": "D-S4-1",
+      "group": "direct",
+      "expected": "inventory_purchase",
+      "multiScore": 0.35416471950861467,
+      "current": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.5253348927380758
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.060872494427323114
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5253348927380758,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.614956155907569
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.2539978964129673
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.614956155907569,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "inventory_purchase"
+        ],
+        "selected": "inventory_purchase"
+      }
+    },
+    {
+      "id": "D-S4-2",
+      "group": "background",
+      "expected": "inventory_purchase",
+      "multiScore": 0.6032726788569867,
+      "current": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.6158980381847351
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.13802106507656614
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6158980381847351,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.8431120536145988
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.6440688145577286
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8431120536145988,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "inventory_purchase",
+          "inventory_sale"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S5-1",
+      "group": "direct",
+      "expected": "inventory_sale",
+      "multiScore": 0.5624454246943974,
+      "current": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.5158772226026848
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.30934274979552034
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5158772226026848,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.7490274401827649
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.3067858504422483
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7490274401827649,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "inventory_sale"
+        ],
+        "selected": "inventory_sale"
+      }
+    },
+    {
+      "id": "D-S5-2",
+      "group": "background",
+      "expected": "inventory_sale",
+      "multiScore": 0.5979864575702916,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.6590714646632144
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.14974842355867338
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.14974842355867338,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.5258738734720189
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.38200520120499065
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5258738734720189,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "inventory_sale"
+        ],
+        "selected": "inventory_sale"
+      }
+    },
+    {
+      "id": "D-S6-1",
+      "group": "direct",
+      "expected": "borrow_money",
+      "multiScore": 0.28134170060971986,
+      "current": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.7680180831427733
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.04914344756788277
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7680180831427733,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "borrow_money"
+      },
+      "legacy": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.7715510823429778
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.42335104509227145
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7715510823429778,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "borrow_money"
+        ],
+        "selected": "borrow_money"
+      }
+    },
+    {
+      "id": "D-S6-2",
+      "group": "background",
+      "expected": "borrow_money",
+      "multiScore": 0.585630447146177,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.8743005696719971
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.03774016379493284
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.03774016379493284,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.38240367032744177
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.2295802365166235
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.38240367032744177,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": 1,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S7-1",
+      "group": "direct",
+      "expected": "lend_money",
+      "multiScore": 0.40230362380839907,
+      "current": {
+        "first": {
+          "label": "lend_money",
+          "score": 0.8490716726088677
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.05649265530263143
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8490716726088677,
+        "firstRoute": "lend_money",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "lend_money"
+      },
+      "legacy": {
+        "first": {
+          "label": "lend_money",
+          "score": 0.9477073728534379
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.6654573937028232
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9477073728534379,
+        "firstRoute": "lend_money",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "borrow_money",
+          "lend_money"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S7-2",
+      "group": "background",
+      "expected": "lend_money",
+      "multiScore": 0.5082323452324453,
+      "current": {
+        "first": {
+          "label": "lend_money",
+          "score": 0.4629497106520202
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.1619887102089049
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.4629497106520202,
+        "firstRoute": "lend_money",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "lend_money",
+          "score": 0.6317425031688335
+        },
+        "second": {
+          "label": "income_salary",
+          "score": 0.3604730553721005
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6317425031688335,
+        "firstRoute": "lend_money",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "lend_money"
+        ],
+        "selected": "lend_money"
+      }
+    },
+    {
+      "id": "D-S8-1",
+      "group": "direct",
+      "expected": "debt_collection",
+      "multiScore": 0.607097606590803,
+      "current": {
+        "first": {
+          "label": "debt_collection",
+          "score": 0.5807005690515495
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.11807444473676469
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5807005690515495,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_collection",
+          "score": 0.7921306269472115
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.5044121896343549
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7921306269472115,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "debt_collection",
+          "debt_repayment"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S8-2",
+      "group": "background",
+      "expected": "debt_collection",
+      "multiScore": 0.6063899895594339,
+      "current": {
+        "first": {
+          "label": "debt_collection",
+          "score": 0.45482703087738774
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.3608206906324485
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.45482703087738774,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_collection",
+          "score": 0.7675321831387987
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.30122514015370094
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7675321831387987,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "debt_collection"
+        ],
+        "selected": "debt_collection"
+      }
+    },
+    {
+      "id": "D-S9-1",
+      "group": "direct",
+      "expected": "debt_repayment",
+      "multiScore": 0.4945222013573293,
+      "current": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.624347737126334
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.15350648788963983
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.624347737126334,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.8538154182406124
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.696634928070327
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8538154182406124,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "debt_collection",
+          "debt_repayment"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S9-2",
+      "group": "background",
+      "expected": "debt_repayment",
+      "multiScore": 0.5049674679662499,
+      "current": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.2329992231662858
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.2094648772448841
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.2329992231662858,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.5258310117526782
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.4453641407506087
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5258310117526782,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "debt_repayment"
+        ],
+        "selected": "debt_repayment"
+      }
+    },
+    {
+      "id": "D-S10-1",
+      "group": "direct",
+      "expected": "partnership",
+      "multiScore": 0.8747880333290401,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.7654808962159723
+        },
+        "second": {
+          "label": "partnership",
+          "score": 0.21789659015741653
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.21789659015741653,
+        "firstRoute": "partnership",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "partnership",
+          "score": 0.8724919731929618
+        },
+        "second": {
+          "label": "marital_relationship",
+          "score": 0.17541531219111064
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8724919731929618,
+        "firstRoute": "partnership",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "partnership"
+        ],
+        "selected": "partnership"
+      }
+    },
+    {
+      "id": "D-S10-2",
+      "group": "background",
+      "expected": "partnership",
+      "multiScore": 0.663638993508387,
+      "current": {
+        "first": {
+          "label": "partnership",
+          "score": 0.5858709252017036
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.2092946545531449
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5858709252017036,
+        "firstRoute": "partnership",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "partnership",
+          "score": 0.8135701706849656
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.632366858290554
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8135701706849656,
+        "firstRoute": "partnership",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "commercial_transaction",
+          "partnership"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S11-1",
+      "group": "direct",
+      "expected": "investment_profit",
+      "multiScore": 0.3736182169778947,
+      "current": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.6800572897118604
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.07038632774719997
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6800572897118604,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.8113555174825436
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.4272418910706718
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8113555174825436,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_profit"
+        ],
+        "selected": "investment_profit"
+      }
+    },
+    {
+      "id": "D-S11-2",
+      "group": "background",
+      "expected": "investment_profit",
+      "multiScore": 0.5943857754458841,
+      "current": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.16883953715330366
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.1664005506260858
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.16883953715330366,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.4671812244759305
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.42444542439082195
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.4671812244759305,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": 1,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S12-1",
+      "group": "direct",
+      "expected": "investment_liquidation",
+      "multiScore": 0.2232568358667063,
+      "current": {
+        "first": {
+          "label": "investment_liquidation",
+          "score": 0.5938661767473569
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.14518234732276664
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5938661767473569,
+        "firstRoute": "investment_liquidation",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_liquidation",
+          "score": 0.782531206916506
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.5983950716361579
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.782531206916506,
+        "firstRoute": "investment_liquidation",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "inventory_sale",
+          "investment_liquidation",
+          "investment_position_decision"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S12-2",
+      "group": "background",
+      "expected": "investment_liquidation",
+      "multiScore": 0.5773463606879866,
+      "current": {
+        "first": {
+          "label": "investment_liquidation",
+          "score": 0.20910397461299454
+        },
+        "second": {
+          "label": "financial_fortune",
+          "score": 0.09167090248085344
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.20910397461299454,
+        "firstRoute": "investment_liquidation",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_liquidation",
+          "score": 0.37248271124571447
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.3122345829209294
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.37248271124571447,
+        "firstRoute": "investment_liquidation",
+        "expectedRouteRank": 1,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S13-1",
+      "group": "direct",
+      "expected": "investment_suitability",
+      "multiScore": 0.25747967078255174,
+      "current": {
+        "first": {
+          "label": "investment_suitability",
+          "score": 0.41432204105546444
+        },
+        "second": {
+          "label": "partnership",
+          "score": 0.2953437084077153
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.41432204105546444,
+        "firstRoute": "investment_suitability",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "partnership",
+          "score": 0.7621311305708156
+        },
+        "second": {
+          "label": "investment_suitability",
+          "score": 0.7605809399962583
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.7605809399962583,
+        "firstRoute": "partnership",
+        "expectedRouteRank": 2,
+        "admitted": [
+          "partnership",
+          "investment_suitability"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S13-2",
+      "group": "background",
+      "expected": "investment_suitability",
+      "multiScore": 0.3799320091956505,
+      "current": {
+        "first": {
+          "label": "investment_suitability",
+          "score": 0.4257976515801812
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.15128841022343337
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.4257976515801812,
+        "firstRoute": "investment_suitability",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_suitability",
+          "score": 0.6849844713740696
+        },
+        "second": {
+          "label": "investment_profit",
+          "score": 0.5071557500005777
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6849844713740696,
+        "firstRoute": "investment_suitability",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_profit",
+          "investment_suitability"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S14-1",
+      "group": "direct",
+      "expected": "investment_position_decision",
+      "multiScore": 0.6636074026356008,
+      "current": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.4528775423010511
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.2124246499678075
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.4528775423010511,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.7097242063749649
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.2522526781130148
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7097242063749649,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_position_decision"
+        ],
+        "selected": "investment_position_decision"
+      }
+    },
+    {
+      "id": "D-S14-2",
+      "group": "background",
+      "expected": "investment_position_decision",
+      "multiScore": 0.20431103247312113,
+      "current": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.5553382399675925
+        },
+        "second": {
+          "label": "investment_price_trend",
+          "score": 0.17026384617200022
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.5553382399675925,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.7109766374408507
+        },
+        "second": {
+          "label": "investment_price_trend",
+          "score": 0.4790294481551982
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7109766374408507,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_position_decision"
+        ],
+        "selected": "investment_position_decision"
+      }
+    },
+    {
+      "id": "D-S15-1",
+      "group": "direct",
+      "expected": "investment_price_trend",
+      "multiScore": 0.25221459839051324,
+      "current": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.6717362041450854
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.2689505253124683
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6717362041450854,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.9049756499074397
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.39280852935085475
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9049756499074397,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_price_trend"
+        ],
+        "selected": "investment_price_trend"
+      }
+    },
+    {
+      "id": "D-S15-2",
+      "group": "background",
+      "expected": "investment_price_trend",
+      "multiScore": 0.201184631419116,
+      "current": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.43430742525027266
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.12992951172069583
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.43430742525027266,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.6504955692518849
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.4310517225465362
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6504955692518849,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "investment_price_trend"
+        ],
+        "selected": "investment_price_trend"
+      }
+    },
+    {
+      "id": "D-S16-1",
+      "group": "direct",
+      "expected": "income_salary",
+      "multiScore": 0.2687025840420718,
+      "current": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.9350283880045263
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.04740920264129455
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9350283880045263,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "income_salary"
+      },
+      "legacy": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.9573843473477932
+        },
+        "second": {
+          "label": "income_bonus",
+          "score": 0.2811003014332426
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9573843473477932,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "income_salary"
+        ],
+        "selected": "income_salary"
+      }
+    },
+    {
+      "id": "D-S16-2",
+      "group": "background",
+      "expected": "income_salary",
+      "multiScore": 0.3237692170658645,
+      "current": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.6845694776293618
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.09263508968586019
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6845694776293618,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.7022263199564714
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.20968630199839122
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7022263199564714,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "income_salary"
+        ],
+        "selected": "income_salary"
+      }
+    },
+    {
+      "id": "D-S17-1",
+      "group": "direct",
+      "expected": "income_bonus",
+      "multiScore": 0.43885056237253356,
+      "current": {
+        "first": {
+          "label": "income_bonus",
+          "score": 0.9341111479509457
+        },
+        "second": {
+          "label": "income_salary",
+          "score": 0.015939577056715917
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9341111479509457,
+        "firstRoute": "income_bonus",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "income_bonus"
+      },
+      "legacy": {
+        "first": {
+          "label": "income_bonus",
+          "score": 0.9404413638197764
+        },
+        "second": {
+          "label": "income_salary",
+          "score": 0.4385894403369864
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9404413638197764,
+        "firstRoute": "income_bonus",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "income_bonus"
+        ],
+        "selected": "income_bonus"
+      }
+    },
+    {
+      "id": "D-S17-2",
+      "group": "background",
+      "expected": "income_bonus",
+      "multiScore": 0.3475279580857597,
+      "current": {
+        "first": {
+          "label": "income_bonus",
+          "score": 0.6994207279891649
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.08540168108548876
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6994207279891649,
+        "firstRoute": "income_bonus",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "income_bonus",
+          "score": 0.8204927593680387
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.35280878710859476
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8204927593680387,
+        "firstRoute": "income_bonus",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "income_bonus"
+        ],
+        "selected": "income_bonus"
+      }
+    },
+    {
+      "id": "D-S18-1",
+      "group": "direct",
+      "expected": "receive_item",
+      "multiScore": 0.367528234056199,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.631289006976724
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.25091251303817635
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.25091251303817635,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.7235087253132859
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.3523564481939604
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7235087253132859,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "receive_item"
+        ],
+        "selected": "receive_item"
+      }
+    },
+    {
+      "id": "D-S18-2",
+      "group": "background",
+      "expected": "receive_item",
+      "multiScore": 0.5812539325839193,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.729589176661657
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.23963029577402173
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.23963029577402173,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.8373475469658226
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.28913705346819196
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8373475469658226,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "receive_item"
+        ],
+        "selected": "receive_item"
+      }
+    },
+    {
+      "id": "D-S19-1",
+      "group": "direct",
+      "expected": "item_purchase",
+      "multiScore": 0.2488920716594503,
+      "current": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.28160611825479775
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.2547727153879641
+        },
+        "expectedRank": 3,
+        "expectedScore": 0.15301578280388387,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 2,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.5628317915909049
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.4784640315606964
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.4784640315606964,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 2,
+        "admitted": [
+          "inventory_sale"
+        ],
+        "selected": "inventory_sale"
+      }
+    },
+    {
+      "id": "D-S19-2",
+      "group": "background",
+      "expected": "item_purchase",
+      "multiScore": 0.21556244470801672,
+      "current": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.1803873600775429
+        },
+        "second": {
+          "label": "commercial_transaction",
+          "score": 0.17732831473440389
+        },
+        "expectedRank": 4,
+        "expectedScore": 0.11695078452941082,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 4,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.46428821818826077
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.4345247287191494
+        },
+        "expectedRank": 3,
+        "expectedScore": 0.4025266792826128,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": 3,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S20-1",
+      "group": "direct",
+      "expected": "relationship_development",
+      "multiScore": 0.31657429838132123,
+      "current": {
+        "first": {
+          "label": "relationship_development",
+          "score": 0.8872180996594153
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.05035224159705724
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.8872180996594153,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "relationship_development"
+      },
+      "legacy": {
+        "first": {
+          "label": "relationship_development",
+          "score": 0.9200386459624307
+        },
+        "second": {
+          "label": "marriage_match",
+          "score": 0.49800749218947327
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9200386459624307,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "relationship_development"
+        ],
+        "selected": "relationship_development"
+      }
+    },
+    {
+      "id": "D-S20-2",
+      "group": "background",
+      "expected": "relationship_development",
+      "multiScore": 0.6011575434381059,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.6263305198514328
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.2492412268831125
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.2492412268831125,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": 1,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "relationship_development",
+          "score": 0.6599645928941461
+        },
+        "second": {
+          "label": "marital_relationship",
+          "score": 0.4155601128319766
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.6599645928941461,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "relationship_development"
+        ],
+        "selected": "relationship_development"
+      }
+    },
+    {
+      "id": "D-S21-1",
+      "group": "direct",
+      "expected": "marriage_match",
+      "multiScore": 0.27408506060206395,
+      "current": {
+        "first": {
+          "label": "marriage_match",
+          "score": 0.9107212468144145
+        },
+        "second": {
+          "label": "marital_relationship",
+          "score": 0.053911855111496716
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9107212468144145,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "marriage_match"
+      },
+      "legacy": {
+        "first": {
+          "label": "marriage_match",
+          "score": 0.9178363220001653
+        },
+        "second": {
+          "label": "marital_relationship",
+          "score": 0.597494161047624
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9178363220001653,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "marriage_match",
+          "marital_relationship"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S21-2",
+      "group": "background",
+      "expected": "marriage_match",
+      "multiScore": 0.5070455366747557,
+      "current": {
+        "first": {
+          "label": "marriage_match",
+          "score": 0.27761640077564
+        },
+        "second": {
+          "label": "marital_relationship",
+          "score": 0.2480118401041608
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.27761640077564,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "marital_relationship",
+          "score": 0.5117814387116579
+        },
+        "second": {
+          "label": "marriage_match",
+          "score": 0.45398035022589117
+        },
+        "expectedRank": 2,
+        "expectedScore": 0.45398035022589117,
+        "firstRoute": "marital_relationship",
+        "expectedRouteRank": 2,
+        "admitted": [
+          "marital_relationship"
+        ],
+        "selected": "marital_relationship"
+      }
+    },
+    {
+      "id": "D-S22-1",
+      "group": "direct",
+      "expected": "marital_relationship",
+      "multiScore": 0.23487801421393104,
+      "current": {
+        "first": {
+          "label": "marital_relationship",
+          "score": 0.9529401240699641
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.016469459757048395
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9529401240699641,
+        "firstRoute": "marital_relationship",
+        "expectedRouteRank": 1,
+        "status": "selected",
+        "selected": "marital_relationship"
+      },
+      "legacy": {
+        "first": {
+          "label": "marital_relationship",
+          "score": 0.9595007658786885
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.548987607716304
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.9595007658786885,
+        "firstRoute": "marital_relationship",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "relationship_development",
+          "marital_relationship"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-S22-2",
+      "group": "background",
+      "expected": "marital_relationship",
+      "multiScore": 0.19036317748812506,
+      "current": {
+        "first": {
+          "label": "marital_relationship",
+          "score": 0.47712332972639193
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.3165400339894974
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.47712332972639193,
+        "firstRoute": "marital_relationship",
+        "expectedRouteRank": 1,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "marital_relationship",
+          "score": 0.7506205032373676
+        },
+        "second": {
+          "label": "marriage_match",
+          "score": 0.575169550236019
+        },
+        "expectedRank": 1,
+        "expectedScore": 0.7506205032373676,
+        "firstRoute": "marital_relationship",
+        "expectedRouteRank": 1,
+        "admitted": [
+          "marriage_match",
+          "marital_relationship"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-1",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.817193733675294,
+      "current": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.24989626564424477
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.11876356385762155
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.3810090602759572
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.36603957506506757
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-2",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.7018076258937078,
+      "current": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.4908313906773481
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.1708969284805787
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.7737800354073431
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.5549944894473517
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": null,
+        "admitted": [
+          "investment_position_decision",
+          "investment_price_trend"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-3",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.7275325845265184,
+      "current": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.42639340633313094
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.1730438757589678
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "commercial_transaction",
+          "score": 0.5710844588161266
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.27511765720392223
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "commercial_transaction",
+        "expectedRouteRank": null,
+        "admitted": [
+          "commercial_transaction"
+        ],
+        "selected": "commercial_transaction"
+      }
+    },
+    {
+      "id": "D-multi_cross-4",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.760682564259209,
+      "current": {
+        "first": {
+          "label": "relationship_development",
+          "score": 0.31047903295708185
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.1622075084196737
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.4801755136960206
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.4378126551670412
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-5",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.9141948348884762,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.29355787154267954
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.16663966837378377
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.46388589516501855
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.40065319726007603
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-6",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.8088447091474285,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.3488917011847864
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.30302393761674923
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.5276381012991622
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.2500859000280154
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "admitted": [
+          "receive_item"
+        ],
+        "selected": "receive_item"
+      }
+    },
+    {
+      "id": "D-multi_cross-7",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.8420069671511494,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.40564704657500517
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.388329750416349
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.692136323756188
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.5669091136344138
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "admitted": [
+          "borrow_money",
+          "lend_money"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-8",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.7535905881827423,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.22893878914452298
+        },
+        "second": {
+          "label": "marriage_match",
+          "score": 0.2226435536943117
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.40032007178159207
+        },
+        "second": {
+          "label": "marriage_match",
+          "score": 0.37212545675957087
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_cross-9",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.6687697936166211,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.40176741478885836
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.20172982820250546
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_purchase",
+          "score": 0.5610739007359986
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.3239833680851176
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_purchase",
+        "expectedRouteRank": null,
+        "admitted": [
+          "inventory_purchase"
+        ],
+        "selected": "inventory_purchase"
+      }
+    },
+    {
+      "id": "D-multi_cross-10",
+      "group": "multi_cross",
+      "expected": null,
+      "multiScore": 0.8088768783374609,
+      "current": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.4581500592571849
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.1635291636860777
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.6789144460772427
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.5027536093328201
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": null,
+        "admitted": [
+          "inventory_sale",
+          "debt_repayment"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_same-1",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.8307151574290682,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.7699688108632421
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.04740447540506563
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_collection",
+          "score": 0.3728782212249236
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.32639482069284254
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_same-2",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.7600474755985578,
+      "current": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.7753879178750624
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.08534642179022651
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": null,
+        "status": "selected",
+        "selected": "business_operation"
+      },
+      "legacy": {
+        "first": {
+          "label": "business_operation",
+          "score": 0.8638202574064741
+        },
+        "second": {
+          "label": "partnership",
+          "score": 0.5265980485303204
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": null,
+        "admitted": [
+          "business_operation",
+          "partnership"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_same-3",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.9515193496196024,
+      "current": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.6482504350083946
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.14684559524211246
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.7906579723698363
+        },
+        "second": {
+          "label": "financial_fortune",
+          "score": 0.363939730150223
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": null,
+        "admitted": [
+          "income_salary"
+        ],
+        "selected": "income_salary"
+      }
+    },
+    {
+      "id": "D-multi_same-4",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.555757224430255,
+      "current": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.8202852526208331
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.060375620987326996
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": null,
+        "status": "selected",
+        "selected": "investment_price_trend"
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_price_trend",
+          "score": 0.8511718932315095
+        },
+        "second": {
+          "label": "financial_fortune",
+          "score": 0.22752931825961872
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_price_trend",
+        "expectedRouteRank": null,
+        "admitted": [
+          "investment_price_trend"
+        ],
+        "selected": "investment_price_trend"
+      }
+    },
+    {
+      "id": "D-multi_same-5",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.5878979475360281,
+      "current": {
+        "first": {
+          "label": "item_purchase",
+          "score": 0.28721713267135635
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.1643044454637604
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "item_purchase",
+          "score": 0.5589139272752102
+        },
+        "second": {
+          "label": "inventory_sale",
+          "score": 0.3634296402627433
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "admitted": [
+          "item_purchase"
+        ],
+        "selected": "item_purchase"
+      }
+    },
+    {
+      "id": "D-multi_same-6",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.9400083929166365,
+      "current": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.4689003622948326
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.18422784290315644
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.7373146796063207
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.5171702167892304
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": null,
+        "admitted": [
+          "business_operation",
+          "investment_profit"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_same-7",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.7573278386245511,
+      "current": {
+        "first": {
+          "label": "marriage_match",
+          "score": 0.6497525834407645
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.17042142995598397
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "marriage_match",
+          "score": 0.7368108710820342
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.44592169545647187
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "marriage_match",
+        "expectedRouteRank": null,
+        "admitted": [
+          "marriage_match"
+        ],
+        "selected": "marriage_match"
+      }
+    },
+    {
+      "id": "D-multi_same-8",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.7659737253683047,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.5167860707520181
+        },
+        "second": {
+          "label": "partnership",
+          "score": 0.33079576374160713
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "partnership",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "partnership",
+          "score": 0.7809906126681131
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.5937944283102107
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "partnership",
+        "expectedRouteRank": null,
+        "admitted": [
+          "lend_money",
+          "partnership"
+        ],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-multi_same-9",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.3255671692962599,
+      "current": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.5399832161040885
+        },
+        "second": {
+          "label": "unresolved",
+          "score": 0.2523240292332163
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": null,
+        "status": "below_threshold",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "inventory_sale",
+          "score": 0.7050046819340529
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.3588222426374213
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "inventory_sale",
+        "expectedRouteRank": null,
+        "admitted": [
+          "inventory_sale"
+        ],
+        "selected": "inventory_sale"
+      }
+    },
+    {
+      "id": "D-multi_same-10",
+      "group": "multi_same",
+      "expected": null,
+      "multiScore": 0.88662448783585,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.5632171107299146
+        },
+        "second": {
+          "label": "partnership",
+          "score": 0.3707511698950786
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "partnership",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "partnership",
+          "score": 0.813138448537579
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.1865736247898646
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "partnership",
+        "expectedRouteRank": null,
+        "admitted": [
+          "partnership"
+        ],
+        "selected": "partnership"
+      }
+    },
+    {
+      "id": "D-unsupported-1",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.3508122064018583,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9944413837807836
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.000940425734652986
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.20590273005433282
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.16481046382098224
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-2",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.30273391556721857,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9812573755266351
+        },
+        "second": {
+          "label": "debt_repayment",
+          "score": 0.0032213046060486864
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_profit",
+          "score": 0.22840019188295851
+        },
+        "second": {
+          "label": "investment_liquidation",
+          "score": 0.21632272628258048
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_profit",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-3",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.5909236985313676,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.7819138624292704
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.07703914731556383
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "borrow_money",
+          "score": 0.5869918359253704
+        },
+        "second": {
+          "label": "lend_money",
+          "score": 0.48888599128393423
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "borrow_money",
+        "expectedRouteRank": null,
+        "admitted": [
+          "borrow_money"
+        ],
+        "selected": "borrow_money"
+      }
+    },
+    {
+      "id": "D-unsupported-4",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.42991316380184935,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.99225735260732
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.0008222439455904313
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.16960661164062305
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.15060191630043898
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-5",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.7185403515128955,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9153443646090244
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.02480138093710012
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_collection",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "debt_repayment",
+          "score": 0.46737127530060646
+        },
+        "second": {
+          "label": "debt_collection",
+          "score": 0.4465819825094316
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "debt_repayment",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-6",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.407021127269181,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9608641495097661
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.010822402109219252
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "item_purchase",
+          "score": 0.31022064716087017
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.16991625771705973
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-7",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.12990266323034114,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9841791662833905
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.003576504731688185
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "business_operation",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "item_purchase",
+          "score": 0.28495800005854466
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.22094961188912363
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-8",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.09153555116839039,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9198674906295089
+        },
+        "second": {
+          "label": "item_purchase",
+          "score": 0.020802026364210784
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "item_purchase",
+          "score": 0.40141524240048504
+        },
+        "second": {
+          "label": "business_operation",
+          "score": 0.30232263616829336
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "item_purchase",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-9",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.310821179391173,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9072664836187796
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.01724720249326934
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "relationship_development",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "financial_fortune",
+          "score": 0.26737031231106406
+        },
+        "second": {
+          "label": "relationship_development",
+          "score": 0.1976227977117717
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "financial_fortune",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-10",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.47273629199248707,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9548805540825699
+        },
+        "second": {
+          "label": "income_salary",
+          "score": 0.009234217771923715
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "income_salary",
+          "score": 0.2657910130551052
+        },
+        "second": {
+          "label": "inventory_purchase",
+          "score": 0.1808738451059962
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "income_salary",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-11",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.26380693581486414,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.8570460366755988
+        },
+        "second": {
+          "label": "investment_position_decision",
+          "score": 0.040331160122128486
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "investment_position_decision",
+          "score": 0.4253167655666329
+        },
+        "second": {
+          "label": "investment_price_trend",
+          "score": 0.35050306411163973
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "investment_position_decision",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    },
+    {
+      "id": "D-unsupported-12",
+      "group": "unsupported",
+      "expected": null,
+      "multiScore": 0.2103439132323964,
+      "current": {
+        "first": {
+          "label": "unresolved",
+          "score": 0.9673373537473962
+        },
+        "second": {
+          "label": "receive_item",
+          "score": 0.0049209395846760975
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "status": "unresolved_first",
+        "selected": null
+      },
+      "legacy": {
+        "first": {
+          "label": "receive_item",
+          "score": 0.19575850512759457
+        },
+        "second": {
+          "label": "borrow_money",
+          "score": 0.1924351365528293
+        },
+        "expectedRank": null,
+        "expectedScore": null,
+        "firstRoute": "receive_item",
+        "expectedRouteRank": null,
+        "admitted": [],
+        "selected": null
+      }
+    }
+  ]
+}
