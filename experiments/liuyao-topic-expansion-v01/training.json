@@ -1,0 +1,406 @@
+{
+  "original": [
+    {
+      "id": "a1",
+      "group": "direct",
+      "multi": false,
+      "text": "我寄卖的那套雕刻刀有人肯买么"
+    },
+    {
+      "id": "a2",
+      "group": "direct",
+      "multi": false,
+      "text": "这个季度底薪能调高一点吗"
+    },
+    {
+      "id": "a3",
+      "group": "direct",
+      "multi": false,
+      "text": "她愿意和我领证么"
+    },
+    {
+      "id": "a4",
+      "group": "direct",
+      "multi": false,
+      "text": "那笔木料账何时能收回来"
+    },
+    {
+      "id": "a5",
+      "group": "direct",
+      "multi": false,
+      "text": "借一笔摊位押金有戏吗"
+    },
+    {
+      "id": "a6",
+      "group": "direct",
+      "multi": false,
+      "text": "朋友托我入股的烘焙坊能赚到钱吗"
+    },
+    {
+      "id": "a7",
+      "group": "direct",
+      "multi": false,
+      "text": "单位许的开拓奖会发到我手里吗"
+    },
+    {
+      "id": "a8",
+      "group": "direct",
+      "multi": false,
+      "text": "银价入冬还会上扬么"
+    },
+    {
+      "id": "a9",
+      "group": "background",
+      "multi": false,
+      "text": "库房已经清空，摊主催我交订金，这批毛线该补货吗"
+    },
+    {
+      "id": "a10",
+      "group": "background",
+      "multi": false,
+      "text": "去年我跟她因为房子吵过一次，今年我们的婚姻还能维持好吗"
+    },
+    {
+      "id": "a11",
+      "group": "background",
+      "multi": false,
+      "text": "材料商知道我急用钱，拖着的运费月底前能要回来吗"
+    },
+    {
+      "id": "a12",
+      "group": "background",
+      "multi": false,
+      "text": "为交租我准备出掉基金，眼下是合适的退出时机吗"
+    },
+    {
+      "id": "a13",
+      "group": "background",
+      "multi": false,
+      "text": "他邀我分担铺租，一起管这间洗衣店能合得来吗"
+    },
+    {
+      "id": "a14",
+      "group": "background",
+      "multi": false,
+      "text": "底薪写在合同里，我惦记的是谈好的年终奖励能否兑现"
+    },
+    {
+      "id": "a15",
+      "group": "background",
+      "multi": false,
+      "text": "我已经把货架腾好了，那批旧轮胎能卖得出去吗"
+    },
+    {
+      "id": "a16",
+      "group": "background",
+      "multi": false,
+      "text": "舅舅知道我刚搬家，说要送我一盏吊灯，东西能到手么"
+    },
+    {
+      "id": "a17",
+      "group": "cross",
+      "multi": true,
+      "text": "我的津贴能涨么，古董怀表能卖掉么"
+    },
+    {
+      "id": "a18",
+      "group": "cross",
+      "multi": true,
+      "text": "我和老秦搭伙成吗，货款收得回吗"
+    },
+    {
+      "id": "a19",
+      "group": "cross",
+      "multi": true,
+      "text": "银条该出手吗，姐姐寄的毯子会到吗"
+    },
+    {
+      "id": "a20",
+      "group": "cross",
+      "multi": true,
+      "text": "这单供货能谈成么，我跟她能结婚么"
+    },
+    {
+      "id": "a21",
+      "group": "cross",
+      "multi": true,
+      "text": "客户会结账吗，我能从信用社借到钱吗"
+    },
+    {
+      "id": "a22",
+      "group": "cross",
+      "multi": true,
+      "text": "新茶值得囤吗，那支债基收益好吗"
+    },
+    {
+      "id": "a23",
+      "group": "cross",
+      "multi": true,
+      "text": "我该买那把小提琴吗，他会答应跟我交往吗"
+    },
+    {
+      "id": "a24",
+      "group": "cross",
+      "multi": true,
+      "text": "底薪会变吗，钱借给岳父妥当吗"
+    },
+    {
+      "id": "a25",
+      "group": "same",
+      "multi": true,
+      "text": "两批尾货，帆布鞋卖得动吗，雨披卖得动吗"
+    },
+    {
+      "id": "a26",
+      "group": "same",
+      "multi": true,
+      "text": "甲厂欠的定金能追回几成，乙厂欠的押运费何时结"
+    },
+    {
+      "id": "a27",
+      "group": "same",
+      "multi": true,
+      "text": "我跟老徐开旅店如何，跟阿成开食堂如何"
+    },
+    {
+      "id": "a28",
+      "group": "same",
+      "multi": true,
+      "text": "瓷厂肯给我加薪么，夜班干活那家肯给我加薪么"
+    },
+    {
+      "id": "a29",
+      "group": "same",
+      "multi": true,
+      "text": "那枚金章现在该卖了吗，另一份矿权什么时候退出好"
+    },
+    {
+      "id": "a30",
+      "group": "same",
+      "multi": true,
+      "text": "新人的提成奖能拿到吗，设计竞赛那笔奖金也有我吗"
+    },
+    {
+      "id": "a31",
+      "group": "same",
+      "multi": true,
+      "text": "我替小姨问一句她的店能赚钱吗，我的店又会怎样"
+    },
+    {
+      "id": "a32",
+      "group": "same",
+      "multi": true,
+      "text": "妻子寄给我的围裙能收到吗，弟弟寄的手套能收到吗"
+    }
+  ],
+  "diverse": [
+    {
+      "id": "b1",
+      "group": "direct",
+      "multi": false,
+      "text": "我的电工取证考试这回能过么",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b2",
+      "group": "direct",
+      "multi": false,
+      "text": "孩子能考下这本钢琴教师资格证吗",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b3",
+      "group": "direct",
+      "multi": false,
+      "text": "这次注册建筑师执业考试我有把握过线么",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b4",
+      "group": "direct",
+      "multi": false,
+      "text": "我的日语教师资格考试能合格吗",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b5",
+      "group": "direct",
+      "multi": false,
+      "text": "出版社招校对的那个位子会给我么",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b6",
+      "group": "direct",
+      "multi": false,
+      "text": "我投的汽修厂会要我吗",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b7",
+      "group": "direct",
+      "multi": false,
+      "text": "申请社区图书管理员能被录用么",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b8",
+      "group": "direct",
+      "multi": false,
+      "text": "轮到挑新人了那家陶坊会选我么",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b9",
+      "group": "background",
+      "multi": false,
+      "text": "我刚换了教材，第一次实操没做好，这次焊工资格考能及格么",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b10",
+      "group": "background",
+      "multi": false,
+      "text": "女儿复习时一直打瞌睡，周六的导游资格考她能过关么",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b11",
+      "group": "background",
+      "multi": false,
+      "text": "为了报名我去了两趟外地，关心的是救生员资格试能不能过",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b12",
+      "group": "background",
+      "multi": false,
+      "text": "成绩据说快出来了，我报的那次执业药师考试能合格吗",
+      "route": "qualification_exam_outcome"
+    },
+    {
+      "id": "b13",
+      "group": "background",
+      "multi": false,
+      "text": "对方先打听了我的工资，聊完以后这家车行会聘我做销售吗",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b14",
+      "group": "background",
+      "multi": false,
+      "text": "酒店让我补交了一张照片，我这次应聘前台能成么",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b15",
+      "group": "background",
+      "multi": false,
+      "text": "我把离职证明发过去了，对方仓库肯用我做调度吗",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b16",
+      "group": "background",
+      "multi": false,
+      "text": "朋友就在那所幼儿园做饭，我投的保育员职位能录取我么",
+      "route": "job_application_outcome"
+    },
+    {
+      "id": "b17",
+      "group": "cross",
+      "multi": true,
+      "text": "我能考过会计师执业考试吗，机械厂会聘我吗"
+    },
+    {
+      "id": "b18",
+      "group": "cross",
+      "multi": true,
+      "text": "我报的幼教资格考能过吗，她会嫁给我么"
+    },
+    {
+      "id": "b19",
+      "group": "cross",
+      "multi": true,
+      "text": "字典店会录用我吗，资格考报名费能退回来吗"
+    },
+    {
+      "id": "b20",
+      "group": "cross",
+      "multi": true,
+      "text": "叉车证能考下吗，绩效奖金能拿到吗"
+    },
+    {
+      "id": "b21",
+      "group": "cross",
+      "multi": true,
+      "text": "我应聘的茶社肯用我吗，银价明天会涨吗"
+    },
+    {
+      "id": "b22",
+      "group": "cross",
+      "multi": true,
+      "text": "我考营养师资格能合格么，酒店的面包师职位轮得到我么"
+    },
+    {
+      "id": "b23",
+      "group": "cross",
+      "multi": true,
+      "text": "我的导游资格试能及格吗，弟弟托寄的书能到吗"
+    },
+    {
+      "id": "b24",
+      "group": "cross",
+      "multi": true,
+      "text": "鞋厂会让我去上班吗，我欠的房租能还清吗"
+    },
+    {
+      "id": "b25",
+      "group": "same",
+      "multi": true,
+      "text": "驾校那门教练资格试我能过吗，另报的汽修技工资格试呢"
+    },
+    {
+      "id": "b26",
+      "group": "same",
+      "multi": true,
+      "text": "我的护士执业考能过关么，女儿的律师资格考能不能过"
+    },
+    {
+      "id": "b27",
+      "group": "same",
+      "multi": true,
+      "text": "我投了两家，彩印厂肯收我吗，冰场肯收我吗"
+    },
+    {
+      "id": "b28",
+      "group": "same",
+      "multi": true,
+      "text": "想看两份申请，夜间保安有没有我，商场接待有没有我"
+    },
+    {
+      "id": "b29",
+      "group": "same",
+      "multi": true,
+      "text": "我的园艺师资格考能通过吗，儿子的电工资格考过得了么"
+    },
+    {
+      "id": "b30",
+      "group": "same",
+      "multi": true,
+      "text": "编曲师的执照我能考下吗，另一个录音师的资格证我能考到么"
+    },
+    {
+      "id": "b31",
+      "group": "same",
+      "multi": true,
+      "text": "谁会录用我，想分别问地质所那个实习岗和博物馆的售票岗"
+    },
+    {
+      "id": "b32",
+      "group": "same",
+      "multi": true,
+      "text": "我去西区食品厂应聘质检能成吗，去东区鞋铺应聘收银能成吗"
+    }
+  ]
+}
