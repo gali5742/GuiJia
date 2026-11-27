@@ -1,0 +1,1162 @@
+[
+  {
+    "id": "T1",
+    "group": "background",
+    "text": "跟影楼谈赔款已经谈妥，我告他们乱用相片那案子能胜诉么",
+    "multi": false,
+    "route": "litigation_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "跟影楼谈赔款已经谈妥",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 11,
+        "end": 26,
+        "text": "我告他们乱用相片那案子能胜诉么",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T2",
+    "group": "background",
+    "text": "服装厂差我的布料押金拿得回来不，仲裁那事昨天下午结束了",
+    "multi": false,
+    "route": "debt_collection",
+    "spans": [
+      {
+        "start": 0,
+        "end": 15,
+        "text": "服装厂差我的布料押金拿得回来不",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 16,
+        "end": 27,
+        "text": "仲裁那事昨天下午结束了",
+        "role": "background",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T3",
+    "group": "background",
+    "text": "她把试卷订正完了，这回年级榜上我女儿进得了前十五吗",
+    "multi": false,
+    "route": "exam_rank_result",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "text": "她把试卷订正完了",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 9,
+        "end": 25,
+        "text": "这回年级榜上我女儿进得了前十五吗",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T4",
+    "group": "background",
+    "text": "本周去同里访亲能动身吗，早班船改在六码头开",
+    "multi": false,
+    "route": "travel_execution",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "本周去同里访亲能动身吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 21,
+        "text": "早班船改在六码头开",
+        "role": "background",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T5",
+    "group": "background",
+    "text": "新老板已经签了调薪单，下一轮我能不能提为领队",
+    "multi": false,
+    "route": "position_advancement",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "新老板已经签了调薪单",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 11,
+        "end": 22,
+        "text": "下一轮我能不能提为领队",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T6",
+    "group": "background",
+    "text": "外套我找着了，还有那把不见的竹伞能找回来吗",
+    "multi": false,
+    "route": "lost_property_recovery",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "text": "外套我找着了",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 7,
+        "end": 21,
+        "text": "还有那把不见的竹伞能找回来吗",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T7",
+    "group": "background",
+    "text": "妹妹会回我发的语音吗，她先前跟我讲过考证的事",
+    "multi": false,
+    "route": "person_contact_response",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "妹妹会回我发的语音吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 22,
+        "text": "她先前跟我讲过考证的事",
+        "role": "background",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T8",
+    "group": "background",
+    "text": "今天看过工资明细，另外许诺的项目奖能发到我手里么",
+    "multi": false,
+    "route": "income_bonus",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "text": "今天看过工资明细",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 9,
+        "end": 24,
+        "text": "另外许诺的项目奖能发到我手里么",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T9",
+    "group": "excluded",
+    "text": "不打听老同学肯不肯帮我，只问摊位租赁的官司我能赢吗",
+    "multi": false,
+    "route": "litigation_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "不打听老同学肯不肯帮我",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "text": "只问摊位租赁的官司我能赢吗",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T10",
+    "group": "excluded",
+    "text": "爸看到我寄的信会回信么，他回不回老家这次先不占",
+    "multi": false,
+    "route": "person_contact_response",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "爸看到我寄的信会回信么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 23,
+        "text": "他回不回老家这次先不占",
+        "role": "excluded",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T11",
+    "group": "excluded",
+    "text": "此行住处好坏我没打算问，去山庄的接驳船会延误么",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "此行住处好坏我没打算问",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 12,
+        "end": 23,
+        "text": "去山庄的接驳船会延误么",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T12",
+    "group": "excluded",
+    "text": "这次助理工程师的取证考试过得了吗，得多少分无所谓",
+    "multi": false,
+    "route": "qualification_exam_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 16,
+        "text": "这次助理工程师的取证考试过得了吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "text": "得多少分无所谓",
+        "role": "excluded",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T13",
+    "group": "excluded",
+    "text": "那个被告最后判得怎样我不关心，拖在他手里的打样费能还给我吗",
+    "multi": false,
+    "route": "debt_collection",
+    "spans": [
+      {
+        "start": 0,
+        "end": 14,
+        "text": "那个被告最后判得怎样我不关心",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 15,
+        "end": 29,
+        "text": "拖在他手里的打样费能还给我吗",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T14",
+    "group": "excluded",
+    "text": "酒坊愿意聘我做检验工吗，报酬高低暂不考虑",
+    "multi": false,
+    "route": "job_application_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "酒坊愿意聘我做检验工吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 20,
+        "text": "报酬高低暂不考虑",
+        "role": "excluded",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T15",
+    "group": "excluded",
+    "text": "能不能拿奖学金先放下，我的毕业统考名次会进全年级前十么",
+    "multi": false,
+    "route": "exam_rank_result",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "能不能拿奖学金先放下",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 11,
+        "end": 27,
+        "text": "我的毕业统考名次会进全年级前十么",
+        "role": "request",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T16",
+    "group": "excluded",
+    "text": "我能买到那把绝版口风琴么，丢了的旧琴就不找了",
+    "multi": false,
+    "route": "item_purchase",
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "我能买到那把绝版口风琴么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 22,
+        "text": "丢了的旧琴就不找了",
+        "role": "excluded",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T17",
+    "group": "restatement",
+    "text": "物业索赔那案子最终能判我赢么？换句话说一审结果对我有利吗",
+    "multi": false,
+    "route": "litigation_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 14,
+        "text": "物业索赔那案子最终能判我赢么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 15,
+        "end": 28,
+        "text": "换句话说一审结果对我有利吗",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T18",
+    "group": "restatement",
+    "text": "维修站欠我的机油款能追回来不，想问的就是对方肯不肯还这笔钱",
+    "multi": false,
+    "route": "debt_collection",
+    "spans": [
+      {
+        "start": 0,
+        "end": 14,
+        "text": "维修站欠我的机油款能追回来不",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 15,
+        "end": 29,
+        "text": "想问的就是对方肯不肯还这笔钱",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T19",
+    "group": "restatement",
+    "text": "校榜前二十有我女儿吗？她的联考名次能进这个区间么",
+    "multi": false,
+    "route": "exam_rank_result",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "校榜前二十有我女儿吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 24,
+        "text": "她的联考名次能进这个区间么",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T20",
+    "group": "restatement",
+    "text": "回徽州祭祖那趟走得成吗，也就是我能不能按计划出发",
+    "multi": false,
+    "route": "travel_execution",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "回徽州祭祖那趟走得成吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "text": "也就是我能不能按计划出发",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T21",
+    "group": "restatement",
+    "text": "下季底薪有增加的机会吗？我说的是基本工资会不会涨",
+    "multi": false,
+    "route": "income_salary",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "下季底薪有增加的机会吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 24,
+        "text": "我说的是基本工资会不会涨",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T22",
+    "group": "restatement",
+    "text": "纺织厂的新岗位会选上我吗，就是想知道会不会被那家厂录用",
+    "multi": false,
+    "route": "job_application_outcome",
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "纺织厂的新岗位会选上我吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 27,
+        "text": "就是想知道会不会被那家厂录用",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T23",
+    "group": "restatement",
+    "text": "我遗失的钓鱼包还有望找回吗，那个包能回到我手里不",
+    "multi": false,
+    "route": "lost_property_recovery",
+    "spans": [
+      {
+        "start": 0,
+        "end": 13,
+        "text": "我遗失的钓鱼包还有望找回吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 14,
+        "end": 24,
+        "text": "那个包能回到我手里不",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T24",
+    "group": "restatement",
+    "text": "我能晋升车队长吗？这次提拔有我的份么",
+    "multi": false,
+    "route": "position_advancement",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "text": "我能晋升车队长吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 9,
+        "end": 18,
+        "text": "这次提拔有我的份么",
+        "role": "restatement",
+        "goal": 1
+      }
+    ]
+  },
+  {
+    "id": "T25",
+    "group": "related",
+    "text": "我告装修店虚假宣传会赢不，他们扣的工料款我能讨回来不",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "我告装修店虚假宣传会赢不",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 26,
+        "text": "他们扣的工料款我能讨回来不",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T26",
+    "group": "related",
+    "text": "那件版权仲裁会支持我吗，叔叔愿意回我发的短信吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "那件版权仲裁会支持我吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 23,
+        "text": "叔叔愿意回我发的短信吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T27",
+    "group": "related",
+    "text": "能被里弄食堂录用么，先垫的餐具费什么时候能要回",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 9,
+        "text": "能被里弄食堂录用么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 10,
+        "end": 23,
+        "text": "先垫的餐具费什么时候能要回",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T28",
+    "group": "related",
+    "text": "我能评上副编审吗，另外申报的业绩奖会发给我么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "text": "我能评上副编审吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 9,
+        "end": 22,
+        "text": "另外申报的业绩奖会发给我么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T29",
+    "group": "related",
+    "text": "周一的飞行课我去得成么，我订的摆渡车会不会取消",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "周一的飞行课我去得成么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 23,
+        "text": "我订的摆渡车会不会取消",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T30",
+    "group": "related",
+    "text": "跑船的资格考我过线没，理论成绩能排进班里前三么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "跑船的资格考我过线没",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 23,
+        "text": "理论成绩能排进班里前三么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T31",
+    "group": "related",
+    "text": "我要的赔款收得回来吗，我欠调解人员的借款年底还得清不",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "我要的赔款收得回来吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 26,
+        "text": "我欠调解人员的借款年底还得清不",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T32",
+    "group": "related",
+    "text": "球馆丢的围巾还能找回来吗，邻居代买的替代品能收到么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "球馆丢的围巾还能找回来吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "text": "邻居代买的替代品能收到么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T33",
+    "group": "same",
+    "text": "我告水泥厂的案子能赢吗，我妹告木器行的官司她能赢吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "我告水泥厂的案子能赢吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 25,
+        "text": "我妹告木器行的官司她能赢吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T34",
+    "group": "same",
+    "text": "发给哥哥的贺卡他会回信么，小妹那封她会回么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "发给哥哥的贺卡他会回信么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 21,
+        "text": "小妹那封她会回么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T35",
+    "group": "same",
+    "text": "茶几押金我能向房东要回吗，车库门卡的押金能向管理处要回吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "茶几押金我能向房东要回吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 28,
+        "text": "车库门卡的押金能向管理处要回吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T36",
+    "group": "same",
+    "text": "头班通勤车早上会停吗，夜里加开的末班车会不会停",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "头班通勤车早上会停吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 23,
+        "text": "夜里加开的末班车会不会停",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T37",
+    "group": "same",
+    "text": "我儿子化学考试能排第一吗，女儿语文能不能排第一",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "我儿子化学考试能排第一吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 23,
+        "text": "女儿语文能不能排第一",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T38",
+    "group": "same",
+    "text": "六楼的带班岗肯录我么，二楼档案岗会录我吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "text": "六楼的带班岗肯录我么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 11,
+        "end": 20,
+        "text": "二楼档案岗会录我吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T39",
+    "group": "same",
+    "text": "落在客运站的棉帽能找到么，昨天下午丢的呢手套呢",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "落在客运站的棉帽能找到么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 23,
+        "text": "昨天下午丢的呢手套呢",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T40",
+    "group": "same",
+    "text": "我替爸担心他发给伯父的邮件有没有回信，也想知道自己给妈妈的信她会不会回",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 18,
+        "text": "我替爸担心他发给伯父的邮件有没有回信",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 19,
+        "end": 35,
+        "text": "也想知道自己给妈妈的信她会不会回",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T41",
+    "group": "mixed",
+    "text": "报销款早已到账，单位有意让我升主任吗，新年度固定薪水有没有变化",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 7,
+        "text": "报销款早已到账",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 8,
+        "end": 18,
+        "text": "单位有意让我升主任吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 19,
+        "end": 31,
+        "text": "新年度固定薪水有没有变化",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T42",
+    "group": "mixed",
+    "text": "雨停不停我不问，进峡谷访友的行程有希望成行吗，那班景区列车能准点出发么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 7,
+        "text": "雨停不停我不问",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 8,
+        "end": 22,
+        "text": "进峡谷访友的行程有希望成行吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 23,
+        "end": 35,
+        "text": "那班景区列车能准点出发么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T43",
+    "group": "mixed",
+    "text": "我申报的清算员职位能进吗，也就是单位会不会用我，我借给经理的旧款能追回来么",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "我申报的清算员职位能进吗",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 23,
+        "text": "也就是单位会不会用我",
+        "role": "restatement",
+        "goal": 1
+      },
+      {
+        "start": 24,
+        "end": 37,
+        "text": "我借给经理的旧款能追回来么",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T44",
+    "group": "mixed",
+    "text": "剧本登记引发的版权诉讼谁能胜出，委托代理书早就收到了，编剧欠的租场费能收齐吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 15,
+        "text": "剧本登记引发的版权诉讼谁能胜出",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 16,
+        "end": 26,
+        "text": "委托代理书早就收到了",
+        "role": "background",
+        "goal": null
+      },
+      {
+        "start": 27,
+        "end": 38,
+        "text": "编剧欠的租场费能收齐吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T45",
+    "group": "mixed",
+    "text": "我有机会当上客服组长么，哥哥肯回我这封家书么，辞职以后去哪儿我没问",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "text": "我有机会当上客服组长么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 12,
+        "end": 22,
+        "text": "哥哥肯回我这封家书么",
+        "role": "request",
+        "goal": 2
+      },
+      {
+        "start": 23,
+        "end": 33,
+        "text": "辞职以后去哪儿我没问",
+        "role": "excluded",
+        "goal": null
+      }
+    ]
+  },
+  {
+    "id": "T46",
+    "group": "mixed",
+    "text": "新的工作我还没考虑，我去年的工资欠款能追回么，给哥哥发的微信他肯回复吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 9,
+        "text": "新的工作我还没考虑",
+        "role": "excluded",
+        "goal": null
+      },
+      {
+        "start": 10,
+        "end": 22,
+        "text": "我去年的工资欠款能追回么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 23,
+        "end": 35,
+        "text": "给哥哥发的微信他肯回复吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T47",
+    "group": "mixed",
+    "text": "我有没有望赢这桩公寓侵权案，判决会站在我这边吗，当初借的钱月底能还掉吗",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 13,
+        "text": "我有没有望赢这桩公寓侵权案",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 14,
+        "end": 23,
+        "text": "判决会站在我这边吗",
+        "role": "restatement",
+        "goal": 1
+      },
+      {
+        "start": 24,
+        "end": 35,
+        "text": "当初借的钱月底能还掉吗",
+        "role": "request",
+        "goal": 2
+      }
+    ]
+  },
+  {
+    "id": "T48",
+    "group": "mixed",
+    "text": "仓库的修缮押金能讨回来么，车库工人的预付款能追回么，财务今天把账单交给我了",
+    "multi": true,
+    "route": null,
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "text": "仓库的修缮押金能讨回来么",
+        "role": "request",
+        "goal": 1
+      },
+      {
+        "start": 13,
+        "end": 25,
+        "text": "车库工人的预付款能追回么",
+        "role": "request",
+        "goal": 2
+      },
+      {
+        "start": 26,
+        "end": 37,
+        "text": "财务今天把账单交给我了",
+        "role": "background",
+        "goal": null
+      }
+    ]
+  }
+]
