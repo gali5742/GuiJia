@@ -1,0 +1,2647 @@
+{
+  "source": "da45de126b6991cf3c1e38e02cb41201b9db0079",
+  "workflow": "https://github.com/gali5742/GuiJia/actions/runs/45914929937",
+  "weightsSHA256": "084a8481077635a78c27ddddafb9c18858807353233fcdd3405f5816467fff1a",
+  "audit": {
+    "comparisons": 335335,
+    "maximum": 0.21739130434782608
+  },
+  "metrics": {
+    "all": {
+      "single": 48,
+      "multi": 22,
+      "known": 40,
+      "unsupported": 8,
+      "baseline_baseline": {
+        "falseStop": 11,
+        "miss": 4,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 13,
+        "unsupportedSelected": 1
+      },
+      "baseline_candidate": {
+        "falseStop": 11,
+        "miss": 4,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 13,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 5,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 17,
+        "unsupportedSelected": 1
+      },
+      "candidate_candidate": {
+        "falseStop": 5,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 16,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 18,
+      "candidateRouteOnly": 17
+    },
+    "contrast": {
+      "single": 16,
+      "multi": 8,
+      "known": 16,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 9,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 2,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 9,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 1,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 4,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 5,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 4,
+        "miss": 1,
+        "multiSelected": 1,
+        "downstreamAfterStop": 0,
+        "correct": 3,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 6,
+      "candidateRouteOnly": 4
+    },
+    "old": {
+      "single": 22,
+      "multi": 0,
+      "known": 22,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 11,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 11,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 12,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 12,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 12,
+      "candidateRouteOnly": 12
+    },
+    "weather": {
+      "single": 4,
+      "multi": 4,
+      "known": 0,
+      "unsupported": 4,
+      "baseline_baseline": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 1,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 0,
+      "candidateRouteOnly": 0
+    },
+    "lawsuit": {
+      "single": 4,
+      "multi": 4,
+      "known": 0,
+      "unsupported": 4,
+      "baseline_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 1
+      },
+      "baseline_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 1
+      },
+      "candidate_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 0,
+      "candidateRouteOnly": 0
+    },
+    "same": {
+      "single": 0,
+      "multi": 4,
+      "known": 0,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 0,
+        "miss": 3,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 0,
+        "miss": 3,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 0,
+      "candidateRouteOnly": 0
+    },
+    "implicit": {
+      "single": 2,
+      "multi": 2,
+      "known": 2,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 1,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 1,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 0,
+      "candidateRouteOnly": 1
+    },
+    "previouslySupported": {
+      "single": 34,
+      "multi": 0,
+      "known": 34,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 8,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 13,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 8,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 12,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 5,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 17,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 5,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 15,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 18,
+      "candidateRouteOnly": 16
+    },
+    "travelLost": {
+      "single": 6,
+      "multi": 0,
+      "known": 6,
+      "unsupported": 0,
+      "baseline_baseline": {
+        "falseStop": 2,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "baseline_candidate": {
+        "falseStop": 2,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 1,
+        "unsupportedSelected": 0
+      },
+      "candidate_baseline": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 0,
+        "unsupportedSelected": 0
+      },
+      "candidate_candidate": {
+        "falseStop": 0,
+        "miss": 0,
+        "multiSelected": 0,
+        "downstreamAfterStop": 0,
+        "correct": 1,
+        "unsupportedSelected": 0
+      },
+      "baselineRouteOnly": 0,
+      "candidateRouteOnly": 1
+    },
+    "completeFamilies": {
+      "baseline_baseline": [],
+      "baseline_candidate": [],
+      "candidate_baseline": [],
+      "candidate_candidate": []
+    }
+  },
+  "rows": [
+    {
+      "text": "去年报班的钱一直没退，先搁一边。公路检测师这次我有希望考过么？",
+      "multi": false,
+      "route": "qualification_exam_outcome",
+      "id": "E1-0",
+      "family": "E1",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "baseline": "qualification_exam_outcome",
+        "candidate": "qualification_exam_outcome"
+      }
+    },
+    {
+      "text": "公路检测师培训班都结业了，剩下该退我的器材押金还能催得回来么？",
+      "multi": false,
+      "route": "debt_collection",
+      "id": "E1-1",
+      "family": "E1",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "我能考过公路检测师吗？那笔器材押金能收回几成？",
+      "multi": true,
+      "route": null,
+      "id": "E1-2",
+      "family": "E1",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "朋友寄的复习卡片还没来，我就凭这两周准备能通过船舶驾驶资格试吗",
+      "multi": false,
+      "route": "qualification_exam_outcome",
+      "id": "E2-0",
+      "family": "E2",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "qualification_exam_outcome",
+        "candidate": "qualification_exam_outcome"
+      }
+    },
+    {
+      "text": "船舶驾驶资格试都考完了，她寄给我的那叠复习卡片下礼拜能到么",
+      "multi": false,
+      "route": "receive_item",
+      "id": "E2-1",
+      "family": "E2",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "qualification_exam_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "qualification_exam_outcome",
+        "candidate": "qualification_exam_outcome"
+      }
+    },
+    {
+      "text": "我就想知道两件事，那叠卡片能不能收到，驾驶资格试我有没有过",
+      "multi": true,
+      "route": null,
+      "id": "E2-2",
+      "family": "E2",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "琴弓的钱已经付了，乐队公开招聘的中提琴手有没有我的份",
+      "multi": false,
+      "route": "job_application_outcome",
+      "id": "E3-0",
+      "family": "E3",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "job_application_outcome",
+        "candidate": null
+      }
+    },
+    {
+      "text": "去乐队试奏时借的那把琴弓很合手，想从老师手里买下来，有戏吗",
+      "multi": false,
+      "route": "item_purchase",
+      "id": "E3-1",
+      "family": "E3",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "乐队招中提琴会选我么，老师手上那把弓我能买下么",
+      "multi": true,
+      "route": null,
+      "id": "E3-2",
+      "family": "E3",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "上份工作少给的奖金先不想了，这次报名的地铁检票员能轮到我吗",
+      "multi": false,
+      "route": "job_application_outcome",
+      "id": "E4-0",
+      "family": "E4",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "地铁招聘的通知我收到了，前单位去年评给我的服务奖何时能拿到手",
+      "multi": false,
+      "route": "income_bonus",
+      "id": "E4-1",
+      "family": "E4",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "income_bonus",
+        "candidate": "income_bonus"
+      }
+    },
+    {
+      "text": "地铁会录用我当检票员么，前单位的服务奖发不发给我",
+      "multi": true,
+      "route": null,
+      "id": "E4-2",
+      "family": "E4",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "旅伴已经还清租车钱，这月底去榆林看石窟能走成吗",
+      "multi": false,
+      "route": "travel_execution",
+      "id": "E5-0",
+      "family": "E5",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "石窟那趟花销全是我垫的，回来之后旅伴欠的份子还能拿回吗",
+      "multi": false,
+      "route": "debt_collection",
+      "id": "E5-1",
+      "family": "E5",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "debt_collection",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "debt_collection",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "debt_collection",
+        "candidate": "debt_collection"
+      }
+    },
+    {
+      "text": "月底我能去榆林看石窟么？旅伴以前欠的租车钱还得回来么？",
+      "multi": true,
+      "route": null,
+      "id": "E5-2",
+      "family": "E5",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "我去报考察队的翻译岗没着落，倒是去河西访碑这趟能动身吗",
+      "multi": false,
+      "route": "travel_execution",
+      "id": "E6-0",
+      "family": "E6",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "河西访碑的路线都排好了，考察队这次肯雇我做翻译不",
+      "multi": false,
+      "route": "job_application_outcome",
+      "id": "E6-1",
+      "family": "E6",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "job_application_outcome",
+        "candidate": null
+      }
+    },
+    {
+      "text": "考察队会不会聘我当翻译，还有，我自己计划的河西访碑行得成吗",
+      "multi": true,
+      "route": null,
+      "id": "E6-2",
+      "family": "E6",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "我在市集看过替代品，还是想问，茶会上落下的绸披肩找得回来吗",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "id": "E7-0",
+      "family": "E7",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "披肩忘在茶会上了，市集里有条同花色的，我这周能买到手吗",
+      "multi": false,
+      "route": "item_purchase",
+      "id": "E7-1",
+      "family": "E7",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "baseline": "receive_item",
+        "candidate": "receive_item"
+      }
+    },
+    {
+      "text": "绸披肩还能找回来吗，店里那条同款又能不能买到",
+      "multi": true,
+      "route": null,
+      "id": "E7-2",
+      "family": "E7",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "text": "外婆已经另织了一副，原先那副落在渡口的连指手套还能寻回来吗",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "id": "E8-0",
+      "family": "E8",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "手套落水的事过去两个月了，外婆托客运站捎的新手套会到我手里么",
+      "multi": false,
+      "route": "receive_item",
+      "id": "E8-1",
+      "family": "E8",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "text": "渡口弄丢的手套找得着吗，外婆另外托人捎的那副能到手吗",
+      "multi": true,
+      "route": null,
+      "id": "E8-2",
+      "family": "E8",
+      "group": "contrast",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "old1",
+      "group": "old",
+      "text": "最近几个月我经济上会有转机么",
+      "multi": false,
+      "route": "financial_fortune",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "financial_fortune",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "financial_fortune",
+        "candidate": "financial_fortune"
+      }
+    },
+    {
+      "id": "old2",
+      "group": "old",
+      "text": "接下来的淡季这家修表铺经营得怎样",
+      "multi": false,
+      "route": "business_operation",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "business_operation",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "business_operation",
+        "candidate": "business_operation"
+      }
+    },
+    {
+      "id": "old3",
+      "group": "old",
+      "text": "冷藏柜那份供货协议本月能成交么",
+      "multi": false,
+      "route": "commercial_transaction",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "commercial_transaction",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "commercial_transaction",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "commercial_transaction",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "commercial_transaction",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "commercial_transaction",
+        "candidate": "commercial_transaction"
+      }
+    },
+    {
+      "id": "old4",
+      "group": "old",
+      "text": "文具店开学前添这么多墨囊合适么",
+      "multi": false,
+      "route": "inventory_purchase",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old5",
+      "group": "old",
+      "text": "去年留下来的瓷茶托清得掉吗",
+      "multi": false,
+      "route": "inventory_sale",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old6",
+      "group": "old",
+      "text": "我向车友借一千块应付修理，他肯借吗",
+      "multi": false,
+      "route": "borrow_money",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "lend_money",
+        "candidate": "lend_money"
+      }
+    },
+    {
+      "id": "old7",
+      "group": "old",
+      "text": "亲戚想借一笔学车钱，我这次借给她合适吗",
+      "multi": false,
+      "route": "lend_money",
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "lend_money",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "lend_money",
+        "candidate": "lend_money"
+      }
+    },
+    {
+      "id": "old8",
+      "group": "old",
+      "text": "房客落下的三个月取暖费讨得回来么",
+      "multi": false,
+      "route": "debt_collection",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old9",
+      "group": "old",
+      "text": "我之前借邻居的钱秋分前能还完吗",
+      "multi": false,
+      "route": "debt_repayment",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "debt_repayment",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "debt_repayment",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "debt_repayment",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "debt_repayment",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "debt_repayment",
+        "candidate": "debt_repayment"
+      }
+    },
+    {
+      "id": "old10",
+      "group": "old",
+      "text": "我和发小合开洗车场能合作顺利吗",
+      "multi": false,
+      "route": "partnership",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old11",
+      "group": "old",
+      "text": "我投的共享车位最后能有盈利么",
+      "multi": false,
+      "route": "investment_profit",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "investment_profit",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "investment_profit",
+        "candidate": "investment_profit"
+      }
+    },
+    {
+      "id": "old12",
+      "group": "old",
+      "text": "手里的剧场股权现在适合退出嘛",
+      "multi": false,
+      "route": "investment_liquidation",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "investment_liquidation",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "investment_liquidation",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "investment_liquidation",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "investment_liquidation",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "investment_liquidation",
+        "candidate": "investment_liquidation"
+      }
+    },
+    {
+      "id": "old13",
+      "group": "old",
+      "text": "把闲钱投到菌菇培育基地合算吗",
+      "multi": false,
+      "route": "investment_suitability",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old14",
+      "group": "old",
+      "text": "手里已有一些白银基金，适合再买进一点吗",
+      "multi": false,
+      "route": "investment_position_decision",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old15",
+      "group": "old",
+      "text": "接下来两个月镍价会往下走么",
+      "multi": false,
+      "route": "investment_price_trend",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "investment_price_trend",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "investment_price_trend",
+        "candidate": "investment_price_trend"
+      }
+    },
+    {
+      "id": "old16",
+      "group": "old",
+      "text": "轮到签新合同时我的月薪能涨么",
+      "multi": false,
+      "route": "income_salary",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "income_salary",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "income_salary",
+        "candidate": "income_salary"
+      }
+    },
+    {
+      "id": "old17",
+      "group": "old",
+      "text": "评上的节能奖年底会把奖金给我吗",
+      "multi": false,
+      "route": "income_bonus",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "income_bonus",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "income_bonus",
+        "candidate": "income_bonus"
+      }
+    },
+    {
+      "id": "old18",
+      "group": "old",
+      "text": "老师从外地捎给我的藏书票能到手么",
+      "multi": false,
+      "route": "receive_item",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old19",
+      "group": "old",
+      "text": "我想收的那把二手巴松买得着么",
+      "multi": false,
+      "route": "item_purchase",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old20",
+      "group": "old",
+      "text": "跟周末结伴登山的人会发展成恋人么",
+      "multi": false,
+      "route": "relationship_development",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "old21",
+      "group": "old",
+      "text": "我同订了亲的对象今年能把婚结了吗",
+      "multi": false,
+      "route": "marriage_match",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "marriage_match",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "marriage_match",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "marriage_match",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "marriage_match",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "marriage_match",
+        "candidate": "marriage_match"
+      }
+    },
+    {
+      "id": "old22",
+      "group": "old",
+      "text": "搬回老家后我和妻子的夫妻关系会怎样",
+      "multi": false,
+      "route": "marital_relationship",
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "marital_relationship",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "marital_relationship",
+        "candidate": "marital_relationship"
+      }
+    },
+    {
+      "id": "weather1",
+      "group": "weather",
+      "text": "露天摊位搭好了，开集那天上午会有雨么",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "weather2",
+      "group": "weather",
+      "text": "今年第一场霜会在采收前落下来吗",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "weather3",
+      "group": "weather",
+      "text": "我明早洗被套，午后还能晒到太阳不",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "weather4",
+      "group": "weather",
+      "text": "就想知道，周六开幕那会儿江上会起雾吗",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "weather5",
+      "group": "weather",
+      "text": "展演那晚会降温么，第二天清早还会刮大风么",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "weather6",
+      "group": "weather",
+      "text": "老家果园今晚会下雹吗，我住的海边明早有雾吗",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "weather7",
+      "group": "weather",
+      "text": "初五县城有雪不，十五镇上会放晴不",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "weather8",
+      "group": "weather",
+      "text": "山口今晚会起大风么，海湾明天有雨吗",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "lawsuit1",
+      "group": "lawsuit",
+      "text": "合同的争议已经立案，这宗官司判决会对我有利吗",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "lawsuit2",
+      "group": "lawsuit",
+      "text": "上次没谈成和解，下月开庭时法官会支持我的诉请么",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "lawsuit3",
+      "group": "lawsuit",
+      "text": "邻居告我的那宗界址纠纷能胜诉吗",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "selected",
+          "route": "job_application_outcome",
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": "job_application_outcome",
+        "candidate": null
+      }
+    },
+    {
+      "id": "lawsuit4",
+      "group": "lawsuit",
+      "text": "材料我已递交，我申请的那次再审能获准吗",
+      "multi": false,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "lawsuit5",
+      "group": "lawsuit",
+      "text": "我跟物业那场官司能赢吗，妹妹那件诽谤案她能胜诉吗",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "lawsuit6",
+      "group": "lawsuit",
+      "text": "证人下周会出庭吗，法庭会采纳那张收据吗",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "lawsuit7",
+      "group": "lawsuit",
+      "text": "我提的管辖异议会通过么，对方提的回避申请能准么",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "lawsuit8",
+      "group": "lawsuit",
+      "text": "我在城北法院的案子会赢吗，城南那宗商标案能否和解",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "same1",
+      "group": "same",
+      "text": "本周五去平遥拍摄能动身么，次月我去西宁采风的安排能实现么",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "same2",
+      "group": "same",
+      "text": "雨停后我去外婆家能成行不，我姐周末去青岛散心能去不",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "same3",
+      "group": "same",
+      "text": "落在柜台的竹笛能找回么，前晚失落的笛谱还能回到我手上么",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "same4",
+      "group": "same",
+      "text": "我的呢帽有望失而复得吗，孩子昨天掉的沙锤呢",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "implicit1",
+      "group": "implicit",
+      "text": "明天去长崎看展，票和住宿都订了，有点悬，这趟到底走得成么",
+      "multi": false,
+      "route": "travel_execution",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "selected",
+          "route": "travel_execution",
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "selected",
+          "route": "travel_execution",
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": "travel_execution"
+      }
+    },
+    {
+      "id": "implicit2",
+      "group": "implicit",
+      "text": "结账时还戴在肩上，回过神衣架上也没有，我那件针织衫还有着落吗",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "states": {
+        "baseline_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "baseline_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_baseline": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        },
+        "candidate_candidate": {
+          "state": "unresolved",
+          "route": null,
+          "calls": 1
+        }
+      },
+      "routeOnly": {
+        "baseline": null,
+        "candidate": null
+      }
+    },
+    {
+      "id": "implicit3",
+      "group": "implicit",
+      "text": "押金，报名那笔和住宿那笔，各自能不能讨回来",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    },
+    {
+      "id": "implicit4",
+      "group": "implicit",
+      "text": "两场招考，一场助理社工师，一场执业医师，我分别能过哪场",
+      "multi": true,
+      "route": null,
+      "states": {
+        "baseline_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "baseline_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_baseline": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        },
+        "candidate_candidate": {
+          "state": "multi_stop",
+          "route": null,
+          "calls": 0
+        }
+      },
+      "routeOnly": null
+    }
+  ]
+}
