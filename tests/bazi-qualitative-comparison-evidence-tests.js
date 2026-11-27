@@ -127,7 +127,7 @@ test('named comparison assembles independently scoped evidence and preserves its
     assert(result.status === 'insufficient-comparison-evidence' && result.computedComparison === null && result.forceWinner === null,
         'authored target or available support became computed comparison');
     for (const key of ['daymaster-contribution-coverage-incomplete','named-counter-to-daymaster-realization-unresolved',
-        'counter-seasonal-standing-unresolved','counter-foundation-and-profile-coverage-unresolved','source-backed-cross-axis-comparison-rule-missing']) {
+        'counter-foundation-effectiveness-and-profile-unresolved','source-backed-cross-axis-comparison-rule-missing']) {
         assert(result.blockers.includes(key), `required comparison gap lost: ${key}`);
     }
 });
@@ -137,6 +137,80 @@ test('the second chart does not inherit the preceding chart verdict or reverse i
     assert(result.sourceCalibration === null && result.branchContributionReferences.length === 0
         && result.localForceQualifiers[0].qualifier === 'source-asserted-ineffective', 'preceding chart evidence transferred');
     assert(result.localForceQualifiers[0].sourceRealization === 'unresolved' && result.forceWinner === null, 'ineffective force picked side');
+});
+
+test('the same named 丙 has its own seasonal state and different verified foundations in the two charts', () => {
+    for (const [chartKey, exact, peers] of [
+        [first, [], ['hidden:1:午:丁:0','hidden:2:午:丁:0']],
+        [second, ['hidden:3:寅:丙:1'], ['hidden:0:午:丁:0','hidden:1:午:丁:0']]
+    ]) {
+        const result = view(chartKey).namedComparison;
+        const { seasonal, foundation } = result.counterContext;
+        assert(seasonal.state === '旺' && seasonal.monthZhi === '午' && seasonal.actorElement === '火'
+            && seasonal.actorKey === result.counterActorKey && seasonal.sourceEvidenceIds.includes('CF-CC-S01'), 'counter season or source lost');
+        assert(result.daymasterSeasonalBackground.state !== seasonal.state && !result.blockers.includes('counter-seasonal-standing-unresolved'), 'daymaster season copied');
+        assert(JSON.stringify(foundation.exactRootRecords.map((row) => row.actorKey)) === JSON.stringify(exact)
+            && JSON.stringify(foundation.sameElementRootRecords.map((row) => row.actorKey)) === JSON.stringify(peers), 'counter roots crossed anchors or positions');
+        assert(!result.blockers.includes('counter-foundation-inventory-unresolved') && foundation.rootEffectivenessClassification === null
+            && result.forceWinner === null, 'root presence closed actual strength');
+    }
+});
+
+test('duplicate or contradictory month evidence suppresses seasonal standing independently of roots', () => {
+    const model = modelFor(first), base = model.strengthSynthesis, bridge = base.qianliQuantitySemanticBridgeInventory;
+    const surface = bridge.sourceSurfaceInventory, month = surface.branches.find((row) => row.position === 'month');
+    for (const branches of [[...surface.branches, month], surface.branches.filter((row) => row !== month),
+        surface.branches.map((row) => row === month ? { ...row, zhi: '巳' } : row)]) {
+        const changed = { ...base, qianliQuantitySemanticBridgeInventory: { ...bridge, sourceSurfaceInventory: { ...surface, branches } } };
+        const result = api.buildProfile(model, changed).namedComparison;
+        assert(!result.counterContext.seasonal && result.counterContext.foundation && result.blockers.includes('counter-seasonal-standing-unresolved'), 'bad month certified seasonal context');
+    }
+});
+
+test('incomplete, duplicate or misattributed roots cannot certify the counter inventory', () => {
+    const model = modelFor(second), base = model.strengthSynthesis, bridge = base.qianliQuantitySemanticBridgeInventory;
+    const hidden = bridge.hiddenModifierInventory, bing = hidden.find((row) => row.gan === '丙');
+    for (const replacement of [null, [], hidden.filter((row) => row !== bing), [...hidden, bing],
+        ...[{ level: '本气' }, { actorKey: 'visible:1:丙' }, { id: 'wrong-source' }, { scope: 'surface-branch' }].map((change) =>
+            hidden.map((row) => row === bing ? { ...bing, ...change } : row))]) {
+        const result = api.buildProfile(model, { ...base, qianliQuantitySemanticBridgeInventory: { ...bridge, hiddenModifierInventory: replacement } }).namedComparison;
+        assert(!result.counterContext.foundation && result.counterContext.seasonal && result.blockers.includes('counter-foundation-inventory-unresolved'), 'bad roots certified as present or absent');
+    }
+});
+
+test('both counter axes require the current named actor and ignore cached context', () => {
+    const model = modelFor(first), base = model.strengthSynthesis, inventory = base.contextualForcePartyMembershipInventory;
+    const changed = { ...base, contextualForcePartyMembershipInventory: {
+        ...inventory, actorProfiles: inventory.actorProfiles.filter((row) => row.actorKey !== 'visible:1:丙')
+    } };
+    const result = api.buildProfile(model, changed).namedComparison;
+    assert(!result.counterContext.foundation && !result.counterContext.seasonal && result.blockers.includes('named-anchor-identity-unresolved'), 'cached counter context bypassed binding');
+});
+
+test('the authored pair orders the same local restraint in either argument order', () => {
+    const a = modelFor(first), b = modelFor(second);
+    for (const pair of [[a,b],[b,a]]) {
+        const result = api.comparePairedRestraint(...pair);
+        assert(result.status === 'source-compared-local-restraint-ordered' && result.strongerLocalRestraintChartKey === first, 'source chart order lost');
+        assert(result.records[0].verifiedContextActorKeys[0] === 'surface-branch:0:申' && result.records[1].verifiedContextActorKeys[0] === 'surface-branch:0:午', 'different seat contexts merged');
+        assert(result.records[1].sourceRealization === 'unresolved' && result.wholeChartWinner === null && result.numericDifference === null, 'local source order promoted');
+    }
+    for (const pair of [[a,a],[a,modelFor(classical)],[null,b]]) {
+        assert(api.comparePairedRestraint(...pair).status === 'outside-source-compared-pair', 'unpaired case accepted');
+    }
+});
+
+test('paired order requires fresh local evidence and rejects conflicting, mixed or unknown runtime labels', () => {
+    const a = modelFor(first), b = modelFor(second), base = a.strengthSynthesis, inventory = base.contextualForcePartyMembershipInventory;
+    const relation = base.visibleStemFunctionRealizationRecords.find((row) => row.sourceActorKey === 'visible:0:壬' && row.targetActorKey === 'visible:1:丙');
+    for (const changed of [
+        { ...base, contextualForcePartyMembershipInventory: { ...inventory, actorProfiles: inventory.actorProfiles.filter((row) => row.actorKey !== 'surface-branch:0:申') } },
+        ...['not-realized-in-source-context','unrecognized-state','unresolved'].map((realizationState) =>
+            ({ ...base, visibleStemFunctionRealizationRecords: [...base.visibleStemFunctionRealizationRecords, { ...relation, realizationState }] }))
+    ]) {
+        const result = api.comparePairedRestraint({ ...a, strengthSynthesis: changed }, b);
+        assert(result.status === 'paired-restraint-evidence-unresolved' && result.strongerLocalRestraintChartKey === null, 'unverified or conflicting local pair ordered');
+    }
 });
 
 test('cached branch, force and authored comparison outputs cannot bypass current evidence', () => {

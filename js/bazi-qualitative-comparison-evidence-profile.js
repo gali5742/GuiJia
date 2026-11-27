@@ -6,9 +6,11 @@
     const chart = GuiJia.baziVisibleStemFunctionRealizationSource;
     const review = GuiJia.baziSourceStrengthReviewProfile;
     const local = GuiJia.baziSourceContributionLocalForceProfile;
+    const counter = GuiJia.baziContextualForcePartyCounterContextProfile;
+    const bridge = GuiJia.baziQianliQuantitySemanticBridge;
     const core = GuiJia.baziCore;
-    if (!api || !chart || !review || !local || !core) return;
-    const { SOURCE, ROOT_PATTERNS, NAMED_CASES, CONTRACT, freeze } = api;
+    if (!api || !chart || !review || !local || !counter || !bridge || !core) return;
+    const { SOURCE, ROOT_PATTERNS, NAMED_CASES, PAIRED_RESTRAINT, CONTRACT, freeze } = api;
     const rows = (items) => Array.isArray(items) ? Array.from(items).filter((item) => item && typeof item === 'object') : [];
     const positions = ['year', 'month', 'day', 'hour'];
 
@@ -58,9 +60,61 @@
         return result('source-baseline-category-ordered', left.category === 'source-heavy-root-category' ? leftActorKey : rightActorKey);
     };
 
+    const verifiedCounterContext = (sourceCase, model, synthesis, binding) => {
+        const context = { seasonal: null, foundation: null };
+        if (!binding) return context;
+        const branches = sourceCase.chartKey.split('|').map((pillar) => pillar[1]);
+        const inventory = synthesis.qianliQuantitySemanticBridgeInventory;
+        const monthRows = rows(inventory?.sourceSurfaceInventory?.branches).filter((row) => row.position === 'month' || row.pillarIndex === 1);
+        const month = monthRows[0];
+        if (monthRows.length === 1 && inventory.sourceSurfaceInventory.branches.every(Boolean)
+            && month.position === 'month' && month.pillarIndex === 1 && month.scope === 'surface-branch'
+            && month.zhi === branches[1] && model.strengthEvidence?.evidence?.seasonalState?.monthZhi === month.zhi) {
+            const season = counter.resolveActorSeasonalContext(synthesis, binding.actorKey);
+            if (season.status === 'resolved-actor-element-seasonal-state' && season.actorElement === binding.wuxing) context.seasonal = season;
+        }
+        const hidden = inventory?.hiddenModifierInventory;
+        if (!Array.isArray(hidden) || hidden.some((row) => !row)) return context;
+        const surface = bridge.buildSurfaceBranchInventory(model);
+        if (surface.length !== 4 || !surface.every((row, index) => row.zhi === branches[index] && row.pillarIndex === index)) return context;
+        const expected = bridge.buildHiddenModifierInventory(model, surface).filter((row) => row.wuxing === binding.wuxing);
+        const found = hidden.filter((row) => row.wuxing === binding.wuxing || row.gan === binding.gan);
+        const fields = ['id', 'actorKey', 'scope', 'position', 'pillarIndex', 'zhi', 'gan', 'level', 'wuxing', 'tenGod', 'parentSurfaceBranchId'];
+        if (expected.length === found.length && expected.every((root) => found.some((row) => fields.every((key) => row[key] === root[key])))) {
+            context.foundation = counter.resolveVisibleStemFoundation(synthesis, binding.actorKey);
+        }
+        return context;
+    };
+
+    const comparePairedRestraint = (left, right) => {
+        const models = [left, right];
+        const keys = models.map((model) => model && chart.buildStructuredChartKey(model, model.strengthSynthesis || {}));
+        const result = (status, records = [], strongerLocalRestraintChartKey = null) => freeze({
+            status, records, strongerLocalRestraintChartKey, excerptId: PAIRED_RESTRAINT.excerptId,
+            scope: 'source-compared-natal-restraint-only', wholeChartWinner: null, numericDifference: null
+        });
+        const authorities = PAIRED_RESTRAINT.cases.map((item) => local.inputForAuthority(item.authorityId));
+        if (!authorities.every((authority) => keys.includes(authority.chartKey))) return result('outside-source-compared-pair');
+        const records = [];
+        for (const [index, authority] of authorities.entries()) {
+            const item = PAIRED_RESTRAINT.cases[index];
+            const model = models[keys.indexOf(authority.chartKey)];
+            const record = local.evaluateAuthority(authority, model, model.strengthSynthesis).forceQualifierRecord;
+            if (!record || record.qualifier !== item.qualifier || record.relationIdentity.functionType !== PAIRED_RESTRAINT.functionType
+                || record.relationIdentity.sourceActorKey !== PAIRED_RESTRAINT.sourceActorKey || record.relationIdentity.targetActorKey !== PAIRED_RESTRAINT.targetActorKey
+                || !record.sourceEvidence.some((span) => span.excerptId === PAIRED_RESTRAINT.excerptId && span.referent === item.referent)
+                || record.applicationState.startsWith('blocked-') || record.runtimeRealization.hasUnsupported
+                || record.runtimeRealization.state === 'incomplete-or-mixed-realization') return result('paired-restraint-evidence-unresolved');
+            records.push(record);
+        }
+        return result('source-compared-local-restraint-ordered', records, records[0].relationIdentity.chartKey);
+    };
+
     const namedComparison = (sourceCase, model, synthesis) => {
         const audited = review.buildProfile(model, synthesis);
-        const verifiedIdentity = audited.assertions.find((item) => item.claimId === sourceCase.identityClaimId)?.status === 'verified-source-assertion';
+        const identityClaim = audited.assertions.find((item) => item.claimId === sourceCase.identityClaimId);
+        const counterBinding = identityClaim?.bindings.find((item) => item.actorKey === sourceCase.counterActorKey);
+        const counterContext = verifiedCounterContext(sourceCase, model, synthesis, counterBinding);
         const sourceCalibration = sourceCase.sourceCalibrationClaimId
             ? audited.assertions.find((item) => item.claimId === sourceCase.sourceCalibrationClaimId) || null : null;
         const effects = local.buildProfile(model, synthesis);
@@ -74,7 +128,7 @@
             && item.sourceActorKey === sourceCase.counterActorKey && item.targetActorKey === sourceCase.daymasterActorKey && item.functionType === 'restraint');
         const incomingStates = new Set(incoming.map((item) => item.realizationState));
         const master = model.strengthEvidence?.dayMaster;
-        const identityReady = audited.sourceCaseId === sourceCase.sourceCaseId && verifiedIdentity
+        const identityReady = audited.sourceCaseId === sourceCase.sourceCaseId && counterBinding
             && `daymaster:2:${master?.gan}` === sourceCase.daymasterActorKey && master?.wuxing === core.getWuXing(master?.gan);
         const blockers = [
             ...(!identityReady ? ['named-anchor-identity-unresolved'] : []),
@@ -86,12 +140,15 @@
                 ? ['named-counter-to-daymaster-realization-conflict'] : []),
             ...(effects.localForceQualifiers.some((item) => item.applicationState.startsWith('blocked-')) ? ['local-force-runtime-disagreement'] : []),
             'daymaster-foundation-effectiveness-coverage-unresolved',
-            'counter-seasonal-standing-unresolved', 'counter-foundation-and-profile-coverage-unresolved',
+            ...(!counterContext.seasonal ? ['counter-seasonal-standing-unresolved'] : []),
+            ...(!counterContext.foundation ? ['counter-foundation-inventory-unresolved'] : []),
+            'counter-foundation-effectiveness-and-profile-unresolved',
             'source-backed-cross-axis-comparison-rule-missing'
         ];
         return {
             chartKey: sourceCase.chartKey, daymasterActorKey: sourceCase.daymasterActorKey, counterActorKey: sourceCase.counterActorKey,
             scope: CONTRACT.namedComparisonScope, status: 'insufficient-comparison-evidence', blockers, excludedContributionIds,
+            counterContext,
             contributionReferences: contributions.map((item) => ({ id: item.id, sourceField: 'visibleStemDaymasterContributionRecords',
                 contributionState: item.contributionState, resolutionStatus: item.resolutionStatus })),
             branchContributionReferences: effects.branchContributions.map((item) => ({ id: item.id, authorityId: item.authorityId, sourceField: 'sourceContributionLocalForce.branchContributions' })),
@@ -115,5 +172,5 @@
             newCompleteSourceCaseCount: 0, reusedClassicalCaseId: SOURCE.upstreamCaseId,
             sourceConditionalExamplesAreNewNatalCases: false, numericForce: null, relativeDominance: null, finalStrength: null });
     };
-    GuiJia.baziQualitativeComparisonEvidenceProfile = freeze({ installed: true, CONTRACT, compareRoots, buildProfile });
+    GuiJia.baziQualitativeComparisonEvidenceProfile = freeze({ installed: true, CONTRACT, compareRoots, comparePairedRestraint, buildProfile });
 })(typeof window !== 'undefined' ? window : globalThis);
