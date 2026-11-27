@@ -277,6 +277,70 @@ test('the comparison extension preserves upstream strength, root states and type
     assert(modelFor('戊辰|乙卯|辛丑|丁酉').strengthSynthesis.contextualForcePartySourceRecipientSealDamageCalibration.result.execution.effectType === 'recipient-seal-damage', 'R29 authority changed');
 });
 
+const fourJia = '甲申|甲戌|甲寅|甲戌', weakClash = '甲寅|戊辰|丙寅|丙申', twoShen = '壬申|甲辰|丙寅|丙申';
+const natal = g.baziSourceNatalRootOutcomes;
+test('the heavy day 寅 baseline and the authored uprooting refer to the same physical root', () => {
+    const model = modelFor(fourJia), base = model.strengthSynthesis;
+    const root = base.sourceNatalRootInteraction.rootOutcome;
+    const baseline = base.qualitativeComparisonEvidence.baselineRoots.find((row) => row.actorKey === root.rootActorKey);
+    assert(baseline.category === 'source-heavy-root-category' && baseline.rootRecordId === root.rootStateId
+        && root.anchorActorKey === 'daymaster:2:甲' && root.effectiveState === 'ineffective' && root.physicalPresence === 'present', 'root baseline or exact effect lost');
+    assert(base.sourceNatalRootInteraction.clashes.length === 1 && base.sourceNatalRootInteraction.finalStrength === null
+        && base.sufficiency.status === 'insufficient' && model.assessmentLayer.state === 'contract-only', 'source outcome generalized');
+});
+test('the paired weak clash establishes local force while leaving both 寅 root states open', () => {
+    const record = modelFor(weakClash).strengthSynthesis.sourceNatalRootInteraction;
+    assert(record.status === 'verified-source-weak-clash' && record.localClashForce === 'source-asserted-ineffective'
+        && record.clashes.length === 2 && new Set(record.clashes.map((item) => item.yinActorKey)).size === 2
+        && record.rootOutcome === null, 'weak clash became per-root effectiveness');
+});
+test('the two natal 申 together affect the named wood root without binding a visible holder or 丙 root', () => {
+    const base = modelFor(twoShen).strengthSynthesis, record = base.sourceNatalRootInteraction;
+    assert(record.status === 'verified-source-uprooted' && record.clashes.length === 2
+        && new Set(record.clashes.map((item) => item.shenActorKey)).size === 2 && record.rootOutcome.rootActorKey === 'hidden:2:寅:甲:0'
+        && record.rootOutcome.anchorActorKey === null && record.rootOutcome.rootStateId === null, 'root attributed to visible month or daymaster');
+    assert(base.rootActorStates.every((row) => row.effectiveState === null) && record.clashes.every((row) => !row.effectiveState), 'joint result distributed over actors or clashes');
+});
+test('one missing, duplicated or misbound clash cannot satisfy the joint natal evidence', () => {
+    const model = modelFor(twoShen), base = model.strengthSynthesis, effects = model.strengthEffects;
+    const contexts = effects.branchStructureContexts, clash = contexts.find((row) => row.relationCode === 'BRANCH_SIX_CLASH');
+    for (const changed of [contexts.filter((row) => row !== clash), [...contexts,clash], contexts.map((row) => row === clash
+        ? { ...clash, participants: [clash.participants[0],clash.participants[0]] } : row)]) {
+        const result = natal.evaluate({ ...model, strengthEffects: { ...effects, branchStructureContexts: changed } }, base);
+        assert(result.status === 'clash-identity-unresolved' && !result.rootOutcome, 'partial or duplicate joint evidence accepted');
+    }
+    const result = natal.evaluate({ ...model, structures: model.structures.filter((row) => row.id !== clash.structureRef) }, base);
+    assert(!result.rootOutcome, 'structure lookup skipped');
+});
+test('root identity, existing effectiveness and structure references survive independent revalidation', () => {
+    const model = modelFor(fourJia), base = model.strengthSynthesis, root = base.rootActorStates[0];
+    for (const changed of [[], [root, root], [{ ...root, level: '余气' }], [{ ...root, relatedStructureRefs: [] }],
+        [{ ...root, resolutionStatus: 'resolved', effectiveState: 'effective' }]]) {
+        assert(natal.evaluate(model, { ...base, rootActorStates: changed }).status === 'root-evidence-unresolved', 'inconsistent current root accepted');
+    }
+    const inventory = base.contextualForcePartyMembershipInventory;
+    for (const actorKey of ['hidden:2:寅:甲:0', 'surface-branch:0:申']) {
+        const changed = { ...base, contextualForcePartyMembershipInventory: { ...inventory, actorProfiles: inventory.actorProfiles.filter((row) => row.actorKey !== actorKey) } };
+        assert(!natal.evaluate(model, changed).rootOutcome, 'cached source outcome bypassed missing actor');
+    }
+    for (const records of [[], base.rootSixRelationRecords.map((item) => ({ ...item, effectiveState: 'effective' }))]) {
+        assert(!natal.evaluate(model, { ...base, rootSixRelationRecords: records }).rootOutcome, 'inconsistent root interaction accepted');
+    }
+});
+test('a co-located 丙 root cannot supply the missing 甲 hidden record, and a missing cover prevents a force judgment', () => {
+    const model = modelFor(twoShen), base = model.strengthSynthesis, bridge = base.qianliQuantitySemanticBridgeInventory;
+    const changed = { ...base, qianliQuantitySemanticBridgeInventory: { ...bridge,
+        hiddenModifierInventory: bridge.hiddenModifierInventory.filter((row) => row.actorKey !== 'hidden:2:寅:甲:0') } };
+    assert(natal.evaluate(model, changed).status === 'root-evidence-unresolved', 'co-located stem borrowed root verdict');
+    const other = modelFor(weakClash), s = other.strengthSynthesis, inv = s.contextualForcePartyMembershipInventory;
+    const result = natal.evaluate(other, { ...s, contextualForcePartyMembershipInventory: { ...inv, actorProfiles: inv.actorProfiles.filter((row) => row.actorKey !== 'visible:3:丙') } });
+    assert(result.status === 'covering-stem-unresolved' && result.localClashForce === null, 'missing natal cover ignored');
+});
+test('a different hour or a prior comparison case cannot inherit natal uprooting', () => {
+    for (const key of ['甲申|甲戌|甲寅|丙寅', first, second, classical]) assert(modelFor(key).strengthSynthesis.sourceNatalRootInteraction === null, 'outcome generalized across charts');
+    assert(natal.evaluate() === null, 'empty model matched a registered case');
+});
+
 console.log(`\nQualitative Comparison Evidence tests: ${passed} passed, ${failed} failed.`);
 if (failed) process.exit(1);
 

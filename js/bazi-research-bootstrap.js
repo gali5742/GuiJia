@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.57';
+    const VERSION = '0.58';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -224,6 +224,7 @@
         Object.freeze({ globalKey:'baziSourceContributionLocalForceProfile', src:'./js/bazi-source-contribution-local-force-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziSourceContributionLocalForce', src:'./js/bazi-source-contribution-local-force.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziQualitativeComparisonEvidenceContract', src:'./js/bazi-qualitative-comparison-evidence-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziSourceNatalRootOutcomes', src:'./js/bazi-source-natal-root-outcomes.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziQualitativeComparisonEvidenceProfile', src:'./js/bazi-qualitative-comparison-evidence-profile.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziQualitativeComparisonEvidence', src:'./js/bazi-qualitative-comparison-evidence.js?v=13.44.0' })
     ]);
