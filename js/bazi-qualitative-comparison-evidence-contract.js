@@ -29,7 +29,7 @@
             identityClaimId: 'SSR-02-M1', sourceCalibrationClaimId: null }
     ]);
     const CONTRACT = freeze({
-        id: 'BAZI-QUALITATIVE-COMPARISON-EVIDENCE-CONTRACT-001', version: '0.1',
+        id: 'BAZI-QUALITATIVE-COMPARISON-EVIDENCE-CONTRACT-001', version: '0.2',
         baselineComparisonScope: 'same-daymaster-source-listed-root-categories',
         baselineCategoryIsEffectiveForce: false, sameCategoryMeansEqualForce: false,
         baselineAndActualEffectivenessSeparate: true, rootRoleAndHiddenLevelSeparate: true,
@@ -39,5 +39,13 @@
         completeEvidenceAloneDefinesComparisonRule: false, genericDominanceResolver: false, finalStrengthMapping: false,
         boundary: 'An explicit source root-category order may compare verified baseline roots of one anchor. It does not order actual forces, equate roots in the same category, sum support, merge counter anchors, or compute whole-chart strength.'
     });
-    GuiJia.baziQualitativeComparisonEvidenceContract = freeze({ installed: true, SOURCE, ROOT_PATTERNS, NAMED_CASES, CONTRACT, freeze });
+    // SSR-T02 explicitly compares the preceding chart with the current one.
+    const PAIRED_RESTRAINT = freeze({
+        excerptId: 'SSR-T02', functionType: 'restraint', sourceActorKey: 'visible:0:壬', targetActorKey: 'visible:1:丙',
+        cases: [
+            { authorityId: 'SCLF-LOCAL-FORCE-01', referent: 'previous-chart', qualifier: 'source-asserted-effective' },
+            { authorityId: 'SCLF-LOCAL-FORCE-02', referent: 'current-chart', qualifier: 'source-asserted-ineffective' }
+        ]
+    });
+    GuiJia.baziQualitativeComparisonEvidenceContract = freeze({ installed: true, SOURCE, ROOT_PATTERNS, NAMED_CASES, PAIRED_RESTRAINT, CONTRACT, freeze });
 })(typeof window !== 'undefined' ? window : globalThis);
