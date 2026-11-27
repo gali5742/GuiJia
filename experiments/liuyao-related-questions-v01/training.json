@@ -1,0 +1,386 @@
+[
+  {
+    "id": "T1-1",
+    "family": "T1",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "楼梯修缮费拖了半年，那个共有权案判决会偏向我吗"
+  },
+  {
+    "id": "T1-2",
+    "family": "T1",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_collection",
+    "text": "共有权纠纷已由法院判好，隔壁拖着的楼梯维修费还能要回来吗"
+  },
+  {
+    "id": "T1-3",
+    "family": "T1",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "共有权案有望判我赢么，隔壁欠的修楼梯钱还收得回来么"
+  },
+  {
+    "id": "T1-4",
+    "family": "T1",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "修楼梯的钱追不追得回、这案子赢不赢，我两个结果都想知道"
+  },
+  {
+    "id": "T2-1",
+    "family": "T2",
+    "group": "dispute",
+    "multi": false,
+    "route": "person_contact_response",
+    "text": "妈妈的交通纠纷明早开庭，她今晚愿意回我那封邮件么"
+  },
+  {
+    "id": "T2-2",
+    "family": "T2",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "妈妈已经回了邮件，她被公交公司告的那个案子最后能赢吗"
+  },
+  {
+    "id": "T2-3",
+    "family": "T2",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "妈妈肯回邮件吗，她在那桩交通案里胜算怎样"
+  },
+  {
+    "id": "T2-4",
+    "family": "T2",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "除了她会不会回我，也想占她当被告能不能胜诉"
+  },
+  {
+    "id": "T3-1",
+    "family": "T3",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "票据原件刚签收，我和摊主的名誉纠纷能获有利判决么"
+  },
+  {
+    "id": "T3-2",
+    "family": "T3",
+    "group": "dispute",
+    "multi": false,
+    "route": "receive_item",
+    "text": "跟摊主的官司昨天结束了，对方寄的票据原件能到我手上吗"
+  },
+  {
+    "id": "T3-3",
+    "family": "T3",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "我告摊主诽谤会赢么，那些寄出的原始票据我等得到吗"
+  },
+  {
+    "id": "T3-4",
+    "family": "T3",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "寄来的票据有没有着落，和摊主打官司结果又如何"
+  },
+  {
+    "id": "T4-1",
+    "family": "T4",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_collection",
+    "text": "我为讨旧账换了工作，原单位欠的押车费讨得回来么"
+  },
+  {
+    "id": "T4-2",
+    "family": "T4",
+    "group": "dispute",
+    "multi": false,
+    "route": "income_salary",
+    "text": "押车费欠款拿到了，调职后基本工资能调高吗"
+  },
+  {
+    "id": "T4-3",
+    "family": "T4",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "原单位会补还押车费吗，调职以后底薪会调几档"
+  },
+  {
+    "id": "T4-4",
+    "family": "T4",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "两边的钱都挂心，旧的押车欠款能要到不，新岗位基本薪酬升不升"
+  },
+  {
+    "id": "T5-1",
+    "family": "T5",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "钱凑齐了，装修商告我违约的官司能赢吗"
+  },
+  {
+    "id": "T5-2",
+    "family": "T5",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_repayment",
+    "text": "装修改造那场纠纷已撤诉，我下个月还得清向师傅借的钱么"
+  },
+  {
+    "id": "T5-3",
+    "family": "T5",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "装修官司能赢不，我能按月归还师傅的借款不"
+  },
+  {
+    "id": "T5-4",
+    "family": "T5",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "装修案的判决同我欠师傅的钱能否还清，各想看一看"
+  },
+  {
+    "id": "T6-1",
+    "family": "T6",
+    "group": "dispute",
+    "multi": false,
+    "route": "person_contact_response",
+    "text": "表妹欠的饭钱我不计较，昨天那条短信她会回我吗"
+  },
+  {
+    "id": "T6-2",
+    "family": "T6",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_collection",
+    "text": "表妹答复了那条短信，她拖的餐费欠款我追得回来吗"
+  },
+  {
+    "id": "T6-3",
+    "family": "T6",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "表妹肯回我的短信不，我还能讨回她拖欠的餐费不"
+  },
+  {
+    "id": "T6-4",
+    "family": "T6",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "我给表妹的留言有回音吗；她该补给我的餐费能不能收回"
+  },
+  {
+    "id": "T7-1",
+    "family": "T7",
+    "group": "transfer",
+    "multi": false,
+    "route": "qualification_exam_outcome",
+    "text": "名次早已出来，我这张养老护理员资格证考得下来嘛"
+  },
+  {
+    "id": "T7-2",
+    "family": "T7",
+    "group": "transfer",
+    "multi": false,
+    "route": "exam_rank_result",
+    "text": "考试合格了，女儿的语文成绩能不能排进全县前百"
+  },
+  {
+    "id": "T7-3",
+    "family": "T7",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "护理资格考我能过么，孩子的语文统测排名能进县里前百吗"
+  },
+  {
+    "id": "T7-4",
+    "family": "T7",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "我的护理资格能否拿下和女儿语文排第几分别怎么看"
+  },
+  {
+    "id": "T8-1",
+    "family": "T8",
+    "group": "transfer",
+    "multi": false,
+    "route": "travel_execution",
+    "text": "动车改点也无妨，月底我去扬州探友的行程最终能实现吗"
+  },
+  {
+    "id": "T8-2",
+    "family": "T8",
+    "group": "transfer",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "text": "去扬州探友已定，这班早动车究竟准点还是延后"
+  },
+  {
+    "id": "T8-3",
+    "family": "T8",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "我这次扬州探友能成行不，返程那班动车会不会晚点"
+  },
+  {
+    "id": "T8-4",
+    "family": "T8",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "扬州之行走得成吗，还有回来那班动车几时能开"
+  },
+  {
+    "id": "T9-1",
+    "family": "T9",
+    "group": "transfer",
+    "multi": false,
+    "route": "position_advancement",
+    "text": "技能奖金已领，这轮我能从技术员提为总工吗"
+  },
+  {
+    "id": "T9-2",
+    "family": "T9",
+    "group": "transfer",
+    "multi": false,
+    "route": "income_bonus",
+    "text": "总工已经有了人选，年底的技能奖励还能发给我吗"
+  },
+  {
+    "id": "T9-3",
+    "family": "T9",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "总工能轮上我吗，技能奖又能不能发给我"
+  },
+  {
+    "id": "T9-4",
+    "family": "T9",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "这一轮想看总工提拔和技能奖，两项我各有多少希望"
+  },
+  {
+    "id": "T10-1",
+    "family": "T10",
+    "group": "transfer",
+    "multi": false,
+    "route": "lost_property_recovery",
+    "text": "快递说明天送货，我前晚放错地方的扇子还有望找着吗"
+  },
+  {
+    "id": "T10-2",
+    "family": "T10",
+    "group": "transfer",
+    "multi": false,
+    "route": "receive_item",
+    "text": "我前晚丢了折扇，姐姐托同事捎的替换扇子能到手么"
+  },
+  {
+    "id": "T10-3",
+    "family": "T10",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "旧扇能找回来吗，姐姐捎的那把能收到吗"
+  },
+  {
+    "id": "T10-4",
+    "family": "T10",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "除了姐姐的新扇来不来，我遗落的旧扇也想求个下落"
+  },
+  {
+    "id": "T11-1",
+    "family": "T11",
+    "group": "transfer",
+    "multi": false,
+    "route": "job_application_outcome",
+    "text": "面试时老板说要自备镊子，我应聘的珠宝修补岗能拿到吗"
+  },
+  {
+    "id": "T11-2",
+    "family": "T11",
+    "group": "transfer",
+    "multi": false,
+    "route": "item_purchase",
+    "text": "修补岗的面谈已经结束，我去旧市集能买着那种细镊么"
+  },
+  {
+    "id": "T11-3",
+    "family": "T11",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "珠宝行肯雇我么，我需要的细镊买得着么"
+  },
+  {
+    "id": "T11-4",
+    "family": "T11",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "想问细镊能否买到以及珠宝行会不会请我去"
+  },
+  {
+    "id": "T12-1",
+    "family": "T12",
+    "group": "transfer",
+    "multi": false,
+    "route": "marital_relationship",
+    "text": "媳妇回完信就去了外地，我们这段婚姻能维系吗"
+  },
+  {
+    "id": "T12-2",
+    "family": "T12",
+    "group": "transfer",
+    "multi": false,
+    "route": "person_contact_response",
+    "text": "我们的婚姻起过波折，我发给媳妇的生日祝福她会回复吗"
+  },
+  {
+    "id": "T12-3",
+    "family": "T12",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "她会回我这次生日祝福么，我们夫妻这日子还能过得下去么"
+  },
+  {
+    "id": "T12-4",
+    "family": "T12",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "想知道婚姻往哪里走，也请看她肯不肯回复这次留言"
+  }
+]

@@ -1,0 +1,370 @@
+[
+  {
+    "id": "E1-1",
+    "family": "E1",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "画廊欠我三个月的展费没结，我现在告它擅用照片会胜诉吗"
+  },
+  {
+    "id": "E1-2",
+    "family": "E1",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_collection",
+    "text": "照片侵权案已经审完了，我当初给画廊垫的灯光费能追回来吗"
+  },
+  {
+    "id": "E1-3",
+    "family": "E1",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "照片署名那场官司能判我胜么，画廊欠我的那笔展费还讨得回来么"
+  },
+  {
+    "id": "E1-4",
+    "family": "E1",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "想占照片案的输赢，另有展费要不要得回来这一桩"
+  },
+  {
+    "id": "E2-1",
+    "family": "E2",
+    "group": "dispute",
+    "multi": false,
+    "route": "person_contact_response",
+    "text": "哥哥明天要去应诉，我在外地给他发的语音会有回复吗"
+  },
+  {
+    "id": "E2-2",
+    "family": "E2",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "昨天哥已经回复我了，他跟快递站那桩民事官司最后能赢么"
+  },
+  {
+    "id": "E2-3",
+    "family": "E2",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "哥会回我刚发的语音不，他明天跟快递站打官司胜算如何"
+  },
+  {
+    "id": "E2-4",
+    "family": "E2",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "他和快递站那案子判谁赢我想知道 至于他肯不肯给我回话也想问"
+  },
+  {
+    "id": "E3-1",
+    "family": "E3",
+    "group": "dispute",
+    "multi": false,
+    "route": "litigation_outcome",
+    "text": "老邻居借我的钱足够了，我被物业告乱搭棚子能获有利裁判吗"
+  },
+  {
+    "id": "E3-2",
+    "family": "E3",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_repayment",
+    "text": "物业的棚子案已经和解，我能如约把借老邻居那笔钱还清吗"
+  },
+  {
+    "id": "E3-3",
+    "family": "E3",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "物业那场棚子纠纷能判我赢吗，借老邻居的那笔我年底还得起么"
+  },
+  {
+    "id": "E3-4",
+    "family": "E3",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "棚子案判决和年底清偿借款两件分别会怎样"
+  },
+  {
+    "id": "E4-1",
+    "family": "E4",
+    "group": "dispute",
+    "multi": false,
+    "route": "debt_collection",
+    "text": "经手的对账单已经寄到了，球队欠我的场租还能收齐吗"
+  },
+  {
+    "id": "E4-2",
+    "family": "E4",
+    "group": "dispute",
+    "multi": false,
+    "route": "receive_item",
+    "text": "球队把拖欠的场租都付了，寄给我的纸质对账单最后能收到么"
+  },
+  {
+    "id": "E4-3",
+    "family": "E4",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "球队拖着的场租能收回来吗；会计寄的那封对账单到得到"
+  },
+  {
+    "id": "E4-4",
+    "family": "E4",
+    "group": "dispute",
+    "multi": true,
+    "route": null,
+    "text": "场租欠款有没有指望，还有那封盖章的对账函收得到么"
+  },
+  {
+    "id": "E5-1",
+    "family": "E5",
+    "group": "transfer",
+    "multi": false,
+    "route": "position_advancement",
+    "text": "岗位工资一分没加，新成立的科里我有希望从副手提作负责人吗"
+  },
+  {
+    "id": "E5-2",
+    "family": "E5",
+    "group": "transfer",
+    "multi": false,
+    "route": "income_salary",
+    "text": "当负责人的事已经定下来了，我的工资级别会随之调高吗"
+  },
+  {
+    "id": "E5-3",
+    "family": "E5",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "我能从副手提成负责人么，要是提了工资也会上调吗"
+  },
+  {
+    "id": "E5-4",
+    "family": "E5",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "今年的任职提拔跟基本工资调整分别能不能落到我头上"
+  },
+  {
+    "id": "E6-1",
+    "family": "E6",
+    "group": "transfer",
+    "multi": false,
+    "route": "travel_execution",
+    "text": "哪怕大巴改点我也能叫车，礼拜三到安吉看竹海这趟去得成吗"
+  },
+  {
+    "id": "E6-2",
+    "family": "E6",
+    "group": "transfer",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "text": "竹海的住处都订下了，我坐的那班县际大巴会误点么"
+  },
+  {
+    "id": "E6-3",
+    "family": "E6",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "周三的竹海之旅能走成吗，我回程订的那班大巴会晚点吗"
+  },
+  {
+    "id": "E6-4",
+    "family": "E6",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "竹海去不去得成和县际车当晚误不误点都想看看"
+  },
+  {
+    "id": "E7-1",
+    "family": "E7",
+    "group": "transfer",
+    "multi": false,
+    "route": "lost_property_recovery",
+    "text": "我已经从师傅那儿买了替代品，落在演出厅的节拍器能找回来吗"
+  },
+  {
+    "id": "E7-2",
+    "family": "E7",
+    "group": "transfer",
+    "multi": false,
+    "route": "item_purchase",
+    "text": "掉在演出厅的那只节拍器我放弃找了，拍卖的古董节拍器我买得到么"
+  },
+  {
+    "id": "E7-3",
+    "family": "E7",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "遗失的节拍器还有着落么，拍卖会那只我最后买得着不"
+  },
+  {
+    "id": "E7-4",
+    "family": "E7",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "拍卖那只买不买得到另外丢掉那只会不会回来"
+  },
+  {
+    "id": "E8-1",
+    "family": "E8",
+    "group": "transfer",
+    "multi": false,
+    "route": "qualification_exam_outcome",
+    "text": "妈妈打来催我报成绩，今年的海员适任证我能考过吗"
+  },
+  {
+    "id": "E8-2",
+    "family": "E8",
+    "group": "transfer",
+    "multi": false,
+    "route": "person_contact_response",
+    "text": "我有没有拿下海员证不急，给妈妈发的那张照片她会回我吗"
+  },
+  {
+    "id": "E8-3",
+    "family": "E8",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "我能考下海员适任证么，妈妈又肯不肯回复我发的照片"
+  },
+  {
+    "id": "E8-4",
+    "family": "E8",
+    "group": "transfer",
+    "multi": true,
+    "route": null,
+    "text": "我既盼着海员考证过关也等我妈回信，两头都能如愿吗"
+  },
+  {
+    "id": "H1",
+    "group": "restatement",
+    "route": "litigation_outcome",
+    "multi": false,
+    "text": "这个著作权官司能打赢吗？我是说判决到底会不会支持我。"
+  },
+  {
+    "id": "H2",
+    "group": "restatement",
+    "route": "exam_rank_result",
+    "multi": false,
+    "text": "排前十有戏吗？我关心的就是儿子这回月考能不能进前十。"
+  },
+  {
+    "id": "H3",
+    "group": "restatement",
+    "route": "travel_disruption_transport",
+    "multi": false,
+    "text": "四点钟那个航班是原点起飞还是延后起飞呢"
+  },
+  {
+    "id": "H4",
+    "group": "restatement",
+    "route": "debt_collection",
+    "multi": false,
+    "text": "假如双方最终能和解，我能拿回合办读书会时对方欠我的那笔垫付款吗"
+  },
+  {
+    "id": "H5",
+    "group": "restatement",
+    "route": "person_contact_response",
+    "multi": false,
+    "text": "父亲读过了也好没读也罢，他会给我回个话吗？"
+  },
+  {
+    "id": "H6",
+    "group": "restatement",
+    "route": "position_advancement",
+    "multi": false,
+    "text": "老板问过我想不想当领班，我这回能提上去吗？"
+  },
+  {
+    "id": "H7",
+    "group": "outside",
+    "route": null,
+    "multi": false,
+    "text": "露天戏开演那会儿河边会下雨么"
+  },
+  {
+    "id": "H8",
+    "group": "outside",
+    "route": null,
+    "multi": false,
+    "text": "北院种的那几棵杏树今年会开花吗"
+  },
+  {
+    "id": "H9",
+    "group": "outside",
+    "route": null,
+    "multi": false,
+    "text": "我们厂的排球队在秋季联赛能进决赛吗"
+  },
+  {
+    "id": "H10",
+    "group": "outside",
+    "route": null,
+    "multi": true,
+    "text": "天黑前河谷还会不会起风，戏台明早那一场又会不会遇上雨"
+  },
+  {
+    "id": "H11",
+    "group": "outside",
+    "route": null,
+    "multi": true,
+    "text": "北院的杏开不开花，老宅那棵梨结不结果"
+  },
+  {
+    "id": "H12",
+    "group": "outside",
+    "route": null,
+    "multi": true,
+    "text": "我们能进排球决赛么，隔壁厂篮球队能拿冠军么"
+  },
+  {
+    "id": "H13",
+    "group": "same",
+    "route": null,
+    "multi": true,
+    "text": "上月挂失的银哨能找到么，昨儿落在更衣室的大衣呢"
+  },
+  {
+    "id": "H14",
+    "group": "same",
+    "route": null,
+    "multi": true,
+    "text": "侵权官司一审能判我赢吗，另一宗租约案仲裁庭会支持我么"
+  },
+  {
+    "id": "H15",
+    "group": "same",
+    "route": null,
+    "multi": true,
+    "text": "我和哥哥各自给爸发过照片，他会回我那条吗，哥那条呢"
+  },
+  {
+    "id": "H16",
+    "group": "same",
+    "route": null,
+    "multi": true,
+    "text": "应聘冷链客服有机会录用吗 钟点工那边会不会也肯用我"
+  }
+]
