@@ -1,0 +1,1321 @@
+{
+  "source": "24b071474ce36338db819456f4de08e26b98875d",
+  "workflow": "https://github.com/gali5742/GuiJia/actions/runs/45916768896",
+  "weightDigest": "52e6a916b97ab2a0b12096ec5b9aa673d9f909432c31190fe77a3ccc6692c206",
+  "audit": {
+    "comparisons": 320921,
+    "maximum": 0.23809523809523808
+  },
+  "metrics": {
+    "new": {
+      "n": 30,
+      "baseline": 0,
+      "full": 26,
+      "auto": 28,
+      "oracle": 28,
+      "exact": 25,
+      "end": 28,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 2
+    },
+    "old": {
+      "n": 26,
+      "baseline": 21,
+      "full": 19,
+      "auto": 21,
+      "oracle": 21,
+      "exact": 26,
+      "end": 19,
+      "stopped": 2,
+      "acceptedWrong": 1,
+      "unknown": 4
+    },
+    "outside": {
+      "n": 6,
+      "baseline": 6,
+      "full": 6,
+      "auto": 6,
+      "oracle": 6,
+      "exact": 6,
+      "end": 6,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 6
+    },
+    "litigation_outcome": {
+      "n": 6,
+      "baseline": 0,
+      "full": 5,
+      "auto": 6,
+      "oracle": 6,
+      "exact": 5,
+      "end": 6,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 0
+    },
+    "exam_rank_result": {
+      "n": 6,
+      "baseline": 0,
+      "full": 5,
+      "auto": 6,
+      "oracle": 6,
+      "exact": 5,
+      "end": 6,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 0
+    },
+    "position_advancement": {
+      "n": 6,
+      "baseline": 0,
+      "full": 5,
+      "auto": 5,
+      "oracle": 5,
+      "exact": 5,
+      "end": 5,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 1
+    },
+    "travel_disruption_transport": {
+      "n": 6,
+      "baseline": 0,
+      "full": 6,
+      "auto": 5,
+      "oracle": 5,
+      "exact": 5,
+      "end": 5,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 1
+    },
+    "person_contact_response": {
+      "n": 6,
+      "baseline": 0,
+      "full": 5,
+      "auto": 6,
+      "oracle": 6,
+      "exact": 5,
+      "end": 6,
+      "stopped": 0,
+      "acceptedWrong": 0,
+      "unknown": 0
+    },
+    "gate": {
+      "totalMulti": 8,
+      "stoppedMulti": 6,
+      "routedMulti": 2,
+      "falseStops": 2,
+      "totalSingle": 62,
+      "afterStop": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "E1",
+      "text": "房东总说要涨租，我告他擅自改锁这场官司能判赢么",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "我告他擅自改锁这场官司能判赢么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "我告他擅自改锁这场官司能判赢么",
+        "baseline": null,
+        "full": "litigation_outcome",
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E2",
+      "text": "法院会判我母亲赢这件著作权案吗，她已经找到原稿",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "法院会判我母亲赢这件著作权案吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "法院会判我母亲赢这件著作权案吗",
+        "baseline": null,
+        "full": "litigation_outcome",
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E3",
+      "text": "孩子在陪我找借据，我打的这场借款官司会胜诉么",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "我打的这场借款官司会胜诉么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "我打的这场借款官司会胜诉么",
+        "baseline": null,
+        "full": "litigation_outcome",
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E4",
+      "text": "法官最后会驳回对我不利的那项侵权诉请吗",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "法官最后会驳回对我不利的那项侵权诉请吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "法官最后会驳回对我不利的那项侵权诉请吗",
+        "baseline": null,
+        "full": "litigation_outcome",
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E5",
+      "text": "叔叔还欠我一笔旧账，他作为被告的这起物业诉讼能赢吗",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "他作为被告的这起物业诉讼能赢吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "他作为被告的这起物业诉讼能赢吗",
+        "baseline": null,
+        "full": null,
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E6",
+      "text": "女儿考多少分我知道了，她这次英语考试能挤进班里前三名么",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "她这次英语考试能挤进班里前三名么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "她这次英语考试能挤进班里前三名么",
+        "baseline": "qualification_exam_outcome",
+        "full": "exam_rank_result",
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E7",
+      "text": "这回地理联考我在全市大致排第几，录取的事以后再说",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "这回地理联考我在全市大致排第几",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "这回地理联考我在全市大致排第几",
+        "baseline": null,
+        "full": "exam_rank_result",
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E8",
+      "text": "儿子的期末统考名次能进年级上半区不",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "儿子的期末统考名次能进年级上半区不",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "儿子的期末统考名次能进年级上半区不",
+        "baseline": "qualification_exam_outcome",
+        "full": "exam_rank_result",
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E9",
+      "text": "拿证是明年的事，这回的理论考核我排在同批人的前列吗",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "这回的理论考核我排在同批人的前列吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "这回的理论考核我排在同批人的前列吗",
+        "baseline": null,
+        "full": null,
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E10",
+      "text": "家长会说只公布排名，女儿这次数学考会不会排在小组最前面",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "女儿这次数学考会不会排在小组最前面",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "女儿这次数学考会不会排在小组最前面",
+        "baseline": null,
+        "full": "exam_rank_result",
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E11",
+      "text": "我在现有门店能被提为值班经理吗，求职网站已经关了",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我在现有门店能被提为值班经理吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我在现有门店能被提为值班经理吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E12",
+      "text": "别家约我面谈，我在现在的报馆有望升任采访主任么",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我在现在的报馆有望升任采访主任么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "position_advancement",
+      "single": {
+        "predictedSpan": "我在现在的报馆有望升任采访主任么",
+        "baseline": "job_application_outcome",
+        "full": "position_advancement",
+        "auto": "position_advancement",
+        "oracle": "position_advancement"
+      }
+    },
+    {
+      "id": "E13",
+      "text": "单位这次会把我从办事员提到副科级么",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "单位这次会把我从办事员提到副科级么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "position_advancement",
+      "single": {
+        "predictedSpan": "单位这次会把我从办事员提到副科级么",
+        "baseline": "job_application_outcome",
+        "full": "position_advancement",
+        "auto": "position_advancement",
+        "oracle": "position_advancement"
+      }
+    },
+    {
+      "id": "E14",
+      "text": "涨薪的通知已经下来了，我年底能不能在本团升任首席",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我年底能不能在本团升任首席",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "position_advancement",
+      "single": {
+        "predictedSpan": "我年底能不能在本团升任首席",
+        "baseline": null,
+        "full": "position_advancement",
+        "auto": "position_advancement",
+        "oracle": "position_advancement"
+      }
+    },
+    {
+      "id": "E15",
+      "text": "孩子刚参加过考试，我自己的职级这次评审能往上升一档吗",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我自己的职级这次评审能往上升一档吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "position_advancement",
+      "single": {
+        "predictedSpan": "我自己的职级这次评审能往上升一档吗",
+        "baseline": "qualification_exam_outcome",
+        "full": "position_advancement",
+        "auto": "position_advancement",
+        "oracle": "position_advancement"
+      }
+    },
+    {
+      "id": "E16",
+      "text": "后天我乘的峡谷观光火车会临时停驶吗，出游日期我已经定了",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "后天我乘的峡谷观光火车会临时停驶吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "travel_disruption_transport",
+      "single": {
+        "predictedSpan": "后天我乘的峡谷观光火车会临时停驶吗",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": "travel_disruption_transport",
+        "oracle": "travel_disruption_transport"
+      }
+    },
+    {
+      "id": "E17",
+      "text": "妈已经到了客运码头，去海岛的十点快艇会准点开吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "去海岛的十点快艇会准点开吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "去海岛的十点快艇会准点开吗",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E18",
+      "text": "我订的清晨邮轮接送巴士会误点不",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "我订的清晨邮轮接送巴士会误点不",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "travel_disruption_transport",
+      "single": {
+        "predictedSpan": "我订的清晨邮轮接送巴士会误点不",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": "travel_disruption_transport",
+        "oracle": "travel_disruption_transport"
+      }
+    },
+    {
+      "id": "E19",
+      "text": "行李仍然没找着，我买票的那班卧铺会改点发车吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "我买票的那班卧铺会改点发车吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "travel_disruption_transport",
+      "single": {
+        "predictedSpan": "我买票的那班卧铺会改点发车吗",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": "travel_disruption_transport",
+        "oracle": "travel_disruption_transport"
+      }
+    },
+    {
+      "id": "E20",
+      "text": "父亲写了信让我早点回，山阴线今晚那趟末车会停运吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "山阴线今晚那趟末车会停运吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "travel_disruption_transport",
+      "single": {
+        "predictedSpan": "山阴线今晚那趟末车会停运吗",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": "travel_disruption_transport",
+        "oracle": "travel_disruption_transport"
+      }
+    },
+    {
+      "id": "E21",
+      "text": "这件事跟她出差无关，姐姐看了我发的照片会回话么",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "姐姐看了我发的照片会回话么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "姐姐看了我发的照片会回话么",
+        "baseline": null,
+        "full": null,
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    },
+    {
+      "id": "E22",
+      "text": "母亲会回我前天的明信片吗，我已经搬回了老住址",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "母亲会回我前天的明信片吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "母亲会回我前天的明信片吗",
+        "baseline": null,
+        "full": "person_contact_response",
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    },
+    {
+      "id": "E23",
+      "text": "丈夫会回拨我打过去的那通电话吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "丈夫会回拨我打过去的那通电话吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "丈夫会回拨我打过去的那通电话吗",
+        "baseline": null,
+        "full": "person_contact_response",
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    },
+    {
+      "id": "E24",
+      "text": "哥哥还没到家，我的语音他肯回复吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "我的语音他肯回复吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "我的语音他肯回复吗",
+        "baseline": null,
+        "full": "person_contact_response",
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    },
+    {
+      "id": "E25",
+      "text": "我不问女儿这次名次，她会回我昨天那条短讯吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "她会回我昨天那条短讯吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "她会回我昨天那条短讯吗",
+        "baseline": null,
+        "full": "person_contact_response",
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    },
+    {
+      "id": "E26",
+      "text": "我这两年经济上会逐渐宽裕吗",
+      "multi": false,
+      "route": "financial_fortune",
+      "target": "我这两年经济上会逐渐宽裕吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "financial_fortune",
+      "single": {
+        "predictedSpan": "我这两年经济上会逐渐宽裕吗",
+        "baseline": "financial_fortune",
+        "full": "financial_fortune",
+        "auto": "financial_fortune",
+        "oracle": "financial_fortune"
+      }
+    },
+    {
+      "id": "E27",
+      "text": "我的钟表维修摊春节后的生意会怎样",
+      "multi": false,
+      "route": "business_operation",
+      "target": "我的钟表维修摊春节后的生意会怎样",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "business_operation",
+      "single": {
+        "predictedSpan": "我的钟表维修摊春节后的生意会怎样",
+        "baseline": "business_operation",
+        "full": "business_operation",
+        "auto": "business_operation",
+        "oracle": "business_operation"
+      }
+    },
+    {
+      "id": "E28",
+      "text": "跟厂方商量的制服订单能谈得下来么",
+      "multi": false,
+      "route": "commercial_transaction",
+      "target": "跟厂方商量的制服订单能谈得下来么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "commercial_transaction",
+      "single": {
+        "predictedSpan": "跟厂方商量的制服订单能谈得下来么",
+        "baseline": "commercial_transaction",
+        "full": "commercial_transaction",
+        "auto": "commercial_transaction",
+        "oracle": "commercial_transaction"
+      }
+    },
+    {
+      "id": "E29",
+      "text": "秋季店里再备一批毛毡鞋垫划算么",
+      "multi": false,
+      "route": "inventory_purchase",
+      "target": "秋季店里再备一批毛毡鞋垫划算么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "inventory_purchase",
+      "single": {
+        "predictedSpan": "秋季店里再备一批毛毡鞋垫划算么",
+        "baseline": "inventory_purchase",
+        "full": "inventory_purchase",
+        "auto": "inventory_purchase",
+        "oracle": "inventory_purchase"
+      }
+    },
+    {
+      "id": "E30",
+      "text": "我仓库剩下的金属书立这季能出清么",
+      "multi": false,
+      "route": "inventory_sale",
+      "target": "我仓库剩下的金属书立这季能出清么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "inventory_sale",
+      "single": {
+        "predictedSpan": "我仓库剩下的金属书立这季能出清么",
+        "baseline": "inventory_sale",
+        "full": "inventory_sale",
+        "auto": "inventory_sale",
+        "oracle": "inventory_sale"
+      }
+    },
+    {
+      "id": "E31",
+      "text": "同事看过我的留言，他肯借钱给我付培训费吗",
+      "multi": false,
+      "route": "borrow_money",
+      "target": "他肯借钱给我付培训费吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "他肯借钱给我付培训费吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E32",
+      "text": "同窗来借周转款我借给他妥当么",
+      "multi": false,
+      "route": "lend_money",
+      "target": "同窗来借周转款我借给他妥当么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "lend_money",
+      "single": {
+        "predictedSpan": "同窗来借周转款我借给他妥当么",
+        "baseline": "lend_money",
+        "full": "lend_money",
+        "auto": "lend_money",
+        "oracle": "lend_money"
+      }
+    },
+    {
+      "id": "E33",
+      "text": "官司已经结了，对方拖着的修缮欠款何时能收回",
+      "multi": false,
+      "route": "debt_collection",
+      "target": "对方拖着的修缮欠款何时能收回",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "debt_collection",
+      "single": {
+        "predictedSpan": "对方拖着的修缮欠款何时能收回",
+        "baseline": "debt_collection",
+        "full": "debt_collection",
+        "auto": "debt_collection",
+        "oracle": "debt_collection"
+      }
+    },
+    {
+      "id": "E34",
+      "text": "我欠裁缝铺的布钱年底前能付清么",
+      "multi": false,
+      "route": "debt_repayment",
+      "target": "我欠裁缝铺的布钱年底前能付清么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "debt_repayment",
+      "single": {
+        "predictedSpan": "我欠裁缝铺的布钱年底前能付清么",
+        "baseline": "debt_repayment",
+        "full": "debt_repayment",
+        "auto": "debt_repayment",
+        "oracle": "debt_repayment"
+      }
+    },
+    {
+      "id": "E35",
+      "text": "和哥哥一起经营旧货铺能合作长久么",
+      "multi": false,
+      "route": "partnership",
+      "target": "和哥哥一起经营旧货铺能合作长久么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "partnership",
+      "single": {
+        "predictedSpan": "和哥哥一起经营旧货铺能合作长久么",
+        "baseline": "partnership",
+        "full": "partnership",
+        "auto": "partnership",
+        "oracle": "partnership"
+      }
+    },
+    {
+      "id": "E36",
+      "text": "我投在剧院改建里的钱最终会带来收益吗",
+      "multi": false,
+      "route": "investment_profit",
+      "target": "我投在剧院改建里的钱最终会带来收益吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "investment_profit",
+      "single": {
+        "predictedSpan": "我投在剧院改建里的钱最终会带来收益吗",
+        "baseline": "investment_profit",
+        "full": "investment_profit",
+        "auto": "investment_profit",
+        "oracle": "investment_profit"
+      }
+    },
+    {
+      "id": "E37",
+      "text": "手里这份苗圃投资眼下适合退出吗",
+      "multi": false,
+      "route": "investment_liquidation",
+      "target": "手里这份苗圃投资眼下适合退出吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "investment_suitability",
+      "single": {
+        "predictedSpan": "手里这份苗圃投资眼下适合退出吗",
+        "baseline": "investment_suitability",
+        "full": "investment_suitability",
+        "auto": "investment_suitability",
+        "oracle": "investment_suitability"
+      }
+    },
+    {
+      "id": "E38",
+      "text": "买入这家木工坊的股份合算吗",
+      "multi": false,
+      "route": "investment_suitability",
+      "target": "买入这家木工坊的股份合算吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "买入这家木工坊的股份合算吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E39",
+      "text": "我的沪深指数持仓还值得加一点吗",
+      "multi": false,
+      "route": "investment_position_decision",
+      "target": "我的沪深指数持仓还值得加一点吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "investment_position_decision",
+      "single": {
+        "predictedSpan": "我的沪深指数持仓还值得加一点吗",
+        "baseline": "investment_position_decision",
+        "full": "investment_position_decision",
+        "auto": "investment_position_decision",
+        "oracle": "investment_position_decision"
+      }
+    },
+    {
+      "id": "E40",
+      "text": "下个季度锡的市场价格会走高么",
+      "multi": false,
+      "route": "investment_price_trend",
+      "target": "下个季度锡的市场价格会走高么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "investment_price_trend",
+      "single": {
+        "predictedSpan": "下个季度锡的市场价格会走高么",
+        "baseline": "investment_price_trend",
+        "full": "investment_price_trend",
+        "auto": "investment_price_trend",
+        "oracle": "investment_price_trend"
+      }
+    },
+    {
+      "id": "E41",
+      "text": "职级评定已经结束，接下来我的固定工资会涨吗",
+      "multi": false,
+      "route": "income_salary",
+      "target": "接下来我的固定工资会涨吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "income_salary",
+      "single": {
+        "predictedSpan": "接下来我的固定工资会涨吗",
+        "baseline": "income_salary",
+        "full": "income_salary",
+        "auto": "income_salary",
+        "oracle": "income_salary"
+      }
+    },
+    {
+      "id": "E42",
+      "text": "单位说好的年度安全奖励我能拿到手不",
+      "multi": false,
+      "route": "income_bonus",
+      "target": "单位说好的年度安全奖励我能拿到手不",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "income_bonus",
+      "single": {
+        "predictedSpan": "单位说好的年度安全奖励我能拿到手不",
+        "baseline": "income_bonus",
+        "full": "income_bonus",
+        "auto": "income_bonus",
+        "oracle": "income_bonus"
+      }
+    },
+    {
+      "id": "E43",
+      "text": "没等到父亲的回信，他托人捎过来的那幅版画能到我这里么",
+      "multi": false,
+      "route": "receive_item",
+      "target": "他托人捎过来的那幅版画能到我这里么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "receive_item",
+      "single": {
+        "predictedSpan": "他托人捎过来的那幅版画能到我这里么",
+        "baseline": "receive_item",
+        "full": "receive_item",
+        "auto": "receive_item",
+        "oracle": "receive_item"
+      }
+    },
+    {
+      "id": "E44",
+      "text": "我能从拍卖会上买下那套旧砝码吗",
+      "multi": false,
+      "route": "item_purchase",
+      "target": "我能从拍卖会上买下那套旧砝码吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我能从拍卖会上买下那套旧砝码吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E45",
+      "text": "跟一起排练的琴师有发展成情侣的可能吗",
+      "multi": false,
+      "route": "relationship_development",
+      "target": "跟一起排练的琴师有发展成情侣的可能吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "跟一起排练的琴师有发展成情侣的可能吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E46",
+      "text": "我跟现在的对象来年能办婚事么",
+      "multi": false,
+      "route": "marriage_match",
+      "target": "我跟现在的对象来年能办婚事么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "marriage_match",
+      "single": {
+        "predictedSpan": "我跟现在的对象来年能办婚事么",
+        "baseline": "marriage_match",
+        "full": "marriage_match",
+        "auto": "marriage_match",
+        "oracle": "marriage_match"
+      }
+    },
+    {
+      "id": "E47",
+      "text": "妻子已经回我邮件了，我俩的婚姻还有回转的余地么",
+      "multi": false,
+      "route": "marital_relationship",
+      "target": "我俩的婚姻还有回转的余地么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "marital_relationship",
+      "single": {
+        "predictedSpan": "我俩的婚姻还有回转的余地么",
+        "baseline": "marital_relationship",
+        "full": "person_contact_response",
+        "auto": "marital_relationship",
+        "oracle": "marital_relationship"
+      }
+    },
+    {
+      "id": "E48",
+      "text": "儿子这次的排名我不在乎，他的注册安全工程师考试能通过不",
+      "multi": false,
+      "route": "qualification_exam_outcome",
+      "target": "他的注册安全工程师考试能通过不",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "qualification_exam_outcome",
+      "single": {
+        "predictedSpan": "他的注册安全工程师考试能通过不",
+        "baseline": "qualification_exam_outcome",
+        "full": "qualification_exam_outcome",
+        "auto": "qualification_exam_outcome",
+        "oracle": "qualification_exam_outcome"
+      }
+    },
+    {
+      "id": "E49",
+      "text": "之前在老单位升过职，我投的展览策划岗会录我吗",
+      "multi": false,
+      "route": "job_application_outcome",
+      "target": "我投的展览策划岗会录我吗",
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我投的展览策划岗会录我吗",
+        "baseline": "job_application_outcome",
+        "full": "position_advancement",
+        "auto": "job_application_outcome",
+        "oracle": "job_application_outcome"
+      }
+    },
+    {
+      "id": "E50",
+      "text": "就算明早的车不开也能开车，我去云冈写生这趟能成行吗",
+      "multi": false,
+      "route": "travel_execution",
+      "target": "我去云冈写生这趟能成行吗",
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我去云冈写生这趟能成行吗",
+        "baseline": "travel_execution",
+        "full": "travel_execution",
+        "auto": "travel_execution",
+        "oracle": "travel_execution"
+      }
+    },
+    {
+      "id": "E51",
+      "text": "我弄丢的那只陶埙还能找回来吗",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "target": "我弄丢的那只陶埙还能找回来吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "lost_property_recovery",
+      "single": {
+        "predictedSpan": "我弄丢的那只陶埙还能找回来吗",
+        "baseline": "lost_property_recovery",
+        "full": "lost_property_recovery",
+        "auto": "lost_property_recovery",
+        "oracle": "lost_property_recovery"
+      }
+    },
+    {
+      "id": "E52",
+      "text": "我的狗能学会接飞盘么",
+      "multi": false,
+      "route": null,
+      "target": "我的狗能学会接飞盘么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我的狗能学会接飞盘么",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E53",
+      "text": "周日社区放映会我会看得尽兴么",
+      "multi": false,
+      "route": null,
+      "target": "周日社区放映会我会看得尽兴么",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "周日社区放映会我会看得尽兴么",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E54",
+      "text": "女儿申请的初中会让她入学吗",
+      "multi": false,
+      "route": null,
+      "target": "女儿申请的初中会让她入学吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "女儿申请的初中会让她入学吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E55",
+      "text": "我参加单位羽毛球单打能拿冠军吗",
+      "multi": false,
+      "route": null,
+      "target": "我参加单位羽毛球单打能拿冠军吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "我参加单位羽毛球单打能拿冠军吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E56",
+      "text": "父亲办的展览能吸引多少观众",
+      "multi": false,
+      "route": null,
+      "target": "父亲办的展览能吸引多少观众",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "父亲办的展览能吸引多少观众",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E57",
+      "text": "这次读书会筹备期间我自己能应付得来吗",
+      "multi": false,
+      "route": null,
+      "target": "这次读书会筹备期间我自己能应付得来吗",
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": null,
+      "single": {
+        "predictedSpan": "这次读书会筹备期间我自己能应付得来吗",
+        "baseline": null,
+        "full": null,
+        "auto": null,
+        "oracle": null
+      }
+    },
+    {
+      "id": "E58",
+      "text": "我给妈妈的信她会回么，她告物业那宗官司会胜诉么",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E59",
+      "text": "一家人想分开问，哥哥发给爸的短信爸肯不肯回，我发给妹妹的短信妹妹肯不肯回",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E60",
+      "text": "我这次民事诉讼能赢吗，之前垫的邮费要得回来吗",
+      "multi": true,
+      "route": null,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": null
+    },
+    {
+      "id": "E61",
+      "text": "孩子的联考排名能进年级前五么，我今年有没有希望升职",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E62",
+      "text": "我坐的去程卧铺会晚点吗，回来的早班机又会不会取消",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E63",
+      "text": "盘算两趟，我周二进山能成行吗，周六我弟上岛的船会不会停开",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E64",
+      "text": "我妹妹的来信会到么，我新买的水彩纸又能不能送到",
+      "multi": true,
+      "route": null,
+      "stop": true,
+      "routeCalls": 0,
+      "spanCalls": 0,
+      "actual": null,
+      "single": null
+    },
+    {
+      "id": "E65",
+      "text": "调解前老人漏接我电话，他会回拨吗，另想问法院最后判我赢不赢",
+      "multi": true,
+      "route": null,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": null
+    },
+    {
+      "id": "E66",
+      "route": "litigation_outcome",
+      "text": "欠薪那事我就想知道一审能不能判我胜诉",
+      "target": "一审能不能判我胜诉",
+      "multi": false,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "litigation_outcome",
+      "single": {
+        "predictedSpan": "欠薪那事我就想知道一审能不能判我胜诉",
+        "baseline": null,
+        "full": "litigation_outcome",
+        "auto": "litigation_outcome",
+        "oracle": "litigation_outcome"
+      }
+    },
+    {
+      "id": "E67",
+      "route": "exam_rank_result",
+      "text": "问一下儿子这回全区联考排不排得进一百名",
+      "target": "儿子这回全区联考排不排得进一百名",
+      "multi": false,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "exam_rank_result",
+      "single": {
+        "predictedSpan": "问一下儿子这回全区联考排不排得进一百名",
+        "baseline": null,
+        "full": "exam_rank_result",
+        "auto": "exam_rank_result",
+        "oracle": "exam_rank_result"
+      }
+    },
+    {
+      "id": "E68",
+      "route": "position_advancement",
+      "text": "给别人当了八年副手该轮到我在队里升正队长了吗",
+      "target": "该轮到我在队里升正队长了吗",
+      "multi": false,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "position_advancement",
+      "single": {
+        "predictedSpan": "给别人当了八年副手该轮到我在队里升正队长了吗",
+        "baseline": "job_application_outcome",
+        "full": "position_advancement",
+        "auto": "position_advancement",
+        "oracle": "position_advancement"
+      }
+    },
+    {
+      "id": "E69",
+      "route": "travel_disruption_transport",
+      "text": "旅游团都在站前等着原定七点那班小火车还会开吗",
+      "target": "原定七点那班小火车还会开吗",
+      "multi": false,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "travel_disruption_transport",
+      "single": {
+        "predictedSpan": "旅游团都在站前等着原定七点那班小火车还会开吗",
+        "baseline": null,
+        "full": "travel_disruption_transport",
+        "auto": "travel_disruption_transport",
+        "oracle": "travel_disruption_transport"
+      }
+    },
+    {
+      "id": "E70",
+      "route": "person_contact_response",
+      "text": "听说弟弟也换了号码我昨天发他的微信他还会回吗",
+      "target": "我昨天发他的微信他还会回吗",
+      "multi": false,
+      "stop": false,
+      "routeCalls": 1,
+      "spanCalls": 1,
+      "actual": "person_contact_response",
+      "single": {
+        "predictedSpan": "听说弟弟也换了号码我昨天发他的微信他还会回吗",
+        "baseline": null,
+        "full": "person_contact_response",
+        "auto": "person_contact_response",
+        "oracle": "person_contact_response"
+      }
+    }
+  ]
+}
