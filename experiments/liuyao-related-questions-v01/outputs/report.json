@@ -1,0 +1,2861 @@
+{
+  "source": "0a94864eab555281f93268d4a75974b8804b858a",
+  "workflow": "https://github.com/gali5742/GuiJia/actions/runs/45945774628",
+  "weightsSHA256": "3b034ad10514b22ab4c3a035b3fdb1bb737ac8bd75f1e64fbd6c0000c75c5e21",
+  "audit": {
+    "comparisons": 262992,
+    "maximum": 0.15625
+  },
+  "metrics": {
+    "fresh": {
+      "all": {
+        "single": 25,
+        "multi": 23,
+        "known": 22,
+        "baseline": {
+          "falseStop": 6,
+          "miss": 10,
+          "multiSelected": 5,
+          "knownCorrect": 9,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 1,
+          "families": 8
+        },
+        "candidate": {
+          "falseStop": 6,
+          "miss": 7,
+          "multiSelected": 5,
+          "knownCorrect": 8,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 2,
+          "families": 8
+        }
+      },
+      "dispute": {
+        "single": 8,
+        "multi": 8,
+        "known": 8,
+        "baseline": {
+          "falseStop": 2,
+          "miss": 4,
+          "multiSelected": 2,
+          "knownCorrect": 3,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 1,
+          "families": 4
+        },
+        "candidate": {
+          "falseStop": 1,
+          "miss": 3,
+          "multiSelected": 2,
+          "knownCorrect": 4,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 1,
+          "families": 4
+        }
+      },
+      "transfer": {
+        "single": 8,
+        "multi": 8,
+        "known": 8,
+        "baseline": {
+          "falseStop": 1,
+          "miss": 4,
+          "multiSelected": 2,
+          "knownCorrect": 3,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 4
+        },
+        "candidate": {
+          "falseStop": 2,
+          "miss": 2,
+          "multiSelected": 2,
+          "knownCorrect": 2,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 1,
+          "families": 4
+        }
+      },
+      "restatement": {
+        "single": 6,
+        "multi": 0,
+        "known": 6,
+        "baseline": {
+          "falseStop": 2,
+          "miss": 0,
+          "multiSelected": 0,
+          "knownCorrect": 3,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        },
+        "candidate": {
+          "falseStop": 2,
+          "miss": 0,
+          "multiSelected": 0,
+          "knownCorrect": 2,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        }
+      },
+      "outside": {
+        "single": 3,
+        "multi": 3,
+        "known": 0,
+        "baseline": {
+          "falseStop": 1,
+          "miss": 0,
+          "multiSelected": 0,
+          "knownCorrect": 0,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        },
+        "candidate": {
+          "falseStop": 1,
+          "miss": 0,
+          "multiSelected": 0,
+          "knownCorrect": 0,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        }
+      },
+      "same": {
+        "single": 0,
+        "multi": 4,
+        "known": 0,
+        "baseline": {
+          "falseStop": 0,
+          "miss": 2,
+          "multiSelected": 1,
+          "knownCorrect": 0,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        },
+        "candidate": {
+          "falseStop": 0,
+          "miss": 2,
+          "multiSelected": 1,
+          "knownCorrect": 0,
+          "wrongRoute": 0,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        }
+      }
+    },
+    "replay": {
+      "all": {
+        "single": 62,
+        "multi": 8,
+        "known": 56,
+        "baseline": {
+          "falseStop": 2,
+          "miss": 2,
+          "multiSelected": 2,
+          "knownCorrect": 47,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        },
+        "candidate": {
+          "falseStop": 9,
+          "miss": 1,
+          "multiSelected": 1,
+          "knownCorrect": 40,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        }
+      },
+      "prior": {
+        "single": 62,
+        "multi": 8,
+        "known": 56,
+        "baseline": {
+          "falseStop": 2,
+          "miss": 2,
+          "multiSelected": 2,
+          "knownCorrect": 47,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        },
+        "candidate": {
+          "falseStop": 9,
+          "miss": 1,
+          "multiSelected": 1,
+          "knownCorrect": 40,
+          "wrongRoute": 1,
+          "unsupportedSelected": 0,
+          "stoppedCalls": 0,
+          "familiesCorrect": 0,
+          "families": 0
+        }
+      }
+    },
+    "decision": {
+      "fewerDisputeMisses": true,
+      "noExtraFalseStops": true,
+      "noExtraOtherMisses": true,
+      "noExtraReplayFalseStops": false,
+      "replayRoutesRetained": false
+    },
+    "promote": false
+  },
+  "rows": [
+    {
+      "panel": "fresh",
+      "id": "E1-1",
+      "family": "E1",
+      "group": "dispute",
+      "multi": false,
+      "route": "litigation_outcome",
+      "text": "画廊欠我三个月的展费没结，我现在告它擅用照片会胜诉吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.8158617735794771,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.9016336493716084,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E1-2",
+      "family": "E1",
+      "group": "dispute",
+      "multi": false,
+      "route": "debt_collection",
+      "text": "照片侵权案已经审完了，我当初给画廊垫的灯光费能追回来吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.09457109382470098,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08986742826797589,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E1-3",
+      "family": "E1",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "照片署名那场官司能判我胜么，画廊欠我的那笔展费还讨得回来么",
+      "baseline": {
+        "stop": true,
+        "score": 0.6090354648465343,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7715252009015089,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E1-4",
+      "family": "E1",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "想占照片案的输赢，另有展费要不要得回来这一桩",
+      "baseline": {
+        "stop": false,
+        "score": 0.457262511476654,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8637221759197591,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E2-1",
+      "family": "E2",
+      "group": "dispute",
+      "multi": false,
+      "route": "person_contact_response",
+      "text": "哥哥明天要去应诉，我在外地给他发的语音会有回复吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.03096935127049504,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.041698224017985064,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E2-2",
+      "family": "E2",
+      "group": "dispute",
+      "multi": false,
+      "route": "litigation_outcome",
+      "text": "昨天哥已经回复我了，他跟快递站那桩民事官司最后能赢么",
+      "baseline": {
+        "stop": false,
+        "score": 0.018794890485315397,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.016053572460073322,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E2-3",
+      "family": "E2",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "哥会回我刚发的语音不，他明天跟快递站打官司胜算如何",
+      "baseline": {
+        "stop": false,
+        "score": 0.23355194987663924,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3961252399063471,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E2-4",
+      "family": "E2",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "他和快递站那案子判谁赢我想知道 至于他肯不肯给我回话也想问",
+      "baseline": {
+        "stop": false,
+        "score": 0.10805627368136692,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.41835695247294136,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E3-1",
+      "family": "E3",
+      "group": "dispute",
+      "multi": false,
+      "route": "litigation_outcome",
+      "text": "老邻居借我的钱足够了，我被物业告乱搭棚子能获有利裁判吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.5813545777750692,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3774708695632025,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E3-2",
+      "family": "E3",
+      "group": "dispute",
+      "multi": false,
+      "route": "debt_repayment",
+      "text": "物业的棚子案已经和解，我能如约把借老邻居那笔钱还清吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.40651029934007543,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.2907892157226474,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E3-3",
+      "family": "E3",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "物业那场棚子纠纷能判我赢吗，借老邻居的那笔我年底还得起么",
+      "baseline": {
+        "stop": false,
+        "score": 0.49551222848154686,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.47870131262355237,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E3-4",
+      "family": "E3",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "棚子案判决和年底清偿借款两件分别会怎样",
+      "baseline": {
+        "stop": true,
+        "score": 0.6608527669900772,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7525836397030664,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E4-1",
+      "family": "E4",
+      "group": "dispute",
+      "multi": false,
+      "route": "debt_collection",
+      "text": "经手的对账单已经寄到了，球队欠我的场租还能收齐吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.28825106442065745,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_collection"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.24934334325249807,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_collection"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E4-2",
+      "family": "E4",
+      "group": "dispute",
+      "multi": false,
+      "route": "receive_item",
+      "text": "球队把拖欠的场租都付了，寄给我的纸质对账单最后能收到么",
+      "baseline": {
+        "stop": false,
+        "score": 0.1821044550494659,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "receive_item"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08822849097166029,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "receive_item"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E4-3",
+      "family": "E4",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "球队拖着的场租能收回来吗；会计寄的那封对账单到得到",
+      "baseline": {
+        "stop": true,
+        "score": 0.5682722560409403,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6480552856499816,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E4-4",
+      "family": "E4",
+      "group": "dispute",
+      "multi": true,
+      "route": null,
+      "text": "场租欠款有没有指望，还有那封盖章的对账函收得到么",
+      "baseline": {
+        "stop": true,
+        "score": 0.6977058704673179,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7077839065351537,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E5-1",
+      "family": "E5",
+      "group": "transfer",
+      "multi": false,
+      "route": "position_advancement",
+      "text": "岗位工资一分没加，新成立的科里我有希望从副手提作负责人吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.8952062203550534,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8796336270621608,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E5-2",
+      "family": "E5",
+      "group": "transfer",
+      "multi": false,
+      "route": "income_salary",
+      "text": "当负责人的事已经定下来了，我的工资级别会随之调高吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.09653194287942103,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "job_application_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.059622593245859924,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "job_application_outcome"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E5-3",
+      "family": "E5",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "我能从副手提成负责人么，要是提了工资也会上调吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.6743869629970544,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6145737415026487,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E5-4",
+      "family": "E5",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "今年的任职提拔跟基本工资调整分别能不能落到我头上",
+      "baseline": {
+        "stop": false,
+        "score": 0.11047835541194417,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_salary"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.06548477322707603,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_salary"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E6-1",
+      "family": "E6",
+      "group": "transfer",
+      "multi": false,
+      "route": "travel_execution",
+      "text": "哪怕大巴改点我也能叫车，礼拜三到安吉看竹海这趟去得成吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.1519640360713063,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.21798324684592235,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E6-2",
+      "family": "E6",
+      "group": "transfer",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "text": "竹海的住处都订下了，我坐的那班县际大巴会误点么",
+      "baseline": {
+        "stop": false,
+        "score": 0.022968403098929748,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.047806377251851336,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E6-3",
+      "family": "E6",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "周三的竹海之旅能走成吗，我回程订的那班大巴会晚点吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.6158028330336082,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6875028262290654,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E6-4",
+      "family": "E6",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "竹海去不去得成和县际车当晚误不误点都想看看",
+      "baseline": {
+        "stop": false,
+        "score": 0.06119933647867377,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.13171989603265383,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E7-1",
+      "family": "E7",
+      "group": "transfer",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "text": "我已经从师傅那儿买了替代品，落在演出厅的节拍器能找回来吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.21067543863785512,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.11599301253501514,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E7-2",
+      "family": "E7",
+      "group": "transfer",
+      "multi": false,
+      "route": "item_purchase",
+      "text": "掉在演出厅的那只节拍器我放弃找了，拍卖的古董节拍器我买得到么",
+      "baseline": {
+        "stop": false,
+        "score": 0.4690550238446414,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.33036745715942745,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E7-3",
+      "family": "E7",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "遗失的节拍器还有着落么，拍卖会那只我最后买得着不",
+      "baseline": {
+        "stop": false,
+        "score": 0.3308575287622338,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.516697845163247,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E7-4",
+      "family": "E7",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "拍卖那只买不买得到另外丢掉那只会不会回来",
+      "baseline": {
+        "stop": true,
+        "score": 0.8222689162723503,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.961402534180661,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E8-1",
+      "family": "E8",
+      "group": "transfer",
+      "multi": false,
+      "route": "qualification_exam_outcome",
+      "text": "妈妈打来催我报成绩，今年的海员适任证我能考过吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.45439622369748967,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "qualification_exam_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.4645121794691673,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "qualification_exam_outcome"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E8-2",
+      "family": "E8",
+      "group": "transfer",
+      "multi": false,
+      "route": "person_contact_response",
+      "text": "我有没有拿下海员证不急，给妈妈发的那张照片她会回我吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.46717376578334463,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6804081283659312,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E8-3",
+      "family": "E8",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "我能考下海员适任证么，妈妈又肯不肯回复我发的照片",
+      "baseline": {
+        "stop": false,
+        "score": 0.4465180775435395,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7090278732388284,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "E8-4",
+      "family": "E8",
+      "group": "transfer",
+      "multi": true,
+      "route": null,
+      "text": "我既盼着海员考证过关也等我妈回信，两头都能如愿吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.753286616870777,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8555089488582837,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H1",
+      "group": "restatement",
+      "route": "litigation_outcome",
+      "multi": false,
+      "text": "这个著作权官司能打赢吗？我是说判决到底会不会支持我。",
+      "baseline": {
+        "stop": true,
+        "score": 0.5133888200949931,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5969120915112878,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H2",
+      "group": "restatement",
+      "route": "exam_rank_result",
+      "multi": false,
+      "text": "排前十有戏吗？我关心的就是儿子这回月考能不能进前十。",
+      "baseline": {
+        "stop": false,
+        "score": 0.4159568637733313,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5508201302104,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H3",
+      "group": "restatement",
+      "route": "travel_disruption_transport",
+      "multi": false,
+      "text": "四点钟那个航班是原点起飞还是延后起飞呢",
+      "baseline": {
+        "stop": false,
+        "score": 0.017829241957867555,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.01436324828354298,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H4",
+      "group": "restatement",
+      "route": "debt_collection",
+      "multi": false,
+      "text": "假如双方最终能和解，我能拿回合办读书会时对方欠我的那笔垫付款吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.56768458452105,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.4901610445763135,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H5",
+      "group": "restatement",
+      "route": "person_contact_response",
+      "multi": false,
+      "text": "父亲读过了也好没读也罢，他会给我回个话吗？",
+      "baseline": {
+        "stop": false,
+        "score": 0.14448345633182993,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3439610154095926,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H6",
+      "group": "restatement",
+      "route": "position_advancement",
+      "multi": false,
+      "text": "老板问过我想不想当领班，我这回能提上去吗？",
+      "baseline": {
+        "stop": false,
+        "score": 0.2995448587938998,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3531822242797512,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H7",
+      "group": "outside",
+      "route": null,
+      "multi": false,
+      "text": "露天戏开演那会儿河边会下雨么",
+      "baseline": {
+        "stop": false,
+        "score": 0.07509674852141146,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.11529229524372284,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H8",
+      "group": "outside",
+      "route": null,
+      "multi": false,
+      "text": "北院种的那几棵杏树今年会开花吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.5626695559366548,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6673348077916643,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H9",
+      "group": "outside",
+      "route": null,
+      "multi": false,
+      "text": "我们厂的排球队在秋季联赛能进决赛吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.2122562018533768,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.22594774057876998,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H10",
+      "group": "outside",
+      "route": null,
+      "multi": true,
+      "text": "天黑前河谷还会不会起风，戏台明早那一场又会不会遇上雨",
+      "baseline": {
+        "stop": true,
+        "score": 0.7875235160207363,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8700395809264446,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H11",
+      "group": "outside",
+      "route": null,
+      "multi": true,
+      "text": "北院的杏开不开花，老宅那棵梨结不结果",
+      "baseline": {
+        "stop": true,
+        "score": 0.7099875880313312,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8912503487509037,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H12",
+      "group": "outside",
+      "route": null,
+      "multi": true,
+      "text": "我们能进排球决赛么，隔壁厂篮球队能拿冠军么",
+      "baseline": {
+        "stop": true,
+        "score": 0.5626231106559159,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5383680996932654,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H13",
+      "group": "same",
+      "route": null,
+      "multi": true,
+      "text": "上月挂失的银哨能找到么，昨儿落在更衣室的大衣呢",
+      "baseline": {
+        "stop": false,
+        "score": 0.22451447801958818,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.15882062497377275,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H14",
+      "group": "same",
+      "route": null,
+      "multi": true,
+      "text": "侵权官司一审能判我赢吗，另一宗租约案仲裁庭会支持我么",
+      "baseline": {
+        "stop": true,
+        "score": 0.7574183482501918,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7876930304769378,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H15",
+      "group": "same",
+      "route": null,
+      "multi": true,
+      "text": "我和哥哥各自给爸发过照片，他会回我那条吗，哥那条呢",
+      "baseline": {
+        "stop": false,
+        "score": 0.3483087374246542,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.4442483517251508,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "fresh",
+      "id": "H16",
+      "group": "same",
+      "route": null,
+      "multi": true,
+      "text": "应聘冷链客服有机会录用吗 钟点工那边会不会也肯用我",
+      "baseline": {
+        "stop": true,
+        "score": 0.7748719064906388,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7631364654271422,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E1",
+      "text": "房东总说要涨租，我告他擅自改锁这场官司能判赢么",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "我告他擅自改锁这场官司能判赢么",
+      "baseline": {
+        "stop": false,
+        "score": 0.1224275566628184,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08820609182619205,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E2",
+      "text": "法院会判我母亲赢这件著作权案吗，她已经找到原稿",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "法院会判我母亲赢这件著作权案吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.35334686835115153,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5906580028556833,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E3",
+      "text": "孩子在陪我找借据，我打的这场借款官司会胜诉么",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "我打的这场借款官司会胜诉么",
+      "baseline": {
+        "stop": false,
+        "score": 0.3373071115600067,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5601471292636848,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E4",
+      "text": "法官最后会驳回对我不利的那项侵权诉请吗",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "法官最后会驳回对我不利的那项侵权诉请吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.10412143022040579,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.1711116686646906,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E5",
+      "text": "叔叔还欠我一笔旧账，他作为被告的这起物业诉讼能赢吗",
+      "multi": false,
+      "route": "litigation_outcome",
+      "target": "他作为被告的这起物业诉讼能赢吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.11972295053232794,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.12050029606478731,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E6",
+      "text": "女儿考多少分我知道了，她这次英语考试能挤进班里前三名么",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "她这次英语考试能挤进班里前三名么",
+      "baseline": {
+        "stop": false,
+        "score": 0.16286545668906588,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.1666177391602299,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E7",
+      "text": "这回地理联考我在全市大致排第几，录取的事以后再说",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "这回地理联考我在全市大致排第几",
+      "baseline": {
+        "stop": false,
+        "score": 0.017120517965130422,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.02260837292155501,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E8",
+      "text": "儿子的期末统考名次能进年级上半区不",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "儿子的期末统考名次能进年级上半区不",
+      "baseline": {
+        "stop": false,
+        "score": 0.10585133178806196,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08453953436585539,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E9",
+      "text": "拿证是明年的事，这回的理论考核我排在同批人的前列吗",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "这回的理论考核我排在同批人的前列吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.14402784990661507,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.14837032932999317,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E10",
+      "text": "家长会说只公布排名，女儿这次数学考会不会排在小组最前面",
+      "multi": false,
+      "route": "exam_rank_result",
+      "target": "女儿这次数学考会不会排在小组最前面",
+      "baseline": {
+        "stop": false,
+        "score": 0.40211273463447,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5598770476099745,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E11",
+      "text": "我在现有门店能被提为值班经理吗，求职网站已经关了",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我在现有门店能被提为值班经理吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.23871002508186143,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.09928093539946872,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E12",
+      "text": "别家约我面谈，我在现在的报馆有望升任采访主任么",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我在现在的报馆有望升任采访主任么",
+      "baseline": {
+        "stop": false,
+        "score": 0.28849063603836717,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.23185072237442395,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E13",
+      "text": "单位这次会把我从办事员提到副科级么",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "单位这次会把我从办事员提到副科级么",
+      "baseline": {
+        "stop": false,
+        "score": 0.013712200889693682,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.01672723205135378,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E14",
+      "text": "涨薪的通知已经下来了，我年底能不能在本团升任首席",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我年底能不能在本团升任首席",
+      "baseline": {
+        "stop": false,
+        "score": 0.1878785919948278,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.12062161549834984,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E15",
+      "text": "孩子刚参加过考试，我自己的职级这次评审能往上升一档吗",
+      "multi": false,
+      "route": "position_advancement",
+      "target": "我自己的职级这次评审能往上升一档吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.09378534588295999,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.07386675670600823,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E16",
+      "text": "后天我乘的峡谷观光火车会临时停驶吗，出游日期我已经定了",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "后天我乘的峡谷观光火车会临时停驶吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.15512191297134303,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.1438851103697332,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E17",
+      "text": "妈已经到了客运码头，去海岛的十点快艇会准点开吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "去海岛的十点快艇会准点开吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.3943984886578467,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.44267083568280535,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E18",
+      "text": "我订的清晨邮轮接送巴士会误点不",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "我订的清晨邮轮接送巴士会误点不",
+      "baseline": {
+        "stop": false,
+        "score": 0.2360258764996491,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.16502679936842762,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E19",
+      "text": "行李仍然没找着，我买票的那班卧铺会改点发车吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "我买票的那班卧铺会改点发车吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.14213846920437045,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08158694027309478,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E20",
+      "text": "父亲写了信让我早点回，山阴线今晚那趟末车会停运吗",
+      "multi": false,
+      "route": "travel_disruption_transport",
+      "target": "山阴线今晚那趟末车会停运吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.0445878140222275,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.04660426372976417,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E21",
+      "text": "这件事跟她出差无关，姐姐看了我发的照片会回话么",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "姐姐看了我发的照片会回话么",
+      "baseline": {
+        "stop": false,
+        "score": 0.3448695875047269,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7099600164418022,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E22",
+      "text": "母亲会回我前天的明信片吗，我已经搬回了老住址",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "母亲会回我前天的明信片吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.019128393219884677,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.03231478529187027,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E23",
+      "text": "丈夫会回拨我打过去的那通电话吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "丈夫会回拨我打过去的那通电话吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.01197067822349949,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.033227909178762,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E24",
+      "text": "哥哥还没到家，我的语音他肯回复吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "我的语音他肯回复吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.13646098515055213,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.29363771807839384,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E25",
+      "text": "我不问女儿这次名次，她会回我昨天那条短讯吗",
+      "multi": false,
+      "route": "person_contact_response",
+      "target": "她会回我昨天那条短讯吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.26413706476194565,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5172005070723208,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E26",
+      "text": "我这两年经济上会逐渐宽裕吗",
+      "multi": false,
+      "route": "financial_fortune",
+      "target": "我这两年经济上会逐渐宽裕吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.09200572551344442,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "financial_fortune"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.09496782116283814,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "financial_fortune"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E27",
+      "text": "我的钟表维修摊春节后的生意会怎样",
+      "multi": false,
+      "route": "business_operation",
+      "target": "我的钟表维修摊春节后的生意会怎样",
+      "baseline": {
+        "stop": false,
+        "score": 0.06500540963821723,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "business_operation"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.04782147275437642,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "business_operation"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E28",
+      "text": "跟厂方商量的制服订单能谈得下来么",
+      "multi": false,
+      "route": "commercial_transaction",
+      "target": "跟厂方商量的制服订单能谈得下来么",
+      "baseline": {
+        "stop": false,
+        "score": 0.47737861436688783,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "commercial_transaction"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5812698014318026,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E29",
+      "text": "秋季店里再备一批毛毡鞋垫划算么",
+      "multi": false,
+      "route": "inventory_purchase",
+      "target": "秋季店里再备一批毛毡鞋垫划算么",
+      "baseline": {
+        "stop": false,
+        "score": 0.04235219840941662,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "inventory_purchase"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.040219921529376146,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "inventory_purchase"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E30",
+      "text": "我仓库剩下的金属书立这季能出清么",
+      "multi": false,
+      "route": "inventory_sale",
+      "target": "我仓库剩下的金属书立这季能出清么",
+      "baseline": {
+        "stop": false,
+        "score": 0.2219394724798889,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "inventory_sale"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.2736994944631536,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "inventory_sale"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E31",
+      "text": "同事看过我的留言，他肯借钱给我付培训费吗",
+      "multi": false,
+      "route": "borrow_money",
+      "target": "他肯借钱给我付培训费吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.16184375380303292,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.22868564458301432,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E32",
+      "text": "同窗来借周转款我借给他妥当么",
+      "multi": false,
+      "route": "lend_money",
+      "target": "同窗来借周转款我借给他妥当么",
+      "baseline": {
+        "stop": false,
+        "score": 0.07745880755152802,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "lend_money"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.07559674910299652,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "lend_money"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E33",
+      "text": "官司已经结了，对方拖着的修缮欠款何时能收回",
+      "multi": false,
+      "route": "debt_collection",
+      "target": "对方拖着的修缮欠款何时能收回",
+      "baseline": {
+        "stop": false,
+        "score": 0.039667834792964415,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_collection"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.0358435092968978,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_collection"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E34",
+      "text": "我欠裁缝铺的布钱年底前能付清么",
+      "multi": false,
+      "route": "debt_repayment",
+      "target": "我欠裁缝铺的布钱年底前能付清么",
+      "baseline": {
+        "stop": false,
+        "score": 0.06886580540275573,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_repayment"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.03567254150561659,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "debt_repayment"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E35",
+      "text": "和哥哥一起经营旧货铺能合作长久么",
+      "multi": false,
+      "route": "partnership",
+      "target": "和哥哥一起经营旧货铺能合作长久么",
+      "baseline": {
+        "stop": false,
+        "score": 0.2380247068879482,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "partnership"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.21746668864243487,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "partnership"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E36",
+      "text": "我投在剧院改建里的钱最终会带来收益吗",
+      "multi": false,
+      "route": "investment_profit",
+      "target": "我投在剧院改建里的钱最终会带来收益吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.12018291203972373,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_profit"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.0971018792690822,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_profit"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E37",
+      "text": "手里这份苗圃投资眼下适合退出吗",
+      "multi": false,
+      "route": "investment_liquidation",
+      "target": "手里这份苗圃投资眼下适合退出吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.11245083129982267,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_suitability"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.17440966548412726,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_suitability"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E38",
+      "text": "买入这家木工坊的股份合算吗",
+      "multi": false,
+      "route": "investment_suitability",
+      "target": "买入这家木工坊的股份合算吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.05105980306439604,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.04723796883743323,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E39",
+      "text": "我的沪深指数持仓还值得加一点吗",
+      "multi": false,
+      "route": "investment_position_decision",
+      "target": "我的沪深指数持仓还值得加一点吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.10506470268819913,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_position_decision"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.08720762803148545,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_position_decision"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E40",
+      "text": "下个季度锡的市场价格会走高么",
+      "multi": false,
+      "route": "investment_price_trend",
+      "target": "下个季度锡的市场价格会走高么",
+      "baseline": {
+        "stop": false,
+        "score": 0.1355751481663517,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_price_trend"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.2443294206337647,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "investment_price_trend"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E41",
+      "text": "职级评定已经结束，接下来我的固定工资会涨吗",
+      "multi": false,
+      "route": "income_salary",
+      "target": "接下来我的固定工资会涨吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.018506161763193356,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_salary"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.015930629346300882,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_salary"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E42",
+      "text": "单位说好的年度安全奖励我能拿到手不",
+      "multi": false,
+      "route": "income_bonus",
+      "target": "单位说好的年度安全奖励我能拿到手不",
+      "baseline": {
+        "stop": false,
+        "score": 0.3843757518919203,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_bonus"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.35560167440069634,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "income_bonus"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E43",
+      "text": "没等到父亲的回信，他托人捎过来的那幅版画能到我这里么",
+      "multi": false,
+      "route": "receive_item",
+      "target": "他托人捎过来的那幅版画能到我这里么",
+      "baseline": {
+        "stop": false,
+        "score": 0.3254715829072487,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "receive_item"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3562491066605371,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "receive_item"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E44",
+      "text": "我能从拍卖会上买下那套旧砝码吗",
+      "multi": false,
+      "route": "item_purchase",
+      "target": "我能从拍卖会上买下那套旧砝码吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.2994590383841809,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.2867646494529667,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E45",
+      "text": "跟一起排练的琴师有发展成情侣的可能吗",
+      "multi": false,
+      "route": "relationship_development",
+      "target": "跟一起排练的琴师有发展成情侣的可能吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.4767731425984873,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.4311095415844908,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E46",
+      "text": "我跟现在的对象来年能办婚事么",
+      "multi": false,
+      "route": "marriage_match",
+      "target": "我跟现在的对象来年能办婚事么",
+      "baseline": {
+        "stop": false,
+        "score": 0.10695406100266508,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "marriage_match"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.12032620335540928,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "marriage_match"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E47",
+      "text": "妻子已经回我邮件了，我俩的婚姻还有回转的余地么",
+      "multi": false,
+      "route": "marital_relationship",
+      "target": "我俩的婚姻还有回转的余地么",
+      "baseline": {
+        "stop": false,
+        "score": 0.04028405474725085,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "marital_relationship"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.06335670884728459,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "marital_relationship"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E48",
+      "text": "儿子这次的排名我不在乎，他的注册安全工程师考试能通过不",
+      "multi": false,
+      "route": "qualification_exam_outcome",
+      "target": "他的注册安全工程师考试能通过不",
+      "baseline": {
+        "stop": false,
+        "score": 0.10157158792579782,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "qualification_exam_outcome"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.13640070375236732,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "qualification_exam_outcome"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E49",
+      "text": "之前在老单位升过职，我投的展览策划岗会录我吗",
+      "multi": false,
+      "route": "job_application_outcome",
+      "target": "我投的展览策划岗会录我吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.6732621232226617,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6286106462952538,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E50",
+      "text": "就算明早的车不开也能开车，我去云冈写生这趟能成行吗",
+      "multi": false,
+      "route": "travel_execution",
+      "target": "我去云冈写生这趟能成行吗",
+      "baseline": {
+        "stop": true,
+        "score": 0.522131097260661,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5157643135669201,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E51",
+      "text": "我弄丢的那只陶埙还能找回来吗",
+      "multi": false,
+      "route": "lost_property_recovery",
+      "target": "我弄丢的那只陶埙还能找回来吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.23000751155617025,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "lost_property_recovery"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.2669021348093521,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "lost_property_recovery"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E52",
+      "text": "我的狗能学会接飞盘么",
+      "multi": false,
+      "route": null,
+      "target": "我的狗能学会接飞盘么",
+      "baseline": {
+        "stop": false,
+        "score": 0.211602031871592,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.22854555797893913,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E53",
+      "text": "周日社区放映会我会看得尽兴么",
+      "multi": false,
+      "route": null,
+      "target": "周日社区放映会我会看得尽兴么",
+      "baseline": {
+        "stop": false,
+        "score": 0.25919743854786265,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.37763029356386146,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E54",
+      "text": "女儿申请的初中会让她入学吗",
+      "multi": false,
+      "route": null,
+      "target": "女儿申请的初中会让她入学吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.3601095151209646,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.3453098023307402,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E55",
+      "text": "我参加单位羽毛球单打能拿冠军吗",
+      "multi": false,
+      "route": null,
+      "target": "我参加单位羽毛球单打能拿冠军吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.07625901475713782,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.06557413036577746,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E56",
+      "text": "父亲办的展览能吸引多少观众",
+      "multi": false,
+      "route": null,
+      "target": "父亲办的展览能吸引多少观众",
+      "baseline": {
+        "stop": false,
+        "score": 0.11554400256593665,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.13393026063409327,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E57",
+      "text": "这次读书会筹备期间我自己能应付得来吗",
+      "multi": false,
+      "route": null,
+      "target": "这次读书会筹备期间我自己能应付得来吗",
+      "baseline": {
+        "stop": false,
+        "score": 0.09951038387171764,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.09377035489611205,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E58",
+      "text": "我给妈妈的信她会回么，她告物业那宗官司会胜诉么",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.5190523085278239,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.8566823784390966,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E59",
+      "text": "一家人想分开问，哥哥发给爸的短信爸肯不肯回，我发给妹妹的短信妹妹肯不肯回",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.8177446751055376,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.934473200643547,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E60",
+      "text": "我这次民事诉讼能赢吗，之前垫的邮费要得回来吗",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": false,
+        "score": 0.2932076523849979,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.5521456021281087,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E61",
+      "text": "孩子的联考排名能进年级前五么，我今年有没有希望升职",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.6870642702565082,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7469061074085708,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E62",
+      "text": "我坐的去程卧铺会晚点吗，回来的早班机又会不会取消",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.5755327288333003,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.7298662782652895,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E63",
+      "text": "盘算两趟，我周二进山能成行吗，周六我弟上岛的船会不会停开",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.9108719479364072,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.9527060201418328,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E64",
+      "text": "我妹妹的来信会到么，我新买的水彩纸又能不能送到",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": true,
+        "score": 0.9658877287865049,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.9749454090266989,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E65",
+      "text": "调解前老人漏接我电话，他会回拨吗，另想问法院最后判我赢不赢",
+      "multi": true,
+      "route": null,
+      "baseline": {
+        "stop": false,
+        "score": 0.14701448885507534,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.24592038850927694,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E66",
+      "route": "litigation_outcome",
+      "text": "欠薪那事我就想知道一审能不能判我胜诉",
+      "target": "一审能不能判我胜诉",
+      "multi": false,
+      "baseline": {
+        "stop": false,
+        "score": 0.3723895877943476,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "litigation_outcome"
+      },
+      "candidate": {
+        "stop": true,
+        "score": 0.6014746932591617,
+        "spanCalls": 0,
+        "routeCalls": 0,
+        "route": null
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E67",
+      "route": "exam_rank_result",
+      "text": "问一下儿子这回全区联考排不排得进一百名",
+      "target": "儿子这回全区联考排不排得进一百名",
+      "multi": false,
+      "baseline": {
+        "stop": false,
+        "score": 0.08444070256859579,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.1550467950913031,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "exam_rank_result"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E68",
+      "route": "position_advancement",
+      "text": "给别人当了八年副手该轮到我在队里升正队长了吗",
+      "target": "该轮到我在队里升正队长了吗",
+      "multi": false,
+      "baseline": {
+        "stop": false,
+        "score": 0.08070684472358766,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.05248359943650987,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "position_advancement"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E69",
+      "route": "travel_disruption_transport",
+      "text": "旅游团都在站前等着原定七点那班小火车还会开吗",
+      "target": "原定七点那班小火车还会开吗",
+      "multi": false,
+      "baseline": {
+        "stop": false,
+        "score": 0.04914688429161365,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.054501517860722944,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "travel_disruption_transport"
+      }
+    },
+    {
+      "panel": "replay",
+      "id": "E70",
+      "route": "person_contact_response",
+      "text": "听说弟弟也换了号码我昨天发他的微信他还会回吗",
+      "target": "我昨天发他的微信他还会回吗",
+      "multi": false,
+      "baseline": {
+        "stop": false,
+        "score": 0.058054197053953226,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      },
+      "candidate": {
+        "stop": false,
+        "score": 0.09872269882739626,
+        "spanCalls": 1,
+        "routeCalls": 1,
+        "route": "person_contact_response"
+      }
+    }
+  ]
+}
