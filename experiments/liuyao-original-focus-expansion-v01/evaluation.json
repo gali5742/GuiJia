@@ -1,0 +1,484 @@
+[
+  {
+    "id": "E1",
+    "text": "房东总说要涨租，我告他擅自改锁这场官司能判赢么",
+    "multi": false,
+    "route": "litigation_outcome",
+    "target": "我告他擅自改锁这场官司能判赢么"
+  },
+  {
+    "id": "E2",
+    "text": "法院会判我母亲赢这件著作权案吗，她已经找到原稿",
+    "multi": false,
+    "route": "litigation_outcome",
+    "target": "法院会判我母亲赢这件著作权案吗"
+  },
+  {
+    "id": "E3",
+    "text": "孩子在陪我找借据，我打的这场借款官司会胜诉么",
+    "multi": false,
+    "route": "litigation_outcome",
+    "target": "我打的这场借款官司会胜诉么"
+  },
+  {
+    "id": "E4",
+    "text": "法官最后会驳回对我不利的那项侵权诉请吗",
+    "multi": false,
+    "route": "litigation_outcome",
+    "target": "法官最后会驳回对我不利的那项侵权诉请吗"
+  },
+  {
+    "id": "E5",
+    "text": "叔叔还欠我一笔旧账，他作为被告的这起物业诉讼能赢吗",
+    "multi": false,
+    "route": "litigation_outcome",
+    "target": "他作为被告的这起物业诉讼能赢吗"
+  },
+  {
+    "id": "E6",
+    "text": "女儿考多少分我知道了，她这次英语考试能挤进班里前三名么",
+    "multi": false,
+    "route": "exam_rank_result",
+    "target": "她这次英语考试能挤进班里前三名么"
+  },
+  {
+    "id": "E7",
+    "text": "这回地理联考我在全市大致排第几，录取的事以后再说",
+    "multi": false,
+    "route": "exam_rank_result",
+    "target": "这回地理联考我在全市大致排第几"
+  },
+  {
+    "id": "E8",
+    "text": "儿子的期末统考名次能进年级上半区不",
+    "multi": false,
+    "route": "exam_rank_result",
+    "target": "儿子的期末统考名次能进年级上半区不"
+  },
+  {
+    "id": "E9",
+    "text": "拿证是明年的事，这回的理论考核我排在同批人的前列吗",
+    "multi": false,
+    "route": "exam_rank_result",
+    "target": "这回的理论考核我排在同批人的前列吗"
+  },
+  {
+    "id": "E10",
+    "text": "家长会说只公布排名，女儿这次数学考会不会排在小组最前面",
+    "multi": false,
+    "route": "exam_rank_result",
+    "target": "女儿这次数学考会不会排在小组最前面"
+  },
+  {
+    "id": "E11",
+    "text": "我在现有门店能被提为值班经理吗，求职网站已经关了",
+    "multi": false,
+    "route": "position_advancement",
+    "target": "我在现有门店能被提为值班经理吗"
+  },
+  {
+    "id": "E12",
+    "text": "别家约我面谈，我在现在的报馆有望升任采访主任么",
+    "multi": false,
+    "route": "position_advancement",
+    "target": "我在现在的报馆有望升任采访主任么"
+  },
+  {
+    "id": "E13",
+    "text": "单位这次会把我从办事员提到副科级么",
+    "multi": false,
+    "route": "position_advancement",
+    "target": "单位这次会把我从办事员提到副科级么"
+  },
+  {
+    "id": "E14",
+    "text": "涨薪的通知已经下来了，我年底能不能在本团升任首席",
+    "multi": false,
+    "route": "position_advancement",
+    "target": "我年底能不能在本团升任首席"
+  },
+  {
+    "id": "E15",
+    "text": "孩子刚参加过考试，我自己的职级这次评审能往上升一档吗",
+    "multi": false,
+    "route": "position_advancement",
+    "target": "我自己的职级这次评审能往上升一档吗"
+  },
+  {
+    "id": "E16",
+    "text": "后天我乘的峡谷观光火车会临时停驶吗，出游日期我已经定了",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "target": "后天我乘的峡谷观光火车会临时停驶吗"
+  },
+  {
+    "id": "E17",
+    "text": "妈已经到了客运码头，去海岛的十点快艇会准点开吗",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "target": "去海岛的十点快艇会准点开吗"
+  },
+  {
+    "id": "E18",
+    "text": "我订的清晨邮轮接送巴士会误点不",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "target": "我订的清晨邮轮接送巴士会误点不"
+  },
+  {
+    "id": "E19",
+    "text": "行李仍然没找着，我买票的那班卧铺会改点发车吗",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "target": "我买票的那班卧铺会改点发车吗"
+  },
+  {
+    "id": "E20",
+    "text": "父亲写了信让我早点回，山阴线今晚那趟末车会停运吗",
+    "multi": false,
+    "route": "travel_disruption_transport",
+    "target": "山阴线今晚那趟末车会停运吗"
+  },
+  {
+    "id": "E21",
+    "text": "这件事跟她出差无关，姐姐看了我发的照片会回话么",
+    "multi": false,
+    "route": "person_contact_response",
+    "target": "姐姐看了我发的照片会回话么"
+  },
+  {
+    "id": "E22",
+    "text": "母亲会回我前天的明信片吗，我已经搬回了老住址",
+    "multi": false,
+    "route": "person_contact_response",
+    "target": "母亲会回我前天的明信片吗"
+  },
+  {
+    "id": "E23",
+    "text": "丈夫会回拨我打过去的那通电话吗",
+    "multi": false,
+    "route": "person_contact_response",
+    "target": "丈夫会回拨我打过去的那通电话吗"
+  },
+  {
+    "id": "E24",
+    "text": "哥哥还没到家，我的语音他肯回复吗",
+    "multi": false,
+    "route": "person_contact_response",
+    "target": "我的语音他肯回复吗"
+  },
+  {
+    "id": "E25",
+    "text": "我不问女儿这次名次，她会回我昨天那条短讯吗",
+    "multi": false,
+    "route": "person_contact_response",
+    "target": "她会回我昨天那条短讯吗"
+  },
+  {
+    "id": "E26",
+    "text": "我这两年经济上会逐渐宽裕吗",
+    "multi": false,
+    "route": "financial_fortune",
+    "target": "我这两年经济上会逐渐宽裕吗"
+  },
+  {
+    "id": "E27",
+    "text": "我的钟表维修摊春节后的生意会怎样",
+    "multi": false,
+    "route": "business_operation",
+    "target": "我的钟表维修摊春节后的生意会怎样"
+  },
+  {
+    "id": "E28",
+    "text": "跟厂方商量的制服订单能谈得下来么",
+    "multi": false,
+    "route": "commercial_transaction",
+    "target": "跟厂方商量的制服订单能谈得下来么"
+  },
+  {
+    "id": "E29",
+    "text": "秋季店里再备一批毛毡鞋垫划算么",
+    "multi": false,
+    "route": "inventory_purchase",
+    "target": "秋季店里再备一批毛毡鞋垫划算么"
+  },
+  {
+    "id": "E30",
+    "text": "我仓库剩下的金属书立这季能出清么",
+    "multi": false,
+    "route": "inventory_sale",
+    "target": "我仓库剩下的金属书立这季能出清么"
+  },
+  {
+    "id": "E31",
+    "text": "同事看过我的留言，他肯借钱给我付培训费吗",
+    "multi": false,
+    "route": "borrow_money",
+    "target": "他肯借钱给我付培训费吗"
+  },
+  {
+    "id": "E32",
+    "text": "同窗来借周转款我借给他妥当么",
+    "multi": false,
+    "route": "lend_money",
+    "target": "同窗来借周转款我借给他妥当么"
+  },
+  {
+    "id": "E33",
+    "text": "官司已经结了，对方拖着的修缮欠款何时能收回",
+    "multi": false,
+    "route": "debt_collection",
+    "target": "对方拖着的修缮欠款何时能收回"
+  },
+  {
+    "id": "E34",
+    "text": "我欠裁缝铺的布钱年底前能付清么",
+    "multi": false,
+    "route": "debt_repayment",
+    "target": "我欠裁缝铺的布钱年底前能付清么"
+  },
+  {
+    "id": "E35",
+    "text": "和哥哥一起经营旧货铺能合作长久么",
+    "multi": false,
+    "route": "partnership",
+    "target": "和哥哥一起经营旧货铺能合作长久么"
+  },
+  {
+    "id": "E36",
+    "text": "我投在剧院改建里的钱最终会带来收益吗",
+    "multi": false,
+    "route": "investment_profit",
+    "target": "我投在剧院改建里的钱最终会带来收益吗"
+  },
+  {
+    "id": "E37",
+    "text": "手里这份苗圃投资眼下适合退出吗",
+    "multi": false,
+    "route": "investment_liquidation",
+    "target": "手里这份苗圃投资眼下适合退出吗"
+  },
+  {
+    "id": "E38",
+    "text": "买入这家木工坊的股份合算吗",
+    "multi": false,
+    "route": "investment_suitability",
+    "target": "买入这家木工坊的股份合算吗"
+  },
+  {
+    "id": "E39",
+    "text": "我的沪深指数持仓还值得加一点吗",
+    "multi": false,
+    "route": "investment_position_decision",
+    "target": "我的沪深指数持仓还值得加一点吗"
+  },
+  {
+    "id": "E40",
+    "text": "下个季度锡的市场价格会走高么",
+    "multi": false,
+    "route": "investment_price_trend",
+    "target": "下个季度锡的市场价格会走高么"
+  },
+  {
+    "id": "E41",
+    "text": "职级评定已经结束，接下来我的固定工资会涨吗",
+    "multi": false,
+    "route": "income_salary",
+    "target": "接下来我的固定工资会涨吗"
+  },
+  {
+    "id": "E42",
+    "text": "单位说好的年度安全奖励我能拿到手不",
+    "multi": false,
+    "route": "income_bonus",
+    "target": "单位说好的年度安全奖励我能拿到手不"
+  },
+  {
+    "id": "E43",
+    "text": "没等到父亲的回信，他托人捎过来的那幅版画能到我这里么",
+    "multi": false,
+    "route": "receive_item",
+    "target": "他托人捎过来的那幅版画能到我这里么"
+  },
+  {
+    "id": "E44",
+    "text": "我能从拍卖会上买下那套旧砝码吗",
+    "multi": false,
+    "route": "item_purchase",
+    "target": "我能从拍卖会上买下那套旧砝码吗"
+  },
+  {
+    "id": "E45",
+    "text": "跟一起排练的琴师有发展成情侣的可能吗",
+    "multi": false,
+    "route": "relationship_development",
+    "target": "跟一起排练的琴师有发展成情侣的可能吗"
+  },
+  {
+    "id": "E46",
+    "text": "我跟现在的对象来年能办婚事么",
+    "multi": false,
+    "route": "marriage_match",
+    "target": "我跟现在的对象来年能办婚事么"
+  },
+  {
+    "id": "E47",
+    "text": "妻子已经回我邮件了，我俩的婚姻还有回转的余地么",
+    "multi": false,
+    "route": "marital_relationship",
+    "target": "我俩的婚姻还有回转的余地么"
+  },
+  {
+    "id": "E48",
+    "text": "儿子这次的排名我不在乎，他的注册安全工程师考试能通过不",
+    "multi": false,
+    "route": "qualification_exam_outcome",
+    "target": "他的注册安全工程师考试能通过不"
+  },
+  {
+    "id": "E49",
+    "text": "之前在老单位升过职，我投的展览策划岗会录我吗",
+    "multi": false,
+    "route": "job_application_outcome",
+    "target": "我投的展览策划岗会录我吗"
+  },
+  {
+    "id": "E50",
+    "text": "就算明早的车不开也能开车，我去云冈写生这趟能成行吗",
+    "multi": false,
+    "route": "travel_execution",
+    "target": "我去云冈写生这趟能成行吗"
+  },
+  {
+    "id": "E51",
+    "text": "我弄丢的那只陶埙还能找回来吗",
+    "multi": false,
+    "route": "lost_property_recovery",
+    "target": "我弄丢的那只陶埙还能找回来吗"
+  },
+  {
+    "id": "E52",
+    "text": "我的狗能学会接飞盘么",
+    "multi": false,
+    "route": null,
+    "target": "我的狗能学会接飞盘么"
+  },
+  {
+    "id": "E53",
+    "text": "周日社区放映会我会看得尽兴么",
+    "multi": false,
+    "route": null,
+    "target": "周日社区放映会我会看得尽兴么"
+  },
+  {
+    "id": "E54",
+    "text": "女儿申请的初中会让她入学吗",
+    "multi": false,
+    "route": null,
+    "target": "女儿申请的初中会让她入学吗"
+  },
+  {
+    "id": "E55",
+    "text": "我参加单位羽毛球单打能拿冠军吗",
+    "multi": false,
+    "route": null,
+    "target": "我参加单位羽毛球单打能拿冠军吗"
+  },
+  {
+    "id": "E56",
+    "text": "父亲办的展览能吸引多少观众",
+    "multi": false,
+    "route": null,
+    "target": "父亲办的展览能吸引多少观众"
+  },
+  {
+    "id": "E57",
+    "text": "这次读书会筹备期间我自己能应付得来吗",
+    "multi": false,
+    "route": null,
+    "target": "这次读书会筹备期间我自己能应付得来吗"
+  },
+  {
+    "id": "E58",
+    "text": "我给妈妈的信她会回么，她告物业那宗官司会胜诉么",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E59",
+    "text": "一家人想分开问，哥哥发给爸的短信爸肯不肯回，我发给妹妹的短信妹妹肯不肯回",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E60",
+    "text": "我这次民事诉讼能赢吗，之前垫的邮费要得回来吗",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E61",
+    "text": "孩子的联考排名能进年级前五么，我今年有没有希望升职",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E62",
+    "text": "我坐的去程卧铺会晚点吗，回来的早班机又会不会取消",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E63",
+    "text": "盘算两趟，我周二进山能成行吗，周六我弟上岛的船会不会停开",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E64",
+    "text": "我妹妹的来信会到么，我新买的水彩纸又能不能送到",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E65",
+    "text": "调解前老人漏接我电话，他会回拨吗，另想问法院最后判我赢不赢",
+    "multi": true,
+    "route": null
+  },
+  {
+    "id": "E66",
+    "route": "litigation_outcome",
+    "text": "欠薪那事我就想知道一审能不能判我胜诉",
+    "target": "一审能不能判我胜诉",
+    "multi": false
+  },
+  {
+    "id": "E67",
+    "route": "exam_rank_result",
+    "text": "问一下儿子这回全区联考排不排得进一百名",
+    "target": "儿子这回全区联考排不排得进一百名",
+    "multi": false
+  },
+  {
+    "id": "E68",
+    "route": "position_advancement",
+    "text": "给别人当了八年副手该轮到我在队里升正队长了吗",
+    "target": "该轮到我在队里升正队长了吗",
+    "multi": false
+  },
+  {
+    "id": "E69",
+    "route": "travel_disruption_transport",
+    "text": "旅游团都在站前等着原定七点那班小火车还会开吗",
+    "target": "原定七点那班小火车还会开吗",
+    "multi": false
+  },
+  {
+    "id": "E70",
+    "route": "person_contact_response",
+    "text": "听说弟弟也换了号码我昨天发他的微信他还会回吗",
+    "target": "我昨天发他的微信他还会回吗",
+    "multi": false
+  }
+]
