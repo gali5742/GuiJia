@@ -4,7 +4,7 @@
     const GuiJia = global.GuiJia = global.GuiJia || {};
     if (GuiJia.baziResearchBootstrap?.installed) return;
 
-    const VERSION = '0.55';
+    const VERSION = '0.56';
     const dependencies = Object.freeze([
         Object.freeze({ globalKey:'baziMonthCommand', src:'./js/bazi-month-command.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziStrengthSynthesis', src:'./js/bazi-strength-synthesis.js?v=13.44.0' }),
@@ -219,7 +219,10 @@
         Object.freeze({ globalKey:'baziContextualForcePartySourceRelationPathReview', src:'./js/bazi-contextual-force-party-source-relation-path-review.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziSourceStrengthReviewSource', src:'./js/bazi-source-strength-review-source.js?v=13.44.0' }),
         Object.freeze({ globalKey:'baziSourceStrengthReviewProfile', src:'./js/bazi-source-strength-review-profile.js?v=13.44.0' }),
-        Object.freeze({ globalKey:'baziSourceStrengthReview', src:'./js/bazi-source-strength-review.js?v=13.44.0' })
+        Object.freeze({ globalKey:'baziSourceStrengthReview', src:'./js/bazi-source-strength-review.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziSourceContributionLocalForceContract', src:'./js/bazi-source-contribution-local-force-contract.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziSourceContributionLocalForceProfile', src:'./js/bazi-source-contribution-local-force-profile.js?v=13.44.0' }),
+        Object.freeze({ globalKey:'baziSourceContributionLocalForce', src:'./js/bazi-source-contribution-local-force.js?v=13.44.0' })
     ]);
 
     const canParserLoad = typeof document !== 'undefined' && document.readyState === 'loading';
