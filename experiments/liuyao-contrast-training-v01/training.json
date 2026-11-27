@@ -1,0 +1,466 @@
+[
+  {
+    "id": "T1",
+    "targets": [
+      "qualification_exam_outcome",
+      "debt_collection"
+    ],
+    "questions": [
+      {
+        "text": "中心欠我一笔培训押金。眼下想问，昨天那场报关员资格考我过得了吗？",
+        "multi": false,
+        "route": "qualification_exam_outcome"
+      },
+      {
+        "text": "报关员资格考已经结束了，中心还欠我的押金能讨回来吗？",
+        "multi": false,
+        "route": "debt_collection"
+      },
+      {
+        "text": "报关员资格考过线了没，培训中心扣着的押金又何时能还我？",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "同一个考场出来的，我和女儿各自那门职业资格试能通过吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T2",
+    "targets": [
+      "qualification_exam_outcome",
+      "item_purchase"
+    ],
+    "questions": [
+      {
+        "text": "那本绝版题解我已经买到，单想知道周五的建筑师资格考能否合格。",
+        "multi": false,
+        "route": "qualification_exam_outcome"
+      },
+      {
+        "text": "建筑师考证前想收齐教材，缺的那本旧版题解还能买到吗？",
+        "multi": false,
+        "route": "item_purchase"
+      },
+      {
+        "text": "缺的题解能买到么，这届建筑师执业考我过关的希望大吗？",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "能买到老师用的圆规么，想另收的旧绘图板也买得到么",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T3",
+    "targets": [
+      "qualification_exam_outcome",
+      "receive_item"
+    ],
+    "questions": [
+      {
+        "text": "准考证昨天就收到了，我报的税务师考试能合格么",
+        "multi": false,
+        "route": "qualification_exam_outcome"
+      },
+      {
+        "text": "考税务师要用的准考证，中心已经补寄，这趟能交到我手上么",
+        "multi": false,
+        "route": "receive_item"
+      },
+      {
+        "text": "补寄的准考证我能收到吗，今年的税务师资格试我能及格吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "备考学校说要寄一包资料，朋友要寄一把计算尺，两件东西各自能到手吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T4",
+    "targets": [
+      "qualification_exam_outcome",
+      "income_bonus"
+    ],
+    "questions": [
+      {
+        "text": "科室许诺通过就给钱，我儿子这次护士执业考试过得去吗",
+        "multi": false,
+        "route": "qualification_exam_outcome"
+      },
+      {
+        "text": "护士执业考的合格证明已经交了，医院许给我的技能奖金会发下来么",
+        "multi": false,
+        "route": "income_bonus"
+      },
+      {
+        "text": "执业考能通过不，医院之前答应的技能奖拿得到不",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "店里的技能津贴奖和单位另评的优秀奖我分别拿得到么",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T5",
+    "targets": [
+      "job_application_outcome",
+      "debt_collection"
+    ],
+    "questions": [
+      {
+        "text": "制片厂欠我的劳务款我已交给律师，想知道我应聘厂里剪辑师有没有戏。",
+        "multi": false,
+        "route": "job_application_outcome"
+      },
+      {
+        "text": "面过剪辑师已是上周的事，厂里原先欠我的劳务钱能要回来吗？",
+        "multi": false,
+        "route": "debt_collection"
+      },
+      {
+        "text": "制片厂会录用我剪片吗，旧的劳务欠款还会清吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "甲组欠的摄影费想讨，另一个组欠的配音费也想讨，两笔分别有望吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T6",
+    "targets": [
+      "job_application_outcome",
+      "item_purchase"
+    ],
+    "questions": [
+      {
+        "text": "实验室让我自带靴子，我去应聘饲养员，最后会被雇用吗",
+        "multi": false,
+        "route": "job_application_outcome"
+      },
+      {
+        "text": "买靴子是为了去实验室上班，托人找的那双停产胶靴买得着吗",
+        "multi": false,
+        "route": "item_purchase"
+      },
+      {
+        "text": "实验室的饲养员能应聘上吗，缺货的胶靴我还能买到吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "一家招棚管一家招花匠，我投了两份履历，分别有没有机会被聘用",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T7",
+    "targets": [
+      "job_application_outcome",
+      "receive_item"
+    ],
+    "questions": [
+      {
+        "text": "申请声优时寄去的样带已经签收了，制作公司会录用我吗",
+        "multi": false,
+        "route": "job_application_outcome"
+      },
+      {
+        "text": "制作公司面试完答应寄回我的样带，我等得到那件快递吗",
+        "multi": false,
+        "route": "receive_item"
+      },
+      {
+        "text": "对方录不录我做声优，寄回来的样带能到我手上吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "外景场记的职位我能拿下吗，另一家剧团的灯控职位能不能进",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T8",
+    "targets": [
+      "job_application_outcome",
+      "income_bonus"
+    ],
+    "questions": [
+      {
+        "text": "离开前一家的奖金总算到账了，这周应聘冷库管理员会被选上么",
+        "multi": false,
+        "route": "job_application_outcome"
+      },
+      {
+        "text": "就算冷库不招我，老东家应付的季度奖金会发给我吗",
+        "multi": false,
+        "route": "income_bonus"
+      },
+      {
+        "text": "旧公司的季度奖有没有我，我应聘的新冷库肯要我不",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "新工作我想看两处，果园雇我行不行，码头那份夜班又行不行",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T9",
+    "targets": [
+      "travel_execution",
+      "debt_collection"
+    ],
+    "questions": [
+      {
+        "text": "同伴欠我一半车钱还没还，周四去延安的写生之行我还能成行么",
+        "multi": false,
+        "route": "travel_execution"
+      },
+      {
+        "text": "延安那趟已经去了，同伴垫少的那份车钱我还能讨回来么",
+        "multi": false,
+        "route": "debt_collection"
+      },
+      {
+        "text": "延安的写生行程能走成吗，同行人欠我的车钱能拿回来吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "本月去延安画画这趟能去成么，下月去陇南访友那趟能去成么",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T10",
+    "targets": [
+      "travel_execution",
+      "item_purchase"
+    ],
+    "questions": [
+      {
+        "text": "帐篷已经备好，这次去草原露营最终能去成吗",
+        "multi": false,
+        "route": "travel_execution"
+      },
+      {
+        "text": "去草原露营要带的那顶旧军帐，这个月能从藏家手上买到么",
+        "multi": false,
+        "route": "item_purchase"
+      },
+      {
+        "text": "草原之行能如愿出发么，我看中的旧军帐能买下来不",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "那顶双人帐能买到吗，另外那副镁架我买得到吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T11",
+    "targets": [
+      "travel_execution",
+      "receive_item"
+    ],
+    "questions": [
+      {
+        "text": "路书还在寄来的路上，下周进山采风这趟我去得成吗",
+        "multi": false,
+        "route": "travel_execution"
+      },
+      {
+        "text": "为了进山采风托人寄了本路书，能收到那本书吗",
+        "multi": false,
+        "route": "receive_item"
+      },
+      {
+        "text": "采风能动身么，另请老师寄的那本路书能到手么",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "下周老婆去海边写生能成行吗，我自己月底去林场那趟能走成吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T12",
+    "targets": [
+      "travel_execution",
+      "job_application_outcome"
+    ],
+    "questions": [
+      {
+        "text": "车站招人的事还没信，先问我去关西访友的行程能不能实现",
+        "multi": false,
+        "route": "travel_execution"
+      },
+      {
+        "text": "原先想去关西看朋友。我给车站投的站务员简历能换来聘用吗",
+        "multi": false,
+        "route": "job_application_outcome"
+      },
+      {
+        "text": "去关西访友可有机会成行，自己应聘站务的事又能不能成",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "年会的邀请已发，出差去合肥的行程和去大连探亲的行程想各占一次能否成行",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T13",
+    "targets": [
+      "lost_property_recovery",
+      "item_purchase"
+    ],
+    "questions": [
+      {
+        "text": "我怕得重新买一件，昨天落在洗衣房的羊绒大衣还能找回来么",
+        "multi": false,
+        "route": "lost_property_recovery"
+      },
+      {
+        "text": "旧大衣丢了我就想补买同款，店里那件断码的还有机会买下来吗",
+        "multi": false,
+        "route": "item_purchase"
+      },
+      {
+        "text": "丢掉的羊绒大衣能找回不，我看上的替代品能买到不",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "早上丢的羊毛帽还能回来吗，上月不见的那双雪靴也还能找着吗",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T14",
+    "targets": [
+      "lost_property_recovery",
+      "receive_item"
+    ],
+    "questions": [
+      {
+        "text": "同事说要寄我一套新的，我原来遗在球馆的球拍还能寻回来吗",
+        "multi": false,
+        "route": "lost_property_recovery"
+      },
+      {
+        "text": "球馆丢拍子的事已经报过了，同事寄的备用球拍我能收到么",
+        "multi": false,
+        "route": "receive_item"
+      },
+      {
+        "text": "自己那支球拍能找回吗，同事另寄的那支能收到吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "爸爸给我寄的拍套到了没有，教练补寄的发带会不会寄到我这里",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T15",
+    "targets": [
+      "lost_property_recovery",
+      "qualification_exam_outcome"
+    ],
+    "questions": [
+      {
+        "text": "我在考点遗失了一件风衣，现在问的是那件风衣还有机会找回吗",
+        "multi": false,
+        "route": "lost_property_recovery"
+      },
+      {
+        "text": "风衣在考点找了半天，我儿子报的那门兽医资格考试能合格么",
+        "multi": false,
+        "route": "qualification_exam_outcome"
+      },
+      {
+        "text": "考点丢的风衣有望找回来吗，儿子的兽医资格试又能过关吗",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "我丢的教练服能找得回来么，女儿丢的毕业礼服又能寻回来么",
+        "multi": true,
+        "route": null
+      }
+    ]
+  },
+  {
+    "id": "T16",
+    "targets": [
+      "lost_property_recovery",
+      "travel_execution"
+    ],
+    "questions": [
+      {
+        "text": "原定明晚坐车回乡，行前不见了那只旅行袋，我还能找回它吗",
+        "multi": false,
+        "route": "lost_property_recovery"
+      },
+      {
+        "text": "旅行袋找不见我已借了一个顶替，明晚回乡祭祖这趟能按计划成行么",
+        "multi": false,
+        "route": "travel_execution"
+      },
+      {
+        "text": "祭祖能启程不，我原来的旅行袋还有没有希望找着",
+        "multi": true,
+        "route": null
+      },
+      {
+        "text": "去古镇访亲能否如愿出发，儿子跟同学去沙漠的计划会不会成行",
+        "multi": true,
+        "route": null
+      }
+    ]
+  }
+]
