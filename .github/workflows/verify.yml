@@ -147,6 +147,9 @@ jobs:
       - name: Source Contribution and Local Force regression
         run: node tests/bazi-source-contribution-local-force-tests.js
 
+      - name: Qualitative Comparison Evidence regression
+        run: node tests/bazi-qualitative-comparison-evidence-tests.js
+
       - name: Collective Relation Effect regression
         run: node tests/bazi-contextual-force-party-collective-relation-effect-tests.js
 
