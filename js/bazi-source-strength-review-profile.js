@@ -133,5 +133,10 @@
             relationEffects: [], memberEdges: []
         });
     };
-    GuiJia.baziSourceStrengthReviewProfile = freeze({ installed: true, CONTRACT, validateCorpus, buildProfile });
+    const bindChartActor = (key, model, synthesis) => {
+        const chartKey = charts.buildStructuredChartKey(model, synthesis);
+        if (!chartKey || typeof key !== 'string' || !/^(visible|daymaster|surface-branch):[0-3]:.$/u.test(key)) return null;
+        return verifyActor(actorFor(key, chartKey), model, synthesis.contextualForcePartyMembershipInventory);
+    };
+    GuiJia.baziSourceStrengthReviewProfile = freeze({ installed: true, CONTRACT, validateCorpus, buildProfile, bindChartActor });
 })(typeof window !== 'undefined' ? window : globalThis);

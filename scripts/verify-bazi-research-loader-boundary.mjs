@@ -116,8 +116,8 @@ for (const relative of explicitModulePaths) {
 if (!bootstrap.includes("mode:'explicit-research-opt-in'")) {
     errors.push('bazi-research-bootstrap.js: research opt-in mode marker missing');
 }
-if (!bootstrap.includes("const VERSION = '0.57'")) {
-    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.57');
+if (!bootstrap.includes("const VERSION = '0.58'")) {
+    errors.push('bazi-research-bootstrap.js: expected research bootstrap v0.58');
 }
 
 const requiredTail = Object.freeze([
@@ -253,6 +253,7 @@ const requiredTail = Object.freeze([
     'js/bazi-source-contribution-local-force-profile.js',
     'js/bazi-source-contribution-local-force.js',
     'js/bazi-qualitative-comparison-evidence-contract.js',
+    'js/bazi-source-natal-root-outcomes.js',
     'js/bazi-qualitative-comparison-evidence-profile.js',
     'js/bazi-qualitative-comparison-evidence.js'
 ]);
